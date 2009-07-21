@@ -371,7 +371,7 @@ class RefreshThread(threading.Thread):
 				log.writelines("++ System is up to date\n")
 				log.flush()
 			else:
-			    	for pkg in updates:
+			    	for pkg in updates:					
 					values = string.split(pkg, "###")	
 					if len(values) == 6:	
 						status = values[0]
@@ -389,6 +389,8 @@ class RefreshThread(threading.Thread):
 							gtk.gdk.threads_leave()				
 							return False			      			
 						package = values[1]				
+						if package in prefs['blacklisted_packages']:
+							continue
 						newVersion = values[2]
 						oldVersion = values[3]
 						size = int(values[4])
@@ -623,8 +625,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 	config['icons']['updates'] = icon_updates
 	config['icons']['error'] = icon_error
 
-	#Write proxy config
-	
+	#Write proxy config	
 	config['proxy'] = {}
 	config['proxy']['use_proxy'] = prefs_tree.get_widget("check_proxy").get_active()
 	config['proxy']['same_proxy_for_all_protocols'] = prefs_tree.get_widget("check_proxy_same").get_active()
@@ -634,6 +635,26 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 	config['proxy']['http_port'] = prefs_tree.get_widget("http_proxy_port").get_text()
 	config['proxy']['ftp_port'] = prefs_tree.get_widget("ftp_proxy_port").get_text()
 	config['proxy']['gopher_port'] = prefs_tree.get_widget("gopher_proxy_port").get_text()	
+
+
+	#Write proxy config	
+	config['blacklisted_packages'] = []
+	treeview_blacklist = prefs_tree.get_widget("treeview_blacklist")
+	model = treeview_blacklist.get_model()
+	iter = model.get_iter_first()
+	while iter is not None:
+		pkg = model.get_value(iter, 0)
+		iter = model.iter_next(iter)
+		config['blacklisted_packages'].append(pkg)
+		
+	config['proxy']['same_proxy_for_all_protocols'] = prefs_tree.get_widget("check_proxy_same").get_active()
+	config['proxy']['http_host'] = prefs_tree.get_widget("http_proxy").get_text()
+	config['proxy']['ftp_host'] = prefs_tree.get_widget("ftp_proxy").get_text()
+	config['proxy']['gopher_host'] = prefs_tree.get_widget("gopher_proxy").get_text()
+	config['proxy']['http_port'] = prefs_tree.get_widget("http_proxy_port").get_text()
+	config['proxy']['ftp_port'] = prefs_tree.get_widget("ftp_proxy_port").get_text()
+	config['proxy']['gopher_port'] = prefs_tree.get_widget("gopher_proxy_port").get_text()	
+
 	config.write()
 
 	prefs_tree.get_widget("window2").hide()
@@ -773,6 +794,12 @@ def read_configuration():
 		prefs["dimensions_y"] = 540
 		prefs["dimensions_pane_position"] = 280
 
+	#Read window dimensions
+	try:		
+		prefs["blacklisted_packages"] = config['blacklisted_packages']
+	except:
+		prefs["blacklisted_packages"] = []
+
 	return prefs
 
 def open_preferences(widget, treeview, statusIcon, wTree):
@@ -833,6 +860,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 	prefs_tree.get_widget("label14").set_text(_("Port:"))
 	prefs_tree.get_widget("label15").set_text(_("Port:"))
 	prefs_tree.get_widget("label16").set_text(_("Port:"))	
+	prefs_tree.get_widget("label1").set_text(_("Ignored packages"))
 
 	prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include dist-upgrade packages?"))
 
@@ -898,6 +926,58 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
 	prefs_tree.get_widget("http_proxy").connect("changed", update_other_proxy_hosts, prefs_tree)
 	prefs_tree.get_widget("http_proxy_port").connect("changed", update_other_proxy_ports, prefs_tree)
+
+
+	# Blacklisted packages
+	treeview_blacklist = prefs_tree.get_widget("treeview_blacklist")
+	column1 = gtk.TreeViewColumn(_("Ignored packages"), gtk.CellRendererText(), text=0)
+	column1.set_sort_column_id(0)
+	column1.set_resizable(True)
+	treeview_blacklist.append_column(column1)
+	treeview_blacklist.set_headers_clickable(True)
+	treeview_blacklist.set_reorderable(False)
+	treeview_blacklist.show()
+
+	model = gtk.TreeStore(str)
+	model.set_sort_column_id( 0, gtk.SORT_ASCENDING )
+	treeview_blacklist.set_model(model)
+	
+	for pkg in prefs['blacklisted_packages']:
+		iter = model.insert_before(None, None)
+		model.set_value(iter, 0, pkg)		
+	del model
+	
+	prefs_tree.get_widget("toolbutton_add").connect("clicked", add_blacklisted_package, treeview_blacklist)
+	prefs_tree.get_widget("toolbutton_remove").connect("clicked", remove_blacklisted_package, treeview_blacklist)
+
+def add_blacklisted_package(widget, treeview_blacklist):
+	
+	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK, None)  
+ 	dialog.set_markup("<b>" + _("Please enter a package name:") + "</b>")  
+ 	dialog.set_title(_("Ignore a package"))  
+ 	dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/icon.png")
+	entry = gtk.Entry()  
+	hbox = gtk.HBox()  
+	hbox.pack_start(gtk.Label(_("Package name:")), False, 5, 5)  
+	hbox.pack_end(entry)  
+	dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")  
+	dialog.vbox.pack_end(hbox, True, True, 0)  
+	dialog.show_all()  
+	dialog.run()  
+	name = entry.get_text()  
+	dialog.destroy()  	
+	pkg = name.strip()
+	if pkg != '':
+		model = treeview_blacklist.get_model()
+		iter = model.insert_before(None, None)
+		model.set_value(iter, 0, pkg)
+
+def remove_blacklisted_package(widget, treeview_blacklist):
+	selection = treeview_blacklist.get_selection()
+	(model, iter) = selection.get_selected()
+	if (iter != None):
+		pkg = model.get_value(iter, 0)
+		model.remove(iter)
 
 def update_other_proxy_hosts(widget, prefs_tree):
 	if (prefs_tree.get_widget("check_proxy_same").get_active()):
