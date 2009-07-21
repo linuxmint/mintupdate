@@ -36,18 +36,13 @@ def checkDependencies(changes, cache):
 	return changes
 
 
-try:
-	if os.getuid() == 0 :			
-		os.system("apt-get update")
-	cache = apt.Cache()	
-	distupgrade = commands.getoutput("cat /usr/lib/linuxmint/mintUpdate/config/distupgrade")
-	distupgrade.strip()
-	if (distupgrade == "yes"):
-		cache.upgrade(True)
-	else:
-		cache.upgrade(False)
-	changes = cache.getChanges()
-	if (distupgrade == "yes"):
+try:	
+	cache = apt.Cache()
+	if os.getuid() == 0 :
+		cache.update()
+	from configobj import ConfigObj
+	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
+	if (config['update']['dist_upgrade'] == "True"):
 		cache.upgrade(True)
 	else:
 		cache.upgrade(False)
@@ -55,7 +50,7 @@ try:
 except Exception, detail:
 	print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR"	
 	print detail
-	raise detail	
+	sys.exit(1)
 
 # Add dependencies
 changes = checkDependencies(changes, cache)

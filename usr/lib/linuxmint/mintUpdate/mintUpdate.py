@@ -231,6 +231,9 @@ class RefreshThread(threading.Thread):
 			statusbar.push(context_id, _("Starting refresh..."))
 			self.wTree.get_widget("window1").window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))		
 			self.wTree.get_widget("window1").set_sensitive(False)
+			self.wTree.get_widget("label_error_detail").set_text("")
+			self.wTree.get_widget("label_error_detail").hide()
+			self.wTree.get_widget("image_error").hide()
 
 			# Starts the blinking
 			self.statusIcon.set_from_file(icon_busy)
@@ -376,12 +379,16 @@ class RefreshThread(threading.Thread):
 					if len(values) == 6:	
 						status = values[0]
 						if (status == "ERROR"):
+							error_msg = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep -v \"ERROR###\"")
 							gtk.gdk.threads_enter()			
 							self.statusIcon.set_from_file(icon_error)
 							self.statusIcon.set_tooltip(_("Could not refresh the list of packages"))
 							statusbar.push(context_id, _("Could not refresh the list of packages"))
 							log.writelines("-- Error in checkAPT.py, could not refresh the list of packages\n")
-							log.flush()
+							log.flush()					
+							self.wTree.get_widget("label_error_detail").set_text(error_msg)
+							self.wTree.get_widget("label_error_detail").show()
+							self.wTree.get_widget("image_error").show()
 							#self.statusIcon.set_blinking(False)
 							self.wTree.get_widget("window1").window.set_cursor(None)
 							self.wTree.get_widget("window1").set_sensitive(True)
@@ -1177,7 +1184,7 @@ def hide_window(widget, window):
 	window.hide()	
 	app_hidden = True
  
-def activate_icon_cb(widget, data, window, vpaned, pid):
+def activate_icon_cb(widget, data, wTree, pid):
 	global app_hidden
 	if (app_hidden == True):
 		# check credentials
@@ -1189,14 +1196,13 @@ def activate_icon_cb(widget, data, window, vpaned, pid):
 			except:
 				pass #cause we might have closed it already
 			os.system("gksudo --message \"" + _("Please enter your password to start mintUpdate") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show " + str(pid) + " &")			
-			#sys.exit(1)
 		else:
-			window.show_all()
+			wTree.get_widget("window1").show()	
 			app_hidden = False
 	else:
-		window.hide_all()
+		wTree.get_widget("window1").hide()
 		app_hidden = True
-		save_window_size(window, vpaned)
+		save_window_size(wTree.get_widget("window1"), wTree.get_widget("vpaned1"))
 
 def save_window_size(window, vpaned):
 	from configobj import ConfigObj
@@ -1465,7 +1471,7 @@ try:
 	menuItem.connect('activate', quit_cb, wTree.get_widget("window1"), wTree.get_widget("vpaned1"), statusIcon)
 	menu.append(menuItem)
 
-	statusIcon.connect('activate', activate_icon_cb, None, wTree.get_widget("window1"), wTree.get_widget("vpaned1"), pid)
+	statusIcon.connect('activate', activate_icon_cb, None, wTree, pid)
 	statusIcon.connect('popup-menu', popup_menu_cb, menu)
 
 	# Set text for all visible widgets (because of i18n)
@@ -1477,6 +1483,10 @@ try:
 	wTree.get_widget("label8").set_text(_("Changelog"))
 	wTree.get_widget("label30").set_text(_("Warnings"))
 	wTree.get_widget("label31").set_text(_("Extra Info"))
+
+	wTree.get_widget("label_error_detail").set_text("")
+	wTree.get_widget("label_error_detail").hide()
+	wTree.get_widget("image_error").hide()
 	
 	fileMenu = gtk.MenuItem(_("_File"))
 	fileSubmenu = gtk.Menu()
@@ -1561,6 +1571,9 @@ try:
 		showWindow = sys.argv[1]
 		if (showWindow == "show"):
 			wTree.get_widget("window1").show_all()
+			wTree.get_widget("label_error_detail").set_text("")
+			wTree.get_widget("label_error_detail").hide()
+			wTree.get_widget("image_error").hide()
 			app_hidden = False
 
 	if os.getuid() != 0 :		
