@@ -1,0 +1,272 @@
+mintupdate (3.7.9) gloria; urgency=low
+
+  * Bug fix: Empty rules file (https://bugs.launchpad.net/bugs/399276)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu,  16 Jul 2009 14:44:00 +0000
+
+mintupdate (3.7.8) gloria; urgency=low
+
+  * Bug fix: No label under toolbar icons (https://bugs.launchpad.net/bugs/399705)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu,  16 Jul 2009 12:35:00 +0000
+
+mintupdate (3.7.7) gloria; urgency=low
+
+  * Updated translations
+  * Fixed critical bug in Portuguese translation
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon,  15 Jun 2009 17:00:00 +0000
+
+mintupdate (3.7.6) gloria; urgency=low
+
+  * Updated translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue,  19 May 2009 18:23:00 +0000
+
+mintupdate (3.7.5) gloria; urgency=low
+
+  * Updated translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon,  18 May 2009 19:19:00 +0000
+
+mintupdate (3.7.4) gloria; urgency=low
+
+  * Updated translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  17 May 2009 19:54:00 +0000
+
+mintupdate (3.7.3) gloria; urgency=low
+
+  * Added translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  17 May 2009 19:36:00 +0000
+
+mintupdate (3.7.2) gloria; urgency=low
+
+  * Restored call to vbox_main in user mode (fixes regression: icon not appearing in systray)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun,  17 May 2009 11:36:00 +0000
+
+mintupdate (3.7.1) gloria; urgency=low
+
+  * GUI is now resizable
+  * Fixed resize problem with vbox_main (commented pack_start() call)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri,  15 May 2009 19:28:00 +0000
+
+mintupdate (3.7) gloria; urgency=low
+
+  * Conflicts/Replaces mintupdate-gnome, mintupdate-kde, mintupdate-xfce
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  29 Apr 2009 10:37:00 +0000
+
+mintupdate (3.6) gloria; urgency=low
+
+  * GUI improvements
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue,  28 Apr 2009 19:09:00 +0000
+
+mintupdate (3.5) gloria; urgency=low
+
+  * Uses mint-apt-version in about dialog
+  * Uses mint-which-launcher in /usr/bin/mintupdate
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  22 Apr 2009 17:23:00 +0000
+
+mintupdate (3.4) gloria; urgency=low
+
+  * Added synaptic as dependency
+  * Added menu item to replace DE specific packages
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue,  21 Apr 2009 17:19:00 +0000
+
+mintupdate (3.3.1) gloria; urgency=low
+
+  * Restored translations
+  * Systray doesn't blink anymore
+  * About dialog uses APT for version number
+  * Added /usr/bin/mintupdate
+  * Added 10 pixels in height for status bar not to look squashed
+  * Fixed changelog for mint packages
+  * Uses GPL.txt from mintsystem
+  * New dependency on mintsystem
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sun,  12 Apr 2009 11:59:00 +0000
+
+mintupdate (3.3) gloria; urgency=low
+
+  * Added download size column
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Thu,  5 Feb 2009 13:15:00 +0000
+
+mintupdate (3.2.2) felicia; urgency=low
+
+  * New translations 
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sat,  6 Dec 2008 00:09:00 +0000
+
+mintupdate (3.2.1) elyssa; urgency=low
+
+  * New translations: ar, da, ja, lt, ro, de, ko
+  * Updated ja translation
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sun,  9 Nov 2008 10:53:00 +0000
+
+mintupdate (3.2) elyssa; urgency=low
+
+  * Creates /etc/linuxmint if it doesn't exist (fix for non Elyssa users)
+  * If ping fails, tries urlopen. This results in better Internet detection on systems where ping can be a little too slow.
+  * New translations: it ca sv cs ja sk nb es pt_BR pt_PT
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sun,  10 Aug 2008 11:46:00 +0000
+
+mintupdate (3.1) elyssa; urgency=low
+
+  * Fixed typo in translation file and fr translation. 
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Thu,  7 Aug 2008 21:39:00 +0000
+
+mintupdate (3.0) elyssa; urgency=low
+
+  * Version number strategy change (major number to indicate GUI/translation changes)
+  * New feature: Proxy support
+  * New feature: History of applied updates
+  * Improvements: Entirely new GUI
+  * Improvements: Log files are now stored in /tmp
+  * Improvements: Better internet detection and configuration of the domain name used for ping
+  * Improvements: Better updates check routine
+  * Improvements: Better status reporting
+  * Improvements: Persistent configuration (using /etc/linuxmint/mintUpdate.conf)
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Thu,  7 Aug 2008 19:05:00 +0000
+
+mintupdate (2.7) elyssa; urgency=low
+
+  * If the cache update fails in checkAPT it now forces a system call to apt-get update
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sat,  17 May 2008 11:05:00 +0000
+
+mintupdate (2.6) elyssa; urgency=low
+
+  * context menu to open preferences
+  * fixes in checkAPT (mistakes about this references, dunno why it actually worked before)
+  * waits for 30 seconds before checking for updates if the network connection isn't up yet. 
+  * new translations: da pt_BR pl tr 
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Wed,  16 Apr 2008 17:21:00 +0000
+
+mintupdate (2.5) elyssa; urgency=low
+
+  * Changed dl call to prctl call if arch is x86_64
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Fri,  28 Mar 2008 16:47:00 +0000
+
+mintupdate (2.4) elyssa; urgency=low
+
+  * Added str() wrappers in checkAPT.py
+
+ -- Clement Lefebvre <clem@linuxminc.com>  Fri,  28 Mar 2008 12:33:00 +0000
+
+mintupdate (2.3) elyssa; urgency=low
+
+  * Fixed - shows description
+  * translations - added bg and fixed nl
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sun,  9 Mar 2008 22:09:00 +0000
+
+mintupdate (2.2) daryna; urgency=low
+
+  * Fixed translation issue.
+  * Added de and it translations.
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Thu,  21 Feb 2008 16:54:00 +0000
+
+mintupdate (2.1) daryna; urgency=low
+
+  * Added refresh shortcut in context menu
+  * new translations: el  es  nb  nl  no  pt  ru  sv  uk
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Sun,  17 Feb 2008 19:41:00 +0000
+
+mintupdate (2.0) daryna; urgency=low
+
+  * Information tab (see logs, process id..etc)
+  * memory improvements, from 100MB to 10MB
+  * timer configuration, from an hour to a year
+  * no more error message when mintupdate is already running, just doesn't start.
+
+ -- Clement Lefebvre <clem@linuxmint.com>  Fri,  25 Jan 2008 17:53:00 +0000
+
+mintupdate (1.9) daryna; urgency=low
+
+  * removed Polish translation
+
+ -- Clem <root@linuxmint.com>  Sat,  24 Nov 2007 01:06:00 +0000
+
+mintupdate (1.8) daryna; urgency=low
+
+  * new Polish translation
+
+ -- Clem <root@linuxmint.com>  Sat,  24 Nov 2007 00:32:00 +0000
+
+mintupdate (1.7) daryna; urgency=low
+
+  * new German translation
+
+ -- Clem <root@linuxmint.com>  Mon,  12 Nov 2007 22:16:00 +0000
+
+mintupdate (1.6) daryna; urgency=low
+
+  * added KDE in the onlyshowin list for the xdg autostart item
+
+ -- clem <root@linuxmint.com>  Sat,  20 Oct 2007 15:54:00 +0000
+
+mintupdate (1.5) daryna; urgency=low
+
+  * user can change icons
+  * dist-upgrade explained
+
+ -- clem <root@linuxmint.com>  Tue,  16 Oct 2007 09:42:00 +0000
+
+mintupdate (1.4) celena; urgency=low
+
+  * using python-apt instead of wajig
+  * checks dependencies
+  * can dist-upgrade
+
+ -- clem <root@linuxmint.com>  Fri,  12 Oct 2007 00:27:00 +0000 
+
+mintupdate (1.3) celena; urgency=low
+
+  * better thread-safe
+  * logs everything
+  * process called mintUpdate and visible with ps -A
+  * only one mintUpdate at a time
+  * auto-refresh in user mode
+  * uses its own icons
+  * monitors synaptic return code
+
+ -- clem <root@linuxmint.com>  Wed,  10 Oct 2007 23:37:00 +0000 
+
+mintupdate (1.2) celena; urgency=low
+
+  * multi-language support
+  * threaded GUI
+  * auto-refresh mechanism
+  * loads of bug fixes
+
+ -- clem <root@linuxmint.com>  Sun,  7 Oct 2007 18:45:00 +0000 
+
+mintupdate (1.1) celena; urgency=low
+
+  * made tmp directory public
+  * try catched the refresh process
+
+ -- clem <root@linuxmint.com>  Thu,  4 Oct 2007 22:10:00 +0000
+
+mintupdate (1.0) celena; urgency=low
+
+  * Initial release
+
+ -- clem <root@linuxmint.com>  Thu,  4 Oct 2007 21:29:00 +0000
+
