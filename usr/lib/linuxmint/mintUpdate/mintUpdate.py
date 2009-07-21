@@ -589,8 +589,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 		log.flush()
 
 	from configobj import ConfigObj
-	config = ConfigObj()
-	config.filename = "/etc/linuxmint/mintUpdate.conf"	
+	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")		
 
 	#Write level config
 	config['levels'] = {}
@@ -741,6 +740,38 @@ def read_configuration():
 		prefs["http_port"] = ""
 		prefs["ftp_port"] = ""
 		prefs["gopher_port"] = ""
+
+	#Read columns config
+	try:
+		prefs["level_column_visible"] = (config['visible_columns']['level'] == "True")
+	except:
+		prefs["level_column_visible"] = True
+	try:
+		prefs["package_column_visible"] = (config['visible_columns']['package'] == "True")
+	except:
+		prefs["package_column_visible"] = True
+	try:
+		prefs["old_version_column_visible"] = (config['visible_columns']['old_version'] == "True")
+	except:
+		prefs["old_version_column_visible"] = True
+	try:
+		prefs["new_version_column_visible"] = (config['visible_columns']['new_version'] == "True")
+	except:
+		prefs["new_version_column_visible"] = True
+	try:
+		prefs["size_column_visible"] = (config['visible_columns']['size'] == "True")
+	except:
+		prefs["size_column_visible"] = True
+	
+	#Read window dimensions
+	try:		
+		prefs["dimensions_x"] = int(config['dimensions']['x'])
+		prefs["dimensions_y"] = int(config['dimensions']['y'])
+		prefs["dimensions_pane_position"] = int(config['dimensions']['pane_position'])
+	except:
+		prefs["dimensions_x"] = 790
+		prefs["dimensions_y"] = 540
+		prefs["dimensions_pane_position"] = 280
 
 	return prefs
 
@@ -1022,7 +1053,7 @@ def open_about(widget):
         dlg.connect("response", close)
         dlg.show()
 
-def quit_cb(widget, data = None):
+def quit_cb(widget, window, vpaned, data = None):
      global log
      if data:
          data.set_visible(False)
@@ -1030,6 +1061,7 @@ def quit_cb(widget, data = None):
          log.writelines("++ Exiting - requested by user\n")
          log.flush()
          log.close()
+	 save_window_size(window, vpaned)
      except:
          pass # cause log might already been closed
      gtk.main_quit()
@@ -1053,18 +1085,19 @@ def popup_menu_cb(widget, button, time, data = None):
              data.popup(None, None, None, 3, time)
      pass
 
-def close_window(window, event):
+def close_window(window, event, vpaned):
 	global app_hidden
 	window.hide()
+	save_window_size(window, vpaned)
 	app_hidden = True
 	return True
 
 def hide_window(widget, window):
 	global app_hidden
-	window.hide()
+	window.hide()	
 	app_hidden = True
  
-def activate_icon_cb(widget, data, window, pid):
+def activate_icon_cb(widget, data, window, vpaned, pid):
 	global app_hidden
 	if (app_hidden == True):
 		# check credentials
@@ -1083,6 +1116,16 @@ def activate_icon_cb(widget, data, window, pid):
 	else:
 		window.hide_all()
 		app_hidden = True
+		save_window_size(window, vpaned)
+
+def save_window_size(window, vpaned):
+	from configobj import ConfigObj
+	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
+	config['dimensions'] = {}
+	config['dimensions']['x'] = window.get_size()[0]
+	config['dimensions']['y'] = window.get_size()[1]
+	config['dimensions']['pane_position'] = vpaned.get_position()
+	config.write()
 
 def display_selected_package(selection, wTree):
 
@@ -1196,6 +1239,16 @@ def toggled(renderer, path, treeview):
 	    else:
 		model.set_value(iter, 0, "true")
 
+def setVisibleColumn(checkmenuitem, column, configName):	
+	from configobj import ConfigObj
+	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
+	if (config.has_key('visible_columns')):
+			config['visible_columns'][configName] = checkmenuitem.get_active()
+	else:
+		config['visible_columns'] = {}
+		config['visible_columns'][configName] = checkmenuitem.get_active()
+	config.write()
+	column.set_visible(checkmenuitem.get_active())
 
 global app_hiden
 global log
@@ -1249,6 +1302,9 @@ try:
 	gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
 	wTree = gtk.glade.XML(gladefile, "window1")
 	wTree.get_widget("window1").set_title(_("mintUpdate"))
+	wTree.get_widget("window1").set_default_size(prefs['dimensions_x'], prefs['dimensions_y'])
+	wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
+
 	vbox = wTree.get_widget("vbox_main")
 	treeview_update = wTree.get_widget("treeview_update")
 	wTree.get_widget("window1").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/icon.png")
@@ -1275,7 +1331,7 @@ try:
 
 	column3 = gtk.TreeViewColumn(_("Level"), gtk.CellRendererPixbuf(), pixbuf=2)
 	column3.set_sort_column_id(7)
-	column3.set_resizable(True)
+	column3.set_resizable(True)	
 
 	column4 = gtk.TreeViewColumn(_("Old version"), gtk.CellRendererText(), text=3)
 	column4.set_sort_column_id(3)
@@ -1283,7 +1339,7 @@ try:
 
 	column5 = gtk.TreeViewColumn(_("New version"), gtk.CellRendererText(), text=4)
 	column5.set_sort_column_id(4)
-	column5.set_resizable(True)
+	column5.set_resizable(True)	
 
 	column6 = gtk.TreeViewColumn(_("Size"), gtk.CellRendererText(), text=10)
 	column6.set_sort_column_id(9)
@@ -1308,7 +1364,7 @@ try:
 	selection = treeview_update.get_selection()
 	selection.connect("changed", display_selected_package, wTree)
 	wTree.get_widget("notebook_details").connect("switch-page", switch_page, wTree, treeview_update)
-	wTree.get_widget("window1").connect("delete_event", close_window)
+	wTree.get_widget("window1").connect("delete_event", close_window, wTree.get_widget("vpaned1"))
 	wTree.get_widget("tool_apply").connect("clicked", install, treeview_update, window_id, statusIcon, wTree)
 	wTree.get_widget("tool_clear").connect("clicked", clear, treeview_update)
 	wTree.get_widget("tool_select_all").connect("clicked", select_all, treeview_update)
@@ -1326,10 +1382,10 @@ try:
 		menuItem4.connect('activate', open_preferences, treeview_update, statusIcon, wTree)
 		menu.append(menuItem4)
 	menuItem = gtk.ImageMenuItem(gtk.STOCK_QUIT)
-	menuItem.connect('activate', quit_cb, statusIcon)
+	menuItem.connect('activate', quit_cb, wTree.get_widget("window1"), wTree.get_widget("vpaned1"), statusIcon)
 	menu.append(menuItem)
 
-	statusIcon.connect('activate', activate_icon_cb, None, wTree.get_widget("window1"), pid)
+	statusIcon.connect('activate', activate_icon_cb, None, wTree.get_widget("window1"), wTree.get_widget("vpaned1"), pid)
 	statusIcon.connect('popup-menu', popup_menu_cb, menu)
 
 	# Set text for all visible widgets (because of i18n)
@@ -1367,6 +1423,42 @@ try:
 	infoMenuItem = gtk.ImageMenuItem(gtk.STOCK_DIALOG_INFO)
 	infoMenuItem.get_child().set_text(_("Information"))
 	infoMenuItem.connect("activate", open_information)
+	visibleColumnsMenuItem = gtk.MenuItem(gtk.STOCK_DIALOG_INFO)
+	visibleColumnsMenuItem.get_child().set_text(_("Visible columns"))
+	visibleColumnsMenu = gtk.Menu()
+	visibleColumnsMenuItem.set_submenu(visibleColumnsMenu)
+
+	levelColumnMenuItem = gtk.CheckMenuItem(_("Level"))		
+	levelColumnMenuItem.set_active(prefs["level_column_visible"])
+	column3.set_visible(prefs["level_column_visible"])
+	levelColumnMenuItem.connect("toggled", setVisibleColumn, column3, "level")
+	visibleColumnsMenu.append(levelColumnMenuItem)
+
+	packageColumnMenuItem = gtk.CheckMenuItem(_("Package"))
+	packageColumnMenuItem.set_active(prefs["package_column_visible"])
+	column2.set_visible(prefs["package_column_visible"])
+	packageColumnMenuItem.connect("toggled", setVisibleColumn, column2, "package")
+	visibleColumnsMenu.append(packageColumnMenuItem)
+
+	oldVersionColumnMenuItem = gtk.CheckMenuItem(_("Old version"))
+	oldVersionColumnMenuItem.set_active(prefs["old_version_column_visible"])
+	column4.set_visible(prefs["old_version_column_visible"])
+	oldVersionColumnMenuItem.connect("toggled", setVisibleColumn, column4, "old_version")
+	visibleColumnsMenu.append(oldVersionColumnMenuItem)
+
+	newVersionColumnMenuItem = gtk.CheckMenuItem(_("New version"))
+	newVersionColumnMenuItem.set_active(prefs["new_version_column_visible"])
+	column5.set_visible(prefs["new_version_column_visible"])
+	newVersionColumnMenuItem.connect("toggled", setVisibleColumn, column5, "new_version")
+	visibleColumnsMenu.append(newVersionColumnMenuItem)
+
+	sizeColumnMenuItem = gtk.CheckMenuItem(_("Size"))
+	sizeColumnMenuItem.set_active(prefs["size_column_visible"])
+	column6.set_visible(prefs["size_column_visible"])
+	sizeColumnMenuItem.connect("toggled", setVisibleColumn, column6, "size")
+	visibleColumnsMenu.append(sizeColumnMenuItem)
+	
+	viewSubmenu.append(visibleColumnsMenuItem)
 	viewSubmenu.append(historyMenuItem)
 	viewSubmenu.append(infoMenuItem)
 

@@ -3,8 +3,6 @@
   <!-- interface-requires gtk+ 2.16 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="window1">
-    <property name="width_request">790</property>
-    <property name="height_request">540</property>
     <property name="title" translatable="yes">mintUpdate</property>
     <property name="window_position">center</property>
     <child>
@@ -23,7 +21,6 @@
           <widget class="GtkToolbar" id="toolbar1">
             <property name="visible">True</property>
             <property name="toolbar_style">both</property>
-            <property name="icon_size">0</property>
             <child>
               <widget class="GtkToolButton" id="tool_clear">
                 <property name="visible">True</property>
@@ -89,7 +86,6 @@
         </child>
         <child>
           <widget class="GtkVPaned" id="vpaned1">
-            <property name="height_request">420</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="border_width">3</property>
@@ -104,7 +100,6 @@
                 <property name="shadow_type">in</property>
                 <child>
                   <widget class="GtkTreeView" id="treeview_update">
-                    <property name="width_request">600</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="reorderable">True</property>
