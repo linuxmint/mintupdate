@@ -112,10 +112,9 @@ class InstallThread(threading.Thread):
 	global icon_updates
 	global icon_error
 
-	def __init__(self, treeView, window_id, statusIcon, wTree):
+	def __init__(self, treeView, statusIcon, wTree):
 		threading.Thread.__init__(self)
 		self.treeView = treeView
-		self.window_id = window_id
 		self.statusIcon = statusIcon
 		self.wTree = wTree
 
@@ -160,7 +159,7 @@ class InstallThread(threading.Thread):
 				log.writelines("++ Ready to launch synaptic\n")
 				log.flush()
 				cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window",  \
-				        "--non-interactive", "--parent-window-id", self.window_id]
+				        "--non-interactive"]
 				cmd.append("--progress-str")
         			cmd.append("\"" + _("Please wait, this can take some time") + "\"")
 				cmd.append("--finish-str")
@@ -246,19 +245,13 @@ class RefreshThread(threading.Thread):
 			
 			# Find the temp dir
 			if os.getuid() == 0 :
-				tempdir = "/usr/lib/linuxmint/mintUpdate/tmp"
+				rulesDir = "/usr/lib/linuxmint/mintUpdate/"
 			else:
-				tempdir = home + "/.linuxmint/mintUpdate/tmp"
+				rulesDir = home + "/.linuxmint/mintUpdate/"
 		
 			# Make tmp folder
-			os.system("mkdir -p " + tempdir)
+			os.system("mkdir -p " + rulesDir)			
 	
-			# Clean tmp files
-			os.system("rm -rf " + tempdir + "/*") 
-	
-			# Go to the tmp folder
-			os.chdir(tempdir)
-
 			# Checking the connection to the Internet
 			gtk.gdk.threads_enter()
 			statusbar.push(context_id, _("Checking the connection to the Internet..."))
@@ -276,29 +269,32 @@ class RefreshThread(threading.Thread):
 			else:
 				proxy = None
 	
-			if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):
-				log.writelines("-- Connection to the Internet failed (tried to ping " + prefs["ping_domain"] + ")\n")				
-				log.flush()					
-				try:
-					from urllib import urlopen
-					url=urlopen("http://www.google.com/", None, proxy)			        	
-			        	url.read()
-					url.close()
-					log.writelines("++ Connection to the Internet successful (tried to read http://www.google.com)\n")				
-					log.flush()	
-				except:					
+
+			try:
+				from urllib import urlopen
+				url=urlopen("http://google.com", None, proxy)			        	
+				url.read()
+				url.close()
+				log.writelines("++ Connection to the Internet successful (tried to read http://www.google.com)\n")				
+				log.flush()	
+			except Exception, detail: 
+				print detail
+				if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):					
 					gtk.gdk.threads_enter()
 					self.statusIcon.set_from_file(icon_error)				
 					self.statusIcon.set_tooltip(_("Could not connect to the Internet"))
-					log.writelines("-- Connection to the Internet failed (tried to read http://www.google.com)\n")				
+					log.writelines("-- No connection found (tried to read http://www.google.com and to ping " + prefs["ping_domain"] + ")\n")		
 					log.flush()				
 					#self.statusIcon.set_blinking(False)
 					self.wTree.get_widget("window1").window.set_cursor(None)
 					self.wTree.get_widget("window1").set_sensitive(True)
 					statusbar.push(context_id, _("Could not connect to the Internet"))
 					gtk.gdk.threads_leave()				
-					return False		
-		
+					return False	
+				else:
+					log.writelines("++ Connection found - checking for updates\n")
+					log.flush()
+					
 			# Download rules file
 			gtk.gdk.threads_enter()
 			statusbar.push(context_id, _("Downloading safety level rules..."))
@@ -306,15 +302,15 @@ class RefreshThread(threading.Thread):
 
 			try:	
 				from urllib import urlopen
-				outfile=open("/usr/lib/linuxmint/mintUpdate/rules.tmp", "w")
+				outfile=open(rulesDir + "rules.tmp", "w")
 				url=urlopen("http://packages.linuxmint.com/rules", None, proxy)
 				outfile.write(url.read())
 				url.close()
 				outfile.close()
-				numlines = int(commands.getoutput("cat /usr/lib/linuxmint/mintUpdate/rules.tmp | wc -l"))
+				numlines = int(commands.getoutput("cat " + rulesDir + "rules.tmp | wc -l"))
 				if numlines > 0:			
 					log.writelines("++ Successfully downloaded new safety rules using proxy: " + str(proxy) + "\n")
-					os.system("cp /usr/lib/linuxmint/mintUpdate/rules.tmp /usr/lib/linuxmint/mintUpdate/rules")
+					os.system("cp " + rulesDir + "rules.tmp " + rulesDir + "rules")
 				else: 
 					log.writelines("-- Failed to download new safety rules using proxy: " + str(proxy) + "\n")
 				log.flush()
@@ -323,7 +319,7 @@ class RefreshThread(threading.Thread):
 				log.flush()
 				print "Failed to download new safety rules: " + str(e) + " " + str(proxy)+ "\n"
 
-			if (not os.path.exists("/usr/lib/linuxmint/mintUpdate/rules")):
+			if (not os.path.exists(rulesDir + "rules")):
 				gtk.gdk.threads_enter()
 				self.statusIcon.set_from_file(icon_error)				
 				self.statusIcon.set_tooltip(_("Could not download safety rules"))
@@ -414,7 +410,7 @@ class RefreshThread(threading.Thread):
 						level = 3 # Level 3 by default
 						extraInfo = ""
 						warning = ""
-						rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
+						rulesFile = open(rulesDir + "rules","r")
 						rules = rulesFile.readlines()
 						goOn = True
 						foundPackageRule = False # whether we found a rule with the exact package name or not
@@ -550,8 +546,8 @@ def select_all(widget, treeView):
 		model.set_value(iter, 0, "true")
 		iter = model.iter_next(iter)
 
-def install(widget, treeView, window_id, statusIcon, wTree):
-	install = InstallThread(treeView, window_id, statusIcon, wTree)
+def install(widget, treeView, statusIcon, wTree):
+	install = InstallThread(treeView, statusIcon, wTree)
 	install.start()	
 
 def change_icon(widget, button, prefs_tree, treeview, statusIcon, wTree):
@@ -671,7 +667,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 def info_cancel(widget, prefs_tree):
 	prefs_tree.get_widget("window3").hide()
 
-def history_cancel(widget, tree):
+def history_cancel(widget, tree): 
 	tree.get_widget("window4").hide()
 
 def history_clear(widget, tree):
@@ -1214,16 +1210,6 @@ def save_window_size(window, vpaned):
 	config.write()
 
 def display_selected_package(selection, wTree):
-
-	# Find the temp dir
-	if os.getuid() == 0 :
-		tempdir = "/usr/lib/linuxmint/mintUpdate/tmp"
-	else:
-		tempdir = home + "/.linuxmint/mintUpdate"
-	
-	# Go to the tmp folder
-	os.chdir(tempdir)
-
 	# clear tabs first
 	wTree.get_widget("textview_description").get_buffer().set_text("")	
 	wTree.get_widget("textview_changes").get_buffer().set_text("")
@@ -1265,16 +1251,6 @@ def display_selected_package(selection, wTree):
 
 
 def switch_page(notebook, page, page_num, Wtree, treeView):
-
-	# Find the temp dir
-	if os.getuid() == 0 :
-		tempdir = "/usr/lib/linuxmint/mintUpdate/tmp"
-	else:
-		tempdir = home + "/.linuxmint/mintUpdate"
-	
-	# Go to the tmp folder
-	os.chdir(tempdir)
-
 	selection = treeView.get_selection()
 	(model, iter) = selection.get_selected()
 	if (iter != None):
@@ -1451,7 +1427,7 @@ try:
 	selection.connect("changed", display_selected_package, wTree)
 	wTree.get_widget("notebook_details").connect("switch-page", switch_page, wTree, treeview_update)
 	wTree.get_widget("window1").connect("delete_event", close_window, wTree.get_widget("vpaned1"))
-	wTree.get_widget("tool_apply").connect("clicked", install, treeview_update, window_id, statusIcon, wTree)
+	wTree.get_widget("tool_apply").connect("clicked", install, treeview_update, statusIcon, wTree)
 	wTree.get_widget("tool_clear").connect("clicked", clear, treeview_update)
 	wTree.get_widget("tool_select_all").connect("clicked", select_all, treeview_update)
 	wTree.get_widget("tool_refresh").connect("clicked", force_refresh, treeview_update, statusIcon, wTree)
@@ -1591,25 +1567,23 @@ try:
 		#test the network connection to delay mintUpdate in case we're not yet connected
 		log.writelines("++ Testing initial connection\n")
 		log.flush()			
-		if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):
-			log.writelines("-- Connection to the Internet failed (tried to ping " + prefs["ping_domain"] + ")\n")				
+		try:
+			from urllib import urlopen
+			url=urlopen("http://google.com", None, proxy)
+			url.read()
+			url.close()
+			log.writelines("++ Connection to the Internet successful (tried to read http://www.google.com)\n")				
 			log.flush()	
-			try:			
-				from urllib import urlopen
-				url=urlopen("http://www.google.com/", None, proxy)			        	
-			        url.read()
-				url.close()
-				log.writelines("++ Connection to the Internet successful (tried to read http://www.google.com/)\n")				
-				log.flush()	
-			except:
-				log.writelines("-- No connection found (tried to ping " + prefs["ping_domain"] + " and to read http://www.google.com/) - sleeping for " + str(prefs["delay"]) + " seconds\n")
+		except Exception, detail: 
+			print detail
+			if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):
+				log.writelines("-- No connection found (tried to read http://www.google.com and to ping " + prefs["ping_domain"] + ") - sleeping for " + str(prefs["delay"]) + " seconds\n")
 				log.flush()
 				time.sleep(prefs["delay"])
-			log.writelines("++ Connection found - checking for updates\n")
-			log.flush()
-		else:
-			log.writelines("++ Connection found - checking for updates\n")
-			log.flush()
+			else:
+				log.writelines("++ Connection found - checking for updates\n")
+				log.flush()
+				
 
 	wTree.get_widget("notebook_details").set_current_page(0)
 
