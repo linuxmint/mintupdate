@@ -1,13 +1,5 @@
 #!/usr/bin/env python
 
-# MintUpdate
-#	Clement Lefebvre <clem@linuxmint.com>
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; Version 2
-# of the License.
-
 try:
 	import os
 	import commands
@@ -1113,7 +1105,7 @@ def open_about(widget):
 	dlg.set_program_name("mintUpdate")
 	dlg.set_comments(_("Update Manager"))
         try:
-		h = open('/usr/lib/linuxmint/mintSystem/GPL.txt','r')
+		h = open('/usr/share/common-licenses/GPL','r')
 		s = h.readlines()
 		gpl = ""
 		for line in s:
@@ -1123,7 +1115,7 @@ def open_about(widget):
         except Exception, detail:
         	print detail
 	try: 
-		version = commands.getoutput("mint-apt-version mintupdate")
+		version = commands.getoutput("/usr/lib/linuxmint/mintUpdate/version.py")
 		dlg.set_version(version)
 	except Exception, detail:
 		print detail
