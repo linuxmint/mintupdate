@@ -699,7 +699,7 @@ def read_configuration():
 	except:
 		prefs["delay"] = 30
 		prefs["ping_domain"] = "google.com"
-		prefs["dist_upgrade"] = False
+		prefs["dist_upgrade"] = True
 
 	#Read icons config
 	try:	
