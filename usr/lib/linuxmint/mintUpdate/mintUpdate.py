@@ -243,18 +243,12 @@ class RefreshThread(threading.Thread):
 			
 			# Find the temp dir
 			if os.getuid() == 0 :
-				tempdir = "/usr/lib/linuxmint/mintUpdate/tmp"
+				rulesDir = "/usr/lib/linuxmint/mintUpdate/"
 			else:
-				tempdir = home + "/.linuxmint/mintUpdate/tmp"
+				rulesDir = home + "/.linuxmint/mintUpdate/"
 		
 			# Make tmp folder
-			os.system("mkdir -p " + tempdir)
-	
-			# Clean tmp files
-			os.system("rm -rf " + tempdir + "/*") 
-	
-			# Go to the tmp folder
-			os.chdir(tempdir)
+			os.system("mkdir -p " + rulesDir)			
 
 			# Checking the connection to the Internet
 			gtk.gdk.threads_enter()
@@ -303,15 +297,15 @@ class RefreshThread(threading.Thread):
 
 			try:	
 				from urllib import urlopen
-				outfile=open("/usr/lib/linuxmint/mintUpdate/rules.tmp", "w")
+				outfile=open(rulesDir + "rules.tmp", "w")
 				url=urlopen("http://packages.linuxmint.com/rules", None, proxy)
 				outfile.write(url.read())
 				url.close()
 				outfile.close()
-				numlines = int(commands.getoutput("cat /usr/lib/linuxmint/mintUpdate/rules.tmp | wc -l"))
+				numlines = int(commands.getoutput("cat " + rulesDir + "rules.tmp | wc -l"))
 				if numlines > 0:			
 					log.writelines("++ Successfully downloaded new safety rules using proxy: " + str(proxy) + "\n")
-					os.system("cp /usr/lib/linuxmint/mintUpdate/rules.tmp /usr/lib/linuxmint/mintUpdate/rules")
+					os.system("cp " + rulesDir + "rules.tmp " + rulesDir + "rules")
 				else: 
 					log.writelines("-- Failed to download new safety rules using proxy: " + str(proxy) + "\n")
 				log.flush()
@@ -320,7 +314,7 @@ class RefreshThread(threading.Thread):
 				log.flush()
 				print "Failed to download new safety rules: " + str(e) + " " + str(proxy)+ "\n"
 
-			if (not os.path.exists("/usr/lib/linuxmint/mintUpdate/rules")):
+			if (not os.path.exists(rulesDir + "rules")):
 				gtk.gdk.threads_enter()
 				self.statusIcon.set_from_file(icon_error)				
 				self.statusIcon.set_tooltip(_("Could not download safety rules"))
@@ -405,7 +399,7 @@ class RefreshThread(threading.Thread):
 						level = 3 # Level 3 by default
 						extraInfo = ""
 						warning = ""
-						rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
+						rulesFile = open(rulesDir + "rules","r")
 						rules = rulesFile.readlines()
 						goOn = True
 						foundPackageRule = False # whether we found a rule with the exact package name or not
@@ -1086,15 +1080,6 @@ def activate_icon_cb(widget, data, window, pid):
 
 def display_selected_package(selection, wTree):
 
-	# Find the temp dir
-	if os.getuid() == 0 :
-		tempdir = "/usr/lib/linuxmint/mintUpdate/tmp"
-	else:
-		tempdir = home + "/.linuxmint/mintUpdate"
-	
-	# Go to the tmp folder
-	os.chdir(tempdir)
-
 	# clear tabs first
 	wTree.get_widget("textview_description").get_buffer().set_text("")	
 	wTree.get_widget("textview_changes").get_buffer().set_text("")
@@ -1136,15 +1121,6 @@ def display_selected_package(selection, wTree):
 
 
 def switch_page(notebook, page, page_num, Wtree, treeView):
-
-	# Find the temp dir
-	if os.getuid() == 0 :
-		tempdir = "/usr/lib/linuxmint/mintUpdate/tmp"
-	else:
-		tempdir = home + "/.linuxmint/mintUpdate"
-	
-	# Go to the tmp folder
-	os.chdir(tempdir)
 
 	selection = treeView.get_selection()
 	(model, iter) = selection.get_selected()
