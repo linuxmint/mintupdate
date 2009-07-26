@@ -223,6 +223,9 @@ class RefreshThread(threading.Thread):
 			self.wTree.get_widget("window1").window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))		
 			self.wTree.get_widget("window1").set_sensitive(False)
 			self.wTree.get_widget("label_error_detail").set_text("")
+			self.wTree.get_widget("hbox_error").hide()
+			self.wTree.get_widget("scrolledwindow1").hide()
+			self.wTree.get_widget("viewport1").hide()
 			self.wTree.get_widget("label_error_detail").hide()
 			self.wTree.get_widget("image_error").hide()
 
@@ -376,7 +379,10 @@ class RefreshThread(threading.Thread):
 							log.flush()					
 							self.wTree.get_widget("label_error_detail").set_text(error_msg)
 							self.wTree.get_widget("label_error_detail").show()
+							self.wTree.get_widget("viewport1").show()
+							self.wTree.get_widget("scrolledwindow1").show()
 							self.wTree.get_widget("image_error").show()
+							self.wTree.get_widget("hbox_error").show()
 							#self.statusIcon.set_blinking(False)
 							self.wTree.get_widget("window1").window.set_cursor(None)
 							self.wTree.get_widget("window1").set_sensitive(True)
@@ -1460,6 +1466,9 @@ try:
 	wTree.get_widget("label31").set_text(_("Extra Info"))
 
 	wTree.get_widget("label_error_detail").set_text("")
+	wTree.get_widget("hbox_error").hide()
+	wTree.get_widget("scrolledwindow1").hide()
+	wTree.get_widget("viewport1").hide()
 	wTree.get_widget("label_error_detail").hide()
 	wTree.get_widget("image_error").hide()
 	
@@ -1553,6 +1562,9 @@ try:
 		if (showWindow == "show"):
 			wTree.get_widget("window1").show_all()
 			wTree.get_widget("label_error_detail").set_text("")
+			wTree.get_widget("hbox_error").hide()
+			wTree.get_widget("scrolledwindow1").hide()
+			wTree.get_widget("viewport1").hide()
 			wTree.get_widget("label_error_detail").hide()
 			wTree.get_widget("image_error").hide()
 			app_hidden = False

@@ -325,10 +325,26 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label_error_detail">
-                <property name="xalign">0</property>
-                <property name="yalign">0</property>
-                <property name="xpad">6</property>
+              <widget class="GtkScrolledWindow" id="scrolledwindow1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">never</property>
+                <child>
+                  <widget class="GtkViewport" id="viewport1">
+                    <property name="visible">True</property>
+                    <property name="resize_mode">queue</property>
+                    <property name="shadow_type">none</property>
+                    <child>
+                      <widget class="GtkLabel" id="label_error_detail">
+                        <property name="xalign">0</property>
+                        <property name="yalign">0</property>
+                        <property name="xpad">6</property>
+                        <property name="selectable">True</property>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
               </widget>
               <packing>
                 <property name="position">1</property>
