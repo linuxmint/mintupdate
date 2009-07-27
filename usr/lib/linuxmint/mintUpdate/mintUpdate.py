@@ -1063,7 +1063,9 @@ def open_history(widget):
 	treeview_update.append_column(column4)
 
 	treeview_update.set_headers_clickable(True)
-	treeview_update.set_reorderable(True)
+	treeview_update.set_reorderable(False)
+	treeview_update.set_search_column(2)
+	treeview_update.set_enable_search(True)
 	treeview_update.show()
 
 	model = gtk.TreeStore(str, str, str, gtk.gdk.Pixbuf, str, str, str) # (date, packageName, level, oldVersion, newVersion, stringLevel)
@@ -1424,7 +1426,6 @@ try:
 	treeview_update.append_column(column5)
 	treeview_update.append_column(column4)
 	treeview_update.append_column(column6)
-
 	treeview_update.set_headers_clickable(True)
 	treeview_update.set_reorderable(False)
 	treeview_update.show()
