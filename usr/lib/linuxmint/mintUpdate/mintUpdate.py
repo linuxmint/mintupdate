@@ -50,6 +50,11 @@ else:
 # i18n
 gettext.install("messages", "/usr/lib/linuxmint/mintUpdate/locale")
 
+# i18n for menu item
+menuName = _("Update Manager")
+menuGenericName = _("Software Updates")
+menuComment = _("Show and install available updates")
+
 class AutomaticRefreshThread(threading.Thread):
 	def __init__(self, treeView, statusIcon, wTree):
 		threading.Thread.__init__(self)
@@ -1114,7 +1119,7 @@ def open_information(widget):
 def open_about(widget):
 	dlg = gtk.AboutDialog()
 	dlg.set_title(_("About") + " - mintUpdate")
-	dlg.set_program_name("mintUpdate")
+	dlg.set_program_name("mintUpdate")	
 	dlg.set_comments(_("Update Manager"))
         try:
 		h = open('/usr/share/common-licenses/GPL','r')
