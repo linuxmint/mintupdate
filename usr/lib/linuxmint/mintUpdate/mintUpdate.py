@@ -240,7 +240,7 @@ class RefreshThread(threading.Thread):
 			#self.statusIcon.set_blinking(True)
 			gtk.gdk.threads_leave()
 			
-			model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str)
+			model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize)
 			model.set_sort_column_id( 7, gtk.SORT_ASCENDING )
 			
 			# Find the temp dir
@@ -800,7 +800,7 @@ def read_configuration():
 		prefs["dimensions_y"] = 540
 		prefs["dimensions_pane_position"] = 280
 
-	#Read window dimensions
+	#Read package blacklist
 	try:		
 		prefs["blacklisted_packages"] = config['blacklisted_packages']
 	except:
@@ -1047,7 +1047,7 @@ def open_history(widget):
 	column2.set_sort_column_id(2)
 	column2.set_resizable(True)  
 	column3 = gtk.TreeViewColumn(_("Level"), gtk.CellRendererPixbuf(), pixbuf=3)
-	column3.set_sort_column_id(3)
+	column3.set_sort_column_id(6)
 	column3.set_resizable(True)  
 	column4 = gtk.TreeViewColumn(_("Old version"), gtk.CellRendererText(), text=4)
 	column4.set_sort_column_id(4)
@@ -1062,11 +1062,11 @@ def open_history(widget):
 	treeview_update.append_column(column5)
 	treeview_update.append_column(column4)
 
-	treeview_update.set_headers_clickable(False)
-	treeview_update.set_reorderable(False)
+	treeview_update.set_headers_clickable(True)
+	treeview_update.set_reorderable(True)
 	treeview_update.show()
 
-	model = gtk.TreeStore(str, str, str, gtk.gdk.Pixbuf, str, str)
+	model = gtk.TreeStore(str, str, str, gtk.gdk.Pixbuf, str, str, str) # (date, packageName, level, oldVersion, newVersion, stringLevel)
 	if (os.path.exists("/var/log/mintUpdate.history")):
 		updates = commands.getoutput("cat /var/log/mintUpdate.history")
 		updates = string.split(updates, "\n")
@@ -1086,7 +1086,8 @@ def open_history(widget):
 				model.set_value(iter, 2, package)
 				model.set_value(iter, 3, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))	
 				model.set_value(iter, 4, oldVersion)
-				model.set_value(iter, 5, newVersion)			
+				model.set_value(iter, 5, newVersion)
+				model.set_value(iter, 6, level)			
 
 	treeview_update.set_model(model)
 	del model
