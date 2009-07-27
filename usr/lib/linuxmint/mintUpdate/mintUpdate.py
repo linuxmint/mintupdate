@@ -1132,7 +1132,7 @@ def open_about(widget):
 	except Exception, detail:
 		print detail
 
-        dlg.set_authors(["Clement Lefebvre <root@linuxmint.com>"]) 
+        dlg.set_authors(["Clement Lefebvre <root@linuxmint.com>", "Chris Hodapp <clhodapp@live.com>"]) 
 	dlg.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png")
 	dlg.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/icon.png"))
         def close(w, res):
