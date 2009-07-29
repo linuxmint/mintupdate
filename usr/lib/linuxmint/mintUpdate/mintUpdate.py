@@ -798,7 +798,7 @@ def read_configuration():
 	except:
 		prefs["dimensions_x"] = 790
 		prefs["dimensions_y"] = 540
-		prefs["dimensions_pane_position"] = 280
+		prefs["dimensions_pane_position"] = 230
 
 	#Read package blacklist
 	try:		
@@ -851,7 +851,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 	prefs_tree.get_widget("label82").set_text("<i>" + _("Note: The list only gets refreshed while the mintUpdate window is closed (system tray mode).") + "</i>")
 	prefs_tree.get_widget("label82").set_use_markup(True)
 	prefs_tree.get_widget("label83").set_text(_("Update Method"))
-	prefs_tree.get_widget("label84").set_text("<i>" + _("Note: Newer versions of packages can have different dependencies. If an upgrade requires the installation or the removal of another package it will be kept back and not upgraded. If you select this option however, it will be upgraded and all new dependencies will be resolved. Since this can result in the installation of new packages or the removal of some of your packages you should only use this option if you are experienced with APT.") + "</i>")
+	prefs_tree.get_widget("label84").set_text("<i>" + _("Note: The dist-upgrade option, in addition to performing the function of upgrade, also intelligently handles changing dependencies with new versions of packages. Without this option, only the latest versions of any out-of-date packages on your system are installed. Packages that are not yet installed don't get installed automatically and newer versions of packages which dependencies require such installations are simply ignored.") + "</i>")
 	prefs_tree.get_widget("label84").set_use_markup(True)
 	prefs_tree.get_widget("label85").set_text(_("Icons"))
 	prefs_tree.get_widget("label86").set_text(_("Icon"))
@@ -874,7 +874,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 	prefs_tree.get_widget("label16").set_text(_("Port:"))	
 	prefs_tree.get_widget("label1").set_text(_("Ignored packages"))
 
-	prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include dist-upgrade packages?"))
+	prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Satisfy changing dependencies using dist-upgrade?"))
 
 	prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png")
 	prefs_tree.get_widget("window2").show()

@@ -35,17 +35,20 @@ def checkDependencies(changes, cache):
 		changes = checkDependencies(changes, cache)
 	return changes
 
-
 try:	
 	cache = apt.Cache()
 	if os.getuid() == 0 :
 		cache.update()
 	from configobj import ConfigObj
 	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
-	if (config['update']['dist_upgrade'] == "True"):
-		cache.upgrade(True)
-	else:
-		cache.upgrade(False)
+	try:
+		if (config['update']['dist_upgrade'] == "True"):
+			dist_upgrade = True
+		else:
+			dist_upgrade = False
+	except:
+			dist_upgrade = True
+	cache.upgrade(dist_upgrade)		
 	changes = cache.getChanges()
 except Exception, detail:
 	print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR"	
