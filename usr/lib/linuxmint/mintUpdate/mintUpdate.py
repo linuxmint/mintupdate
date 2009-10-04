@@ -176,11 +176,15 @@ class InstallThread(threading.Thread):
         			f.close()				
 				log.writelines("++ Install finished\n")
 				log.flush()
+							
 				# Stop the blinking
 				gtk.gdk.threads_enter()
 				#self.statusIcon.set_blinking(False)	
 				self.wTree.get_widget("window1").window.set_cursor(None)
 				self.wTree.get_widget("window1").set_sensitive(True)
+				global app_hidden
+				app_hidden = True
+				self.wTree.get_widget("window1").hide()	
 				gtk.gdk.threads_leave()
 				# Refresh
 				refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree)
