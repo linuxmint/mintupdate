@@ -225,6 +225,7 @@ class RefreshThread(threading.Thread):
 
 	def run(self):
 		global log
+		global app_hidden
 		gtk.gdk.threads_enter()
 		vpaned_position = wTree.get_widget("vpaned1").get_position()
 		gtk.gdk.threads_leave()
@@ -366,8 +367,11 @@ class RefreshThread(threading.Thread):
 			gtk.gdk.threads_enter()
 			statusbar.push(context_id, _("Finding the list of updates..."))
 			wTree.get_widget("vpaned1").set_position(vpaned_position)
-			gtk.gdk.threads_leave()		
-			updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\"")
+			gtk.gdk.threads_leave()	
+			if app_hidden:
+				updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\"")
+			else:
+				updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic | grep \"###\"")
 			updates = string.split(updates, "\n")
 			# Look at the packages one by one
 			list_of_packages = ""

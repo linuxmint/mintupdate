@@ -35,10 +35,26 @@ def checkDependencies(changes, cache):
 		changes = checkDependencies(changes, cache)
 	return changes
 
-try:	
-	cache = apt.Cache()
+try:		
 	if os.getuid() == 0 :
-		cache.update()
+		use_synaptic = False
+		if (len(sys.argv) > 1):
+			if sys.argv[1] == "--use-synaptic":
+				use_synaptic = True
+		
+		if use_synaptic:
+			from subprocess import Popen, PIPE
+			cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive"]
+			#cmd.append("--progress-str")
+			#cmd.append("\"" + _("Please wait, this can take some time") + "\"")
+			comnd = Popen(' '.join(cmd), shell=True)
+			returnCode = comnd.wait()				
+			#sts = os.waitpid(comnd.pid, 0)			
+		else:			
+			cache = apt.Cache()
+			cache.update()
+
+	cache = apt.Cache()
 	from configobj import ConfigObj
 	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
 	try:
