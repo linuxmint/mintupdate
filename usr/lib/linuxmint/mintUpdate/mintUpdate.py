@@ -362,6 +362,7 @@ class RefreshThread(threading.Thread):
 			list_of_packages = ""
 			num_visible = 0
 			num_safe = 0
+			num_ignored = 0
 
 			if (len(updates) == None):
 				self.statusIcon.set_from_file(icon_up2date)
@@ -396,6 +397,7 @@ class RefreshThread(threading.Thread):
 							return False			      			
 						package = values[1]				
 						if package in prefs['blacklisted_packages']:
+							num_ignored = num_ignored + 1
 							continue
 						newVersion = values[2]
 						oldVersion = values[3]
@@ -473,9 +475,12 @@ class RefreshThread(threading.Thread):
 				
 				gtk.gdk.threads_enter()
 				if (num_safe > 0):
+					statusString = _("%d recommended updates available") % num_safe
+					if (num_ignored > 0):
+						statusString = _("%(recommended)d recommended updates available, %(ignored)d ignored") % {'recommended':num_safe, 'ignored':num_ignored}
 					self.statusIcon.set_from_file(icon_updates)
-					self.statusIcon.set_tooltip(_("There are %d recommended software updates available") % num_safe)
-					statusbar.push(context_id, _("There are %d recommended software updates available") % num_safe)
+					self.statusIcon.set_tooltip(statusString)
+					statusbar.push(context_id, statusString)
 					log.writelines("++ Found " + str(num_safe) + " recommended software updates\n")
 					log.flush()
 				else:
