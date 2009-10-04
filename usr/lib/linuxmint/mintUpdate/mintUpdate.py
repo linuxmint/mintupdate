@@ -727,7 +727,7 @@ def read_configuration():
 		prefs["timer_hours"] = int(config['refresh']['timer_hours'])
 		prefs["timer_days"] = int(config['refresh']['timer_days'])
 	except:
-		prefs["timer_minutes"] = 5
+		prefs["timer_minutes"] = 15
 		prefs["timer_hours"] = 0
 		prefs["timer_days"] = 0	
 
@@ -1249,7 +1249,6 @@ def save_window_size(window, vpaned):
 	config['dimensions']['x'] = window.get_size()[0]
 	config['dimensions']['y'] = window.get_size()[1]
 	config['dimensions']['pane_position'] = vpaned.get_position()
-	print "Saving " + str(vpaned.get_position())
 	config.write()
 
 def display_selected_package(selection, wTree):
@@ -1409,7 +1408,6 @@ try:
 	wTree.get_widget("window1").set_title(_("Update Manager"))
 	wTree.get_widget("window1").set_default_size(prefs['dimensions_x'], prefs['dimensions_y'])
 	wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
-	print "Setting " + str(prefs['dimensions_pane_position'])
 
 	vbox = wTree.get_widget("vbox_main")
 	treeview_update = wTree.get_widget("treeview_update")
@@ -1599,18 +1597,14 @@ try:
 	if len(sys.argv) > 1:
 		showWindow = sys.argv[1]
 		if (showWindow == "show"):
-			print "A: " + str(wTree.get_widget("vpaned1").get_position())
 			wTree.get_widget("window1").show_all()
-			print "B: " + str(wTree.get_widget("vpaned1").get_position())
 			wTree.get_widget("label_error_detail").set_text("")
 			wTree.get_widget("hbox_error").hide()
 			wTree.get_widget("scrolledwindow1").hide()
 			wTree.get_widget("viewport1").hide()
 			wTree.get_widget("label_error_detail").hide()
 			wTree.get_widget("image_error").hide()
-			print "C: " + str(wTree.get_widget("vpaned1").get_position())
 			wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
-			print "D: " + str(wTree.get_widget("vpaned1").get_position())
 			app_hidden = False
 
 	if os.getuid() != 0 :		
@@ -1647,7 +1641,6 @@ try:
 				
 
 	wTree.get_widget("notebook_details").set_current_page(0)
-	print "E: " + str(wTree.get_widget("vpaned1").get_position())	
 	statusbar = wTree.get_widget("statusbar")
 	context_id = statusbar.get_context_id("mintUpdate")	
 	
@@ -1656,7 +1649,6 @@ try:
 
 	auto_refresh = AutomaticRefreshThread(treeview_update, statusIcon, wTree)
 	auto_refresh.start()
-	print "F: " + str(wTree.get_widget("vpaned1").get_position())
 	gtk.main()
 
 except Exception, detail:
