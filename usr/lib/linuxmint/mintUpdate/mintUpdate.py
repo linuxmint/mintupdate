@@ -12,6 +12,7 @@ try:
 	import threading
 	import time
 	import gettext
+	import fnmatch
 	from user import home
 except Exception, detail:
 	print detail
@@ -396,9 +397,16 @@ class RefreshThread(threading.Thread):
 							gtk.gdk.threads_leave()				
 							return False			      			
 						package = values[1]				
-						if package in prefs['blacklisted_packages']:
-							num_ignored = num_ignored + 1
+						packageIsBlacklisted = False
+						for blacklist in prefs['blacklisted_packages']:
+							if fnmatch.fnmatch(package, blacklist):
+								num_ignored = num_ignored + 1
+								packageIsBlacklisted = True
+								break
+
+						if packageIsBlacklisted:
 							continue
+
 						newVersion = values[2]
 						oldVersion = values[3]
 						size = int(values[4])
