@@ -225,7 +225,10 @@ class RefreshThread(threading.Thread):
 
 	def run(self):
 		global log
-		try:			
+		gtk.gdk.threads_enter()
+		vpaned_position = wTree.get_widget("vpaned1").get_position()
+		gtk.gdk.threads_leave()
+		try:					
 			log.writelines("++ Starting refresh\n")
 			log.flush()
 			gtk.gdk.threads_enter()
@@ -237,11 +240,11 @@ class RefreshThread(threading.Thread):
 			self.wTree.get_widget("scrolledwindow1").hide()
 			self.wTree.get_widget("viewport1").hide()
 			self.wTree.get_widget("label_error_detail").hide()
-			self.wTree.get_widget("image_error").hide()
-
+			self.wTree.get_widget("image_error").hide()			
 			# Starts the blinking
 			self.statusIcon.set_from_file(icon_busy)
 			self.statusIcon.set_tooltip(_("Checking for updates"))
+			wTree.get_widget("vpaned1").set_position(vpaned_position)
 			#self.statusIcon.set_blinking(True)
 			gtk.gdk.threads_leave()
 			
@@ -260,6 +263,7 @@ class RefreshThread(threading.Thread):
 			# Checking the connection to the Internet
 			gtk.gdk.threads_enter()
 			statusbar.push(context_id, _("Checking the connection to the Internet..."))
+			wTree.get_widget("vpaned1").set_position(vpaned_position)
 			gtk.gdk.threads_leave()				
 			
 			prefs = read_configuration()
@@ -303,6 +307,7 @@ class RefreshThread(threading.Thread):
 			# Download rules file
 			gtk.gdk.threads_enter()
 			statusbar.push(context_id, _("Downloading safety level rules..."))
+			wTree.get_widget("vpaned1").set_position(vpaned_position)
 			gtk.gdk.threads_leave()				
 
 			try:	
@@ -360,6 +365,7 @@ class RefreshThread(threading.Thread):
 		
 			gtk.gdk.threads_enter()
 			statusbar.push(context_id, _("Finding the list of updates..."))
+			wTree.get_widget("vpaned1").set_position(vpaned_position)
 			gtk.gdk.threads_leave()		
 			updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\"")
 			updates = string.split(updates, "\n")
@@ -511,7 +517,8 @@ class RefreshThread(threading.Thread):
 			self.wTree.get_widget("window1").window.set_cursor(None)
 			self.treeview_update.set_model(model)
 			del model	
-			self.wTree.get_widget("window1").set_sensitive(True)
+			self.wTree.get_widget("window1").set_sensitive(True)			
+			wTree.get_widget("vpaned1").set_position(vpaned_position)
 			gtk.gdk.threads_leave()
 
 		except Exception, detail:
@@ -525,6 +532,7 @@ class RefreshThread(threading.Thread):
 			self.wTree.get_widget("window1").window.set_cursor(None)
 			self.wTree.get_widget("window1").set_sensitive(True)
 			statusbar.push(context_id, _("Could not refresh the list of packages"))
+			wTree.get_widget("vpaned1").set_position(vpaned_position)
 			gtk.gdk.threads_leave()
 	
 	def checkDependencies(self, changes, cache):
@@ -1237,6 +1245,7 @@ def save_window_size(window, vpaned):
 	config['dimensions']['x'] = window.get_size()[0]
 	config['dimensions']['y'] = window.get_size()[1]
 	config['dimensions']['pane_position'] = vpaned.get_position()
+	print "Saving " + str(vpaned.get_position())
 	config.write()
 
 def display_selected_package(selection, wTree):
@@ -1396,6 +1405,7 @@ try:
 	wTree.get_widget("window1").set_title(_("Update Manager"))
 	wTree.get_widget("window1").set_default_size(prefs['dimensions_x'], prefs['dimensions_y'])
 	wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
+	print "Setting " + str(prefs['dimensions_pane_position'])
 
 	vbox = wTree.get_widget("vbox_main")
 	treeview_update = wTree.get_widget("treeview_update")
@@ -1495,6 +1505,7 @@ try:
 	wTree.get_widget("viewport1").hide()
 	wTree.get_widget("label_error_detail").hide()
 	wTree.get_widget("image_error").hide()
+	wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
 	
 	fileMenu = gtk.MenuItem(_("_File"))
 	fileSubmenu = gtk.Menu()
@@ -1584,13 +1595,18 @@ try:
 	if len(sys.argv) > 1:
 		showWindow = sys.argv[1]
 		if (showWindow == "show"):
+			print "A: " + str(wTree.get_widget("vpaned1").get_position())
 			wTree.get_widget("window1").show_all()
+			print "B: " + str(wTree.get_widget("vpaned1").get_position())
 			wTree.get_widget("label_error_detail").set_text("")
 			wTree.get_widget("hbox_error").hide()
 			wTree.get_widget("scrolledwindow1").hide()
 			wTree.get_widget("viewport1").hide()
 			wTree.get_widget("label_error_detail").hide()
 			wTree.get_widget("image_error").hide()
+			print "C: " + str(wTree.get_widget("vpaned1").get_position())
+			wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
+			print "D: " + str(wTree.get_widget("vpaned1").get_position())
 			app_hidden = False
 
 	if os.getuid() != 0 :		
@@ -1627,16 +1643,16 @@ try:
 				
 
 	wTree.get_widget("notebook_details").set_current_page(0)
-
+	print "E: " + str(wTree.get_widget("vpaned1").get_position())	
 	statusbar = wTree.get_widget("statusbar")
-	context_id = statusbar.get_context_id("mintUpdate")
+	context_id = statusbar.get_context_id("mintUpdate")	
 	
 	refresh = RefreshThread(treeview_update, statusIcon, wTree)
 	refresh.start()
 
 	auto_refresh = AutomaticRefreshThread(treeview_update, statusIcon, wTree)
 	auto_refresh.start()
-
+	print "F: " + str(wTree.get_widget("vpaned1").get_position())
 	gtk.main()
 
 except Exception, detail:
