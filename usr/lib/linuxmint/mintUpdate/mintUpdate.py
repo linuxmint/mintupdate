@@ -14,6 +14,8 @@ try:
 	import gettext
 	import fnmatch
 	from user import home
+	sys.path.append('/usr/lib/linuxmint/common')
+	from configobj import ConfigObj
 except Exception, detail:
 	print detail
 	pass
@@ -625,7 +627,6 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 		log.writelines("++ Creating /etc/linuxmint directory\n")
 		log.flush()
 
-	from configobj import ConfigObj
 	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")		
 
 	#Write level config
@@ -716,8 +717,7 @@ def read_configuration():
 	global icon_up2date
 	global icon_updates
 	global icon_error
-
-	from configobj import ConfigObj
+	
 	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
 	prefs = {}
 	
@@ -1164,7 +1164,7 @@ def open_about(widget):
         except Exception, detail:
         	print detail
 	try: 
-		version = commands.getoutput("/usr/lib/linuxmint/mintUpdate/version.py")
+		version = commands.getoutput("/usr/lib/linuxmint/common/version.py mintupdate")
 		dlg.set_version(version)
 	except Exception, detail:
 		print detail
@@ -1243,7 +1243,7 @@ def activate_icon_cb(widget, data, wTree, pid):
 		save_window_size(wTree.get_widget("window1"), wTree.get_widget("vpaned1"))
 
 def save_window_size(window, vpaned):
-	from configobj import ConfigObj
+
 	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
 	config['dimensions'] = {}
 	config['dimensions']['x'] = window.get_size()[0]
@@ -1344,7 +1344,6 @@ def toggled(renderer, path, treeview):
 		model.set_value(iter, 0, "true")
 
 def setVisibleColumn(checkmenuitem, column, configName):	
-	from configobj import ConfigObj
 	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
 	if (config.has_key('visible_columns')):
 			config['visible_columns'][configName] = checkmenuitem.get_active()

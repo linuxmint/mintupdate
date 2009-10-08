@@ -3,7 +3,7 @@
 import os
 import commands
 
-launcher = commands.getoutput("/usr/bin/mint-which-launcher")
+launcher = commands.getoutput("/usr/lib/linuxmint/common/mint-which-launcher.py")
 
 command = "%s /usr/lib/linuxmint/mintUpdate/mintUpdate.py show 0 &" % launcher
 os.system(command)

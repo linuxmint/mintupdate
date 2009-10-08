@@ -55,6 +55,7 @@ try:
 			cache.update()
 
 	cache = apt.Cache()
+	sys.path.append('/usr/lib/linuxmint/common')
 	from configobj import ConfigObj
 	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
 	try:
