@@ -51,7 +51,7 @@ else:
 	libc.call('prctl', 15, 'mintUpdate', 0, 0, 0)
 
 # i18n
-gettext.install("messages", "/usr/lib/linuxmint/mintUpdate/locale")
+gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 # i18n for menu item
 menuName = _("Update Manager")
