@@ -111,6 +111,8 @@ class InstallThread(threading.Thread):
 	global icon_up2date
 	global icon_updates
 	global icon_error
+	global icon_unknown
+	global icon_apply
 
 	def __init__(self, treeView, statusIcon, wTree):
 		threading.Thread.__init__(self)
@@ -150,10 +152,8 @@ class InstallThread(threading.Thread):
 
 			if (installNeeded == True):
 				gtk.gdk.threads_enter()
-				# Starts the blinking
-				self.statusIcon.set_from_file(icon_busy)
-				self.statusIcon.set_tooltip(_("Installing updates"))
-				#self.statusIcon.set_blinking(True)
+				self.statusIcon.set_from_file(icon_apply)
+				self.statusIcon.set_tooltip(_("Installing updates"))				
 				gtk.gdk.threads_leave()
 
 				log.writelines("++ Ready to launch synaptic\n")
@@ -178,16 +178,17 @@ class InstallThread(threading.Thread):
         			f.close()				
 				log.writelines("++ Install finished\n")
 				log.flush()
-							
-				# Stop the blinking
+
 				gtk.gdk.threads_enter()
-				#self.statusIcon.set_blinking(False)	
+				self.statusIcon.set_from_file(icon_busy)
+				self.statusIcon.set_tooltip(_("Checking for updates"))				
 				self.wTree.get_widget("window1").window.set_cursor(None)
 				self.wTree.get_widget("window1").set_sensitive(True)
 				global app_hidden
 				app_hidden = True
 				self.wTree.get_widget("window1").hide()	
 				gtk.gdk.threads_leave()
+
 				# Refresh
 				refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree)
 				refresh.start()	
@@ -293,7 +294,7 @@ class RefreshThread(threading.Thread):
 				print detail
 				if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):					
 					gtk.gdk.threads_enter()
-					self.statusIcon.set_from_file(icon_error)				
+					self.statusIcon.set_from_file(icon_unknown)				
 					self.statusIcon.set_tooltip(_("Could not connect to the Internet"))
 					log.writelines("-- No connection found (tried to read http://www.google.com and to ping " + prefs["ping_domain"] + ")\n")		
 					log.flush()				
@@ -334,7 +335,7 @@ class RefreshThread(threading.Thread):
 
 			if (not os.path.exists(rulesDir + "rules")):
 				gtk.gdk.threads_enter()
-				self.statusIcon.set_from_file(icon_error)				
+				self.statusIcon.set_from_file(icon_unknown)				
 				self.statusIcon.set_tooltip(_("Could not download safety rules"))
 				log.writelines("-- Could not download safety rules\n")
 				log.flush()
@@ -355,7 +356,7 @@ class RefreshThread(threading.Thread):
 			        break
 			if (running == True):	
 				gtk.gdk.threads_enter()			
-				self.statusIcon.set_from_file(icon_error)
+				self.statusIcon.set_from_file(icon_unknown)
 				self.statusIcon.set_tooltip(_("Another application is using APT"))
 				statusbar.push(context_id, _("Another application is using APT"))
 				log.writelines("-- Another application is using APT\n")
@@ -589,6 +590,8 @@ def change_icon(widget, button, prefs_tree, treeview, statusIcon, wTree):
 	global icon_up2date
 	global icon_updates
 	global icon_error
+	global icon_unknown
+	global icon_apply
 	dialog = gtk.FileChooserDialog("mintUpdate", None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 	filter1 = gtk.FileFilter()
 	filter1.set_name("*.*")
@@ -602,17 +605,23 @@ def change_icon(widget, button, prefs_tree, treeview, statusIcon, wTree):
 	if dialog.run() == gtk.RESPONSE_OK:
 		filename = dialog.get_filename()	
 		if (button == "busy"):
-			prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file(filename))
+			prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(filename, 24, 24))
 			icon_busy = filename
 		if (button == "up2date"):
-			prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file(filename))
+			prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(filename, 24, 24))
 			icon_up2date = filename
 		if (button == "updates"):
-			prefs_tree.get_widget("image_updates").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file(filename))
+			prefs_tree.get_widget("image_updates").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(filename, 24, 24))
 			icon_updates = filename
 		if (button == "error"):
-			prefs_tree.get_widget("image_error").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file(filename))
+			prefs_tree.get_widget("image_error").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(filename, 24, 24))
 			icon_error = filename
+		if (button == "unknown"):
+			prefs_tree.get_widget("image_unknown").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(filename, 24, 24))
+			icon_unknown = filename
+		if (button == "apply"):
+			prefs_tree.get_widget("image_apply").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(filename, 24, 24))
+			icon_apply = filename
 	dialog.destroy()	
 
 def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
@@ -620,6 +629,8 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 	global icon_up2date
 	global icon_updates
 	global icon_error
+	global icon_unknown
+	global icon_apply
 
 	if (not os.path.exists("/etc/linuxmint")):
 		os.system("mkdir -p /etc/linuxmint")
@@ -660,6 +671,8 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 	config['icons']['up2date'] = icon_up2date
 	config['icons']['updates'] = icon_updates
 	config['icons']['error'] = icon_error
+	config['icons']['unknown'] = icon_unknown
+	config['icons']['apply'] = icon_apply
 
 	#Write proxy config	
 	config['proxy'] = {}
@@ -717,6 +730,8 @@ def read_configuration():
 	global icon_up2date
 	global icon_updates
 	global icon_error
+	global icon_unknown
+	global icon_apply
 	
 	config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
 	prefs = {}
@@ -747,11 +762,15 @@ def read_configuration():
 		icon_up2date = config['icons']['up2date'] 
 		icon_updates = config['icons']['updates']
 		icon_error = config['icons']['error']
+		icon_unknown = config['icons']['unknown']
+		icon_apply = config['icons']['apply']
 	except:
-		icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/busy.png"
-		icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/up2date.png"
-		icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/updates.png"
-		icon_error = "/usr/lib/linuxmint/mintUpdate/icons/error.png"
+		icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
+		icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
+		icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/base-info.svg"
+		icon_error = "/usr/lib/linuxmint/mintUpdate/icons/base-error2.svg"
+		icon_unknown = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
+		icon_apply = "/usr/lib/linuxmint/mintUpdate/icons/base-exec.svg"
 
 	#Read levels config
 	try:
@@ -848,6 +867,8 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 	global icon_up2date
 	global icon_updates
 	global icon_error
+	global icon_unknown
+	global icon_apply
 
 	gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
 	prefs_tree = gtk.glade.XML(gladefile, "window2")
@@ -890,6 +911,8 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 	prefs_tree.get_widget("label89").set_text(_("System up-to-date"))
 	prefs_tree.get_widget("label90").set_text(_("Updates available"))
 	prefs_tree.get_widget("label99").set_text(_("Error"))
+	prefs_tree.get_widget("label2").set_text(_("Unknown state"))
+	prefs_tree.get_widget("label3").set_text(_("Applying updates"))
 	prefs_tree.get_widget("label6").set_text(_("Startup delay (in seconds):"))
 	prefs_tree.get_widget("label7").set_text(_("Internet check (domain name or IP address):"))
 	prefs_tree.get_widget("label10").set_text(_("Proxy"))
@@ -905,7 +928,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
 	prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Satisfy changing dependencies using dist-upgrade?"))
 
-	prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png")
+	prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
 	prefs_tree.get_widget("window2").show()
 	prefs_tree.get_widget("pref_button_cancel").connect("clicked", pref_cancel, prefs_tree)
 	prefs_tree.get_widget("pref_button_apply").connect("clicked", pref_apply, prefs_tree, treeview, statusIcon, wTree)
@@ -914,6 +937,8 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 	prefs_tree.get_widget("button_icon_up2date").connect("clicked", change_icon, "up2date", prefs_tree, treeview, statusIcon, wTree)
 	prefs_tree.get_widget("button_icon_updates").connect("clicked", change_icon, "updates", prefs_tree, treeview, statusIcon, wTree)
 	prefs_tree.get_widget("button_icon_error").connect("clicked", change_icon, "error", prefs_tree, treeview, statusIcon, wTree)
+	prefs_tree.get_widget("button_icon_unknown").connect("clicked", change_icon, "unknown", prefs_tree, treeview, statusIcon, wTree)
+	prefs_tree.get_widget("button_icon_apply").connect("clicked", change_icon, "apply", prefs_tree, treeview, statusIcon, wTree)
 
 	prefs = read_configuration()
 
@@ -941,10 +966,12 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
 	prefs_tree.get_widget("checkbutton_dist_upgrade").set_active(prefs["dist_upgrade"])
 	
-	prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file(icon_busy))
-	prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file(icon_up2date))
-	prefs_tree.get_widget("image_updates").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file(icon_updates))
-	prefs_tree.get_widget("image_error").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file(icon_error))	
+	prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_busy, 24, 24))
+	prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_up2date, 24, 24))
+	prefs_tree.get_widget("image_updates").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_updates, 24, 24))
+	prefs_tree.get_widget("image_error").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_error, 24, 24))	
+	prefs_tree.get_widget("image_unknown").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_unknown, 24, 24))	
+	prefs_tree.get_widget("image_apply").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_apply, 24, 24))	
 
 	prefs_tree.get_widget("check_proxy").set_active(prefs["use_proxy"])
 	prefs_tree.get_widget("check_proxy_same").set_active(prefs["same_proxy_for_all_protocols"])
@@ -996,7 +1023,7 @@ def add_blacklisted_package(widget, treeview_blacklist):
 	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK, None)  
  	dialog.set_markup("<b>" + _("Please enter a package name:") + "</b>")  
  	dialog.set_title(_("Ignore a package"))  
- 	dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png")
+ 	dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
 	entry = gtk.Entry()  
 	hbox = gtk.HBox()  
 	hbox.pack_start(gtk.Label(_("Package name:")), False, 5, 5)  
@@ -1064,7 +1091,7 @@ def open_history(widget):
 	gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
 	wTree = gtk.glade.XML(gladefile, "window4")
 	treeview_update = wTree.get_widget("treeview_history")
-	wTree.get_widget("window4").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png")
+	wTree.get_widget("window4").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
 
 	wTree.get_widget("window4").set_title(_("History of updates") + " - mintUpdate")
 
@@ -1133,7 +1160,7 @@ def open_information(widget):
 	gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
 	prefs_tree = gtk.glade.XML(gladefile, "window3")
 	prefs_tree.get_widget("window3").set_title(_("Information") + " - mintUpdate")
-	prefs_tree.get_widget("window3").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png")
+	prefs_tree.get_widget("window3").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
 	prefs_tree.get_widget("close_button").connect("clicked", info_cancel, prefs_tree)
 	prefs_tree.get_widget("label1").set_text(_("Information"))
 	prefs_tree.get_widget("label2").set_text(_("Log file"))
@@ -1170,8 +1197,8 @@ def open_about(widget):
 		print detail
 
         dlg.set_authors(["Clement Lefebvre <root@linuxmint.com>", "Chris Hodapp <clhodapp@live.com>"]) 
-	dlg.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png")
-	dlg.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png"))
+	dlg.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+	dlg.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg"))
         def close(w, res):
             if res == gtk.RESPONSE_CANCEL:
                 w.hide()
@@ -1393,6 +1420,8 @@ try:
 	global icon_up2date
 	global icon_updates
 	global icon_error
+	global icon_unknown
+	global icon_apply
 
 	prefs = read_configuration()
 
@@ -1410,7 +1439,7 @@ try:
 
 	vbox = wTree.get_widget("vbox_main")
 	treeview_update = wTree.get_widget("treeview_update")
-	wTree.get_widget("window1").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/busy.png")
+	wTree.get_widget("window1").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
 
 	# Get the window socket (needed for synaptic later on)
 	socket = gtk.Socket()

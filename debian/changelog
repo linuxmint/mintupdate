@@ -1,3 +1,11 @@
+mintupdate (4.0.0) isadora; urgency=low
+
+  * Changed default icons
+  * Introduced two new status: unknown (when it's not possible to determine whether there are updates but the cause doesn't require action from the user, typical case: no Internet connection), and apply (when installing updates)
+  * Less intrusive: by default, the icon looks different only when the system is up to date, when there are updates to apply, or when there is an error.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed,  24 Feb 2010 13:41:00 +0000
+
 mintupdate (3.9.0) helena; urgency=low
 
   * Added Belarusian mirror
