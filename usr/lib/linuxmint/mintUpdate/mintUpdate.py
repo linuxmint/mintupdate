@@ -1402,15 +1402,17 @@ if len(sys.argv) > 2:
 
 # prepare the log
 pid = os.getpid()
-logdir = "/tmp/mintUpdate"
+logdir = "/tmp/mintUpdate/"
 if os.getuid() == 0 :
 
 	mode = "root"
 else:
 	mode = "user"
 os.system("mkdir -p " + logdir)
-logFile = logdir + "/" + parentPid + "_" + str(pid) + ".log"
-log = open(logFile, "w")
+#logFile = logdir + "/" + parentPid + "_" + str(pid) + ".log"
+#log = open(logFile, "w")
+log = tempfile.NamedTemporaryFile(prefix = logdir, delete=False)
+logFile = log.name
 
 log.writelines("++ Launching mintUpdate in " + mode + " mode\n")
 log.flush()
