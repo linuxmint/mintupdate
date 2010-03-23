@@ -1295,8 +1295,8 @@ def display_selected_package(selection, wTree):
 			wTree.get_widget("textview_description").get_buffer().set_text(model.get_value(iter, 8))	
 		if (selected_tab == 1):
 			# Changelog tab	
-			changelog = commands.getoutput("aptitude changelog " + selected_package)	
-			if changelog.startswith("E:"):
+			changelog = commands.getoutput("aptitude changelog " + selected_package)		
+			if "E:" in changelog:
 				#Get the mint change file for i386
 				os.chdir("/tmp")
 				os.system("wget http://packages.linuxmint.com/dev/" + selected_package + "_" + model.get_value(iter, 4) + "_i386.changes")
@@ -1330,7 +1330,7 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
 		if (page_num == 1):
 			# Changelog tab				
 			changelog = commands.getoutput("aptitude changelog " + selected_package)	
-			if changelog.startswith("E:"):
+			if "E:" in changelog:
 				#Get the mint change file for i386
 				os.chdir("/tmp")
 				os.system("wget http://packages.linuxmint.com/dev/" + selected_package + "_" + model.get_value(iter, 4) + "_i386.changes")
