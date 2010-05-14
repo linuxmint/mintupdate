@@ -49,7 +49,7 @@ for directory in os.listdir("/usr/share/linuxmint/locale"):
 			pass
 
 desktopFile.writelines("""Exec=mintupdate
-Icon=/usr/lib/linuxmint/mintUpdate/icons/busy.png
+Icon=/usr/lib/linuxmint/mintUpdate/icons/base.svg
 Terminal=false
 Type=Application
 Encoding=UTF-8
