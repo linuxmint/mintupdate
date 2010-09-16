@@ -379,9 +379,15 @@ class RefreshThread(threading.Thread):
             # Look at the packages one by one
             list_of_packages = ""
             num_visible = 0
-            num_safe = 0
-            num_ignored = 0
+            num_safe = 0            
             download_size = 0
+            num_ignored = 0
+            ignored_list = []
+            if os.path.exists("/etc/linuxmint/mintupdate.ignored"):
+                blacklist_file = open("/etc/linuxmint/mintupdate.ignored", "r")
+                for blacklist_line in blacklist_file:
+                    ignored_list.append(blacklist_line.strip())
+                blacklist_file.close()                
 
             if (len(updates) == None):
                 self.statusIcon.set_from_file(icon_up2date)
@@ -416,7 +422,7 @@ class RefreshThread(threading.Thread):
                             return False
                         package = values[1]
                         packageIsBlacklisted = False
-                        for blacklist in prefs['blacklisted_packages']:
+                        for blacklist in ignored_list:
                             if fnmatch.fnmatch(package, blacklist):
                                 num_ignored = num_ignored + 1
                                 packageIsBlacklisted = True
@@ -699,15 +705,16 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     config['proxy']['gopher_port'] = prefs_tree.get_widget("gopher_proxy_port").get_text()
 
 
-    #Write proxy config
-    config['blacklisted_packages'] = []
+    #Write blacklisted packages
+    ignored_list = open("/etc/linuxmint/mintupdate.ignored", "w")
     treeview_blacklist = prefs_tree.get_widget("treeview_blacklist")
     model = treeview_blacklist.get_model()
     iter = model.get_iter_first()
     while iter is not None:
         pkg = model.get_value(iter, 0)
         iter = model.iter_next(iter)
-        config['blacklisted_packages'].append(pkg)
+        ignored_list.writelines(pkg + "\n")
+    ignored_list.close()
 
     config['proxy']['same_proxy_for_all_protocols'] = prefs_tree.get_widget("check_proxy_same").get_active()
     config['proxy']['http_host'] = prefs_tree.get_widget("http_proxy").get_text()
@@ -1018,11 +1025,14 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     model.set_sort_column_id( 0, gtk.SORT_ASCENDING )
     treeview_blacklist.set_model(model)
 
-    for pkg in prefs['blacklisted_packages']:
-        iter = model.insert_before(None, None)
-        model.set_value(iter, 0, pkg)
-    del model
-
+    if os.path.exists("/etc/linuxmint/mintupdate.ignored"):
+        ignored_list = open("/etc/linuxmint/mintupdate.ignored", "r")
+        for ignored_pkg in ignored_list:            
+            iter = model.insert_before(None, None)
+            model.set_value(iter, 0, ignored_pkg.strip())
+        del model
+        ignored_list.close()
+    
     prefs_tree.get_widget("toolbutton_add").connect("clicked", add_blacklisted_package, treeview_blacklist)
     prefs_tree.get_widget("toolbutton_remove").connect("clicked", remove_blacklisted_package, treeview_blacklist)
 
@@ -1414,6 +1424,22 @@ def setVisibleColumn(checkmenuitem, column, configName):
         config['visible_columns'][configName] = checkmenuitem.get_active()
     config.write()
     column.set_visible(checkmenuitem.get_active())
+    
+def menuPopup(widget, event, treeview_update, statusIcon, wTree):
+    if event.button == 3:
+        (model, iter) = widget.get_selection().get_selected()
+        if (iter != None):
+            selected_package = model.get_value(iter, 1)
+            menu = gtk.Menu()                
+            menuItem = gtk.MenuItem(_("Ignore updates for this package"))
+            menuItem.connect("activate", add_to_ignore_list, treeview_update, selected_package, statusIcon, wTree)
+            menu.append(menuItem)        
+            menu.show_all()        
+            menu.popup( None, None, None, 3, 0)
+        
+def add_to_ignore_list(widget, treeview_update, pkg, statusIcon, wTree):
+    os.system("echo \"%s\" >> /etc/linuxmint/mintupdate.ignored" % pkg)
+    force_refresh(widget, treeview_update, statusIcon, wTree)
 
 global app_hiden
 global log
@@ -1526,6 +1552,8 @@ try:
     treeview_update.set_headers_clickable(True)
     treeview_update.set_reorderable(False)
     treeview_update.show()
+    
+    treeview_update.connect( "button-release-event", menuPopup, treeview_update, statusIcon, wTree )
 
     model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, int, str)
     model.set_sort_column_id( 7, gtk.SORT_ASCENDING )
