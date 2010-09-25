@@ -1,0 +1,8 @@
+#!/usr/bin/python
+
+import os
+from user import home
+
+if (not os.path.exists("/usr/bin/ubiquity")) and (not os.path.exists("/usr/bin/live-installer")):
+	os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py")
+
