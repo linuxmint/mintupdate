@@ -252,7 +252,7 @@ class RefreshThread(threading.Thread):
             #self.statusIcon.set_blinking(True)
             gtk.gdk.threads_leave()
 
-            model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize)
+            model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize, sourcePackage)
             model.set_sort_column_id( 7, gtk.SORT_ASCENDING )
 
             # Find the temp dir
@@ -398,7 +398,7 @@ class RefreshThread(threading.Thread):
             else:
                 for pkg in updates:
                     values = string.split(pkg, "###")
-                    if len(values) == 6:
+                    if len(values) == 7:
                         status = values[0]
                         if (status == "ERROR"):
                             error_msg = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep -v \"ERROR###\"")
@@ -434,7 +434,8 @@ class RefreshThread(threading.Thread):
                         newVersion = values[2]
                         oldVersion = values[3]
                         size = int(values[4])
-                        description = values[5]
+                        source_package = values[5]
+                        description = values[6]
 
                         strSize = size_to_string(size)
 
@@ -498,6 +499,7 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, 8, description)
                             model.set_value(iter, 9, size)
                             model.set_value(iter, 10, strSize)
+                            model.set_value(iter, 11, source_package)
                             num_visible = num_visible + 1
 
                 gtk.gdk.threads_enter()
@@ -1312,30 +1314,15 @@ def display_selected_package(selection, wTree):
             # Description tab
             wTree.get_widget("textview_description").get_buffer().set_text(model.get_value(iter, 8))
         if (selected_tab == 1):
-            # Changelog tab
-            changelog = commands.getoutput("aptitude changelog " + selected_package)
-            if "E:" in changelog:
-                #Get the mint change file for i386
-                os.chdir("/tmp")
-                os.system("wget http://packages.linuxmint.com/dev/" + selected_package + "_" + model.get_value(iter, 4) + "_i386.changes")
-                if os.path.exists("/tmp/" + selected_package + "_" + model.get_value(iter, 4) + "_i386.changes"):
-                    changelog = commands.getoutput("cat /tmp/" + selected_package + "_" + model.get_value(iter, 4) + "_i386.changes")
-                else:
-                    #If there isn't any, get the one for amd64
-                    os.system("wget http://packages.linuxmint.com/dev/" + selected_package + "_" + model.get_value(iter, 4) + "_amd64.changes")
-                    if os.path.exists("/tmp/" + selected_package + "_" + model.get_value(iter, 4) + "_amd64.changes"):
-                        changelog = commands.getoutput("cat /tmp/" + selected_package + "_" + model.get_value(iter, 4) + "_amd64.changes")
-                    else:
-                        #If there isn't any, say no changelog is available
-                        changelog = _("No changelog available")
-            wTree.get_widget("textview_changes").get_buffer().set_text(changelog)
+            # Changelog tab     
+            source_package = model.get_value(iter, 11)       
+            wTree.get_widget("textview_changes").get_buffer().set_text(retrieve_changelog(model.get_value(iter, 11), model.get_value(iter, 7), model.get_value(iter, 4)))
         if (selected_tab == 2):
             # Warning tab
             wTree.get_widget("textview_warnings").get_buffer().set_text(model.get_value(iter, 5))
         if (selected_tab == 3):
             # Extra Info tab
             wTree.get_widget("textview_extra_info").get_buffer().set_text(model.get_value(iter, 6))
-
 
 def switch_page(notebook, page, page_num, Wtree, treeView):
     selection = treeView.get_selection()
@@ -1347,28 +1334,42 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
             wTree.get_widget("textview_description").get_buffer().set_text(model.get_value(iter, 8))
         if (page_num == 1):
             # Changelog tab
-            changelog = commands.getoutput("aptitude changelog " + selected_package)
-            if "E:" in changelog:
-                #Get the mint change file for i386
-                os.chdir("/tmp")
-                os.system("wget http://packages.linuxmint.com/dev/" + selected_package + "_" + model.get_value(iter, 4) + "_i386.changes")
-                if os.path.exists("/tmp/" + selected_package + "_" + model.get_value(iter, 4) + "_i386.changes"):
-                    changelog = commands.getoutput("cat /tmp/" + selected_package + "_" + model.get_value(iter, 4) + "_i386.changes")
-                else:
-                    #If there isn't any, get the one for amd64
-                    os.system("wget http://packages.linuxmint.com/dev/" + selected_package + "_" + model.get_value(iter, 4) + "_amd64.changes")
-                    if os.path.exists("/tmp/" + selected_package + "_" + model.get_value(iter, 4) + "_amd64.changes"):
-                        changelog = commands.getoutput("cat /tmp/" + selected_package + "_" + model.get_value(iter, 4) + "_amd64.changes")
-                    else:
-                        #If there isn't any, say no changelog is available
-                        changelog = _("No changelog available")
-            wTree.get_widget("textview_changes").get_buffer().set_text(changelog)
+            source_package = model.get_value(iter, 11)
+            wTree.get_widget("textview_changes").get_buffer().set_text(retrieve_changelog(model.get_value(iter, 11), model.get_value(iter, 7), model.get_value(iter, 4)))
         if (page_num == 2):
             # Warning tab
             wTree.get_widget("textview_warnings").get_buffer().set_text(model.get_value(iter, 5))
         if (page_num == 3):
             # Extra Info tab
             wTree.get_widget("textview_extra_info").get_buffer().set_text(model.get_value(iter, 6))
+            
+def retrieve_changelog(source_package, level, version):    
+    if (level == 1) or ("mint" in version) or ("mint" in source_package):
+        #Get the mint change file for amd64
+        os.chdir("/tmp")
+        os.system("wget http://packages.linuxmint.com/dev/" + source_package + "_" + version + "_amd64.changes")
+        if os.path.exists("/tmp/" + source_package + "_" + version + "_amd64.changes"):            
+            changelog = commands.getoutput("cat /tmp/" + source_package + "_" + version + "_amd64.changes")            
+            changes = changelog.split("\n")
+            changelog = ""
+            for change in changes:
+                change = change.strip()
+                if change.startswith("*"):
+                    changelog = changelog + change
+        else:                    
+            #If there isn't any, get the one for i386
+            os.system("wget http://packages.linuxmint.com/dev/" + source_package + "_" + version + "_i386.changes")
+            if os.path.exists("/tmp/" + source_package + "_" + version + "_i386.changes"):                
+                changelog = commands.getoutput("cat /tmp/" + source_package + "_" + version + "_i386.changes")
+            else:
+                #If there isn't any, say no changelog is available
+                changelog = _("No changelog available")
+    else:    
+        changelog = commands.getoutput("aptitude changelog " + source_package)
+        #if "E:" in changelog:        
+        #    changelog = _("No changelog available")
+        
+    return changelog
 
 def celldatafunction_checkbox(column, cell, model, iter):
     cell.set_property("activatable", True)
