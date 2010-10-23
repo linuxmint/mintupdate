@@ -506,7 +506,7 @@ class RefreshThread(threading.Thread):
                 if (num_safe > 0):
                     self.statusString = _("%(recommended)d recommended updates available (%(size)s)") % {'recommended':num_safe, 'size':size_to_string(download_size)}
                     if (num_ignored > 0):
-                        self.statusString = _("%(recommended)d recommended updates available, %(ignored)d ignored") % {'recommended':num_safe, 'ignored':num_ignored}
+                        self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
                     self.statusIcon.set_from_file(icon_updates)
                     self.statusIcon.set_tooltip(self.statusString)
                     statusbar.push(context_id, self.statusString)
