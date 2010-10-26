@@ -502,11 +502,22 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, 11, source_package)
                             num_visible = num_visible + 1
 
-                gtk.gdk.threads_enter()
+                gtk.gdk.threads_enter()                
                 if (num_safe > 0):
-                    self.statusString = _("%(recommended)d recommended updates available (%(size)s)") % {'recommended':num_safe, 'size':size_to_string(download_size)}
-                    if (num_ignored > 0):
-                        self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
+                    if (num_safe == 1):
+                        if (num_ignored == 0):
+                            self.statusString = _("1 recommended update available (%(size)s)") % {'size':size_to_string(download_size)}
+                        elif (num_ignored == 1):
+                            self.statusString = _("1 recommended update available (%(size)s), 1 ignored") % {'size':size_to_string(download_size)}
+                        elif (num_ignored > 1):
+                            self.statusString = _("1 recommended update available (%(size)s), %(ignored)d ignored") % {'size':size_to_string(download_size), 'ignored':num_ignored}
+                    else:
+                        if (num_ignored == 0):
+                            self.statusString = _("%(recommended)d recommended updates available (%(size)s)") % {'recommended':num_safe, 'size':size_to_string(download_size)}
+                        elif (num_ignored == 1):
+                            self.statusString = _("%(recommended)d recommended updates available (%(size)s), 1 ignored") % {'recommended':num_safe, 'size':size_to_string(download_size)}                            
+                        elif (num_ignored > 0):
+                            self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
                     self.statusIcon.set_from_file(icon_updates)
                     self.statusIcon.set_tooltip(self.statusString)
                     statusbar.push(context_id, self.statusString)
@@ -1236,8 +1247,11 @@ def quit_cb(widget, window, vpaned, data = None):
         save_window_size(window, vpaned)
     except:
         pass # cause log might already been closed
-    gtk.main_quit()
-    sys.exit(0)
+    # Whatever works best heh :) 
+    pid = os.getpid()    
+    os.system("kill -9 %s &" % pid)
+    #gtk.main_quit()
+    #sys.exit(0)
 
 def info_cb(widget, data = None):
     global log
