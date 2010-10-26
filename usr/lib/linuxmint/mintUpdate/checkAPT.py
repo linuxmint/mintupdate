@@ -68,7 +68,7 @@ try:
     cache.upgrade(dist_upgrade)
     changes = cache.getChanges()
 except Exception, detail:
-    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR"
+    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR"
     print detail
     sys.exit(1)
 
