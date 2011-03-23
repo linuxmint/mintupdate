@@ -71,31 +71,43 @@ class ChangelogRetriever(threading.Thread):
         gtk.gdk.threads_enter()
         self.wTree.get_widget("textview_changes").get_buffer().set_text(_("Downloading changelog..."))  
         gtk.gdk.threads_leave()       
-        
+                    
+        changelog = ""
         if (self.level == 1) or ("mint" in self.version) or ("mint" in self.source_package):
-            #Get the mint change file for amd64
-            os.chdir("/tmp")
-            os.system("wget http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
-            if os.path.exists("/tmp/" + self.source_package + "_" + self.version + "_amd64.changes"):            
-                changelog = commands.getoutput("cat /tmp/" + self.source_package + "_" + self.version + "_amd64.changes")            
-                changes = changelog.split("\n")
-                changelog = ""
+            import urllib2
+            #Get the mint change file for amd64              
+            try:                      
+                url = urllib2.urlopen("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes", None, 30)
+                source = url.read()
+                url.close()
+                changes = source.split("\n")
                 for change in changes:
                     change = change.strip()
                     if change.startswith("*"):
-                        changelog = changelog + change
-            else:                    
-                #If there isn't any, get the one for i386
-                os.system("wget http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")
-                if os.path.exists("/tmp/" + self.source_package + "_" + self.version + "_i386.changes"):                
-                    changelog = commands.getoutput("cat /tmp/" + self.source_package + "_" + self.version + "_i386.changes")
-                else:
-                    #If there isn't any, say no changelog is available
-                    changelog = _("No changelog available")
-        else:    
-            changelog = commands.getoutput("aptitude changelog " + self.source_package)
-            #if "E:" in changelog:        
-            #    changelog = _("No changelog available")
+                        changelog = changelog + change + "\n"
+            except:
+                try:
+                    url = urllib2.urlopen("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes", None, 30)
+                    source = url.read()
+                    url.close()
+                    changes = source.split("\n")
+                    for change in changes:
+                        change = change.strip()
+                        if change.startswith("*"):
+                            changelog = changelog + change + "\n"
+                except:
+                    changelog = _("No changelog available")                
+        else:
+            try:    
+                source = commands.getoutput("aptitude changelog " + self.source_package)
+                changes = source.split("urgency=")[1].split("\n")
+                for change in changes:
+                    change = change.strip()
+                    if change.startswith("*"):
+                        changelog = changelog + change + "\n"
+            except Exception, detail:
+                print detail
+                changelog = _("No changelog available")
                 
         gtk.gdk.threads_enter()                
         self.wTree.get_widget("textview_changes").get_buffer().set_text(changelog)        
