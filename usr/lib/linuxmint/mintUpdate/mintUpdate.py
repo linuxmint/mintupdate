@@ -58,6 +58,49 @@ menuName = _("Update Manager")
 menuGenericName = _("Software Updates")
 menuComment = _("Show and install available updates")
 
+
+class ChangelogRetriever(threading.Thread):
+    def __init__(self, source_package, level, version, wTree):
+        threading.Thread.__init__(self)
+        self.source_package = source_package
+        self.level = level 
+        self.version = version
+        self.wTree = wTree
+        
+    def run(self):         
+        gtk.gdk.threads_enter()
+        self.wTree.get_widget("textview_changes").get_buffer().set_text(_("Downloading changelog..."))  
+        gtk.gdk.threads_leave()       
+        
+        if (self.level == 1) or ("mint" in self.version) or ("mint" in self.source_package):
+            #Get the mint change file for amd64
+            os.chdir("/tmp")
+            os.system("wget http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
+            if os.path.exists("/tmp/" + self.source_package + "_" + self.version + "_amd64.changes"):            
+                changelog = commands.getoutput("cat /tmp/" + self.source_package + "_" + self.version + "_amd64.changes")            
+                changes = changelog.split("\n")
+                changelog = ""
+                for change in changes:
+                    change = change.strip()
+                    if change.startswith("*"):
+                        changelog = changelog + change
+            else:                    
+                #If there isn't any, get the one for i386
+                os.system("wget http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")
+                if os.path.exists("/tmp/" + self.source_package + "_" + self.version + "_i386.changes"):                
+                    changelog = commands.getoutput("cat /tmp/" + self.source_package + "_" + self.version + "_i386.changes")
+                else:
+                    #If there isn't any, say no changelog is available
+                    changelog = _("No changelog available")
+        else:    
+            changelog = commands.getoutput("aptitude changelog " + self.source_package)
+            #if "E:" in changelog:        
+            #    changelog = _("No changelog available")
+                
+        gtk.gdk.threads_enter()                
+        self.wTree.get_widget("textview_changes").get_buffer().set_text(changelog)        
+        gtk.gdk.threads_leave()
+
 class AutomaticRefreshThread(threading.Thread):
     def __init__(self, treeView, statusIcon, wTree):
         threading.Thread.__init__(self)
@@ -1327,41 +1370,17 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
     (model, iter) = selection.get_selected()
     if (iter != None):
         selected_package = model.get_value(iter, 1)
+        description_txt = model.get_value(iter, 8)   
         if (page_num == 0):
             # Description tab
-            wTree.get_widget("textview_description").get_buffer().set_text(model.get_value(iter, 8))
+            wTree.get_widget("textview_description").get_buffer().set_text(description_txt)
         if (page_num == 1):
             # Changelog tab
             source_package = model.get_value(iter, 11)
-            wTree.get_widget("textview_changes").get_buffer().set_text(retrieve_changelog(model.get_value(iter, 11), model.get_value(iter, 7), model.get_value(iter, 4)))        
-            
-def retrieve_changelog(source_package, level, version):    
-    if (level == 1) or ("mint" in version) or ("mint" in source_package):
-        #Get the mint change file for amd64
-        os.chdir("/tmp")
-        os.system("wget http://packages.linuxmint.com/dev/" + source_package + "_" + version + "_amd64.changes")
-        if os.path.exists("/tmp/" + source_package + "_" + version + "_amd64.changes"):            
-            changelog = commands.getoutput("cat /tmp/" + source_package + "_" + version + "_amd64.changes")            
-            changes = changelog.split("\n")
-            changelog = ""
-            for change in changes:
-                change = change.strip()
-                if change.startswith("*"):
-                    changelog = changelog + change
-        else:                    
-            #If there isn't any, get the one for i386
-            os.system("wget http://packages.linuxmint.com/dev/" + source_package + "_" + version + "_i386.changes")
-            if os.path.exists("/tmp/" + source_package + "_" + version + "_i386.changes"):                
-                changelog = commands.getoutput("cat /tmp/" + source_package + "_" + version + "_i386.changes")
-            else:
-                #If there isn't any, say no changelog is available
-                changelog = _("No changelog available")
-    else:    
-        changelog = commands.getoutput("aptitude changelog " + source_package)
-        #if "E:" in changelog:        
-        #    changelog = _("No changelog available")
-        
-    return changelog
+            level = model.get_value(iter, 7)
+            version = model.get_value(iter, 4)
+            retriever = ChangelogRetriever(source_package, level, version, wTree)
+            retriever.start()
 
 def celldatafunction_checkbox(column, cell, model, iter):
     cell.set_property("activatable", True)
