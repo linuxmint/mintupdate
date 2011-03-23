@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <glade-interface>
   <!-- interface-requires gtk+ 2.16 -->
   <!-- interface-naming-policy toplevel-contextual -->
@@ -200,78 +200,20 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkVBox" id="vbox17">
-                        <property name="visible">True</property>
-                        <property name="border_width">6</property>
-                        <child>
-                          <widget class="GtkScrolledWindow" id="scrolledwindow4">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="hscrollbar_policy">automatic</property>
-                            <property name="vscrollbar_policy">automatic</property>
-                            <property name="shadow_type">in</property>
-                            <child>
-                              <widget class="GtkTextView" id="textview_warnings">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                              </widget>
-                            </child>
-                          </widget>
-                          <packing>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="position">2</property>
-                      </packing>
+                      <placeholder/>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label30">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes" context="yes">Warnings</property>
-                      </widget>
+                      <placeholder/>
                       <packing>
-                        <property name="position">2</property>
-                        <property name="tab_fill">False</property>
                         <property name="type">tab</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkVBox" id="vbox16">
-                        <property name="visible">True</property>
-                        <property name="border_width">6</property>
-                        <child>
-                          <widget class="GtkScrolledWindow" id="scrolledwindow5">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="hscrollbar_policy">automatic</property>
-                            <property name="vscrollbar_policy">automatic</property>
-                            <property name="shadow_type">in</property>
-                            <child>
-                              <widget class="GtkTextView" id="textview_extra_info">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                              </widget>
-                            </child>
-                          </widget>
-                          <packing>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="position">3</property>
-                      </packing>
+                      <placeholder/>
                     </child>
                     <child>
-                      <widget class="GtkLabel" id="label31">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes" context="yes">Extra Info</property>
-                      </widget>
+                      <placeholder/>
                       <packing>
-                        <property name="position">3</property>
-                        <property name="tab_fill">False</property>
                         <property name="type">tab</property>
                       </packing>
                     </child>
@@ -949,7 +891,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                     <property name="adjustment">5 0 59 1 10 10</property>
                   </widget>
                   <packing>
@@ -979,7 +921,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                     <property name="adjustment">0 0 24 1 10 10</property>
                   </widget>
                   <packing>
@@ -1008,7 +950,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
                     <property name="adjustment">0 0 365 1 10 10</property>
                   </widget>
                   <packing>
@@ -1087,7 +1029,7 @@
                       <widget class="GtkSpinButton" id="spin_delay">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                         <property name="adjustment">0 0 3600 1 10 10</property>
                       </widget>
                       <packing>
@@ -1124,7 +1066,7 @@
                       <widget class="GtkEntry" id="text_ping">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
@@ -1323,7 +1265,7 @@
                       <widget class="GtkEntry" id="http_proxy_port">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                         <property name="width_chars">5</property>
                       </widget>
                       <packing>
@@ -1338,7 +1280,7 @@
                       <widget class="GtkEntry" id="http_proxy">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                         <property name="width_chars">40</property>
                       </widget>
                       <packing>
@@ -1353,7 +1295,7 @@
                       <widget class="GtkEntry" id="ftp_proxy_port">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                         <property name="width_chars">5</property>
                       </widget>
                       <packing>
@@ -1368,7 +1310,7 @@
                       <widget class="GtkEntry" id="ftp_proxy">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                         <property name="width_chars">40</property>
                       </widget>
                       <packing>
@@ -1405,7 +1347,7 @@
                       <widget class="GtkEntry" id="gopher_proxy">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                         <property name="width_chars">40</property>
                       </widget>
                       <packing>
@@ -1460,7 +1402,7 @@
                       <widget class="GtkEntry" id="gopher_proxy_port">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">&#x25CF;</property>
+                        <property name="invisible_char">●</property>
                         <property name="width_chars">5</property>
                       </widget>
                       <packing>
@@ -2142,7 +2084,6 @@
     <property name="type_hint">dialog</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
-    <property name="has_separator">False</property>
     <property name="program_name">mintUpdate</property>
     <property name="comments" translatable="yes" context="yes">Update Manager for Linux Mint</property>
     <property name="license" translatable="yes" context="yes">		    GNU GENERAL PUBLIC LICENSE

@@ -1312,31 +1312,15 @@ def save_window_size(window, vpaned):
     config['dimensions']['pane_position'] = vpaned.get_position()
     config.write()
 
-def display_selected_package(selection, wTree):
-    # clear tabs first
+def display_selected_package(selection, wTree):    
     wTree.get_widget("textview_description").get_buffer().set_text("")
-    wTree.get_widget("textview_changes").get_buffer().set_text("")
-    wTree.get_widget("textview_warnings").get_buffer().set_text("")
-    wTree.get_widget("textview_extra_info").get_buffer().set_text("")
-
-    # now do some magic
+    wTree.get_widget("textview_changes").get_buffer().set_text("")            
     (model, iter) = selection.get_selected()
     if (iter != None):
         selected_package = model.get_value(iter, 1)
-        selected_tab = wTree.get_widget("notebook_details").get_current_page()
-        if (selected_tab == 0):
-            # Description tab
-            wTree.get_widget("textview_description").get_buffer().set_text(model.get_value(iter, 8))
-        if (selected_tab == 1):
-            # Changelog tab     
-            source_package = model.get_value(iter, 11)       
-            wTree.get_widget("textview_changes").get_buffer().set_text(retrieve_changelog(model.get_value(iter, 11), model.get_value(iter, 7), model.get_value(iter, 4)))
-        if (selected_tab == 2):
-            # Warning tab
-            wTree.get_widget("textview_warnings").get_buffer().set_text(model.get_value(iter, 5))
-        if (selected_tab == 3):
-            # Extra Info tab
-            wTree.get_widget("textview_extra_info").get_buffer().set_text(model.get_value(iter, 6))
+        description_txt = model.get_value(iter, 8)                
+        wTree.get_widget("notebook_details").set_current_page(0)
+        wTree.get_widget("textview_description").get_buffer().set_text(description_txt)
 
 def switch_page(notebook, page, page_num, Wtree, treeView):
     selection = treeView.get_selection()
@@ -1349,13 +1333,7 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
         if (page_num == 1):
             # Changelog tab
             source_package = model.get_value(iter, 11)
-            wTree.get_widget("textview_changes").get_buffer().set_text(retrieve_changelog(model.get_value(iter, 11), model.get_value(iter, 7), model.get_value(iter, 4)))
-        if (page_num == 2):
-            # Warning tab
-            wTree.get_widget("textview_warnings").get_buffer().set_text(model.get_value(iter, 5))
-        if (page_num == 3):
-            # Extra Info tab
-            wTree.get_widget("textview_extra_info").get_buffer().set_text(model.get_value(iter, 6))
+            wTree.get_widget("textview_changes").get_buffer().set_text(retrieve_changelog(model.get_value(iter, 11), model.get_value(iter, 7), model.get_value(iter, 4)))        
             
 def retrieve_changelog(source_package, level, version):    
     if (level == 1) or ("mint" in version) or ("mint" in source_package):
@@ -1608,9 +1586,7 @@ try:
     wTree.get_widget("tool_select_all").set_label(_("Select All"))
     wTree.get_widget("tool_clear").set_label(_("Clear"))
     wTree.get_widget("label9").set_text(_("Description"))
-    wTree.get_widget("label8").set_text(_("Changelog"))
-    wTree.get_widget("label30").set_text(_("Warnings"))
-    wTree.get_widget("label31").set_text(_("Extra Info"))
+    wTree.get_widget("label8").set_text(_("Changelog"))    
 
     wTree.get_widget("label_error_detail").set_text("")
     wTree.get_widget("hbox_error").hide()
