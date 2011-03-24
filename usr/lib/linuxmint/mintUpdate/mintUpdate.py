@@ -628,7 +628,7 @@ def change_icon(widget, button, prefs_tree, treeview, statusIcon, wTree):
     global icon_error
     global icon_unknown
     global icon_apply
-    dialog = gtk.FileChooserDialog("mintUpdate", None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+    dialog = gtk.FileChooserDialog(_("Update Manager"), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK))
     filter1 = gtk.FileFilter()
     filter1.set_name("*.*")
     filter1.add_pattern("*")
@@ -869,7 +869,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
     prefs_tree = gtk.glade.XML(gladefile, "window2")
-    prefs_tree.get_widget("window2").set_title(_("Preferences") + " - mintUpdate")
+    prefs_tree.get_widget("window2").set_title(_("Preferences") + " - " + _("Update Manager"))
 
     prefs_tree.get_widget("label37").set_text(_("Levels"))
     prefs_tree.get_widget("label36").set_text(_("Auto-Refresh"))
@@ -890,7 +890,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label58").set_text(_("Upstream"))
     prefs_tree.get_widget("label59").set_text(_("Upstream"))
     prefs_tree.get_widget("label81").set_text(_("Refresh the list of updates every:"))
-    prefs_tree.get_widget("label82").set_text("<i>" + _("Note: The list only gets refreshed while the mintUpdate window is closed (system tray mode).") + "</i>")
+    prefs_tree.get_widget("label82").set_text("<i>" + _("Note: The list only gets refreshed while the update manager window is closed (system tray mode).") + "</i>")
     prefs_tree.get_widget("label82").set_use_markup(True)
     prefs_tree.get_widget("label83").set_text(_("Update Method"))
     prefs_tree.get_widget("label84").set_text("<i>" + _("Note: The dist-upgrade option, in addition to performing the function of upgrade, also intelligently handles changing dependencies with new versions of packages. Without this option, only the latest versions of any out-of-date packages on your system are installed. Packages that are not yet installed don't get installed automatically and newer versions of packages which dependencies require such installations are simply ignored.") + "</i>")
@@ -1017,7 +1017,7 @@ def open_history(widget):
     treeview_update = wTree.get_widget("treeview_history")
     wTree.get_widget("window4").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
 
-    wTree.get_widget("window4").set_title(_("History of updates") + " - mintUpdate")
+    wTree.get_widget("window4").set_title(_("History of updates") + " - " + _("Update Manager"))
 
     # the treeview
     column1 = gtk.TreeViewColumn(_("Date"), gtk.CellRendererText(), text=1)
@@ -1083,7 +1083,7 @@ def open_information(widget):
 
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
     prefs_tree = gtk.glade.XML(gladefile, "window3")
-    prefs_tree.get_widget("window3").set_title(_("Information") + " - mintUpdate")
+    prefs_tree.get_widget("window3").set_title(_("Information") + " - " + _("Update Manager"))
     prefs_tree.get_widget("window3").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
     prefs_tree.get_widget("close_button").connect("clicked", info_cancel, prefs_tree)
     prefs_tree.get_widget("label1").set_text(_("Information"))
@@ -1101,7 +1101,7 @@ def open_information(widget):
 
 def open_about(widget):
     dlg = gtk.AboutDialog()
-    dlg.set_title(_("About") + " - mintUpdate")
+    dlg.set_title(_("About") + " - " + _("Update Manager"))
     dlg.set_program_name("mintUpdate")
     dlg.set_comments(_("Update Manager"))
     try:
