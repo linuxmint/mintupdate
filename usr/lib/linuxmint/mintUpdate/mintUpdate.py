@@ -13,6 +13,7 @@ try:
     import time
     import gettext
     import fnmatch
+    import urllib2
     from user import home
     sys.path.append('/usr/lib/linuxmint/common')
     from configobj import ConfigObj
@@ -66,15 +67,14 @@ class ChangelogRetriever(threading.Thread):
         self.level = level 
         self.version = version
         self.wTree = wTree
-        
+           
     def run(self):         
         gtk.gdk.threads_enter()
         self.wTree.get_widget("textview_changes").get_buffer().set_text(_("Downloading changelog..."))  
         gtk.gdk.threads_leave()       
                     
-        changelog = ""
-        if (self.level == 1) or ("mint" in self.version) or ("mint" in self.source_package):
-            import urllib2
+        changelog = ""        
+        if (self.level == 1) or ("mint" in self.version) or ("mint" in self.source_package):                        
             #Get the mint change file for amd64              
             try:                      
                 url = urllib2.urlopen("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes", None, 30)
@@ -97,9 +97,9 @@ class ChangelogRetriever(threading.Thread):
                             changelog = changelog + change + "\n"
                 except:
                     changelog = _("No changelog available")                
-        else:
-            try:    
-                source = commands.getoutput("aptitude changelog " + self.source_package)
+        else:            
+            try:
+                source = commands.getoutput("aptitude changelog " + self.source_package)                    
                 changes = source.split("urgency=")[1].split("\n")
                 for change in changes:
                     change = change.strip()
@@ -107,7 +107,7 @@ class ChangelogRetriever(threading.Thread):
                         changelog = changelog + change + "\n"
             except Exception, detail:
                 print detail
-                changelog = _("No changelog available")
+                changelog = _("No changelog available") + "\n" + _("Click on Edit->Software Sources and tick the 'Source code' option to enable access to the changelogs")
                 
         gtk.gdk.threads_enter()                
         self.wTree.get_widget("textview_changes").get_buffer().set_text(changelog)        
@@ -1187,7 +1187,7 @@ def activate_icon_cb(widget, data, wTree, pid):
                 log.close()
             except:
                 pass #cause we might have closed it already
-            os.system("gksudo --message \"" + _("Please enter your password to start mintUpdate") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show " + str(pid) + " &")
+            os.system("gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show " + str(pid) + " &")
         else:
             wTree.get_widget("window1").show()
             app_hidden = False
@@ -1225,11 +1225,10 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
             # Description tab
             wTree.get_widget("textview_description").get_buffer().set_text(description_txt)
         if (page_num == 1):
-            # Changelog tab
-            source_package = model.get_value(iter, 11)
+            # Changelog tab            
             level = model.get_value(iter, 7)
             version = model.get_value(iter, 4)
-            retriever = ChangelogRetriever(source_package, level, version, wTree)
+            retriever = ChangelogRetriever(selected_package, level, version, wTree)
             retriever.start()
 
 def celldatafunction_checkbox(column, cell, model, iter):
