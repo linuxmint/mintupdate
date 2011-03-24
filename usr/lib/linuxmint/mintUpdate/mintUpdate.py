@@ -311,16 +311,6 @@ class RefreshThread(threading.Thread):
             model.set_sort_column_id( 7, gtk.SORT_ASCENDING )         
 
             prefs = read_configuration()
-            proxy={}
-            if (prefs["use_proxy"]):
-                if (prefs["http_host"] != "" and prefs["http_port"] != ""):
-                    proxy["http"] = prefs["http_host"] + ":" + prefs["http_port"]
-                if (prefs["ftp_host"] != "" and prefs["ftp_port"] != ""):
-                    proxy["ftp"] = prefs["ftp_host"] + ":" + prefs["ftp_port"]
-                if (prefs["gopher_host"] != "" and prefs["gopher_port"] != ""):
-                    proxy["gopher"] = prefs["gopher_host"] + ":" + prefs["gopher_port"]
-            else:
-                proxy = None        
             
             # Check to see if no other APT process is running
             p1 = Popen(['ps', '-U', 'root', '-o', 'comm'], stdout=PIPE)
@@ -719,19 +709,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     config['icons']['error'] = icon_error
     config['icons']['unknown'] = icon_unknown
     config['icons']['apply'] = icon_apply
-
-    #Write proxy config
-    config['proxy'] = {}
-    config['proxy']['use_proxy'] = prefs_tree.get_widget("check_proxy").get_active()
-    config['proxy']['same_proxy_for_all_protocols'] = prefs_tree.get_widget("check_proxy_same").get_active()
-    config['proxy']['http_host'] = prefs_tree.get_widget("http_proxy").get_text()
-    config['proxy']['ftp_host'] = prefs_tree.get_widget("ftp_proxy").get_text()
-    config['proxy']['gopher_host'] = prefs_tree.get_widget("gopher_proxy").get_text()
-    config['proxy']['http_port'] = prefs_tree.get_widget("http_proxy_port").get_text()
-    config['proxy']['ftp_port'] = prefs_tree.get_widget("ftp_proxy_port").get_text()
-    config['proxy']['gopher_port'] = prefs_tree.get_widget("gopher_proxy_port").get_text()
-
-
+    
     #Write blacklisted packages
     ignored_list = open("/etc/linuxmint/mintupdate.ignored", "w")
     treeview_blacklist = prefs_tree.get_widget("treeview_blacklist")
@@ -742,14 +720,6 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
         iter = model.iter_next(iter)
         ignored_list.writelines(pkg + "\n")
     ignored_list.close()
-
-    config['proxy']['same_proxy_for_all_protocols'] = prefs_tree.get_widget("check_proxy_same").get_active()
-    config['proxy']['http_host'] = prefs_tree.get_widget("http_proxy").get_text()
-    config['proxy']['ftp_host'] = prefs_tree.get_widget("ftp_proxy").get_text()
-    config['proxy']['gopher_host'] = prefs_tree.get_widget("gopher_proxy").get_text()
-    config['proxy']['http_port'] = prefs_tree.get_widget("http_proxy_port").get_text()
-    config['proxy']['ftp_port'] = prefs_tree.get_widget("ftp_proxy_port").get_text()
-    config['proxy']['gopher_port'] = prefs_tree.get_widget("gopher_proxy_port").get_text()
 
     config.write()
 
@@ -841,27 +811,7 @@ def read_configuration():
         prefs["level2_safe"] = True
         prefs["level3_safe"] = True
         prefs["level4_safe"] = False
-        prefs["level5_safe"] = False
-
-    #Read proxy config
-    try:
-        prefs["use_proxy"] = (config['proxy']['use_proxy'] == "True")
-        prefs["same_proxy_for_all_protocols"] = (config['proxy']['same_proxy_for_all_protocols'] == "True")
-        prefs["http_host"] = config['proxy']['http_host']
-        prefs["ftp_host"] = config['proxy']['ftp_host']
-        prefs["gopher_host"] = config['proxy']['gopher_host']
-        prefs["http_port"] = config['proxy']['http_port']
-        prefs["ftp_port"] = config['proxy']['ftp_port']
-        prefs["gopher_port"] = config['proxy']['gopher_port']
-    except:
-        prefs["use_proxy"] = False
-        prefs["same_proxy_for_all_protocols"] = False
-        prefs["http_host"] = ""
-        prefs["ftp_host"] = ""
-        prefs["gopher_host"] = ""
-        prefs["http_port"] = ""
-        prefs["ftp_port"] = ""
-        prefs["gopher_port"] = ""
+        prefs["level5_safe"] = False    
 
     #Read columns config
     try:
@@ -957,15 +907,6 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label3").set_text(_("Applying updates"))
     prefs_tree.get_widget("label6").set_text(_("Startup delay (in seconds):"))
     prefs_tree.get_widget("label7").set_text(_("Internet check (domain name or IP address):"))
-    prefs_tree.get_widget("label10").set_text(_("Proxy"))
-    prefs_tree.get_widget("check_proxy").set_label(_("Manual proxy configuration"))
-    prefs_tree.get_widget("check_proxy_same").set_label(_("Use the same proxy for all protocols"))
-    prefs_tree.get_widget("label11").set_text(_("HTTP Proxy:"))
-    prefs_tree.get_widget("label12").set_text(_("FTP Proxy:"))
-    prefs_tree.get_widget("label13").set_text(_("Gopher Proxy:"))
-    prefs_tree.get_widget("label14").set_text(_("Port:"))
-    prefs_tree.get_widget("label15").set_text(_("Port:"))
-    prefs_tree.get_widget("label16").set_text(_("Port:"))
     prefs_tree.get_widget("label1").set_text(_("Ignored packages"))
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Satisfy changing dependencies using dist-upgrade?"))
@@ -1014,29 +955,6 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("image_error").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_error, 24, 24))
     prefs_tree.get_widget("image_unknown").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_unknown, 24, 24))
     prefs_tree.get_widget("image_apply").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_apply, 24, 24))
-
-    prefs_tree.get_widget("check_proxy").set_active(prefs["use_proxy"])
-    prefs_tree.get_widget("check_proxy_same").set_active(prefs["same_proxy_for_all_protocols"])
-    prefs_tree.get_widget("check_proxy_same").set_sensitive(prefs["use_proxy"])
-    prefs_tree.get_widget("http_proxy").set_sensitive(prefs["use_proxy"])
-    prefs_tree.get_widget("http_proxy_port").set_sensitive(prefs["use_proxy"])
-    prefs_tree.get_widget("ftp_proxy").set_sensitive(prefs["use_proxy"] and not prefs["same_proxy_for_all_protocols"])
-    prefs_tree.get_widget("ftp_proxy_port").set_sensitive(prefs["use_proxy"] and not prefs["same_proxy_for_all_protocols"])
-    prefs_tree.get_widget("gopher_proxy").set_sensitive(prefs["use_proxy"] and not prefs["same_proxy_for_all_protocols"])
-    prefs_tree.get_widget("gopher_proxy_port").set_sensitive(prefs["use_proxy"] and not prefs["same_proxy_for_all_protocols"])
-    prefs_tree.get_widget("http_proxy").set_text(prefs["http_host"])
-    prefs_tree.get_widget("http_proxy_port").set_text(prefs["http_port"])
-    prefs_tree.get_widget("ftp_proxy").set_text(prefs["ftp_host"])
-    prefs_tree.get_widget("ftp_proxy_port").set_text(prefs["ftp_port"])
-    prefs_tree.get_widget("gopher_proxy").set_text(prefs["gopher_host"])
-    prefs_tree.get_widget("gopher_proxy_port").set_text(prefs["gopher_port"])
-
-    prefs_tree.get_widget("check_proxy").connect("toggled", toggle_check_proxy, prefs_tree)
-    prefs_tree.get_widget("check_proxy_same").connect("toggled", toggle_check_proxy_same, prefs_tree)
-
-    prefs_tree.get_widget("http_proxy").connect("changed", update_other_proxy_hosts, prefs_tree)
-    prefs_tree.get_widget("http_proxy_port").connect("changed", update_other_proxy_ports, prefs_tree)
-
 
     # Blacklisted packages
     treeview_blacklist = prefs_tree.get_widget("treeview_blacklist")
@@ -1091,45 +1009,6 @@ def remove_blacklisted_package(widget, treeview_blacklist):
     if (iter != None):
         pkg = model.get_value(iter, 0)
         model.remove(iter)
-
-def update_other_proxy_hosts(widget, prefs_tree):
-    if (prefs_tree.get_widget("check_proxy_same").get_active()):
-        prefs_tree.get_widget("ftp_proxy").set_text(widget.get_text())
-        prefs_tree.get_widget("gopher_proxy").set_text(widget.get_text())
-
-def update_other_proxy_ports(widget, prefs_tree):
-    if (prefs_tree.get_widget("check_proxy_same").get_active()):
-        prefs_tree.get_widget("ftp_proxy_port").set_text(widget.get_text())
-        prefs_tree.get_widget("gopher_proxy_port").set_text(widget.get_text())
-
-def toggle_check_proxy(widget, prefs_tree):
-    use_proxy = widget.get_active()
-    same_proxy_for_all_protocols = prefs_tree.get_widget("check_proxy_same").get_active()
-    prefs_tree.get_widget("check_proxy").set_active(use_proxy)
-    prefs_tree.get_widget("check_proxy_same").set_sensitive(use_proxy)
-    prefs_tree.get_widget("http_proxy").set_sensitive(use_proxy)
-    prefs_tree.get_widget("http_proxy_port").set_sensitive(use_proxy)
-    prefs_tree.get_widget("ftp_proxy").set_sensitive(use_proxy and not same_proxy_for_all_protocols)
-    prefs_tree.get_widget("ftp_proxy_port").set_sensitive(use_proxy and not same_proxy_for_all_protocols)
-    prefs_tree.get_widget("gopher_proxy").set_sensitive(use_proxy and not same_proxy_for_all_protocols)
-    prefs_tree.get_widget("gopher_proxy_port").set_sensitive(use_proxy and not same_proxy_for_all_protocols)
-
-def toggle_check_proxy_same(widget, prefs_tree):
-    use_proxy = prefs_tree.get_widget("check_proxy").get_active()
-    same_proxy_for_all_protocols = widget.get_active()
-    prefs_tree.get_widget("check_proxy").set_active(use_proxy)
-    prefs_tree.get_widget("check_proxy_same").set_sensitive(use_proxy)
-    prefs_tree.get_widget("http_proxy").set_sensitive(use_proxy)
-    prefs_tree.get_widget("http_proxy_port").set_sensitive(use_proxy)
-    prefs_tree.get_widget("ftp_proxy").set_sensitive(use_proxy and not same_proxy_for_all_protocols)
-    prefs_tree.get_widget("ftp_proxy_port").set_sensitive(use_proxy and not same_proxy_for_all_protocols)
-    prefs_tree.get_widget("gopher_proxy").set_sensitive(use_proxy and not same_proxy_for_all_protocols)
-    prefs_tree.get_widget("gopher_proxy_port").set_sensitive(use_proxy and not same_proxy_for_all_protocols)
-    if (same_proxy_for_all_protocols):
-        prefs_tree.get_widget("ftp_proxy").set_text(prefs_tree.get_widget("http_proxy").get_text())
-        prefs_tree.get_widget("ftp_proxy_port").set_text(prefs_tree.get_widget("http_proxy_port").get_text())
-        prefs_tree.get_widget("gopher_proxy").set_text(prefs_tree.get_widget("http_proxy").get_text())
-        prefs_tree.get_widget("gopher_proxy_port").set_text(prefs_tree.get_widget("http_proxy_port").get_text())
 
 def open_history(widget):
     #Set the Glade file
@@ -1684,24 +1563,13 @@ try:
             wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
             app_hidden = False
 
-    if os.getuid() != 0 :
-        proxy={}
-        if (prefs["use_proxy"]):
-            if (prefs["http_host"] != "" and prefs["http_port"] != ""):
-                proxy["http"] = prefs["http_host"] + ":" + prefs["http_port"]
-            if (prefs["ftp_host"] != "" and prefs["ftp_port"] != ""):
-                proxy["ftp"] = prefs["ftp_host"] + ":" + prefs["ftp_port"]
-            if (prefs["gopher_host"] != "" and prefs["gopher_port"] != ""):
-                proxy["gopher"] = prefs["gopher_host"] + ":" + prefs["gopher_port"]
-        else:
-            proxy = None
-
+    if os.getuid() != 0 :        
         #test the network connection to delay mintUpdate in case we're not yet connected
         log.writelines("++ Testing initial connection\n")
         log.flush()
         try:
             from urllib import urlopen
-            url=urlopen("http://google.com", None, proxy)
+            url=urlopen("http://google.com")
             url.read()
             url.close()
             log.writelines("++ Connection to the Internet successful (tried to read http://www.google.com)\n")
