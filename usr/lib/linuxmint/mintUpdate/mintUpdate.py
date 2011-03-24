@@ -308,22 +308,7 @@ class RefreshThread(threading.Thread):
             gtk.gdk.threads_leave()
 
             model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize, sourcePackage)
-            model.set_sort_column_id( 7, gtk.SORT_ASCENDING )
-
-            # Find the temp dir
-            if os.getuid() == 0 :
-                rulesDir = "/usr/lib/linuxmint/mintUpdate/"
-            else:
-                rulesDir = home + "/.linuxmint/mintUpdate/"
-
-            # Make tmp folder
-            os.system("mkdir -p " + rulesDir)
-
-            # Checking the connection to the Internet
-            gtk.gdk.threads_enter()
-            statusbar.push(context_id, _("Checking the connection to the Internet..."))
-            wTree.get_widget("vpaned1").set_position(vpaned_position)
-            gtk.gdk.threads_leave()
+            model.set_sort_column_id( 7, gtk.SORT_ASCENDING )         
 
             prefs = read_configuration()
             proxy={}
@@ -335,71 +320,8 @@ class RefreshThread(threading.Thread):
                 if (prefs["gopher_host"] != "" and prefs["gopher_port"] != ""):
                     proxy["gopher"] = prefs["gopher_host"] + ":" + prefs["gopher_port"]
             else:
-                proxy = None
-
-
-            try:
-                from urllib import urlopen
-                url=urlopen("http://google.com", None, proxy)
-                url.read()
-                url.close()
-                log.writelines("++ Connection to the Internet successful (tried to read http://www.google.com)\n")
-                log.flush()
-            except Exception, detail:
-                print detail
-                if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):
-                    gtk.gdk.threads_enter()
-                    self.statusIcon.set_from_file(icon_unknown)
-                    self.statusIcon.set_tooltip(_("Could not connect to the Internet"))
-                    log.writelines("-- No connection found (tried to read http://www.google.com and to ping " + prefs["ping_domain"] + ")\n")
-                    log.flush()
-                    #self.statusIcon.set_blinking(False)
-                    self.wTree.get_widget("window1").window.set_cursor(None)
-                    self.wTree.get_widget("window1").set_sensitive(True)
-                    statusbar.push(context_id, _("Could not connect to the Internet"))
-                    gtk.gdk.threads_leave()
-                    return False
-                else:
-                    log.writelines("++ Connection found - checking for updates\n")
-                    log.flush()
-
-            # Download rules file
-            gtk.gdk.threads_enter()
-            statusbar.push(context_id, _("Downloading safety level rules..."))
-            wTree.get_widget("vpaned1").set_position(vpaned_position)
-            gtk.gdk.threads_leave()
-
-            try:
-                from urllib import urlopen
-                outfile=open(rulesDir + "rules.tmp", "w")
-                url=urlopen("http://packages.linuxmint.com/rules", None, proxy)
-                outfile.write(url.read())
-                url.close()
-                outfile.close()
-                numlines = int(commands.getoutput("cat " + rulesDir + "rules.tmp | wc -l"))
-                if numlines > 0:
-                    log.writelines("++ Successfully downloaded new safety rules using proxy: " + str(proxy) + "\n")
-                    os.system("cp " + rulesDir + "rules.tmp " + rulesDir + "rules")
-                else:
-                    log.writelines("-- Failed to download new safety rules using proxy: " + str(proxy) + "\n")
-                log.flush()
-            except Exception, e:
-                log.writelines("-- Failed to download new safety rules: " + str(e) + " " + str(proxy)+ "\n")
-                log.flush()
-                print "Failed to download new safety rules: " + str(e) + " " + str(proxy)+ "\n"
-
-            if (not os.path.exists(rulesDir + "rules")):
-                gtk.gdk.threads_enter()
-                self.statusIcon.set_from_file(icon_unknown)
-                self.statusIcon.set_tooltip(_("Could not download safety rules"))
-                log.writelines("-- Could not download safety rules\n")
-                log.flush()
-                self.wTree.get_widget("window1").window.set_cursor(None)
-                self.wTree.get_widget("window1").set_sensitive(True)
-                statusbar.push(context_id, _("Could not download safety rules"))
-                gtk.gdk.threads_leave()
-                return False
-
+                proxy = None        
+            
             # Check to see if no other APT process is running
             p1 = Popen(['ps', '-U', 'root', '-o', 'comm'], stdout=PIPE)
             p = p1.communicate()[0]
@@ -430,7 +352,15 @@ class RefreshThread(threading.Thread):
                 updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\"")
             else:
                 updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic | grep \"###\"")
-            updates = string.split(updates, "\n")
+           
+            # Look for mintupdate
+            if ("UPDATE###mintupdate###" in updates):                
+                new_mintupdate = True
+            else:
+                new_mintupdate = False
+           
+            updates = string.split(updates, "\n")                            
+                
             # Look at the packages one by one
             list_of_packages = ""
             num_visible = 0
@@ -497,7 +427,7 @@ class RefreshThread(threading.Thread):
                         level = 3 # Level 3 by default
                         extraInfo = ""
                         warning = ""
-                        rulesFile = open(rulesDir + "rules","r")
+                        rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
                         rules = rulesFile.readlines()
                         goOn = True
                         foundPackageRule = False # whether we found a rule with the exact package name or not
@@ -533,58 +463,87 @@ class RefreshThread(threading.Thread):
                         rulesFile.close()
 
                         level = int(level)
-                        if (prefs["level" + str(level) + "_visible"]):
-                            list_of_packages = list_of_packages + " " + package
-                            iter = model.insert_before(None, None)
-                            if (prefs["level" + str(level) + "_safe"]):
-                                model.set_value(iter, 0, "true")
-                                model.row_changed(model.get_path(iter), iter)
-                                num_safe = num_safe + 1
-                                download_size = download_size + size
+                        if (prefs["level" + str(level) + "_visible"]):                            
+                            if (new_mintupdate):
+                                if (package == "mintupdate"):
+                                    list_of_packages = list_of_packages + " " + package
+                                    iter = model.insert_before(None, None)
+                                    model.set_value(iter, 0, "true")
+                                    model.row_changed(model.get_path(iter), iter)
+                                    model.set_value(iter, 1, package)
+                                    model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
+                                    model.set_value(iter, 3, oldVersion)
+                                    model.set_value(iter, 4, newVersion)
+                                    model.set_value(iter, 5, warning)
+                                    model.set_value(iter, 6, extraInfo)
+                                    model.set_value(iter, 7, str(level))
+                                    model.set_value(iter, 8, description)
+                                    model.set_value(iter, 9, size)
+                                    model.set_value(iter, 10, strSize)
+                                    model.set_value(iter, 11, source_package)                            
+                                    num_visible = num_visible + 1
+                                                                                                   
+                                #else:
+                                #    model.set_value(iter, 0, "false")                                    
                             else:
-                                model.set_value(iter, 0, "false")
+                                list_of_packages = list_of_packages + " " + package
+                                iter = model.insert_before(None, None)
+                                if (prefs["level" + str(level) + "_safe"]):
+                                    model.set_value(iter, 0, "true")                            
+                                    num_safe = num_safe + 1
+                                    download_size = download_size + size
+                                else:
+                                    model.set_value(iter, 0, "false") 
+                                                                                  
                                 model.row_changed(model.get_path(iter), iter)
-                            model.set_value(iter, 1, package)
-                            model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
-                            model.set_value(iter, 3, oldVersion)
-                            model.set_value(iter, 4, newVersion)
-                            model.set_value(iter, 5, warning)
-                            model.set_value(iter, 6, extraInfo)
-                            model.set_value(iter, 7, str(level))
-                            model.set_value(iter, 8, description)
-                            model.set_value(iter, 9, size)
-                            model.set_value(iter, 10, strSize)
-                            model.set_value(iter, 11, source_package)
-                            num_visible = num_visible + 1
+                                model.set_value(iter, 1, package)
+                                model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
+                                model.set_value(iter, 3, oldVersion)
+                                model.set_value(iter, 4, newVersion)
+                                model.set_value(iter, 5, warning)
+                                model.set_value(iter, 6, extraInfo)
+                                model.set_value(iter, 7, str(level))
+                                model.set_value(iter, 8, description)
+                                model.set_value(iter, 9, size)
+                                model.set_value(iter, 10, strSize)
+                                model.set_value(iter, 11, source_package)                            
+                                num_visible = num_visible + 1
 
-                gtk.gdk.threads_enter()                
-                if (num_safe > 0):
-                    if (num_safe == 1):
-                        if (num_ignored == 0):
-                            self.statusString = _("1 recommended update available (%(size)s)") % {'size':size_to_string(download_size)}
-                        elif (num_ignored == 1):
-                            self.statusString = _("1 recommended update available (%(size)s), 1 ignored") % {'size':size_to_string(download_size)}
-                        elif (num_ignored > 1):
-                            self.statusString = _("1 recommended update available (%(size)s), %(ignored)d ignored") % {'size':size_to_string(download_size), 'ignored':num_ignored}
-                    else:
-                        if (num_ignored == 0):
-                            self.statusString = _("%(recommended)d recommended updates available (%(size)s)") % {'recommended':num_safe, 'size':size_to_string(download_size)}
-                        elif (num_ignored == 1):
-                            self.statusString = _("%(recommended)d recommended updates available (%(size)s), 1 ignored") % {'recommended':num_safe, 'size':size_to_string(download_size)}                            
-                        elif (num_ignored > 0):
-                            self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
+                gtk.gdk.threads_enter()  
+                if (new_mintupdate):
+                    self.statusString = _("A new version of the update manager is available")
                     self.statusIcon.set_from_file(icon_updates)
                     self.statusIcon.set_tooltip(self.statusString)
                     statusbar.push(context_id, self.statusString)
-                    log.writelines("++ Found " + str(num_safe) + " recommended software updates\n")
+                    log.writelines("++ Found a new version of mintupdate\n")
                     log.flush()
                 else:
-                    self.statusIcon.set_from_file(icon_up2date)
-                    self.statusIcon.set_tooltip(_("Your system is up to date"))
-                    statusbar.push(context_id, _("Your system is up to date"))
-                    log.writelines("++ System is up to date\n")
-                    log.flush()
-
+                    if (num_safe > 0):
+                        if (num_safe == 1):
+                            if (num_ignored == 0):
+                                self.statusString = _("1 recommended update available (%(size)s)") % {'size':size_to_string(download_size)}
+                            elif (num_ignored == 1):
+                                self.statusString = _("1 recommended update available (%(size)s), 1 ignored") % {'size':size_to_string(download_size)}
+                            elif (num_ignored > 1):
+                                self.statusString = _("1 recommended update available (%(size)s), %(ignored)d ignored") % {'size':size_to_string(download_size), 'ignored':num_ignored}
+                        else:
+                            if (num_ignored == 0):
+                                self.statusString = _("%(recommended)d recommended updates available (%(size)s)") % {'recommended':num_safe, 'size':size_to_string(download_size)}
+                            elif (num_ignored == 1):
+                                self.statusString = _("%(recommended)d recommended updates available (%(size)s), 1 ignored") % {'recommended':num_safe, 'size':size_to_string(download_size)}                            
+                            elif (num_ignored > 0):
+                                self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
+                        self.statusIcon.set_from_file(icon_updates)
+                        self.statusIcon.set_tooltip(self.statusString)
+                        statusbar.push(context_id, self.statusString)
+                        log.writelines("++ Found " + str(num_safe) + " recommended software updates\n")
+                        log.flush()
+                    else:
+                        self.statusIcon.set_from_file(icon_up2date)
+                        self.statusIcon.set_tooltip(_("Your system is up to date"))
+                        statusbar.push(context_id, _("Your system is up to date"))
+                        log.writelines("++ System is up to date\n")
+                        log.flush()
 
             log.writelines("++ Refresh finished\n")
             log.flush()
