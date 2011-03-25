@@ -43,8 +43,9 @@ try:
                 use_synaptic = True
 
         if use_synaptic:
+            window_id = sys.argv[2]
             from subprocess import Popen, PIPE
-            cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive"]
+            cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive", "--parent-window-id", "%s" % window_id]
             #cmd.append("--progress-str")
             #cmd.append("\"" + _("Please wait, this can take some time") + "\"")
             comnd = Popen(' '.join(cmd), shell=True)

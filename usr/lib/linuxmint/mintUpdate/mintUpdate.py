@@ -214,7 +214,9 @@ class InstallThread(threading.Thread):
                 log.writelines("++ Ready to launch synaptic\n")
                 log.flush()
                 cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window",  \
-                        "--non-interactive"]
+                        "--non-interactive", "--parent-window-id", "%s" % self.wTree.get_widget("window1").window.xid]
+                cmd.append("-o")
+                cmd.append("Synaptic::closeZvt=true")
                 cmd.append("--progress-str")
                 cmd.append("\"" + _("Please wait, this can take some time") + "\"")
                 cmd.append("--finish-str")
@@ -341,7 +343,7 @@ class RefreshThread(threading.Thread):
             if app_hidden:
                 updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\"")
             else:
-                updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic | grep \"###\"")
+                updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s | grep \"###\"" % self.wTree.get_widget("window1").window.xid)
            
             # Look for mintupdate
             if ("UPDATE###mintupdate###" in updates):                
@@ -1176,18 +1178,18 @@ def hide_window(widget, window):
     window.hide()
     app_hidden = True
 
-def activate_icon_cb(widget, data, wTree, pid):
+def activate_icon_cb(widget, data, wTree):
     global app_hidden
     if (app_hidden == True):
             # check credentials
         if os.getuid() != 0 :
             try:
-                log.writelines("++ Launching mintUpdate in root mode, waiting for it to kill us...\n")
+                log.writelines("++ Launching mintUpdate in root mode...\n")
                 log.flush()
                 log.close()
             except:
                 pass #cause we might have closed it already
-            os.system("gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show " + str(pid) + " &")
+            os.system("gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
         else:
             wTree.get_widget("window1").show()
             app_hidden = False
@@ -1314,11 +1316,11 @@ app_hidden = True
 
 gtk.gdk.threads_init()
 
-parentPid = "0"
-if len(sys.argv) > 2:
-    parentPid = sys.argv[2]
-    if (parentPid != "0"):
-        os.system("kill -9 " + parentPid)
+#parentPid = "0"
+#if len(sys.argv) > 2:
+#    parentPid = sys.argv[2]
+#    if (parentPid != "0"):
+#        os.system("kill -9 " + parentPid)
 
 #
 
@@ -1377,12 +1379,13 @@ try:
     wTree.get_widget("window1").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
 
     # Get the window socket (needed for synaptic later on)
-    socket = gtk.Socket()
+    
     if os.getuid() != 0 :
         # If we're not in root mode do that (don't know why it's needed.. very weird)
+        socket = gtk.Socket()
         vbox.pack_start(socket, True, True, 0)
-    socket.show()
-    window_id = repr(socket.get_id())
+        socket.show()
+        window_id = repr(socket.get_id())
 
     # the treeview
     cr = gtk.CellRendererToggle()
@@ -1453,7 +1456,7 @@ try:
     menuItem.connect('activate', quit_cb, wTree.get_widget("window1"), wTree.get_widget("vpaned1"), statusIcon)
     menu.append(menuItem)
 
-    statusIcon.connect('activate', activate_icon_cb, None, wTree, pid)
+    statusIcon.connect('activate', activate_icon_cb, None, wTree)
     statusIcon.connect('popup-menu', popup_menu_cb, menu)
 
     # Set text for all visible widgets (because of i18n)
