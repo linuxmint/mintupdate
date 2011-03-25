@@ -1327,16 +1327,17 @@ gtk.gdk.threads_init()
 # prepare the log
 pid = os.getpid()
 logdir = "/tmp/mintUpdate/"
-if os.getuid() == 0 :
 
+if not os.path.exists(logdir):
+    os.system("mkdir -p " + logdir)
+    os.system("chmod a+rwx " + logdir)
+    
+if os.getuid() == 0 :
+    os.system("chmod a+rwx " + logdir)
     mode = "root"
 else:
     mode = "user"
-try:
-    os.system("mkdir -p " + logdir)
-    os.system("chmod a+rwx " + logdir)
-except Exception, detail:
-    print detail
+
 #logFile = logdir + "/" + parentPid + "_" + str(pid) + ".log"
 #log = open(logFile, "w")
 log = tempfile.NamedTemporaryFile(prefix = logdir, delete=False)
