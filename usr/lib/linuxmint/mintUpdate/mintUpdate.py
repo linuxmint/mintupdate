@@ -1330,11 +1330,19 @@ if os.getuid() == 0 :
     mode = "root"
 else:
     mode = "user"
-os.system("mkdir -p " + logdir)
+try:
+    os.system("mkdir -p " + logdir)
+    os.system("chmod a+rwx " + logdir)
+except Exception, detail:
+    print detail
 #logFile = logdir + "/" + parentPid + "_" + str(pid) + ".log"
 #log = open(logFile, "w")
 log = tempfile.NamedTemporaryFile(prefix = logdir, delete=False)
 logFile = log.name
+try:
+    os.system("chmod a+rw %s" % log.name)
+except Exception, detail:
+    print detail
 
 log.writelines("++ Launching mintUpdate in " + mode + " mode\n")
 log.flush()
