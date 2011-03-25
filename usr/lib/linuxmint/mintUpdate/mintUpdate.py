@@ -198,7 +198,7 @@ class InstallThread(threading.Thread):
                     level = model.get_value(iter, 7)
                     oldVersion = model.get_value(iter, 3)
                     newVersion = model.get_value(iter, 4)
-                    history.write(commands.getoutput('date +"%d %b %Y %H:%M:%S"') + "\t" + package + "\t" + level + "\t" + oldVersion + "\t" + newVersion + "\n")
+                    history.write(commands.getoutput('date +"%Y.%m.%d %H:%M:%S"') + "\t" + package + "\t" + level + "\t" + oldVersion + "\t" + newVersion + "\n")
                     packages.append(package)
                     log.writelines("++ Will install " + str(package) + "\n")
                     log.flush()
