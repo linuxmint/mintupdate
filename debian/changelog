@@ -6,6 +6,7 @@ mintupdate (4.2.3) katya; urgency=low
   * Migrated from wget to urllib2 for changelog retrieval
   * Only show mintupdate update when available to make sure rules are updated first
   * Removed proxy settings (delegated to APT/Desktop)
+  * Fixed "broken packages" bug occuring when some packages need to be removed
 
  -- Clement Lefebvre <root@linuxmint.com>  Wed,  23 Mar 2011 13:23:00 +0000
 

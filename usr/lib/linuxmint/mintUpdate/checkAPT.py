@@ -82,4 +82,5 @@ for pkg in changes:
     size = pkg.packageSize
     sourcePackage = pkg.sourcePackageName
     description = pkg.description
-    print "UPDATE" + "###" + str(package) + "###" + str(newVersion) + "###" + str(oldVersion) + "###" + str(size) + "###" + str(sourcePackage) + "###" + str(description)
+    if (newVersion != oldVersion):
+        print "UPDATE" + "###" + str(package) + "###" + str(newVersion) + "###" + str(oldVersion) + "###" + str(size) + "###" + str(sourcePackage) + "###" + str(description)
