@@ -211,7 +211,7 @@ class InstallThread(threading.Thread):
                 try:
                     pkgs = ' '.join(str(pkg) for pkg in packages)
                     warnings = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
-                    print ("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
+                    #print ("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
                     warnings = warnings.split("###")
                     if len(warnings) == 2:
                         installations = warnings[0].split()
@@ -221,7 +221,7 @@ class InstallThread(threading.Thread):
                             try:
                                 dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_WARNING, gtk.BUTTONS_OK_CANCEL, None)
                                 dialog.set_title("")
-                                dialog.set_markup("<b>" + _("This upgrade will trigger some software changes") + "</b>")
+                                dialog.set_markup("<b>" + _("This upgrade will trigger additional changes") + "</b>")
                                 #dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")                                
                                 dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
                                 dialog.set_default_size(640, 480)
@@ -229,7 +229,11 @@ class InstallThread(threading.Thread):
                                 if len(removals) > 0:
                                     # Removals
                                     label = gtk.Label()
-                                    label.set_text(_("The following packages will be removed:"))
+                                    if len(removals) == 1:
+                                        label.set_text(_("The following package will be removed:"))
+                                    else:
+                                        label.set_text(_("The following %d packages will be removed:") % len(removals))                                    
+                                    label.set_alignment(0, 0.5)
                                     scrolledWindow = gtk.ScrolledWindow()
                                     scrolledWindow.set_shadow_type(gtk.SHADOW_IN)
                                     scrolledWindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -242,6 +246,7 @@ class InstallThread(threading.Thread):
                                     treeview.set_reorderable(False)
                                     treeview.set_headers_visible(False)                                                        
                                     model = gtk.TreeStore(str)
+                                    removals.sort()
                                     for pkg in removals:
                                         iter = model.insert_before(None, None)                                
                                         model.set_value(iter, 0, pkg)
@@ -254,7 +259,11 @@ class InstallThread(threading.Thread):
                                 if len(installations) > 0:
                                     # Installations
                                     label = gtk.Label()
-                                    label.set_text(_("The following new packages will be installed:"))
+                                    if len(installations) == 1:
+                                        label.set_text(_("The following package will be installed:"))
+                                    else:
+                                        label.set_text(_("The following %d packages will be installed:") % len(installations))
+                                    label.set_alignment(0, 0.5)
                                     scrolledWindow = gtk.ScrolledWindow()
                                     scrolledWindow.set_shadow_type(gtk.SHADOW_IN)
                                     scrolledWindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -267,6 +276,7 @@ class InstallThread(threading.Thread):
                                     treeview.set_reorderable(False)
                                     treeview.set_headers_visible(False)                                                        
                                     model = gtk.TreeStore(str)
+                                    installations.sort()
                                     for pkg in installations:
                                         iter = model.insert_before(None, None)                                
                                         model.set_value(iter, 0, pkg)                               
@@ -985,9 +995,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label81").set_text(_("Refresh the list of updates every:"))
     prefs_tree.get_widget("label82").set_text("<i>" + _("Note: The list only gets refreshed while the update manager window is closed (system tray mode).") + "</i>")
     prefs_tree.get_widget("label82").set_use_markup(True)
-    prefs_tree.get_widget("label83").set_text(_("Update Method"))
-    prefs_tree.get_widget("label84").set_text("<i>" + _("Note: The dist-upgrade option, in addition to performing the function of upgrade, also intelligently handles changing dependencies with new versions of packages. Without this option, only the latest versions of any out-of-date packages on your system are installed. Packages that are not yet installed don't get installed automatically and newer versions of packages which dependencies require such installations are simply ignored.") + "</i>")
-    prefs_tree.get_widget("label84").set_use_markup(True)
+    prefs_tree.get_widget("label83").set_text(_("Update Method"))        
     prefs_tree.get_widget("label85").set_text(_("Icons"))
     prefs_tree.get_widget("label86").set_markup("<b>" + _("Icon") + "</b>")
     prefs_tree.get_widget("label87").set_markup("<b>" + _("Status") + "</b>")
@@ -1002,7 +1010,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label7").set_text(_("Internet check (domain name or IP address):"))
     prefs_tree.get_widget("label1").set_text(_("Ignored packages"))
 
-    prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Satisfy changing dependencies using dist-upgrade?"))
+    prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation or the removal of other packages"))
 
     prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
     prefs_tree.get_widget("window2").show()
