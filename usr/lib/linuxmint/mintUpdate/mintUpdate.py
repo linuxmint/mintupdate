@@ -211,6 +211,7 @@ class InstallThread(threading.Thread):
                 try:
                     pkgs = ' '.join(str(pkg) for pkg in packages)
                     warnings = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
+                    print ("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
                     warnings = warnings.split("###")
                     if len(warnings) == 2:
                         installations = warnings[0].split()
@@ -220,32 +221,61 @@ class InstallThread(threading.Thread):
                             try:
                                 dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_WARNING, gtk.BUTTONS_OK_CANCEL, None)
                                 dialog.set_title("")
-                                dialog.set_markup("<b>" + _("This upgrade will trigger the following changes:") + "</b>")
+                                dialog.set_markup("<b>" + _("This upgrade will trigger some software changes") + "</b>")
                                 #dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")                                
                                 dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
                                 dialog.set_default_size(640, 480)
-                                scrolledWindow = gtk.ScrolledWindow()
-                                scrolledWindow.set_shadow_type(gtk.SHADOW_IN)
-                                scrolledWindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-                                treeview = gtk.TreeView()
-                                column1 = gtk.TreeViewColumn("", gtk.CellRendererText(), text=0)
-                                column1.set_sort_column_id(0)
-                                column1.set_resizable(True)
-                                treeview.append_column(column1)
-                                treeview.set_headers_clickable(False)
-                                treeview.set_reorderable(False)
-                                treeview.set_headers_visible(False)                                                        
-                                model = gtk.TreeStore(str)
-                                for pkg in installations:
-                                    iter = model.insert_before(None, None)                                
-                                    model.set_value(iter, 0, _('%s will be installed') % pkg)
-                                for pkg in removals:
-                                    iter = model.insert_before(None, None)                                
-                                    model.set_value(iter, 0, _('%s will be removed') % pkg)
-                                treeview.set_model(model)
-                                treeview.show()
-                                scrolledWindow.add(treeview)                                
-                                dialog.vbox.add(scrolledWindow)
+                                
+                                if len(removals) > 0:
+                                    # Removals
+                                    label = gtk.Label()
+                                    label.set_text(_("The following packages will be removed:"))
+                                    scrolledWindow = gtk.ScrolledWindow()
+                                    scrolledWindow.set_shadow_type(gtk.SHADOW_IN)
+                                    scrolledWindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+                                    treeview = gtk.TreeView()
+                                    column1 = gtk.TreeViewColumn("", gtk.CellRendererText(), text=0)
+                                    column1.set_sort_column_id(0)
+                                    column1.set_resizable(True)
+                                    treeview.append_column(column1)
+                                    treeview.set_headers_clickable(False)
+                                    treeview.set_reorderable(False)
+                                    treeview.set_headers_visible(False)                                                        
+                                    model = gtk.TreeStore(str)
+                                    for pkg in removals:
+                                        iter = model.insert_before(None, None)                                
+                                        model.set_value(iter, 0, pkg)
+                                    treeview.set_model(model)
+                                    treeview.show()
+                                    scrolledWindow.add(treeview)                                
+                                    dialog.vbox.add(label)
+                                    dialog.vbox.add(scrolledWindow)
+                                
+                                if len(installations) > 0:
+                                    # Installations
+                                    label = gtk.Label()
+                                    label.set_text(_("The following new packages will be installed:"))
+                                    scrolledWindow = gtk.ScrolledWindow()
+                                    scrolledWindow.set_shadow_type(gtk.SHADOW_IN)
+                                    scrolledWindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+                                    treeview = gtk.TreeView()
+                                    column1 = gtk.TreeViewColumn("", gtk.CellRendererText(), text=0)
+                                    column1.set_sort_column_id(0)
+                                    column1.set_resizable(True)
+                                    treeview.append_column(column1)
+                                    treeview.set_headers_clickable(False)
+                                    treeview.set_reorderable(False)
+                                    treeview.set_headers_visible(False)                                                        
+                                    model = gtk.TreeStore(str)
+                                    for pkg in installations:
+                                        iter = model.insert_before(None, None)                                
+                                        model.set_value(iter, 0, pkg)                               
+                                    treeview.set_model(model)
+                                    treeview.show()
+                                    scrolledWindow.add(treeview)   
+                                    dialog.vbox.add(label)                             
+                                    dialog.vbox.add(scrolledWindow)                                                            
+                                
                                 dialog.show_all()                
                                 if dialog.run() == gtk.RESPONSE_OK:
                                     proceed = True
