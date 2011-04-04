@@ -330,20 +330,34 @@ class InstallThread(threading.Thread):
                     f.close()
                     log.writelines("++ Install finished\n")
                     log.flush()
-
-                    gtk.gdk.threads_enter()
-                    self.statusIcon.set_from_file(icon_busy)
-                    self.statusIcon.set_tooltip(_("Checking for updates"))
-                    self.wTree.get_widget("window1").window.set_cursor(None)
-                    self.wTree.get_widget("window1").set_sensitive(True)
-                    global app_hidden
-                    app_hidden = True
-                    self.wTree.get_widget("window1").hide()
-                    gtk.gdk.threads_leave()
-
-                    # Refresh
-                    refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree)
-                    refresh.start()
+                    
+                    if "mintupdate" in packages:
+                        # Restart
+                        gtk.gdk.threads_enter()
+                        global app_hidden
+                        app_hidden = True
+                        self.wTree.get_widget("window1").hide()
+                        gtk.gdk.threads_leave()
+                        try:
+                            log.writelines("++ Mintupdate was updated, restarting it in root mode...\n")
+                            log.flush()
+                            log.close()
+                        except:
+                            pass #cause we might have closed it already
+                        os.system("gksudo --message \"" + _("Please enter your password to restart the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+                    else:
+                        # Refresh
+                        gtk.gdk.threads_enter()
+                        self.statusIcon.set_from_file(icon_busy)
+                        self.statusIcon.set_tooltip(_("Checking for updates"))
+                        self.wTree.get_widget("window1").window.set_cursor(None)
+                        self.wTree.get_widget("window1").set_sensitive(True)
+                        global app_hidden
+                        app_hidden = True
+                        self.wTree.get_widget("window1").hide()
+                        gtk.gdk.threads_leave()
+                        refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree)
+                        refresh.start()
                 else:
                     # Stop the blinking but don't refresh
                     gtk.gdk.threads_enter()
