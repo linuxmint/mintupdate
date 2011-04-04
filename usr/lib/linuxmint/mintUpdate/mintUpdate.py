@@ -331,13 +331,14 @@ class InstallThread(threading.Thread):
                     log.writelines("++ Install finished\n")
                     log.flush()
                     
+                    gtk.gdk.threads_enter()
+                    global app_hidden
+                    app_hidden = True
+                    self.wTree.get_widget("window1").hide()
+                    gtk.gdk.threads_leave()
+                    
                     if "mintupdate" in packages:
-                        # Restart
-                        gtk.gdk.threads_enter()
-                        global app_hidden
-                        app_hidden = True
-                        self.wTree.get_widget("window1").hide()
-                        gtk.gdk.threads_leave()
+                        # Restart                        
                         try:
                             log.writelines("++ Mintupdate was updated, restarting it in root mode...\n")
                             log.flush()
@@ -351,10 +352,7 @@ class InstallThread(threading.Thread):
                         self.statusIcon.set_from_file(icon_busy)
                         self.statusIcon.set_tooltip(_("Checking for updates"))
                         self.wTree.get_widget("window1").window.set_cursor(None)
-                        self.wTree.get_widget("window1").set_sensitive(True)
-                        global app_hidden
-                        app_hidden = True
-                        self.wTree.get_widget("window1").hide()
+                        self.wTree.get_widget("window1").set_sensitive(True)                        
                         gtk.gdk.threads_leave()
                         refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree)
                         refresh.start()
