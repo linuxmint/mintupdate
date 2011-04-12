@@ -48,8 +48,12 @@ if (architecture.find("x86_64") >= 0):
     libc.prctl(15, 'mintUpdate', 0, 0, 0)
 else:
     import dl
-    libc = dl.open('/lib/libc.so.6')
-    libc.call('prctl', 15, 'mintUpdate', 0, 0, 0)
+    if os.path.exists('/lib/libc.so.6'):
+        libc = dl.open('/lib/libc.so.6')
+        libc.call('prctl', 15, 'mintUpdate', 0, 0, 0)
+    elif os.path.exists('/lib/i386-linux-gnu/libc.so.6'):
+        libc = dl.open('/lib/i386-linux-gnu/libc.so.6')
+        libc.call('prctl', 15, 'mintUpdate', 0, 0, 0)
 
 # i18n
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
