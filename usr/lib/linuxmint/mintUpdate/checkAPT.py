@@ -75,7 +75,8 @@ try:
             sourcePackage = pkg.candidate.source_name
             description = pkg.candidate.description
             if (newVersion != oldVersion):
-                print "UPDATE" + "###" + str(package) + "###" + str(newVersion) + "###" + str(oldVersion) + "###" + str(size) + "###" + str(sourcePackage) + "###" + str(description)
+                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s" % (package, newVersion, oldVersion, size, sourcePackage, description)
+                print resultString.encode('ascii', 'xmlcharrefreplace');
     
 except Exception, detail:
     print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR"

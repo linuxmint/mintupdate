@@ -495,7 +495,7 @@ class RefreshThread(threading.Thread):
                     if len(values) == 7:
                         status = values[0]
                         if (status == "ERROR"):
-                            error_msg = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep -v \"ERROR###\"")
+                            error_msg = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py")
                             gtk.gdk.threads_enter()
                             self.statusIcon.set_from_file(icon_error)
                             self.statusIcon.set_tooltip(_("Could not refresh the list of packages"))
