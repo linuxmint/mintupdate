@@ -67,7 +67,7 @@ try:
     #changes = checkDependencies(changes, cache)
 
     for pkg in changes:
-        if (pkg.is_installed):
+        if (pkg.is_installed and pkg.marked_upgrade):
             package = pkg.name
             newVersion = pkg.candidate.version
             oldVersion = pkg.installed.version
