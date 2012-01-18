@@ -1278,7 +1278,7 @@ def popup_menu_cb(widget, button, time, data = None):
     if button == 3:
         if data:
             data.show_all()
-            data.popup(None, None, None, 3, time)
+            data.popup(None, None, gtk.status_icon_position_menu, 3, time, widget)
     pass
 
 def close_window(window, event, vpaned):
