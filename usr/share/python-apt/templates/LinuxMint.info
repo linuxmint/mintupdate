@@ -23,6 +23,30 @@ Component: romeo
 CompDescription: Unstable packages
 CompDescriptionLong: Unstable packages
 
+Suite: maya
+RepositoryType: deb
+BaseURI: http://packages.linuxmint.com/
+MatchURI: packages.linuxmint.com
+MirrorsFile-amd64: /usr/share/python-apt/templates/LinuxMint.mirrors
+MirrorsFile-i386: /usr/share/python-apt/templates/LinuxMint.mirrors
+Description: Linux Mint 13 'Maya'
+Component: main
+CompDescription: Main packages
+CompDescriptionLong: Main packages
+Component: upstream
+CompDescription: Upstream packages
+CompDescriptionLong: Upstream packages
+Component: import
+CompDescription: Imported packages
+CompDescriptionLong: Imported packages
+Component: backport
+CompDescription: Backports
+CompDescriptionLong: Backported packages
+Component: romeo
+CompDescription: Unstable packages
+CompDescriptionLong: Unstable packages
+
+
 Suite: lisa
 RepositoryType: deb
 BaseURI: http://packages.linuxmint.com/
