@@ -1,8 +1,7 @@
 #!/usr/bin/python
 
-import os
-from user import home
+import os, commands
 
-if (not os.path.exists("/usr/bin/ubiquity")) and (not os.path.exists("/usr/bin/live-installer")):
+cmdline = commands.getoutput("cat /proc/cmdline")
+if ((not "boot=casper" in cmdline) and (not "boot=live" in cmdline)):	
 	os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py")
-
