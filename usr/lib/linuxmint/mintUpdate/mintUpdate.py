@@ -349,7 +349,13 @@ class InstallThread(threading.Thread):
                             log.close()
                         except:
                             pass #cause we might have closed it already
-                        os.system("gksudo --message \"" + _("Please enter your password to restart the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+			
+                        command = "gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
+                        desktop_environnment = commands.getoutput("/usr/lib/linuxmint/common/env_check.sh")                            
+                        if (desktop_environnment == "KDE"):
+                            command = "kdesudo -i /usr/share/linuxmint/logo.png --comment \"" + _("Please enter your password to start the update manager") + "\" -d /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
+                        os.system(command)
+                    
                     else:
                         # Refresh
                         gtk.gdk.threads_enter()
@@ -1304,7 +1310,13 @@ def activate_icon_cb(widget, data, wTree):
                 log.close()
             except:
                 pass #cause we might have closed it already
-            os.system("gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+
+            command = "gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
+            desktop_environnment = commands.getoutput("/usr/lib/linuxmint/common/env_check.sh")                            
+            if (desktop_environnment == "KDE"):
+                command = "kdesudo -i /usr/share/linuxmint/logo.png --comment \"" + _("Please enter your password to start the update manager") + "\" -d /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
+            os.system(command)            
+
         else:
             wTree.get_widget("window1").show()
             app_hidden = False
