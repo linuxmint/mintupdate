@@ -103,7 +103,7 @@ class ChangelogRetriever(threading.Thread):
                     changelog = _("No changelog available")                
         else:            
             try:
-                source = commands.getoutput("aptitude changelog " + self.source_package)                    
+                source = commands.getoutput("apt-get changelog " + self.source_package)                    
                 changes = source.split("urgency=")[1].split("\n")
                 for change in changes:
                     change = change.strip()
