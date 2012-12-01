@@ -671,7 +671,7 @@ class RefreshThread(threading.Thread):
             self.statusIcon.set_from_file(icon_error)
             self.statusIcon.set_tooltip(_("Could not refresh the list of packages"))
             #self.statusIcon.set_blinking(False)
-            #self.wTree.get_widget("window1").window.set_cursor(None)
+            self.wTree.get_widget("window1").window.set_cursor(None)
             self.wTree.get_widget("window1").set_sensitive(True)
             statusbar.push(context_id, _("Could not refresh the list of packages"))
             wTree.get_widget("vpaned1").set_position(vpaned_position)
