@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 import sys
-import apt
+import apt_pkg
 
+    
 try:
     sys.path.append('/usr/lib/linuxmint/common')
     from configobj import ConfigObj
@@ -20,21 +21,32 @@ try:
         #print ' '.join(str(pkg) for pkg in selection)    
         packages_to_install = []
         packages_to_remove = []    
-        cache = apt.Cache()            
-        for package in selection: 
+        
+        apt_pkg.init()
+        cache = apt_pkg.Cache(None)
+        
+        depcache = apt_pkg.DepCache(cache)
+        depcache.Init()
+        
+        with apt_pkg.ActionGroup(depcache):
+          for package in selection:
             pkg = cache[package]
-            pkg.mark_upgrade()
-
-        changes = cache.get_changes()
-        for pkg in changes:
-            if (pkg.is_installed):
-                if (pkg.candidate.version == pkg.installed.version):
-                    if not pkg in packages_to_remove:
-                        packages_to_remove.append(pkg)
-            else:
-                if not pkg in packages_to_install:
-                    packages_to_install.append(pkg)
-
+            #print "Marking : %s to install" % pkg.Name
+            depcache.mark_install(pkg)
+        
+        #print "Install : %d" % depcache.inst_count
+        #print "Remove : %d" % depcache.del_count
+        
+        # Get changes
+        for pkg in cache.packages:
+            if not depcache.marked_keep(pkg):
+               if depcache.marked_install(pkg) or depcache.marked_upgrade(pkg):
+                  if not pkg.Name in selection:
+                    if not pkg in packages_to_install:
+                      packages_to_install.append(pkg)
+            if depcache.marked_delete(pkg):
+                  if not pkg in packages_to_remove:
+                      packages_to_remove.append(pkg)                   
         installations = ' '.join(pkg.name for pkg in packages_to_install)
         removals = ' '.join(pkg.name for pkg in packages_to_remove)
         print "%s###%s" % (installations, removals)
