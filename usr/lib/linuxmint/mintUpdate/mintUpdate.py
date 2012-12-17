@@ -76,43 +76,43 @@ class ChangelogRetriever(threading.Thread):
         gtk.gdk.threads_enter()
         self.wTree.get_widget("textview_changes").get_buffer().set_text(_("Downloading changelog..."))  
         gtk.gdk.threads_leave()       
-                    
-        changelog = ""        
-        if (self.level == 1) or ("mint" in self.version) or ("mint" in self.source_package):                        
-            #Get the mint change file for amd64              
+        
+        changelog_sources = []
+        changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
+        changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")                
+        if (self.source_package.startswith("lib")):
+            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
+            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
+            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+        else:
+            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
+            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
+            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+        
+        changelog = _("No changelog available")
+        
+        for changelog_source in changelog_sources:
             try:                      
-                url = urllib2.urlopen("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes", None, 30)
+                print "Trying to fetch the changelog from: %s" % changelog_source
+                url = urllib2.urlopen(changelog_source, None, 30)
                 source = url.read()
                 url.close()
-                changes = source.split("\n")
-                for change in changes:
-                    change = change.strip()
-                    if change.startswith("*"):
-                        changelog = changelog + change + "\n"
-            except:
-                try:
-                    url = urllib2.urlopen("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes", None, 30)
-                    source = url.read()
-                    url.close()
+                
+                changelog = ""
+                if "linuxmint.com" in changelog_source:
                     changes = source.split("\n")
                     for change in changes:
                         change = change.strip()
                         if change.startswith("*"):
                             changelog = changelog + change + "\n"
-                except:
-                    changelog = _("No changelog available")                
-        else:            
-            try:
-                source = commands.getoutput("aptitude changelog " + self.source_package)                    
-                changes = source.split("urgency=")[1].split("\n")
-                for change in changes:
-                    change = change.strip()
-                    if change.startswith("*"):
-                        changelog = changelog + change + "\n"
-            except Exception, detail:
-                print detail
-                changelog = _("No changelog available") + "\n" + _("Click on Edit->Software Sources and tick the 'Source code' option to enable access to the changelogs")
-                
+                else:
+                    changelog = source                
+                break
+            except:
+                pass
+                                        
         gtk.gdk.threads_enter()                
         self.wTree.get_widget("textview_changes").get_buffer().set_text(changelog)        
         gtk.gdk.threads_leave()
