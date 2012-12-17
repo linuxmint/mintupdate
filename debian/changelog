@@ -1,3 +1,11 @@
+mintupdate (4.4.6) nadia; urgency=low
+
+  * UI fix: info dialog centered instead of always-centered
+  * Check_warnings: Use apt_pkg instead of apt (more reliable)
+  * Changelog retrieval: doesn't need deb-src lines in apt sources anymore and fixed for most packages
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 17 Dec 2012 16:09:21 +0000
+
 mintupdate (4.4.5) nadia; urgency=low
 
   * Check cache changes after all packages modifications are marked
