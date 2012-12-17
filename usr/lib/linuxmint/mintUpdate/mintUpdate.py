@@ -84,31 +84,22 @@ class ChangelogRetriever(threading.Thread):
                 url = urllib2.urlopen("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes", None, 30)
                 source = url.read()
                 url.close()
-                changes = source.split("\n")
-                for change in changes:
-                    change = change.strip()
-                    if change.startswith("*"):
-                        changelog = changelog + change + "\n"
+                changelog = source
             except:
                 try:
                     url = urllib2.urlopen("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes", None, 30)
                     source = url.read()
                     url.close()
-                    changes = source.split("\n")
-                    for change in changes:
-                        change = change.strip()
-                        if change.startswith("*"):
-                            changelog = changelog + change + "\n"
+                    changelog = source
                 except:
                     changelog = _("No changelog available")                
         else:            
             try:
-                source = commands.getoutput("aptitude changelog " + self.source_package)                    
-                changes = source.split("urgency=")[1].split("\n")
-                for change in changes:
-                    change = change.strip()
-                    if change.startswith("*"):
-                        changelog = changelog + change + "\n"
+                 source = commands.getstatusoutput("aptitude changelog " + self.source_package)
+                 if source[0] != 0 or source[1].startswith("Err Changelog of"):
+                     changelog = _("No changelog available") + "\n" + _("Click on Edit->Software Sources and tick the 'Source code' option to enable access to the changelogs")
+                 else:
+                     changelog = source[1]
             except Exception, detail:
                 print detail
                 changelog = _("No changelog available") + "\n" + _("Click on Edit->Software Sources and tick the 'Source code' option to enable access to the changelogs")
