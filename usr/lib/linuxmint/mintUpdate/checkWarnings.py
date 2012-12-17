@@ -23,7 +23,7 @@ try:
         packages_to_remove = []    
         
         apt_pkg.init()
-        cache = apt_pkg.Cache()
+        cache = apt_pkg.Cache(None)
         
         depcache = apt_pkg.DepCache(cache)
         depcache.Init()
