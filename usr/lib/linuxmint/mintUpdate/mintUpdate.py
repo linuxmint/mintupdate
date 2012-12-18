@@ -350,9 +350,8 @@ class InstallThread(threading.Thread):
                         except:
                             pass #cause we might have closed it already
 			
-                        command = "gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
-                        desktop_environnment = commands.getoutput("/usr/lib/linuxmint/common/env_check.sh")                            
-                        if (desktop_environnment == "KDE"):
+                        command = "gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"                        
+                        if ("KDE" in commands.getoutput("grep DESKTOP /etc/linuxmint/info")):
                             command = "kdesudo -i /usr/share/linuxmint/logo.png --comment \"" + _("Please enter your password to start the update manager") + "\" -d /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
                         os.system(command)
                     
