@@ -42,8 +42,9 @@ try:
             if not depcache.marked_keep(pkg):
                if depcache.marked_install(pkg) or depcache.marked_upgrade(pkg):
                   if not pkg.Name in selection:
-                    if not pkg in packages_to_install:
-                      packages_to_install.append(pkg)
+                    if not '%s:%s' % (pkg.Name, pkg.Arch) in selection:
+                      if not pkg in packages_to_install:
+                        packages_to_install.append(pkg)
             if depcache.marked_delete(pkg):
                   if not pkg in packages_to_remove:
                       packages_to_remove.append(pkg)                   
