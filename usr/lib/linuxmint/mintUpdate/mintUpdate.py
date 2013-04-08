@@ -463,9 +463,9 @@ class RefreshThread(threading.Thread):
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             gtk.gdk.threads_leave()
             if app_hidden:
-                updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\"")
+                updates = commands.getoutput("sudo /usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\"")
             else:
-                updates = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s | grep \"###\"" % self.wTree.get_widget("window1").window.xid)
+                updates = commands.getoutput("sudo /usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s | grep \"###\"" % self.wTree.get_widget("window1").window.xid)
            
             # Look for mintupdate
             if ("UPDATE###mintupdate###" in updates):                
