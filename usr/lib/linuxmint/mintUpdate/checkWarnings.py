@@ -29,10 +29,10 @@ try:
         depcache.Init()
         
         with apt_pkg.ActionGroup(depcache):
-          for package in selection:
-            pkg = cache[package]
-            #print "Marking : %s to install" % pkg.Name
-            depcache.mark_install(pkg)
+            for package in selection:
+                pkg = cache[package]
+                #print "Marking : %s to install" % pkg.Name
+                depcache.mark_install(pkg)
         
         #print "Install : %d" % depcache.inst_count
         #print "Remove : %d" % depcache.del_count
@@ -40,14 +40,14 @@ try:
         # Get changes
         for pkg in cache.packages:
             if not depcache.marked_keep(pkg):
-               if depcache.marked_install(pkg) or depcache.marked_upgrade(pkg):
-                  if not pkg.Name in selection:
-                    if not '%s:%s' % (pkg.Name, pkg.Architecture) in selection:
-                      if not pkg in packages_to_install:
-                        packages_to_install.append(pkg)
+                if depcache.marked_install(pkg) or depcache.marked_upgrade(pkg):
+                    if not pkg.Name in selection:
+                        if not '%s:%s' % (pkg.Name, pkg.Architecture) in selection:
+                            if not pkg in packages_to_install:
+                                packages_to_install.append(pkg)
             if depcache.marked_delete(pkg):
-                  if not pkg in packages_to_remove:
-                      packages_to_remove.append(pkg)                   
+                    if not pkg in packages_to_remove:
+                        packages_to_remove.append(pkg)                   
         installations = ' '.join(pkg.name for pkg in packages_to_install)
         removals = ' '.join(pkg.name for pkg in packages_to_remove)
         print "%s###%s" % (installations, removals)
