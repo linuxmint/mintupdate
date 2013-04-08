@@ -26,7 +26,7 @@ import apt
 #    return changes
 
 try:
-    cache = None
+    cache = apt.Cache()
     
     if os.getuid() == 0 :
         use_synaptic = False
@@ -44,7 +44,6 @@ try:
             returnCode = comnd.wait()
             #sts = os.waitpid(comnd.pid, 0)            
         else:
-            cache = apt.Cache()
             cache.update()
 
     sys.path.append('/usr/lib/linuxmint/common')
@@ -58,8 +57,8 @@ try:
     except:
         dist_upgrade = True
         
-    if cache is None:
-        cache = apt.Cache()
+    # Reopen the cache to reflect any updates
+    cache.open(None)
     cache.upgrade(dist_upgrade)
     changes = cache.get_changes()
     
