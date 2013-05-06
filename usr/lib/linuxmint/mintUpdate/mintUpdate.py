@@ -978,7 +978,9 @@ def read_configuration():
     return prefs
 
 def open_repositories(widget):
-    if os.path.exists("/usr/bin/software-properties-gtk"):
+    if os.path.exists("/usr/bin/software-sources"):
+        os.system("/usr/bin/software-sources &")
+    elif os.path.exists("/usr/bin/software-properties-gtk"):
         os.system("/usr/bin/software-properties-gtk &")
     elif os.path.exists("/usr/bin/software-properties-kde"):
         os.system("/usr/bin/software-properties-kde &")
