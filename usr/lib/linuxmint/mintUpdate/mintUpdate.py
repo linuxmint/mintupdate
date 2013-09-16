@@ -1706,23 +1706,13 @@ try:
         #test the network connection to delay mintUpdate in case we're not yet connected
         log.writelines("++ Testing initial connection\n")
         log.flush()
-        try:
-            from urllib import urlopen
-            url=urlopen("http://google.com")
-            url.read()
-            url.close()
-            log.writelines("++ Connection to the Internet successful (tried to read http://www.google.com)\n")
+        if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):
+            log.writelines("-- No connection found (tried to ping " + prefs["ping_domain"] + ") - sleeping for " + str(prefs["delay"]) + " seconds\n")
             log.flush()
-        except Exception, detail:
-            print detail
-            if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):
-                log.writelines("-- No connection found (tried to read http://www.google.com and to ping " + prefs["ping_domain"] + ") - sleeping for " + str(prefs["delay"]) + " seconds\n")
-                log.flush()
-                time.sleep(prefs["delay"])
-            else:
-                log.writelines("++ Connection found - checking for updates\n")
-                log.flush()
-
+            time.sleep(prefs["delay"])
+        else:
+            log.writelines("++ Connection found - checking for updates\n")
+            log.flush()
 
     wTree.get_widget("notebook_details").set_current_page(0)
 
