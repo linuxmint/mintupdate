@@ -906,7 +906,7 @@ def read_configuration():
         icon_unknown = config['icons']['unknown']
         icon_apply = config['icons']['apply']
     except:
-        icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
+        icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base-exec.svg"
         icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
         icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/base-info.svg"
         icon_error = "/usr/lib/linuxmint/mintUpdate/icons/base-error2.svg"
@@ -1244,7 +1244,7 @@ def open_about(widget):
     except Exception, detail:
         print detail
 
-    dlg.set_authors(["Clement Lefebvre <root@linuxmint.com>", "Chris Hodapp <clhodapp@live.com>"])
+    dlg.set_authors(["Clement Lefebvre (Code) <root@linuxmint.com>", "Chris Hodapp (Code) <clhodapp@live.com>", "Corbin (Icons) <ravetcofx@gmail.com>"])
     dlg.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
     dlg.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg"))
     def close(w, res):
