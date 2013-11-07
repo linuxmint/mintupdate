@@ -906,7 +906,7 @@ def read_configuration():
         icon_unknown = config['icons']['unknown']
         icon_apply = config['icons']['apply']
     except:
-        icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
+        icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base-exec.svg"
         icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
         icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/base-info.svg"
         icon_error = "/usr/lib/linuxmint/mintUpdate/icons/base-error2.svg"
