@@ -26,7 +26,7 @@ try:
         cache = apt_pkg.Cache(None)
         
         depcache = apt_pkg.DepCache(cache)
-        depcache.Init()
+        depcache.init()
         
         with apt_pkg.ActionGroup(depcache):
             for package in selection:
@@ -41,8 +41,8 @@ try:
         for pkg in cache.packages:
             if not depcache.marked_keep(pkg):
                 if depcache.marked_install(pkg) or depcache.marked_upgrade(pkg):
-                    if not pkg.Name in selection:
-                        if not '%s:%s' % (pkg.Name, pkg.Architecture) in selection:
+                    if not pkg.name in selection:
+                        if not '%s:%s' % (pkg.name, pkg.architecture) in selection:
                             if not pkg in packages_to_install:
                                 packages_to_install.append(pkg)
             if depcache.marked_delete(pkg):
