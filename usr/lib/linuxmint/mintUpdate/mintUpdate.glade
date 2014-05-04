@@ -2144,21 +2144,7 @@ Public License instead of this License.
           <widget class="GtkHButtonBox" id="hbuttonbox2">
             <property name="visible">True</property>
             <property name="spacing">15</property>
-            <property name="layout_style">center</property>
-            <child>
-              <widget class="GtkButton" id="button_clear">
-                <property name="label" context="yes">gtk-clear</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
+            <property name="layout_style">center</property>            
             <child>
               <widget class="GtkButton" id="button_close">
                 <property name="label" context="yes">gtk-close</property>

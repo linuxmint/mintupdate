@@ -840,12 +840,6 @@ def info_cancel(widget, prefs_tree):
 def history_cancel(widget, tree):
     tree.get_widget("window4").hide()
 
-def history_clear(widget, tree):
-    os.system("rm -rf /var/log/mintUpdate.history")
-    model = gtk.TreeStore(str, str, str, gtk.gdk.Pixbuf, str, str)
-    tree.set_model(model)
-    del model
-
 def pref_cancel(widget, prefs_tree):
     prefs_tree.get_widget("window2").hide()
 
@@ -1120,24 +1114,20 @@ def open_history(widget):
     column1 = gtk.TreeViewColumn(_("Date"), gtk.CellRendererText(), text=1)
     column1.set_sort_column_id(1)
     column1.set_resizable(True)
-    column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), text=2)
+    column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), text=0)
     column2.set_sort_column_id(2)
     column2.set_resizable(True)
-    column3 = gtk.TreeViewColumn(_("Level"), gtk.CellRendererPixbuf(), pixbuf=3)
-    column3.set_sort_column_id(6)
+    column3 = gtk.TreeViewColumn(_("Old version"), gtk.CellRendererText(), text=2)
+    column3.set_sort_column_id(3)
     column3.set_resizable(True)
-    column4 = gtk.TreeViewColumn(_("Old version"), gtk.CellRendererText(), text=4)
+    column4 = gtk.TreeViewColumn(_("New version"), gtk.CellRendererText(), text=3)
     column4.set_sort_column_id(4)
-    column4.set_resizable(True)
-    column5 = gtk.TreeViewColumn(_("New version"), gtk.CellRendererText(), text=5)
-    column5.set_sort_column_id(5)
-    column5.set_resizable(True)
+    column4.set_resizable(True)    
 
     treeview_update.append_column(column1)
-    treeview_update.append_column(column3)
     treeview_update.append_column(column2)
-    treeview_update.append_column(column5)
-    treeview_update.append_column(column4)
+    treeview_update.append_column(column3)    
+    treeview_update.append_column(column4)    
 
     treeview_update.set_headers_clickable(True)
     treeview_update.set_reorderable(False)
@@ -1145,33 +1135,37 @@ def open_history(widget):
     treeview_update.set_enable_search(True)
     treeview_update.show()
 
-    model = gtk.TreeStore(str, str, str, gtk.gdk.Pixbuf, str, str, str) # (date, packageName, level, oldVersion, newVersion, stringLevel)
-    if (os.path.exists("/var/log/mintUpdate.history")):
-        updates = commands.getoutput("cat /var/log/mintUpdate.history")
+    model = gtk.TreeStore(str, str, str, str) # (date, packageName, oldVersion, newVersion)
+
+    if (os.path.exists("/var/log/dpkg.log")):
+        updates = commands.getoutput("cat /var/log/dpkg.log | egrep \"upgrade\"")
         updates = string.split(updates, "\n")
         for pkg in updates:
-            values = string.split(pkg, "\t")
-            if len(values) == 5:
+            values = string.split(pkg, " ")
+            if len(values) == 6:
                 date = values[0]
-                package = values[1]
-                level = values[2]
-                oldVersion = values[3]
-                newVersion = values[4]
+                time = values[1]
+                action = values[2]
+                package = values[3]
+                oldVersion = values[4]
+                newVersion = values[5]    
+
+                if action != "upgrade":
+                    continue
+
+                if ":" in package:
+                    package = package.split(":")[0]
 
                 iter = model.insert_before(None, None)
                 model.set_value(iter, 0, package)
                 model.row_changed(model.get_path(iter), iter)
-                model.set_value(iter, 1, date)
-                model.set_value(iter, 2, package)
-                model.set_value(iter, 3, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
-                model.set_value(iter, 4, oldVersion)
-                model.set_value(iter, 5, newVersion)
-                model.set_value(iter, 6, level)
+                model.set_value(iter, 1, "%s - %s" % (date, time))                         
+                model.set_value(iter, 2, oldVersion)
+                model.set_value(iter, 3, newVersion)                
 
     treeview_update.set_model(model)
     del model
     wTree.get_widget("button_close").connect("clicked", history_cancel, wTree)
-    wTree.get_widget("button_clear").connect("clicked", history_clear, treeview_update)
 
 def open_information(widget):
     global logFile
