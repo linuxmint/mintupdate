@@ -1184,7 +1184,6 @@ def open_information(widget):
     prefs_tree.get_widget("close_button").connect("clicked", info_cancel, prefs_tree)
     prefs_tree.get_widget("label1").set_text(_("Information"))
     prefs_tree.get_widget("label2").set_text(_("Log file"))
-    prefs_tree.get_widget("label3").set_text(_("Permissions:"))
     prefs_tree.get_widget("label4").set_text(_("Process ID:"))
     prefs_tree.get_widget("label5").set_text(_("Log file:"))
     prefs_tree.get_widget("processid_label").set_text(str(pid))
