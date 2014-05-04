@@ -810,9 +810,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     config['refresh']['timer_days'] = int(prefs_tree.get_widget("timer_days").get_value())
 
     #Write update config
-    config['update'] = {}
-    config['update']['delay'] = str(int(prefs_tree.get_widget("spin_delay").get_value()))
-    config['update']['ping_domain'] = prefs_tree.get_widget("text_ping").get_text()
+    config['update'] = {}    
     config['update']['dist_upgrade'] = prefs_tree.get_widget("checkbutton_dist_upgrade").get_active()
 
     #Write icons config
@@ -878,13 +876,9 @@ def read_configuration():
         prefs["timer_days"] = 0
 
     #Read update config
-    try:
-        prefs["delay"] = int(config['update']['delay'])
-        prefs["ping_domain"] = config['update']['ping_domain']
+    try:        
         prefs["dist_upgrade"] = (config['update']['dist_upgrade'] == "True")
-    except:
-        prefs["delay"] = 30
-        prefs["ping_domain"] = "google.com"
+    except:        
         prefs["dist_upgrade"] = True
 
     #Read icons config
@@ -1018,9 +1012,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label90").set_text(_("Updates available"))
     prefs_tree.get_widget("label99").set_text(_("Error"))
     prefs_tree.get_widget("label2").set_text(_("Unknown state"))
-    prefs_tree.get_widget("label3").set_text(_("Applying updates"))
-    prefs_tree.get_widget("label6").set_text(_("Startup delay (in seconds):"))
-    prefs_tree.get_widget("label7").set_text(_("Internet check (domain name or IP address):"))
+    prefs_tree.get_widget("label3").set_text(_("Applying updates"))    
     prefs_tree.get_widget("label1").set_text(_("Ignored packages"))
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation or the removal of other packages"))
@@ -1056,10 +1048,6 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("timer_minutes").set_value(prefs["timer_minutes"])
     prefs_tree.get_widget("timer_hours").set_value(prefs["timer_hours"])
     prefs_tree.get_widget("timer_days").set_value(prefs["timer_days"])
-
-    prefs_tree.get_widget("text_ping").set_text(prefs["ping_domain"])
-
-    prefs_tree.get_widget("spin_delay").set_value(prefs["delay"])
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_active(prefs["dist_upgrade"])
 
