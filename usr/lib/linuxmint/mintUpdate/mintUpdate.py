@@ -54,11 +54,6 @@ else:
 # i18n
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
-# i18n for menu item
-menuName = _("Update Manager")
-menuGenericName = _("Software Updates")
-menuComment = _("Show and install available updates")
-
 CONFIG_DIR = "%s/.config/linuxmint" % home
 
 class ChangelogRetriever(threading.Thread):

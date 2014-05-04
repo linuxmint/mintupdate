@@ -1,59 +1,24 @@
 #!/usr/bin/python
 
-import commands, os
+DOMAIN = "mintupdate"
+PATH = "/usr/share/linuxmint/locale"
 
-sourceFile = "usr/lib/linuxmint/mintUpdate/mintUpdate.py"
+import os, gettext, sys
+sys.path.append('/usr/lib/linuxmint/common')
+import additionalfiles
 
-menuName = commands.getoutput("cat " + sourceFile + " | grep menuName")
-menuName = menuName.replace("menuName", "")
-menuName = menuName.replace("=", "")
-menuName = menuName.replace("_(", "")
-menuName = menuName.replace("\"", "")
-menuName = menuName.replace(")", "")
-menuName = menuName.strip()
+os.environ['LANG'] = "en_US.UTF-8"
+gettext.install(DOMAIN, PATH)
 
-menuComment = commands.getoutput("cat " + sourceFile + " | grep menuComment")
-menuComment = menuComment.replace("menuComment", "")
-menuComment = menuComment.replace("=", "")
-menuComment = menuComment.replace("_(", "")
-menuComment = menuComment.replace("\"", "")
-menuComment = menuComment.replace(")", "")
-menuComment = menuComment.strip()
+prefix = "[Desktop Entry]\n"
 
-desktopFile = open("usr/share/applications/mintUpdate.desktop", "w")
-desktopFile.writelines("""[Desktop Entry]
-Name=Update Manager
-""")
-
-import gettext
-gettext.install("mintupdate", "/usr/share/linuxmint/locale")
-
-for directory in os.listdir("/usr/share/linuxmint/locale"):
-	if os.path.isdir(os.path.join("/usr/share/linuxmint/locale", directory)):
-		try:
-			language = gettext.translation('mintupdate', "/usr/share/linuxmint/locale", languages=[directory])
-			language.install()
-			desktopFile.writelines("Name[%s]=%s\n" % (directory, _(menuName)))
-		except:
-			pass
-
-desktopFile.writelines("Comment=Show and install available updates\n")
-
-for directory in os.listdir("/usr/share/linuxmint/locale"):
-	if os.path.isdir(os.path.join("/usr/share/linuxmint/locale", directory)):
-		try:
-			language = gettext.translation('mintupdate', "/usr/share/linuxmint/locale", languages=[directory])
-			language.install()			
-			desktopFile.writelines("Comment[%s]=%s\n" % (directory, _(menuComment)))
-		except:
-			pass
-
-desktopFile.writelines("""Exec=mintupdate
+suffix = """Exec=mintupdate
 Icon=/usr/lib/linuxmint/mintUpdate/icons/base.svg
 Terminal=false
 Type=Application
 Encoding=UTF-8
 Categories=Application;System;Settings;
 StartupNotify=false
-""")
+"""
 
+additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintUpdate.desktop", prefix, _("Update Manager"), _("Show and install available updates"), suffix, genericName=_("Show and install available updates"))
