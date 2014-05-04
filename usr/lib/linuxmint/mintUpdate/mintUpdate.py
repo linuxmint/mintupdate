@@ -860,7 +860,7 @@ def read_configuration():
         prefs["timer_hours"] = int(config['refresh']['timer_hours'])
         prefs["timer_days"] = int(config['refresh']['timer_days'])
     except:
-        prefs["timer_minutes"] = 15
+        prefs["timer_minutes"] = 30
         prefs["timer_hours"] = 0
         prefs["timer_days"] = 0
 
