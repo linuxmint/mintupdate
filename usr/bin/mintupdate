@@ -2,15 +2,6 @@
 
 import os
 import commands  
-import gettext
 
-# i18n
-gettext.install("mintupdate", "/usr/share/linuxmint/locale")
-
-desktop_environnment = commands.getoutput('/usr/lib/linuxmint/common/env_check.sh')
-command = "gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show 0 &"
-
-if (desktop_environnment == "KDE"):
-    command = "kdesudo -i /usr/share/linuxmint/logo.png --comment \"" + _("Please enter your password to start the update manager") + "\" -d /usr/lib/linuxmint/mintUpdate/mintUpdate.py show 0 &"
-
+command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
 os.system(command)

@@ -33,11 +33,7 @@ from subprocess import Popen, PIPE
 try:
     numMintUpdate = commands.getoutput("ps -A | grep mintUpdate | wc -l")
     if (numMintUpdate != "0"):
-        if (os.getuid() == 0):
-            os.system("killall mintUpdate")
-        else:
-            print "Another mintUpdate is already running, exiting."
-            sys.exit(1)
+        os.system("killall mintUpdate")        
 except Exception, detail:
     print detail
 
@@ -63,6 +59,7 @@ menuName = _("Update Manager")
 menuGenericName = _("Software Updates")
 menuComment = _("Show and install available updates")
 
+CONFIG_DIR = "%s/.config/linuxmint" % home
 
 class ChangelogRetriever(threading.Thread):
     def __init__(self, source_package, level, version, wTree):
@@ -149,7 +146,7 @@ class AutomaticRefreshThread(threading.Thread):
                         except:
                             pass # cause it might be closed already
                         # Refresh
-                        refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree)
+                        refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree, root_mode=True)
                         refresh.start()
                     else:
                         try:
@@ -193,7 +190,6 @@ class InstallThread(threading.Thread):
             gtk.gdk.threads_leave()
 
             iter = model.get_iter_first()
-            history = open("/var/log/mintUpdate.history", "a")
             while (iter != None):
                 checked = model.get_value(iter, 0)
                 if (checked == "true"):
@@ -202,13 +198,11 @@ class InstallThread(threading.Thread):
                     level = model.get_value(iter, 7)
                     oldVersion = model.get_value(iter, 3)
                     newVersion = model.get_value(iter, 4)
-                    history.write(commands.getoutput('date +"%Y.%m.%d %H:%M:%S"') + "\t" + package + "\t" + level + "\t" + oldVersion + "\t" + newVersion + "\n")
                     packages.append(package)
                     log.writelines("++ Will install " + str(package) + "\n")
                     log.flush()
                 iter = model.iter_next(iter)
-            history.close()
-
+            
             if (installNeeded == True):
                                 
                 proceed = True                
@@ -309,10 +303,9 @@ class InstallThread(threading.Thread):
                     self.statusIcon.set_from_file(icon_apply)
                     self.statusIcon.set_tooltip(_("Installing updates"))
                     gtk.gdk.threads_leave()
-                    
                     log.writelines("++ Ready to launch synaptic\n")
                     log.flush()
-                    cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window",  \
+                    cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
                             "--non-interactive", "--parent-window-id", "%s" % self.wTree.get_widget("window1").window.xid]
                     cmd.append("-o")
                     cmd.append("Synaptic::closeZvt=true")
@@ -344,15 +337,13 @@ class InstallThread(threading.Thread):
                     if "mintupdate" in packages:
                         # Restart                        
                         try:
-                            log.writelines("++ Mintupdate was updated, restarting it in root mode...\n")
+                            log.writelines("++ Mintupdate was updated, restarting it...\n")
                             log.flush()
                             log.close()
                         except:
                             pass #cause we might have closed it already
 			
-                        command = "gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"                        
-                        if ("KDE" in commands.getoutput("grep DESKTOP /etc/linuxmint/info")):
-                            command = "kdesudo -i /usr/share/linuxmint/logo.png --comment \"" + _("Please enter your password to start the update manager") + "\" -d /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
+                        command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"                        
                         os.system(command)
                     
                     else:
@@ -399,11 +390,12 @@ class RefreshThread(threading.Thread):
     global statusbar
     global context_id
 
-    def __init__(self, treeview_update, statusIcon, wTree):
+    def __init__(self, treeview_update, statusIcon, wTree, root_mode=False):
         threading.Thread.__init__(self)
         self.treeview_update = treeview_update
         self.statusIcon = statusIcon
         self.wTree = wTree
+        self.root_mode = root_mode
 
     def run(self):
         global log
@@ -434,38 +426,42 @@ class RefreshThread(threading.Thread):
             model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize, sourcePackage)
             model.set_sort_column_id( 7, gtk.SORT_ASCENDING )         
 
-            prefs = read_configuration()
-            
+            prefs = read_configuration()     
+
             # Check to see if no other APT process is running
-            p1 = Popen(['ps', '-U', 'root', '-o', 'comm'], stdout=PIPE)
-            p = p1.communicate()[0]
-            running = False
-            pslist = p.split('\n')
-            for process in pslist:
-                if process.strip() in ["dpkg", "apt-get","synaptic","update-manager", "adept", "adept-notifier"]:
-                    running = True
-                    break
-            if (running == True):
-                gtk.gdk.threads_enter()
-                self.statusIcon.set_from_file(icon_unknown)
-                self.statusIcon.set_tooltip(_("Another application is using APT"))
-                statusbar.push(context_id, _("Another application is using APT"))
-                log.writelines("-- Another application is using APT\n")
-                log.flush()
-                #self.statusIcon.set_blinking(False)
-                self.wTree.get_widget("window1").window.set_cursor(None)
-                self.wTree.get_widget("window1").set_sensitive(True)
-                gtk.gdk.threads_leave()
-                return False
+            if self.root_mode:
+                p1 = Popen(['ps', '-U', 'root', '-o', 'comm'], stdout=PIPE)
+                p = p1.communicate()[0]
+                running = False
+                pslist = p.split('\n')
+                for process in pslist:
+                    if process.strip() in ["dpkg", "apt-get","synaptic","update-manager", "adept", "adept-notifier"]:
+                        running = True
+                        break
+                if (running == True):
+                    gtk.gdk.threads_enter()
+                    self.statusIcon.set_from_file(icon_unknown)
+                    self.statusIcon.set_tooltip(_("Another application is using APT"))
+                    statusbar.push(context_id, _("Another application is using APT"))
+                    log.writelines("-- Another application is using APT\n")
+                    log.flush()
+                    #self.statusIcon.set_blinking(False)
+                    self.wTree.get_widget("window1").window.set_cursor(None)
+                    self.wTree.get_widget("window1").set_sensitive(True)
+                    gtk.gdk.threads_leave()
+                    return False       
 
             gtk.gdk.threads_enter()
             statusbar.push(context_id, _("Finding the list of updates..."))
             wTree.get_widget("vpaned1").set_position(vpaned_position)
-            gtk.gdk.threads_leave()
+            gtk.gdk.threads_leave()            
             if app_hidden:
-                updates = commands.getoutput("sudo /usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\"")
+                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\""
             else:
-                updates = commands.getoutput("sudo /usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s | grep \"###\"" % self.wTree.get_widget("window1").window.xid)
+                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s | grep \"###\"" % self.wTree.get_widget("window1").window.xid
+            if self.root_mode:
+                refresh_command = "sudo %s" % refresh_command
+            updates =  commands.getoutput(refresh_command)
            
             # Look for mintupdate
             if ("UPDATE###mintupdate###" in updates):                
@@ -482,8 +478,8 @@ class RefreshThread(threading.Thread):
             download_size = 0
             num_ignored = 0
             ignored_list = []
-            if os.path.exists("/etc/linuxmint/mintupdate.ignored"):
-                blacklist_file = open("/etc/linuxmint/mintupdate.ignored", "r")
+            if os.path.exists("%s/mintupdate.ignored" % CONFIG_DIR):
+                blacklist_file = open("%s/mintupdate.ignored" % CONFIG_DIR, "r")
                 for blacklist_line in blacklist_file:
                     ignored_list.append(blacklist_line.strip())
                 blacklist_file.close()                
@@ -707,7 +703,7 @@ class RefreshThread(threading.Thread):
         return changes
 
 def force_refresh(widget, treeview, statusIcon, wTree):
-    refresh = RefreshThread(treeview, statusIcon, wTree)
+    refresh = RefreshThread(treeview, statusIcon, wTree, root_mode=True)
     refresh.start()
 
 def clear(widget, treeView, statusbar, context_id):
@@ -790,15 +786,9 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     global icon_updates
     global icon_error
     global icon_unknown
-    global icon_apply
+    global icon_apply    
 
-    if (not os.path.exists("/etc/linuxmint")):
-        os.system("mkdir -p /etc/linuxmint")
-        global log
-        log.writelines("++ Creating /etc/linuxmint directory\n")
-        log.flush()
-
-    config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
+    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
 
     #Write level config
     config['levels'] = {}
@@ -835,7 +825,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     config['icons']['apply'] = icon_apply
     
     #Write blacklisted packages
-    ignored_list = open("/etc/linuxmint/mintupdate.ignored", "w")
+    ignored_list = open("%s/mintupdate.ignored" % CONFIG_DIR, "w")
     treeview_blacklist = prefs_tree.get_widget("treeview_blacklist")
     model = treeview_blacklist.get_model()
     iter = model.get_iter_first()
@@ -874,7 +864,7 @@ def read_configuration():
     global icon_unknown
     global icon_apply
 
-    config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
+    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
     prefs = {}
 
     #Read refresh config
@@ -1094,8 +1084,8 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     model.set_sort_column_id( 0, gtk.SORT_ASCENDING )
     treeview_blacklist.set_model(model)
 
-    if os.path.exists("/etc/linuxmint/mintupdate.ignored"):
-        ignored_list = open("/etc/linuxmint/mintupdate.ignored", "r")
+    if os.path.exists("%s/mintupdate.ignored" % CONFIG_DIR):
+        ignored_list = open("%s/mintupdate.ignored" % CONFIG_DIR, "r")
         for ignored_pkg in ignored_list:            
             iter = model.insert_before(None, None)
             model.set_value(iter, 0, ignored_pkg.strip())
@@ -1202,7 +1192,6 @@ def open_history(widget):
 
 def open_information(widget):
     global logFile
-    global mode
     global pid
 
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
@@ -1215,8 +1204,6 @@ def open_information(widget):
     prefs_tree.get_widget("label3").set_text(_("Permissions:"))
     prefs_tree.get_widget("label4").set_text(_("Process ID:"))
     prefs_tree.get_widget("label5").set_text(_("Log file:"))
-
-    prefs_tree.get_widget("mode_label").set_text(str(mode))
     prefs_tree.get_widget("processid_label").set_text(str(pid))
     prefs_tree.get_widget("log_filename").set_text(str(logFile))
     txtbuffer = gtk.TextBuffer()
@@ -1302,25 +1289,9 @@ def hide_window(widget, window):
 
 def activate_icon_cb(widget, data, wTree):
     global app_hidden
-    if (app_hidden == True):
-            # check credentials
-        if os.getuid() != 0 :
-            try:
-                log.writelines("++ Launching mintUpdate in root mode...\n")
-                log.flush()
-                log.close()
-            except:
-                pass #cause we might have closed it already
-
-            command = "gksudo --message \"" + _("Please enter your password to start the update manager") + "\" /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
-            desktop_environnment = commands.getoutput("/usr/lib/linuxmint/common/env_check.sh")                            
-            if (desktop_environnment == "KDE"):
-                command = "kdesudo -i /usr/share/linuxmint/logo.png --comment \"" + _("Please enter your password to start the update manager") + "\" -d /usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
-            os.system(command)            
-
-        else:
-            wTree.get_widget("window1").show()
-            app_hidden = False
+    if (app_hidden == True):            
+        wTree.get_widget("window1").show()
+        app_hidden = False
     else:
         wTree.get_widget("window1").hide()
         app_hidden = True
@@ -1328,7 +1299,7 @@ def activate_icon_cb(widget, data, wTree):
 
 def save_window_size(window, vpaned):
 
-    config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
+    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
     config['dimensions'] = {}
     config['dimensions']['x'] = window.get_size()[0]
     config['dimensions']['y'] = window.get_size()[1]
@@ -1407,7 +1378,7 @@ def size_to_string(size):
     return strSize
 
 def setVisibleColumn(checkmenuitem, column, configName):
-    config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
+    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
     if (config.has_key('visible_columns')):
         config['visible_columns'][configName] = checkmenuitem.get_active()
     else:
@@ -1429,13 +1400,12 @@ def menuPopup(widget, event, treeview_update, statusIcon, wTree):
             menu.popup( None, None, None, 3, 0)
         
 def add_to_ignore_list(widget, treeview_update, pkg, statusIcon, wTree):
-    os.system("echo \"%s\" >> /etc/linuxmint/mintupdate.ignored" % pkg)
+    os.system("echo \"%s\" >> %s/mintupdate.ignored" % (pkg, CONFIG_DIR))
     force_refresh(widget, treeview_update, statusIcon, wTree)
 
 global app_hiden
 global log
 global logFile
-global mode
 global pid
 global statusbar
 global context_id
@@ -1443,14 +1413,6 @@ global context_id
 app_hidden = True
 
 gtk.gdk.threads_init()
-
-#parentPid = "0"
-#if len(sys.argv) > 2:
-#    parentPid = sys.argv[2]
-#    if (parentPid != "0"):
-#        os.system("kill -9 " + parentPid)
-
-#
 
 # prepare the log
 pid = os.getpid()
@@ -1460,14 +1422,6 @@ if not os.path.exists(logdir):
     os.system("mkdir -p " + logdir)
     os.system("chmod a+rwx " + logdir)
     
-if os.getuid() == 0 :
-    os.system("chmod a+rwx " + logdir)
-    mode = "root"
-else:
-    mode = "user"
-
-#logFile = logdir + "/" + parentPid + "_" + str(pid) + ".log"
-#log = open(logFile, "w")
 log = tempfile.NamedTemporaryFile(prefix = logdir, delete=False)
 logFile = log.name
 try:
@@ -1475,8 +1429,13 @@ try:
 except Exception, detail:
     print detail
 
-log.writelines("++ Launching mintUpdate in " + mode + " mode\n")
+log.writelines("++ Launching mintUpdate \n")
 log.flush()
+
+if (not os.path.exists(CONFIG_DIR)):
+    os.system("mkdir -p %s" % CONFIG_DIR)    
+    log.writelines("++ Creating %s directory\n" % CONFIG_DIR)
+    log.flush()
 
 try:
     global icon_busy
@@ -1700,19 +1659,7 @@ try:
             wTree.get_widget("label_error_detail").hide()
             wTree.get_widget("image_error").hide()
             wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
-            app_hidden = False
-
-    if os.getuid() != 0 :        
-        #test the network connection to delay mintUpdate in case we're not yet connected
-        log.writelines("++ Testing initial connection\n")
-        log.flush()
-        if os.system("ping " + prefs["ping_domain"] + " -c1 -q"):
-            log.writelines("-- No connection found (tried to ping " + prefs["ping_domain"] + ") - sleeping for " + str(prefs["delay"]) + " seconds\n")
-            log.flush()
-            time.sleep(prefs["delay"])
-        else:
-            log.writelines("++ Connection found - checking for updates\n")
-            log.flush()
+            app_hidden = False    
 
     wTree.get_widget("notebook_details").set_current_page(0)
 
