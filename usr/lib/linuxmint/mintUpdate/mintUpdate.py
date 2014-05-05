@@ -1481,7 +1481,7 @@ try:
     if os.getuid() != 0 :
         # If we're not in root mode do that (don't know why it's needed.. very weird)
         socket = gtk.Socket()
-        vbox.pack_start(socket, True, True, 0)
+        vbox.pack_start(socket, False, False, 0)
         socket.show()
         window_id = repr(socket.get_id())
 
