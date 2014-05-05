@@ -74,7 +74,20 @@ try:
             sourcePackage = pkg.candidate.source_name
             description = pkg.candidate.description
             if (newVersion != oldVersion):
-                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s" % (package, newVersion, oldVersion, size, sourcePackage, description)
+                update_type = "package"
+                for origin in pkg.candidate.origins:
+                    if origin.origin == "Ubuntu" and '-security' in origin.archive:
+                        update_type = "security"
+                        break
+                    if origin.origin == "linuxmint":
+                        if origin.component == "romeo":
+                            update_type = "unstable"
+                            break
+                        elif origin.component == "backport":
+                            update_type = "backport"
+                            break
+
+                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s" % (package, newVersion, oldVersion, size, sourcePackage, update_type, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace');
     
 except Exception, detail:

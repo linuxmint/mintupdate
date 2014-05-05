@@ -418,7 +418,7 @@ class RefreshThread(threading.Thread):
             #self.statusIcon.set_blinking(True)
             gtk.gdk.threads_leave()
 
-            model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize, sourcePackage)
+            model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str, str, gtk.gdk.Pixbuf, str, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize, sourcePackage, type pixbuf, type txt, tooltip)
             model.set_sort_column_id( 7, gtk.SORT_ASCENDING )         
 
             prefs = read_configuration()     
@@ -488,7 +488,7 @@ class RefreshThread(threading.Thread):
             else:
                 for pkg in updates:
                     values = string.split(pkg, "###")
-                    if len(values) == 7:
+                    if len(values) == 8:
                         status = values[0]
                         if (status == "ERROR"):
                             error_msg = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py")
@@ -525,7 +525,17 @@ class RefreshThread(threading.Thread):
                         oldVersion = values[3]
                         size = int(values[4])
                         source_package = values[5]
-                        description = values[6]
+                        update_type = values[6]
+                        security_update = (update_type == "security")
+                        description = values[7]
+                        if update_type == "security":
+                            tooltip = _("Security update")
+                        elif update_type == "backport":
+                            tooltip = _("Package backport. Be careful when upgrading. New versions of sofware can introduce regressions.")
+                        elif update_type == "unstable":
+                            tooltip = _("Unstable package. Only take this upgrade to help developers beta-test this update.")
+                        else:
+                            tooltip = _("Package update")
 
                         strSize = size_to_string(size)
 
@@ -567,39 +577,13 @@ class RefreshThread(threading.Thread):
                                                 warning = rule_warning
                         rulesFile.close()
 
-                        level = int(level)
-                        if (prefs["level" + str(level) + "_visible"]):                            
-                            if (new_mintupdate):
-                                if (package == "mintupdate"):
-                                    list_of_packages = list_of_packages + " " + package
-                                    iter = model.insert_before(None, None)
-                                    model.set_value(iter, 0, "true")
-                                    model.row_changed(model.get_path(iter), iter)
-                                    model.set_value(iter, 1, package)
-                                    model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
-                                    model.set_value(iter, 3, oldVersion)
-                                    model.set_value(iter, 4, newVersion)
-                                    model.set_value(iter, 5, warning)
-                                    model.set_value(iter, 6, extraInfo)
-                                    model.set_value(iter, 7, str(level))
-                                    model.set_value(iter, 8, description)
-                                    model.set_value(iter, 9, size)
-                                    model.set_value(iter, 10, strSize)
-                                    model.set_value(iter, 11, source_package)                            
-                                    num_visible = num_visible + 1
-                                                                                                   
-                                #else:
-                                #    model.set_value(iter, 0, "false")                                    
-                            else:
+                        level = int(level)                        
+                                              
+                        if (new_mintupdate):
+                            if (package == "mintupdate"):
                                 list_of_packages = list_of_packages + " " + package
                                 iter = model.insert_before(None, None)
-                                if (prefs["level" + str(level) + "_safe"]):
-                                    model.set_value(iter, 0, "true")                            
-                                    num_safe = num_safe + 1
-                                    download_size = download_size + size
-                                else:
-                                    model.set_value(iter, 0, "false") 
-                                                                                  
+                                model.set_value(iter, 0, "true")
                                 model.row_changed(model.get_path(iter), iter)
                                 model.set_value(iter, 1, package)
                                 model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
@@ -611,7 +595,42 @@ class RefreshThread(threading.Thread):
                                 model.set_value(iter, 8, description)
                                 model.set_value(iter, 9, size)
                                 model.set_value(iter, 10, strSize)
-                                model.set_value(iter, 11, source_package)                            
+                                model.set_value(iter, 11, source_package)   
+                                model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
+                                model.set_value(iter, 13, update_type)
+                                model.set_value(iter, 14, tooltip)
+                                num_visible = num_visible + 1
+                                                                                                                                                       
+                        else:                 
+                            if ((prefs["level" + str(level) + "_visible"]) or (security_update and prefs['security_visible'])):
+                                list_of_packages = list_of_packages + " " + package
+                                iter = model.insert_before(None, None)
+                                if (security_update and prefs['security_visible'] and prefs['security_safe']):
+                                    model.set_value(iter, 0, "true")                            
+                                    num_safe = num_safe + 1
+                                    download_size = download_size + size
+                                elif (prefs["level" + str(level) + "_safe"]):
+                                    model.set_value(iter, 0, "true")                            
+                                    num_safe = num_safe + 1
+                                    download_size = download_size + size
+                                else:
+                                    model.set_value(iter, 0, "false") 
+                                                                                      
+                                model.row_changed(model.get_path(iter), iter)
+                                model.set_value(iter, 1, package)
+                                model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
+                                model.set_value(iter, 3, oldVersion)                                
+                                model.set_value(iter, 4, newVersion)
+                                model.set_value(iter, 5, warning)
+                                model.set_value(iter, 6, extraInfo)
+                                model.set_value(iter, 7, str(level))
+                                model.set_value(iter, 8, description)
+                                model.set_value(iter, 9, size)
+                                model.set_value(iter, 10, strSize)
+                                model.set_value(iter, 11, source_package)
+                                model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
+                                model.set_value(iter, 13, update_type)
+                                model.set_value(iter, 14, tooltip)
                                 num_visible = num_visible + 1
 
                 gtk.gdk.threads_enter()  
@@ -796,7 +815,9 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     config['levels']['level2_safe'] = prefs_tree.get_widget("safe2").get_active()
     config['levels']['level3_safe'] = prefs_tree.get_widget("safe3").get_active()
     config['levels']['level4_safe'] = prefs_tree.get_widget("safe4").get_active()
-    config['levels']['level5_safe'] = prefs_tree.get_widget("safe5").get_active()
+    config['levels']['level5_safe'] = prefs_tree.get_widget("safe5").get_active()    
+    config['levels']['security_visible'] = prefs_tree.get_widget("checkbutton_security_visible").get_active()
+    config['levels']['security_safe'] = prefs_tree.get_widget("checkbutton_security_safe").get_active()
 
     #Write refresh config
     config['refresh'] = {}
@@ -898,6 +919,8 @@ def read_configuration():
         prefs["level3_safe"] = (config['levels']['level3_safe'] == "True")
         prefs["level4_safe"] = (config['levels']['level4_safe'] == "True")
         prefs["level5_safe"] = (config['levels']['level5_safe'] == "True")
+        prefs["security_visible"] = (config['levels']['security_visible'] == "True")
+        prefs["security_safe"] = (config['levels']['security_safe'] == "True")
     except:
         prefs["level1_visible"] = True
         prefs["level2_visible"] = True
@@ -909,6 +932,8 @@ def read_configuration():
         prefs["level3_safe"] = True
         prefs["level4_safe"] = False
         prefs["level5_safe"] = False    
+        prefs["security_visible"] = True
+        prefs["security_safe"] = False
 
     #Read columns config
     try:
@@ -1030,6 +1055,11 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("safe3").set_active(prefs["level3_safe"])
     prefs_tree.get_widget("safe4").set_active(prefs["level4_safe"])
     prefs_tree.get_widget("safe5").set_active(prefs["level5_safe"])
+    prefs_tree.get_widget("checkbutton_security_visible").set_active(prefs["security_visible"])
+    prefs_tree.get_widget("checkbutton_security_safe").set_active(prefs["security_safe"])    
+
+    prefs_tree.get_widget("checkbutton_security_visible").set_label(_("Always show security updates"))
+    prefs_tree.get_widget("checkbutton_security_safe").set_label(_("Always select and trust security updates"))
 
     prefs_tree.get_widget("timer_minutes_label").set_text(_("minutes"))
     prefs_tree.get_widget("timer_hours_label").set_text(_("hours"))
@@ -1479,22 +1509,25 @@ try:
     column6.set_sort_column_id(9)
     column6.set_resizable(True)
 
-    treeview_update.append_column(column3)
+    column7 = gtk.TreeViewColumn(_("Type"), gtk.CellRendererPixbuf(), pixbuf=12)
+    column7.set_sort_column_id(13)
+    column7.set_resizable(True)
+
+    treeview_update.set_tooltip_column(14)
+
+    treeview_update.append_column(column7)
+    treeview_update.append_column(column3)    
     treeview_update.append_column(column1)
     treeview_update.append_column(column2)
-    treeview_update.append_column(column5)
     treeview_update.append_column(column4)
+    treeview_update.append_column(column5)    
     treeview_update.append_column(column6)
+   
     treeview_update.set_headers_clickable(True)
     treeview_update.set_reorderable(False)
     treeview_update.show()
     
     treeview_update.connect( "button-release-event", menuPopup, treeview_update, statusIcon, wTree )
-
-    model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, int, str)
-    model.set_sort_column_id( 7, gtk.SORT_ASCENDING )
-    treeview_update.set_model(model)
-    del model
 
     selection = treeview_update.get_selection()
     selection.connect("changed", display_selected_package, wTree)
