@@ -161,6 +161,42 @@ class AutomaticRefreshThread(threading.Thread):
             except:
                 pass # cause it might be closed already
 
+class InstallKernelThread(threading.Thread): 
+
+    def __init__(self, version, wTree, remove=False):
+        threading.Thread.__init__(self)        
+        self.version = version
+        self.wTree = wTree
+        self.remove = remove
+
+    def run(self):
+        cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
+                "--non-interactive", "--parent-window-id", "%s" % self.wTree.get_widget("window5").window.xid]
+        cmd.append("-o")
+        cmd.append("Synaptic::closeZvt=true")
+        cmd.append("--progress-str")
+        cmd.append("\"" + _("Please wait, this can take some time") + "\"")
+        cmd.append("--finish-str")
+        if self.remove:
+            cmd.append("\"" + _("The %s kernel was installed") % self.version + "\"")
+        else:
+            cmd.append("\"" + _("The %s kernel was removed") % self.version + "\"")
+        f = tempfile.NamedTemporaryFile()
+
+        for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-generic' % self.version, 'linux-image-%s-generic' % self.version, 'linux-image-extra-%s-generic' % self.version]:
+            if self.remove: 
+                f.write("%s\tdeinstall\n" % pkg)
+            else:
+                f.write("%s\tinstall\n" % pkg)
+        cmd.append("--set-selections-file")
+        cmd.append("%s" % f.name)
+        f.flush()        
+        comnd = Popen(' '.join(cmd), stdout=log, stderr=log, shell=True)
+        returnCode = comnd.wait()
+        f.close()
+        #sts = os.waitpid(comnd.pid, 0)                
+        
+
 class InstallThread(threading.Thread):
     global icon_busy
     global icon_up2date
@@ -859,6 +895,9 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     refresh = RefreshThread(treeview, statusIcon, wTree)
     refresh.start()
 
+def kernels_cancel(widget, tree):
+    tree.get_widget("window5").hide()
+
 def info_cancel(widget, prefs_tree):
     prefs_tree.get_widget("window3").hide()
 
@@ -1217,6 +1256,111 @@ def open_information(widget):
     txtbuffer = gtk.TextBuffer()
     txtbuffer.set_text(commands.getoutput("cat " + logFile))
     prefs_tree.get_widget("log_textview").set_buffer(txtbuffer)
+
+def label_size_allocate(widget, rect):
+    widget.set_size_request(rect.width, -1)
+
+def install_kernel(widget, version, window, wTree, remove=False):
+    if (remove):
+        message = _("Are you sure you want to remove the %s kernel?") % version
+    else:
+        message = _("Are you sure you want to install the %s kernel?") % version
+    image = gtk.Image()
+    image.set_from_file("/usr/lib/linuxmint/mintUpdate/icons/warning.png")
+    d = gtk.MessageDialog(window, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO, message) 
+    image.show()
+    d.set_image(image)    
+    d.set_default_response(gtk.RESPONSE_NO)
+    r = d.run()   
+    d.hide()     
+    d.destroy()
+    if r == gtk.RESPONSE_YES:
+        thread = InstallKernelThread(version, wTree, remove)
+        thread.start()        
+        window.hide()
+
+def open_kernels(widget):
+    global logFile
+    global pid
+
+    gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
+    tree = gtk.glade.XML(gladefile, "window5")
+    window = tree.get_widget("window5")
+    window.set_title(_("Linux kernels") + " - " + _("Update Manager"))
+    window.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")    
+    tree.get_widget("close_button").connect("clicked", kernels_cancel, tree)
+
+    tree.get_widget("label_warning").connect("size-allocate", label_size_allocate)
+
+    tree.get_widget("title_warning").set_markup("<span foreground='black' font_weight='bold' size='large'>%s</span>" % _("Warning!"))
+    tree.get_widget("label_warning").set_markup(_("The Linux kernel is responsible for hardware support. Using the wrong kernel can lead to lack of networking, lack of sound, lack of graphical  environment or even the inability to boot the computer. Only install or remove kernels if you're experienced with Linux kernels, drivers, dkms and you know how to recover a non-booting computer."))
+    tree.get_widget("label_available").set_markup("%s" % _("The following kernels are available:"))
+    tree.get_widget("label_version").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Version"))    
+    tree.get_widget("label_used").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Loaded"))
+    tree.get_widget("label_recommended").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Recommended"))
+    tree.get_widget("label_installed").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Installed"))
+    tree.get_widget("label_fixes").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Fixes"))
+    tree.get_widget("label_regressions").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Regressions"))
+
+    table = tree.get_widget("table_kernels")
+
+    kernels = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkKernels.py | grep \"###\"")
+    kernels = kernels.split("\n")
+    column = 2
+    for kernel in kernels:
+        values = string.split(kernel, "###")
+        if len(values) == 5:
+            status = values[0]
+            if status != "KERNEL":
+                continue
+            (status, version, installed, used, recommended) = values
+            installed = (installed == "1")
+            used = (used == "1")
+            recommended = (recommended == "1")
+
+            label = gtk.Label(version)
+            table.attach(label, column, column+1, 0, 1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+            
+            if used:
+                table.attach(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/tick.png"), column, column+1, 1, 2, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+            if recommended:
+                table.attach(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/tick.png"), column, column+1, 2, 3, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+            if installed:
+                table.attach(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/tick.png"), column, column+1, 3, 4, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+
+            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version):
+                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version)
+                lines = kernel_file.readlines()
+                fixes_box = gtk.VBox()
+                bugs_box = gtk.VBox()
+                for line in lines:
+                    elements = line.split(" ")
+                    if len(elements) == 3:
+                        (prefix, title, url) = elements
+                        link = gtk.Label()
+                        link.set_markup("<a href='%s'>%s</a>" % (url, title))
+                        if prefix == "fix":
+                            fixes_box.pack_start(link, False, False, 2)
+                        elif prefix == "bug":
+                            bugs_box.pack_start(link, False, False, 2)
+
+                table.attach(fixes_box, column, column+1, 4, 5, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)      
+                table.attach(bugs_box, column, column+1, 5, 6, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)                                              
+
+            if not installed:
+                button = gtk.Button(_("Install"))
+                button.connect("clicked", install_kernel, version, window, tree, False)
+                table.attach(button, column, column+1, 6, 7, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+
+            elif installed and not used:                                            
+                button = gtk.Button(_("Remove"))
+                button.connect("clicked", install_kernel, version, window, tree, True)
+                table.attach(button, column, column+1, 6, 7, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+            
+            column += 1
+
+    window.show_all()
+
 
 def open_about(widget):
     dlg = gtk.AboutDialog()
@@ -1601,6 +1745,9 @@ try:
     historyMenuItem = gtk.ImageMenuItem(gtk.STOCK_INDEX)
     historyMenuItem.get_child().set_text(_("History of updates"))
     historyMenuItem.connect("activate", open_history)
+    kernelMenuItem = gtk.ImageMenuItem(gtk.STOCK_EXECUTE)
+    kernelMenuItem.get_child().set_text(_("Linux kernels"))
+    kernelMenuItem.connect("activate", open_kernels)
     infoMenuItem = gtk.ImageMenuItem(gtk.STOCK_DIALOG_INFO)
     infoMenuItem.get_child().set_text(_("Information"))
     infoMenuItem.connect("activate", open_information)
@@ -1641,6 +1788,7 @@ try:
 
     viewSubmenu.append(visibleColumnsMenuItem)
     viewSubmenu.append(historyMenuItem)
+    viewSubmenu.append(kernelMenuItem)
     viewSubmenu.append(infoMenuItem)
 
     helpMenu = gtk.MenuItem(_("_Help"))
