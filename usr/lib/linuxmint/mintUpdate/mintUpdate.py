@@ -1300,7 +1300,7 @@ def hide_window(widget, window):
 def activate_icon_cb(widget, data, wTree):
     global app_hidden
     if (app_hidden == True):            
-        wTree.get_widget("window1").show()
+        wTree.get_widget("window1").show_all()
         app_hidden = False
     else:
         wTree.get_widget("window1").hide()
