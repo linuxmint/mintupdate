@@ -63,6 +63,10 @@ class ChangelogRetriever(threading.Thread):
         self.level = level 
         self.version = version
         self.wTree = wTree
+
+        # Remove the epoch if present in the version
+        if ":" in self.version:
+            self.version = self.version.split(":")[-1]
            
     def run(self):         
         gtk.gdk.threads_enter()
