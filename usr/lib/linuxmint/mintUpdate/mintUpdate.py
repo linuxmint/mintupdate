@@ -1326,7 +1326,7 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
     selection = treeView.get_selection()
     (model, iter) = selection.get_selected()
     if (iter != None):
-        selected_package = model.get_value(iter, 1)
+        source_package = model.get_value(iter, 11)
         description_txt = model.get_value(iter, 8)   
         if (page_num == 0):
             # Description tab
@@ -1335,7 +1335,7 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
             # Changelog tab            
             level = model.get_value(iter, 7)
             version = model.get_value(iter, 4)
-            retriever = ChangelogRetriever(selected_package, level, version, wTree)
+            retriever = ChangelogRetriever(source_package, level, version, wTree)
             retriever.start()
 
 def celldatafunction_checkbox(column, cell, model, iter):
