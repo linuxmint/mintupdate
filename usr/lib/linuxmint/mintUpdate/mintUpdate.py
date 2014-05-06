@@ -73,9 +73,7 @@ class ChangelogRetriever(threading.Thread):
         self.wTree.get_widget("textview_changes").get_buffer().set_text(_("Downloading changelog..."))  
         gtk.gdk.threads_leave()       
         
-        changelog_sources = []
-        changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
-        changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")                
+        changelog_sources = []            
         if (self.source_package.startswith("lib")):
             changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
             changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
@@ -86,6 +84,8 @@ class ChangelogRetriever(threading.Thread):
             changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
             changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
             changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+        changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
+        changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")
         
         changelog = _("No changelog available")
         
@@ -1459,14 +1459,24 @@ def save_window_size(window, vpaned):
     config.write()
 
 def display_selected_package(selection, wTree):    
-    wTree.get_widget("textview_description").get_buffer().set_text("")
-    wTree.get_widget("textview_changes").get_buffer().set_text("")            
-    (model, iter) = selection.get_selected()
-    if (iter != None):
-        selected_package = model.get_value(iter, 1)
-        description_txt = model.get_value(iter, 8)                
-        wTree.get_widget("notebook_details").set_current_page(0)
-        wTree.get_widget("textview_description").get_buffer().set_text(description_txt)
+    try:
+        wTree.get_widget("textview_description").get_buffer().set_text("")
+        wTree.get_widget("textview_changes").get_buffer().set_text("")            
+        (model, iter) = selection.get_selected()
+        if (iter != None):
+            selected_package = model.get_value(iter, 1)
+            description_txt = model.get_value(iter, 8)                        
+            wTree.get_widget("textview_description").get_buffer().set_text(description_txt)                    
+            if wTree.get_widget("notebook_details").get_current_page() == 1:                
+                # Changelog tab            
+                level = model.get_value(iter, 7)
+                version = model.get_value(iter, 4)
+                source_package = model.get_value(iter, 11)
+                retriever = ChangelogRetriever(source_package, level, version, wTree)
+                retriever.start()
+    except Exception, detail:
+        print detail
+
 
 def switch_page(notebook, page, page_num, Wtree, treeView):
     selection = treeView.get_selection()
