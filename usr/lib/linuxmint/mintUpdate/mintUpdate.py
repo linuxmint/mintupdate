@@ -256,7 +256,7 @@ class InstallThread(threading.Thread):
                                 dialog.set_title("")
                                 dialog.set_markup("<b>" + _("This upgrade will trigger additional changes") + "</b>")
                                 #dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")                                
-                                dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+                                dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg")
                                 dialog.set_default_size(640, 480)
                                 
                                 if len(removals) > 0:
@@ -1078,7 +1078,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation or the removal of other packages"))
 
-    prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg")
     prefs_tree.get_widget("window2").show()
     prefs_tree.get_widget("pref_button_cancel").connect("clicked", pref_cancel, prefs_tree)
     prefs_tree.get_widget("pref_button_apply").connect("clicked", pref_apply, prefs_tree, treeview, statusIcon, wTree)
@@ -1154,7 +1154,7 @@ def add_blacklisted_package(widget, treeview_blacklist):
     dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK, None)
     dialog.set_markup("<b>" + _("Please enter a package name:") + "</b>")
     dialog.set_title(_("Ignore a package"))
-    dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg")
     entry = gtk.Entry()
     hbox = gtk.HBox()
     hbox.pack_start(gtk.Label(_("Package name:")), False, 5, 5)
@@ -1183,7 +1183,7 @@ def open_history(widget):
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
     wTree = gtk.glade.XML(gladefile, "window4")
     treeview_update = wTree.get_widget("treeview_history")
-    wTree.get_widget("window4").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    wTree.get_widget("window4").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg")
 
     wTree.get_widget("window4").set_title(_("History of updates") + " - " + _("Update Manager"))
 
@@ -1251,7 +1251,7 @@ def open_information(widget):
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
     prefs_tree = gtk.glade.XML(gladefile, "window3")
     prefs_tree.get_widget("window3").set_title(_("Information") + " - " + _("Update Manager"))
-    prefs_tree.get_widget("window3").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    prefs_tree.get_widget("window3").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg")
     prefs_tree.get_widget("close_button").connect("clicked", info_cancel, prefs_tree)    
     prefs_tree.get_widget("label4").set_text(_("Process ID:"))
     prefs_tree.get_widget("label5").set_text(_("Log file:"))
@@ -1291,7 +1291,7 @@ def open_kernels(widget):
     tree = gtk.glade.XML(gladefile, "window5")
     window = tree.get_widget("window5")
     window.set_title(_("Linux kernels") + " - " + _("Update Manager"))
-    window.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")    
+    window.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg")
     tree.get_widget("close_button").connect("clicked", kernels_cancel, tree)
 
     tree.get_widget("label_warning").connect("size-allocate", label_size_allocate)
@@ -1370,7 +1370,7 @@ def open_kernels(widget):
 def open_about(widget):
     dlg = gtk.AboutDialog()
     dlg.set_title(_("About") + " - " + _("Update Manager"))
-    dlg.set_program_name("mintUpdate")
+    dlg.set_program_name("Mint Update")
     dlg.set_comments(_("Update Manager"))
     try:
         h = open('/usr/share/common-licenses/GPL','r')
@@ -1389,8 +1389,8 @@ def open_about(widget):
         print detail
 
     dlg.set_authors(["Clement Lefebvre <root@linuxmint.com>", "Chris Hodapp <clhodapp@live.com>"])
-    dlg.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
-    dlg.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg"))
+    dlg.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg")
+    dlg.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg"))
     def close(w, res):
         if res == gtk.RESPONSE_CANCEL:
             w.hide()
@@ -1631,7 +1631,7 @@ try:
 
     vbox = wTree.get_widget("vbox_main")
     treeview_update = wTree.get_widget("treeview_update")
-    wTree.get_widget("window1").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    wTree.get_widget("window1").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/mintUpdate.svg")
 
     # Get the window socket (needed for synaptic later on)
     
