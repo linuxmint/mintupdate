@@ -980,6 +980,10 @@ def read_configuration():
 
     #Read columns config
     try:
+        prefs["type_column_visible"] = (config['visible_columns']['type'] == "True")
+    except:
+        prefs["type_column_visible"] = True
+    try:
         prefs["level_column_visible"] = (config['visible_columns']['level'] == "True")
     except:
         prefs["level_column_visible"] = True
@@ -1765,6 +1769,12 @@ try:
     visibleColumnsMenuItem.get_child().set_text(_("Visible columns"))
     visibleColumnsMenu = gtk.Menu()
     visibleColumnsMenuItem.set_submenu(visibleColumnsMenu)
+
+    typeColumnMenuItem = gtk.CheckMenuItem(_("Type"))
+    typeColumnMenuItem.set_active(prefs["type_column_visible"])
+    column7.set_visible(prefs["type_column_visible"])
+    typeColumnMenuItem.connect("toggled", setVisibleColumn, column7, "type")
+    visibleColumnsMenu.append(typeColumnMenuItem)
 
     levelColumnMenuItem = gtk.CheckMenuItem(_("Level"))
     levelColumnMenuItem.set_active(prefs["level_column_visible"])
