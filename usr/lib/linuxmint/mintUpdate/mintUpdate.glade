@@ -767,7 +767,6 @@ Public License instead of this License.
                         <property name="right_attach">4</property>
                         <property name="top_attach">4</property>
                         <property name="bottom_attach">5</property>
-                        <property name="x_options">GTK_FILL</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -1096,7 +1095,6 @@ Public License instead of this License.
                         <property name="right_attach">2</property>
                         <property name="top_attach">3</property>
                         <property name="bottom_attach">4</property>
-                        <property name="x_options">GTK_FILL</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -1113,7 +1111,6 @@ Public License instead of this License.
                         <property name="right_attach">2</property>
                         <property name="top_attach">2</property>
                         <property name="bottom_attach">3</property>
-                        <property name="x_options">GTK_FILL</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -1130,7 +1127,6 @@ Public License instead of this License.
                         <property name="right_attach">2</property>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
-                        <property name="x_options">GTK_FILL</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -1227,13 +1223,14 @@ Public License instead of this License.
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="stock">gtk-no</property>
+                        <property name="pixbuf">/usr/lib/linuxmint/mintUpdate/icons/no.png</property>
                       </widget>
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="right_attach">3</property>
                         <property name="top_attach">3</property>
                         <property name="bottom_attach">4</property>
+                        <property name="x_options"/>
                       </packing>
                     </child>
                     <child>
@@ -1241,13 +1238,14 @@ Public License instead of this License.
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="stock">gtk-no</property>
+                        <property name="pixbuf">/usr/lib/linuxmint/mintUpdate/icons/no.png</property>
                       </widget>
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="right_attach">3</property>
                         <property name="top_attach">4</property>
                         <property name="bottom_attach">5</property>
+                        <property name="x_options"/>
                       </packing>
                     </child>
                     <child>
@@ -1255,13 +1253,14 @@ Public License instead of this License.
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="stock">gtk-yes</property>
+                        <property name="pixbuf">/usr/lib/linuxmint/mintUpdate/icons/tick.png</property>
                       </widget>
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="right_attach">3</property>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
+                        <property name="x_options"/>
                       </packing>
                     </child>
                     <child>
@@ -1269,13 +1268,14 @@ Public License instead of this License.
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="stock">gtk-yes</property>
+                        <property name="pixbuf">/usr/lib/linuxmint/mintUpdate/icons/tick.png</property>
                       </widget>
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="right_attach">3</property>
                         <property name="top_attach">2</property>
                         <property name="bottom_attach">3</property>
+                        <property name="x_options"/>
                       </packing>
                     </child>
                     <child>
@@ -1283,13 +1283,14 @@ Public License instead of this License.
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="stock">gtk-yes</property>
+                        <property name="pixbuf">/usr/lib/linuxmint/mintUpdate/icons/tick.png</property>
                       </widget>
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="right_attach">3</property>
                         <property name="top_attach">5</property>
                         <property name="bottom_attach">6</property>
+                        <property name="x_options"/>
                       </packing>
                     </child>
                   </widget>
@@ -1359,10 +1360,9 @@ Public License instead of this License.
                 <property name="n_rows">5</property>
                 <property name="n_columns">3</property>
                 <property name="column_spacing">6</property>
+                <property name="row_spacing">6</property>
                 <child>
                   <widget class="GtkLabel" id="label81">
-                    <property name="width_request">680</property>
-                    <property name="height_request">40</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
@@ -1371,6 +1371,8 @@ Public License instead of this License.
                   </widget>
                   <packing>
                     <property name="right_attach">3</property>
+                    <property name="y_options">GTK_FILL</property>
+                    <property name="y_padding">6</property>
                   </packing>
                 </child>
                 <child>
@@ -1390,6 +1392,7 @@ Public License instead of this License.
                     <property name="top_attach">1</property>
                     <property name="bottom_attach">2</property>
                     <property name="x_options"/>
+                    <property name="y_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
@@ -1406,6 +1409,7 @@ Public License instead of this License.
                     <property name="top_attach">1</property>
                     <property name="bottom_attach">2</property>
                     <property name="x_options">GTK_FILL</property>
+                    <property name="y_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
@@ -1425,6 +1429,7 @@ Public License instead of this License.
                     <property name="top_attach">2</property>
                     <property name="bottom_attach">3</property>
                     <property name="x_options"/>
+                    <property name="y_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
@@ -1440,6 +1445,7 @@ Public License instead of this License.
                     <property name="right_attach">3</property>
                     <property name="top_attach">2</property>
                     <property name="bottom_attach">3</property>
+                    <property name="y_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
@@ -1459,6 +1465,7 @@ Public License instead of this License.
                     <property name="top_attach">3</property>
                     <property name="bottom_attach">4</property>
                     <property name="x_options"/>
+                    <property name="y_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
@@ -1474,6 +1481,7 @@ Public License instead of this License.
                     <property name="right_attach">3</property>
                     <property name="top_attach">3</property>
                     <property name="bottom_attach">4</property>
+                    <property name="y_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
@@ -1489,6 +1497,8 @@ Public License instead of this License.
                     <property name="right_attach">3</property>
                     <property name="top_attach">4</property>
                     <property name="bottom_attach">5</property>
+                    <property name="y_options">GTK_FILL</property>
+                    <property name="y_padding">6</property>
                   </packing>
                 </child>
               </widget>
@@ -2429,6 +2439,108 @@ Public License instead of this License.
                   <placeholder/>
                 </child>
                 <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
                   <widget class="GtkLabel" id="label_version">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -2439,30 +2551,6 @@ Public License instead of this License.
                     <property name="x_options">GTK_FILL</property>
                     <property name="y_options"/>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
                 <child>
                   <widget class="GtkLabel" id="label_used">
@@ -2479,9 +2567,6 @@ Public License instead of this License.
                   </packing>
                 </child>
                 <child>
-                  <placeholder/>
-                </child>
-                <child>
                   <widget class="GtkLabel" id="label_recommended">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -2494,69 +2579,6 @@ Public License instead of this License.
                     <property name="x_options">GTK_FILL</property>
                     <property name="y_options"/>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
                 <child>
                   <widget class="GtkLabel" id="label_installed">
@@ -2573,9 +2595,6 @@ Public License instead of this License.
                   </packing>
                 </child>
                 <child>
-                  <placeholder/>
-                </child>
-                <child>
                   <widget class="GtkLabel" id="label_fixes">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -2588,9 +2607,6 @@ Public License instead of this License.
                     <property name="x_options">GTK_FILL</property>
                     <property name="y_options"/>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
                 <child>
                   <widget class="GtkLabel" id="label_regressions">
@@ -2607,9 +2623,6 @@ Public License instead of this License.
                   </packing>
                 </child>
                 <child>
-                  <placeholder/>
-                </child>
-                <child>
                   <widget class="GtkLabel" id="label9">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -2620,9 +2633,6 @@ Public License instead of this License.
                     <property name="x_options"/>
                     <property name="y_options"/>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
                 <child>
                   <widget class="GtkVSeparator" id="vseparator1">
