@@ -3,6 +3,7 @@
 import os
 import commands
 import apt
+import sys
 
 try:
     current_version = commands.getoutput("uname -r").replace("-generic", "")
@@ -16,7 +17,8 @@ try:
     for pkg in cache:  
         installed = 0   
         used = 0
-        recommended = 0   
+        recommended = 0
+        installable = 0
         package = pkg.name
         if package.startswith("linux-image-3") and package.endswith("-generic"):
             version = package.replace("linux-image-", "").replace("-generic", "")            
@@ -25,14 +27,14 @@ try:
             if version == current_version:
                 used = 1            
             if recommended_kernel is not None and version in recommended_kernel:
-                recommended = 1                    
+                recommended = 1  
+            if pkg.candidate and pkg.candidate.downloadable:
+                installable = 1
 
-            resultString = u"KERNEL###%s###%s###%s###%s" % (version, installed, used, recommended)
+            resultString = u"KERNEL###%s###%s###%s###%s###%s" % (version, installed, used, recommended, installable)
             print resultString.encode('ascii', 'xmlcharrefreplace');
     
 except Exception, detail:
     print "ERROR###ERROR###ERROR###ERROR"
     print detail
     sys.exit(1)
-
-

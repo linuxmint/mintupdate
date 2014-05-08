@@ -1313,14 +1313,15 @@ def open_kernels(widget):
     column = 2
     for kernel in kernels:
         values = string.split(kernel, "###")
-        if len(values) == 5:
+        if len(values) == 6:
             status = values[0]
             if status != "KERNEL":
                 continue
-            (status, version, installed, used, recommended) = values
+            (status, version, installed, used, recommended, installable) = values
             installed = (installed == "1")
             used = (used == "1")
             recommended = (recommended == "1")
+            installable = (installable == "1")
 
             label = gtk.Label(version)
             table.attach(label, column, column+1, 0, 1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
@@ -1351,7 +1352,7 @@ def open_kernels(widget):
                 table.attach(fixes_box, column, column+1, 4, 5, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)      
                 table.attach(bugs_box, column, column+1, 5, 6, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)                                              
 
-            if not installed:
+            if installable and not installed:
                 button = gtk.Button(_("Install"))
                 button.connect("clicked", install_kernel, version, window, tree, False)
                 table.attach(button, column, column+1, 6, 7, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
