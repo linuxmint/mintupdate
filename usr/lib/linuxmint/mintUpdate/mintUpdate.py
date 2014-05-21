@@ -585,12 +585,12 @@ class RefreshThread(threading.Thread):
 
                         strSize = size_to_string(size)
 
+                        extraInfo = ""
+                        warning = ""
                         if is_a_mint_package:
                             level = 1
                         else:
-                            level = 3 # Level 3 by default
-                            extraInfo = ""
-                            warning = ""
+                            level = 3 # Level 3 by default                            
                             rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
                             rules = rulesFile.readlines()
                             goOn = True
