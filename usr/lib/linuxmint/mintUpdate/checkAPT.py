@@ -86,6 +86,8 @@ try:
                         elif origin.component == "backport":
                             update_type = "backport"
                             break
+                        else:
+                            update_type = "linuxmint"
 
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s" % (package, newVersion, oldVersion, size, sourcePackage, update_type, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace');
