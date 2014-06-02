@@ -409,10 +409,10 @@ Public License instead of this License.
                 <property name="can_focus">False</property>
                 <property name="toolbar_style">both</property>
                 <child>
-                  <widget class="GtkToolButton" id="tool_clear">
+                  <widget class="GtkToolButton" id="tool_select_all">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock_id">gtk-clear</property>
+                    <property name="stock_id">gtk-select-all</property>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
@@ -420,10 +420,10 @@ Public License instead of this License.
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkToolButton" id="tool_select_all">
+                  <widget class="GtkToolButton" id="tool_clear">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock_id">gtk-select-all</property>
+                    <property name="stock_id">gtk-clear</property>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
