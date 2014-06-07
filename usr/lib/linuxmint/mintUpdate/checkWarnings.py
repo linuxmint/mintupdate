@@ -33,6 +33,8 @@ try:
                 pkg = cache[package]
                 #print "Marking : %s to install" % pkg.Name
                 depcache.mark_install(pkg)
+
+        depcache.fix_broken()
         
         #print "Install : %d" % depcache.inst_count
         #print "Remove : %d" % depcache.del_count
