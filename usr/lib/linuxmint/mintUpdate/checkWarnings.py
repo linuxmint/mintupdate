@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-import apt_pkg
+import apt
 
     
 try:
@@ -22,30 +22,25 @@ try:
         packages_to_install = []
         packages_to_remove = []    
         
-        apt_pkg.init()
-        cache = apt_pkg.Cache(None)
+        cache = apt.Cache(None)
         
-        depcache = apt_pkg.DepCache(cache)
-        depcache.init()
+        for package in selection:
+            pkg = cache[package]
+            #print "Marking : %s to install" % pkg.Name
+            pkg.mark_upgrade()
         
-        with apt_pkg.ActionGroup(depcache):
-            for package in selection:
-                pkg = cache[package]
-                #print "Marking : %s to install" % pkg.Name
-                depcache.mark_install(pkg)
-        
-        #print "Install : %d" % depcache.inst_count
-        #print "Remove : %d" % depcache.del_count
+        #print "Install : %d" % cache.inst_count
+        #print "Remove : %d" % cache.delete_count
         
         # Get changes
-        for pkg in cache.packages:
-            if not depcache.marked_keep(pkg):
-                if depcache.marked_install(pkg) or depcache.marked_upgrade(pkg):
+        for pkg in cache:
+            if not pkg.marked_keep:
+                if pkg.marked_install:
                     if not pkg.name in selection:
                         if not '%s:%s' % (pkg.name, pkg.architecture) in selection:
                             if not pkg in packages_to_install:
                                 packages_to_install.append(pkg)
-            if depcache.marked_delete(pkg):
+            if pkg.marked_delete:
                     if not pkg in packages_to_remove:
                         packages_to_remove.append(pkg)                   
         installations = ' '.join(pkg.name for pkg in packages_to_install)
