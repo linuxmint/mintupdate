@@ -1576,7 +1576,8 @@ def menuPopup(widget, event, treeview_update, statusIcon, wTree):
         
 def add_to_ignore_list(widget, treeview_update, pkg, statusIcon, wTree):
     os.system("echo \"%s\" >> %s/mintupdate.ignored" % (pkg, CONFIG_DIR))
-    force_refresh(widget, treeview_update, statusIcon, wTree)
+    refresh = RefreshThread(treeview_update, statusIcon, wTree)
+    refresh.start()
 
 global app_hiden
 global log
