@@ -1579,7 +1579,7 @@ def add_to_ignore_list(widget, treeview_update, pkg, statusIcon, wTree):
     refresh = RefreshThread(treeview_update, statusIcon, wTree)
     refresh.start()
 
-global app_hiden
+global app_hidden
 global log
 global logFile
 global pid
