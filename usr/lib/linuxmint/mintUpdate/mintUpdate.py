@@ -604,7 +604,7 @@ class RefreshThread(threading.Thread):
                                         rule_level = rule_fields[2]
                                         rule_extraInfo = rule_fields[3]
                                         rule_warning = rule_fields[4]
-                                        if (rule_package == package):
+                                        if (rule_package == source_package):
                                             foundPackageRule = True
                                             if (rule_version == newVersion):
                                                 level = rule_level
@@ -619,7 +619,7 @@ class RefreshThread(threading.Thread):
                                         else:
                                             if (rule_package.startswith("*")):
                                                 keyword = rule_package.replace("*", "")
-                                                index = package.find(keyword)
+                                                index = source_package.find(keyword)
                                                 if (index > -1 and foundPackageRule == False):
                                                     level = rule_level
                                                     extraInfo = rule_extraInfo

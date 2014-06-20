@@ -1,53 +1,22 @@
-*base-files|*|5||Overwrites the Linux Mint LSB info
-*linux-|*|5||May damage your system. In particular, if you have used envy to install nVidia or ATI proprietary drivers, do not install unless you understand how those drivers work.
-linux|*|5||May damage your system. In particular, if you have used envy to install nVidia or ATI proprietary drivers, do not install unless you understand how those drivers work.
-*linux-image-2.6.22-14|*|3||
-*linux-headers-2.6.22-14|*|3||
-*linux-restricted-modules-2.6.22-14|*|3||
-linux-libc-dev|2.6.22-14.52|3||
-linux-restricted-modules-common|2.6.22.4-14.10|3||
-*xorg|*|4||	
-hal|*|5||
-*hal-|*|5||
-*libhal|*|5||
-*dbus|*|4||Crucial to Linux components working with one another. Do not install unless you are experiencing a problem which you believe the upgrade will solve
-*libdbus|*|4||Crucial to Linux components working with one another. Do not install unless you are experiencing a problem which you believe the upgrade will solve
-*mint|*|1||
-*mgse|*|1||
-*mate|*|2||
-*firefox|*|2||
-*thunderbird|*|2||
-*xulrunner|*|2||
+banshee|*|2||
+firefox|*|2||
+thunderbird|*|2||
 *language-pack|*|2||
-opera|*|2||
-flashplugin-nonfree|*|2||
+*flashplugin|*|2||
+*wine|*|2||
 pidgin|*|2||
-pidgin-data|*|2||
-nvidia-glx-new|*|4||
-grub-gfxboot|*|4||
-grub|*|5||
-*cinnamon|*|1||
-*muffin|*|1||
-*mdm|*|1||
+libreoffice|*|2||
+chromium-browser|*|2||
+dbus|*|4||
+*xorg|*|4||
 acpid|*|4||
 mountall|*|4||
-*cinnamon|*|1||
-*muffin|*|1||
-*mdm|*|1||
-ubuntu-system-adjustments|*|1||
-*nemo|*|1||
-libpam-systemd|204-1linuxmint1|2||Fixes XDG runtime dir collisions
-systemd-services|204-1linuxmint1|2||Fixes XDG runtime dir collisions
-libsystemd-login0|204-1linuxmint1|2||Fixes XDG runtime dir collisions
-libsystemd-daemon0|204-1linuxmint1|2||Fixes XDG runtime dir collisions
-udev|204-1linuxmint1|2||Fixes XDG runtime dir collisions
-gir1.2-gudev-1.0|204-1linuxmint1|2||Fixes XDG runtime dir collisions
-libudev1|204-1linuxmint1|2||Fixes XDG runtime dir collisions
-libsystemd-journal0|204-1linuxmint1|2||Fixes XDG runtime dir collisions
-libgudev-1.0-0|1:204-1linuxmint1|2||Fixes XDG runtime dir collisions
-libgtk-3.0|3.8.7~1+petra|2||Pinned GTK version - multiple fixes
-libgtk-3-common|3.8.7~1+petra|2||Pinned GTK version - multiple fixes
-libgtk-3-bin|3.8.7~1+petra|2||Pinned GTK version - multiple fixes
-gir1.2-gtk-3.0|3.8.7~1+petra|2||Pinned GTK version - multiple fixes
-libgail-3-0|3.8.7~1+petra|2||Pinned GTK version - multiple fixes
-
+mesa|*|4||
+systemd|*|4||
+plymouth|*|4||
+upstart|*|4||
+*base-files|*|5||
+*linux-|*|5||
+linux|*|5||
+grub|*|5||
+grub2|*|5||
