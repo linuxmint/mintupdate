@@ -458,8 +458,8 @@ class RefreshThread(threading.Thread):
             #self.statusIcon.set_blinking(True)
             gtk.gdk.threads_leave()
 
-            model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str, str, gtk.gdk.Pixbuf, str, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize, sourcePackage, type pixbuf, type txt, tooltip)
-            model.set_sort_column_id( 7, gtk.SORT_ASCENDING )         
+            model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str, str, gtk.gdk.Pixbuf, str, str, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize, sourcePackage, type pixbuf, type txt, tooltip, defaultSortString)
+            model.set_sort_column_id( 15, gtk.SORT_ASCENDING )         
 
             prefs = read_configuration()     
 
@@ -647,6 +647,7 @@ class RefreshThread(threading.Thread):
                                 model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
                                 model.set_value(iter, 13, update_type)
                                 model.set_value(iter, 14, tooltip)
+                                model.set_value(iter, 15, "%s%s%s" % (str(level), source_package, package))
                                 num_visible = num_visible + 1
                                                                                                                                                        
                         else:                 
@@ -679,6 +680,7 @@ class RefreshThread(threading.Thread):
                                 model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
                                 model.set_value(iter, 13, update_type)
                                 model.set_value(iter, 14, tooltip)
+                                model.set_value(iter, 15, "%s%s%s" % (str(level), source_package, package))
                                 num_visible = num_visible + 1
 
                 gtk.gdk.threads_enter()  
