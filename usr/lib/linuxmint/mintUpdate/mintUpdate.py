@@ -257,7 +257,8 @@ class InstallThread(threading.Thread):
                                 dialog.set_markup("<b>" + _("This upgrade will trigger additional changes") + "</b>")
                                 #dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")                                
                                 dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
-                                dialog.set_default_size(640, 480)
+                                dialog.set_default_size(320, 400)
+                                dialog.set_resizable(True)
                                 
                                 if len(removals) > 0:
                                     # Removals
@@ -286,8 +287,8 @@ class InstallThread(threading.Thread):
                                     treeview.set_model(model)
                                     treeview.show()
                                     scrolledWindow.add(treeview)                                
-                                    dialog.vbox.add(label)
-                                    dialog.vbox.add(scrolledWindow)
+                                    dialog.vbox.pack_start(label, False, False, 0)
+                                    dialog.vbox.pack_start(scrolledWindow, True, True, 0)
                                 
                                 if len(installations) > 0:
                                     # Installations
@@ -316,8 +317,8 @@ class InstallThread(threading.Thread):
                                     treeview.set_model(model)
                                     treeview.show()
                                     scrolledWindow.add(treeview)   
-                                    dialog.vbox.add(label)                             
-                                    dialog.vbox.add(scrolledWindow)                                                            
+                                    dialog.vbox.pack_start(label, False, False, 0)
+                                    dialog.vbox.pack_start(scrolledWindow, True, True, 0)
                                 
                                 dialog.show_all()                
                                 if dialog.run() == gtk.RESPONSE_OK:
