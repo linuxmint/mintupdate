@@ -337,6 +337,7 @@ class InstallThread(threading.Thread):
                 if proceed:
                     gtk.gdk.threads_enter()
                     self.statusIcon.set_from_file(icon_apply)
+                    self.statusIcon.set_visible(True)
                     self.statusIcon.set_tooltip(_("Installing updates"))
                     gtk.gdk.threads_leave()
                     log.writelines("++ Ready to launch synaptic\n")
@@ -386,6 +387,7 @@ class InstallThread(threading.Thread):
                         # Refresh
                         gtk.gdk.threads_enter()
                         self.statusIcon.set_from_file(icon_busy)
+                        self.statusIcon.set_visible(False)
                         self.statusIcon.set_tooltip(_("Checking for updates"))
                         self.wTree.get_widget("window1").window.set_cursor(None)
                         self.wTree.get_widget("window1").set_sensitive(True)                        
@@ -410,6 +412,7 @@ class InstallThread(threading.Thread):
             log.flush()
             gtk.gdk.threads_enter()
             self.statusIcon.set_from_file(icon_error)
+            self.statusIcon.set_visible(True)
             self.statusIcon.set_tooltip(_("Could not install the security updates"))
             log.writelines("-- Could not install security updates\n")
             log.flush()
@@ -454,6 +457,7 @@ class RefreshThread(threading.Thread):
             self.wTree.get_widget("image_error").hide()
             # Starts the blinking
             self.statusIcon.set_from_file(icon_busy)
+            self.statusIcon.set_visible(False)
             self.statusIcon.set_tooltip(_("Checking for updates"))
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             #self.statusIcon.set_blinking(True)
@@ -477,6 +481,7 @@ class RefreshThread(threading.Thread):
                 if (running == True):
                     gtk.gdk.threads_enter()
                     self.statusIcon.set_from_file(icon_unknown)
+                    self.statusIcon.set_visible(False)
                     self.statusIcon.set_tooltip(_("Another application is using APT"))
                     statusbar.push(context_id, _("Another application is using APT"))
                     log.writelines("-- Another application is using APT\n")
@@ -522,6 +527,7 @@ class RefreshThread(threading.Thread):
 
             if (len(updates) == None):
                 self.statusIcon.set_from_file(icon_up2date)
+                self.statusIcon.set_visible(False)
                 self.statusIcon.set_tooltip(_("Your system is up to date"))
                 statusbar.push(context_id, _("Your system is up to date"))
                 log.writelines("++ System is up to date\n")
@@ -535,6 +541,7 @@ class RefreshThread(threading.Thread):
                             error_msg = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py")
                             gtk.gdk.threads_enter()
                             self.statusIcon.set_from_file(icon_error)
+                            self.statusIcon.set_visible(True)
                             self.statusIcon.set_tooltip(_("Could not refresh the list of packages"))
                             statusbar.push(context_id, _("Could not refresh the list of packages"))
                             log.writelines("-- Error in checkAPT.py, could not refresh the list of packages\n")
@@ -688,6 +695,7 @@ class RefreshThread(threading.Thread):
                 if (new_mintupdate):
                     self.statusString = _("A new version of the update manager is available")
                     self.statusIcon.set_from_file(icon_updates)
+                    self.statusIcon.set_visible(True)
                     self.statusIcon.set_tooltip(self.statusString)
                     statusbar.push(context_id, self.statusString)
                     log.writelines("++ Found a new version of mintupdate\n")
@@ -709,12 +717,14 @@ class RefreshThread(threading.Thread):
                             elif (num_ignored > 0):
                                 self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
                         self.statusIcon.set_from_file(icon_updates)
+                        self.statusIcon.set_visible(True)
                         self.statusIcon.set_tooltip(self.statusString)
                         statusbar.push(context_id, self.statusString)
                         log.writelines("++ Found " + str(num_safe) + " recommended software updates\n")
                         log.flush()
                     else:
                         self.statusIcon.set_from_file(icon_up2date)
+                        self.statusIcon.set_visible(False)
                         self.statusIcon.set_tooltip(_("Your system is up to date"))
                         statusbar.push(context_id, _("Your system is up to date"))
                         log.writelines("++ System is up to date\n")
@@ -738,6 +748,7 @@ class RefreshThread(threading.Thread):
             log.flush()
             gtk.gdk.threads_enter()
             self.statusIcon.set_from_file(icon_error)
+            self.statusIcon.set_visible(True)
             self.statusIcon.set_tooltip(_("Could not refresh the list of packages"))
             #self.statusIcon.set_blinking(False)
             self.wTree.get_widget("window1").window.set_cursor(None)
@@ -1629,7 +1640,7 @@ try:
     statusIcon = gtk.StatusIcon()
     statusIcon.set_from_file(icon_busy)
     statusIcon.set_tooltip(_("Checking for updates"))
-    statusIcon.set_visible(True)    
+    statusIcon.set_visible(False)    
 
     #Set the Glade file
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
