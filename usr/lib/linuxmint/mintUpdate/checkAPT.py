@@ -3,6 +3,7 @@
 import os
 import sys
 import apt
+import commands
 
 #def checkDependencies(changes, cache):
 #    foundSomething = False
@@ -89,10 +90,20 @@ try:
                         else:
                             update_type = "linuxmint"
 
-                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s" % (package, newVersion, oldVersion, size, sourcePackage, update_type, description)
-                print resultString.encode('ascii', 'xmlcharrefreplace');
+                #l10n the description
+                try:
+                    output = commands.getoutput('apt-cache show %s' % pkg.name)
+                    output = output.split("Description")
+                    if len(output) > 1:
+                        description = output[1]
+                        description = description.decode('utf-8')                            
+                except:                    
+                    description = pkg.candidate.description
+                    
+                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, description)
+                print resultString.encode('ascii', 'xmlcharrefreplace')
     
 except Exception, detail:
-    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR"
+    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR---EOL---"
     print detail
     sys.exit(1)

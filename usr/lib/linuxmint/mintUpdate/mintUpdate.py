@@ -492,9 +492,9 @@ class RefreshThread(threading.Thread):
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             gtk.gdk.threads_leave()            
             if app_hidden:
-                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py | grep \"###\""
+                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py 2>/dev/null"
             else:
-                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s | grep \"###\"" % self.wTree.get_widget("window1").window.xid
+                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s 2>/dev/null" % self.wTree.get_widget("window1").window.xid
             if self.root_mode:
                 refresh_command = "sudo %s" % refresh_command
             updates =  commands.getoutput(refresh_command)
@@ -505,7 +505,7 @@ class RefreshThread(threading.Thread):
             else:
                 new_mintupdate = False
            
-            updates = string.split(updates, "\n")                            
+            updates = string.split(updates, "---EOL---")                            
                 
             # Look at the packages one by one
             list_of_packages = ""
