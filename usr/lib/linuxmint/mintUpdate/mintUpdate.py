@@ -1203,13 +1203,13 @@ def open_history(widget):
     column1.set_sort_column_id(1)
     column1.set_resizable(True)
     column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), text=0)
-    column2.set_sort_column_id(2)
+    column2.set_sort_column_id(0)
     column2.set_resizable(True)
     column3 = gtk.TreeViewColumn(_("Old version"), gtk.CellRendererText(), text=2)
-    column3.set_sort_column_id(3)
+    column3.set_sort_column_id(2)
     column3.set_resizable(True)
     column4 = gtk.TreeViewColumn(_("New version"), gtk.CellRendererText(), text=3)
-    column4.set_sort_column_id(4)
+    column4.set_sort_column_id(3)
     column4.set_resizable(True)    
 
     treeview_update.append_column(column1)
@@ -1223,7 +1223,7 @@ def open_history(widget):
     treeview_update.set_enable_search(True)
     treeview_update.show()
 
-    model = gtk.TreeStore(str, str, str, str) # (date, packageName, oldVersion, newVersion)
+    model = gtk.TreeStore(str, str, str, str) # (packageName, date, oldVersion, newVersion)
 
     if (os.path.exists("/var/log/dpkg.log")):
         updates = commands.getoutput("cat /var/log/dpkg.log | egrep \"upgrade\"")
