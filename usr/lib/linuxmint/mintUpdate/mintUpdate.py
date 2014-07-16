@@ -1425,17 +1425,6 @@ def quit_cb(widget, window, vpaned, data = None):
     #gtk.main_quit()
     #sys.exit(0)
 
-def info_cb(widget, data = None):
-    global log
-    global logFile
-    if data:
-        data.set_visible(False)
-    try:
-        log.flush()
-        os.system("gedit " + logFile)
-    except:
-        pass
-
 def popup_menu_cb(widget, button, time, data = None):
     if button == 3:
         if data:
