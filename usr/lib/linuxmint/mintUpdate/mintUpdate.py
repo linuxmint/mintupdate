@@ -1219,7 +1219,7 @@ def open_history(widget):
 
     treeview_update.set_headers_clickable(True)
     treeview_update.set_reorderable(False)
-    treeview_update.set_search_column(2)
+    treeview_update.set_search_column(0)
     treeview_update.set_enable_search(True)
     treeview_update.show()
 
