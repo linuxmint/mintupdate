@@ -91,10 +91,14 @@ class ChangelogRetriever(threading.Thread):
         
         changelog = _("No changelog available")
         
+        proxy = urllib2.ProxyHandler()
+        opener = urllib2.build_opener(proxy)
+        urllib2.install_opener(opener)
+
         for changelog_source in changelog_sources:
             try:                      
                 print "Trying to fetch the changelog from: %s" % changelog_source
-                url = urllib2.urlopen(changelog_source, None, 30)
+                url = urllib2.urlopen(changelog_source, None, 10)
                 source = url.read()
                 url.close()
                 
