@@ -14,6 +14,7 @@ try:
     import gettext
     import fnmatch
     import urllib2
+    import re
     from user import home
     sys.path.append('/usr/lib/linuxmint/common')
     from configobj import ConfigObj
@@ -1275,24 +1276,30 @@ def open_information(widget):
 def label_size_allocate(widget, rect):
     widget.set_size_request(rect.width, -1)
 
-def install_kernel(widget, version, window, wTree, remove=False):
-    if (remove):
-        message = _("Are you sure you want to remove the %s kernel?") % version
-    else:
-        message = _("Are you sure you want to install the %s kernel?") % version
-    image = gtk.Image()
-    image.set_from_file("/usr/lib/linuxmint/mintUpdate/icons/warning.png")
-    d = gtk.MessageDialog(window, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO, message) 
-    image.show()
-    d.set_image(image)    
-    d.set_default_response(gtk.RESPONSE_NO)
-    r = d.run()   
-    d.hide()     
-    d.destroy()
-    if r == gtk.RESPONSE_YES:
-        thread = InstallKernelThread(version, wTree, remove)
-        thread.start()        
-        window.hide()
+def install_kernel(widget, selection, wTree, window):
+    (model, iter) = selection.get_selected()
+    if (iter != None):
+        (status, version, pkg_version, installed, used, recommended, installable) = model.get_value(iter, 7)
+        installed = (installed == "1")
+        used = (used == "1")            
+        installable = (installable == "1")
+        if (installed):
+            message = _("Are you sure you want to remove the %s kernel?") % version
+        else:
+            message = _("Are you sure you want to install the %s kernel?") % version
+        image = gtk.Image()
+        image.set_from_file("/usr/lib/linuxmint/mintUpdate/icons/warning.png")
+        d = gtk.MessageDialog(window, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO, message) 
+        image.show()
+        d.set_image(image)    
+        d.set_default_response(gtk.RESPONSE_NO)
+        r = d.run()   
+        d.hide()     
+        d.destroy()
+        if r == gtk.RESPONSE_YES:
+            thread = InstallKernelThread(version, wTree, installed)
+            thread.start()        
+            window.hide()
 
 def open_kernels(widget):
     global logFile
@@ -1306,77 +1313,213 @@ def open_kernels(widget):
     tree.get_widget("close_button").connect("clicked", kernels_cancel, tree)
 
     tree.get_widget("label_warning").connect("size-allocate", label_size_allocate)
+    tree.get_widget("label_contact").connect("size-allocate", label_size_allocate)
+
 
     tree.get_widget("title_warning").set_markup("<span foreground='black' font_weight='bold' size='large'>%s</span>" % _("Warning!"))
-    tree.get_widget("label_warning").set_markup(_("The Linux kernel is responsible for hardware support. Using the wrong kernel can lead to lack of networking, lack of sound, lack of graphical  environment or even the inability to boot the computer. Only install or remove kernels if you're experienced with Linux kernels, drivers, dkms and you know how to recover a non-booting computer."))
-    tree.get_widget("label_available").set_markup("%s" % _("The following kernels are available:"))
-    tree.get_widget("label_version").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Version"))    
-    tree.get_widget("label_used").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Loaded"))
-    tree.get_widget("label_recommended").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Recommended"))
-    tree.get_widget("label_installed").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Installed"))
-    tree.get_widget("label_fixes").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Fixes"))
-    tree.get_widget("label_regressions").set_markup("<span foreground='black' font_weight='bold' size='small'>%s</span>" % _("Regressions"))
+    tree.get_widget("label_warning").set_markup(_("The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer. Only install or remove kernels if you're experienced with kernels, drivers, dkms and you know how to recover a non-booting computer."))
+    tree.get_widget("label_available").set_markup("%s" % _("The following kernels are available:"))    
+    tree.get_widget("label_more_info").set_text(_("More info..."))
 
-    table = tree.get_widget("table_kernels")
+    tree.get_widget("label_more_info_1").set_markup("<small>%s</small>" % _("Fixes can represent bug fixes, improvements in hardware support or security fixes."))
+    tree.get_widget("label_more_info_2").set_markup("<small>%s</small>" % _("Security fixes are important when local users represent a potential threat (in companies, libraries, schools or public places for instance) or when the computer can be threatened by remote attacks (servers for instance)."))
+    tree.get_widget("label_more_info_3").set_markup("<small>%s</small>" % _("Bug fixes and hardware improvements are important if one of your devices isn't working as expected and the newer kernel addresses that problem."))
+    tree.get_widget("label_more_info_4").set_markup("<small>%s</small>" % _("Regressions represent something which worked well and no longer works after an update. It is common in software development that a code change or even a bug fix introduces side effects and breaks something else. Because of regressions it is recommended to be selective when installing updates or newer kernels."))
+
+    tree.get_widget("label_known_fixes").set_text(_("Fixes"))
+    tree.get_widget("label_known_regressions").set_text(_("Regressions"))
+    tree.get_widget("label_contact").set_markup("<span foreground='#3c3c3c' font_weight='bold' size='small'>%s</span>" % _("Note: Only known fixes and regressions are mentioned. If you are aware of additional fixes or regressions, please contact the development team."))
+
+    # the treeview
+    treeview_kernels = tree.get_widget("treeview_kernels")
+
+    column1 = gtk.TreeViewColumn(_("Version"), gtk.CellRendererText(), markup=1)
+    column1.set_sort_column_id(1)
+    column1.set_resizable(True)
+    column1.set_expand(True)
+    column2 = gtk.TreeViewColumn(_("Loaded"), gtk.CellRendererPixbuf(), pixbuf=2)
+    column2.set_sort_column_id(2)
+    column2.set_resizable(True)
+    column2.set_expand(False)
+    column3 = gtk.TreeViewColumn(_("Recommended"), gtk.CellRendererPixbuf(), pixbuf=3)
+    column3.set_sort_column_id(3)
+    column3.set_resizable(True)
+    column3.set_expand(False)
+    column4 = gtk.TreeViewColumn(_("Installed"), gtk.CellRendererPixbuf(), pixbuf=4)
+    column4.set_sort_column_id(4)
+    column4.set_resizable(True)
+    column4.set_expand(False)
+    column5 = gtk.TreeViewColumn(_("Fixes"), gtk.CellRendererPixbuf(), pixbuf=5)
+    column5.set_sort_column_id(5)
+    column5.set_resizable(True)
+    column5.set_expand(False)
+    column6 = gtk.TreeViewColumn(_("Regressions"), gtk.CellRendererPixbuf(), pixbuf=6)
+    column6.set_sort_column_id(6)
+    column6.set_resizable(True)
+    column6.set_expand(False)
+
+    treeview_kernels.append_column(column1)
+    treeview_kernels.append_column(column2)
+    treeview_kernels.append_column(column3)
+    treeview_kernels.append_column(column4)
+    treeview_kernels.append_column(column5)
+    treeview_kernels.append_column(column6)
+
+    treeview_kernels.set_headers_clickable(True)
+    treeview_kernels.set_reorderable(False)
+    treeview_kernels.set_search_column(1)
+    treeview_kernels.set_enable_search(True)
+    treeview_kernels.show()
+
+    model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, object) # (version, label, loaded, recommended, installed, fixes, regressions, values)
 
     kernels = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkKernels.py | grep \"###\"")
     kernels = kernels.split("\n")
     column = 2
     for kernel in kernels:
         values = string.split(kernel, "###")
-        if len(values) == 6:
+        if len(values) == 7:
             status = values[0]
             if status != "KERNEL":
                 continue
-            (status, version, installed, used, recommended, installable) = values
+            (status, version, pkg_version, installed, used, recommended, installable) = values
             installed = (installed == "1")
             used = (used == "1")
             recommended = (recommended == "1")
             installable = (installable == "1")
+            label = version
 
-            label = gtk.Label(version)
-            table.attach(label, column, column+1, 0, 1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
-            
-            if used:
-                table.attach(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/tick.png"), column, column+1, 1, 2, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
-            if recommended:
-                table.attach(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/tick.png"), column, column+1, 2, 3, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
-            if installed:
-                table.attach(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/tick.png"), column, column+1, 3, 4, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+            tick = gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/tick.png")
+            pix_fixes = gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/fixes.png")
+            pix_bugs = gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/regressions.png")
 
+
+            iter = model.insert_before(None, None)
+            model.set_value(iter, 0, version)            
+            model.set_value(iter, 7, values)
+            model.row_changed(model.get_path(iter), iter)          
+                        
             if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version):
                 kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version)
                 lines = kernel_file.readlines()
-                fixes_box = gtk.VBox()
-                bugs_box = gtk.VBox()
+                num_fixes = 0
+                num_bugs = 0
                 for line in lines:
-                    elements = line.split(" ")
-                    if len(elements) == 3:
-                        (prefix, title, url) = elements
-                        link = gtk.Label()
-                        link.set_markup("<a href='%s'>%s</a>" % (url, title))
+                    elements = line.split("---")
+                    if len(elements) == 4:
+                        (prefix, title, url, description) = elements                        
                         if prefix == "fix":
-                            fixes_box.pack_start(link, False, False, 2)
+                            num_fixes += 1
                         elif prefix == "bug":
-                            bugs_box.pack_start(link, False, False, 2)
+                            num_bugs += 1
+                if num_fixes > 0:
+                    model.set_value(iter, 5, pix_fixes)
+                if num_bugs > 0:
+                    model.set_value(iter, 6, pix_bugs)
 
-                table.attach(fixes_box, column, column+1, 4, 5, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)      
-                table.attach(bugs_box, column, column+1, 5, 6, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)                                              
+            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/versions"):
+                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/versions")
+                lines = kernel_file.readlines()
+                for line in lines:
+                    elements = line.split("\t")
+                    if len(elements) == 3:                        
+                        (versions_version, versions_tag, versions_upstream) = elements                        
+                        if versions_version == pkg_version:
+                            label = "%s (%s)" % (version, versions_upstream.strip())                           
 
             if installable and not installed:
                 button = gtk.Button(_("Install"))
-                button.connect("clicked", install_kernel, version, window, tree, False)
-                table.attach(button, column, column+1, 6, 7, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+                button.connect("clicked", install_kernel, version, window, tree, False)                
 
             elif installed and not used:                                            
                 button = gtk.Button(_("Remove"))
                 button.connect("clicked", install_kernel, version, window, tree, True)
-                table.attach(button, column, column+1, 6, 7, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
-            
-            column += 1
+
+            if used:                
+                model.set_value(iter, 2, tick)
+                label = "<b>%s</b>" % label                
+            if recommended:                
+                model.set_value(iter, 3, tick)
+            if installed:                
+                model.set_value(iter, 4, tick)
+
+            model.set_value(iter, 1, label)
+                
+    treeview_kernels.set_model(model)
+    del model
+
+    selection = treeview_kernels.get_selection()
+    selection.connect("changed", display_selected_kernel, tree)
+
+    button_install = tree.get_widget("button_install")
+    button_install.connect('clicked', install_kernel, selection, tree, window)
 
     window.show_all()
 
+def display_selected_kernel(selection, wTree):
+    button_install = wTree.get_widget("button_install")
+    button_install.set_sensitive(False)
+    button_install.set_tooltip_text("")
+    try:
+        scrolled_fixes = wTree.get_widget("scrolled_fixes")
+        scrolled_regressions = wTree.get_widget("scrolled_regressions")
+        for child in scrolled_fixes.get_children():
+            scrolled_fixes.remove(child)
+        for child in scrolled_regressions.get_children():
+            scrolled_regressions.remove(child)        
+        (model, iter) = selection.get_selected()
+        if (iter != None):
+            (status, version, pkg_version, installed, used, recommended, installable) = model.get_value(iter, 7)
+            installed = (installed == "1")
+            used = (used == "1")            
+            installable = (installable == "1")
+            if installed:
+                button_install.set_label(_("Remove the %s kernel") % version)
+                if used:
+                    button_install.set_tooltip_text(_("This kernel cannot be removed because it is currently in use."))
+                else:
+                    button_install.set_sensitive(True)
+            else:
+                button_install.set_label(_("Install the %s kernel" % version))
+                if not installable:
+                    button_install.set_tooltip_text(_("This kernel is not installable."))
+                else:
+                    button_install.set_sensitive(True)
+            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version):
+                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version)
+                lines = kernel_file.readlines()
+                fixes_box = gtk.Table()
+                fixes_box.set_row_spacings(3)
+                bugs_box = gtk.Table()
+                bugs_box.set_row_spacings(3)
+                num_fixes = 0
+                num_bugs = 0
+                for line in lines:
+                    elements = line.split("---")
+                    if len(elements) == 4:
+                        (prefix, title, url, description) = elements
+                        link = gtk.Label()
+                        link.set_markup("<a href='%s'>%s</a>" % (url.strip(), title.strip()))
+                        link.set_alignment(0, 0.5);
+                        description_label = gtk.Label()
+                        description = description.strip()
+                        description = re.sub(r'CVE-(\d+)-(\d+)', r'<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=\g<0>">\g<0></a>', description)
+                        description_label.set_markup("%s" % description.strip())
+                        description_label.set_alignment(0, 0.5);
+                        if prefix == "fix":
+                            fixes_box.attach(link, 0, 1, num_fixes, num_fixes+1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=3, ypadding=0)
+                            fixes_box.attach(description_label, 1, 2, num_fixes, num_fixes+1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+                            num_fixes += 1
+                        elif prefix == "bug":
+                            bugs_box.attach(link, 0, 1, num_bugs, num_bugs+1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=3, ypadding=0)
+                            bugs_box.attach(description_label, 1, 2, num_bugs, num_bugs+1, xoptions=gtk.FILL, yoptions=gtk.FILL, xpadding=0, ypadding=0)
+                            num_bugs += 1
+                scrolled_fixes.add_with_viewport(fixes_box)
+                scrolled_regressions.add_with_viewport(bugs_box)
+                fixes_box.show_all()
+                bugs_box.show_all()
+    except Exception, detail:
+        print detail           
 
 def open_about(widget):
     dlg = gtk.AboutDialog()
