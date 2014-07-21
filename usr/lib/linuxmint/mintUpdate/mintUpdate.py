@@ -16,6 +16,7 @@ try:
     import urllib2
     import re
     from user import home
+    from HTMLParser import HTMLParser
     sys.path.append('/usr/lib/linuxmint/common')
     from configobj import ConfigObj
 except Exception, detail:
@@ -433,6 +434,43 @@ class RefreshThread(threading.Thread):
         self.statusIcon = statusIcon
         self.wTree = wTree
         self.root_mode = root_mode
+        self.parser = HTMLParser()
+
+    def clean_description(self, description):
+        try:
+            description = self.parser.unescape(description)
+            lines = description.split("\n")
+            value = ""
+            num = 0
+            newline = False
+            for line in lines:
+                line = line.strip()
+                if num == 0:
+                    if line [0] == "-" and ":" in line[0:5]:
+                        # line is starting with something like "-fr: "
+                        line = "".join(line.split(":")[1:]).strip()
+
+                    line = line.capitalize()
+                    if len(line) > 0 and line[-1] not in [".", "!", "?"]:
+                        line = "%s." % line
+                    value = "%s\n" % line
+                    newline = True
+                else:
+                    if line == ".":
+                        value = "%s\n" % (value)
+                        newline = True
+                    else:
+                        if (newline):
+                            value = "%s%s" % (value, line.capitalize())
+                        else:
+                            value = "%s %s" % (value, line)
+                        newline = False
+                num += 1
+            value = value.replace("  ", " ")
+            return value
+        except Exception, detail:
+            print detail
+            return description
 
     def run(self):
         global log
@@ -568,14 +606,15 @@ class RefreshThread(threading.Thread):
                         size = int(values[4])
                         source_package = values[5]
                         update_type = values[6]
+                        description = self.clean_description(values[7])
                         is_a_mint_package = False
 
                         if (update_type == "linuxmint"):
                             update_type = "package"
                             is_a_mint_package = True
 
-                        security_update = (update_type == "security")
-                        description = values[7]
+                        security_update = (update_type == "security")                        
+
                         if update_type == "security":
                             tooltip = _("Security update")
                         elif update_type == "backport":
