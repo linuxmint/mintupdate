@@ -1655,7 +1655,6 @@ def display_selected_package(selection, wTree):
         wTree.get_widget("textview_changes").get_buffer().set_text("")            
         (model, iter) = selection.get_selected()
         if (iter != None):
-            selected_package = model.get_value(iter, 1)
             description_txt = model.get_value(iter, 8)                        
             wTree.get_widget("textview_description").get_buffer().set_text(description_txt)                    
             if wTree.get_widget("notebook_details").get_current_page() == 1:                
@@ -1668,20 +1667,19 @@ def display_selected_package(selection, wTree):
     except Exception, detail:
         print detail
 
-
 def switch_page(notebook, page, page_num, Wtree, treeView):
     selection = treeView.get_selection()
     (model, iter) = selection.get_selected()
     if (iter != None):
-        source_package = model.get_value(iter, 11)
-        description_txt = model.get_value(iter, 8)   
         if (page_num == 0):
             # Description tab
+            description_txt = model.get_value(iter, 8)
             wTree.get_widget("textview_description").get_buffer().set_text(description_txt)
         if (page_num == 1):
             # Changelog tab            
             level = model.get_value(iter, 7)
             version = model.get_value(iter, 4)
+            source_package = model.get_value(iter, 11)
             retriever = ChangelogRetriever(source_package, level, version, wTree)
             retriever.start()
 
