@@ -249,8 +249,8 @@ class InstallThread(threading.Thread):
                 proceed = True                
                 try:
                     pkgs = ' '.join(str(pkg) for pkg in packages)
-                    warnings = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
-                    #print ("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
+                    warnings = commands.getoutput("/usr/share/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
+                    #print ("/usr/share/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
                     warnings = warnings.split("###")
                     if len(warnings) == 2:
                         installations = warnings[0].split()
@@ -262,7 +262,7 @@ class InstallThread(threading.Thread):
                                 dialog.set_title("")
                                 dialog.set_markup("<b>" + _("This upgrade will trigger additional changes") + "</b>")
                                 #dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")                                
-                                dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+                                dialog.set_icon_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg")
                                 dialog.set_default_size(320, 400)
                                 dialog.set_resizable(True)
                                 
@@ -385,7 +385,7 @@ class InstallThread(threading.Thread):
                         except:
                             pass #cause we might have closed it already
 			
-                        command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"                        
+                        command = "/usr/share/linuxmint/mintUpdate/mintUpdate.py show &"                        
                         os.system(command)
                     
                     else:
@@ -535,9 +535,9 @@ class RefreshThread(threading.Thread):
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             gtk.gdk.threads_leave()            
             if app_hidden:
-                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py 2>/dev/null"
+                refresh_command = "/usr/share/linuxmint/mintUpdate/checkAPT.py 2>/dev/null"
             else:
-                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s 2>/dev/null" % self.wTree.get_widget("window1").window.xid
+                refresh_command = "/usr/share/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s 2>/dev/null" % self.wTree.get_widget("window1").window.xid
             if self.root_mode:
                 refresh_command = "sudo %s" % refresh_command
             updates =  commands.getoutput(refresh_command)
@@ -575,7 +575,7 @@ class RefreshThread(threading.Thread):
                     if len(values) == 8:
                         status = values[0]
                         if (status == "ERROR"):
-                            error_msg = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkAPT.py")
+                            error_msg = commands.getoutput("/usr/share/linuxmint/mintUpdate/checkAPT.py")
                             gtk.gdk.threads_enter()
                             self.statusIcon.set_from_file(icon_error)
                             self.statusIcon.set_tooltip(_("Could not refresh the list of packages"))
@@ -636,7 +636,7 @@ class RefreshThread(threading.Thread):
                             level = 1
                         else:
                             level = 3 # Level 3 by default                            
-                            rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
+                            rulesFile = open("/usr/share/linuxmint/mintUpdate/rules","r")
                             rules = rulesFile.readlines()
                             goOn = True
                             foundPackageRule = False # whether we found a rule with the exact package name or not
@@ -679,7 +679,7 @@ class RefreshThread(threading.Thread):
                                 model.set_value(iter, 0, "true")
                                 model.row_changed(model.get_path(iter), iter)
                                 model.set_value(iter, 1, package)
-                                model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
+                                model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/share/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
                                 model.set_value(iter, 3, oldVersion)
                                 model.set_value(iter, 4, newVersion)
                                 model.set_value(iter, 5, warning)
@@ -689,7 +689,7 @@ class RefreshThread(threading.Thread):
                                 model.set_value(iter, 9, size)
                                 model.set_value(iter, 10, strSize)
                                 model.set_value(iter, 11, source_package)   
-                                model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
+                                model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/share/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
                                 model.set_value(iter, 13, update_type)
                                 model.set_value(iter, 14, tooltip)
                                 model.set_value(iter, 15, "%s%s%s" % (str(level), source_package, package))
@@ -712,7 +712,7 @@ class RefreshThread(threading.Thread):
                                                                                       
                                 model.row_changed(model.get_path(iter), iter)
                                 model.set_value(iter, 1, package)
-                                model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
+                                model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/share/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
                                 model.set_value(iter, 3, oldVersion)                                
                                 model.set_value(iter, 4, newVersion)
                                 model.set_value(iter, 5, warning)
@@ -722,7 +722,7 @@ class RefreshThread(threading.Thread):
                                 model.set_value(iter, 9, size)
                                 model.set_value(iter, 10, strSize)
                                 model.set_value(iter, 11, source_package)
-                                model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
+                                model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/share/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
                                 model.set_value(iter, 13, update_type)
                                 model.set_value(iter, 14, tooltip)
                                 model.set_value(iter, 15, "%s%s%s" % (str(level), source_package, package))
@@ -998,12 +998,12 @@ def read_configuration():
         icon_unknown = config['icons']['unknown']
         icon_apply = config['icons']['apply']
     except:
-        icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
-        icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
-        icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/base-info.svg"
-        icon_error = "/usr/lib/linuxmint/mintUpdate/icons/base-error2.svg"
-        icon_unknown = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
-        icon_apply = "/usr/lib/linuxmint/mintUpdate/icons/base-exec.svg"
+        icon_busy = "/usr/share/linuxmint/mintUpdate/icons/base.svg"
+        icon_up2date = "/usr/share/linuxmint/mintUpdate/icons/base-apply.svg"
+        icon_updates = "/usr/share/linuxmint/mintUpdate/icons/base-info.svg"
+        icon_error = "/usr/share/linuxmint/mintUpdate/icons/base-error2.svg"
+        icon_unknown = "/usr/share/linuxmint/mintUpdate/icons/base.svg"
+        icon_apply = "/usr/share/linuxmint/mintUpdate/icons/base-exec.svg"
 
     #Read levels config
     try:
@@ -1093,7 +1093,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     global icon_unknown
     global icon_apply
 
-    gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
+    gladefile = "/usr/share/linuxmint/mintUpdate/mintUpdate.glade"
     prefs_tree = gtk.glade.XML(gladefile, "window2")
     prefs_tree.get_widget("window2").set_title(_("Preferences") + " - " + _("Update Manager"))
 
@@ -1133,7 +1133,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation or the removal of other packages"))
 
-    prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    prefs_tree.get_widget("window2").set_icon_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg")
     prefs_tree.get_widget("window2").show()
     prefs_tree.get_widget("pref_button_cancel").connect("clicked", pref_cancel, prefs_tree)
     prefs_tree.get_widget("pref_button_apply").connect("clicked", pref_apply, prefs_tree, treeview, statusIcon, wTree)
@@ -1209,7 +1209,7 @@ def add_blacklisted_package(widget, treeview_blacklist):
     dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK, None)
     dialog.set_markup("<b>" + _("Please enter a package name:") + "</b>")
     dialog.set_title(_("Ignore a package"))
-    dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    dialog.set_icon_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg")
     entry = gtk.Entry()
     hbox = gtk.HBox()
     hbox.pack_start(gtk.Label(_("Package name:")), False, 5, 5)
@@ -1235,10 +1235,10 @@ def remove_blacklisted_package(widget, treeview_blacklist):
 
 def open_history(widget):
     #Set the Glade file
-    gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
+    gladefile = "/usr/share/linuxmint/mintUpdate/mintUpdate.glade"
     wTree = gtk.glade.XML(gladefile, "window4")
     treeview_update = wTree.get_widget("treeview_history")
-    wTree.get_widget("window4").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    wTree.get_widget("window4").set_icon_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg")
 
     wTree.get_widget("window4").set_title(_("History of updates") + " - " + _("Update Manager"))
 
@@ -1303,10 +1303,10 @@ def open_information(widget):
     global logFile
     global pid
 
-    gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
+    gladefile = "/usr/share/linuxmint/mintUpdate/mintUpdate.glade"
     prefs_tree = gtk.glade.XML(gladefile, "window3")
     prefs_tree.get_widget("window3").set_title(_("Information") + " - " + _("Update Manager"))
-    prefs_tree.get_widget("window3").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    prefs_tree.get_widget("window3").set_icon_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg")
     prefs_tree.get_widget("close_button").connect("clicked", info_cancel, prefs_tree)    
     prefs_tree.get_widget("label4").set_text(_("Process ID:"))
     prefs_tree.get_widget("label5").set_text(_("Log file:"))
@@ -1331,7 +1331,7 @@ def install_kernel(widget, selection, wTree, window):
         else:
             message = _("Are you sure you want to install the %s kernel?") % version
         image = gtk.Image()
-        image.set_from_file("/usr/lib/linuxmint/mintUpdate/icons/warning.png")
+        image.set_from_file("/usr/share/linuxmint/mintUpdate/icons/warning.png")
         d = gtk.MessageDialog(window, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO, message) 
         image.show()
         d.set_image(image)    
@@ -1348,11 +1348,11 @@ def open_kernels(widget):
     global logFile
     global pid
 
-    gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
+    gladefile = "/usr/share/linuxmint/mintUpdate/mintUpdate.glade"
     tree = gtk.glade.XML(gladefile, "window5")
     window = tree.get_widget("window5")
     window.set_title(_("Linux kernels") + " - " + _("Update Manager"))
-    window.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")    
+    window.set_icon_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg")    
     tree.get_widget("close_button").connect("clicked", kernels_cancel, tree)
 
     tree.get_widget("label_warning").connect("size-allocate", label_size_allocate)
@@ -1416,7 +1416,7 @@ def open_kernels(widget):
 
     model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, object) # (version, label, loaded, recommended, installed, fixes, regressions, values)
 
-    kernels = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkKernels.py | grep \"###\"")
+    kernels = commands.getoutput("/usr/share/linuxmint/mintUpdate/checkKernels.py | grep \"###\"")
     kernels = kernels.split("\n")
     column = 2
     for kernel in kernels:
@@ -1432,9 +1432,9 @@ def open_kernels(widget):
             installable = (installable == "1")
             label = version
 
-            tick = gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/tick.png")
-            pix_fixes = gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/fixes.png")
-            pix_bugs = gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/regressions.png")
+            tick = gtk.gdk.pixbuf_new_from_file("/usr/share/linuxmint/mintUpdate/icons/tick.png")
+            pix_fixes = gtk.gdk.pixbuf_new_from_file("/usr/share/linuxmint/mintUpdate/icons/fixes.png")
+            pix_bugs = gtk.gdk.pixbuf_new_from_file("/usr/share/linuxmint/mintUpdate/icons/regressions.png")
 
 
             iter = model.insert_before(None, None)
@@ -1442,8 +1442,8 @@ def open_kernels(widget):
             model.set_value(iter, 7, values)
             model.row_changed(model.get_path(iter), iter)          
                         
-            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version):
-                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version)
+            if os.path.exists("/usr/share/linuxmint/mintUpdate/kernels/%s" % version):
+                kernel_file = open("/usr/share/linuxmint/mintUpdate/kernels/%s" % version)
                 lines = kernel_file.readlines()
                 num_fixes = 0
                 num_bugs = 0
@@ -1460,8 +1460,8 @@ def open_kernels(widget):
                 if num_bugs > 0:
                     model.set_value(iter, 6, pix_bugs)
 
-            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/versions"):
-                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/versions")
+            if os.path.exists("/usr/share/linuxmint/mintUpdate/kernels/versions"):
+                kernel_file = open("/usr/share/linuxmint/mintUpdate/kernels/versions")
                 lines = kernel_file.readlines()
                 for line in lines:
                     elements = line.split("\t")
@@ -1528,8 +1528,8 @@ def display_selected_kernel(selection, wTree):
                     button_install.set_tooltip_text(_("This kernel is not installable."))
                 else:
                     button_install.set_sensitive(True)
-            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version):
-                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version)
+            if os.path.exists("/usr/share/linuxmint/mintUpdate/kernels/%s" % version):
+                kernel_file = open("/usr/share/linuxmint/mintUpdate/kernels/%s" % version)
                 lines = kernel_file.readlines()
                 fixes_box = gtk.Table()
                 fixes_box.set_row_spacings(3)
@@ -1586,8 +1586,8 @@ def open_about(widget):
         print detail
 
     dlg.set_authors(["Clement Lefebvre <root@linuxmint.com>", "Chris Hodapp <clhodapp@live.com>"])
-    dlg.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
-    dlg.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg"))
+    dlg.set_icon_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg")
+    dlg.set_logo(gtk.gdk.pixbuf_new_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg"))
     def close(w, res):
         if res == gtk.RESPONSE_CANCEL:
             w.hide()
@@ -1807,7 +1807,7 @@ try:
     statusIcon.set_visible(True)    
 
     #Set the Glade file
-    gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
+    gladefile = "/usr/share/linuxmint/mintUpdate/mintUpdate.glade"
     wTree = gtk.glade.XML(gladefile, "window1")
     wTree.get_widget("window1").set_title(_("Update Manager"))
     wTree.get_widget("window1").set_default_size(prefs['dimensions_x'], prefs['dimensions_y'])
@@ -1818,7 +1818,7 @@ try:
 
     vbox = wTree.get_widget("vbox_main")
     treeview_update = wTree.get_widget("treeview_update")
-    wTree.get_widget("window1").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
+    wTree.get_widget("window1").set_icon_from_file("/usr/share/linuxmint/mintUpdate/icons/base.svg")
 
     # Get the window socket (needed for synaptic later on)
     
@@ -1936,7 +1936,7 @@ try:
     editSubmenu.append(prefsMenuItem)
     if os.path.exists("/usr/bin/software-sources") or os.path.exists("/usr/bin/software-properties-gtk") or os.path.exists("/usr/bin/software-properties-kde"):
         sourcesMenuItem = gtk.ImageMenuItem(gtk.STOCK_PREFERENCES)
-        sourcesMenuItem.set_image(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/software-properties.png"))
+        sourcesMenuItem.set_image(gtk.image_new_from_file("/usr/share/linuxmint/mintUpdate/icons/software-properties.png"))
         sourcesMenuItem.get_child().set_text(_("Software sources"))
         sourcesMenuItem.connect("activate", open_repositories)
         editSubmenu.append(sourcesMenuItem)

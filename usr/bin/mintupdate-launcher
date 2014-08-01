@@ -1,7 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import os, commands
 
 cmdline = commands.getoutput("cat /proc/cmdline")
 if ((not "boot=casper" in cmdline) and (not "boot=live" in cmdline)):	
-	os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py")
+	os.system("/usr/share/linuxmint/mintUpdate/mintUpdate.py")
