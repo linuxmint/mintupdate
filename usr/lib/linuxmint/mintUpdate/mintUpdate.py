@@ -16,7 +16,7 @@ try:
     import urllib2
     import re
     from user import home
-    from HTMLParser import HTMLParser
+    from sets import Set
     sys.path.append('/usr/lib/linuxmint/common')
     from configobj import ConfigObj
 except Exception, detail:
@@ -57,6 +57,8 @@ else:
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 CONFIG_DIR = "%s/.config/linuxmint" % home
+
+package_descriptions = {}
 
 class ChangelogRetriever(threading.Thread):
     def __init__(self, source_package, level, version, wTree):
@@ -438,43 +440,38 @@ class RefreshThread(threading.Thread):
         self.statusIcon = statusIcon
         self.wTree = wTree
         self.root_mode = root_mode
-        self.parser = HTMLParser()
+    
+    def fetch_l10n_descriptions(self, package_names):
+        if os.path.exists("/var/lib/apt/lists"):
+            super_buffer = []
+            for file in os.listdir("/var/lib/apt/lists"):
+                if ("i18n_Translation") in file and not file.endswith("Translation-en"):
+                    fd = open(os.path.join("/var/lib/apt/lists", file))
+                    super_buffer += fd.readlines()
 
-    def clean_description(self, description):
-        try:
-            description = self.parser.unescape(description)
-            lines = description.split("\n")
-            value = ""
-            num = 0
-            newline = False
-            for line in lines:
-                line = line.strip()
-                if num == 0:
-                    if line [0] == "-" and ":" in line[0:5]:
-                        # line is starting with something like "-fr: "
-                        line = "".join(line.split(":")[1:]).strip()
-
-                    line = line.capitalize()
-                    if len(line) > 0 and line[-1] not in [".", "!", "?"]:
-                        line = "%s." % line
-                    value = "%s\n" % line
-                    newline = True
-                else:
-                    if line == ".":
-                        value = "%s\n" % (value)
-                        newline = True
-                    else:
-                        if (newline):
-                            value = "%s%s" % (value, line.capitalize())
-                        else:
-                            value = "%s %s" % (value, line)
-                        newline = False
-                num += 1
-            value = value.replace("  ", " ")
-            return value
-        except Exception, detail:
-            print detail
-            return description
+            i = 0
+            while i < len(super_buffer):
+                line = super_buffer[i].strip()
+                if line.startswith("Package: "):
+                    try:
+                        pkgname = line.replace("Package: ", "")
+                        description = ""
+                        j = 2 # skip md5 line after package name line
+                        while True:
+                            if (i+j >= len(super_buffer)):
+                                break
+                            line = super_buffer[i+j].strip()
+                            if line.startswith("Package: "):
+                                break
+                            description += "\n" + line
+                            j += 1                       
+                        if pkgname in package_names:
+                            if not package_descriptions.has_key(pkgname):                                
+                                package_descriptions[pkgname] = description                                
+                    except Exception, detail:
+                        print "a %s" % detail
+                i += 1
+            del super_buffer    
 
     def run(self):
         global log
@@ -552,6 +549,7 @@ class RefreshThread(threading.Thread):
                 
             # Look at the packages one by one
             list_of_packages = ""
+            package_names = Set()
             num_visible = 0
             num_safe = 0            
             download_size = 0
@@ -569,7 +567,7 @@ class RefreshThread(threading.Thread):
                 statusbar.push(context_id, _("Your system is up to date"))
                 log.writelines("++ System is up to date\n")
                 log.flush()
-            else:
+            else:                
                 for pkg in updates:
                     values = string.split(pkg, "###")
                     if len(values) == 8:
@@ -593,8 +591,8 @@ class RefreshThread(threading.Thread):
                             self.wTree.get_widget("window1").set_sensitive(True)
                             #statusbar.push(context_id, _(""))
                             gtk.gdk.threads_leave()
-                            return False
-                        package = values[1]
+                            return False                        
+                        package = values[1]                        
                         packageIsBlacklisted = False
                         for blacklist in ignored_list:
                             if fnmatch.fnmatch(package, blacklist):
@@ -605,12 +603,14 @@ class RefreshThread(threading.Thread):
                         if packageIsBlacklisted:
                             continue
 
+                        package_names.add(package.replace(":i386", "").replace(":amd64", ""))
+
                         newVersion = values[2]
                         oldVersion = values[3]
                         size = int(values[4])
                         source_package = values[5]
-                        update_type = values[6]
-                        description = self.clean_description(values[7])
+                        update_type = values[6]                        
+                        description = values[7]
                         is_a_mint_package = False
 
                         if (update_type == "linuxmint"):
@@ -775,6 +775,8 @@ class RefreshThread(threading.Thread):
             self.wTree.get_widget("window1").set_sensitive(True)
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             gtk.gdk.threads_leave()
+
+            self.fetch_l10n_descriptions(package_names)
 
         except Exception, detail:
             print "-- Exception occured in the refresh thread: " + str(detail)
@@ -1649,21 +1651,72 @@ def save_window_size(window, vpaned):
     config['dimensions']['pane_position'] = vpaned.get_position()
     config.write()
 
+def clean_l10n_description(description, english_description):
+        try:
+            lines = description.split("\n")
+            value = ""
+            num = 0
+            newline = False
+            for line in lines:
+                line = line.strip()
+                if len(line) > 0:
+                    if num == 0:                        
+                        # line is starting with something like "-fr: "
+                        line = re.sub(r'Description-(\S+): ', r'', line)
+
+                        # Capitalize the first letter
+                        line = line[:1].upper() + line[1:]
+
+                        # Add missing punctuation
+                        if len(line) > 0 and line[-1] not in [".", "!", "?"]:
+                            line = "%s." % line
+
+                        value = "%s\n" % line
+                        newline = True
+                    else:
+                        if line == ".":
+                            value = "%s\n" % (value)
+                            newline = True
+                        else:
+                            if (newline):
+                                value = "%s%s" % (value, line.capitalize())
+                            else:
+                                value = "%s %s" % (value, line)
+                            newline = False
+                    num += 1
+            value = value.replace("  ", " ")
+            return value
+        except Exception, detail:
+            print detail
+            return english_description
+
+def get_l10n_description(package, english_description):
+        package_name = package.replace(":i386", "").replace(":amd64", "")
+        if not package_descriptions.has_key(package_name):
+            return english_description
+        description = package_descriptions[package_name]
+        description = clean_l10n_description(description, english_description)
+        return description
+
 def display_selected_package(selection, wTree):    
     try:
         wTree.get_widget("textview_description").get_buffer().set_text("")
         wTree.get_widget("textview_changes").get_buffer().set_text("")            
         (model, iter) = selection.get_selected()
-        if (iter != None):
-            description_txt = model.get_value(iter, 8)                        
-            wTree.get_widget("textview_description").get_buffer().set_text(description_txt)                    
-            if wTree.get_widget("notebook_details").get_current_page() == 1:                
+        if (iter != None):                            
+            if wTree.get_widget("notebook_details").get_current_page() == 0:
+                # Description tab
+                package = model.get_value(iter, 1)
+                english_description = model.get_value(iter, 8)
+                wTree.get_widget("textview_description").get_buffer().set_text(get_l10n_description(package, english_description))
+            else:
                 # Changelog tab            
                 level = model.get_value(iter, 7)
                 version = model.get_value(iter, 4)
                 source_package = model.get_value(iter, 11)
                 retriever = ChangelogRetriever(source_package, level, version, wTree)
-                retriever.start()
+                retriever.start()            
+               
     except Exception, detail:
         print detail
 
@@ -1673,9 +1726,10 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
     if (iter != None):
         if (page_num == 0):
             # Description tab
-            description_txt = model.get_value(iter, 8)
-            wTree.get_widget("textview_description").get_buffer().set_text(description_txt)
-        if (page_num == 1):
+            package = model.get_value(iter, 1)
+            english_description = model.get_value(iter, 8)
+            wTree.get_widget("textview_description").get_buffer().set_text(get_l10n_description(package, english_description))
+        else:
             # Changelog tab            
             level = model.get_value(iter, 7)
             version = model.get_value(iter, 4)

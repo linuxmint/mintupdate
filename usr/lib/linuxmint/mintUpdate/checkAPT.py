@@ -88,17 +88,7 @@ try:
                             update_type = "backport"
                             break
                         else:
-                            update_type = "linuxmint"
-
-                #l10n the description
-                try:
-                    output = commands.getoutput('apt-cache show %s' % pkg.name)
-                    output = output.split("Description")
-                    if len(output) > 1:
-                        description = output[1]
-                        description = description.decode('utf-8')                            
-                except:                    
-                    description = pkg.candidate.description
+                            update_type = "linuxmint"                
                     
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace')
