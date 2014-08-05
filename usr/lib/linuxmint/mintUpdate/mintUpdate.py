@@ -1272,7 +1272,7 @@ def open_history(widget):
     model = gtk.TreeStore(str, str, str, str) # (packageName, date, oldVersion, newVersion)
 
     if (os.path.exists("/var/log/dpkg.log")):
-        updates = commands.getoutput("cat /var/log/dpkg.log | egrep \"upgrade\"")
+        updates = commands.getoutput("cat /var/log/dpkg.log /var/log/dpkg.log.? 2>/dev/null | egrep \"upgrade\"")
         updates = string.split(updates, "\n")
         for pkg in updates:
             values = string.split(pkg, " ")
@@ -1285,6 +1285,9 @@ def open_history(widget):
                 newVersion = values[5]    
 
                 if action != "upgrade":
+                    continue
+
+                if oldVersion == newVersion:
                     continue
 
                 if ":" in package:
