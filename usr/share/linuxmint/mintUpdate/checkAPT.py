@@ -47,7 +47,7 @@ try:
         else:
             cache.update()
 
-    sys.path.append('/usr/lib/linuxmint/common')
+    sys.path.append('/usr/share/linuxmint/common')
     from configobj import ConfigObj
     config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
     try:

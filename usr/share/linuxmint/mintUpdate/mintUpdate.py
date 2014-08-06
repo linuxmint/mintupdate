@@ -17,7 +17,7 @@ try:
     import re
     from user import home
     from HTMLParser import HTMLParser
-    sys.path.append('/usr/lib/linuxmint/common')
+    sys.path.append('/usr/share/linuxmint/common')
     from configobj import ConfigObj
 except Exception, detail:
     print detail
@@ -1584,7 +1584,7 @@ def open_about(widget):
     except Exception, detail:
         print detail
     try:
-        version = commands.getoutput("/usr/lib/linuxmint/common/version.py mintupdate")
+        version = commands.getoutput("/usr/share/linuxmint/common/version.py mintupdate")
         dlg.set_version(version)
     except Exception, detail:
         print detail
