@@ -104,6 +104,6 @@ try:
                 print resultString.encode('ascii', 'xmlcharrefreplace')
     
 except Exception, detail:
-    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR---EOL---"
+    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR---EOL---"
     print detail
     sys.exit(1)

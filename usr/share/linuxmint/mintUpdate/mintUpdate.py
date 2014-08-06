@@ -575,10 +575,13 @@ class RefreshThread(threading.Thread):
                     if len(values) == 8:
                         status = values[0]
                         if (status == "ERROR"):
-                            error_msg = commands.getoutput("/usr/share/linuxmint/mintUpdate/checkAPT.py")
+                            try:
+                                error_msg = updates[1]
+                            except:
+                                error_msg = ""
                             gtk.gdk.threads_enter()
                             self.statusIcon.set_from_file(icon_error)
-                            self.statusIcon.set_tooltip(_("Could not refresh the list of packages"))
+                            self.statusIcon.set_tooltip("%s\n\n%s" % (_("Could not refresh the list of packages"), error_msg))
                             statusbar.push(context_id, _("Could not refresh the list of packages"))
                             log.writelines("-- Error in checkAPT.py, could not refresh the list of packages\n")
                             log.flush()
@@ -594,6 +597,7 @@ class RefreshThread(threading.Thread):
                             #statusbar.push(context_id, _(""))
                             gtk.gdk.threads_leave()
                             return False
+
                         package = values[1]
                         packageIsBlacklisted = False
                         for blacklist in ignored_list:
