@@ -1574,6 +1574,9 @@ def display_selected_kernel(selection, wTree):
     except Exception, detail:
         print detail           
 
+def open_help(widget):
+    os.system("yelp help:linuxmint/software-updates &")
+
 def open_about(widget):
     dlg = gtk.AboutDialog()
     dlg.set_title(_("About") + " - " + _("Update Manager"))
@@ -1880,6 +1883,9 @@ try:
     treeview_update = wTree.get_widget("treeview_update")
     wTree.get_widget("window1").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
 
+    accel_group = gtk.AccelGroup()
+    wTree.get_widget("window1").add_accel_group(accel_group)
+
     # Get the window socket (needed for synaptic later on)
     
     if os.getuid() != 0 :
@@ -2062,9 +2068,15 @@ try:
     helpMenu = gtk.MenuItem(_("_Help"))
     helpSubmenu = gtk.Menu()
     helpMenu.set_submenu(helpSubmenu)
+    helpMenuItem = gtk.ImageMenuItem(gtk.STOCK_HELP)
+    helpMenuItem.get_child().set_text(_("Contents"))
+    helpMenuItem.connect("activate", open_help)
+    key, mod = gtk.accelerator_parse("F1")
+    helpMenuItem.add_accelerator("activate", accel_group, key, mod, gtk.ACCEL_VISIBLE)
     aboutMenuItem = gtk.ImageMenuItem(gtk.STOCK_ABOUT)
     aboutMenuItem.get_child().set_text(_("About"))
     aboutMenuItem.connect("activate", open_about)
+    helpSubmenu.append(helpMenuItem)
     helpSubmenu.append(aboutMenuItem)
 
     #browser.connect("activate", browser_callback)
