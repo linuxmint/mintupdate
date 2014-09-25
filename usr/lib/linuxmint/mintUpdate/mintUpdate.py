@@ -1167,7 +1167,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("checkbutton_security_visible").set_active(prefs["security_visible"])
     prefs_tree.get_widget("checkbutton_security_safe").set_active(prefs["security_safe"])    
 
-    prefs_tree.get_widget("checkbutton_security_visible").set_label(_("Always show security updates"))
+    prefs_tree.get_widget("checkbutton_security_visible").set_label(_("Show security updates (will override visibility settings)"))
     prefs_tree.get_widget("checkbutton_security_safe").set_label(_("Always select and trust security updates"))
 
     prefs_tree.get_widget("timer_minutes_label").set_text(_("minutes"))
