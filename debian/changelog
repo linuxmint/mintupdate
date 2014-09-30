@@ -1,3 +1,18 @@
+mintupdate (4.6.9) rebecca; urgency=medium
+
+  * Show full and l10n'd descriptions (complete)
+  * Added proxy support in changelog retrieval
+  * tweak the notebook look a spacing a bit to better match the main windows notebook
+  * Minor changes for cleaner code
+  * Instant l10n descriptions (previous implementation introduced lag). Careful with memory though, this commit raises mintUpdate's mem footprint from 20MB to 30MB RAM, with brief jumps to 100MB when refreshing the list of updates. We might be able to optimize this in the future by removing the need for "super_buffer" and handling apt l10n files line by line.
+  * Little fixes in history of updates
+  * Fixed error detection and reporting when checkAPT is run as root and fails to update the cache
+  * Include Libreoffice l10n in level 2
+  * Fixed LibreOffice placing at level 2 (didn't work as expected)
+  * Added contextual help
+
+ -- Clement Lefebvre <clement.lefebvre@linuxmint.com>  Tue, 30 Sep 2014 13:09:22 +0200
+
 mintupdate (4.6.8) qiana; urgency=medium
 
   * Match levels to source packages instead of package names
