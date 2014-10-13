@@ -2,13 +2,22 @@ Source: mintupdate
 Section: admin
 Priority: optional
 Maintainer: Clement Lefebvre <root@linuxmint.com>
-Build-Depends: debhelper (>= 5)
-Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 9), python
+Standards-Version: 3.9.5
 
 Package: mintupdate
 Architecture: all
-Depends: python (>= 2.4), python (<< 3), python-gtk2, python-glade2, synaptic, mint-common, mint-mirrors
+Depends:
+ ${python:Depends},
+ ${misc:Depends},
+ python (>= 2.4),
+ python (<< 3),
+ python-gtk2,
+ python-glade2,
+ synaptic,
+ mint-common,
+ mint-mirrors
 Conflicts: mintupdate-gnome, mintupdate-kde, mintupdate-xfce
 Replaces: mintupdate-gnome, mintupdate-kde, mintupdate-xfce
 Description: Update Manager
- Helps installing security updates and new versions of packages. 
+ Helps installing security updates and new versions of packages.
