@@ -17,6 +17,7 @@ try:
     import re
     from user import home
     from sets import Set
+    import proxygsettings
     sys.path.append('/usr/lib/linuxmint/common')
     from configobj import ConfigObj
 except Exception, detail:
@@ -67,6 +68,9 @@ class ChangelogRetriever(threading.Thread):
         self.level = level 
         self.version = version
         self.wTree = wTree
+        # get the proxy settings from gsettings
+        self.ps = proxygsettings.get_proxy_settings()
+
 
         # Remove the epoch if present in the version
         if ":" in self.version:
@@ -93,7 +97,13 @@ class ChangelogRetriever(threading.Thread):
         
         changelog = _("No changelog available")
         
-        proxy = urllib2.ProxyHandler()
+        if self.ps == {}:
+            # use default urllib2 proxy mechanisms (possibly *_proxy environment vars)
+            proxy = urllib2.ProxyHandler()
+        else:
+            # use proxy settings retrieved from gsettings
+            proxy = urllib2.ProxyHandler(self.ps)
+
         opener = urllib2.build_opener(proxy)
         urllib2.install_opener(opener)
 
