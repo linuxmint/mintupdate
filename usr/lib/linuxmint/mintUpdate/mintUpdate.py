@@ -61,6 +61,27 @@ CONFIG_DIR = "%s/.config/linuxmint" % home
 
 package_descriptions = {}
 
+(UPDATE_CHECKED, UPDATE_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(13)
+
+class PackageUpdate():
+    def __init__(self, source_package_name, level, oldVersion, newVersion, extraInfo, warning, update_type, tooltip):
+        self.name = source_package_name
+        self.description = ""
+        self.level = level
+        self.oldVersion = oldVersion
+        self.newVersion = newVersion
+        self.size = 0
+        self.extraInfo = extraInfo
+        self.warning = warning
+        self.type = update_type
+        self.tooltip = tooltip
+        self.packages = []
+
+    def add_package(self, package, size, description):
+        self.packages.append(package)
+        self.description = description
+        self.size += size
+
 class ChangelogRetriever(threading.Thread):
     def __init__(self, source_package, level, version, wTree):
         threading.Thread.__init__(self)
@@ -244,16 +265,14 @@ class InstallThread(threading.Thread):
 
             iter = model.get_iter_first()
             while (iter != None):
-                checked = model.get_value(iter, 0)
+                checked = model.get_value(iter, UPDATE_CHECKED)
                 if (checked == "true"):
                     installNeeded = True
-                    package = model.get_value(iter, 1)
-                    level = model.get_value(iter, 7)
-                    oldVersion = model.get_value(iter, 3)
-                    newVersion = model.get_value(iter, 4)
-                    packages.append(package)
-                    log.writelines("++ Will install " + str(package) + "\n")
-                    log.flush()
+                    package_update = model.get_value(iter, UPDATE_OBJ)
+                    for package in package_update.packages:
+                        packages.append(package)
+                        log.writelines("++ Will install " + str(package) + "\n")
+                        log.flush()
                 iter = model.iter_next(iter)
             
             if (installNeeded == True):
@@ -396,7 +415,7 @@ class InstallThread(threading.Thread):
                             log.close()
                         except:
                             pass #cause we might have closed it already
-			
+            
                         command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"                        
                         os.system(command)
                     
@@ -509,10 +528,13 @@ class RefreshThread(threading.Thread):
             #self.statusIcon.set_blinking(True)
             gtk.gdk.threads_leave()
 
-            model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, str, str, object, int, str, str, gtk.gdk.Pixbuf, str, str, str) # (check, packageName, level, oldVersion, newVersion, warning, extrainfo, stringLevel, description, size, stringSize, sourcePackage, type pixbuf, type txt, tooltip, defaultSortString)
-            model.set_sort_column_id( 15, gtk.SORT_ASCENDING )         
+            model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, int, str, gtk.gdk.Pixbuf, str, str, str, object) 
+            # UPDATE_CHECKED, UPDATE_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, 
+            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
-            prefs = read_configuration()     
+            model.set_sort_column_id( UPDATE_SORT_STR, gtk.SORT_ASCENDING )
+
+            prefs = read_configuration()
 
             # Check to see if no other APT process is running
             if self.root_mode:
@@ -557,8 +579,8 @@ class RefreshThread(threading.Thread):
            
             updates = string.split(updates, "---EOL---")         
 
-            # Look at the packages one by one
-            list_of_packages = ""
+            # Look at the updates one by one
+            package_updates = {}
             package_names = Set()
             num_visible = 0
             num_safe = 0            
@@ -582,7 +604,7 @@ class RefreshThread(threading.Thread):
                     values = string.split(pkg, "###")
                     if len(values) == 8:
                         status = values[0]
-                        if (status == "ERROR"):                            
+                        if (status == "ERROR"):
                             try:
                                 error_msg = updates[1]
                             except:
@@ -590,9 +612,9 @@ class RefreshThread(threading.Thread):
 
                             gtk.gdk.threads_enter()
                             self.statusIcon.set_from_file(icon_error)
-                            self.statusIcon.set_tooltip("%s\n\n%s" % (_("Could not refresh the list of packages"), error_msg))
-                            statusbar.push(context_id, _("Could not refresh the list of packages"))
-                            log.writelines("-- Error in checkAPT.py, could not refresh the list of packages\n")
+                            self.statusIcon.set_tooltip("%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg))
+                            statusbar.push(context_id, _("Could not refresh the list of updates"))
+                            log.writelines("-- Error in checkAPT.py, could not refresh the list of updates\n")
                             log.flush()
                             self.wTree.get_widget("label_error_detail").set_text(error_msg)
                             self.wTree.get_widget("label_error_detail").show()
@@ -606,142 +628,129 @@ class RefreshThread(threading.Thread):
                             #statusbar.push(context_id, _(""))
                             gtk.gdk.threads_leave()
                             return False
-
-                        package = values[1]                        
-                        packageIsBlacklisted = False
-                        for blacklist in ignored_list:
-                            if fnmatch.fnmatch(package, blacklist):
-                                num_ignored = num_ignored + 1
-                                packageIsBlacklisted = True
-                                break
-
-                        if packageIsBlacklisted:
-                            continue
-
-                        package_names.add(package.replace(":i386", "").replace(":amd64", ""))
-
+                                                
+                        package = values[1]
                         newVersion = values[2]
                         oldVersion = values[3]
                         size = int(values[4])
                         source_package = values[5]
-                        update_type = values[6]                        
+                        update_type = values[6]
                         description = values[7]
-                        is_a_mint_package = False
 
-                        if (update_type == "linuxmint"):
-                            update_type = "package"
-                            is_a_mint_package = True
+                        package_names.add(package.replace(":i386", "").replace(":amd64", ""))
 
-                        security_update = (update_type == "security")                        
+                        if not package_updates.has_key(source_package):
+                            updateIsBlacklisted = False
+                            for blacklist in ignored_list:
+                                if fnmatch.fnmatch(source_package, blacklist):
+                                    num_ignored = num_ignored + 1
+                                    updateIsBlacklisted = True
+                                    break
 
-                        if update_type == "security":
-                            tooltip = _("Security update")
-                        elif update_type == "backport":
-                            tooltip = _("Package backport. Be careful when upgrading. New versions of sofware can introduce regressions.")
-                        elif update_type == "unstable":
-                            tooltip = _("Unstable package. Only take this upgrade to help developers beta-test this update.")
-                        else:
-                            tooltip = _("Package update")
+                            if updateIsBlacklisted:
+                                continue
 
-                        strSize = size_to_string(size)
+                            is_a_mint_package = False
+                            if (update_type == "linuxmint"):
+                                update_type = "package"
+                                is_a_mint_package = True
 
-                        extraInfo = ""
-                        warning = ""
-                        if is_a_mint_package:
-                            level = 1
-                        else:
-                            level = 3 # Level 3 by default                            
-                            rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
-                            rules = rulesFile.readlines()
-                            goOn = True
-                            foundPackageRule = False # whether we found a rule with the exact package name or not
-                            for rule in rules:
-                                if (goOn == True):
-                                    rule_fields = rule.split("|")
-                                    if (len(rule_fields) == 5):
-                                        rule_package = rule_fields[0]
-                                        rule_version = rule_fields[1]
-                                        rule_level = rule_fields[2]
-                                        rule_extraInfo = rule_fields[3]
-                                        rule_warning = rule_fields[4]
-                                        if (rule_package == source_package):
-                                            foundPackageRule = True
-                                            if (rule_version == newVersion):
-                                                level = rule_level
-                                                extraInfo = rule_extraInfo
-                                                warning = rule_warning
-                                                goOn = False # We found a rule with the exact package name and version, no need to look elsewhere
+                            security_update = (update_type == "security")                        
+
+                            if update_type == "security":
+                                tooltip = _("Security update")
+                            elif update_type == "backport":
+                                tooltip = _("Software backport. Be careful when upgrading. New versions of sofware can introduce regressions.")
+                            elif update_type == "unstable":
+                                tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
+                            else:
+                                tooltip = _("Software update")
+
+                            extraInfo = ""
+                            warning = ""
+                            if is_a_mint_package:
+                                level = 1
+                            else:
+                                level = 3 # Level 3 by default                            
+                                rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
+                                rules = rulesFile.readlines()
+                                goOn = True
+                                foundPackageRule = False # whether we found a rule with the exact package name or not
+                                for rule in rules:
+                                    if (goOn == True):
+                                        rule_fields = rule.split("|")
+                                        if (len(rule_fields) == 5):
+                                            rule_package = rule_fields[0]
+                                            rule_version = rule_fields[1]
+                                            rule_level = rule_fields[2]
+                                            rule_extraInfo = rule_fields[3]
+                                            rule_warning = rule_fields[4]
+                                            if (rule_package == source_package):
+                                                foundPackageRule = True
+                                                if (rule_version == newVersion):
+                                                    level = rule_level
+                                                    extraInfo = rule_extraInfo
+                                                    warning = rule_warning
+                                                    goOn = False # We found a rule with the exact package name and version, no need to look elsewhere
+                                                else:
+                                                    if (rule_version == "*"):
+                                                        level = rule_level
+                                                        extraInfo = rule_extraInfo
+                                                        warning = rule_warning
                                             else:
-                                                if (rule_version == "*"):
-                                                    level = rule_level
-                                                    extraInfo = rule_extraInfo
-                                                    warning = rule_warning
-                                        else:
-                                            if (rule_package.startswith("*")):
-                                                keyword = rule_package.replace("*", "")
-                                                index = source_package.find(keyword)
-                                                if (index > -1 and foundPackageRule == False):
-                                                    level = rule_level
-                                                    extraInfo = rule_extraInfo
-                                                    warning = rule_warning
-                            rulesFile.close()
-                            level = int(level)                        
-                                              
-                        if (new_mintupdate):
-                            if (package == "mintupdate"):
-                                list_of_packages = list_of_packages + " " + package
-                                iter = model.insert_before(None, None)
-                                model.set_value(iter, 0, "true")
-                                model.row_changed(model.get_path(iter), iter)
-                                model.set_value(iter, 1, package)
-                                model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
-                                model.set_value(iter, 3, oldVersion)
-                                model.set_value(iter, 4, newVersion)
-                                model.set_value(iter, 5, warning)
-                                model.set_value(iter, 6, extraInfo)
-                                model.set_value(iter, 7, str(level))
-                                model.set_value(iter, 8, description)
-                                model.set_value(iter, 9, size)
-                                model.set_value(iter, 10, strSize)
-                                model.set_value(iter, 11, source_package)   
-                                model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
-                                model.set_value(iter, 13, update_type)
-                                model.set_value(iter, 14, tooltip)
-                                model.set_value(iter, 15, "%s%s%s" % (str(level), source_package, package))
-                                num_visible = num_visible + 1
-                                                                                                                                                       
-                        else:                 
-                            if ((prefs["level" + str(level) + "_visible"]) or (security_update and prefs['security_visible'])):
-                                list_of_packages = list_of_packages + " " + package
-                                iter = model.insert_before(None, None)
-                                if (security_update and prefs['security_visible'] and prefs['security_safe']):
-                                    model.set_value(iter, 0, "true")                            
-                                    num_safe = num_safe + 1
-                                    download_size = download_size + size
-                                elif (prefs["level" + str(level) + "_safe"]):
-                                    model.set_value(iter, 0, "true")                            
-                                    num_safe = num_safe + 1
-                                    download_size = download_size + size
-                                else:
-                                    model.set_value(iter, 0, "false") 
-                                                                                      
-                                model.row_changed(model.get_path(iter), iter)
-                                model.set_value(iter, 1, package)
-                                model.set_value(iter, 2, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(level) + ".png"))
-                                model.set_value(iter, 3, oldVersion)                                
-                                model.set_value(iter, 4, newVersion)
-                                model.set_value(iter, 5, warning)
-                                model.set_value(iter, 6, extraInfo)
-                                model.set_value(iter, 7, str(level))
-                                model.set_value(iter, 8, description)
-                                model.set_value(iter, 9, size)
-                                model.set_value(iter, 10, strSize)
-                                model.set_value(iter, 11, source_package)
-                                model.set_value(iter, 12, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % update_type))
-                                model.set_value(iter, 13, update_type)
-                                model.set_value(iter, 14, tooltip)
-                                model.set_value(iter, 15, "%s%s%s" % (str(level), source_package, package))
-                                num_visible = num_visible + 1
+                                                if (rule_package.startswith("*")):
+                                                    keyword = rule_package.replace("*", "")
+                                                    index = source_package.find(keyword)
+                                                    if (index > -1 and foundPackageRule == False):
+                                                        level = rule_level
+                                                        extraInfo = rule_extraInfo
+                                                        warning = rule_warning
+                                rulesFile.close()
+                                level = int(level)
+
+                            # Create a new Update
+                            update = PackageUpdate(source_package, level, oldVersion, newVersion, extraInfo, warning, update_type, tooltip)
+                            update.add_package(package, size, description)
+                            package_updates[source_package] = update
+                        else:
+                            # Add the package to the Update
+                            update = package_updates[source_package]
+                            update.add_package(package, size, description)
+                        
+                for source_package in package_updates.keys():
+                    
+                    package_update = package_updates[source_package]
+
+                    if (new_mintupdate and package_update.name != "mintupdate"):
+                        continue
+                    
+                    if ((prefs["level" + str(package_update.level) + "_visible"]) or (security_update and prefs['security_visible'])):
+                        iter = model.insert_before(None, None)
+                        if (security_update and prefs['security_visible'] and prefs['security_safe']):
+                            model.set_value(iter, UPDATE_CHECKED, "true")                            
+                            num_safe = num_safe + 1
+                            download_size = download_size + package_update.size
+                        elif (prefs["level" + str(level) + "_safe"]):
+                            model.set_value(iter, UPDATE_CHECKED, "true")                     
+                            num_safe = num_safe + 1
+                            download_size = download_size + package_update.size
+                        else:
+                            model.set_value(iter, UPDATE_CHECKED, "false")
+                                                                              
+                        model.row_changed(model.get_path(iter), iter)
+                        model.set_value(iter, UPDATE_NAME, package_update.name)
+                        model.set_value(iter, UPDATE_LEVEL_PIX, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(package_update.level) + ".png"))
+                        model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)                                
+                        model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)                        
+                        model.set_value(iter, UPDATE_LEVEL_STR, str(package_update.level))
+                        model.set_value(iter, UPDATE_SIZE, package_update.size)
+                        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(package_update.size))                        
+                        model.set_value(iter, UPDATE_TYPE_PIX, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % package_update.type))
+                        model.set_value(iter, UPDATE_TYPE, package_update.type)
+                        model.set_value(iter, UPDATE_TOOLTIP, package_update.tooltip)
+                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(package_update.level), package_update.name))
+                        model.set_value(iter, UPDATE_OBJ, package_update)
+                        num_visible = num_visible + 1
 
                 gtk.gdk.threads_enter()  
                 if (new_mintupdate):
@@ -799,11 +808,11 @@ class RefreshThread(threading.Thread):
             log.flush()
             gtk.gdk.threads_enter()
             self.statusIcon.set_from_file(icon_error)
-            self.statusIcon.set_tooltip(_("Could not refresh the list of packages"))
+            self.statusIcon.set_tooltip(_("Could not refresh the list of updates"))
             #self.statusIcon.set_blinking(False)
             self.wTree.get_widget("window1").window.set_cursor(None)
             self.wTree.get_widget("window1").set_sensitive(True)
-            statusbar.push(context_id, _("Could not refresh the list of packages"))
+            statusbar.push(context_id, _("Could not refresh the list of updates"))
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             gtk.gdk.threads_leave()
 
@@ -844,15 +853,15 @@ def select_all(widget, treeView, statusbar, context_id):
     model = treeView.get_model()
     iter = model.get_iter_first()
     while (iter != None):
-        model.set_value(iter, 0, "true")
+        model.set_value(iter, UPDATE_CHECKED, "true")
         iter = model.iter_next(iter)
     iter = model.get_iter_first()
     download_size = 0
     num_selected = 0
     while (iter != None):
-        checked = model.get_value(iter, 0)
+        checked = model.get_value(iter, UPDATE_CHECKED)
         if (checked == "true"):            
-            size = model.get_value(iter, 9)
+            size = model.get_value(iter, UPDATE_SIZE)
             download_size = download_size + size
             num_selected = num_selected + 1                                
         iter = model.iter_next(iter)
@@ -950,13 +959,13 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     config['icons']['unknown'] = icon_unknown
     config['icons']['apply'] = icon_apply
     
-    #Write blacklisted packages
+    #Write blacklisted updates
     ignored_list = open("%s/mintupdate.ignored" % CONFIG_DIR, "w")
     treeview_blacklist = prefs_tree.get_widget("treeview_blacklist")
     model = treeview_blacklist.get_model()
     iter = model.get_iter_first()
     while iter is not None:
-        pkg = model.get_value(iter, 0)
+        pkg = model.get_value(iter, UPDATE_CHECKED)
         iter = model.iter_next(iter)
         ignored_list.writelines(pkg + "\n")
     ignored_list.close()
@@ -1122,11 +1131,11 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label54").set_markup("<b>" + _("Origin") + "</b>")
     prefs_tree.get_widget("label41").set_markup("<b>" + _("Safe?") + "</b>")
     prefs_tree.get_widget("label42").set_markup("<b>" + _("Visible?") + "</b>")
-    prefs_tree.get_widget("label43").set_text(_("Certified packages. Tested through Romeo or directly maintained by Linux Mint."))
-    prefs_tree.get_widget("label44").set_text(_("Recommended packages. Tested and approved by Linux Mint."))
-    prefs_tree.get_widget("label45").set_text(_("Safe packages. Not tested but believed to be safe."))
-    prefs_tree.get_widget("label46").set_text(_("Unsafe packages. Could potentially affect the stability of the system."))
-    prefs_tree.get_widget("label47").set_text(_("Dangerous packages. Known to affect the stability of the systems depending on certain specs or hardware."))
+    prefs_tree.get_widget("label43").set_text(_("Certified updates. Tested through Romeo or directly maintained by Linux Mint."))
+    prefs_tree.get_widget("label44").set_text(_("Recommended updates. Tested and approved by Linux Mint."))
+    prefs_tree.get_widget("label45").set_text(_("Safe updates. Not tested but believed to be safe."))
+    prefs_tree.get_widget("label46").set_text(_("Unsafe updates. Could potentially affect the stability of the system."))
+    prefs_tree.get_widget("label47").set_text(_("Dangerous updates. Known to affect the stability of the systems depending on certain specs or hardware."))
     prefs_tree.get_widget("label55").set_text(_("Linux Mint"))
     prefs_tree.get_widget("label56").set_text(_("Upstream"))
     prefs_tree.get_widget("label57").set_text(_("Upstream"))
@@ -1146,9 +1155,9 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label99").set_text(_("Error"))
     prefs_tree.get_widget("label2").set_text(_("Unknown state"))
     prefs_tree.get_widget("label3").set_text(_("Applying updates"))    
-    prefs_tree.get_widget("label1").set_text(_("Ignored packages"))
+    prefs_tree.get_widget("label1").set_text(_("Ignored updates"))
 
-    prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation or the removal of other packages"))
+    prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation of new packages or the removal of installed packages"))
 
     prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
     prefs_tree.get_widget("window2").show()
@@ -1196,9 +1205,9 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("image_unknown").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_unknown, 24, 24))
     prefs_tree.get_widget("image_apply").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_apply, 24, 24))
 
-    # Blacklisted packages
+    # Blacklisted updates
     treeview_blacklist = prefs_tree.get_widget("treeview_blacklist")
-    column1 = gtk.TreeViewColumn(_("Ignored packages"), gtk.CellRendererText(), text=0)
+    column1 = gtk.TreeViewColumn(_("Ignored updates"), gtk.CellRendererText(), text=0)
     column1.set_sort_column_id(0)
     column1.set_resizable(True)
     treeview_blacklist.append_column(column1)
@@ -1224,14 +1233,13 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 def add_blacklisted_package(widget, treeview_blacklist):
 
     dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK, None)
-    dialog.set_markup("<b>" + _("Please enter a package name:") + "</b>")
-    dialog.set_title(_("Ignore a package"))
+    dialog.set_markup("<b>" + _("Please specify the name of the update to ignore:") + "</b>")
+    dialog.set_title(_("Ignore an update"))
     dialog.set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
     entry = gtk.Entry()
     hbox = gtk.HBox()
-    hbox.pack_start(gtk.Label(_("Package name:")), False, 5, 5)
-    hbox.pack_end(entry)
-    dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")
+    hbox.pack_start(gtk.Label(_("Name:")), False, 5, 5)
+    hbox.pack_end(entry)    
     dialog.vbox.pack_end(hbox, True, True, 0)
     dialog.show_all()
     dialog.run()
@@ -1247,7 +1255,7 @@ def remove_blacklisted_package(widget, treeview_blacklist):
     selection = treeview_blacklist.get_selection()
     (model, iter) = selection.get_selected()
     if (iter != None):
-        pkg = model.get_value(iter, 0)
+        pkg = model.get_value(iter, UPDATE_CHECKED)
         model.remove(iter)
 
 def open_history(widget):
@@ -1315,6 +1323,7 @@ def open_history(widget):
                 model.set_value(iter, 2, oldVersion)
                 model.set_value(iter, 3, newVersion)                
 
+    model.set_sort_column_id( 1, gtk.SORT_DESCENDING )
     treeview_update.set_model(model)
     del model
     wTree.get_widget("button_close").connect("clicked", history_cancel, wTree)
@@ -1725,18 +1734,28 @@ def display_selected_package(selection, wTree):
         wTree.get_widget("textview_changes").get_buffer().set_text("")            
         (model, iter) = selection.get_selected()
         if (iter != None):                            
+            package_update = model.get_value(iter, UPDATE_OBJ)
             if wTree.get_widget("notebook_details").get_current_page() == 0:
-                # Description tab
-                package = model.get_value(iter, 1)
-                english_description = model.get_value(iter, 8)
-                wTree.get_widget("textview_description").get_buffer().set_text(get_l10n_description(package, english_description))
+                # Description tab           
+                description = get_l10n_description(package_update.name, package_update.description)                
+                buffer = wTree.get_widget("textview_description").get_buffer()
+                buffer.set_text(description)
+                import pango
+                try:
+                    buffer.create_tag("dimmed", scale=pango.SCALE_SMALL, foreground="#5C5C5C", style=pango.STYLE_ITALIC)
+                except:
+                    # Already exists, no big deal..
+                    pass
+                if (len(package_update.packages) > 1):
+                    dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(package_update.packages))
+                    buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                elif (package_update.packages[0] != package_update.name):
+                    dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
+                    buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
             else:
-                # Changelog tab            
-                level = model.get_value(iter, 7)
-                version = model.get_value(iter, 4)
-                source_package = model.get_value(iter, 11)
-                retriever = ChangelogRetriever(source_package, level, version, wTree)
-                retriever.start()            
+                # Changelog tab
+                retriever = ChangelogRetriever(package_update.name, package_update.level, package_update.newVersion, wTree)
+                retriever.start()
                
     except Exception, detail:
         print detail
@@ -1745,22 +1764,32 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
     selection = treeView.get_selection()
     (model, iter) = selection.get_selected()
     if (iter != None):
+        package_update = model.get_value(iter, UPDATE_OBJ)
         if (page_num == 0):
             # Description tab
-            package = model.get_value(iter, 1)
-            english_description = model.get_value(iter, 8)
-            wTree.get_widget("textview_description").get_buffer().set_text(get_l10n_description(package, english_description))
+            description = get_l10n_description(package_update.name, package_update.description)                
+            buffer = wTree.get_widget("textview_description").get_buffer()
+            buffer.set_text(description)
+            import pango
+            try:
+                buffer.create_tag("dimmed", scale=pango.SCALE_SMALL, foreground="#5C5C5C", style=pango.STYLE_ITALIC)
+            except:
+                # Already exists, no big deal..
+                pass
+            if (len(package_update.packages) > 1):
+                dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(package_update.packages))
+                buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+            elif (package_update.packages[0] != package_update.name):
+                dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
+                buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
         else:
-            # Changelog tab            
-            level = model.get_value(iter, 7)
-            version = model.get_value(iter, 4)
-            source_package = model.get_value(iter, 11)
-            retriever = ChangelogRetriever(source_package, level, version, wTree)
+            # Changelog tab                
+            retriever = ChangelogRetriever(package_update.name, package_update.level, package_update.newVersion, wTree)
             retriever.start()
 
 def celldatafunction_checkbox(column, cell, model, iter):
     cell.set_property("activatable", True)
-    checked = model.get_value(iter, 0)
+    checked = model.get_value(iter, UPDATE_CHECKED)
     if (checked == "true"):
         cell.set_property("active", True)
     else:
@@ -1770,19 +1799,19 @@ def toggled(renderer, path, treeview, statusbar, context_id):
     model = treeview.get_model()
     iter = model.get_iter(path)
     if (iter != None):
-        checked = model.get_value(iter, 0)
+        checked = model.get_value(iter, UPDATE_CHECKED)
         if (checked == "true"):
-            model.set_value(iter, 0, "false")
+            model.set_value(iter, UPDATE_CHECKED, "false")
         else:
-            model.set_value(iter, 0, "true")
+            model.set_value(iter, UPDATE_CHECKED, "true")
     
     iter = model.get_iter_first()
     download_size = 0
     num_selected = 0
     while (iter != None):
-        checked = model.get_value(iter, 0)
+        checked = model.get_value(iter, UPDATE_CHECKED)
         if (checked == "true"):            
-            size = model.get_value(iter, 9)
+            size = model.get_value(iter, UPDATE_SIZE)
             download_size = download_size + size
             num_selected = num_selected + 1                                
         iter = model.iter_next(iter)
@@ -1817,7 +1846,7 @@ def menuPopup(widget, event, treeview_update, statusIcon, wTree):
     if event.button == 3:
         (model, iter) = widget.get_selection().get_selected()
         if (iter != None):
-            selected_package = model.get_value(iter, 1)
+            selected_package = model.get_value(iter, UPDATE_NAME)
             menu = gtk.Menu()                
             menuItem = gtk.MenuItem(_("Ignore updates for this package"))
             menuItem.connect("activate", add_to_ignore_list, treeview_update, selected_package, statusIcon, wTree)
@@ -1910,34 +1939,34 @@ try:
     cr.connect("toggled", toggled, treeview_update, statusbar, context_id)
     column1 = gtk.TreeViewColumn(_("Upgrade"), cr)
     column1.set_cell_data_func(cr, celldatafunction_checkbox)
-    column1.set_sort_column_id(5)
+    column1.set_sort_column_id(UPDATE_CHECKED)
     column1.set_resizable(True)
 
-    column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), text=1)
-    column2.set_sort_column_id(1)
+    column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), text=UPDATE_NAME)
+    column2.set_sort_column_id(UPDATE_NAME)
     column2.set_resizable(True)
 
-    column3 = gtk.TreeViewColumn(_("Level"), gtk.CellRendererPixbuf(), pixbuf=2)
-    column3.set_sort_column_id(7)
+    column3 = gtk.TreeViewColumn(_("Level"), gtk.CellRendererPixbuf(), pixbuf=UPDATE_LEVEL_PIX)
+    column3.set_sort_column_id(UPDATE_LEVEL_STR)
     column3.set_resizable(True)
 
-    column4 = gtk.TreeViewColumn(_("Old version"), gtk.CellRendererText(), text=3)
-    column4.set_sort_column_id(3)
+    column4 = gtk.TreeViewColumn(_("Old version"), gtk.CellRendererText(), text=UPDATE_OLD_VERSION)
+    column4.set_sort_column_id(UPDATE_OLD_VERSION)
     column4.set_resizable(True)
 
-    column5 = gtk.TreeViewColumn(_("New version"), gtk.CellRendererText(), text=4)
-    column5.set_sort_column_id(4)
+    column5 = gtk.TreeViewColumn(_("New version"), gtk.CellRendererText(), text=UPDATE_NEW_VERSION)
+    column5.set_sort_column_id(UPDATE_NEW_VERSION)
     column5.set_resizable(True)
 
-    column6 = gtk.TreeViewColumn(_("Size"), gtk.CellRendererText(), text=10)
-    column6.set_sort_column_id(9)
+    column6 = gtk.TreeViewColumn(_("Size"), gtk.CellRendererText(), text=UPDATE_SIZE_STR)
+    column6.set_sort_column_id(UPDATE_SIZE)
     column6.set_resizable(True)
 
-    column7 = gtk.TreeViewColumn(_("Type"), gtk.CellRendererPixbuf(), pixbuf=12)
-    column7.set_sort_column_id(13)
+    column7 = gtk.TreeViewColumn(_("Type"), gtk.CellRendererPixbuf(), pixbuf=UPDATE_TYPE_PIX)
+    column7.set_sort_column_id(UPDATE_TYPE)
     column7.set_resizable(True)
 
-    treeview_update.set_tooltip_column(14)
+    treeview_update.set_tooltip_column(UPDATE_TOOLTIP)
 
     treeview_update.append_column(column7)
     treeview_update.append_column(column3)    
