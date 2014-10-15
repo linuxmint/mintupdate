@@ -1100,7 +1100,7 @@ def read_configuration():
     try:
         prefs["old_version_column_visible"] = (config['visible_columns']['old_version'] == "True")
     except:
-        prefs["old_version_column_visible"] = True
+        prefs["old_version_column_visible"] = False
     try:
         prefs["new_version_column_visible"] = (config['visible_columns']['new_version'] == "True")
     except:
@@ -1108,7 +1108,7 @@ def read_configuration():
     try:
         prefs["size_column_visible"] = (config['visible_columns']['size'] == "True")
     except:
-        prefs["size_column_visible"] = True
+        prefs["size_column_visible"] = False
 
     #Read window dimensions
     try:
@@ -1118,7 +1118,7 @@ def read_configuration():
     except:
         prefs["dimensions_x"] = 790
         prefs["dimensions_y"] = 540
-        prefs["dimensions_pane_position"] = 230
+        prefs["dimensions_pane_position"] = 278
 
     #Read package blacklist
     try:
