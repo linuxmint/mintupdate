@@ -404,13 +404,7 @@ class InstallThread(threading.Thread):
                     f.close()
                     log.writelines("++ Install finished\n")
                     log.flush()
-                    
-                    gtk.gdk.threads_enter()
-                    global app_hidden
-                    app_hidden = True
-                    self.wTree.get_widget("window1").hide()
-                    gtk.gdk.threads_leave()
-                    
+                                       
                     if "mintupdate" in packages:
                         # Restart                        
                         try:
