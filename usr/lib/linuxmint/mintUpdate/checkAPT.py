@@ -73,6 +73,7 @@ try:
             oldVersion = pkg.installed.version
             size = pkg.candidate.size
             sourcePackage = pkg.candidate.source_name
+            short_description = pkg.candidate.raw_description
             description = pkg.candidate.description
             if (newVersion != oldVersion):
                 update_type = "package"
@@ -90,7 +91,7 @@ try:
                         else:
                             update_type = "linuxmint"                
                     
-                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, description)
+                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, short_description, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace')
     
 except Exception, detail:

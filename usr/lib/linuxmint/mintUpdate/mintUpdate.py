@@ -3,6 +3,7 @@
 try:
     import os
     import commands
+    import codecs
     import sys
     import string
     import gtk
@@ -59,6 +60,7 @@ gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 CONFIG_DIR = "%s/.config/linuxmint" % home
 
+package_short_descriptions = {}
 package_descriptions = {}
 
 (UPDATE_CHECKED, UPDATE_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(13)
@@ -67,6 +69,7 @@ class PackageUpdate():
     def __init__(self, source_package_name, level, oldVersion, newVersion, extraInfo, warning, update_type, tooltip):
         self.name = source_package_name
         self.description = ""
+        self.short_description = ""
         self.level = level
         self.oldVersion = oldVersion
         self.newVersion = newVersion
@@ -77,9 +80,10 @@ class PackageUpdate():
         self.tooltip = tooltip
         self.packages = []
 
-    def add_package(self, package, size, description):
+    def add_package(self, package, size, short_description, description):
         self.packages.append(package)
         self.description = description
+        self.short_description = short_description
         self.size += size
 
 class ChangelogRetriever(threading.Thread):
@@ -472,35 +476,44 @@ class RefreshThread(threading.Thread):
     
     def fetch_l10n_descriptions(self, package_names):
         if os.path.exists("/var/lib/apt/lists"):
-            super_buffer = []
-            for file in os.listdir("/var/lib/apt/lists"):
-                if ("i18n_Translation") in file and not file.endswith("Translation-en"):
-                    fd = open(os.path.join("/var/lib/apt/lists", file))
-                    super_buffer += fd.readlines()
+            try:
+                super_buffer = []
+                for file in os.listdir("/var/lib/apt/lists"):
+                    if ("i18n_Translation") in file and not file.endswith("Translation-en"):
+                        fd = codecs.open(os.path.join("/var/lib/apt/lists", file), "r", "utf-8")                    
+                        super_buffer += fd.readlines()
 
-            i = 0
-            while i < len(super_buffer):
-                line = super_buffer[i].strip()
-                if line.startswith("Package: "):
-                    try:
-                        pkgname = line.replace("Package: ", "")
-                        description = ""
-                        j = 2 # skip md5 line after package name line
-                        while True:
-                            if (i+j >= len(super_buffer)):
-                                break
-                            line = super_buffer[i+j].strip()
-                            if line.startswith("Package: "):
-                                break
-                            description += "\n" + line
-                            j += 1                       
-                        if pkgname in package_names:
-                            if not package_descriptions.has_key(pkgname):                                
-                                package_descriptions[pkgname] = description                                
-                    except Exception, detail:
-                        print "a %s" % detail
-                i += 1
-            del super_buffer    
+                i = 0
+                while i < len(super_buffer):
+                    line = super_buffer[i].strip()
+                    if line.startswith("Package: "):
+                        try:
+                            pkgname = line.replace("Package: ", "")
+                            short_description = ""
+                            description = ""
+                            j = 2 # skip md5 line after package name line
+                            while True:
+                                if (i+j >= len(super_buffer)):
+                                    break
+                                line = super_buffer[i+j].strip()
+                                if line.startswith("Package: "):
+                                    break
+                                if j==2:
+                                    short_description = line
+                                else:
+                                    description += "\n" + line
+                                j += 1
+                            if pkgname in package_names:
+                                if not package_descriptions.has_key(pkgname):
+                                    package_short_descriptions[pkgname] = short_description
+                                    package_descriptions[pkgname] = description
+                        except Exception, detail:
+                            print "a %s" % detail
+                    i += 1
+                del super_buffer    
+            except Exception, detail:
+                print "Could not fetch l10n descriptions.."
+                print detail
 
     def run(self):
         global log
@@ -602,7 +615,7 @@ class RefreshThread(threading.Thread):
             else:                
                 for pkg in updates:
                     values = string.split(pkg, "###")
-                    if len(values) == 8:
+                    if len(values) == 9:
                         status = values[0]
                         if (status == "ERROR"):
                             try:
@@ -635,7 +648,8 @@ class RefreshThread(threading.Thread):
                         size = int(values[4])
                         source_package = values[5]
                         update_type = values[6]
-                        description = values[7]
+                        short_description = values[7]
+                        description = values[8]
 
                         package_names.add(package.replace(":i386", "").replace(":amd64", ""))
 
@@ -710,19 +724,26 @@ class RefreshThread(threading.Thread):
 
                             # Create a new Update
                             update = PackageUpdate(source_package, level, oldVersion, newVersion, extraInfo, warning, update_type, tooltip)
-                            update.add_package(package, size, description)
+                            update.add_package(package, size, short_description, description)
                             package_updates[source_package] = update
                         else:
                             # Add the package to the Update
                             update = package_updates[source_package]
-                            update.add_package(package, size, description)
+                            update.add_package(package, size, short_description, description)
                         
+                self.fetch_l10n_descriptions(package_names)
+
                 for source_package in package_updates.keys():
                     
                     package_update = package_updates[source_package]
 
                     if (new_mintupdate and package_update.name != "mintupdate"):
                         continue
+
+                    # l10n descriptions
+                    l10n_descriptions(package_update)
+                    package_update.short_description = clean_l10n_short_description(package_update.short_description)
+                    package_update.description = clean_l10n_description(package_update.description)
                     
                     if ((prefs["level" + str(package_update.level) + "_visible"]) or (security_update and prefs['security_visible'])):
                         iter = model.insert_before(None, None)
@@ -738,7 +759,11 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, UPDATE_CHECKED, "false")
                                                                               
                         model.row_changed(model.get_path(iter), iter)
-                        model.set_value(iter, UPDATE_NAME, package_update.name)
+
+                        shortdesc = package_update.short_description
+                        if len(shortdesc) > 100:
+                            shortdesc = shortdesc[:100] + "..."
+                        model.set_value(iter, UPDATE_NAME, package_update.name + "\n<small><span foreground='#5C5C5C'>%s</span></small>" % shortdesc)
                         model.set_value(iter, UPDATE_LEVEL_PIX, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(package_update.level) + ".png"))
                         model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)                                
                         model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)                        
@@ -800,7 +825,7 @@ class RefreshThread(threading.Thread):
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             gtk.gdk.threads_leave()
 
-            self.fetch_l10n_descriptions(package_names)
+            
 
         except Exception, detail:
             print "-- Exception occured in the refresh thread: " + str(detail)
@@ -1681,7 +1706,24 @@ def save_window_size(window, vpaned):
     config['dimensions']['pane_position'] = vpaned.get_position()
     config.write()
 
-def clean_l10n_description(description, english_description):
+def clean_l10n_short_description(description):
+        try:            
+            # Remove "Description-xx: " prefix
+            value = re.sub(r'Description-(\S+): ', r'', description)
+            # Only take the first line and trim it
+            value = value.split("\n")[0].strip()
+            # Capitalize the first letter
+            value = value[:1].upper() + value[1:]
+            # Add missing punctuation
+            if len(value) > 0 and value[-1] not in [".", "!", "?"]:
+                value = "%s." % value
+
+            return value
+        except Exception, detail:
+            print detail
+            return description
+
+def clean_l10n_description(description):
         try:
             lines = description.split("\n")
             value = ""
@@ -1690,43 +1732,32 @@ def clean_l10n_description(description, english_description):
             for line in lines:
                 line = line.strip()
                 if len(line) > 0:
-                    if num == 0:                        
-                        # line is starting with something like "-fr: "
-                        line = re.sub(r'Description-(\S+): ', r'', line)
-
-                        # Capitalize the first letter
-                        line = line[:1].upper() + line[1:]
-
-                        # Add missing punctuation
-                        if len(line) > 0 and line[-1] not in [".", "!", "?"]:
-                            line = "%s." % line
-
-                        value = "%s\n" % line
+                    if line == ".":
+                        value = "%s\n" % (value)
                         newline = True
                     else:
-                        if line == ".":
-                            value = "%s\n" % (value)
-                            newline = True
+                        if (newline):
+                            value = "%s%s" % (value, line.capitalize())
                         else:
-                            if (newline):
-                                value = "%s%s" % (value, line.capitalize())
-                            else:
-                                value = "%s %s" % (value, line)
-                            newline = False
+                            value = "%s %s" % (value, line)
+                        newline = False
                     num += 1
-            value = value.replace("  ", " ")
+            value = value.replace("  ", " ").strip()
+            # Capitalize the first letter
+            value = value[:1].upper() + value[1:]
+            # Add missing punctuation
+            if len(value) > 0 and value[-1] not in [".", "!", "?"]:
+                value = "%s." % value
             return value
         except Exception, detail:
             print detail
-            return english_description
+            return description
 
-def get_l10n_description(package, english_description):
-        package_name = package.replace(":i386", "").replace(":amd64", "")
-        if not package_descriptions.has_key(package_name):
-            return english_description
-        description = package_descriptions[package_name]
-        description = clean_l10n_description(description, english_description)
-        return description
+def l10n_descriptions(package_update):
+        package_name = package_update.name.replace(":i386", "").replace(":amd64", "")
+        if package_descriptions.has_key(package_name):
+            package_update.short_description = package_short_descriptions[package_name]
+            package_update.description = package_descriptions[package_name]
 
 def display_selected_package(selection, wTree):    
     try:
@@ -1737,7 +1768,7 @@ def display_selected_package(selection, wTree):
             package_update = model.get_value(iter, UPDATE_OBJ)
             if wTree.get_widget("notebook_details").get_current_page() == 0:
                 # Description tab           
-                description = get_l10n_description(package_update.name, package_update.description)                
+                description = package_update.description
                 buffer = wTree.get_widget("textview_description").get_buffer()
                 buffer.set_text(description)
                 import pango
@@ -1767,7 +1798,7 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
         package_update = model.get_value(iter, UPDATE_OBJ)
         if (page_num == 0):
             # Description tab
-            description = get_l10n_description(package_update.name, package_update.description)                
+            description = package_update.description
             buffer = wTree.get_widget("textview_description").get_buffer()
             buffer.set_text(description)
             import pango
@@ -1846,10 +1877,10 @@ def menuPopup(widget, event, treeview_update, statusIcon, wTree):
     if event.button == 3:
         (model, iter) = widget.get_selection().get_selected()
         if (iter != None):
-            selected_package = model.get_value(iter, UPDATE_NAME)
+            package_update = model.get_value(iter, UPDATE_OBJ)
             menu = gtk.Menu()                
             menuItem = gtk.MenuItem(_("Ignore updates for this package"))
-            menuItem.connect("activate", add_to_ignore_list, treeview_update, selected_package, statusIcon, wTree)
+            menuItem.connect("activate", add_to_ignore_list, treeview_update, package_update.name, statusIcon, wTree)
             menu.append(menuItem)        
             menu.show_all()        
             menu.popup( None, None, None, 3, 0)
@@ -1942,7 +1973,7 @@ try:
     column1.set_sort_column_id(UPDATE_CHECKED)
     column1.set_resizable(True)
 
-    column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), text=UPDATE_NAME)
+    column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), markup=UPDATE_NAME)
     column2.set_sort_column_id(UPDATE_NAME)
     column2.set_resizable(True)
 
