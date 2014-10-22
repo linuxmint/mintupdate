@@ -601,11 +601,13 @@ class RefreshThread(threading.Thread):
                 blacklist_file.close()                
 
             if (len(updates) == None):
+                gtk.gdk.threads_enter()
                 self.statusIcon.set_from_file(icon_up2date)
                 self.statusIcon.set_tooltip(_("Your system is up to date"))
                 statusbar.push(context_id, _("Your system is up to date"))
                 log.writelines("++ System is up to date\n")
                 log.flush()
+                gtk.gdk.threads_leave()
             else:                
                 for pkg in updates:
                     values = string.split(pkg, "###")
@@ -807,6 +809,9 @@ class RefreshThread(threading.Thread):
                         log.writelines("++ System is up to date\n")
                         log.flush()
 
+                gtk.gdk.threads_leave()
+
+            gtk.gdk.threads_enter()
             log.writelines("++ Refresh finished\n")
             log.flush()
             # Stop the blinking
@@ -818,8 +823,6 @@ class RefreshThread(threading.Thread):
             self.wTree.get_widget("window1").set_sensitive(True)
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             gtk.gdk.threads_leave()
-
-            
 
         except Exception, detail:
             print "-- Exception occured in the refresh thread: " + str(detail)
