@@ -2170,7 +2170,10 @@ try:
 
     auto_refresh = AutomaticRefreshThread(treeview_update, statusIcon, wTree)
     auto_refresh.start()
+    
+    gtk.gdk.threads_enter()
     gtk.main()
+    gtk.gdk.threads_leave()
 
 except Exception, detail:
     print detail
