@@ -757,7 +757,10 @@ class RefreshThread(threading.Thread):
                         shortdesc = package_update.short_description
                         if len(shortdesc) > 100:
                             shortdesc = shortdesc[:100] + "..."
-                        model.set_value(iter, UPDATE_NAME, package_update.name + "\n<small><span foreground='#5C5C5C'>%s</span></small>" % shortdesc)
+                        if (prefs["descriptions_visible"]):
+                            model.set_value(iter, UPDATE_NAME, package_update.name + "\n<small><span foreground='#5C5C5C'>%s</span></small>" % shortdesc)
+                        else:
+                            model.set_value(iter, UPDATE_NAME, package_update.name)
                         model.set_value(iter, UPDATE_LEVEL_PIX, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(package_update.level) + ".png"))
                         model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)                                
                         model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)                        
@@ -1103,6 +1106,10 @@ def read_configuration():
         prefs["size_column_visible"] = (config['visible_columns']['size'] == "True")
     except:
         prefs["size_column_visible"] = False
+    try:
+        prefs["descriptions_visible"] = (config['visible_columns']['description'] == "True")
+    except:
+        prefs["descriptions_visible"] = True
 
     #Read window dimensions
     try:
@@ -1866,6 +1873,16 @@ def setVisibleColumn(checkmenuitem, column, configName):
         config['visible_columns'][configName] = checkmenuitem.get_active()
     config.write()
     column.set_visible(checkmenuitem.get_active())
+
+def setVisibleDescriptions(checkmenuitem, treeView, statusIcon, wTree, prefs):
+    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
+    if (not config.has_key('visible_columns')):
+        config['visible_columns'] = {}
+    config['visible_columns']['description'] = checkmenuitem.get_active()
+    config.write()
+    prefs["descriptions_visible"] = checkmenuitem.get_active()
+    refresh = RefreshThread(treeView, statusIcon, wTree)
+    refresh.start()
     
 def menuPopup(widget, event, treeview_update, statusIcon, wTree):
     if event.button == 3:
@@ -2125,6 +2142,12 @@ try:
     visibleColumnsMenu.append(sizeColumnMenuItem)
 
     viewSubmenu.append(visibleColumnsMenuItem)
+
+    descriptionsMenuItem = gtk.CheckMenuItem(_("Show descriptions"))
+    descriptionsMenuItem.set_active(prefs["descriptions_visible"])    
+    descriptionsMenuItem.connect("toggled", setVisibleDescriptions, treeview_update, statusIcon, wTree, prefs)
+    viewSubmenu.append(descriptionsMenuItem)
+
     viewSubmenu.append(historyMenuItem)
     viewSubmenu.append(kernelMenuItem)
     viewSubmenu.append(infoMenuItem)
