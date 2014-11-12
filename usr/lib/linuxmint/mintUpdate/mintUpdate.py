@@ -745,7 +745,7 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, UPDATE_CHECKED, "true")                            
                             num_safe = num_safe + 1
                             download_size = download_size + package_update.size
-                        elif (prefs["level" + str(level) + "_safe"]):
+                        elif (prefs["level" + str(package_update.level) + "_safe"]):                            
                             model.set_value(iter, UPDATE_CHECKED, "true")                     
                             num_safe = num_safe + 1
                             download_size = download_size + package_update.size
