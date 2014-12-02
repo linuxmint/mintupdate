@@ -1617,10 +1617,13 @@ def display_selected_kernel(selection, wTree):
                 fixes_box.show_all()
                 bugs_box.show_all()
     except Exception, detail:
-        print detail           
+        print detail
 
 def open_help(widget):
     os.system("yelp help:linuxmint/software-updates &")
+
+def open_rel_upgrade(widget):
+    os.system("/usr/bin/mint-release-upgrade &")
 
 def open_about(widget):
     dlg = gtk.AboutDialog()
@@ -2056,7 +2059,7 @@ try:
     wTree.get_widget("tool_select_all").set_label(_("Select All"))
     wTree.get_widget("tool_clear").set_label(_("Clear"))
     wTree.get_widget("label9").set_text(_("Description"))
-    wTree.get_widget("label8").set_text(_("Changelog"))    
+    wTree.get_widget("label8").set_text(_("Changelog"))
 
     wTree.get_widget("label_error_detail").set_text("")
     wTree.get_widget("hbox_error").hide()
@@ -2087,6 +2090,17 @@ try:
         sourcesMenuItem.get_child().set_text(_("Software sources"))
         sourcesMenuItem.connect("activate", open_repositories)
         editSubmenu.append(sourcesMenuItem)
+
+    lsb_release = commands.getoutput("lsb_release -cs")
+    rel_path = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s" % lsb_release
+    if os.path.exists(rel_path):
+        config = ConfigObj(os.path.join(rel_path, "info"))
+        rel_target = config['general']['target_name']
+        relUpgradeMenuItem = gtk.ImageMenuItem(gtk.STOCK_PREFERENCES)
+        relUpgradeMenuItem.set_image(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/rel_upgrade.png"))
+        relUpgradeMenuItem.get_child().set_text(_("Upgrade to %s") % rel_target)
+        relUpgradeMenuItem.connect("activate", open_rel_upgrade)
+        editSubmenu.append(relUpgradeMenuItem)
 
     viewMenu = gtk.MenuItem(_("_View"))
     viewSubmenu = gtk.Menu()
