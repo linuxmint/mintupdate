@@ -229,9 +229,28 @@ class Assistant:
         Gtk.main_quit()
 
     def apply_button_pressed(self, assistant):
+
+        # Turn off the screensaver during the upgrade
+        screensaver_setting = None
+        screensaver_enabled = "true"
+        if self.current_edition.lower() == "cinnamon":
+            screensaver_setting = "org.cinnamon.desktop.screensaver lock-enabled"
+        elif self.current_edition.lower() == "mate":
+            screensaver_setting = "org.mate.screensaver lock-enabled"
+        if screensaver_setting is not None:
+            enabled = os.popen("gsettings get %s" % screensaver_setting).readlines()[0].strip()
+            if enabled == "false":
+                screensaver_enabled = "false"
+            else:
+                os.system("gsettings set %s false" % screensaver_setting)
+
         cmd = ["/usr/bin/mint-release-upgrade-root", "%s" % self.current_codename, "%s" % self.assistant.get_window().get_xid()]
         comnd = Popen(' '.join(cmd), shell=True)
         returnCode = comnd.wait()
+
+        # Reset the screensaver the way it was before the upgrade
+        if screensaver_setting is not None:
+            os.system("gsettings set %s %s" % (screensaver_setting, screensaver_enabled))
 
         new_codename = 'unknown'
         if os.path.exists("/etc/linuxmint/info"):
