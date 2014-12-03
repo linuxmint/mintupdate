@@ -30,38 +30,39 @@ class Assistant:
         self.assistant.set_page_title(self.vbox_intro, _("Introduction"))
         self.assistant.set_icon(GdkPixbuf.Pixbuf.new_from_file("/usr/lib/linuxmint/mintUpdate/icons/rel_upgrade.png"))
 
-        self.lsb_release = os.popen("lsb_release -cs").readlines()[0].strip()
-        rel_path = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s" % self.lsb_release
-
         if not os.path.exists("/etc/linuxmint/info"):
             self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/failure.png', _("Your system is missing critical components. A package corresponding to your edition of Linux Mint should provide the virtual package 'mint-info' and the file /etc/linuxmint/info."))
-        elif not os.path.exists(rel_path):
-            self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("No upgrades were found."))
         else:
-            self.config = ConfigObj(os.path.join(rel_path, "info"))
-            self.rel_target_name = self.config['general']['target_name']
-            self.rel_target_codename = self.config['general']['target_codename']
-            self.rel_editions = self.config['general']['editions']
+            self.current_codename = 'unknown'
             self.current_edition = 'unknown'
             with open("/etc/linuxmint/info", "r") as info:
                 for line in info:
                     line = line.strip()
                     if "EDITION=" in line:
                         self.current_edition = line.split('=')[1].replace('"', '').split()[0]
-                        break
-            if self.current_edition.lower() in self.rel_editions:
-                label = Gtk.Label()
-                label.set_markup(_("A new version of Linux Mint is available!"))
-                self.vbox_intro.pack_start(label, False, False, 6)
-                image = Gtk.Image.new_from_file(os.path.join(rel_path, "%s.png" % self.current_edition.lower()))
-                self.vbox_intro.pack_start(image, False, False, 0)
-                label = Gtk.Label()
-                label.set_markup("<b>%s</b>" % self.rel_target_name)
-                self.vbox_intro.pack_start(label, False, False, 0)
-                self.assistant.set_page_complete(self.vbox_intro, True)
-                self.build_assistant()
+                    if "CODENAME=" in line:
+                        self.current_codename = line.split('=')[1].replace('"', '').split()[0]
+            rel_path = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s" % self.current_codename
+            if not os.path.exists(rel_path):
+                self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("No upgrades were found."))
             else:
-                self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("An upgrade was found but it is not available yet for the %s edition.") % self.current_edition)
+                self.config = ConfigObj(os.path.join(rel_path, "info"))
+                self.rel_target_name = self.config['general']['target_name']
+                self.rel_target_codename = self.config['general']['target_codename']
+                self.rel_editions = self.config['general']['editions']
+                if self.current_edition.lower() in self.rel_editions:
+                    label = Gtk.Label()
+                    label.set_markup(_("A new version of Linux Mint is available!"))
+                    self.vbox_intro.pack_start(label, False, False, 6)
+                    image = Gtk.Image.new_from_file(os.path.join(rel_path, "%s.png" % self.current_edition.lower()))
+                    self.vbox_intro.pack_start(image, False, False, 0)
+                    label = Gtk.Label()
+                    label.set_markup("<b>%s</b>" % self.rel_target_name)
+                    self.vbox_intro.pack_start(label, False, False, 0)
+                    self.assistant.set_page_complete(self.vbox_intro, True)
+                    self.build_assistant()
+                else:
+                    self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("An upgrade was found but it is not available yet for the %s edition.") % self.current_edition)
 
         self.assistant.show_all()
 
@@ -228,11 +229,20 @@ class Assistant:
         Gtk.main_quit()
 
     def apply_button_pressed(self, assistant):
-        cmd = ["/usr/bin/mint-release-upgrade-root", "%s" % self.lsb_release, "%s" % self.assistant.get_window().get_xid()]
+        cmd = ["/usr/bin/mint-release-upgrade-root", "%s" % self.current_codename, "%s" % self.assistant.get_window().get_xid()]
         comnd = Popen(' '.join(cmd), shell=True)
         returnCode = comnd.wait()
-        new_lsb_release = os.popen("lsb_release -cs").readlines()[0].strip()
-        if new_lsb_release == self.rel_target_codename:
+
+        new_codename = 'unknown'
+        if os.path.exists("/etc/linuxmint/info"):
+            with open("/etc/linuxmint/info", "r") as info:
+                for line in info:
+                    line = line.strip()
+                    if "CODENAME=" in line:
+                        new_codename = line.split('=')[1].replace('"', '').split()[0]
+                        break
+
+        if new_codename == self.rel_target_codename:
             vbox_content = Gtk.HBox()
             image = Gtk.Image.new_from_file('/usr/lib/linuxmint/mintUpdate/rel_upgrades/success.png')
             vbox_content.pack_start(image, False, False, 0)

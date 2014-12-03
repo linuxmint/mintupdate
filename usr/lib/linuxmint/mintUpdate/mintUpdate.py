@@ -2091,8 +2091,16 @@ try:
         sourcesMenuItem.connect("activate", open_repositories)
         editSubmenu.append(sourcesMenuItem)
 
-    lsb_release = commands.getoutput("lsb_release -cs")
-    rel_path = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s" % lsb_release
+    rel_codename = 'unknown'
+    if os.path.exists("/etc/linuxmint/info"):
+        with open("/etc/linuxmint/info", "r") as info:
+            for line in info:
+                line = line.strip()
+                if "CODENAME=" in line:
+                    rel_codename = line.split('=')[1].replace('"', '').split()[0]
+                    break
+
+    rel_path = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s" % rel_codename
     if os.path.exists(rel_path):
         config = ConfigObj(os.path.join(rel_path, "info"))
         rel_target = config['general']['target_name']
