@@ -2096,19 +2096,21 @@ try:
         with open("/etc/linuxmint/info", "r") as info:
             for line in info:
                 line = line.strip()
+                if "EDITION=" in line:
+                    rel_edition = line.split('=')[1].replace('"', '').split()[0]
                 if "CODENAME=" in line:
                     rel_codename = line.split('=')[1].replace('"', '').split()[0]
-                    break
 
     rel_path = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s" % rel_codename
     if os.path.exists(rel_path):
         config = ConfigObj(os.path.join(rel_path, "info"))
-        rel_target = config['general']['target_name']
-        relUpgradeMenuItem = gtk.ImageMenuItem(gtk.STOCK_PREFERENCES)
-        relUpgradeMenuItem.set_image(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/rel_upgrade.png"))
-        relUpgradeMenuItem.get_child().set_text(_("Upgrade to %s") % rel_target)
-        relUpgradeMenuItem.connect("activate", open_rel_upgrade)
-        editSubmenu.append(relUpgradeMenuItem)
+        if rel_edition.lower() in config['general']['editions']:
+            rel_target = config['general']['target_name']
+            relUpgradeMenuItem = gtk.ImageMenuItem(gtk.STOCK_PREFERENCES)
+            relUpgradeMenuItem.set_image(gtk.image_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/rel_upgrade.png"))
+            relUpgradeMenuItem.get_child().set_text(_("Upgrade to %s") % rel_target)
+            relUpgradeMenuItem.connect("activate", open_rel_upgrade)
+            editSubmenu.append(relUpgradeMenuItem)
 
     viewMenu = gtk.MenuItem(_("_View"))
     viewSubmenu = gtk.Menu()
