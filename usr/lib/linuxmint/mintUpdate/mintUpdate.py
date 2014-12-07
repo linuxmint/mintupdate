@@ -2091,6 +2091,7 @@ try:
         sourcesMenuItem.connect("activate", open_repositories)
         editSubmenu.append(sourcesMenuItem)
 
+    rel_edition = 'unknown'
     rel_codename = 'unknown'
     if os.path.exists("/etc/linuxmint/info"):
         with open("/etc/linuxmint/info", "r") as info:
