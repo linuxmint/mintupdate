@@ -663,7 +663,7 @@ class RefreshThread(threading.Thread):
                                 update_type = "package"
                                 is_a_mint_package = True
 
-                            security_update = (update_type == "security")                        
+                            security_update = (update_type == "security")
 
                             if update_type == "security":
                                 tooltip = _("Security update")
@@ -739,6 +739,8 @@ class RefreshThread(threading.Thread):
                     package_update.short_description = clean_l10n_short_description(package_update.short_description)
                     package_update.description = clean_l10n_description(package_update.description)
                     
+                    security_update = (package_update.type == "security")
+
                     if ((prefs["level" + str(package_update.level) + "_visible"]) or (security_update and prefs['security_visible'])):
                         iter = model.insert_before(None, None)
                         if (security_update and prefs['security_visible'] and prefs['security_safe']):
