@@ -1713,7 +1713,7 @@ def save_window_size(window, vpaned):
     config.write()
 
 def clean_l10n_short_description(description):
-        try:            
+        try:
             # Remove "Description-xx: " prefix
             value = re.sub(r'Description-(\S+): ', r'', description)
             # Only take the first line and trim it
@@ -1723,6 +1723,8 @@ def clean_l10n_short_description(description):
             # Add missing punctuation
             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                 value = "%s." % value
+            # Replace & signs with &amp; (because we pango it)
+            value = value.replace('&', '&amp;')
 
             return value
         except Exception, detail:
