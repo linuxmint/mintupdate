@@ -2178,7 +2178,12 @@ try:
     viewSubmenu.append(descriptionsMenuItem)
 
     viewSubmenu.append(historyMenuItem)
-    viewSubmenu.append(kernelMenuItem)
+    try:
+        # Only support kernel selection in Linux Mint (not LMDE)
+        if (commands.getoutput("lsb_release -is").strip() == "LinuxMint" and float(commands.getoutput("lsb_release -rs").strip()) >= 13):
+            viewSubmenu.append(kernelMenuItem)
+    except Exception, detail:
+        print detail
     viewSubmenu.append(infoMenuItem)
 
     helpMenu = gtk.MenuItem(_("_Help"))
