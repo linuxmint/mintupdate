@@ -81,6 +81,9 @@ try:
                     if origin.origin == "Ubuntu" and '-security' in origin.archive:
                         update_type = "security"
                         break
+                    if origin.origin == "Debian" and '-Security' in origin.label:
+                        update_type = "security"
+                        break
                     if origin.origin == "linuxmint":
                         if origin.component == "romeo":
                             update_type = "unstable"
