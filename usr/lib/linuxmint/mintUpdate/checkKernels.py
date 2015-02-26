@@ -21,7 +21,7 @@ try:
         installable = 0
         pkg_version = ""
         package = pkg.name        
-        if package.startswith("linux-image-3") and package.endswith("-generic"):
+        if (package.startswith("linux-image-3") or package.startswith("linux-image-4")) and package.endswith("-generic"):
             version = package.replace("linux-image-", "").replace("-generic", "")            
             if pkg.is_installed:
                 installed = 1                
