@@ -77,7 +77,12 @@ try:
             description = pkg.candidate.description
             if (newVersion != oldVersion):
                 update_type = "package"
+                update_origin = "linuxmint"
                 for origin in pkg.candidate.origins:
+                    if origin.origin == "Ubuntu":
+                        update_origin = "ubuntu"
+                    elif origin.origin == "Debian":
+                        update_origin = "debian"
                     if origin.origin == "Ubuntu" and '-security' in origin.archive:
                         update_type = "security"
                         break
@@ -94,10 +99,10 @@ try:
                         else:
                             update_type = "linuxmint"                
                     
-                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, short_description, description)
+                resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, update_origin, short_description, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace')
     
 except Exception, detail:
-    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR---EOL---"
+    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR---EOL---"
     print detail
     sys.exit(1)

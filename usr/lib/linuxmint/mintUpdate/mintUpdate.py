@@ -66,7 +66,7 @@ package_descriptions = {}
 (UPDATE_CHECKED, UPDATE_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(13)
 
 class PackageUpdate():
-    def __init__(self, source_package_name, level, oldVersion, newVersion, extraInfo, warning, update_type, tooltip):
+    def __init__(self, source_package_name, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, tooltip):
         self.name = source_package_name
         self.description = ""
         self.short_description = ""
@@ -77,6 +77,7 @@ class PackageUpdate():
         self.extraInfo = extraInfo
         self.warning = warning
         self.type = update_type
+        self.origin = origin
         self.tooltip = tooltip
         self.packages = []
 
@@ -87,11 +88,12 @@ class PackageUpdate():
         self.size += size
 
 class ChangelogRetriever(threading.Thread):
-    def __init__(self, source_package, level, version, wTree):
+    def __init__(self, package_update, wTree):
         threading.Thread.__init__(self)
-        self.source_package = source_package
-        self.level = level 
-        self.version = version
+        self.source_package = package_update.name
+        self.level = package_update.level
+        self.version = package_update.newVersion
+        self.origin = package_update.origin
         self.wTree = wTree
         # get the proxy settings from gsettings
         self.ps = proxygsettings.get_proxy_settings()
@@ -106,19 +108,30 @@ class ChangelogRetriever(threading.Thread):
         self.wTree.get_widget("textview_changes").get_buffer().set_text(_("Downloading changelog..."))  
         gtk.gdk.threads_leave()       
         
-        changelog_sources = []            
-        if (self.source_package.startswith("lib")):
-            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
-            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
-            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-        else:
-            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
-            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
-            changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-        changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
-        changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")
+        changelog_sources = []
+        if self.origin == "linuxmint":
+            changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
+            changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")
+        elif self.origin == "ubuntu":
+            if (self.source_package.startswith("lib")):
+                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
+                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
+                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+            else:
+                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
+                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
+                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+        elif self.origin == "debian":
+            if (self.source_package.startswith("lib")):
+                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
+                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))        
+            else:                
+                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
+                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))        
         
         changelog = _("No changelog available")
         
@@ -609,7 +622,7 @@ class RefreshThread(threading.Thread):
             else:                
                 for pkg in updates:
                     values = string.split(pkg, "###")
-                    if len(values) == 9:
+                    if len(values) == 10:
                         status = values[0]
                         if (status == "ERROR"):
                             try:
@@ -642,8 +655,9 @@ class RefreshThread(threading.Thread):
                         size = int(values[4])
                         source_package = values[5]
                         update_type = values[6]
-                        short_description = values[7]
-                        description = values[8]
+                        origin = values[7]
+                        short_description = values[8]
+                        description = values[9]
 
                         package_names.add(package.replace(":i386", "").replace(":amd64", ""))
 
@@ -717,7 +731,7 @@ class RefreshThread(threading.Thread):
                             level = int(level)
 
                             # Create a new Update
-                            update = PackageUpdate(source_package, level, oldVersion, newVersion, extraInfo, warning, update_type, tooltip)
+                            update = PackageUpdate(source_package, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, tooltip)
                             update.add_package(package, size, short_description, description)
                             package_updates[source_package] = update
                         else:
@@ -1793,7 +1807,7 @@ def display_selected_package(selection, wTree):
                     buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
             else:
                 # Changelog tab
-                retriever = ChangelogRetriever(package_update.name, package_update.level, package_update.newVersion, wTree)
+                retriever = ChangelogRetriever(package_update, wTree)
                 retriever.start()
                
     except Exception, detail:
@@ -1823,7 +1837,7 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
                 buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
         else:
             # Changelog tab                
-            retriever = ChangelogRetriever(package_update.name, package_update.level, package_update.newVersion, wTree)
+            retriever = ChangelogRetriever(package_update, wTree)
             retriever.start()
 
 def celldatafunction_checkbox(column, cell, model, iter):
