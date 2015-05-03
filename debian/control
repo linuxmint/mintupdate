@@ -2,7 +2,8 @@ Source: mintupdate
 Section: admin
 Priority: optional
 Maintainer: Clement Lefebvre <root@linuxmint.com>
-Build-Depends: debhelper (>= 9), python
+Build-Depends: debhelper (>= 9),
+               python (>= 2.7~)
 Standards-Version: 3.9.5
 
 Package: mintupdate
@@ -10,8 +11,6 @@ Architecture: all
 Depends:
  ${python:Depends},
  ${misc:Depends},
- python (>= 2.4),
- python (<< 3),
  python-gtk2,
  python-glade2,
  python-configobj,
