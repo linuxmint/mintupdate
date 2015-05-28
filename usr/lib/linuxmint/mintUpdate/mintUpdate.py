@@ -59,6 +59,7 @@ else:
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 CONFIG_DIR = "%s/.config/linuxmint" % home
+KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 
 package_short_descriptions = {}
 package_descriptions = {}
@@ -1513,8 +1514,8 @@ def open_kernels(widget):
             model.set_value(iter, 7, values)
             model.row_changed(model.get_path(iter), iter)          
                         
-            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version):
-                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version)
+            if os.path.exists(os.path.join(KERNEL_INFO_DIR, version)):
+                kernel_file = open(os.path.join(KERNEL_INFO_DIR, version))
                 lines = kernel_file.readlines()
                 num_fixes = 0
                 num_bugs = 0
@@ -1531,8 +1532,8 @@ def open_kernels(widget):
                 if num_bugs > 0:
                     model.set_value(iter, 6, pix_bugs)
 
-            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/versions"):
-                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/versions")
+            if os.path.exists(os.path.join(KERNEL_INFO_DIR, "versions")):
+                kernel_file = open(os.path.join(KERNEL_INFO_DIR, "versions"))
                 lines = kernel_file.readlines()
                 for line in lines:
                     elements = line.split("\t")
@@ -1599,8 +1600,8 @@ def display_selected_kernel(selection, wTree):
                     button_install.set_tooltip_text(_("This kernel is not installable."))
                 else:
                     button_install.set_sensitive(True)
-            if os.path.exists("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version):
-                kernel_file = open("/usr/lib/linuxmint/mintUpdate/kernels/%s" % version)
+            if os.path.exists(os.path.join(KERNEL_INFO_DIR, version)):
+                kernel_file = open(os.path.join(KERNEL_INFO_DIR, version))
                 lines = kernel_file.readlines()
                 fixes_box = gtk.Table()
                 fixes_box.set_row_spacings(3)
@@ -2120,7 +2121,7 @@ try:
                 if "CODENAME=" in line:
                     rel_codename = line.split('=')[1].replace('"', '').split()[0]
 
-    rel_path = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s" % rel_codename
+    rel_path = "/usr/share/mint-upgrade-info/%s" % rel_codename
     if os.path.exists(rel_path):
         config = ConfigObj(os.path.join(rel_path, "info"))
         if rel_edition.lower() in config['general']['editions']:

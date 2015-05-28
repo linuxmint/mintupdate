@@ -15,7 +15,7 @@ if len(sys.argv) != 3:
 
 codename = sys.argv[1]
 window_id = int(sys.argv[2])
-sources_list = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s/official-package-repositories.list" % codename
+sources_list = "/usr/share/mint-upgrade-info/%s/official-package-repositories.list" % codename
 
 if not os.path.exists(sources_list):
     print "Unrecognized release: %s" % codename

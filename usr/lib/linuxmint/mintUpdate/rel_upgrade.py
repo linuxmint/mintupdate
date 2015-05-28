@@ -42,7 +42,7 @@ class Assistant:
                         self.current_edition = line.split('=')[1].replace('"', '').split()[0]
                     if "CODENAME=" in line:
                         self.current_codename = line.split('=')[1].replace('"', '').split()[0]
-            rel_path = "/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s" % self.current_codename
+            rel_path = "/usr/share/mint-upgrade-info/%s" % self.current_codename
             if not os.path.exists(rel_path):
                 self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("No upgrades were found."))
             else:
