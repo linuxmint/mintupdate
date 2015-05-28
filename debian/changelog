@@ -1,3 +1,23 @@
+mintupdate (4.8.4) betsy; urgency=medium
+
+  [ monsta ]
+  * Don't crash with glib >= 2.41
+
+  [ Marshall Banana ]
+  * override harmless image-file-in-usr-lib warnings
+  * mention license of proxygsettings.py
+  * fix libglade warnings
+  * edit shebang in checkAPT.py
+  * change shebang lines to "#!/usr/bin/python2.7"
+  * let dh_python2 look in /usr/lib/linuxmint/mintUpdate
+  * python versions will be handled by dh_python2
+
+  [ Clement Lefebvre ]
+  * Moved kernel info and upgrade info to separate packages
+  * Ignore revision number when identifying kernel versions
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 28 May 2015 17:15:43 +0200
+
 mintupdate (4.8.3) betsy; urgency=medium
 
   * Changelog retriever: Added support for Debian
