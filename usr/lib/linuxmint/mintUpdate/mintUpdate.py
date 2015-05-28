@@ -1539,7 +1539,7 @@ def open_kernels(widget):
                     elements = line.split("\t")
                     if len(elements) == 3:                        
                         (versions_version, versions_tag, versions_upstream) = elements                        
-                        if versions_version == pkg_version:
+                        if version in versions_version:
                             label = "%s (%s)" % (version, versions_upstream.strip())                           
 
             if installable and not installed:
