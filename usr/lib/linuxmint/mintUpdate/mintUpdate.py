@@ -1844,7 +1844,7 @@ def display_selected_package(selection, wTree):
                 if (len(package_update.packages) > 1):
                     dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(package_update.packages))
                     buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
-                elif (package_update.packages[0] != package_update.name):
+                elif (package_update.packages[0] != package_update.alias):
                     dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
                     buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
             else:
