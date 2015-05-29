@@ -64,7 +64,25 @@ KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 package_short_descriptions = {}
 package_descriptions = {}
 
-(UPDATE_CHECKED, UPDATE_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(13)
+(UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(13)
+
+class Alias():
+    def __init__(self, name, short_description, description):
+
+        name = name.strip()
+        short_description = short_description.strip()
+        description = description.strip()
+
+        if (name.startswith('_("') and name.endswith('")')):
+            name = _(name[3:-2])
+        if (short_description.startswith('_("') and short_description.endswith('")')):
+            short_description = _(short_description[3:-2])
+        if (description.startswith('_("') and description.endswith('")')):
+            description = _(description[3:-2])
+
+        self.name = name
+        self.short_description = short_description
+        self.description = description
 
 class PackageUpdate():
     def __init__(self, source_package_name, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, tooltip):
@@ -81,6 +99,7 @@ class PackageUpdate():
         self.origin = origin
         self.tooltip = tooltip
         self.packages = []
+        self.alias = source_package_name
 
     def add_package(self, package, size, short_description, description):
         self.packages.append(package)
@@ -550,12 +569,24 @@ class RefreshThread(threading.Thread):
             gtk.gdk.threads_leave()
 
             model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, str, str, str, int, str, gtk.gdk.Pixbuf, str, str, str, object) 
-            # UPDATE_CHECKED, UPDATE_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, 
+            # UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, 
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
             model.set_sort_column_id( UPDATE_SORT_STR, gtk.SORT_ASCENDING )
 
             prefs = read_configuration()
+
+            aliases = {}
+            with open("/usr/lib/linuxmint/mintUpdate/aliases") as alias_file:
+                for line in alias_file:
+                    if not line.startswith('#'):
+                        splitted = line.split("#####")
+                        if len(splitted) == 4:
+                            (alias_packages, alias_name, alias_short_description, alias_description) = splitted
+                            alias_object = Alias(alias_name, alias_short_description, alias_description)
+                            for alias_package in alias_packages.split(','):
+                                alias_package = alias_package.strip()
+                                aliases[alias_package] = alias_object
 
             # Check to see if no other APT process is running
             if self.root_mode:
@@ -751,10 +782,17 @@ class RefreshThread(threading.Thread):
                     if (new_mintupdate and package_update.name != "mintupdate"):
                         continue
 
-                    # l10n descriptions
-                    l10n_descriptions(package_update)
-                    package_update.short_description = clean_l10n_short_description(package_update.short_description)
-                    package_update.description = clean_l10n_description(package_update.description)
+                    if source_package in aliases.keys():
+                        alias = aliases[source_package]
+                        package_update.alias = alias.name
+                        package_update.short_description = alias.short_description
+                        package_update.description = alias.description
+                        
+                    else:
+                        # l10n descriptions
+                        l10n_descriptions(package_update)
+                        package_update.short_description = clean_l10n_short_description(package_update.short_description)
+                        package_update.description = clean_l10n_description(package_update.description)
                     
                     security_update = (package_update.type == "security")
 
@@ -777,9 +815,9 @@ class RefreshThread(threading.Thread):
                         if len(shortdesc) > 100:
                             shortdesc = shortdesc[:100] + "..."
                         if (prefs["descriptions_visible"]):
-                            model.set_value(iter, UPDATE_NAME, package_update.name + "\n<small><span foreground='#5C5C5C'>%s</span></small>" % shortdesc)
+                            model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<small><span foreground='#5C5C5C'>%s</span></small>" % shortdesc)
                         else:
-                            model.set_value(iter, UPDATE_NAME, package_update.name)
+                            model.set_value(iter, UPDATE_ALIAS, package_update.alias)
                         model.set_value(iter, UPDATE_LEVEL_PIX, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(package_update.level) + ".png"))
                         model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)                                
                         model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)                        
@@ -789,7 +827,7 @@ class RefreshThread(threading.Thread):
                         model.set_value(iter, UPDATE_TYPE_PIX, gtk.gdk.pixbuf_new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % package_update.type))
                         model.set_value(iter, UPDATE_TYPE, package_update.type)
                         model.set_value(iter, UPDATE_TOOLTIP, package_update.tooltip)
-                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(package_update.level), package_update.name))
+                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(package_update.level), package_update.alias))
                         model.set_value(iter, UPDATE_OBJ, package_update)
                         num_visible = num_visible + 1
 
@@ -2009,8 +2047,8 @@ try:
     column1.set_sort_column_id(UPDATE_CHECKED)
     column1.set_resizable(True)
 
-    column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), markup=UPDATE_NAME)
-    column2.set_sort_column_id(UPDATE_NAME)
+    column2 = gtk.TreeViewColumn(_("Package"), gtk.CellRendererText(), markup=UPDATE_ALIAS)
+    column2.set_sort_column_id(UPDATE_ALIAS)
     column2.set_resizable(True)
 
     column3 = gtk.TreeViewColumn(_("Level"), gtk.CellRendererPixbuf(), pixbuf=UPDATE_LEVEL_PIX)
