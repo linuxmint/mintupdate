@@ -437,7 +437,15 @@ class InstallThread(threading.Thread):
                     f.close()
                     log.writelines("++ Install finished\n")
                     log.flush()
-                                       
+
+                    prefs = read_configuration()
+                    if prefs["hide_window_after_update"]:
+                        gtk.gdk.threads_enter()
+                        global app_hidden
+                        app_hidden = True
+                        self.wTree.get_widget("window1").hide()
+                        gtk.gdk.threads_leave()
+
                     if "mintupdate" in packages:
                         # Restart                        
                         try:
@@ -1005,6 +1013,10 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 
     config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
 
+    #Write general config
+    config['general'] = {}
+    config['general']['hide_window_after_update'] = prefs_tree.get_widget("checkbutton_hide_window_after_update").get_active()
+
     #Write level config
     config['levels'] = {}
     config['levels']['level1_visible'] = prefs_tree.get_widget("visible1").get_active()
@@ -1078,6 +1090,12 @@ def read_configuration():
 
     config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
     prefs = {}
+
+    #Read the general config
+    try:
+        prefs["hide_window_after_update"] = (config['general']['hide_window_after_update'] == "True")
+    except:
+        prefs["hide_window_after_update"] = False
 
     #Read refresh config
     try:
@@ -1228,7 +1246,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label81").set_text(_("Refresh the list of updates every:"))
     prefs_tree.get_widget("label82").set_text("<i>" + _("Note: The list only gets refreshed while the update manager window is closed (system tray mode).") + "</i>")
     prefs_tree.get_widget("label82").set_use_markup(True)
-    prefs_tree.get_widget("label83").set_text(_("Update Method"))        
+    prefs_tree.get_widget("label83").set_text(_("Options"))
     prefs_tree.get_widget("label85").set_text(_("Icons"))
     prefs_tree.get_widget("label86").set_markup("<b>" + _("Icon") + "</b>")
     prefs_tree.get_widget("label87").set_markup("<b>" + _("Status") + "</b>")
@@ -1242,6 +1260,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label1").set_text(_("Ignored updates"))
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation of new packages or the removal of installed packages"))
+    prefs_tree.get_widget("checkbutton_hide_window_after_update").set_label(_("Hide the update manager after applying updates"))
 
     prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
     prefs_tree.get_widget("window2").show()
@@ -1281,6 +1300,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("timer_days").set_value(prefs["timer_days"])
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_active(prefs["dist_upgrade"])
+    prefs_tree.get_widget("checkbutton_hide_window_after_update").set_active(prefs["hide_window_after_update"])
 
     prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_busy, 24, 24))
     prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_up2date, 24, 24))
