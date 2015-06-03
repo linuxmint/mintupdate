@@ -414,6 +414,7 @@ class InstallThread(threading.Thread):
                     gtk.gdk.threads_enter()
                     self.statusIcon.set_from_file(icon_apply)
                     self.statusIcon.set_tooltip(_("Installing updates"))
+                    self.statusIcon.set_visible(True)
                     gtk.gdk.threads_leave()
                     log.writelines("++ Ready to launch synaptic\n")
                     log.flush()
@@ -465,6 +466,7 @@ class InstallThread(threading.Thread):
                         gtk.gdk.threads_enter()
                         self.statusIcon.set_from_file(icon_busy)
                         self.statusIcon.set_tooltip(_("Checking for updates"))
+                        self.statusIcon.set_visible(not prefs["hide_systray"])
                         self.wTree.get_widget("window1").window.set_cursor(None)
                         self.wTree.get_widget("window1").set_sensitive(True)                        
                         gtk.gdk.threads_leave()
@@ -489,6 +491,7 @@ class InstallThread(threading.Thread):
             gtk.gdk.threads_enter()
             self.statusIcon.set_from_file(icon_error)
             self.statusIcon.set_tooltip(_("Could not install the security updates"))
+            self.statusIcon.set_visible(True)
             log.writelines("-- Could not install security updates\n")
             log.flush()
             #self.statusIcon.set_blinking(False)
@@ -567,9 +570,12 @@ class RefreshThread(threading.Thread):
             self.wTree.get_widget("window1").window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
             self.wTree.get_widget("window1").set_sensitive(False)
 
+            prefs = read_configuration()
+
             # Starts the blinking
             self.statusIcon.set_from_file(icon_busy)
             self.statusIcon.set_tooltip(_("Checking for updates"))
+            self.statusIcon.set_visible(not prefs["hide_systray"])
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             #self.statusIcon.set_blinking(True)
             gtk.gdk.threads_leave()
@@ -579,8 +585,6 @@ class RefreshThread(threading.Thread):
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
             model.set_sort_column_id( UPDATE_SORT_STR, gtk.SORT_ASCENDING )
-
-            prefs = read_configuration()
 
             aliases = {}
             with open("/usr/lib/linuxmint/mintUpdate/aliases") as alias_file:
@@ -608,6 +612,7 @@ class RefreshThread(threading.Thread):
                     gtk.gdk.threads_enter()
                     self.statusIcon.set_from_file(icon_unknown)
                     self.statusIcon.set_tooltip(_("Another application is using APT"))
+                    self.statusIcon.set_visible(True)
                     statusbar.push(context_id, _("Another application is using APT"))
                     log.writelines("-- Another application is using APT\n")
                     log.flush()
@@ -656,6 +661,7 @@ class RefreshThread(threading.Thread):
                 self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
                 self.statusIcon.set_from_file(icon_up2date)
                 self.statusIcon.set_tooltip(_("Your system is up to date"))
+                self.statusIcon.set_visible(not prefs["hide_systray"])
                 statusbar.push(context_id, _("Your system is up to date"))
                 log.writelines("++ System is up to date\n")
                 log.flush()
@@ -670,6 +676,7 @@ class RefreshThread(threading.Thread):
                         gtk.gdk.threads_enter()
                         self.statusIcon.set_from_file(icon_error)
                         self.statusIcon.set_tooltip("%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg))
+                        self.statusIcon.set_visible(True)
                         statusbar.push(context_id, _("Could not refresh the list of updates"))
                         log.writelines("-- Error in checkAPT.py, could not refresh the list of updates\n")
                         log.flush()
@@ -839,6 +846,7 @@ class RefreshThread(threading.Thread):
                     self.statusString = _("A new version of the update manager is available")
                     self.statusIcon.set_from_file(icon_updates)
                     self.statusIcon.set_tooltip(self.statusString)
+                    self.statusIcon.set_visible(True)
                     statusbar.push(context_id, self.statusString)
                     log.writelines("++ Found a new version of mintupdate\n")
                     log.flush()
@@ -860,6 +868,7 @@ class RefreshThread(threading.Thread):
                                 self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
                         self.statusIcon.set_from_file(icon_updates)
                         self.statusIcon.set_tooltip(self.statusString)
+                        self.statusIcon.set_visible(True)
                         statusbar.push(context_id, self.statusString)
                         log.writelines("++ Found " + str(num_safe) + " recommended software updates\n")
                         log.flush()
@@ -867,6 +876,7 @@ class RefreshThread(threading.Thread):
                         self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
                         self.statusIcon.set_from_file(icon_up2date)
                         self.statusIcon.set_tooltip(_("Your system is up to date"))
+                        self.statusIcon.set_visible(not prefs["hide_systray"])
                         statusbar.push(context_id, _("Your system is up to date"))
                         log.writelines("++ System is up to date\n")
                         log.flush()
@@ -893,6 +903,7 @@ class RefreshThread(threading.Thread):
             gtk.gdk.threads_enter()
             self.statusIcon.set_from_file(icon_error)
             self.statusIcon.set_tooltip(_("Could not refresh the list of updates"))
+            self.statusIcon.set_visible(True)
             #self.statusIcon.set_blinking(False)
             self.wTree.get_widget("window1").window.set_cursor(None)
             self.wTree.get_widget("window1").set_sensitive(True)
@@ -1012,6 +1023,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     #Write general config
     config['general'] = {}
     config['general']['hide_window_after_update'] = prefs_tree.get_widget("checkbutton_hide_window_after_update").get_active()
+    config['general']['hide_systray'] = prefs_tree.get_widget("checkbutton_hide_systray").get_active()
 
     #Write level config
     config['levels'] = {}
@@ -1092,6 +1104,11 @@ def read_configuration():
         prefs["hide_window_after_update"] = (config['general']['hide_window_after_update'] == "True")
     except:
         prefs["hide_window_after_update"] = False
+
+    try:
+        prefs["hide_systray"] = (config['general']['hide_systray'] == "True")
+    except:
+        prefs["hide_systray"] = False
 
     #Read refresh config
     try:
@@ -1257,6 +1274,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation of new packages or the removal of installed packages"))
     prefs_tree.get_widget("checkbutton_hide_window_after_update").set_label(_("Hide the update manager after applying updates"))
+    prefs_tree.get_widget("checkbutton_hide_systray").set_label(_("Only show a tray icon when updates are available or in case of errors"))
 
     prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
     prefs_tree.get_widget("window2").show()
@@ -1297,6 +1315,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_active(prefs["dist_upgrade"])
     prefs_tree.get_widget("checkbutton_hide_window_after_update").set_active(prefs["hide_window_after_update"])
+    prefs_tree.get_widget("checkbutton_hide_systray").set_active(prefs["hide_systray"])
 
     prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_busy, 24, 24))
     prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_up2date, 24, 24))
@@ -2027,7 +2046,7 @@ try:
     statusIcon = gtk.StatusIcon()
     statusIcon.set_from_file(icon_busy)
     statusIcon.set_tooltip(_("Checking for updates"))
-    statusIcon.set_visible(True)    
+    statusIcon.set_visible(not prefs["hide_systray"])
 
     #Set the Glade file
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
