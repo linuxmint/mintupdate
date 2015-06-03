@@ -1823,34 +1823,48 @@ def clean_l10n_short_description(description):
             return description
 
 def clean_l10n_description(description):
-        try:
-            lines = description.split("\n")
-            value = ""
-            num = 0
-            newline = False
-            for line in lines:
-                line = line.strip()
-                if len(line) > 0:
-                    if line == ".":
-                        value = "%s\n" % (value)
-                        newline = True
-                    else:
-                        if (newline):
-                            value = "%s%s" % (value, line.capitalize())
-                        else:
-                            value = "%s %s" % (value, line)
-                        newline = False
-                    num += 1
-            value = value.replace("  ", " ").strip()
-            # Capitalize the first letter
-            value = value[:1].upper() + value[1:]
-            # Add missing punctuation
-            if len(value) > 0 and value[-1] not in [".", "!", "?"]:
-                value = "%s." % value
-            return value
-        except Exception, detail:
-            print detail
-            return description
+
+    def is_verbatim(line):
+        return line.startswith(' ')
+
+    def is_blank(line):
+        return not line or line == '.'
+
+    def mangle_paragraph(text):
+        text = text.capitalize()
+        # Add missing punctuation
+        if text[-1] not in ['.', '!', '?', ':']:
+            text += '.'
+        return text
+
+    def process_paragraph(value, paragraph):
+        if paragraph:
+            value.append(mangle_paragraph(' '.join(paragraph)))
+            paragraph = []
+        return value, paragraph
+
+    try:
+        lines = description.split("\n")
+        value = []
+        paragraph = []
+        for line in lines:
+            # All lines should have it, unless it was already removed
+            if line.startswith(' '):
+                line = line[1:]
+            if is_verbatim(line) or is_blank(line):
+                value, paragraph = process_paragraph(value, paragraph)
+                if is_blank(line):
+                    line = ''
+                value.append(line)
+            else:
+                paragraph.append(line)
+        # Process last paragraph:
+        value, paragraph = process_paragraph(value, paragraph)
+
+        return '\n'.join(value)
+    except Exception, detail:
+        print detail
+        return description
 
 def l10n_descriptions(package_update):
         package_name = package_update.name.replace(":i386", "").replace(":amd64", "")
