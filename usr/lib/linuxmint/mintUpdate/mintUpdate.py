@@ -612,7 +612,7 @@ class RefreshThread(threading.Thread):
                     gtk.gdk.threads_enter()
                     self.statusIcon.set_from_file(icon_unknown)
                     self.statusIcon.set_tooltip(_("Another application is using APT"))
-                    self.statusIcon.set_visible(True)
+                    self.statusIcon.set_visible(not prefs["hide_systray"])
                     statusbar.push(context_id, _("Another application is using APT"))
                     log.writelines("-- Another application is using APT\n")
                     log.flush()
