@@ -61,6 +61,8 @@ gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 CONFIG_DIR = "%s/.config/linuxmint" % home
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 
+(TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
+
 package_short_descriptions = {}
 package_descriptions = {}
 
@@ -561,14 +563,10 @@ class RefreshThread(threading.Thread):
             log.flush()
             gtk.gdk.threads_enter()
             statusbar.push(context_id, _("Starting refresh..."))
+            self.wTree.get_widget("notebook_status").set_current_page(TAB_UPDATES)
             self.wTree.get_widget("window1").window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
             self.wTree.get_widget("window1").set_sensitive(False)
-            self.wTree.get_widget("label_error_detail").set_text("")
-            self.wTree.get_widget("hbox_error").hide()
-            self.wTree.get_widget("scrolledwindow1").hide()
-            self.wTree.get_widget("viewport1").hide()
-            self.wTree.get_widget("label_error_detail").hide()
-            self.wTree.get_widget("image_error").hide()
+
             # Starts the blinking
             self.statusIcon.set_from_file(icon_busy)
             self.statusIcon.set_tooltip(_("Checking for updates"))
@@ -655,42 +653,39 @@ class RefreshThread(threading.Thread):
 
             if (len(updates) == None):
                 gtk.gdk.threads_enter()
+                self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
                 self.statusIcon.set_from_file(icon_up2date)
                 self.statusIcon.set_tooltip(_("Your system is up to date"))
                 statusbar.push(context_id, _("Your system is up to date"))
                 log.writelines("++ System is up to date\n")
                 log.flush()
                 gtk.gdk.threads_leave()
-            else:                
+            else:
                 for pkg in updates:
+                    if pkg.startswith("CHECK_APT_ERROR"):
+                        try:
+                            error_msg = updates[1]
+                        except:
+                            error_msg = ""
+                        gtk.gdk.threads_enter()
+                        self.statusIcon.set_from_file(icon_error)
+                        self.statusIcon.set_tooltip("%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg))
+                        statusbar.push(context_id, _("Could not refresh the list of updates"))
+                        log.writelines("-- Error in checkAPT.py, could not refresh the list of updates\n")
+                        log.flush()
+                        self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
+                        self.wTree.get_widget("label_error_details").set_markup("<b>%s</b>" % error_msg)
+                        self.wTree.get_widget("label_error_details").show()
+                        #self.statusIcon.set_blinking(False)
+                        self.wTree.get_widget("window1").window.set_cursor(None)
+                        self.wTree.get_widget("window1").set_sensitive(True)
+                        #statusbar.push(context_id, _(""))
+                        gtk.gdk.threads_leave()
+                        return False
+
                     values = string.split(pkg, "###")
                     if len(values) == 10:
                         status = values[0]
-                        if (status == "ERROR"):
-                            try:
-                                error_msg = updates[1]
-                            except:
-                                error_msg = ""
-
-                            gtk.gdk.threads_enter()
-                            self.statusIcon.set_from_file(icon_error)
-                            self.statusIcon.set_tooltip("%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg))
-                            statusbar.push(context_id, _("Could not refresh the list of updates"))
-                            log.writelines("-- Error in checkAPT.py, could not refresh the list of updates\n")
-                            log.flush()
-                            self.wTree.get_widget("label_error_detail").set_text(error_msg)
-                            self.wTree.get_widget("label_error_detail").show()
-                            self.wTree.get_widget("viewport1").show()
-                            self.wTree.get_widget("scrolledwindow1").show()
-                            self.wTree.get_widget("image_error").show()
-                            self.wTree.get_widget("hbox_error").show()
-                            #self.statusIcon.set_blinking(False)
-                            self.wTree.get_widget("window1").window.set_cursor(None)
-                            self.wTree.get_widget("window1").set_sensitive(True)
-                            #statusbar.push(context_id, _(""))
-                            gtk.gdk.threads_leave()
-                            return False
-                                                
                         package = values[1]
                         newVersion = values[2]
                         oldVersion = values[3]
@@ -869,6 +864,7 @@ class RefreshThread(threading.Thread):
                         log.writelines("++ Found " + str(num_safe) + " recommended software updates\n")
                         log.flush()
                     else:
+                        self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
                         self.statusIcon.set_from_file(icon_up2date)
                         self.statusIcon.set_tooltip(_("Your system is up to date"))
                         statusbar.push(context_id, _("Your system is up to date"))
@@ -1256,7 +1252,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label90").set_text(_("Updates available"))
     prefs_tree.get_widget("label99").set_text(_("Error"))
     prefs_tree.get_widget("label2").set_text(_("Unknown state"))
-    prefs_tree.get_widget("label3").set_text(_("Applying updates"))    
+    prefs_tree.get_widget("label3").set_text(_("Applying updates"))
     prefs_tree.get_widget("label1").set_text(_("Ignored updates"))
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation of new packages or the removal of installed packages"))
@@ -2141,12 +2137,11 @@ try:
     wTree.get_widget("label9").set_text(_("Description"))
     wTree.get_widget("label8").set_text(_("Changelog"))
 
-    wTree.get_widget("label_error_detail").set_text("")
-    wTree.get_widget("hbox_error").hide()
-    wTree.get_widget("scrolledwindow1").hide()
-    wTree.get_widget("viewport1").hide()
-    wTree.get_widget("label_error_detail").hide()
-    wTree.get_widget("image_error").hide()
+    wTree.get_widget("label_success").set_markup("<b>" + _("Your system is up to date") + "</b>")
+    wTree.get_widget("label_error").set_markup("<b>" + _("Could not refresh the list of updates") + "</b>")
+    wTree.get_widget("image_success_status").set_from_file("/usr/lib/linuxmint/mintUpdate/rel_upgrades/success.png")
+    wTree.get_widget("image_error_status").set_from_file("/usr/lib/linuxmint/mintUpdate/rel_upgrades/failure.png")
+
     wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
 
     fileMenu = gtk.MenuItem(_("_File"))
@@ -2254,6 +2249,7 @@ try:
     viewSubmenu.append(descriptionsMenuItem)
 
     viewSubmenu.append(historyMenuItem)
+
     try:
         # Only support kernel selection in Linux Mint (not LMDE)
         if (commands.getoutput("lsb_release -is").strip() == "LinuxMint" and float(commands.getoutput("lsb_release -rs").strip()) >= 13):
@@ -2287,12 +2283,6 @@ try:
         showWindow = sys.argv[1]
         if (showWindow == "show"):
             wTree.get_widget("window1").show_all()
-            wTree.get_widget("label_error_detail").set_text("")
-            wTree.get_widget("hbox_error").hide()
-            wTree.get_widget("scrolledwindow1").hide()
-            wTree.get_widget("viewport1").hide()
-            wTree.get_widget("label_error_detail").hide()
-            wTree.get_widget("image_error").hide()
             wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
             app_hidden = False    
 

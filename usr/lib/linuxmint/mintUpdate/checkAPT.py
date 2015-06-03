@@ -62,7 +62,7 @@ try:
     cache.open(None)
     cache.upgrade(dist_upgrade)
     changes = cache.get_changes()
-    
+
     # Add dependencies
     #changes = checkDependencies(changes, cache)
 
@@ -103,6 +103,6 @@ try:
                 print resultString.encode('ascii', 'xmlcharrefreplace')
     
 except Exception, detail:
-    print "ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR###ERROR---EOL---"
+    print "CHECK_APT_ERROR---EOL---"
     print detail
     sys.exit(1)
