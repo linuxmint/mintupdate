@@ -1,3 +1,22 @@
+mintupdate (4.8.5) rafaela; urgency=medium
+
+  [ Monsta ]
+  * Proper threads_enter/threads_leave pairing
+
+  [ Clement Lefebvre ]
+  * Changed package description
+  * Use aliases for known source packages and l10n Mint packages descriptions
+  * List real name when alias is different than source package name
+  * Made hiding the update manager after applying updates configurable (and disabled by default)
+  * When up-to-date show an icon and up-to-date screen rather than an empty list of updates. When finding an error, show an error icon and details in the main region of the window rather than near the statusbar.
+  * Added an option to only show system tray in case of updates or errors
+  * When hiding tray icon, don't consider APT locks to be important
+
+  [ Lester Carballo Pérez ]
+  * Don't use get_child().set_text
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 09 Jun 2015 11:57:23 +0200
+
 mintupdate (4.8.4) betsy; urgency=medium
 
   [ monsta ]
