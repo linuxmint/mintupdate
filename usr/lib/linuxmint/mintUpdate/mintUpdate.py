@@ -2158,7 +2158,7 @@ try:
 
     wTree.get_widget("label_success").set_markup("<b>" + _("Your system is up to date") + "</b>")
     wTree.get_widget("label_error").set_markup("<b>" + _("Could not refresh the list of updates") + "</b>")
-    wTree.get_widget("image_success_status").set_from_file("/usr/lib/linuxmint/mintUpdate/rel_upgrades/success.png")
+    wTree.get_widget("image_success_status").set_from_file("/usr/lib/linuxmint/mintUpdate/icons/yes.png")
     wTree.get_widget("image_error_status").set_from_file("/usr/lib/linuxmint/mintUpdate/rel_upgrades/failure.png")
 
     wTree.get_widget("vpaned1").set_position(prefs['dimensions_pane_position'])
