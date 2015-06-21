@@ -873,7 +873,8 @@ class RefreshThread(threading.Thread):
                         log.writelines("++ Found " + str(num_safe) + " recommended software updates\n")
                         log.flush()
                     else:
-                        self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
+                        if num_visible == 0:
+                            self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
                         self.statusIcon.set_from_file(icon_up2date)
                         self.statusIcon.set_tooltip(_("Your system is up to date"))
                         self.statusIcon.set_visible(not prefs["hide_systray"])
