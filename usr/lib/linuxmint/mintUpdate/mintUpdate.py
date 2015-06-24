@@ -248,7 +248,7 @@ class InstallKernelThread(threading.Thread):
         self.remove = remove
 
     def run(self):
-        cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
+        cmd = ["export SHELL=`which zsh`;", "pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
                 "--non-interactive", "--parent-window-id", "%s" % self.wTree.get_widget("window5").window.xid]
         cmd.append("-o")
         cmd.append("Synaptic::closeZvt=true")
@@ -418,7 +418,7 @@ class InstallThread(threading.Thread):
                     gtk.gdk.threads_leave()
                     log.writelines("++ Ready to launch synaptic\n")
                     log.flush()
-                    cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
+                    cmd = ["export SHELL=`which zsh`;", "pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
                             "--non-interactive", "--parent-window-id", "%s" % self.wTree.get_widget("window1").window.xid]
                     cmd.append("-o")
                     cmd.append("Synaptic::closeZvt=true")
