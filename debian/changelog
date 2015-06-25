@@ -1,3 +1,10 @@
+mintupdate (4.8.8) rafaela; urgency=medium
+
+  * Fixed security updates for visible levels not being selected when set to safe but not visible
+  * Don't show security updates for non-visible levels by default (Level 4 or 5 updates should not be recommended to novice users. If a particular update is both a very important security fix and affects a sensitive component we can move its particular version to lower levels to recommend it to novice users).
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 25 Jun 2015 17:59:09 +0200
+
 mintupdate (4.8.7) rafaela; urgency=medium
 
   * Only show the up-to-date screen when there are no visible updates
