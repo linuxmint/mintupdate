@@ -808,7 +808,7 @@ class RefreshThread(threading.Thread):
 
                     if ((prefs["level" + str(package_update.level) + "_visible"]) or (security_update and prefs['security_visible'])):
                         iter = model.insert_before(None, None)
-                        if (security_update and prefs['security_visible'] and prefs['security_safe']):
+                        if (security_update and prefs['security_safe']):
                             model.set_value(iter, UPDATE_CHECKED, "true")                            
                             num_safe = num_safe + 1
                             download_size = download_size + package_update.size
