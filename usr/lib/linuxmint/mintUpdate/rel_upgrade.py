@@ -83,12 +83,11 @@ class Assistant:
         self.vbox_rel_notes.pack_start(vbox_content, False, False, 6)
         link = Gtk.Label()
         link.set_markup("<a href='http://www.linuxmint.com/rel_%s_%s.php'><b>%s</b></a>" % (self.rel_target_codename, self.current_edition.lower(), _("Release notes for %s") % self.rel_target_name))
-        link.connect("button-release-event", self.rel_notes_opened)
         self.vbox_rel_notes.pack_start(link, False, False, 6)
         label = Gtk.Label()
         label.set_markup("<i><b>%s</b></i>" % _("Click on the link to open the release notes."))
         self.vbox_rel_notes.pack_start(label, False, False, 6)
-        self.assistant.set_page_complete(self.vbox_rel_notes, False)
+        self.assistant.set_page_complete(self.vbox_rel_notes, True)
 
         # New features
         self.vbox_new_features = Gtk.VBox()
@@ -106,12 +105,11 @@ class Assistant:
         self.vbox_new_features.pack_start(vbox_content, False, False, 6)
         link = Gtk.Label()
         link.set_markup("<a href='http://www.linuxmint.com/rel_%s_%s_whatsnew.php'><b>%s</b></a>" % (self.rel_target_codename, self.current_edition.lower(), _("New features in %s") % self.rel_target_name))
-        link.connect("button-release-event", self.new_features_opened)
         self.vbox_new_features.pack_start(link, False, False, 6)
         label = Gtk.Label()
         label.set_markup("<i><b>%s</b></i>" % _("Click on the link to browse the new features."))
         self.vbox_new_features.pack_start(label, False, False, 6)
-        self.assistant.set_page_complete(self.vbox_new_features, False)
+        self.assistant.set_page_complete(self.vbox_new_features, True)
 
         # Warnings and risks
         self.vbox_prerequesites = Gtk.VBox()
@@ -204,12 +202,6 @@ class Assistant:
             self.vbox_meta.hide()
             if self.check_button.get_active():
                 self.assistant.set_page_complete(self.vbox_prerequesites, True)
-
-    def rel_notes_opened(self, widget, event):
-        self.assistant.set_page_complete(self.vbox_rel_notes, True)
-
-    def new_features_opened(self, widget, event):
-        self.assistant.set_page_complete(self.vbox_new_features, True)
 
     def show_message(self, icon, msg):
         vbox_content = Gtk.HBox()
