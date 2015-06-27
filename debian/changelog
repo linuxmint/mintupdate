@@ -1,3 +1,10 @@
+mintupdate (4.8.9) rafaela; urgency=medium
+
+  * Depend on mint-kernel-info/mint-upgrade-info (even though they're not used in LMDE, they're harmless and this simplifies maintenance)
+  * Don't show help in the menu when it isn't installed
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 27 Jun 2015 12:28:26 +0200
+
 mintupdate (4.8.8) rafaela; urgency=medium
 
   * Fixed security updates for visible levels not being selected when set to safe but not visible
