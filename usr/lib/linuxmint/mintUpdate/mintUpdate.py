@@ -449,7 +449,7 @@ class InstallThread(threading.Thread):
                         self.wTree.get_widget("window1").hide()
                         gtk.gdk.threads_leave()
 
-                    if "mintupdate" in packages:
+                    if "mintupdate" in packages or "mint-upgrade-info" in packages:
                         # Restart                        
                         try:
                             log.writelines("++ Mintupdate was updated, restarting it...\n")
@@ -789,7 +789,7 @@ class RefreshThread(threading.Thread):
                     
                     package_update = package_updates[source_package]
 
-                    if (new_mintupdate and package_update.name != "mintupdate"):
+                    if (new_mintupdate and package_update.name != "mintupdate" and package_update.name != "mint-upgrade-info"):
                         continue
 
                     if source_package in aliases.keys():
