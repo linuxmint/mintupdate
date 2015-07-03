@@ -635,7 +635,7 @@ class RefreshThread(threading.Thread):
             updates =  commands.getoutput(refresh_command)
 
             # Look for mintupdate
-            if ("UPDATE###mintupdate###" in updates):                
+            if ("UPDATE###mintupdate###" in updates or "UPDATE###mint-upgrade-info###" in updates):                
                 new_mintupdate = True
             else:
                 new_mintupdate = False
