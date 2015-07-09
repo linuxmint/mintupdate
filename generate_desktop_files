@@ -13,12 +13,25 @@ gettext.install(DOMAIN, PATH)
 prefix = "[Desktop Entry]\n"
 
 suffix = """Exec=mintupdate
-Icon=/usr/lib/linuxmint/mintUpdate/icons/base.svg
+Icon=mintupdate
 Terminal=false
 Type=Application
 Encoding=UTF-8
-Categories=Application;System;Settings;
+Categories=Application;System;Settings;XFCE;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;
 StartupNotify=false
+NotShowIn=KDE;
 """
 
-additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintUpdate.desktop", prefix, _("Update Manager"), _("Show and install available updates"), suffix, genericName=_("Show and install available updates"))
+additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate.desktop", prefix, _("Update Manager"), _("Show and install available updates"), suffix)
+
+suffix = """Exec=mintupdate
+Icon=mintupdate
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=System;
+StartupNotify=false
+OnlyShowIn=KDE;
+"""
+
+additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate-kde.desktop", prefix, _("Update Manager"), _("Show and install available updates"), suffix, genericName=_("Show and install available updates"))
