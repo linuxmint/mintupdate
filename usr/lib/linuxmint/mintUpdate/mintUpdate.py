@@ -1918,6 +1918,9 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
             retriever = ChangelogRetriever(package_update, wTree)
             retriever.start()
 
+def row_activated(treeview, path, view_column, statusbar, context_id):
+    toggled(None, path, treeview, statusbar, context_id)
+
 def celldatafunction_checkbox(column, cell, model, iter):
     cell.set_property("activatable", True)
     checked = model.get_value(iter, UPDATE_CHECKED)
@@ -2121,7 +2124,8 @@ try:
     treeview_update.set_reorderable(False)
     treeview_update.show()
     
-    treeview_update.connect( "button-release-event", menuPopup, treeview_update, statusIcon, wTree )
+    treeview_update.connect("button-release-event", menuPopup, treeview_update, statusIcon, wTree)
+    treeview_update.connect("row-activated", row_activated, statusbar, context_id)
 
     selection = treeview_update.get_selection()
     selection.connect("changed", display_selected_package, wTree)
