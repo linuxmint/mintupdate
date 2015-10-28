@@ -16,7 +16,6 @@ try:
     import fnmatch
     import urllib2
     import re
-    from user import home
     from sets import Set
     import proxygsettings
     sys.path.append('/usr/lib/linuxmint/common')
@@ -58,7 +57,7 @@ else:
 # i18n
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
-CONFIG_DIR = "%s/.config/linuxmint" % home
+CONFIG_DIR = os.path.expanduser("~/.config/linuxmint")
 CONFIG_FILE = os.path.join (CONFIG_DIR, "mintUpdate.conf")
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 
