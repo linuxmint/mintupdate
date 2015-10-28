@@ -59,6 +59,7 @@ else:
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 CONFIG_DIR = "%s/.config/linuxmint" % home
+CONFIG_FILE = os.path.join (CONFIG_DIR, "mintUpdate.conf")
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
@@ -1019,7 +1020,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     global icon_unknown
     global icon_apply
 
-    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
+    config = ConfigObj(CONFIG_FILE)
 
     #Write general config
     config['general'] = {}
@@ -1097,7 +1098,15 @@ def read_configuration():
     global icon_unknown
     global icon_apply
 
-    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
+    try:
+        config = ConfigObj(CONFIG_FILE)
+    except:
+        print "Your config file %s is corrupted!" % CONFIG_FILE
+        corrupted_file = "%s.corrupted" % CONFIG_FILE
+        print "A new configuration file was generated and your file was saved as %s" % corrupted_file
+        os.rename (CONFIG_FILE, corrupted_file)
+        config = ConfigObj(CONFIG_FILE)
+
     prefs = {}
 
     #Read the general config
@@ -1797,7 +1806,7 @@ def activate_icon_cb(widget, data, wTree):
 
 def save_window_size(window, vpaned):
 
-    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
+    config = ConfigObj(CONFIG_FILE)
     config['dimensions'] = {}
     config['dimensions']['x'] = window.get_size()[0]
     config['dimensions']['y'] = window.get_size()[1]
@@ -1967,7 +1976,7 @@ def size_to_string(size):
     return strSize
 
 def setVisibleColumn(checkmenuitem, column, configName):
-    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
+    config = ConfigObj(CONFIG_FILE)
     if (config.has_key('visible_columns')):
         config['visible_columns'][configName] = checkmenuitem.get_active()
     else:
@@ -1977,7 +1986,7 @@ def setVisibleColumn(checkmenuitem, column, configName):
     column.set_visible(checkmenuitem.get_active())
 
 def setVisibleDescriptions(checkmenuitem, treeView, statusIcon, wTree, prefs):
-    config = ConfigObj("%s/mintUpdate.conf" % CONFIG_DIR)
+    config = ConfigObj(CONFIG_FILE)
     if (not config.has_key('visible_columns')):
         config['visible_columns'] = {}
     config['visible_columns']['description'] = checkmenuitem.get_active()
