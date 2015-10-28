@@ -202,8 +202,10 @@ class ChangelogRetriever(threading.Thread):
                 if "linuxmint.com" in changelog_source:
                     changes = source.split("\n")
                     for change in changes:
-                        change = change.strip()
-                        if change.startswith("*"):
+                        stripped_change = change.strip()
+                        if stripped_change == ".":
+                            change = ""
+                        if change == "" or stripped_change.startswith("*") or stripped_change.startswith("["):
                             changelog = changelog + change + "\n"
                 else:
                     changelog = source
