@@ -1555,31 +1555,33 @@ def open_kernels(widget):
     tree.get_widget("label_known_regressions").set_text(_("Regressions"))
     tree.get_widget("label_contact").set_markup("<span foreground='#3c3c3c' font_weight='bold' size='small'>%s</span>" % _("Note: Only known fixes and regressions are mentioned. If you are aware of additional fixes or regressions, please contact the development team."))
 
+    (COL_VERSION, COL_LABEL, COL_PIC_LOADED, COL_PIC_RECOMMENDED, COL_PIC_INSTALLED, COL_PIC_FIXES, COL_PIC_REGRESSIONS, COL_VALUES, COL_LOADED, COL_RECOMMENDED, COL_INSTALLED, COL_FIXES, COL_REGRESSIONS) = range(13)
+    model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, object, bool, bool, bool, bool, bool)
+
     # the treeview
     treeview_kernels = tree.get_widget("treeview_kernels")
-
-    column1 = gtk.TreeViewColumn(_("Version"), gtk.CellRendererText(), markup=1)
-    column1.set_sort_column_id(1)
+    column1 = gtk.TreeViewColumn(_("Version"), gtk.CellRendererText(), markup=COL_LABEL)
+    column1.set_sort_column_id(COL_LABEL)
     column1.set_resizable(True)
     column1.set_expand(True)
-    column2 = gtk.TreeViewColumn(_("Loaded"), gtk.CellRendererPixbuf(), pixbuf=2)
-    column2.set_sort_column_id(2)
+    column2 = gtk.TreeViewColumn(_("Loaded"), gtk.CellRendererPixbuf(), pixbuf=COL_PIC_LOADED)
+    column2.set_sort_column_id(COL_LOADED)
     column2.set_resizable(True)
     column2.set_expand(False)
-    column3 = gtk.TreeViewColumn(_("Recommended"), gtk.CellRendererPixbuf(), pixbuf=3)
-    column3.set_sort_column_id(3)
+    column3 = gtk.TreeViewColumn(_("Recommended"), gtk.CellRendererPixbuf(), pixbuf=COL_PIC_RECOMMENDED)
+    column3.set_sort_column_id(COL_RECOMMENDED)
     column3.set_resizable(True)
     column3.set_expand(False)
-    column4 = gtk.TreeViewColumn(_("Installed"), gtk.CellRendererPixbuf(), pixbuf=4)
-    column4.set_sort_column_id(4)
+    column4 = gtk.TreeViewColumn(_("Installed"), gtk.CellRendererPixbuf(), pixbuf=COL_PIC_INSTALLED)
+    column4.set_sort_column_id(COL_INSTALLED)
     column4.set_resizable(True)
     column4.set_expand(False)
-    column5 = gtk.TreeViewColumn(_("Fixes"), gtk.CellRendererPixbuf(), pixbuf=5)
-    column5.set_sort_column_id(5)
+    column5 = gtk.TreeViewColumn(_("Fixes"), gtk.CellRendererPixbuf(), pixbuf=COL_PIC_FIXES)
+    column5.set_sort_column_id(COL_FIXES)
     column5.set_resizable(True)
     column5.set_expand(False)
-    column6 = gtk.TreeViewColumn(_("Regressions"), gtk.CellRendererPixbuf(), pixbuf=6)
-    column6.set_sort_column_id(6)
+    column6 = gtk.TreeViewColumn(_("Regressions"), gtk.CellRendererPixbuf(), pixbuf=COL_PIC_REGRESSIONS)
+    column6.set_sort_column_id(COL_REGRESSIONS)
     column6.set_resizable(True)
     column6.set_expand(False)
 
@@ -1596,11 +1598,8 @@ def open_kernels(widget):
     treeview_kernels.set_enable_search(True)
     treeview_kernels.show()
 
-    model = gtk.TreeStore(str, str, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, object) # (version, label, loaded, recommended, installed, fixes, regressions, values)
-
     kernels = commands.getoutput("/usr/lib/linuxmint/mintUpdate/checkKernels.py | grep \"###\"")
     kernels = kernels.split("\n")
-    column = 2
     for kernel in kernels:
         values = string.split(kernel, "###")
         if len(values) == 7:
@@ -1620,10 +1619,9 @@ def open_kernels(widget):
 
 
             iter = model.insert_before(None, None)
-            model.set_value(iter, 0, version)
-            model.set_value(iter, 7, values)
-            model.row_changed(model.get_path(iter), iter)
 
+            fixes = False
+            regressions = False
             if os.path.exists(os.path.join(KERNEL_INFO_DIR, version)):
                 kernel_file = open(os.path.join(KERNEL_INFO_DIR, version))
                 lines = kernel_file.readlines()
@@ -1638,9 +1636,11 @@ def open_kernels(widget):
                         elif prefix == "bug":
                             num_bugs += 1
                 if num_fixes > 0:
-                    model.set_value(iter, 5, pix_fixes)
+                    fixes = True
+                    model.set_value(iter, COL_PIC_FIXES, pix_fixes)
                 if num_bugs > 0:
-                    model.set_value(iter, 6, pix_bugs)
+                    regressions = True
+                    model.set_value(iter, COL_PIC_REGRESSIONS, pix_bugs)
 
             if os.path.exists(os.path.join(KERNEL_INFO_DIR, "versions")):
                 kernel_file = open(os.path.join(KERNEL_INFO_DIR, "versions"))
@@ -1661,14 +1661,24 @@ def open_kernels(widget):
                 button.connect("clicked", install_kernel, version, window, tree, True)
 
             if used:
-                model.set_value(iter, 2, tick)
+                model.set_value(iter, COL_PIC_LOADED, tick)
                 label = "<b>%s</b>" % label
             if recommended:
-                model.set_value(iter, 3, tick)
+                model.set_value(iter, COL_PIC_RECOMMENDED, tick)
             if installed:
-                model.set_value(iter, 4, tick)
+                model.set_value(iter, COL_PIC_INSTALLED, tick)
 
-            model.set_value(iter, 1, label)
+            model.set_value(iter, COL_VERSION, version)
+            model.set_value(iter, COL_LABEL, label)
+            model.set_value(iter, COL_VALUES, values)
+            # Use "not", these are used to sort and we want to see positives when clicking the columns
+            model.set_value(iter, COL_LOADED, not used)
+            model.set_value(iter, COL_RECOMMENDED, not recommended)
+            model.set_value(iter, COL_INSTALLED, not installed)
+            model.set_value(iter, COL_FIXES, not fixes)
+            model.set_value(iter, COL_REGRESSIONS, not regressions)
+
+            model.row_changed(model.get_path(iter), iter)
 
     treeview_kernels.set_model(model)
     del model
