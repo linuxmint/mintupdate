@@ -479,6 +479,20 @@ Public License instead of this License.
               </packing>
             </child>
             <child>
+              <widget class="GtkHBox" id="hbox_infobar">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
               <widget class="GtkNotebook" id="notebook_status">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -833,7 +847,7 @@ Public License instead of this License.
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child>
@@ -847,7 +861,7 @@ Public License instead of this License.
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="padding">6</property>
-                <property name="position">3</property>
+                <property name="position">4</property>
               </packing>
             </child>
           </widget>

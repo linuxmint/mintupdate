@@ -12,6 +12,8 @@ Architecture: all
 Depends:
  ${python:Depends},
  ${misc:Depends},
+ lsb-release,
+ inxi,
  python-gtk2,
  python-glade2,
  python-configobj,

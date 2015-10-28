@@ -31,7 +31,10 @@ except Exception, detail:
     print detail
     pass
 
-from subprocess import Popen, PIPE
+import subprocess
+import lsb_release
+import pycurl
+import datetime
 
 try:
     numMintUpdate = commands.getoutput("ps -A | grep mintUpdate | wc -l")
@@ -295,7 +298,7 @@ class InstallKernelThread(threading.Thread):
         cmd.append("--set-selections-file")
         cmd.append("%s" % f.name)
         f.flush()
-        comnd = Popen(' '.join(cmd), stdout=log, stderr=log, shell=True)
+        comnd = subprocess.Popen(' '.join(cmd), stdout=log, stderr=log, shell=True)
         returnCode = comnd.wait()
         f.close()
         #sts = os.waitpid(comnd.pid, 0)
@@ -459,7 +462,7 @@ class InstallThread(threading.Thread):
                     cmd.append("--set-selections-file")
                     cmd.append("%s" % f.name)
                     f.flush()
-                    comnd = Popen(' '.join(cmd), stdout=log, stderr=log, shell=True)
+                    comnd = subprocess.Popen(' '.join(cmd), stdout=log, stderr=log, shell=True)
                     returnCode = comnd.wait()
                     log.writelines("++ Return code:" + str(returnCode) + "\n")
                     #sts = os.waitpid(comnd.pid, 0)
@@ -586,6 +589,8 @@ class RefreshThread(threading.Thread):
         global app_hidden
         gtk.gdk.threads_enter()
         vpaned_position = wTree.get_widget("vpaned1").get_position()
+        for child in wTree.get_widget("hbox_infobar").get_children():
+            child.destroy()
         gtk.gdk.threads_leave()
         try:
             log.writelines("++ Starting refresh\n")
@@ -626,7 +631,7 @@ class RefreshThread(threading.Thread):
 
             # Check to see if no other APT process is running
             if self.root_mode:
-                p1 = Popen(['ps', '-U', 'root', '-o', 'comm'], stdout=PIPE)
+                p1 = subprocess.Popen(['ps', '-U', 'root', '-o', 'comm'], stdout=subprocess.PIPE)
                 p = p1.communicate()[0]
                 running = False
                 pslist = p.split('\n')
@@ -921,6 +926,58 @@ class RefreshThread(threading.Thread):
             del model
             self.wTree.get_widget("window1").set_sensitive(True)
             wTree.get_widget("vpaned1").set_position(vpaned_position)
+
+            try:
+                sources_path = "/etc/apt/sources.list.d/official-package-repositories.list"
+                if os.path.exists("/usr/bin/mintsources") and os.path.exists(sources_path):
+                    mirror_url = None
+                    infobar_message = None
+                    infobar_message_type = gtk.MESSAGE_INFO
+                    codename = lsb_release.get_distro_information()['CODENAME']
+                    with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
+                        for line in sources_file:
+                            line = line.strip()
+                            if line.startswith("deb ") and "%s main upstream import" % codename in line:
+                                mirror_url = line.split()[1]
+                                if mirror_url.endswith("/"):
+                                    mirror_url = mirror_url[:-1]
+                                break
+                    if mirror_url is None:
+                        # Unable to find the Mint mirror being used..
+                        pass
+                    elif mirror_url == "http://packages.linuxmint.com":
+                        infobar_message = "%s\n<small>%s</small>" % (_("Please switch to a local mirror"), _("Local mirrors are usually faster than packages.linuxmint.com"))
+                    else:
+                        mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
+                        if mint_timestamp is not None:
+                            mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
+                            now = datetime.datetime.now()
+                            mint_age = (now - mint_date).days
+                            if (mint_age > 2):
+                                mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
+                                if mirror_timestamp is None:
+                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is not up to date") % mirror_url)
+                                    infobar_message_type = gtk.MESSAGE_WARNING
+                                else:
+                                    mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
+                                    mirror_age = (mint_date - mirror_date).days
+                                    if (mirror_age > 2):
+                                        infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("The last update on %(mirror)s was %(days)d days ago") % {'mirror': mirror_url, 'days':(now - mirror_date).days})
+                                        infobar_message_type = gtk.MESSAGE_WARNING
+                    if infobar_message is not None:
+                        infobar = gtk.InfoBar()
+                        infobar.set_message_type(infobar_message_type)
+                        info_label = gtk.Label()
+                        info_label.set_markup(infobar_message)
+                        infobar.get_content_area().pack_start(info_label,False, False)
+                        infobar.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
+                        infobar.connect("response", _on_infobar_response, infobar)
+                        wTree.get_widget("hbox_infobar").pack_start(infobar, True, True)
+                        infobar.show_all()
+            except Exception, detail:
+                # best effort, just print out the error
+                print "An exception occurred while checking if the repositories were up to date: %s" % detail
+
             gtk.gdk.threads_leave()
 
         except Exception, detail:
@@ -937,6 +994,24 @@ class RefreshThread(threading.Thread):
             statusbar.push(context_id, _("Could not refresh the list of updates"))
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             gtk.gdk.threads_leave()
+
+    def get_url_last_modified(self, url):
+        try:
+            c = pycurl.Curl()
+            c.setopt(pycurl.URL, url)
+            c.setopt(pycurl.CONNECTTIMEOUT, 5)
+            c.setopt(pycurl.TIMEOUT, 30)
+            c.setopt(pycurl.FOLLOWLOCATION, 1)
+            c.setopt(pycurl.NOBODY, 1)
+            c.setopt(pycurl.OPT_FILETIME, 1)
+            c.perform()
+            filetime = c.getinfo(pycurl.INFO_FILETIME)
+            if filetime < 0:
+                return None
+            else:
+                return filetime
+        except:
+            return None
 
     def checkDependencies(self, changes, cache):
         foundSomething = False
@@ -2046,6 +2121,10 @@ def add_to_ignore_list(widget, treeview_update, pkg, statusIcon, wTree):
     os.system("echo \"%s\" >> %s/mintupdate.ignored" % (pkg, CONFIG_DIR))
     refresh = RefreshThread(treeview_update, statusIcon, wTree)
     refresh.start()
+
+def _on_infobar_response(self, button, infobar):
+    infobar.destroy()
+    subprocess.Popen(["mintsources"])
 
 global app_hidden
 global log
