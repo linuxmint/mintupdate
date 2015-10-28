@@ -946,7 +946,8 @@ class RefreshThread(threading.Thread):
                         # Unable to find the Mint mirror being used..
                         pass
                     elif mirror_url == "http://packages.linuxmint.com":
-                        infobar_message = "%s\n<small>%s</small>" % (_("Please switch to a local mirror"), _("Local mirrors are usually faster than packages.linuxmint.com"))
+                        if not prefs["default_repo_is_ok"]:
+                            infobar_message = "%s\n<small>%s</small>" % (_("Please switch to a local mirror"), _("Local mirrors are usually faster than packages.linuxmint.com"))
                     else:
                         mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
                         if mint_timestamp is not None:
@@ -1126,6 +1127,7 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
     config['general'] = {}
     config['general']['hide_window_after_update'] = prefs_tree.get_widget("checkbutton_hide_window_after_update").get_active()
     config['general']['hide_systray'] = prefs_tree.get_widget("checkbutton_hide_systray").get_active()
+    config['general']['default_repo_is_ok'] = prefs_tree.get_widget("checkbutton_default_repo_is_ok").get_active()
 
     #Write level config
     config['levels'] = {}
@@ -1219,6 +1221,11 @@ def read_configuration():
         prefs["hide_systray"] = (config['general']['hide_systray'] == "True")
     except:
         prefs["hide_systray"] = False
+
+    try:
+        prefs["default_repo_is_ok"] = (config['general']['default_repo_is_ok'] == "True")
+    except:
+        prefs["default_repo_is_ok"] = False
 
     #Read refresh config
     try:
@@ -1385,6 +1392,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation of new packages or the removal of installed packages"))
     prefs_tree.get_widget("checkbutton_hide_window_after_update").set_label(_("Hide the update manager after applying updates"))
     prefs_tree.get_widget("checkbutton_hide_systray").set_label(_("Only show a tray icon when updates are available or in case of errors"))
+    prefs_tree.get_widget("checkbutton_default_repo_is_ok").set_label(_("Don't suggest to switch to a local mirror"))
 
     prefs_tree.get_widget("window2").set_icon_from_file("/usr/lib/linuxmint/mintUpdate/icons/base.svg")
     prefs_tree.get_widget("window2").show()
@@ -1426,6 +1434,7 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_active(prefs["dist_upgrade"])
     prefs_tree.get_widget("checkbutton_hide_window_after_update").set_active(prefs["hide_window_after_update"])
     prefs_tree.get_widget("checkbutton_hide_systray").set_active(prefs["hide_systray"])
+    prefs_tree.get_widget("checkbutton_default_repo_is_ok").set_active(prefs["default_repo_is_ok"])
 
     prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_busy, 24, 24))
     prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_up2date, 24, 24))
