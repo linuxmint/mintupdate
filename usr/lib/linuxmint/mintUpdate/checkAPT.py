@@ -28,7 +28,7 @@ import commands
 
 try:
     cache = apt.Cache()
-    
+
     if os.getuid() == 0 :
         use_synaptic = False
         if (len(sys.argv) > 1):
@@ -43,7 +43,7 @@ try:
             #cmd.append("\"" + _("Please wait, this can take some time") + "\"")
             comnd = Popen(' '.join(cmd), shell=True)
             returnCode = comnd.wait()
-            #sts = os.waitpid(comnd.pid, 0)            
+            #sts = os.waitpid(comnd.pid, 0)
         else:
             cache.update()
 
@@ -57,7 +57,7 @@ try:
             dist_upgrade = False
     except:
         dist_upgrade = True
-        
+
     # Reopen the cache to reflect any updates
     cache.open(None)
     cache.upgrade(dist_upgrade)
@@ -97,11 +97,11 @@ try:
                             update_type = "backport"
                             break
                         else:
-                            update_type = "linuxmint"                
-                    
+                            update_type = "linuxmint"
+
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, update_origin, short_description, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace')
-    
+
 except Exception, detail:
     print "CHECK_APT_ERROR---EOL---"
     print detail
