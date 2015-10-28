@@ -92,6 +92,7 @@ class PackageUpdate():
         self.name = source_package_name
         self.description = ""
         self.short_description = ""
+        self.main_package = None # This is the package within the update which is used for the descriptions
         self.level = level
         self.oldVersion = oldVersion
         self.newVersion = newVersion
@@ -106,9 +107,32 @@ class PackageUpdate():
 
     def add_package(self, package, size, short_description, description):
         self.packages.append(package)
-        self.description = description
-        self.short_description = short_description
         self.size += size
+        overwrite_main_package = False
+        if self.main_package is None or package == self.name:
+            overwrite_main_package = True
+        else:
+            if self.main_package == self.name:
+                overwrite_main_package = False
+            else:
+                # Overwrite dev, dbg, common, arch packages
+                for suffix in ["-dev", "-dbg", "-common", "-core", "-data", "-doc", ":i386", ":amd64"]:
+                    if (self.main_package.endswith(suffix) and not package.endswith(suffix)):
+                        overwrite_main_package = True
+                        break
+                # Overwrite lib packages
+                for prefix in ["lib", "gir1.2"]:
+                    if (self.main_package.startswith(suffix) and not package.startswith(suffix)):
+                        overwrite_main_package = True
+                        break
+                for keyword in ["-locale-", "-l10n-", "-help-"]:
+                    if (self.main_package.startswith(suffix) and not package.startswith(suffix)):
+                        overwrite_main_package = True
+                        break
+        if overwrite_main_package:
+            self.description = description
+            self.short_description = short_description
+            self.main_package  = package
 
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, wTree):
@@ -1887,7 +1911,7 @@ def display_selected_package(selection, wTree):
                     # Already exists, no big deal..
                     pass
                 if (len(package_update.packages) > 1):
-                    dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(package_update.packages))
+                    dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
                     buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
                 elif (package_update.packages[0] != package_update.alias):
                     dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
@@ -1917,7 +1941,7 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
                 # Already exists, no big deal..
                 pass
             if (len(package_update.packages) > 1):
-                dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(package_update.packages))
+                dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
                 buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
             elif (package_update.packages[0] != package_update.name):
                 dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
