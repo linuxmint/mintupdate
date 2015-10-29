@@ -1803,7 +1803,7 @@ def display_selected_kernel(selection, wTree):
                 else:
                     button_install.set_sensitive(True)
             else:
-                button_install.set_label(_("Install the %s kernel" % version))
+                button_install.set_label(_("Install the %s kernel") % version)
                 if not installable:
                     button_install.set_tooltip_text(_("This kernel is not installable."))
                 else:
