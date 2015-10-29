@@ -229,44 +229,46 @@ class AutomaticRefreshThread(threading.Thread):
 
     def run(self):
         global app_hidden
-        global log
+        global logger
+
+        # Initial refresh (with APT cache refresh)
+        try:
+            prefs = read_configuration()
+            timer = (prefs["refresh_minutes"] * 60) + (prefs["refresh_hours"] * 60 * 60) + (prefs["refresh_days"] * 24 * 60 * 60)
+            logger.write("Initial refresh will happen in " + str(prefs["refresh_minutes"]) + " minutes, " + str(prefs["refresh_hours"]) + " hours and " + str(prefs["refresh_days"]) + " days")
+            timetosleep = int(timer)
+            if (timetosleep == 0):
+                time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
+            else:
+                time.sleep(timetosleep)
+                if (app_hidden == True):
+                    logger.write("MintUpdate is in tray mode, performing initial refresh")
+                    refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree, root_mode=True)
+                    refresh.start()
+                else:
+                    logger.write("The mintUpdate window is open, skipping initial refresh")
+        except Exception, detail:
+            logger.write_error("Exception occured during the initial refresh: " + str(detail))
+
+        # Autorefresh (also with APT cache refresh)
         try:
             while(True):
                 prefs = read_configuration()
-                timer = (prefs["timer_minutes"] * 60) + (prefs["timer_hours"] * 60 * 60) + (prefs["timer_days"] * 24 * 60 * 60)
-
-                try:
-                    log.writelines("++ Auto-refresh timer is going to sleep for " + str(prefs["timer_minutes"]) + " minutes, " + str(prefs["timer_hours"]) + " hours and " + str(prefs["timer_days"]) + " days\n")
-                    log.flush()
-                except:
-                    pass # cause it might be closed already
+                timer = (prefs["autorefresh_minutes"] * 60) + (prefs["autorefresh_hours"] * 60 * 60) + (prefs["autorefresh_days"] * 24 * 60 * 60)
+                logger.write("Auto-refresh will happen in " + str(prefs["autorefresh_minutes"]) + " minutes, " + str(prefs["autorefresh_hours"]) + " hours and " + str(prefs["autorefresh_days"]) + " days")
                 timetosleep = int(timer)
                 if (timetosleep == 0):
                     time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
                 else:
                     time.sleep(timetosleep)
                     if (app_hidden == True):
-                        try:
-                            log.writelines("++ MintUpdate is in tray mode, performing auto-refresh\n")
-                            log.flush()
-                        except:
-                            pass # cause it might be closed already
-                        # Refresh
+                        logger.write("MintUpdate is in tray mode, performing auto-refresh")
                         refresh = RefreshThread(self.treeView, self.statusIcon, self.wTree, root_mode=True)
                         refresh.start()
                     else:
-                        try:
-                            log.writelines("++ The mintUpdate window is open, skipping auto-refresh\n")
-                            log.flush()
-                        except:
-                            pass # cause it might be closed already
-
+                        logger.write("The mintUpdate window is open, skipping auto-refresh")
         except Exception, detail:
-            try:
-                log.writelines("-- Exception occured in the auto-refresh thread.. so it's probably dead now: " + str(detail) + "\n")
-                log.flush()
-            except:
-                pass # cause it might be closed already
+            logger.write_error("Exception occured in the auto-refresh thread.. so it's probably dead now: " + str(detail))
 
 class InstallKernelThread(threading.Thread):
 
@@ -319,10 +321,9 @@ class InstallThread(threading.Thread):
         self.wTree = wTree
 
     def run(self):
-        global log
+        global logger
         try:
-            log.writelines("++ Install requested by user\n")
-            log.flush()
+            logger.write("Install requested by user")
             gtk.gdk.threads_enter()
             self.wTree.get_widget("window1").window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
             self.wTree.get_widget("window1").set_sensitive(False)
@@ -339,8 +340,7 @@ class InstallThread(threading.Thread):
                     package_update = model.get_value(iter, UPDATE_OBJ)
                     for package in package_update.packages:
                         packages.append(package)
-                        log.writelines("++ Will install " + str(package) + "\n")
-                        log.flush()
+                        logger.write("Will install " + str(package))
                 iter = model.iter_next(iter)
 
             if (installNeeded == True):
@@ -445,8 +445,7 @@ class InstallThread(threading.Thread):
                     self.statusIcon.set_tooltip(_("Installing updates"))
                     self.statusIcon.set_visible(True)
                     gtk.gdk.threads_leave()
-                    log.writelines("++ Ready to launch synaptic\n")
-                    log.flush()
+                    logger.write("Ready to launch synaptic")
                     cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
                             "--non-interactive", "--parent-window-id", "%s" % self.wTree.get_widget("window1").window.xid]
                     cmd.append("-o")
@@ -462,13 +461,12 @@ class InstallThread(threading.Thread):
                     cmd.append("--set-selections-file")
                     cmd.append("%s" % f.name)
                     f.flush()
-                    comnd = subprocess.Popen(' '.join(cmd), stdout=log, stderr=log, shell=True)
+                    comnd = subprocess.Popen(' '.join(cmd), stdout=logger.log, stderr=logger.log, shell=True)
                     returnCode = comnd.wait()
-                    log.writelines("++ Return code:" + str(returnCode) + "\n")
+                    logger.write("Return code:" + str(returnCode))
                     #sts = os.waitpid(comnd.pid, 0)
                     f.close()
-                    log.writelines("++ Install finished\n")
-                    log.flush()
+                    logger.write("Install finished")
 
                     prefs = read_configuration()
                     if prefs["hide_window_after_update"]:
@@ -481,9 +479,8 @@ class InstallThread(threading.Thread):
                     if "mintupdate" in packages or "mint-upgrade-info" in packages:
                         # Restart
                         try:
-                            log.writelines("++ Mintupdate was updated, restarting it...\n")
-                            log.flush()
-                            log.close()
+                            logger.write("Mintupdate was updated, restarting it...")
+                            logger.close()
                         except:
                             pass #cause we might have closed it already
 
@@ -515,14 +512,12 @@ class InstallThread(threading.Thread):
                 gtk.gdk.threads_leave()
 
         except Exception, detail:
-            log.writelines("-- Exception occured in the install thread: " + str(detail) + "\n")
-            log.flush()
+            logger.write_error("Exception occured in the install thread: " + str(detail))
             gtk.gdk.threads_enter()
             self.statusIcon.set_from_file(icon_error)
             self.statusIcon.set_tooltip(_("Could not install the security updates"))
             self.statusIcon.set_visible(True)
-            log.writelines("-- Could not install security updates\n")
-            log.flush()
+            logger.write_error("Could not install security updates")
             #self.statusIcon.set_blinking(False)
             self.wTree.get_widget("window1").window.set_cursor(None)
             self.wTree.get_widget("window1").set_sensitive(True)
@@ -585,7 +580,7 @@ class RefreshThread(threading.Thread):
                 print detail
 
     def run(self):
-        global log
+        global logger
         global app_hidden
         gtk.gdk.threads_enter()
         vpaned_position = wTree.get_widget("vpaned1").get_position()
@@ -593,8 +588,10 @@ class RefreshThread(threading.Thread):
             child.destroy()
         gtk.gdk.threads_leave()
         try:
-            log.writelines("++ Starting refresh\n")
-            log.flush()
+            if (self.root_mode):
+                logger.write("Starting refresh (including refreshing the APT cache)")
+            else:
+                logger.write("Starting refresh")
             gtk.gdk.threads_enter()
             statusbar.push(context_id, _("Starting refresh..."))
             self.wTree.get_widget("notebook_status").set_current_page(TAB_UPDATES)
@@ -645,8 +642,7 @@ class RefreshThread(threading.Thread):
                     self.statusIcon.set_tooltip(_("Another application is using APT"))
                     self.statusIcon.set_visible(not prefs["hide_systray"])
                     statusbar.push(context_id, _("Another application is using APT"))
-                    log.writelines("-- Another application is using APT\n")
-                    log.flush()
+                    logger.write_error("Another application is using APT")
                     #self.statusIcon.set_blinking(False)
                     self.wTree.get_widget("window1").window.set_cursor(None)
                     self.wTree.get_widget("window1").set_sensitive(True)
@@ -694,8 +690,7 @@ class RefreshThread(threading.Thread):
                 self.statusIcon.set_tooltip(_("Your system is up to date"))
                 self.statusIcon.set_visible(not prefs["hide_systray"])
                 statusbar.push(context_id, _("Your system is up to date"))
-                log.writelines("++ System is up to date\n")
-                log.flush()
+                logger.write("System is up to date")
                 gtk.gdk.threads_leave()
             else:
                 for pkg in updates:
@@ -709,8 +704,7 @@ class RefreshThread(threading.Thread):
                         self.statusIcon.set_tooltip("%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg))
                         self.statusIcon.set_visible(True)
                         statusbar.push(context_id, _("Could not refresh the list of updates"))
-                        log.writelines("-- Error in checkAPT.py, could not refresh the list of updates\n")
-                        log.flush()
+                        logger.write("Error in checkAPT.py, could not refresh the list of updates")
                         self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
                         self.wTree.get_widget("label_error_details").set_markup("<b>%s</b>" % error_msg)
                         self.wTree.get_widget("label_error_details").show()
@@ -879,8 +873,7 @@ class RefreshThread(threading.Thread):
                     self.statusIcon.set_tooltip(self.statusString)
                     self.statusIcon.set_visible(True)
                     statusbar.push(context_id, self.statusString)
-                    log.writelines("++ Found a new version of mintupdate\n")
-                    log.flush()
+                    logger.write("Found a new version of mintupdate")
                 else:
                     if (num_safe > 0):
                         if (num_safe == 1):
@@ -901,8 +894,7 @@ class RefreshThread(threading.Thread):
                         self.statusIcon.set_tooltip(self.statusString)
                         self.statusIcon.set_visible(True)
                         statusbar.push(context_id, self.statusString)
-                        log.writelines("++ Found " + str(num_safe) + " recommended software updates\n")
-                        log.flush()
+                        logger.write("Found " + str(num_safe) + " recommended software updates")
                     else:
                         if num_visible == 0:
                             self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
@@ -910,14 +902,13 @@ class RefreshThread(threading.Thread):
                         self.statusIcon.set_tooltip(_("Your system is up to date"))
                         self.statusIcon.set_visible(not prefs["hide_systray"])
                         statusbar.push(context_id, _("Your system is up to date"))
-                        log.writelines("++ System is up to date\n")
-                        log.flush()
+                        logger.write("System is up to date")
 
                 gtk.gdk.threads_leave()
 
             gtk.gdk.threads_enter()
-            log.writelines("++ Refresh finished\n")
-            log.flush()
+            logger.write("Refresh finished")
+
             # Stop the blinking
             #self.statusIcon.set_blinking(False)
             self.wTree.get_widget("notebook_details").set_current_page(0)
@@ -983,8 +974,7 @@ class RefreshThread(threading.Thread):
 
         except Exception, detail:
             print "-- Exception occured in the refresh thread: " + str(detail)
-            log.writelines("-- Exception occured in the refresh thread: " + str(detail) + "\n")
-            log.flush()
+            logger.write_error("Exception occured in the refresh thread: " + str(detail))
             gtk.gdk.threads_enter()
             self.statusIcon.set_from_file(icon_error)
             self.statusIcon.set_tooltip(_("Could not refresh the list of updates"))
@@ -1146,9 +1136,12 @@ def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
 
     #Write refresh config
     config['refresh'] = {}
-    config['refresh']['timer_minutes'] = int(prefs_tree.get_widget("timer_minutes").get_value())
-    config['refresh']['timer_hours'] = int(prefs_tree.get_widget("timer_hours").get_value())
-    config['refresh']['timer_days'] = int(prefs_tree.get_widget("timer_days").get_value())
+    config['refresh']['refresh_days'] = int(prefs_tree.get_widget("refresh_days").get_value())
+    config['refresh']['refresh_hours'] = int(prefs_tree.get_widget("refresh_hours").get_value())
+    config['refresh']['refresh_minutes'] = int(prefs_tree.get_widget("refresh_minutes").get_value())
+    config['refresh']['autorefresh_days'] = int(prefs_tree.get_widget("autorefresh_days").get_value())
+    config['refresh']['autorefresh_hours'] = int(prefs_tree.get_widget("autorefresh_hours").get_value())
+    config['refresh']['autorefresh_minutes'] = int(prefs_tree.get_widget("autorefresh_minutes").get_value())
 
     #Write update config
     config['update'] = {}
@@ -1229,13 +1222,19 @@ def read_configuration():
 
     #Read refresh config
     try:
-        prefs["timer_minutes"] = int(config['refresh']['timer_minutes'])
-        prefs["timer_hours"] = int(config['refresh']['timer_hours'])
-        prefs["timer_days"] = int(config['refresh']['timer_days'])
+        prefs["refresh_days"] = int(config['refresh']['refresh_days'])
+        prefs["refresh_hours"] = int(config['refresh']['refresh_hours'])
+        prefs["refresh_minutes"] = int(config['refresh']['refresh_minutes'])
+        prefs["autorefresh_days"] = int(config['refresh']['autorefresh_days'])
+        prefs["autorefresh_hours"] = int(config['refresh']['autorefresh_hours'])
+        prefs["autorefresh_minutes"] = int(config['refresh']['autorefresh_minutes'])
     except:
-        prefs["timer_minutes"] = 30
-        prefs["timer_hours"] = 0
-        prefs["timer_days"] = 0
+        prefs["refresh_days"] = 0
+        prefs["refresh_hours"] = 0
+        prefs["refresh_minutes"] = 10
+        prefs["autorefresh_days"] = 0
+        prefs["autorefresh_hours"] = 2
+        prefs["autorefresh_minutes"] = 0
 
     #Read update config
     try:
@@ -1373,7 +1372,8 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("label57").set_text(_("Upstream"))
     prefs_tree.get_widget("label58").set_text(_("Upstream"))
     prefs_tree.get_widget("label59").set_text(_("Upstream"))
-    prefs_tree.get_widget("label81").set_text(_("Refresh the list of updates every:"))
+    prefs_tree.get_widget("label_refresh").set_text(_("First, refresh the list of updates after:"))
+    prefs_tree.get_widget("label_autorefresh").set_text(_("Then, refresh the list of updates every:"))
     prefs_tree.get_widget("label82").set_text("<i>" + _("Note: The list only gets refreshed while the update manager window is closed (system tray mode).") + "</i>")
     prefs_tree.get_widget("label82").set_use_markup(True)
     prefs_tree.get_widget("label83").set_text(_("Options"))
@@ -1424,12 +1424,15 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("checkbutton_security_visible").set_label(_("Always show security updates"))
     prefs_tree.get_widget("checkbutton_security_safe").set_label(_("Always select and trust security updates"))
 
-    prefs_tree.get_widget("timer_minutes_label").set_text(_("minutes"))
-    prefs_tree.get_widget("timer_hours_label").set_text(_("hours"))
-    prefs_tree.get_widget("timer_days_label").set_text(_("days"))
-    prefs_tree.get_widget("timer_minutes").set_value(prefs["timer_minutes"])
-    prefs_tree.get_widget("timer_hours").set_value(prefs["timer_hours"])
-    prefs_tree.get_widget("timer_days").set_value(prefs["timer_days"])
+    prefs_tree.get_widget("label_minutes").set_text(_("minutes"))
+    prefs_tree.get_widget("label_hours").set_text(_("hours"))
+    prefs_tree.get_widget("label_days").set_text(_("days"))
+    prefs_tree.get_widget("refresh_days").set_value(prefs["refresh_days"])
+    prefs_tree.get_widget("refresh_hours").set_value(prefs["refresh_hours"])
+    prefs_tree.get_widget("refresh_minutes").set_value(prefs["refresh_minutes"])
+    prefs_tree.get_widget("autorefresh_days").set_value(prefs["autorefresh_days"])
+    prefs_tree.get_widget("autorefresh_hours").set_value(prefs["autorefresh_hours"])
+    prefs_tree.get_widget("autorefresh_minutes").set_value(prefs["autorefresh_minutes"])
 
     prefs_tree.get_widget("checkbutton_dist_upgrade").set_active(prefs["dist_upgrade"])
     prefs_tree.get_widget("checkbutton_hide_window_after_update").set_active(prefs["hide_window_after_update"])
@@ -1567,7 +1570,7 @@ def open_history(widget):
     wTree.get_widget("button_close").connect("clicked", history_cancel, wTree)
 
 def open_information(widget):
-    global logFile
+    global logger
     global pid
 
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
@@ -1578,9 +1581,9 @@ def open_information(widget):
     prefs_tree.get_widget("label4").set_text(_("Process ID:"))
     prefs_tree.get_widget("label5").set_text(_("Log file:"))
     prefs_tree.get_widget("processid_label").set_text(str(pid))
-    prefs_tree.get_widget("log_filename").set_text(str(logFile))
+    prefs_tree.get_widget("log_filename").set_text(str(logger.log.name))
     txtbuffer = gtk.TextBuffer()
-    txtbuffer.set_text(commands.getoutput("cat " + logFile))
+    txtbuffer.set_text(commands.getoutput("cat " + logger.log.name))
     prefs_tree.get_widget("log_textview").set_buffer(txtbuffer)
 
 def label_size_allocate(widget, rect):
@@ -1612,7 +1615,7 @@ def install_kernel(widget, selection, wTree, window):
             window.hide()
 
 def open_kernels(widget):
-    global logFile
+    global logger
     global pid
 
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
@@ -1878,13 +1881,12 @@ def open_about(widget):
     dlg.show()
 
 def quit_cb(widget, window, vpaned, data = None):
-    global log
+    global logger
     if data:
         data.set_visible(False)
     try:
-        log.writelines("++ Exiting - requested by user\n")
-        log.flush()
-        log.close()
+        logger.write("Exiting - requested by user")
+        logger.close()
         save_window_size(window, vpaned)
     except:
         pass # cause log might already been closed
@@ -2135,39 +2137,57 @@ def _on_infobar_response(self, button, infobar):
     infobar.destroy()
     subprocess.Popen(["mintsources"])
 
+
+class Logger():
+
+    def __init__(self):
+        logdir = "/tmp/mintUpdate/"
+        if not os.path.exists(logdir):
+            os.system("mkdir -p " + logdir)
+            os.system("chmod a+rwx " + logdir)
+        self.log = tempfile.NamedTemporaryFile(prefix = logdir, delete=False)
+        try:
+            os.system("chmod a+rw %s" % self.log.name)
+        except Exception, detail:
+            print detail
+
+    def write(self, line):
+        try:
+            self.log.writelines("%s ++ %s \n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
+            self.log.flush()
+        except:
+            pass # cause it might be closed already
+
+    def write_error(self, line):
+        try:
+            self.log.writelines("%s -- %s \n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
+            self.log.flush()
+        except:
+            pass # cause it might be closed already
+
+    def close(self):
+        try:
+            self.log.close()
+        except:
+            pass # cause it might be closed already
+
 global app_hidden
-global log
-global logFile
+global logger
 global pid
 global statusbar
 global context_id
 
 app_hidden = True
+logger = Logger()
+pid = os.getpid()
 
 gtk.gdk.threads_init()
 
-# prepare the log
-pid = os.getpid()
-logdir = "/tmp/mintUpdate/"
-
-if not os.path.exists(logdir):
-    os.system("mkdir -p " + logdir)
-    os.system("chmod a+rwx " + logdir)
-
-log = tempfile.NamedTemporaryFile(prefix = logdir, delete=False)
-logFile = log.name
-try:
-    os.system("chmod a+rw %s" % log.name)
-except Exception, detail:
-    print detail
-
-log.writelines("++ Launching mintUpdate \n")
-log.flush()
+logger.write("Launching mintUpdate")
 
 if (not os.path.exists(CONFIG_DIR)):
     os.system("mkdir -p %s" % CONFIG_DIR)
-    log.writelines("++ Creating %s directory\n" % CONFIG_DIR)
-    log.flush()
+    logger.write("Creating %s directory" % CONFIG_DIR)
 
 try:
     global icon_busy
@@ -2457,6 +2477,5 @@ try:
 
 except Exception, detail:
     print detail
-    log.writelines("-- Exception occured in main thread: " + str(detail) + "\n")
-    log.flush()
-    log.close()
+    logger.write_error("Exception occured in main thread: " + str(detail))
+    logger.close()
