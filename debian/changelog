@@ -1,3 +1,22 @@
+mintupdate (4.9.4) rafaela; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Don't let mintupdate crash when ~/.config/linuxmint/mintUpdate.conf is corrupted
+  * Within an update, use the description from what looks like the most relevant package rather than just the last one in the list
+  * Kernel window: Fixed columns sorting
+  * Use os.path.expanduser() instead of user.home
+  * Properly parse Linux Mint changelogs
+  * Added an infobar to warn against using the default repository or a repository which is not up to date
+  * Add an option to dismiss warnings about the default mirror (some users might want to stick to packages.linuxmint.com)
+  * Use two distinct configurable delays, one to refresh the cache after launch, and one to refresh frequently after that.
+  * Updated pot file
+  * Updated desktop files
+
+  [ Eduard Dopler ]
+  * Fix gettext substitution
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 06 Nov 2015 15:57:00 +0000
+
 mintupdate (4.9.3.2) rafaela; urgency=medium
 
   * Desktop file: Removed generic name, used icon name, added to Xfce Settings, removed category duplication in KDE
