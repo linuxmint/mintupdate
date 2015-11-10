@@ -595,7 +595,8 @@ class RefreshThread(threading.Thread):
             gtk.gdk.threads_enter()
             statusbar.push(context_id, _("Starting refresh..."))
             self.wTree.get_widget("notebook_status").set_current_page(TAB_UPDATES)
-            self.wTree.get_widget("window1").window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
+            if (not app_hidden):
+                self.wTree.get_widget("window1").window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
             self.wTree.get_widget("window1").set_sensitive(False)
 
             prefs = read_configuration()
@@ -644,7 +645,8 @@ class RefreshThread(threading.Thread):
                     statusbar.push(context_id, _("Another application is using APT"))
                     logger.write_error("Another application is using APT")
                     #self.statusIcon.set_blinking(False)
-                    self.wTree.get_widget("window1").window.set_cursor(None)
+                    if (not app_hidden):
+                        self.wTree.get_widget("window1").window.set_cursor(None)
                     self.wTree.get_widget("window1").set_sensitive(True)
                     gtk.gdk.threads_leave()
                     return False
@@ -709,7 +711,8 @@ class RefreshThread(threading.Thread):
                         self.wTree.get_widget("label_error_details").set_markup("<b>%s</b>" % error_msg)
                         self.wTree.get_widget("label_error_details").show()
                         #self.statusIcon.set_blinking(False)
-                        self.wTree.get_widget("window1").window.set_cursor(None)
+                        if (not app_hidden):
+                            self.wTree.get_widget("window1").window.set_cursor(None)
                         self.wTree.get_widget("window1").set_sensitive(True)
                         #statusbar.push(context_id, _(""))
                         gtk.gdk.threads_leave()
@@ -912,7 +915,8 @@ class RefreshThread(threading.Thread):
             # Stop the blinking
             #self.statusIcon.set_blinking(False)
             self.wTree.get_widget("notebook_details").set_current_page(0)
-            self.wTree.get_widget("window1").window.set_cursor(None)
+            if (not app_hidden):
+                self.wTree.get_widget("window1").window.set_cursor(None)
             self.treeview_update.set_model(model)
             del model
             self.wTree.get_widget("window1").set_sensitive(True)
@@ -980,7 +984,8 @@ class RefreshThread(threading.Thread):
             self.statusIcon.set_tooltip(_("Could not refresh the list of updates"))
             self.statusIcon.set_visible(True)
             #self.statusIcon.set_blinking(False)
-            self.wTree.get_widget("window1").window.set_cursor(None)
+            if (not app_hidden):
+                self.wTree.get_widget("window1").window.set_cursor(None)
             self.wTree.get_widget("window1").set_sensitive(True)
             statusbar.push(context_id, _("Could not refresh the list of updates"))
             wTree.get_widget("vpaned1").set_position(vpaned_position)
