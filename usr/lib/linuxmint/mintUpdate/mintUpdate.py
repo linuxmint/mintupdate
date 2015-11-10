@@ -300,7 +300,7 @@ class InstallKernelThread(threading.Thread):
         cmd.append("--set-selections-file")
         cmd.append("%s" % f.name)
         f.flush()
-        comnd = subprocess.Popen(' '.join(cmd), stdout=log, stderr=log, shell=True)
+        comnd = subprocess.Popen(' '.join(cmd), stdout=logger.log, stderr=logger.log, shell=True)
         returnCode = comnd.wait()
         f.close()
         #sts = os.waitpid(comnd.pid, 0)
