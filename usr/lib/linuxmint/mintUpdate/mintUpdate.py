@@ -579,6 +579,19 @@ class RefreshThread(threading.Thread):
                 print "Could not fetch l10n descriptions.."
                 print detail
 
+    def check_policy(self):
+        # Check the presence of the Mint layer
+        p1 = subprocess.Popen(['apt-cache', 'policy'], stdout=subprocess.PIPE)
+        p = p1.communicate()[0]
+        mint_layer_found = False
+        output = p.split('\n')
+        for line in output:
+            line = line.strip()
+            if line.startswith("700") and line.endswith("Packages") and "/upstream" in line:
+                mint_layer_found = True
+                break
+        return mint_layer_found
+
     def run(self):
         global logger
         global app_hidden
@@ -662,6 +675,35 @@ class RefreshThread(threading.Thread):
             if self.root_mode:
                 refresh_command = "sudo %s" % refresh_command
             updates =  commands.getoutput(refresh_command)
+
+            if not self.check_policy():
+                gtk.gdk.threads_enter()
+                label1 = _("Your APT cache is corrupted.")
+                label2 = _("Do not install or update anything, it could break your operating system!")
+                label3 = _("Switch to a different Linux Mint mirror to solve this situation.")
+                infobar = gtk.InfoBar()
+                infobar.set_message_type(gtk.MESSAGE_ERROR)
+                info_label = gtk.Label()
+                infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
+                info_label.set_markup(infobar_message)
+                infobar.get_content_area().pack_start(info_label,False, False)
+                infobar.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
+                infobar.connect("response", _on_infobar_response, infobar)
+                wTree.get_widget("hbox_infobar").pack_start(infobar, True, True)
+                infobar.show_all()
+                self.statusIcon.set_from_file(icon_error)
+                self.statusIcon.set_tooltip("%s\n%s\n%s" % (label1, label2, label3))
+                self.statusIcon.set_visible(True)
+                statusbar.push(context_id, _("Could not refresh the list of updates"))
+                logger.write("Error: The APT policy is incorrect!")
+                self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
+                self.wTree.get_widget("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
+                self.wTree.get_widget("label_error_details").show()
+                if (not app_hidden):
+                        self.wTree.get_widget("window1").window.set_cursor(None)
+                self.wTree.get_widget("window1").set_sensitive(True)
+                gtk.gdk.threads_leave()
+                return False
 
             # Look for mintupdate
             if ("UPDATE###mintupdate###" in updates or "UPDATE###mint-upgrade-info###" in updates):
@@ -927,7 +969,7 @@ class RefreshThread(threading.Thread):
                 if os.path.exists("/usr/bin/mintsources") and os.path.exists(sources_path):
                     mirror_url = None
                     infobar_message = None
-                    infobar_message_type = gtk.MESSAGE_INFO
+                    infobar_message_type = gtk.MESSAGE_QUESTION
                     codename = lsb_release.get_distro_information()['CODENAME']
                     with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
                         for line in sources_file:
@@ -942,7 +984,7 @@ class RefreshThread(threading.Thread):
                         pass
                     elif mirror_url == "http://packages.linuxmint.com":
                         if not prefs["default_repo_is_ok"]:
-                            infobar_message = "%s\n<small>%s</small>" % (_("Please switch to a local mirror"), _("Local mirrors are usually faster than packages.linuxmint.com"))
+                            infobar_message = "%s\n<small>%s</small>" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com"))
                     else:
                         mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
                         if mint_timestamp is not None:
