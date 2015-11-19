@@ -1292,11 +1292,23 @@ def read_configuration():
     #Read icons config
     try:
         icon_busy = config['icons']['busy']
+        if not os.path.exists(icon_busy):
+            icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
         icon_up2date = config['icons']['up2date']
+        if not os.path.exists(icon_up2date):
+            icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
         icon_updates = config['icons']['updates']
+        if not os.path.exists(icon_updates):
+            icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/base-info.svg"
         icon_error = config['icons']['error']
+        if not os.path.exists(icon_error):
+            icon_error = "/usr/lib/linuxmint/mintUpdate/icons/base-error2.svg"
         icon_unknown = config['icons']['unknown']
+        if not os.path.exists(icon_unknown):
+            icon_unknown = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
         icon_apply = config['icons']['apply']
+        if not os.path.exists(icon_apply):
+            icon_apply = "/usr/lib/linuxmint/mintUpdate/icons/base-exec.svg"
     except:
         icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
         icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
