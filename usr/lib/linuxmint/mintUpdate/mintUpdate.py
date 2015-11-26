@@ -676,34 +676,35 @@ class RefreshThread(threading.Thread):
                 refresh_command = "sudo %s" % refresh_command
             updates =  commands.getoutput(refresh_command)
 
-            if not self.check_policy():
-                gtk.gdk.threads_enter()
-                label1 = _("Your APT cache is corrupted.")
-                label2 = _("Do not install or update anything, it could break your operating system!")
-                label3 = _("Switch to a different Linux Mint mirror to solve this situation.")
-                infobar = gtk.InfoBar()
-                infobar.set_message_type(gtk.MESSAGE_ERROR)
-                info_label = gtk.Label()
-                infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
-                info_label.set_markup(infobar_message)
-                infobar.get_content_area().pack_start(info_label,False, False)
-                infobar.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
-                infobar.connect("response", _on_infobar_response, infobar)
-                wTree.get_widget("hbox_infobar").pack_start(infobar, True, True)
-                infobar.show_all()
-                self.statusIcon.set_from_file(icon_error)
-                self.statusIcon.set_tooltip("%s\n%s\n%s" % (label1, label2, label3))
-                self.statusIcon.set_visible(True)
-                statusbar.push(context_id, _("Could not refresh the list of updates"))
-                logger.write("Error: The APT policy is incorrect!")
-                self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
-                self.wTree.get_widget("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
-                self.wTree.get_widget("label_error_details").show()
-                if (not app_hidden):
-                        self.wTree.get_widget("window1").window.set_cursor(None)
-                self.wTree.get_widget("window1").set_sensitive(True)
-                gtk.gdk.threads_leave()
-                return False
+            if len(updates) > 0 and not "CHECK_APT_ERROR" in updates:
+                if not self.check_policy():
+                    gtk.gdk.threads_enter()
+                    label1 = _("Your APT cache is corrupted.")
+                    label2 = _("Do not install or update anything, it could break your operating system!")
+                    label3 = _("Switch to a different Linux Mint mirror to solve this situation.")
+                    infobar = gtk.InfoBar()
+                    infobar.set_message_type(gtk.MESSAGE_ERROR)
+                    info_label = gtk.Label()
+                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
+                    info_label.set_markup(infobar_message)
+                    infobar.get_content_area().pack_start(info_label,False, False)
+                    infobar.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
+                    infobar.connect("response", _on_infobar_response, infobar)
+                    wTree.get_widget("hbox_infobar").pack_start(infobar, True, True)
+                    infobar.show_all()
+                    self.statusIcon.set_from_file(icon_error)
+                    self.statusIcon.set_tooltip("%s\n%s\n%s" % (label1, label2, label3))
+                    self.statusIcon.set_visible(True)
+                    statusbar.push(context_id, _("Could not refresh the list of updates"))
+                    logger.write("Error: The APT policy is incorrect!")
+                    self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
+                    self.wTree.get_widget("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
+                    self.wTree.get_widget("label_error_details").show()
+                    if (not app_hidden):
+                            self.wTree.get_widget("window1").window.set_cursor(None)
+                    self.wTree.get_widget("window1").set_sensitive(True)
+                    gtk.gdk.threads_leave()
+                    return False
 
             # Look for mintupdate
             if ("UPDATE###mintupdate###" in updates or "UPDATE###mint-upgrade-info###" in updates):
@@ -740,7 +741,7 @@ class RefreshThread(threading.Thread):
                 for pkg in updates:
                     if pkg.startswith("CHECK_APT_ERROR"):
                         try:
-                            error_msg = updates[1]
+                            error_msg = updates[1].replace("E:", "\n")
                         except:
                             error_msg = ""
                         gtk.gdk.threads_enter()
