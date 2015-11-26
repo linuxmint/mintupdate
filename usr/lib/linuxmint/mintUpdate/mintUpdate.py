@@ -986,18 +986,19 @@ class RefreshThread(threading.Thread):
                     elif mirror_url == "http://packages.linuxmint.com":
                         if not prefs["default_repo_is_ok"]:
                             infobar_message = "%s\n<small>%s</small>" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com"))
-                    else:
-                        mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                        if mint_timestamp is not None:
-                            mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
-                            now = datetime.datetime.now()
-                            mint_age = (now - mint_date).days
-                            if (mint_age > 2):
-                                mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
-                                if mirror_timestamp is None:
-                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is not up to date") % mirror_url)
-                                    infobar_message_type = gtk.MESSAGE_WARNING
-                                else:
+                    elif not app_hidden:
+                        # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
+                        mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
+                        if mirror_timestamp is None:
+                            infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is not up to date") % mirror_url)
+                            infobar_message_type = gtk.MESSAGE_WARNING
+                        else:
+                            mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
+                            if mint_timestamp is not None:
+                                mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
+                                now = datetime.datetime.now()
+                                mint_age = (now - mint_date).days
+                                if (mint_age > 2):
                                     mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
                                     mirror_age = (mint_date - mirror_date).days
                                     if (mirror_age > 2):
