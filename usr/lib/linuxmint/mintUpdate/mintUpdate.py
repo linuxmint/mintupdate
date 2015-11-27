@@ -1500,6 +1500,13 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_widget("checkbutton_hide_systray").set_active(prefs["hide_systray"])
     prefs_tree.get_widget("checkbutton_default_repo_is_ok").set_active(prefs["default_repo_is_ok"])
 
+    icon_busy = try_open_file(icon_busy, "base.svg")
+    icon_up2date = try_open_file(icon_up2date, "base-apply.svg")
+    icon_updates = try_open_file(icon_updates, "base-info.svg")
+    icon_error = try_open_file(icon_error, "base-error2.svg")
+    icon_unknown = try_open_file(icon_unknown, "base.svg")
+    icon_apply = try_open_file(icon_apply, "base-exec.svg")
+
     prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_busy, 24, 24))
     prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_up2date, 24, 24))
     prefs_tree.get_widget("image_updates").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_updates, 24, 24))
@@ -1531,6 +1538,15 @@ def open_preferences(widget, treeview, statusIcon, wTree):
 
     prefs_tree.get_widget("toolbutton_add").connect("clicked", add_blacklisted_package, treeview_blacklist)
     prefs_tree.get_widget("toolbutton_remove").connect("clicked", remove_blacklisted_package, treeview_blacklist)
+
+def try_open_file(new_icon_path, old_icon_relative_path):
+    try:
+        open(new_icon_path)
+        return new_icon_path
+    except:
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        return current_dir + "/icons/" + old_icon_relative_path
+
 
 def add_blacklisted_package(widget, treeview_blacklist):
 
