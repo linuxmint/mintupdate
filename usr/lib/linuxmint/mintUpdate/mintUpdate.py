@@ -216,6 +216,44 @@ class ChangelogRetriever(threading.Thread):
             except:
                 pass
 
+        # If changelog retrieval was not successful from official sources, check for a PPA changelog entry on Launchpad
+        if changelog == "No changelog available":
+            try:
+
+                ppapackage 	= self.source_package
+                ppaversion 	= self.version              
+
+                # Get PPA owner and name (Method 1 - Only works with installed packages)
+                # output    = subprocess.check_output("apt-cache policy %s | grep launchpad" % ppapackage, shell = True)
+                # ppainfo   = output.split("http://ppa.launchpad.net/",1)[1]
+                # ppawords  = ppainfo.split("/")
+                # ppaowner  = ppawords[0]
+                # ppaname   = ppawords[1]
+
+                # Get PPA owner and name (Method 2 - Works for both installed and yet to be installed packages)
+                cmd         = "grep %s /var/lib/apt/lists/ppa* --no-messages | grep %s" % (ppapackage, ppaversion)
+                output      = subprocess.check_output(cmd, shell = True)
+                ppainfo     = output.split("ppa.launchpad.net_", 1)[1]
+                ppawords    = ppainfo.split("_", 2)
+                ppaowner    = ppawords[0]
+                ppaname     = ppawords[1]
+
+                # Build the URL for the PPA changes file and download it
+                lpurl       = "https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppaowner, ppaname, ppapackage, ppaversion)
+                print       "Changelog not found in offical sources. Attempting to fetch PPA changelog from %s" % lpurl
+                lpfile      = urllib2.urlopen(lpurl)
+                lpcontents  = lpfile.read()
+                lpfile.close()
+
+                # Extract only the change information
+                lpchange    = lpcontents.split("Changes:")[1].split("Checksums")[0]
+
+                # Set the changelog variable
+                changelog   = "--- PPA Changelog Latest Entry ---\n%s\n" % lpchange
+
+            except:
+                pass
+
         gtk.gdk.threads_enter()
         self.wTree.get_widget("textview_changes").get_buffer().set_text(changelog)
         gtk.gdk.threads_leave()
