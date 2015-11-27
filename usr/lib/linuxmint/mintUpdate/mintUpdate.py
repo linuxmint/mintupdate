@@ -1507,8 +1507,6 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     icon_unknown = try_open_file(icon_unknown, "base.svg")
     icon_apply = try_open_file(icon_apply, "base-exec.svg")
 
-    print icon_busy
-
     prefs_tree.get_widget("image_busy").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_busy, 24, 24))
     prefs_tree.get_widget("image_up2date").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_up2date, 24, 24))
     prefs_tree.get_widget("image_updates").set_from_pixbuf(gtk.gdk.pixbuf_new_from_file_at_size(icon_updates, 24, 24))
