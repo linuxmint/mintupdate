@@ -1,3 +1,16 @@
+mintupdate (4.9.8) rosa; urgency=medium
+
+  * Fixed show APT error in case of mergelist issues (was hidden by policy check)
+  * Only perform up2date checks when refresh is done from UI.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 26 Nov 2015 14:51:09 +0000
+
+mintupdate (4.9.7) rosa; urgency=medium
+
+  * Use default paths for custom icons which do not exist
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 19 Nov 2015 13:50:19 +0000
+
 mintupdate (4.9.6) rosa; urgency=medium
 
   * Check APT policy to prevent OS corruption

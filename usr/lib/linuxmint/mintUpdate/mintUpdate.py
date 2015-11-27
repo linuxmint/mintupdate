@@ -676,34 +676,35 @@ class RefreshThread(threading.Thread):
                 refresh_command = "sudo %s" % refresh_command
             updates =  commands.getoutput(refresh_command)
 
-            if not self.check_policy():
-                gtk.gdk.threads_enter()
-                label1 = _("Your APT cache is corrupted.")
-                label2 = _("Do not install or update anything, it could break your operating system!")
-                label3 = _("Switch to a different Linux Mint mirror to solve this situation.")
-                infobar = gtk.InfoBar()
-                infobar.set_message_type(gtk.MESSAGE_ERROR)
-                info_label = gtk.Label()
-                infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
-                info_label.set_markup(infobar_message)
-                infobar.get_content_area().pack_start(info_label,False, False)
-                infobar.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
-                infobar.connect("response", _on_infobar_response, infobar)
-                wTree.get_widget("hbox_infobar").pack_start(infobar, True, True)
-                infobar.show_all()
-                self.statusIcon.set_from_file(icon_error)
-                self.statusIcon.set_tooltip("%s\n%s\n%s" % (label1, label2, label3))
-                self.statusIcon.set_visible(True)
-                statusbar.push(context_id, _("Could not refresh the list of updates"))
-                logger.write("Error: The APT policy is incorrect!")
-                self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
-                self.wTree.get_widget("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
-                self.wTree.get_widget("label_error_details").show()
-                if (not app_hidden):
-                        self.wTree.get_widget("window1").window.set_cursor(None)
-                self.wTree.get_widget("window1").set_sensitive(True)
-                gtk.gdk.threads_leave()
-                return False
+            if len(updates) > 0 and not "CHECK_APT_ERROR" in updates:
+                if not self.check_policy():
+                    gtk.gdk.threads_enter()
+                    label1 = _("Your APT cache is corrupted.")
+                    label2 = _("Do not install or update anything, it could break your operating system!")
+                    label3 = _("Switch to a different Linux Mint mirror to solve this situation.")
+                    infobar = gtk.InfoBar()
+                    infobar.set_message_type(gtk.MESSAGE_ERROR)
+                    info_label = gtk.Label()
+                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
+                    info_label.set_markup(infobar_message)
+                    infobar.get_content_area().pack_start(info_label,False, False)
+                    infobar.add_button(gtk.STOCK_OK, gtk.RESPONSE_OK)
+                    infobar.connect("response", _on_infobar_response, infobar)
+                    wTree.get_widget("hbox_infobar").pack_start(infobar, True, True)
+                    infobar.show_all()
+                    self.statusIcon.set_from_file(icon_error)
+                    self.statusIcon.set_tooltip("%s\n%s\n%s" % (label1, label2, label3))
+                    self.statusIcon.set_visible(True)
+                    statusbar.push(context_id, _("Could not refresh the list of updates"))
+                    logger.write("Error: The APT policy is incorrect!")
+                    self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
+                    self.wTree.get_widget("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
+                    self.wTree.get_widget("label_error_details").show()
+                    if (not app_hidden):
+                            self.wTree.get_widget("window1").window.set_cursor(None)
+                    self.wTree.get_widget("window1").set_sensitive(True)
+                    gtk.gdk.threads_leave()
+                    return False
 
             # Look for mintupdate
             if ("UPDATE###mintupdate###" in updates or "UPDATE###mint-upgrade-info###" in updates):
@@ -740,7 +741,7 @@ class RefreshThread(threading.Thread):
                 for pkg in updates:
                     if pkg.startswith("CHECK_APT_ERROR"):
                         try:
-                            error_msg = updates[1]
+                            error_msg = updates[1].replace("E:", "\n")
                         except:
                             error_msg = ""
                         gtk.gdk.threads_enter()
@@ -985,18 +986,19 @@ class RefreshThread(threading.Thread):
                     elif mirror_url == "http://packages.linuxmint.com":
                         if not prefs["default_repo_is_ok"]:
                             infobar_message = "%s\n<small>%s</small>" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com"))
-                    else:
-                        mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                        if mint_timestamp is not None:
-                            mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
-                            now = datetime.datetime.now()
-                            mint_age = (now - mint_date).days
-                            if (mint_age > 2):
-                                mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
-                                if mirror_timestamp is None:
-                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is not up to date") % mirror_url)
-                                    infobar_message_type = gtk.MESSAGE_WARNING
-                                else:
+                    elif not app_hidden:
+                        # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
+                        mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
+                        if mirror_timestamp is None:
+                            infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is not up to date") % mirror_url)
+                            infobar_message_type = gtk.MESSAGE_WARNING
+                        else:
+                            mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
+                            if mint_timestamp is not None:
+                                mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
+                                now = datetime.datetime.now()
+                                mint_age = (now - mint_date).days
+                                if (mint_age > 2):
                                     mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
                                     mirror_age = (mint_date - mirror_date).days
                                     if (mirror_age > 2):
@@ -1292,11 +1294,23 @@ def read_configuration():
     #Read icons config
     try:
         icon_busy = config['icons']['busy']
+        if not os.path.exists(icon_busy):
+            icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
         icon_up2date = config['icons']['up2date']
+        if not os.path.exists(icon_up2date):
+            icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
         icon_updates = config['icons']['updates']
+        if not os.path.exists(icon_updates):
+            icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/base-info.svg"
         icon_error = config['icons']['error']
+        if not os.path.exists(icon_error):
+            icon_error = "/usr/lib/linuxmint/mintUpdate/icons/base-error2.svg"
         icon_unknown = config['icons']['unknown']
+        if not os.path.exists(icon_unknown):
+            icon_unknown = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
         icon_apply = config['icons']['apply']
+        if not os.path.exists(icon_apply):
+            icon_apply = "/usr/lib/linuxmint/mintUpdate/icons/base-exec.svg"
     except:
         icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
         icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
