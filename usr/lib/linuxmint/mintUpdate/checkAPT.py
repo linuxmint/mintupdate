@@ -98,6 +98,8 @@ try:
                             break
                         else:
                             update_type = "linuxmint"
+                    elif "LP-PPA" in origin.origin:
+                        update_origin = origin.origin
 
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, update_origin, short_description, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace')
