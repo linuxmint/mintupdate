@@ -83,6 +83,8 @@ try:
                         update_origin = "ubuntu"
                     elif origin.origin == "Debian":
                         update_origin = "debian"
+                    elif "LP-PPA" in origin.origin:
+                        update_origin = origin.origin
                     if origin.origin == "Ubuntu" and '-security' in origin.archive:
                         update_type = "security"
                         break
@@ -98,8 +100,6 @@ try:
                             break
                         else:
                             update_type = "linuxmint"
-                    elif "LP-PPA" in origin.origin:
-                        update_origin = origin.origin
 
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, update_origin, short_description, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace')
