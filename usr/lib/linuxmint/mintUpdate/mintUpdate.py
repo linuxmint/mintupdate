@@ -182,11 +182,14 @@ class ChangelogRetriever(threading.Thread):
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
         elif "LP-PPA" in self.origin:
-                cmd         = "more /etc/apt/sources.list.d/%s*" % self.origin.split("LP-PPA-")[1]
-                output      = subprocess.check_output(cmd, stderr=log, shell=True)          
-                ppainfo     = output.split("ppa.launchpad.net/")[1]
-                ppawords    = ppainfo.split("/", 2)
-                changelog_sources.append("https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppawords[0], ppawords[1], self.source_package, self.version)) 
+            ppa_sources = "/etc/apt/sources.list.d/"
+            for fn in os.listdir(ppa_sources):
+                if fnmatch.fnmatch(fn, "%s*" % self.origin.split("LP-PPA-")[1]):
+                    with open(os.path.join(ppa_sources, fn), 'r') as f:
+                        ppa_info = f.read().split("ppa.launchpad.net/")[1]
+                        ppa_owner, ppa_name, ppa_distro = ppa_info.split("/", 2)
+                        changelog_sources.append("https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppa_owner, ppa_name, self.source_package, self.version))
+                    break
 
         changelog = _("No changelog available")
 
