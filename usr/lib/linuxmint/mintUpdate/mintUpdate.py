@@ -14,6 +14,8 @@ try:
     import time
     import gettext
     import fnmatch
+    import tarfile
+    import urllib
     import urllib2
     import re
     from sets import Set
@@ -152,10 +154,46 @@ class ChangelogRetriever(threading.Thread):
         if ":" in self.version:
             self.version = self.version.split(":")[-1]
 
+    def get_ppa_changelog(self, ppa_owner, ppa_name):
+        try:
+            max_tarball_size = 1000000
+            deb_changelog = ""
+            if (self.source_package.startswith("lib")):
+                ppa_abbr = self.source_package[:4]
+            else:
+                ppa_abbr = self.source_package[:1]
+            deb_dsc_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s_%s.dsc" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, self.source_package, self.version)
+            for line in urllib2.urlopen(deb_dsc_uri).readlines():
+                if not "debian.tar" in line:
+                    continue
+                deb_x, deb_checksum, deb_size, deb_filename = line.split(" ", 3)
+                deb_filename = deb_filename.strip("\n")
+                if (int(deb_size) > max_tarball_size):
+                    print "Tarball size %s exceeds maximum download size %s. Skipping download." % ( deb_size, str(max_tarball_size) )
+                    break
+                else:
+                    deb_file_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
+                    print "Trying to fetch the changelog from: %s" % deb_file_uri
+                    tmp_file, tmp_headers = urllib.urlretrieve(deb_file_uri)
+                    if deb_filename.endswith(".xz"):
+                        cmd = ["xz", "--decompress", "%s" % tmp_file]
+                        subprocess.call(cmd, stdout=log, stderr=log)
+                        tmp_file = tmp_file[:-3]
+                    with tarfile.open(tmp_file) as f:
+                        deb_changelog = f.extractfile('debian/changelog').read()
+                    os.remove(tmp_file)
+                    break
+            return deb_changelog
+        except Exception, detail:
+            print detail
+            pass
+
     def run(self):
         gtk.gdk.threads_enter()
         self.wTree.get_widget("textview_changes").get_buffer().set_text(_("Downloading changelog..."))
         gtk.gdk.threads_leave()
+
+        changelog = _("No changelog available") 
 
         changelog_sources = []
         if self.origin == "linuxmint":
@@ -181,17 +219,24 @@ class ChangelogRetriever(threading.Thread):
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-        elif "LP-PPA" in self.origin:
+        elif self.origin.startswith("LP-PPA"):
             ppa_sources = "/etc/apt/sources.list.d/"
-            for fn in os.listdir(ppa_sources):
-                if fnmatch.fnmatch(fn, "%s*" % self.origin.split("LP-PPA-")[1]):
-                    with open(os.path.join(ppa_sources, fn), 'r') as f:
+            try:
+                for filename in os.listdir(ppa_sources):
+                    if not filename.startswith(self.origin.lstrip("LP-PPA-")):
+                        continue
+                    with open(os.path.join(ppa_sources, filename)) as f:
                         ppa_info = f.read().split("ppa.launchpad.net/")[1]
                         ppa_owner, ppa_name, ppa_distro = ppa_info.split("/", 2)
-                        changelog_sources.append("https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppa_owner, ppa_name, self.source_package, self.version))
+                        deb_changelog = self.get_ppa_changelog(ppa_owner, ppa_name)
+                        if not deb_changelog:
+                            changelog_sources.append("https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppa_owner, ppa_name, self.source_package, self.version))
+                        else:
+                            changelog = "--- PPA Changelog ---\n\n%s\n" % deb_changelog
                     break
-
-        changelog = _("No changelog available")
+            except Exception, detail:
+                print detail
+                pass
 
         if self.ps == {}:
             # use default urllib2 proxy mechanisms (possibly *_proxy environment vars)
@@ -220,6 +265,7 @@ class ChangelogRetriever(threading.Thread):
                         if change == "" or stripped_change.startswith("*") or stripped_change.startswith("["):
                             changelog = changelog + change + "\n"
                 elif "launchpad.net" in changelog_source:
+                    print "Latest changelog entry has been scraped from Launchpad's source.changes file"
                     lpchange = source.split("Changes:")[1].split("Checksums")[0]
                     changelog = "--- PPA Changelog Latest Entry ---\n%s\n" % lpchange
                 else:
