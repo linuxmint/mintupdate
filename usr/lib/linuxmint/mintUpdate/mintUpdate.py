@@ -155,7 +155,6 @@ class ChangelogRetriever(threading.Thread):
             self.version = self.version.split(":")[-1]
 
     def get_ppa_changelog(self, ppa_owner, ppa_name):
-        try:
             max_tarball_size = 1000000
             deb_changelog = ""
             if (self.source_package.startswith("lib")):
@@ -163,30 +162,38 @@ class ChangelogRetriever(threading.Thread):
             else:
                 ppa_abbr = self.source_package[:1]
             deb_dsc_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s_%s.dsc" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, self.source_package, self.version)
-            for line in urllib2.urlopen(deb_dsc_uri).readlines():
-                if not "debian.tar" in line:
-                    continue
-                deb_x, deb_checksum, deb_size, deb_filename = line.split(" ", 3)
-                deb_filename = deb_filename.strip("\n")
-                if (int(deb_size) > max_tarball_size):
-                    print "Tarball size %s exceeds maximum download size %s. Skipping download." % ( deb_size, str(max_tarball_size) )
-                    break
-                else:
-                    deb_file_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
-                    print "Trying to fetch the changelog from: %s" % deb_file_uri
-                    tmp_file, tmp_headers = urllib.urlretrieve(deb_file_uri)
-                    if deb_filename.endswith(".xz"):
-                        cmd = ["xz", "--decompress", "%s" % tmp_file]
-                        subprocess.call(cmd, stdout=log, stderr=log)
-                        tmp_file = tmp_file[:-3]
-                    with tarfile.open(tmp_file) as f:
-                        deb_changelog = f.extractfile('debian/changelog').read()
-                    os.remove(tmp_file)
-                    break
-            return deb_changelog
-        except Exception, detail:
-            print detail
-            pass
+            try:
+                for line in urllib2.urlopen(deb_dsc_uri).readlines():
+                    if not "debian.tar" in line:
+                        continue
+                    line = line.strip()
+                    deb_checksum, deb_size, deb_filename = line.split(" ", 2)
+                    if (int(deb_size) > max_tarball_size):
+                        print "Tarball size %s exceeds maximum download size %s. Skipping download." % ( deb_size, str(max_tarball_size) )
+                        return None
+                    else:
+                        deb_file_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
+                        print "Trying to fetch the changelog from: %s" % deb_file_uri
+                        tmp_file, tmp_headers = urllib.urlretrieve(deb_file_uri)
+                        if deb_filename.endswith(".xz"):
+                            cmd = ["xz", "--decompress", "%s" % tmp_file]
+                            subprocess.call(cmd, stdout=log, stderr=log)
+                            tmp_file = tmp_file[:-3]
+                        with tarfile.open(tmp_file) as f:
+                            deb_changelog = f.extractfile('debian/changelog').read()
+                        os.remove(tmp_file)
+                        return deb_changelog
+                return None
+            except urllib2.URLError, e:
+                print "Could not open Launchpad URL"
+                print "Error message: %s" % e
+                return None
+            except OSError, e:
+                print "OS Error: %s" % e
+                return None
+            except Exception, detail:
+                print "Exception: %s" % detail
+                return None
 
     def run(self):
         gtk.gdk.threads_enter()
