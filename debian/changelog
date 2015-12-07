@@ -1,3 +1,10 @@
+mintupdate (4.9.9) rosa; urgency=medium
+
+  * Upgrade tool: Add support for blacklists
+  * Elevated levels for some of the hardware support pkgs shipping with Linux Mint (they're important for a new release but not suggested during/after an upgrade, some of them like Virtualbox are even dangerous due to stack differences)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 07 Dec 2015 16:09:19 +0000
+
 mintupdate (4.9.8) rosa; urgency=medium
 
   * Fixed show APT error in case of mergelist issues (was hidden by policy check)
