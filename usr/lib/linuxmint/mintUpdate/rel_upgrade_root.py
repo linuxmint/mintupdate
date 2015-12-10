@@ -16,10 +16,16 @@ if len(sys.argv) != 3:
 codename = sys.argv[1]
 window_id = int(sys.argv[2])
 sources_list = "/usr/share/mint-upgrade-info/%s/official-package-repositories.list" % codename
+blacklist_filename = "/usr/share/mint-upgrade-info/%s/blacklist" % codename
 
 if not os.path.exists(sources_list):
     print "Unrecognized release: %s" % codename
     sys.exit(1)
+
+blacklist = []
+if os.path.exists(blacklist_filename):
+    blacklist_file = open(blacklist_filename, 'r')
+    blacklist = [line.strip() for line in blacklist_file.readlines()]
 
 # STEP 1: UPDATE APT SOURCES
 #---------------------------
@@ -65,12 +71,13 @@ for pkg in changes:
         sourcePackage = pkg.candidate.source_name
         short_description = pkg.candidate.raw_description
         description = pkg.candidate.description
-        if (newVersion != oldVersion):
-            update_type = "package"
-            for origin in pkg.candidate.origins:
-                if origin.origin == "linuxmint":
-                    if origin.component != "romeo" and origin.component != "backport" and package != "linux-kernel-generic":
-                        f.write("%s\tinstall\n" % package)
+        if sourcePackage not in blacklist:
+            if (newVersion != oldVersion):
+                update_type = "package"
+                for origin in pkg.candidate.origins:
+                    if origin.origin == "linuxmint":
+                        if origin.component != "romeo" and origin.component != "backport" and package != "linux-kernel-generic":
+                            f.write("%s\tinstall\n" % package)
 
 cmd.append("--set-selections-file")
 cmd.append("%s" % f.name)
