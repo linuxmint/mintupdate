@@ -155,30 +155,30 @@ class ChangelogRetriever(threading.Thread):
             self.version = self.version.split(":")[-1]
 
     def get_ppa_info(self):
-        ppa_sources = "/etc/apt/sources.list"
+        ppa_sources_file = "/etc/apt/sources.list"
         ppa_sources_dir = "/etc/apt/sources.list.d/"
         ppa_words = self.origin.lstrip("LP-PPA-").split("-")
-        try:
-            with open(ppa_sources) as f:
-                for line in f:
-                    if not all(word in line for word in ppa_words):
-                        continue
-                    ppa_info = line.split("ppa.launchpad.net/")[1]
+
+        source = ppa_sources_file
+        if os.path.exists(ppa_sources_dir):
+            for filename in os.listdir(ppa_sources_dir):
+                if filename.startswith(self.origin.lstrip("LP-PPA-")):
+                    source = os.path.join(ppa_sources_dir, filename)
                     break
-                else:
-                    for filename in os.listdir(ppa_sources_dir):
-                        if not filename.startswith(self.origin.lstrip("LP-PPA-")):
-                            continue
-                        with open(os.path.join(ppa_sources_dir, filename)) as f:
-                            ppa_info = f.read().split("ppa.launchpad.net/")[1]
+        if not os.path.exists(source):
+            return None, None
+        try:
+            with open(source) as f:
+                for line in f:
+                    if (not line.startswith("#") and all(word in line for word in ppa_words)):
+                        ppa_info = line.split("ppa.launchpad.net/")[1]
                         break
-                    else:
-                        return (None, None)
+                else:
+                    return None, None
         except EnvironmentError, e:
             print "Error encountered while trying to get PPA owner and name: %s" % e
-            return (None, None)
+            return None, None
         ppa_owner, ppa_name, ppa_x = ppa_info.split("/", 2)
-
         return ppa_owner, ppa_name
 
     def get_ppa_changelog(self, ppa_owner, ppa_name):

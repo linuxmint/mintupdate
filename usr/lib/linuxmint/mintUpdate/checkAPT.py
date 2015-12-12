@@ -83,7 +83,7 @@ try:
                         update_origin = "ubuntu"
                     elif origin.origin == "Debian":
                         update_origin = "debian"
-                    elif "LP-PPA" in origin.origin:
+                    elif origin.origin.startswith("LP-PPA"):
                         update_origin = origin.origin
                     if origin.origin == "Ubuntu" and '-security' in origin.archive:
                         update_type = "security"
