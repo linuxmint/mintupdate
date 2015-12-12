@@ -154,6 +154,33 @@ class ChangelogRetriever(threading.Thread):
         if ":" in self.version:
             self.version = self.version.split(":")[-1]
 
+    def get_ppa_info(self):
+        ppa_sources = "/etc/apt/sources.list"
+        ppa_sources_dir = "/etc/apt/sources.list.d/"
+        ppa_words = self.origin.lstrip("LP-PPA-").split("-")
+        try:
+            with open(ppa_sources) as f:
+                for line in f:
+                    if not all(word in line for word in ppa_words):
+                        continue
+                    ppa_info = line.split("ppa.launchpad.net/")[1]
+                    break
+                else:
+                    for filename in os.listdir(ppa_sources_dir):
+                        if not filename.startswith(self.origin.lstrip("LP-PPA-")):
+                            continue
+                        with open(os.path.join(ppa_sources_dir, filename)) as f:
+                            ppa_info = f.read().split("ppa.launchpad.net/")[1]
+                        break
+                    else:
+                        return (None, None)
+        except EnvironmentError, e:
+            print "Error encountered while trying to get PPA owner and name: %s" % e
+            return (None, None)
+        ppa_owner, ppa_name, ppa_x = ppa_info.split("/", 2)
+
+        return ppa_owner, ppa_name
+
     def get_ppa_changelog(self, ppa_owner, ppa_name):
         max_tarball_size = 1000000
         print "\nFetching changelog for PPA package %s/%s/%s ..." % (ppa_owner, ppa_name, self.source_package)
@@ -241,23 +268,15 @@ class ChangelogRetriever(threading.Thread):
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
         elif self.origin.startswith("LP-PPA"):
-            ppa_sources = "/etc/apt/sources.list.d/"
-            try:
-                for filename in os.listdir(ppa_sources):
-                    if not filename.startswith(self.origin.lstrip("LP-PPA-")):
-                        continue
-                    with open(os.path.join(ppa_sources, filename)) as f:
-                        ppa_info = f.read().split("ppa.launchpad.net/")[1]
-                        ppa_owner, ppa_name, ppa_distro = ppa_info.split("/", 2)
-                        deb_changelog = self.get_ppa_changelog(ppa_owner, ppa_name)
-                        if not deb_changelog:
-                            changelog_sources.append("https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppa_owner, ppa_name, self.source_package, self.version))
-                        else:
-                            changelog = "--- PPA Changelog ---\n\n%s\n" % deb_changelog
-                    break
-            except Exception, detail:
-                print detail
-                pass
+            ppa_owner, ppa_name = self.get_ppa_info()
+            if ppa_owner and ppa_name:
+                deb_changelog = self.get_ppa_changelog(ppa_owner, ppa_name)
+                if not deb_changelog:
+                    changelog_sources.append("https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppa_owner, ppa_name, self.source_package, self.version))
+                else:
+                    changelog = "--- PPA Changelog ---\n\n%s\n" % deb_changelog
+            else:
+                print "PPA owner or name could not be determined"
 
         if self.ps == {}:
             # use default urllib2 proxy mechanisms (possibly *_proxy environment vars)
