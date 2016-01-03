@@ -9,6 +9,7 @@ try:
     import gtk
     import gtk.glade
     import gobject
+    import appindicator
     import tempfile
     import threading
     import time
@@ -441,9 +442,9 @@ class InstallThread(threading.Thread):
 
                 if proceed:
                     gtk.gdk.threads_enter()
-                    self.statusIcon.set_from_file(icon_apply)
-                    self.statusIcon.set_tooltip(_("Installing updates"))
-                    self.statusIcon.set_visible(True)
+                    self.statusIcon.set_icon(icon_apply)
+                    set_status_icon_text(_("Installing updates"), self.statusIcon)
+                    self.statusIcon.set_status(appindicator.STATUS_ACTIVE)
                     gtk.gdk.threads_leave()
                     logger.write("Ready to launch synaptic")
                     cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
@@ -490,9 +491,9 @@ class InstallThread(threading.Thread):
                     else:
                         # Refresh
                         gtk.gdk.threads_enter()
-                        self.statusIcon.set_from_file(icon_busy)
-                        self.statusIcon.set_tooltip(_("Checking for updates"))
-                        self.statusIcon.set_visible(not prefs["hide_systray"])
+                        self.statusIcon.set_icon(icon_busy)
+                        set_status_icon_text(_("Checking for updates"), self.statusIcon)
+                        self.statusIcon.set_status(appindicator.STATUS_PASSIVE if prefs["hide_systray"] else appindicator.STATUS_ACTIVE)
                         self.wTree.get_widget("window1").window.set_cursor(None)
                         self.wTree.get_widget("window1").set_sensitive(True)
                         gtk.gdk.threads_leave()
@@ -514,9 +515,9 @@ class InstallThread(threading.Thread):
         except Exception, detail:
             logger.write_error("Exception occured in the install thread: " + str(detail))
             gtk.gdk.threads_enter()
-            self.statusIcon.set_from_file(icon_error)
-            self.statusIcon.set_tooltip(_("Could not install the security updates"))
-            self.statusIcon.set_visible(True)
+            self.statusIcon.set_icon(icon_error)
+            set_status_icon_text(_("Could not install the security updates"), self.statusIcon)
+            self.statusIcon.set_status(appindicator.STATUS_ACTIVE)
             logger.write_error("Could not install security updates")
             #self.statusIcon.set_blinking(False)
             self.wTree.get_widget("window1").window.set_cursor(None)
@@ -615,9 +616,9 @@ class RefreshThread(threading.Thread):
             prefs = read_configuration()
 
             # Starts the blinking
-            self.statusIcon.set_from_file(icon_busy)
-            self.statusIcon.set_tooltip(_("Checking for updates"))
-            self.statusIcon.set_visible(not prefs["hide_systray"])
+            self.statusIcon.set_icon(icon_busy)
+            set_status_icon_text(_("Checking for updates"), self.statusIcon)
+            self.statusIcon.set_status(appindicator.STATUS_PASSIVE if prefs["hide_systray"] else appindicator.STATUS_ACTIVE)
             wTree.get_widget("vpaned1").set_position(vpaned_position)
             #self.statusIcon.set_blinking(True)
             gtk.gdk.threads_leave()
@@ -652,9 +653,9 @@ class RefreshThread(threading.Thread):
                         break
                 if (running == True):
                     gtk.gdk.threads_enter()
-                    self.statusIcon.set_from_file(icon_unknown)
-                    self.statusIcon.set_tooltip(_("Another application is using APT"))
-                    self.statusIcon.set_visible(not prefs["hide_systray"])
+                    self.statusIcon.set_icon(icon_unknown)
+                    set_status_icon_text(_("Another application is using APT"), self.statusIcon)
+                    self.statusIcon.set_status(appindicator.STATUS_PASSIVE if prefs["hide_systray"] else appindicator.STATUS_ACTIVE)
                     statusbar.push(context_id, _("Another application is using APT"))
                     logger.write_error("Another application is using APT")
                     #self.statusIcon.set_blinking(False)
@@ -692,9 +693,9 @@ class RefreshThread(threading.Thread):
                     infobar.connect("response", _on_infobar_response, infobar)
                     wTree.get_widget("hbox_infobar").pack_start(infobar, True, True)
                     infobar.show_all()
-                    self.statusIcon.set_from_file(icon_error)
-                    self.statusIcon.set_tooltip("%s\n%s\n%s" % (label1, label2, label3))
-                    self.statusIcon.set_visible(True)
+                    self.statusIcon.set_icon(icon_error)
+                    set_status_icon_text("%s\n%s\n%s" % (label1, label2, label3), self.statusIcon)
+                    self.statusIcon.set_status(appindicator.STATUS_ACTIVE)
                     statusbar.push(context_id, _("Could not refresh the list of updates"))
                     logger.write("Error: The APT policy is incorrect!")
                     self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
@@ -731,9 +732,9 @@ class RefreshThread(threading.Thread):
             if (len(updates) == None):
                 gtk.gdk.threads_enter()
                 self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
-                self.statusIcon.set_from_file(icon_up2date)
-                self.statusIcon.set_tooltip(_("Your system is up to date"))
-                self.statusIcon.set_visible(not prefs["hide_systray"])
+                self.statusIcon.set_icon(icon_up2date)
+                set_status_icon_text(_("Your system is up to date"), self.statusIcon)
+                self.statusIcon.set_status(appindicator.STATUS_PASSIVE if prefs["hide_systray"] else appindicator.STATUS_ACTIVE)
                 statusbar.push(context_id, _("Your system is up to date"))
                 logger.write("System is up to date")
                 gtk.gdk.threads_leave()
@@ -745,9 +746,9 @@ class RefreshThread(threading.Thread):
                         except:
                             error_msg = ""
                         gtk.gdk.threads_enter()
-                        self.statusIcon.set_from_file(icon_error)
-                        self.statusIcon.set_tooltip("%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg))
-                        self.statusIcon.set_visible(True)
+                        self.statusIcon.set_icon(icon_error)
+                        set_status_icon_text("%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg), self.statusIcon)
+                        self.statusIcon.set_status(appindicator.STATUS_ACTIVE)
                         statusbar.push(context_id, _("Could not refresh the list of updates"))
                         logger.write("Error in checkAPT.py, could not refresh the list of updates")
                         self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
@@ -915,9 +916,9 @@ class RefreshThread(threading.Thread):
                 gtk.gdk.threads_enter()
                 if (new_mintupdate):
                     self.statusString = _("A new version of the update manager is available")
-                    self.statusIcon.set_from_file(icon_updates)
-                    self.statusIcon.set_tooltip(self.statusString)
-                    self.statusIcon.set_visible(True)
+                    self.statusIcon.set_icon(icon_updates)
+                    set_status_icon_text(self.statusString, self.statusIcon)
+                    self.statusIcon.set_status(appindicator.STATUS_ACTIVE)
                     statusbar.push(context_id, self.statusString)
                     logger.write("Found a new version of mintupdate")
                 else:
@@ -936,17 +937,17 @@ class RefreshThread(threading.Thread):
                                 self.statusString = _("%(recommended)d recommended updates available (%(size)s), 1 ignored") % {'recommended':num_safe, 'size':size_to_string(download_size)}
                             elif (num_ignored > 0):
                                 self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
-                        self.statusIcon.set_from_file(icon_updates)
-                        self.statusIcon.set_tooltip(self.statusString)
-                        self.statusIcon.set_visible(True)
+                        self.statusIcon.set_icon(icon_updates)
+                        set_status_icon_text(self.statusString, self.statusIcon)
+                        self.statusIcon.set_status(appindicator.STATUS_ACTIVE)
                         statusbar.push(context_id, self.statusString)
                         logger.write("Found " + str(num_safe) + " recommended software updates")
                     else:
                         if num_visible == 0:
                             self.wTree.get_widget("notebook_status").set_current_page(TAB_UPTODATE)
-                        self.statusIcon.set_from_file(icon_up2date)
-                        self.statusIcon.set_tooltip(_("Your system is up to date"))
-                        self.statusIcon.set_visible(not prefs["hide_systray"])
+                        self.statusIcon.set_icon(icon_up2date)
+                        set_status_icon_text(_("Your system is up to date"), self.statusIcon)
+                        self.statusIcon.set_status(appindicator.STATUS_PASSIVE if prefs["hide_systray"] else appindicator.STATUS_ACTIVE)
                         statusbar.push(context_id, _("Your system is up to date"))
                         logger.write("System is up to date")
 
@@ -1024,9 +1025,9 @@ class RefreshThread(threading.Thread):
             print "-- Exception occured in the refresh thread: " + str(detail)
             logger.write_error("Exception occured in the refresh thread: " + str(detail))
             gtk.gdk.threads_enter()
-            self.statusIcon.set_from_file(icon_error)
-            self.statusIcon.set_tooltip(_("Could not refresh the list of updates"))
-            self.statusIcon.set_visible(True)
+            self.statusIcon.set_icon(icon_error)
+            set_status_icon_text(_("Could not refresh the list of updates"), self.statusIcon)
+            self.statusIcon.set_status(appindicator.STATUS_ACTIVE)
             #self.statusIcon.set_blinking(False)
             if (not app_hidden):
                 self.wTree.get_widget("window1").window.set_cursor(None)
@@ -1943,8 +1944,6 @@ def open_about(widget):
 
 def quit_cb(widget, window, vpaned, data = None):
     global logger
-    if data:
-        data.set_visible(False)
     try:
         logger.write("Exiting - requested by user")
         logger.close()
@@ -1956,13 +1955,6 @@ def quit_cb(widget, window, vpaned, data = None):
     os.system("kill -9 %s &" % pid)
     #gtk.main_quit()
     #sys.exit(0)
-
-def popup_menu_cb(widget, button, time, data = None):
-    if button == 3:
-        if data:
-            data.show_all()
-            data.popup(None, None, gtk.status_icon_position_menu, 3, time, widget)
-    pass
 
 def close_window(window, event, vpaned):
     global app_hidden
@@ -1976,7 +1968,7 @@ def hide_window(widget, window):
     window.hide()
     app_hidden = True
 
-def activate_icon_cb(widget, data, wTree):
+def toggle_window(widget, data, wTree):
     global app_hidden
     if (app_hidden == True):
         wTree.get_widget("window1").show_all()
@@ -1985,6 +1977,13 @@ def activate_icon_cb(widget, data, wTree):
         wTree.get_widget("window1").hide()
         app_hidden = True
         save_window_size(wTree.get_widget("window1"), wTree.get_widget("vpaned1"))
+
+def set_status_icon_text(text, statusIcon):
+    menu = statusIcon.get_menu()
+    if not menu:
+        return
+    status_item = menu.get_children()[1]
+    status_item.set_label(text)
 
 def save_window_size(window, vpaned):
 
@@ -2260,10 +2259,13 @@ try:
 
     prefs = read_configuration()
 
-    statusIcon = gtk.StatusIcon()
-    statusIcon.set_from_file(icon_busy)
-    statusIcon.set_tooltip(_("Checking for updates"))
-    statusIcon.set_visible(not prefs["hide_systray"])
+    statusIcon = appindicator.Indicator("mintUpdate",
+                                        "default-symbolic",
+                                        appindicator.CATEGORY_APPLICATION_STATUS)
+    statusIcon.set_status(appindicator.STATUS_ACTIVE)
+    statusIcon.set_icon(icon_busy)
+    set_status_icon_text(_("Checking for updates"), statusIcon)
+    statusIcon.set_status(appindicator.STATUS_PASSIVE if prefs["hide_systray"] else appindicator.STATUS_ACTIVE)
 
     #Set the Glade file
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate.glade"
@@ -2350,6 +2352,19 @@ try:
     wTree.get_widget("tool_refresh").connect("clicked", force_refresh, treeview_update, statusIcon, wTree)
 
     menu = gtk.Menu()
+    # Title
+    menuItemT = gtk.ImageMenuItem("Mint Update")
+    menuItemT.set_sensitive(False)
+    menu.append(menuItemT)
+    # Status Info
+    menuItemI = gtk.MenuItem("Loading")
+    menuItemI.set_sensitive(False)
+    menu.append(menuItemI)
+    menu.append(gtk.SeparatorMenuItem())
+    # Other
+    menuItem1 = gtk.ImageMenuItem(gtk.STOCK_OPEN)
+    menuItem1.connect('activate', toggle_window, None, wTree)
+    menu.append(menuItem1)
     menuItem3 = gtk.ImageMenuItem(gtk.STOCK_REFRESH)
     menuItem3.connect('activate', force_refresh, treeview_update, statusIcon, wTree)
     menu.append(menuItem3)
@@ -2362,9 +2377,8 @@ try:
     menuItem = gtk.ImageMenuItem(gtk.STOCK_QUIT)
     menuItem.connect('activate', quit_cb, wTree.get_widget("window1"), wTree.get_widget("vpaned1"), statusIcon)
     menu.append(menuItem)
-
-    statusIcon.connect('activate', activate_icon_cb, None, wTree)
-    statusIcon.connect('popup-menu', popup_menu_cb, menu)
+    statusIcon.set_menu(menu)
+    menu.show_all()
 
     # Set text for all visible widgets (because of i18n)
     wTree.get_widget("tool_apply").set_label(_("Install Updates"))
