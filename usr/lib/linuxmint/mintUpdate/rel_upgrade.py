@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python2
 
 from gi.repository import Gtk, GdkPixbuf, GdkX11
 import gettext

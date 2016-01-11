@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python2
 
 import os, sys, apt, tempfile, gettext
 from subprocess import Popen, PIPE
