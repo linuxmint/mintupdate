@@ -3,7 +3,7 @@ Section: admin
 Priority: optional
 Maintainer: Clement Lefebvre <root@linuxmint.com>
 Build-Depends: debhelper (>= 9),
-               python (>= 2.7~),
+               python3,
                dh-python
 Standards-Version: 3.9.5
 
@@ -14,11 +14,9 @@ Depends:
  ${misc:Depends},
  lsb-release,
  inxi,
- python-gtk2,
- python-glade2,
- python-configobj,
- python-apt,
- python-pycurl,
+ python3-configobj,
+ python3-apt,
+ python3-pycurl,
  synaptic,
  mint-common,
  mint-mirrors,

@@ -101,7 +101,7 @@ def get_proxy_settings():
         elif value.isdigit():
             parsed_value = int(value)
         else:
-            print CANNOT_PARSE_WARNING % value
+            print(CANNOT_PARSE_WARNING % value)
             parsed_value = value
         relative_key = (path + "." + key)[base_len:]
         gsettings[relative_key] = parsed_value
