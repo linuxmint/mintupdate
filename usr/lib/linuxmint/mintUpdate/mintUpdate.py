@@ -1026,7 +1026,7 @@ class RefreshThread(threading.Thread):
             self.statusIcon.set_visible(True)
             #self.statusIcon.set_blinking(False)
             if (not app_hidden):
-                self.wTree.get_object("window1").window.set_cursor(None)
+                self.wTree.get_object("window1").get_window().set_cursor(None)
             self.wTree.get_object("window1").set_sensitive(True)
             statusbar.push(context_id, _("Could not refresh the list of updates"))
             wTree.get_object("vpaned1").set_position(vpaned_position)
