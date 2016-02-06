@@ -316,7 +316,7 @@ class InstallThread(threading.Thread):
         self.treeView = treeView
         self.statusIcon = statusIcon
         self.wTree = wTree
-        self.wTree.get_object("window1").get_window().set_cursor(gdk.Cursor(gdk.WATCH))
+        self.wTree.get_object("window1").get_window().set_cursor(gdk.Cursor(gdk.CursorType.WATCH))
         self.wTree.get_object("window1").set_sensitive(False)
 
     def run(self):
