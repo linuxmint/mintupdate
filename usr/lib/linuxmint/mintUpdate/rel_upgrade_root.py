@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import os, sys, apt, tempfile, gettext
 from subprocess import Popen, PIPE
@@ -6,11 +6,11 @@ from subprocess import Popen, PIPE
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 if os.getuid() != 0:
-    print "Run this code as root!"
+    print("Run this code as root!")
     sys.exit(1)
 
 if len(sys.argv) != 3:
-    print "Missing arguments!"
+    print("Missing arguments!")
     sys.exit(1)
 
 codename = sys.argv[1]
@@ -19,7 +19,7 @@ sources_list = "/usr/share/mint-upgrade-info/%s/official-package-repositories.li
 blacklist_filename = "/usr/share/mint-upgrade-info/%s/blacklist" % codename
 
 if not os.path.exists(sources_list):
-    print "Unrecognized release: %s" % codename
+    print("Unrecognized release: %s" % codename)
     sys.exit(1)
 
 blacklist = []
