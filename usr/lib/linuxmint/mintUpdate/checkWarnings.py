@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import sys
 import apt_pkg
@@ -52,6 +52,6 @@ try:
                         packages_to_remove.append(pkg)
         installations = ' '.join(pkg.name for pkg in packages_to_install)
         removals = ' '.join(pkg.name for pkg in packages_to_remove)
-        print "%s###%s" % (installations, removals)
-except Exception, detail:
-    print detail
+        print("%s###%s" % (installations, removals))
+except:
+    print(sys.exc_info()[0])
