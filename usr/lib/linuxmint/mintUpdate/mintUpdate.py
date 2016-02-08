@@ -2151,11 +2151,11 @@ def toggled(renderer, path, treeview, statusbar, context_id):
 def size_to_string(size):
     strSize = str(size) + _("B")
     if (size >= 1024):
-        strSize = str(size / 1024) + _("KB")
+        strSize = str(size // 1024) + _("KB")
     if (size >= (1024 * 1024)):
-        strSize = str(size / (1024 * 1024)) + _("MB")
+        strSize = str(size // (1024 * 1024)) + _("MB")
     if (size >= (1024 * 1024 * 1024)):
-        strSize = str(size / (1024 * 1024 * 1024)) + _("GB")
+        strSize = str(size // (1024 * 1024 * 1024)) + _("GB")
     return strSize
 
 def setVisibleColumn(checkmenuitem, column, configName):
