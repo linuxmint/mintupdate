@@ -6,7 +6,7 @@ import apt
 import sys
 
 try:
-    current_version = subprocess.check_output("uname -r", shell = True).decode("utf-8").replace("-generic", "")
+    current_version = subprocess.check_output("uname -r", shell = True).decode("utf-8").replace("-generic", "").strip()
 
     cache = apt.Cache()
 
