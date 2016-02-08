@@ -214,7 +214,7 @@ class ChangelogRetriever(threading.Thread):
                 pass
 
         gdk.threads_enter()
-        self.wTree.get_object("textview_changes").get_buffer().set_text(changelog)
+        self.wTree.get_object("textview_changes").get_buffer().set_text(changelog.decode("utf-8"))
         gdk.threads_leave()
 
 class AutomaticRefreshThread(threading.Thread):
@@ -2064,17 +2064,17 @@ def display_selected_package(selection, wTree):
                 buffer = wTree.get_object("textview_description").get_buffer()
                 buffer.set_text(description)
                 from gi.repository import Pango as pango
-                #~ try:
-                    #~ buffer.create_tag("dimmed", scale=pango.SCALE_SMALL, foreground="#5C5C5C", style=pango.STYLE_ITALIC)
-                #~ except:
-                    #~ # Already exists, no big deal..
-                    #~ pass
+                try:
+                    buffer.create_tag("dimmed", scale=pango.SCALE_SMALL, foreground="#5C5C5C", style=pango.STYLE_ITALIC)
+                except:
+                    # Already exists, no big deal..
+                    pass
                 if (len(package_update.packages) > 1):
                     dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
-                    #~ buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                    buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
                 elif (package_update.packages[0] != package_update.alias):
                     dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
-                    #~ buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                    buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
             else:
                 # Changelog tab
                 retriever = ChangelogRetriever(package_update, wTree)
@@ -2101,10 +2101,10 @@ def switch_page(notebook, page, page_num, Wtree, treeView):
                 #~ pass
             if (len(package_update.packages) > 1):
                 dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
-                #~ buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
             elif (package_update.packages[0] != package_update.name):
                 dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
-                #~ buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
         else:
             # Changelog tab
             retriever = ChangelogRetriever(package_update, wTree)
