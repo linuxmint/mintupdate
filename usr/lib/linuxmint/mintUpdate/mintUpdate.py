@@ -1595,10 +1595,10 @@ def open_history(widget):
     model = gtk.TreeStore(str, str, str, str) # (packageName, date, oldVersion, newVersion)
 
     if (os.path.exists("/var/log/dpkg.log")):
-        updates = subprocess.check_output("cat /var/log/dpkg.log /var/log/dpkg.log.? 2>/dev/null | egrep \"upgrade\"", shell = True)
-        updates = updates.split(b"\n")
+        updates = subprocess.check_output("cat /var/log/dpkg.log /var/log/dpkg.log.? 2>/dev/null | egrep \"upgrade\"", shell = True).decode("utf-8")
+        updates = updates.split("\n")
         for pkg in updates:
-            values = pkg.split(b" ")
+            values = pkg.split(" ")
             if len(values) == 6:
                 date = values[0]
                 time = values[1]
