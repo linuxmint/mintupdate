@@ -2207,7 +2207,7 @@ class Logger():
         if not os.path.exists(logdir):
             os.system("mkdir -p " + logdir)
             os.system("chmod a+rwx " + logdir)
-        self.log = tempfile.NamedTemporaryFile(prefix = logdir, delete=False)
+        self.log = tempfile.NamedTemporaryFile(mode = 'w', prefix = logdir, delete=False)
         try:
             os.system("chmod a+rw %s" % self.log.name)
         except:
