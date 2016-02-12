@@ -33,19 +33,12 @@ except Exception as e:
     print (e)
     print(sys.exc_info()[0])
 
-architecture = subprocess.check_output("uname -a", shell = True)
-if (architecture.find(b"x86_64") >= 0):
-    import ctypes
-    libc = ctypes.CDLL('libc.so.6')
-    libc.prctl(15, 'mintUpdate', 0, 0, 0)
-else:
-    import dl
-    if os.path.exists('/lib/libc.so.6'):
-        libc = dl.open('/lib/libc.so.6')
-        libc.call('prctl', 15, 'mintUpdate', 0, 0, 0)
-    elif os.path.exists('/lib/i386-linux-gnu/libc.so.6'):
-        libc = dl.open('/lib/i386-linux-gnu/libc.so.6')
-        libc.call('prctl', 15, 'mintUpdate', 0, 0, 0)
+newname = b"mintUpdate"
+from ctypes import cdll, byref, create_string_buffer
+libc = cdll.LoadLibrary('libc.so.6')
+buff = create_string_buffer(len(newname)+1)
+buff.value = newname
+libc.prctl(15, byref(buff), 0, 0, 0)
 
 # i18n
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
