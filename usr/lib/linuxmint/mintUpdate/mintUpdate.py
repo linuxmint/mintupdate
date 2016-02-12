@@ -432,7 +432,7 @@ class InstallThread(threading.Thread):
 
                 if proceed:
                     gdk.threads_enter()
-                    self.statusIcon.set_from_icon_name("mintupdate-apply")
+                    self.statusIcon.set_from_icon_name("mintupdate-installing")
                     self.statusIcon.set_tooltip_text(_("Installing updates"))
                     self.statusIcon.set_visible(True)
                     gdk.threads_leave()
@@ -481,7 +481,7 @@ class InstallThread(threading.Thread):
                     else:
                         # Refresh
                         gdk.threads_enter()
-                        self.statusIcon.set_from_icon_name("mintupdate-busy")
+                        self.statusIcon.set_from_icon_name("mintupdate-checking")
                         self.statusIcon.set_tooltip_text(_("Checking for updates"))
                         self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
                         self.wTree.get_object("window1").get_window().set_cursor(None)
@@ -604,7 +604,7 @@ class RefreshThread(threading.Thread):
             self.wTree.get_object("window1").set_sensitive(False)
 
             # Starts the blinking
-            self.statusIcon.set_from_icon_name("mintupdate-busy")
+            self.statusIcon.set_from_icon_name("mintupdate-checking")
             self.statusIcon.set_tooltip_text(_("Checking for updates"))
             self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
             wTree.get_object("vpaned1").set_position(vpaned_position)
@@ -641,7 +641,7 @@ class RefreshThread(threading.Thread):
                         break
                 if (running == True):
                     gdk.threads_enter()
-                    self.statusIcon.set_from_icon_name("mintupdate-unknown")
+                    self.statusIcon.set_from_icon_name("mintupdate-checking")
                     self.statusIcon.set_tooltip_text(_("Another application is using APT"))
                     self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
                     statusbar.push(context_id, _("Another application is using APT"))
@@ -720,7 +720,7 @@ class RefreshThread(threading.Thread):
             if (len(updates) == None):
                 gdk.threads_enter()
                 self.wTree.get_object("notebook_status").set_current_page(TAB_UPTODATE)
-                self.statusIcon.set_from_icon_name("mintupdate-up2date")
+                self.statusIcon.set_from_icon_name("mintupdate-up-to-date")
                 self.statusIcon.set_tooltip_text(_("Your system is up to date"))
                 self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
                 statusbar.push(context_id, _("Your system is up to date"))
@@ -904,7 +904,7 @@ class RefreshThread(threading.Thread):
                 gdk.threads_enter()
                 if (new_mintupdate):
                     self.statusString = _("A new version of the update manager is available")
-                    self.statusIcon.set_from_icon_name("mintupdate-updates")
+                    self.statusIcon.set_from_icon_name("mintupdate-updates-available")
                     self.statusIcon.set_tooltip_text(self.statusString)
                     self.statusIcon.set_visible(True)
                     statusbar.push(context_id, self.statusString)
@@ -925,7 +925,7 @@ class RefreshThread(threading.Thread):
                                 self.statusString = _("%(recommended)d recommended updates available (%(size)s), 1 ignored") % {'recommended':num_safe, 'size':size_to_string(download_size)}
                             elif (num_ignored > 0):
                                 self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
-                        self.statusIcon.set_from_icon_name("mintupdate-updates")
+                        self.statusIcon.set_from_icon_name("mintupdate-updates-available")
                         self.statusIcon.set_tooltip_text(self.statusString)
                         self.statusIcon.set_visible(True)
                         statusbar.push(context_id, self.statusString)
@@ -933,7 +933,7 @@ class RefreshThread(threading.Thread):
                     else:
                         if num_visible == 0:
                             self.wTree.get_object("notebook_status").set_current_page(TAB_UPTODATE)
-                        self.statusIcon.set_from_icon_name("mintupdate-up2date")
+                        self.statusIcon.set_from_icon_name("mintupdate-up-to-date")
                         self.statusIcon.set_tooltip_text(_("Your system is up to date"))
                         self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
                         statusbar.push(context_id, _("Your system is up to date"))
@@ -1200,17 +1200,6 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_object("label82").set_text("<i>" + _("Note: The list only gets refreshed while the update manager window is closed (system tray mode).") + "</i>")
     prefs_tree.get_object("label82").set_use_markup(True)
     prefs_tree.get_object("label83").set_text(_("Options"))
-    prefs_tree.get_object("label85").set_text(_("Icons"))
-    prefs_tree.get_object("label86").set_markup("<b>" + _("Icon") + "</b>")
-    prefs_tree.get_object("label87").set_markup("<b>" + _("Status") + "</b>")
-    prefs_tree.get_object("label95").set_markup("<b>" + _("New Icon") + "</b>")
-    prefs_tree.get_object("label88").set_text(_("Busy"))
-    prefs_tree.get_object("label89").set_text(_("System up-to-date"))
-    prefs_tree.get_object("label90").set_text(_("Updates available"))
-    prefs_tree.get_object("label99").set_text(_("Error"))
-    prefs_tree.get_object("label2").set_text(_("Unknown state"))
-    prefs_tree.get_object("label3").set_text(_("Applying updates"))
-    prefs_tree.get_object("label1").set_text(_("Ignored updates"))
 
     prefs_tree.get_object("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation of new packages or the removal of installed packages"))
     prefs_tree.get_object("checkbutton_hide_window_after_update").set_label(_("Hide the update manager after applying updates"))
@@ -1999,7 +1988,7 @@ try:
     settings = Gio.Settings("com.linuxmint.updates")
 
     statusIcon = gtk.StatusIcon()
-    statusIcon.set_from_icon_name("mintupdate-busy")
+    statusIcon.set_from_icon_name("mintupdate-checking")
     statusIcon.set_tooltip_text (_("Checking for updates"))
     statusIcon.set_visible(not settings.get_boolean("hide-systray"))
 
