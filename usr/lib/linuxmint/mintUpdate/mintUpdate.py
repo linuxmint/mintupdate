@@ -174,7 +174,7 @@ class ChangelogRetriever(threading.Thread):
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
 
-        changelog = _("No changelog available")
+        changelog = [_("No changelog available")]
 
         if self.ps == {}:
             # use default urllib.request proxy mechanisms (possibly *_proxy environment vars)
@@ -204,12 +204,16 @@ class ChangelogRetriever(threading.Thread):
                             changelog = changelog + change + "\n"
                 else:
                     changelog = source
+                changelog = changelog.split("\n")
                 break
             except:
                 pass
 
         gdk.threads_enter()
-        self.application.builder.get_object("textview_changes").get_buffer().set_text(changelog)
+        self.application.builder.get_object("textview_changes").get_buffer().set_text("")
+        for change in changelog:
+            self.application.builder.get_object("textview_changes").get_buffer().insert(self.application.builder.get_object("textview_changes").get_buffer().get_end_iter(), change)
+            self.application.builder.get_object("textview_changes").get_buffer().insert(self.application.builder.get_object("textview_changes").get_buffer().get_end_iter(), "\n")
         gdk.threads_leave()
 
 class AutomaticRefreshThread(threading.Thread):
