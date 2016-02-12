@@ -1571,8 +1571,9 @@ class MintUpdate():
                 menuItem = gtk.MenuItem.new_with_mnemonic(_("Ignore updates for this package"))
                 menuItem.connect("activate", self.add_to_ignore_list, package_update.name)
                 menu.append(menuItem)
+                menu.attach_to_widget (widget, None)
                 menu.show_all()
-                menu.popup( None, None, None, 3, 0)
+                menu.popup(None, None, None, None, event.button, event.time)
 
     def add_to_ignore_list(self, widget, pkg):
         blacklist = self.settings.get_strv("blacklisted-packages")
