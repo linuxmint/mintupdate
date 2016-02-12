@@ -24,6 +24,7 @@ from gi.repository import GdkPixbuf
 from gi.repository import GdkX11
 from gi.repository import GObject as gobject
 from gi.repository import Gio
+from gi.repository import Pango
 
 try:
     numMintUpdate = subprocess.check_output("ps -A | grep mintUpdate | wc -l", shell = True)
@@ -1140,6 +1141,9 @@ class MintUpdate():
                 socket.show()
                 window_id = repr(socket.get_id())
 
+            self.buffer = self.builder.get_object("textview_description").get_buffer()
+            self.buffer.create_tag("dimmed", scale=0.9, foreground="#5C5C5C", style=Pango.Style.ITALIC)
+
             # the treeview
             cr = gtk.CellRendererToggle()
             cr.connect("toggled", self.toggled)
@@ -1540,20 +1544,13 @@ class MintUpdate():
                 if self.builder.get_object("notebook_details").get_current_page() == 0:
                     # Description tab
                     description = package_update.description
-                    buffer = self.builder.get_object("textview_description").get_buffer()
-                    buffer.set_text(description)
-                    from gi.repository import Pango as pango
-                    try:
-                        buffer.create_tag("dimmed", scale=pango.SCALE_SMALL, foreground="#5C5C5C", style=pango.STYLE_ITALIC)
-                    except:
-                        # Already exists, no big deal..
-                        pass
+                    self.buffer.set_text(description)
                     if (len(package_update.packages) > 1):
                         dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
-                        buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                        self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
                     elif (package_update.packages[0] != package_update.alias):
                         dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
-                        buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                        self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
                 else:
                     # Changelog tab
                     retriever = ChangelogRetriever(package_update, self)
@@ -1590,20 +1587,13 @@ class MintUpdate():
             if (page_num == 0):
                 # Description tab
                 description = package_update.description
-                buffer = self.builder.get_object("textview_description").get_buffer()
-                buffer.set_text(description)
-                #~ from gi.repository import Pango as pango
-                #~ try:
-                    #~ buffer.create_tag("dimmed", scale=pango.SCALE_SMALL, foreground="#5C5C5C", style=pango.STYLE_ITALIC)
-                #~ except:
-                    #~ # Already exists, no big deal..
-                    #~ pass
+                self.buffer.set_text(description)
                 if (len(package_update.packages) > 1):
                     dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
-                    buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                    self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
                 elif (package_update.packages[0] != package_update.name):
                     dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
-                    buffer.insert_with_tags_by_name(buffer.get_end_iter(), dimmed_description, "dimmed")
+                    self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
             else:
                 # Changelog tab
                 retriever = ChangelogRetriever(package_update, self)
