@@ -1254,8 +1254,10 @@ def open_preferences(widget, treeview, statusIcon, wTree):
         iter = model.insert_before(None, None)
         model.set_value(iter, 0, ignored_pkg)
 
-    prefs_tree.get_object("toolbutton_add").connect("clicked", add_blacklisted_package, treeview_blacklist)
-    prefs_tree.get_object("toolbutton_remove").connect("clicked", remove_blacklisted_package, treeview_blacklist)
+    prefs_tree.get_object("button_add").connect("clicked", add_blacklisted_package, treeview_blacklist)
+    prefs_tree.get_object("button_remove").connect("clicked", remove_blacklisted_package, treeview_blacklist)
+    prefs_tree.get_object("button_add").set_always_show_image(True)
+    prefs_tree.get_object("button_remove").set_always_show_image(True)
 
 def add_blacklisted_package(widget, treeview_blacklist):
     dialog = gtk.MessageDialog(None, gtk.DialogFlags.MODAL | gtk.DialogFlags.DESTROY_WITH_PARENT, gtk.MessageType.QUESTION, gtk.ButtonsType.OK, None)
