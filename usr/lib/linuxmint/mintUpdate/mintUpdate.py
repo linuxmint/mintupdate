@@ -190,7 +190,7 @@ class ChangelogRetriever(threading.Thread):
             try:
                 print("Trying to fetch the changelog from: %s" % changelog_source)
                 url = urllib.request.urlopen(changelog_source, None, 10)
-                source = url.read()
+                source = url.read().decode("utf-8")
                 url.close()
 
                 changelog = ""
@@ -209,7 +209,7 @@ class ChangelogRetriever(threading.Thread):
                 pass
 
         gdk.threads_enter()
-        self.application.builder.get_object("textview_changes").get_buffer().set_text(changelog.decode("utf-8"))
+        self.application.builder.get_object("textview_changes").get_buffer().set_text(changelog)
         gdk.threads_leave()
 
 class AutomaticRefreshThread(threading.Thread):
