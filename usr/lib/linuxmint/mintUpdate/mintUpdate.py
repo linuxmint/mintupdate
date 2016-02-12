@@ -1216,7 +1216,7 @@ class MintUpdate():
             menuItem.connect('activate', self.quit_from_systray)
             menu.append(menuItem)
 
-            self.statusIcon.connect('activate', self.on_statusicon_clicked, None, self.builder)
+            self.statusIcon.connect('activate', self.on_statusicon_clicked)
             self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
 
             # Set text for all visible widgets (because of i18n)
@@ -1611,22 +1611,17 @@ class MintUpdate():
 
 ######### SYSTRAY ####################
 
-    def show_statusicon_menu(self, widget, button, time, data = None):
-        if button == 3:
-            if data:
-                data.show_all()
-                data.popup(None, None, None, 3, time, 0)
-                #~ data.popup(None, None, gtk.status_icon_position_menu, 3, time, widget)
-        pass
+    def show_statusicon_menu(self, icon, button, time, menu):
+        menu.show_all()
+        menu.popup(None, None, None, None, button, time)
 
-    def on_statusicon_clicked(self, widget, data):
-        if (self.app_hidden == True):
+    def on_statusicon_clicked(self, widget):
+        if (self.app_hidden):
             self.window.show_all()
-            self.app_hidden = False
         else:
             self.window.hide()
-            self.app_hidden = True
             self.save_window_size()
+        self.app_hidden = not self.app_hidden
 
     def quit_from_systray(self, widget, data = None):
         if data:
