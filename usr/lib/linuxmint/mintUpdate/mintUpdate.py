@@ -54,8 +54,6 @@ else:
 # i18n
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
-CONFIG_DIR = os.path.expanduser("~/.config/linuxmint")
-CONFIG_FILE = os.path.join (CONFIG_DIR, "mintUpdate.conf")
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
@@ -710,12 +708,7 @@ class RefreshThread(threading.Thread):
             num_safe = 0
             download_size = 0
             num_ignored = 0
-            ignored_list = []
-            if os.path.exists("%s/mintupdate.ignored" % CONFIG_DIR):
-                blacklist_file = open("%s/mintupdate.ignored" % CONFIG_DIR, "r")
-                for blacklist_line in blacklist_file:
-                    ignored_list.append(blacklist_line.strip())
-                blacklist_file.close()
+            ignored_list = settings.get_strv("blacklisted-packages")
 
             if (len(updates) == None):
                 gdk.threads_enter()
@@ -1921,7 +1914,10 @@ def menuPopup(widget, event, treeview_update, statusIcon, wTree):
             menu.popup( None, None, None, 3, 0)
 
 def add_to_ignore_list(widget, treeview_update, pkg, statusIcon, wTree):
-    os.system("echo \"%s\" >> %s/mintupdate.ignored" % (pkg, CONFIG_DIR))
+    settings = Gio.Settings("com.linuxmint.updates")
+    blacklist = settings.get_strv("blacklisted-packages")
+    blacklist.append(pkg)
+    settings.set_strv("blacklisted-packages", blacklist)
     refresh = RefreshThread(treeview_update, statusIcon, wTree)
     refresh.start()
 
@@ -1978,10 +1974,6 @@ pid = os.getpid()
 gdk.threads_init()
 
 logger.write("Launching mintUpdate")
-
-if (not os.path.exists(CONFIG_DIR)):
-    os.system("mkdir -p %s" % CONFIG_DIR)
-    logger.write("Creating %s directory" % CONFIG_DIR)
 
 try:
 
