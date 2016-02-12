@@ -1,32 +1,28 @@
 #!/usr/bin/python3
 
-try:
-    import os
-    import codecs
-    import sys
-    import string
-    import gi
-    gi.require_version('Gtk', '3.0')
-    gi.require_version('GdkX11', '3.0')
-    from gi.repository import Gtk as gtk
-    from gi.repository import Gdk as gdk
-    from gi.repository import GdkPixbuf
-    from gi.repository import GdkX11
-    from gi.repository import GObject as gobject
-    import tempfile
-    import threading
-    import time
-    import gettext
-    import fnmatch
-    import urllib.request
-    import re
-    import sys
-    import proxygsettings
-    sys.path.append('/usr/lib/linuxmint/common')
-    from configobj import ConfigObj
-except:
-    print(sys.exc_info()[0])
-    pass
+import os
+import codecs
+import sys
+import string
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('GdkX11', '3.0')
+from gi.repository import Gtk as gtk
+from gi.repository import Gdk as gdk
+from gi.repository import GdkPixbuf
+from gi.repository import GdkX11
+from gi.repository import GObject as gobject
+from gi.repository import Gio
+import tempfile
+import threading
+import time
+import gettext
+import fnmatch
+import urllib.request
+import re
+import sys
+import proxygsettings
+sys.path.append('/usr/lib/linuxmint/common')
 
 import subprocess
 import lsb_release
@@ -37,7 +33,8 @@ try:
     numMintUpdate = subprocess.check_output("ps -A | grep mintUpdate | wc -l", shell = True)
     if (numMintUpdate != "0"):
         os.system("killall mintUpdate")
-except:
+except Exception as e:
+    print (e)
     print(sys.exc_info()[0])
 
 architecture = subprocess.check_output("uname -a", shell = True)
@@ -223,6 +220,7 @@ class AutomaticRefreshThread(threading.Thread):
         self.treeView = treeView
         self.statusIcon = statusIcon
         self.wTree = wTree
+        self.settings = Gio.Settings("com.linuxmint.updates")
 
     def run(self):
         global app_hidden
@@ -230,9 +228,8 @@ class AutomaticRefreshThread(threading.Thread):
 
         # Initial refresh (with APT cache refresh)
         try:
-            prefs = read_configuration()
-            timer = (prefs["refresh_minutes"] * 60) + (prefs["refresh_hours"] * 60 * 60) + (prefs["refresh_days"] * 24 * 60 * 60)
-            logger.write("Initial refresh will happen in " + str(prefs["refresh_minutes"]) + " minutes, " + str(prefs["refresh_hours"]) + " hours and " + str(prefs["refresh_days"]) + " days")
+            timer = (self.settings.get_int("refresh-minutes") * 60) + (self.settings.get_int("refresh-hours") * 60 * 60) + (self.settings.get_int("refresh-days") * 24 * 60 * 60)
+            logger.write("Initial refresh will happen in " + str(self.settings.get_int("refresh-minutes")) + " minutes, " + str(self.settings.get_int("refresh-hours")) + " hours and " + str(self.settings.get_int("refresh-days")) + " days")
             timetosleep = int(timer)
             if (timetosleep == 0):
                 time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
@@ -244,15 +241,15 @@ class AutomaticRefreshThread(threading.Thread):
                     refresh.start()
                 else:
                     logger.write("The mintUpdate window is open, skipping initial refresh")
-        except:
+        except Exception as e:
+            print (e)
             logger.write_error("Exception occured during the initial refresh: " + str(sys.exc_info()[0]))
 
         # Autorefresh (also with APT cache refresh)
         try:
             while(True):
-                prefs = read_configuration()
-                timer = (prefs["autorefresh_minutes"] * 60) + (prefs["autorefresh_hours"] * 60 * 60) + (prefs["autorefresh_days"] * 24 * 60 * 60)
-                logger.write("Auto-refresh will happen in " + str(prefs["autorefresh_minutes"]) + " minutes, " + str(prefs["autorefresh_hours"]) + " hours and " + str(prefs["autorefresh_days"]) + " days")
+                timer = (self.settings.get_int("autorefresh-minutes") * 60) + (self.settings.get_int("autorefresh-hours") * 60 * 60) + (self.settings.get_int("autorefresh-days") * 24 * 60 * 60)
+                logger.write("Auto-refresh will happen in " + str(self.settings.get_int("autorefresh-minutes")) + " minutes, " + str(self.settings.get_int("autorefresh-hours")) + " hours and " + str(self.settings.get_int("autorefresh-days")) + " days")
                 timetosleep = int(timer)
                 if (timetosleep == 0):
                     time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
@@ -264,7 +261,8 @@ class AutomaticRefreshThread(threading.Thread):
                         refresh.start()
                     else:
                         logger.write("The mintUpdate window is open, skipping auto-refresh")
-        except:
+        except Exception as e:
+            print (e)
             logger.write_error("Exception occured in the auto-refresh thread.. so it's probably dead now: " + str(sys.exc_info()[0]))
 
 class InstallKernelThread(threading.Thread):
@@ -304,12 +302,6 @@ class InstallKernelThread(threading.Thread):
 
 
 class InstallThread(threading.Thread):
-    global icon_busy
-    global icon_up2date
-    global icon_updates
-    global icon_error
-    global icon_unknown
-    global icon_apply
 
     def __init__(self, treeView, statusIcon, wTree):
         threading.Thread.__init__(self)
@@ -428,17 +420,19 @@ class InstallThread(threading.Thread):
                                 else:
                                     proceed = False
                                 dialog.destroy()
-                            except:
+                            except Exception as e:
+                                print (e)
                                 print(sys.exc_info()[0])
                             gdk.threads_leave()
                         else:
                             proceed = True
-                except:
+                except Exception as e:
+                    print (e)
                     print(sys.exc_info()[0])
 
                 if proceed:
                     gdk.threads_enter()
-                    self.statusIcon.set_from_file(icon_apply)
+                    self.statusIcon.set_from_icon_name("mintupdate-apply")
                     self.statusIcon.set_tooltip_text(_("Installing updates"))
                     self.statusIcon.set_visible(True)
                     gdk.threads_leave()
@@ -465,8 +459,8 @@ class InstallThread(threading.Thread):
                     f.close()
                     logger.write("Install finished")
 
-                    prefs = read_configuration()
-                    if prefs["hide_window_after_update"]:
+                    settings = Gio.Settings("com.linuxmint.updates")
+                    if settings.get_boolean("hide-window-after-update"):
                         gdk.threads_enter()
                         global app_hidden
                         app_hidden = True
@@ -487,9 +481,9 @@ class InstallThread(threading.Thread):
                     else:
                         # Refresh
                         gdk.threads_enter()
-                        self.statusIcon.set_from_file(icon_busy)
+                        self.statusIcon.set_from_icon_name("mintupdate-busy")
                         self.statusIcon.set_tooltip_text(_("Checking for updates"))
-                        self.statusIcon.set_visible(not prefs["hide_systray"])
+                        self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
                         self.wTree.get_object("window1").get_window().set_cursor(None)
                         self.wTree.get_object("window1").set_sensitive(True)
                         gdk.threads_leave()
@@ -508,10 +502,11 @@ class InstallThread(threading.Thread):
                 self.wTree.get_object("window1").set_sensitive(True)
                 gdk.threads_leave()
 
-        except:
+        except Exception as e:
+            print (e)
             logger.write_error("Exception occured in the install thread: " + str(sys.exc_info()[0]))
             gdk.threads_enter()
-            self.statusIcon.set_from_file(icon_error)
+            self.statusIcon.set_from_icon_name("mintupdate-error")
             self.statusIcon.set_tooltip_text(_("Could not install the security updates"))
             self.statusIcon.set_visible(True)
             logger.write_error("Could not install security updates")
@@ -521,10 +516,6 @@ class InstallThread(threading.Thread):
             gdk.threads_leave()
 
 class RefreshThread(threading.Thread):
-    global icon_busy
-    global icon_up2date
-    global icon_updates
-    global icon_error
     global statusbar
     global context_id
 
@@ -534,6 +525,7 @@ class RefreshThread(threading.Thread):
         self.statusIcon = statusIcon
         self.wTree = wTree
         self.root_mode = root_mode
+        self.settings = Gio.Settings("com.linuxmint.updates")
 
     def fetch_l10n_descriptions(self, package_names):
         if os.path.exists("/var/lib/apt/lists"):
@@ -568,11 +560,13 @@ class RefreshThread(threading.Thread):
                                 if not pkgname in package_descriptions:
                                     package_short_descriptions[pkgname] = short_description
                                     package_descriptions[pkgname] = description
-                        except:
+                        except Exception as e:
+                            print (e)
                             print("a %s" % sys.exc_info()[0])
                     i += 1
                 del super_buffer
-            except:
+            except Exception as e:
+                print (e)
                 print("Could not fetch l10n descriptions..")
                 print(sys.exc_info()[0])
 
@@ -609,12 +603,10 @@ class RefreshThread(threading.Thread):
                 self.wTree.get_object("window1").get_window().set_cursor(gdk.Cursor(gdk.CursorType.WATCH))
             self.wTree.get_object("window1").set_sensitive(False)
 
-            prefs = read_configuration()
-
             # Starts the blinking
-            self.statusIcon.set_from_file(icon_busy)
+            self.statusIcon.set_from_icon_name("mintupdate-busy")
             self.statusIcon.set_tooltip_text(_("Checking for updates"))
-            self.statusIcon.set_visible(not prefs["hide_systray"])
+            self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
             wTree.get_object("vpaned1").set_position(vpaned_position)
             #self.statusIcon.set_blinking(True)
             gdk.threads_leave()
@@ -649,9 +641,9 @@ class RefreshThread(threading.Thread):
                         break
                 if (running == True):
                     gdk.threads_enter()
-                    self.statusIcon.set_from_file(icon_unknown)
+                    self.statusIcon.set_from_icon_name("mintupdate-unknown")
                     self.statusIcon.set_tooltip_text(_("Another application is using APT"))
-                    self.statusIcon.set_visible(not prefs["hide_systray"])
+                    self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
                     statusbar.push(context_id, _("Another application is using APT"))
                     logger.write_error("Another application is using APT")
                     #self.statusIcon.set_blinking(False)
@@ -689,7 +681,7 @@ class RefreshThread(threading.Thread):
                     infobar.connect("response", _on_infobar_response, infobar)
                     wTree.get_object("hbox_infobar").pack_start(infobar, True, True,0)
                     infobar.show_all()
-                    self.statusIcon.set_from_file(icon_error)
+                    self.statusIcon.set_from_icon_name("mintupdate-error")
                     self.statusIcon.set_tooltip_text("%s\n%s\n%s" % (label1, label2, label3))
                     self.statusIcon.set_visible(True)
                     statusbar.push(context_id, _("Could not refresh the list of updates"))
@@ -728,9 +720,9 @@ class RefreshThread(threading.Thread):
             if (len(updates) == None):
                 gdk.threads_enter()
                 self.wTree.get_object("notebook_status").set_current_page(TAB_UPTODATE)
-                self.statusIcon.set_from_file(icon_up2date)
+                self.statusIcon.set_from_icon_name("mintupdate-up2date")
                 self.statusIcon.set_tooltip_text(_("Your system is up to date"))
-                self.statusIcon.set_visible(not prefs["hide_systray"])
+                self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
                 statusbar.push(context_id, _("Your system is up to date"))
                 logger.write("System is up to date")
                 gdk.threads_leave()
@@ -742,7 +734,7 @@ class RefreshThread(threading.Thread):
                         except:
                             error_msg = ""
                         gdk.threads_enter()
-                        self.statusIcon.set_from_file(icon_error)
+                        self.statusIcon.set_from_icon_name("mintupdate-error")
                         self.statusIcon.set_tooltip_text("%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg))
                         self.statusIcon.set_visible(True)
                         statusbar.push(context_id, _("Could not refresh the list of updates"))
@@ -874,13 +866,13 @@ class RefreshThread(threading.Thread):
 
                     security_update = (package_update.type == "security")
 
-                    if ((prefs["level" + str(package_update.level) + "_visible"]) or (security_update and prefs['security_visible'])):
+                    if ((settings.get_boolean("level" + str(package_update.level) + "-is-visible")) or (security_update and settings.get_boolean('security-updates-are-visible'))):
                         iter = model.insert_before(None, None)
-                        if (security_update and prefs['security_safe']):
+                        if (security_update and settings.get_boolean('security-updates-are-safe')):
                             model.set_value(iter, UPDATE_CHECKED, "true")
                             num_safe = num_safe + 1
                             download_size = download_size + package_update.size
-                        elif (prefs["level" + str(package_update.level) + "_safe"]):
+                        elif (settings.get_boolean("level" + str(package_update.level) + "-is-safe")):
                             model.set_value(iter, UPDATE_CHECKED, "true")
                             num_safe = num_safe + 1
                             download_size = download_size + package_update.size
@@ -892,7 +884,7 @@ class RefreshThread(threading.Thread):
                         shortdesc = package_update.short_description
                         if len(shortdesc) > 100:
                             shortdesc = shortdesc[:100] + "..."
-                        if (prefs["descriptions_visible"]):
+                        if (settings.get_boolean("show-descriptions")):
                             model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<small><span foreground='#5C5C5C'>%s</span></small>" % shortdesc)
                         else:
                             model.set_value(iter, UPDATE_ALIAS, package_update.alias)
@@ -912,7 +904,7 @@ class RefreshThread(threading.Thread):
                 gdk.threads_enter()
                 if (new_mintupdate):
                     self.statusString = _("A new version of the update manager is available")
-                    self.statusIcon.set_from_file(icon_updates)
+                    self.statusIcon.set_from_icon_name("mintupdate-updates")
                     self.statusIcon.set_tooltip_text(self.statusString)
                     self.statusIcon.set_visible(True)
                     statusbar.push(context_id, self.statusString)
@@ -933,7 +925,7 @@ class RefreshThread(threading.Thread):
                                 self.statusString = _("%(recommended)d recommended updates available (%(size)s), 1 ignored") % {'recommended':num_safe, 'size':size_to_string(download_size)}
                             elif (num_ignored > 0):
                                 self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
-                        self.statusIcon.set_from_file(icon_updates)
+                        self.statusIcon.set_from_icon_name("mintupdate-updates")
                         self.statusIcon.set_tooltip_text(self.statusString)
                         self.statusIcon.set_visible(True)
                         statusbar.push(context_id, self.statusString)
@@ -941,9 +933,9 @@ class RefreshThread(threading.Thread):
                     else:
                         if num_visible == 0:
                             self.wTree.get_object("notebook_status").set_current_page(TAB_UPTODATE)
-                        self.statusIcon.set_from_file(icon_up2date)
+                        self.statusIcon.set_from_icon_name("mintupdate-up2date")
                         self.statusIcon.set_tooltip_text(_("Your system is up to date"))
-                        self.statusIcon.set_visible(not prefs["hide_systray"])
+                        self.statusIcon.set_visible(not settings.get_boolean("hide-systray"))
                         statusbar.push(context_id, _("Your system is up to date"))
                         logger.write("System is up to date")
 
@@ -981,7 +973,7 @@ class RefreshThread(threading.Thread):
                         # Unable to find the Mint mirror being used..
                         pass
                     elif mirror_url == "http://packages.linuxmint.com":
-                        if not prefs["default_repo_is_ok"]:
+                        if not settings.get_boolean("default-repo-is-ok"):
                             infobar_message = "%s\n<small>%s</small>" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com"))
                     elif not app_hidden:
                         # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
@@ -1011,17 +1003,19 @@ class RefreshThread(threading.Thread):
                         infobar.connect("response", _on_infobar_response, infobar)
                         wTree.get_object("hbox_infobar").pack_start(infobar, True, True,0)
                         infobar.show_all()
-            except:
+            except Exception as e:
+                print (e)
                 # best effort, just print out the error
                 print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
 
             gdk.threads_leave()
 
-        except:
+        except Exception as e:
+            print (e)
             print("-- Exception occured in the refresh thread: " + str(sys.exc_info()[0]))
             logger.write_error("Exception occured in the refresh thread: " + str(sys.exc_info()[0]))
             gdk.threads_enter()
-            self.statusIcon.set_from_file(icon_error)
+            self.statusIcon.set_from_icon_name("mintupdate-error")
             self.statusIcon.set_tooltip_text(_("Could not refresh the list of updates"))
             self.statusIcon.set_visible(True)
             #self.statusIcon.set_blinking(False)
@@ -1047,7 +1041,8 @@ class RefreshThread(threading.Thread):
                 return None
             else:
                 return filetime
-        except:
+        except Exception as e:
+            print (e)
             return None
 
     def checkDependencies(self, changes, cache):
@@ -1065,7 +1060,8 @@ class RefreshThread(threading.Thread):
                                 newPkg = cache[o.name]
                                 changes.append(newPkg)
                                 foundSomething = True
-                    except:
+                    except Exception as e:
+                        print (e)
                         pass # don't know why we get these..
         if (foundSomething):
             changes = self.checkDependencies(changes, cache)
@@ -1110,110 +1106,45 @@ def install(widget, treeView, statusIcon, wTree):
     install = InstallThread(treeView, statusIcon, wTree)
     install.start()
 
-def change_icon(widget, button, prefs_tree, treeview, statusIcon, wTree):
-    global icon_busy
-    global icon_up2date
-    global icon_updates
-    global icon_error
-    global icon_unknown
-    global icon_apply
-    dialog = gtk.FileChooserDialog(_("Update Manager"), None, gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.ResponseType.CANCEL, gtk.STOCK_OPEN, gtk.ResponseType.OK))
-    filter1 = gtk.FileFilter()
-    filter1.set_name("*.*")
-    filter1.add_pattern("*")
-    filter2 = gtk.FileFilter()
-    filter2.set_name("*.png")
-    filter2.add_pattern("*.png")
-    dialog.add_filter(filter2)
-    dialog.add_filter(filter1)
-
-    if dialog.run() == gtk.ResponseType.OK:
-        filename = dialog.get_filename()
-        if (button == "busy"):
-            prefs_tree.get_object("image_busy").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 24, 24))
-            icon_busy = filename
-        if (button == "up2date"):
-            prefs_tree.get_object("image_up2date").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 24, 24))
-            icon_up2date = filename
-        if (button == "updates"):
-            prefs_tree.get_object("image_updates").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 24, 24))
-            icon_updates = filename
-        if (button == "error"):
-            prefs_tree.get_object("image_error").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 24, 24))
-            icon_error = filename
-        if (button == "unknown"):
-            prefs_tree.get_object("image_unknown").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 24, 24))
-            icon_unknown = filename
-        if (button == "apply"):
-            prefs_tree.get_object("image_apply").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(filename, 24, 24))
-            icon_apply = filename
-    dialog.destroy()
-
 def pref_apply(widget, prefs_tree, treeview, statusIcon, wTree):
-    global icon_busy
-    global icon_up2date
-    global icon_updates
-    global icon_error
-    global icon_unknown
-    global icon_apply
 
-    config = ConfigObj(CONFIG_FILE)
+    settings = Gio.Settings("com.linuxmint.updates")
 
-    #Write general config
-    config['general'] = {}
-    config['general']['hide_window_after_update'] = prefs_tree.get_object("checkbutton_hide_window_after_update").get_active()
-    config['general']['hide_systray'] = prefs_tree.get_object("checkbutton_hide_systray").get_active()
-    config['general']['default_repo_is_ok'] = prefs_tree.get_object("checkbutton_default_repo_is_ok").get_active()
+    settings.set_boolean('hide-window-after-update', prefs_tree.get_object("checkbutton_hide_window_after_update").get_active())
+    settings.set_boolean('hide-systray', prefs_tree.get_object("checkbutton_hide_systray").get_active())
+    settings.set_boolean('default-repo-is-ok', prefs_tree.get_object("checkbutton_default_repo_is_ok").get_active())
 
-    #Write level config
-    config['levels'] = {}
-    config['levels']['level1_visible'] = prefs_tree.get_object("visible1").get_active()
-    config['levels']['level2_visible'] = prefs_tree.get_object("visible2").get_active()
-    config['levels']['level3_visible'] = prefs_tree.get_object("visible3").get_active()
-    config['levels']['level4_visible'] = prefs_tree.get_object("visible4").get_active()
-    config['levels']['level5_visible'] = prefs_tree.get_object("visible5").get_active()
-    config['levels']['level1_safe'] = prefs_tree.get_object("safe1").get_active()
-    config['levels']['level2_safe'] = prefs_tree.get_object("safe2").get_active()
-    config['levels']['level3_safe'] = prefs_tree.get_object("safe3").get_active()
-    config['levels']['level4_safe'] = prefs_tree.get_object("safe4").get_active()
-    config['levels']['level5_safe'] = prefs_tree.get_object("safe5").get_active()
-    config['levels']['security_visible'] = prefs_tree.get_object("checkbutton_security_visible").get_active()
-    config['levels']['security_safe'] = prefs_tree.get_object("checkbutton_security_safe").get_active()
+    settings.set_boolean('level1-is-visible', prefs_tree.get_object("visible1").get_active())
+    settings.set_boolean('level2-is-visible', prefs_tree.get_object("visible2").get_active())
+    settings.set_boolean('level3-is-visible', prefs_tree.get_object("visible3").get_active())
+    settings.set_boolean('level4-is-visible', prefs_tree.get_object("visible4").get_active())
+    settings.set_boolean('level5-is-visible', prefs_tree.get_object("visible5").get_active())
+    settings.set_boolean('level1-is-safe', prefs_tree.get_object("safe1").get_active())
+    settings.set_boolean('level2-is-safe', prefs_tree.get_object("safe2").get_active())
+    settings.set_boolean('level3-is-safe', prefs_tree.get_object("safe3").get_active())
+    settings.set_boolean('level4-is-safe', prefs_tree.get_object("safe4").get_active())
+    settings.set_boolean('level5-is-safe', prefs_tree.get_object("safe5").get_active())
+    settings.set_boolean('security-updates-are-visible', prefs_tree.get_object("checkbutton_security_visible").get_active())
+    settings.set_boolean('security-updates-are-safe', prefs_tree.get_object("checkbutton_security_safe").get_active())
 
-    #Write refresh config
-    config['refresh'] = {}
-    config['refresh']['refresh_days'] = int(prefs_tree.get_object("refresh_days").get_value())
-    config['refresh']['refresh_hours'] = int(prefs_tree.get_object("refresh_hours").get_value())
-    config['refresh']['refresh_minutes'] = int(prefs_tree.get_object("refresh_minutes").get_value())
-    config['refresh']['autorefresh_days'] = int(prefs_tree.get_object("autorefresh_days").get_value())
-    config['refresh']['autorefresh_hours'] = int(prefs_tree.get_object("autorefresh_hours").get_value())
-    config['refresh']['autorefresh_minutes'] = int(prefs_tree.get_object("autorefresh_minutes").get_value())
+    settings.set_int('refresh-days', int(prefs_tree.get_object("refresh_days").get_value()))
+    settings.set_int('refresh-hours', int(prefs_tree.get_object("refresh_hours").get_value()))
+    settings.set_int('refresh-minutes', int(prefs_tree.get_object("refresh_minutes").get_value()))
+    settings.set_int('autorefresh-days', int(prefs_tree.get_object("autorefresh_days").get_value()))
+    settings.set_int('autorefresh-hours', int(prefs_tree.get_object("autorefresh_hours").get_value()))
+    settings.set_int('autorefresh-minutes', int(prefs_tree.get_object("autorefresh_minutes").get_value()))
 
-    #Write update config
-    config['update'] = {}
-    config['update']['dist_upgrade'] = prefs_tree.get_object("checkbutton_dist_upgrade").get_active()
+    settings.set_boolean('dist-upgrade', prefs_tree.get_object("checkbutton_dist_upgrade").get_active())
 
-    #Write icons config
-    config['icons'] = {}
-    config['icons']['busy'] = icon_busy
-    config['icons']['up2date'] = icon_up2date
-    config['icons']['updates'] = icon_updates
-    config['icons']['error'] = icon_error
-    config['icons']['unknown'] = icon_unknown
-    config['icons']['apply'] = icon_apply
-
-    #Write blacklisted updates
-    ignored_list = open("%s/mintupdate.ignored" % CONFIG_DIR, "w")
+    blacklist = []
     treeview_blacklist = prefs_tree.get_object("treeview_blacklist")
     model = treeview_blacklist.get_model()
     iter = model.get_iter_first()
     while iter is not None:
         pkg = model.get_value(iter, UPDATE_CHECKED)
         iter = model.iter_next(iter)
-        ignored_list.writelines(pkg + "\n")
-    ignored_list.close()
-
-    config.write()
+        blacklist.append(pkg)
+    settings.set_strv("blacklisted-packages", blacklist)
 
     prefs_tree.get_object("window2").hide()
     refresh = RefreshThread(treeview, statusIcon, wTree)
@@ -1231,167 +1162,6 @@ def history_cancel(widget, tree):
 def pref_cancel(widget, prefs_tree):
     prefs_tree.get_object("window2").hide()
 
-def read_configuration():
-    global icon_busy
-    global icon_up2date
-    global icon_updates
-    global icon_error
-    global icon_unknown
-    global icon_apply
-
-    try:
-        config = ConfigObj(CONFIG_FILE)
-    except:
-        print("Your config file %s is corrupted!" % CONFIG_FILE)
-        corrupted_file = "%s.corrupted" % CONFIG_FILE
-        print("A new configuration file was generated and your file was saved as %s" % corrupted_file)
-        os.rename (CONFIG_FILE, corrupted_file)
-        config = ConfigObj(CONFIG_FILE)
-
-    prefs = {}
-
-    #Read the general config
-    try:
-        prefs["hide_window_after_update"] = (config['general']['hide_window_after_update'] == "True")
-    except:
-        prefs["hide_window_after_update"] = False
-
-    try:
-        prefs["hide_systray"] = (config['general']['hide_systray'] == "True")
-    except:
-        prefs["hide_systray"] = False
-
-    try:
-        prefs["default_repo_is_ok"] = (config['general']['default_repo_is_ok'] == "True")
-    except:
-        prefs["default_repo_is_ok"] = False
-
-    #Read refresh config
-    try:
-        prefs["refresh_days"] = int(config['refresh']['refresh_days'])
-        prefs["refresh_hours"] = int(config['refresh']['refresh_hours'])
-        prefs["refresh_minutes"] = int(config['refresh']['refresh_minutes'])
-        prefs["autorefresh_days"] = int(config['refresh']['autorefresh_days'])
-        prefs["autorefresh_hours"] = int(config['refresh']['autorefresh_hours'])
-        prefs["autorefresh_minutes"] = int(config['refresh']['autorefresh_minutes'])
-    except:
-        prefs["refresh_days"] = 0
-        prefs["refresh_hours"] = 0
-        prefs["refresh_minutes"] = 10
-        prefs["autorefresh_days"] = 0
-        prefs["autorefresh_hours"] = 2
-        prefs["autorefresh_minutes"] = 0
-
-    #Read update config
-    try:
-        prefs["dist_upgrade"] = (config['update']['dist_upgrade'] == "True")
-    except:
-        prefs["dist_upgrade"] = True
-
-    #Read icons config
-    try:
-        icon_busy = config['icons']['busy']
-        if not os.path.exists(icon_busy):
-            icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
-        icon_up2date = config['icons']['up2date']
-        if not os.path.exists(icon_up2date):
-            icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
-        icon_updates = config['icons']['updates']
-        if not os.path.exists(icon_updates):
-            icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/base-info.svg"
-        icon_error = config['icons']['error']
-        if not os.path.exists(icon_error):
-            icon_error = "/usr/lib/linuxmint/mintUpdate/icons/base-error2.svg"
-        icon_unknown = config['icons']['unknown']
-        if not os.path.exists(icon_unknown):
-            icon_unknown = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
-        icon_apply = config['icons']['apply']
-        if not os.path.exists(icon_apply):
-            icon_apply = "/usr/lib/linuxmint/mintUpdate/icons/base-exec.svg"
-    except:
-        icon_busy = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
-        icon_up2date = "/usr/lib/linuxmint/mintUpdate/icons/base-apply.svg"
-        icon_updates = "/usr/lib/linuxmint/mintUpdate/icons/base-info.svg"
-        icon_error = "/usr/lib/linuxmint/mintUpdate/icons/base-error2.svg"
-        icon_unknown = "/usr/lib/linuxmint/mintUpdate/icons/base.svg"
-        icon_apply = "/usr/lib/linuxmint/mintUpdate/icons/base-exec.svg"
-
-    #Read levels config
-    try:
-        prefs["level1_visible"] = (config['levels']['level1_visible'] == "True")
-        prefs["level2_visible"] = (config['levels']['level2_visible'] == "True")
-        prefs["level3_visible"] = (config['levels']['level3_visible'] == "True")
-        prefs["level4_visible"] = (config['levels']['level4_visible'] == "True")
-        prefs["level5_visible"] = (config['levels']['level5_visible'] == "True")
-        prefs["level1_safe"] = (config['levels']['level1_safe'] == "True")
-        prefs["level2_safe"] = (config['levels']['level2_safe'] == "True")
-        prefs["level3_safe"] = (config['levels']['level3_safe'] == "True")
-        prefs["level4_safe"] = (config['levels']['level4_safe'] == "True")
-        prefs["level5_safe"] = (config['levels']['level5_safe'] == "True")
-        prefs["security_visible"] = (config['levels']['security_visible'] == "True")
-        prefs["security_safe"] = (config['levels']['security_safe'] == "True")
-    except:
-        prefs["level1_visible"] = True
-        prefs["level2_visible"] = True
-        prefs["level3_visible"] = True
-        prefs["level4_visible"] = False
-        prefs["level5_visible"] = False
-        prefs["level1_safe"] = True
-        prefs["level2_safe"] = True
-        prefs["level3_safe"] = True
-        prefs["level4_safe"] = False
-        prefs["level5_safe"] = False
-        prefs["security_visible"] = False
-        prefs["security_safe"] = False
-
-    #Read columns config
-    try:
-        prefs["type_column_visible"] = (config['visible_columns']['type'] == "True")
-    except:
-        prefs["type_column_visible"] = True
-    try:
-        prefs["level_column_visible"] = (config['visible_columns']['level'] == "True")
-    except:
-        prefs["level_column_visible"] = True
-    try:
-        prefs["package_column_visible"] = (config['visible_columns']['package'] == "True")
-    except:
-        prefs["package_column_visible"] = True
-    try:
-        prefs["old_version_column_visible"] = (config['visible_columns']['old_version'] == "True")
-    except:
-        prefs["old_version_column_visible"] = False
-    try:
-        prefs["new_version_column_visible"] = (config['visible_columns']['new_version'] == "True")
-    except:
-        prefs["new_version_column_visible"] = True
-    try:
-        prefs["size_column_visible"] = (config['visible_columns']['size'] == "True")
-    except:
-        prefs["size_column_visible"] = False
-    try:
-        prefs["descriptions_visible"] = (config['visible_columns']['description'] == "True")
-    except:
-        prefs["descriptions_visible"] = True
-
-    #Read window dimensions
-    try:
-        prefs["dimensions_x"] = int(config['dimensions']['x'])
-        prefs["dimensions_y"] = int(config['dimensions']['y'])
-        prefs["dimensions_pane_position"] = int(config['dimensions']['pane_position'])
-    except:
-        prefs["dimensions_x"] = 790
-        prefs["dimensions_y"] = 540
-        prefs["dimensions_pane_position"] = 278
-
-    #Read package blacklist
-    try:
-        prefs["blacklisted_packages"] = config['blacklisted_packages']
-    except:
-        prefs["blacklisted_packages"] = []
-
-    return prefs
-
 def open_repositories(widget):
     if os.path.exists("/usr/bin/software-sources"):
         os.system("/usr/bin/software-sources &")
@@ -1401,12 +1171,6 @@ def open_repositories(widget):
         os.system("/usr/bin/software-properties-kde &")
 
 def open_preferences(widget, treeview, statusIcon, wTree):
-    global icon_busy
-    global icon_up2date
-    global icon_updates
-    global icon_error
-    global icon_unknown
-    global icon_apply
 
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate_preferences.ui"
     prefs_tree = gtk.Builder()
@@ -1458,27 +1222,20 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_object("pref_button_cancel").connect("clicked", pref_cancel, prefs_tree)
     prefs_tree.get_object("pref_button_apply").connect("clicked", pref_apply, prefs_tree, treeview, statusIcon, wTree)
 
-    prefs_tree.get_object("button_icon_busy").connect("clicked", change_icon, "busy", prefs_tree, treeview, statusIcon, wTree)
-    prefs_tree.get_object("button_icon_up2date").connect("clicked", change_icon, "up2date", prefs_tree, treeview, statusIcon, wTree)
-    prefs_tree.get_object("button_icon_updates").connect("clicked", change_icon, "updates", prefs_tree, treeview, statusIcon, wTree)
-    prefs_tree.get_object("button_icon_error").connect("clicked", change_icon, "error", prefs_tree, treeview, statusIcon, wTree)
-    prefs_tree.get_object("button_icon_unknown").connect("clicked", change_icon, "unknown", prefs_tree, treeview, statusIcon, wTree)
-    prefs_tree.get_object("button_icon_apply").connect("clicked", change_icon, "apply", prefs_tree, treeview, statusIcon, wTree)
+    settings = Gio.Settings("com.linuxmint.updates")
 
-    prefs = read_configuration()
-
-    prefs_tree.get_object("visible1").set_active(prefs["level1_visible"])
-    prefs_tree.get_object("visible2").set_active(prefs["level2_visible"])
-    prefs_tree.get_object("visible3").set_active(prefs["level3_visible"])
-    prefs_tree.get_object("visible4").set_active(prefs["level4_visible"])
-    prefs_tree.get_object("visible5").set_active(prefs["level5_visible"])
-    prefs_tree.get_object("safe1").set_active(prefs["level1_safe"])
-    prefs_tree.get_object("safe2").set_active(prefs["level2_safe"])
-    prefs_tree.get_object("safe3").set_active(prefs["level3_safe"])
-    prefs_tree.get_object("safe4").set_active(prefs["level4_safe"])
-    prefs_tree.get_object("safe5").set_active(prefs["level5_safe"])
-    prefs_tree.get_object("checkbutton_security_visible").set_active(prefs["security_visible"])
-    prefs_tree.get_object("checkbutton_security_safe").set_active(prefs["security_safe"])
+    prefs_tree.get_object("visible1").set_active(settings.get_boolean("level1-is-visible"))
+    prefs_tree.get_object("visible2").set_active(settings.get_boolean("level2-is-visible"))
+    prefs_tree.get_object("visible3").set_active(settings.get_boolean("level3-is-visible"))
+    prefs_tree.get_object("visible4").set_active(settings.get_boolean("level4-is-visible"))
+    prefs_tree.get_object("visible5").set_active(settings.get_boolean("level5-is-visible"))
+    prefs_tree.get_object("safe1").set_active(settings.get_boolean("level1-is-safe"))
+    prefs_tree.get_object("safe2").set_active(settings.get_boolean("level2-is-safe"))
+    prefs_tree.get_object("safe3").set_active(settings.get_boolean("level3-is-safe"))
+    prefs_tree.get_object("safe4").set_active(settings.get_boolean("level4-is-safe"))
+    prefs_tree.get_object("safe5").set_active(settings.get_boolean("level5-is-safe"))
+    prefs_tree.get_object("checkbutton_security_visible").set_active(settings.get_boolean("security-updates-are-visible"))
+    prefs_tree.get_object("checkbutton_security_safe").set_active(settings.get_boolean("security-updates-are-safe"))
 
     prefs_tree.get_object("checkbutton_security_visible").set_label(_("Always show security updates"))
     prefs_tree.get_object("checkbutton_security_safe").set_label(_("Always select and trust security updates"))
@@ -1486,24 +1243,17 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     prefs_tree.get_object("label_minutes").set_text(_("minutes"))
     prefs_tree.get_object("label_hours").set_text(_("hours"))
     prefs_tree.get_object("label_days").set_text(_("days"))
-    prefs_tree.get_object("refresh_days").set_value(prefs["refresh_days"])
-    prefs_tree.get_object("refresh_hours").set_value(prefs["refresh_hours"])
-    prefs_tree.get_object("refresh_minutes").set_value(prefs["refresh_minutes"])
-    prefs_tree.get_object("autorefresh_days").set_value(prefs["autorefresh_days"])
-    prefs_tree.get_object("autorefresh_hours").set_value(prefs["autorefresh_hours"])
-    prefs_tree.get_object("autorefresh_minutes").set_value(prefs["autorefresh_minutes"])
+    prefs_tree.get_object("refresh_days").set_value(settings.get_int("refresh-days"))
+    prefs_tree.get_object("refresh_hours").set_value(settings.get_int("refresh-hours"))
+    prefs_tree.get_object("refresh_minutes").set_value(settings.get_int("refresh-minutes"))
+    prefs_tree.get_object("autorefresh_days").set_value(settings.get_int("autorefresh-days"))
+    prefs_tree.get_object("autorefresh_hours").set_value(settings.get_int("autorefresh-hours"))
+    prefs_tree.get_object("autorefresh_minutes").set_value(settings.get_int("autorefresh-minutes"))
 
-    prefs_tree.get_object("checkbutton_dist_upgrade").set_active(prefs["dist_upgrade"])
-    prefs_tree.get_object("checkbutton_hide_window_after_update").set_active(prefs["hide_window_after_update"])
-    prefs_tree.get_object("checkbutton_hide_systray").set_active(prefs["hide_systray"])
-    prefs_tree.get_object("checkbutton_default_repo_is_ok").set_active(prefs["default_repo_is_ok"])
-
-    prefs_tree.get_object("image_busy").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(icon_busy, 24, 24))
-    prefs_tree.get_object("image_up2date").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(icon_up2date, 24, 24))
-    prefs_tree.get_object("image_updates").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(icon_updates, 24, 24))
-    prefs_tree.get_object("image_error").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(icon_error, 24, 24))
-    prefs_tree.get_object("image_unknown").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(icon_unknown, 24, 24))
-    prefs_tree.get_object("image_apply").set_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_size(icon_apply, 24, 24))
+    prefs_tree.get_object("checkbutton_dist_upgrade").set_active(settings.get_boolean("dist-upgrade"))
+    prefs_tree.get_object("checkbutton_hide_window_after_update").set_active(settings.get_boolean("hide-window-after-update"))
+    prefs_tree.get_object("checkbutton_hide_systray").set_active(settings.get_boolean("hide-systray"))
+    prefs_tree.get_object("checkbutton_default_repo_is_ok").set_active(settings.get_boolean("default-repo-is-ok"))
 
     # Blacklisted updates
     treeview_blacklist = prefs_tree.get_object("treeview_blacklist")
@@ -1519,13 +1269,10 @@ def open_preferences(widget, treeview, statusIcon, wTree):
     model.set_sort_column_id( 0, gtk.SortType.ASCENDING )
     treeview_blacklist.set_model(model)
 
-    if os.path.exists("%s/mintupdate.ignored" % CONFIG_DIR):
-        ignored_list = open("%s/mintupdate.ignored" % CONFIG_DIR, "r")
-        for ignored_pkg in ignored_list:
-            iter = model.insert_before(None, None)
-            model.set_value(iter, 0, ignored_pkg.strip())
-        del model
-        ignored_list.close()
+    blacklist = settings.get_strv("blacklisted-packages")
+    for ignored_pkg in blacklist:
+        iter = model.insert_before(None, None)
+        model.set_value(iter, 0, ignored_pkg)
 
     prefs_tree.get_object("toolbutton_add").connect("clicked", add_blacklisted_package, treeview_blacklist)
     prefs_tree.get_object("toolbutton_remove").connect("clicked", remove_blacklisted_package, treeview_blacklist)
@@ -1902,7 +1649,8 @@ def display_selected_kernel(selection, wTree):
                 scrolled_regressions.add_with_viewport(bugs_box)
                 fixes_box.show_all()
                 bugs_box.show_all()
-    except:
+    except Exception as e:
+        print(e)
         print(sys.exc_info()[0])
 
 def open_help(widget):
@@ -1924,12 +1672,14 @@ def open_about(widget):
             gpl += line
         h.close()
         dlg.set_license(gpl)
-    except:
+    except Exception as e:
+        print (e)
         print(sys.exc_info()[0])
     try:
         version = subprocess.check_output("/usr/lib/linuxmint/common/version.py mintupdate", shell = True)
         dlg.set_version(version)
-    except:
+    except Exception as e:
+        print (e)
         print(sys.exc_info()[0])
 
     dlg.set_authors(["Clement Lefebvre <root@linuxmint.com>", "Chris Hodapp <clhodapp@live.com>"])
@@ -1988,13 +1738,10 @@ def activate_icon_cb(widget, data, wTree):
         save_window_size(wTree.get_object("window1"), wTree.get_object("vpaned1"))
 
 def save_window_size(window, vpaned):
-
-    config = ConfigObj(CONFIG_FILE)
-    config['dimensions'] = {}
-    config['dimensions']['x'] = window.get_size()[0]
-    config['dimensions']['y'] = window.get_size()[1]
-    config['dimensions']['pane_position'] = vpaned.get_position()
-    config.write()
+    settings = Gio.Settings("com.linuxmint.updates")
+    settings.set_int('window-width', window.get_size()[0])
+    settings.set_int('window-height', window.get_size()[1])
+    settings.set_int('window-pane-position', vpaned.get_position())
 
 def clean_l10n_short_description(description):
         try:
@@ -2011,7 +1758,8 @@ def clean_l10n_short_description(description):
             value = value.replace('&', '&amp;')
 
             return value
-        except:
+        except Exception as e:
+            print(e)
             print(sys.exc_info()[0])
             return description
 
@@ -2041,7 +1789,8 @@ def clean_l10n_description(description):
             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                 value = "%s." % value
             return value
-        except:
+        except Exception as e:
+            print (e)
             print(sys.exc_info()[0])
             return description
 
@@ -2080,7 +1829,8 @@ def display_selected_package(selection, wTree):
                 retriever = ChangelogRetriever(package_update, wTree)
                 retriever.start()
 
-    except:
+    except Exception as e:
+        print (e)
         print(sys.exc_info()[0])
 
 def switch_page(notebook, page, page_num, Wtree, treeView):
@@ -2158,23 +1908,14 @@ def size_to_string(size):
         strSize = str(size // (1024 * 1024 * 1024)) + _("GB")
     return strSize
 
-def setVisibleColumn(checkmenuitem, column, configName):
-    config = ConfigObj(CONFIG_FILE)
-    if ('visible_columns' in config):
-        config['visible_columns'][configName] = checkmenuitem.get_active()
-    else:
-        config['visible_columns'] = {}
-        config['visible_columns'][configName] = checkmenuitem.get_active()
-    config.write()
+def setVisibleColumn(checkmenuitem, column, key):
+    settings = Gio.Settings("com.linuxmint.updates")
+    settings.set_boolean(key, checkmenuitem.get_active())
     column.set_visible(checkmenuitem.get_active())
 
-def setVisibleDescriptions(checkmenuitem, treeView, statusIcon, wTree, prefs):
-    config = ConfigObj(CONFIG_FILE)
-    if (not 'visible_columns' in config):
-        config['visible_columns'] = {}
-    config['visible_columns']['description'] = checkmenuitem.get_active()
-    config.write()
-    prefs["descriptions_visible"] = checkmenuitem.get_active()
+def setVisibleDescriptions(checkmenuitem, treeView, statusIcon, wTree):
+    settings = Gio.Settings("com.linuxmint.updates")
+    settings.set_boolean("show-descriptions", checkmenuitem.get_active())
     refresh = RefreshThread(treeView, statusIcon, wTree)
     refresh.start()
 
@@ -2210,7 +1951,8 @@ class Logger():
         self.log = tempfile.NamedTemporaryFile(mode = 'w', prefix = logdir, delete=False)
         try:
             os.system("chmod a+rw %s" % self.log.name)
-        except:
+        except Exception as e:
+            print (e)
             print(sys.exc_info()[0])
 
     def write(self, line):
@@ -2233,6 +1975,7 @@ class Logger():
         except:
             pass # cause it might be closed already
 
+
 global app_hidden
 global logger
 global pid
@@ -2252,27 +1995,21 @@ if (not os.path.exists(CONFIG_DIR)):
     logger.write("Creating %s directory" % CONFIG_DIR)
 
 try:
-    global icon_busy
-    global icon_up2date
-    global icon_updates
-    global icon_error
-    global icon_unknown
-    global icon_apply
 
-    prefs = read_configuration()
+    settings = Gio.Settings("com.linuxmint.updates")
 
     statusIcon = gtk.StatusIcon()
-    statusIcon.set_from_file(icon_busy)
+    statusIcon.set_from_icon_name("mintupdate-busy")
     statusIcon.set_tooltip_text (_("Checking for updates"))
-    statusIcon.set_visible(not prefs["hide_systray"])
+    statusIcon.set_visible(not settings.get_boolean("hide-systray"))
 
     #Set the Glade file
     gladefile = "/usr/lib/linuxmint/mintUpdate/mintUpdate_mainwindow.ui"
     wTree = gtk.Builder()
     wTree.add_from_file(gladefile)
     wTree.get_object("window1").set_title(_("Update Manager"))
-    wTree.get_object("window1").set_default_size(prefs['dimensions_x'], prefs['dimensions_y'])
-    wTree.get_object("vpaned1").set_position(prefs['dimensions_pane_position'])
+    wTree.get_object("window1").set_default_size(settings.get_int('window-width'), settings.get_int('window-height'))
+    wTree.get_object("vpaned1").set_position(settings.get_int('window-pane-position'))
 
     statusbar = wTree.get_object("statusbar")
     context_id = statusbar.get_context_id("mintUpdate")
@@ -2385,7 +2122,7 @@ try:
     wTree.get_object("image_success_status").set_from_file("/usr/lib/linuxmint/mintUpdate/icons/yes.png")
     wTree.get_object("image_error_status").set_from_file("/usr/lib/linuxmint/mintUpdate/rel_upgrades/failure.png")
 
-    wTree.get_object("vpaned1").set_position(prefs['dimensions_pane_position'])
+    wTree.get_object("vpaned1").set_position(settings.get_int('window-pane-position'))
 
     fileMenu = gtk.MenuItem.new_with_mnemonic(_("_File"))
     fileSubmenu = gtk.Menu()
@@ -2425,9 +2162,10 @@ try:
 
     rel_path = "/usr/share/mint-upgrade-info/%s" % rel_codename
     if os.path.exists(rel_path):
-        config = ConfigObj(os.path.join(rel_path, "info"))
-        if rel_edition.lower() in config['general']['editions']:
-            rel_target = config['general']['target_name']
+        with open(os.path.join(rel_path, "info")) as f:
+            config = dict([line.strip().split("=") for line in f])
+        if rel_edition.lower() in config['editions']:
+            rel_target = config['target_name']
             relUpgradeMenuItem = gtk.ImageMenuItem(gtk.STOCK_PREFERENCES)
             relUpgradeMenuItem.set_use_stock(True)
             relUpgradeMenuItem.set_image(gtk.Image.new_from_file("/usr/lib/linuxmint/mintUpdate/icons/rel_upgrade.png"))
@@ -2457,46 +2195,46 @@ try:
     visibleColumnsMenuItem.set_submenu(visibleColumnsMenu)
 
     typeColumnMenuItem = gtk.CheckMenuItem(_("Type"))
-    typeColumnMenuItem.set_active(prefs["type_column_visible"])
-    column7.set_visible(prefs["type_column_visible"])
-    typeColumnMenuItem.connect("toggled", setVisibleColumn, column7, "type")
+    typeColumnMenuItem.set_active(settings.get_boolean("show-type-column"))
+    column7.set_visible(settings.get_boolean("show-type-column"))
+    typeColumnMenuItem.connect("toggled", setVisibleColumn, column7, "show-type-column")
     visibleColumnsMenu.append(typeColumnMenuItem)
 
     levelColumnMenuItem = gtk.CheckMenuItem(_("Level"))
-    levelColumnMenuItem.set_active(prefs["level_column_visible"])
-    column3.set_visible(prefs["level_column_visible"])
-    levelColumnMenuItem.connect("toggled", setVisibleColumn, column3, "level")
+    levelColumnMenuItem.set_active(settings.get_boolean("show-level-column"))
+    column3.set_visible(settings.get_boolean("show-level-column"))
+    levelColumnMenuItem.connect("toggled", setVisibleColumn, column3, "show-level-column")
     visibleColumnsMenu.append(levelColumnMenuItem)
 
     packageColumnMenuItem = gtk.CheckMenuItem(_("Package"))
-    packageColumnMenuItem.set_active(prefs["package_column_visible"])
-    column2.set_visible(prefs["package_column_visible"])
-    packageColumnMenuItem.connect("toggled", setVisibleColumn, column2, "package")
+    packageColumnMenuItem.set_active(settings.get_boolean("show-package-column"))
+    column2.set_visible(settings.get_boolean("show-package-column"))
+    packageColumnMenuItem.connect("toggled", setVisibleColumn, column2, "show-package-column")
     visibleColumnsMenu.append(packageColumnMenuItem)
 
     oldVersionColumnMenuItem = gtk.CheckMenuItem(_("Old version"))
-    oldVersionColumnMenuItem.set_active(prefs["old_version_column_visible"])
-    column4.set_visible(prefs["old_version_column_visible"])
-    oldVersionColumnMenuItem.connect("toggled", setVisibleColumn, column4, "old_version")
+    oldVersionColumnMenuItem.set_active(settings.get_boolean("show-old-version-column"))
+    column4.set_visible(settings.get_boolean("show-old-version-column"))
+    oldVersionColumnMenuItem.connect("toggled", setVisibleColumn, column4, "show-old-version-column")
     visibleColumnsMenu.append(oldVersionColumnMenuItem)
 
     newVersionColumnMenuItem = gtk.CheckMenuItem(_("New version"))
-    newVersionColumnMenuItem.set_active(prefs["new_version_column_visible"])
-    column5.set_visible(prefs["new_version_column_visible"])
-    newVersionColumnMenuItem.connect("toggled", setVisibleColumn, column5, "new_version")
+    newVersionColumnMenuItem.set_active(settings.get_boolean("show-new-version-column"))
+    column5.set_visible(settings.get_boolean("show-new-version-column"))
+    newVersionColumnMenuItem.connect("toggled", setVisibleColumn, column5, "show-new-version-column")
     visibleColumnsMenu.append(newVersionColumnMenuItem)
 
     sizeColumnMenuItem = gtk.CheckMenuItem(_("Size"))
-    sizeColumnMenuItem.set_active(prefs["size_column_visible"])
-    column6.set_visible(prefs["size_column_visible"])
-    sizeColumnMenuItem.connect("toggled", setVisibleColumn, column6, "size")
+    sizeColumnMenuItem.set_active(settings.get_boolean("show-size-column"))
+    column6.set_visible(settings.get_boolean("show-size-column"))
+    sizeColumnMenuItem.connect("toggled", setVisibleColumn, column6, "show-size-column")
     visibleColumnsMenu.append(sizeColumnMenuItem)
 
     viewSubmenu.append(visibleColumnsMenuItem)
 
     descriptionsMenuItem = gtk.CheckMenuItem(_("Show descriptions"))
-    descriptionsMenuItem.set_active(prefs["descriptions_visible"])
-    descriptionsMenuItem.connect("toggled", setVisibleDescriptions, treeview_update, statusIcon, wTree, prefs)
+    descriptionsMenuItem.set_active(settings.get_boolean("show-descriptions"))
+    descriptionsMenuItem.connect("toggled", setVisibleDescriptions, treeview_update, statusIcon, wTree)
     viewSubmenu.append(descriptionsMenuItem)
 
     viewSubmenu.append(historyMenuItem)
@@ -2505,7 +2243,8 @@ try:
         # Only support kernel selection in Linux Mint (not LMDE)
         if (subprocess.check_output("lsb_release -is", shell = True).strip() == b"LinuxMint" and float(subprocess.check_output("lsb_release -rs", shell = True).strip()) >= 13):
             viewSubmenu.append(kernelMenuItem)
-    except:
+    except Exception as e:
+        print (e)
         print(sys.exc_info()[0])
     viewSubmenu.append(infoMenuItem)
 
@@ -2537,7 +2276,7 @@ try:
         showWindow = sys.argv[1]
         if (showWindow == "show"):
             wTree.get_object("window1").show_all()
-            wTree.get_object("vpaned1").set_position(prefs['dimensions_pane_position'])
+            wTree.get_object("vpaned1").set_position(settings.get_int('window-pane-position'))
             app_hidden = False
 
     wTree.get_object("notebook_details").set_current_page(0)
@@ -2552,7 +2291,8 @@ try:
     gtk.main()
     gdk.threads_leave()
 
-except:
+except Exception as e:
+    print (e)
     print(sys.exc_info()[0])
     logger.write_error("Exception occured in main thread: " + str(sys.exc_info()[0]))
     logger.close()

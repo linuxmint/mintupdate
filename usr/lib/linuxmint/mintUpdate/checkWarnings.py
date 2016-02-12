@@ -2,21 +2,11 @@
 
 import sys
 import apt_pkg
-
+from gi.repository import Gio
 
 try:
-    sys.path.append('/usr/lib/linuxmint/common')
-    from configobj import ConfigObj
-    config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
-    try:
-        if (config['update']['dist_upgrade'] == "True"):
-            dist_upgrade = True
-        else:
-            dist_upgrade = False
-    except:
-        dist_upgrade = True
-
-    if dist_upgrade:
+    settings = Gio.Settings("com.linuxmint.updates")
+    if settings.get_boolean("dist-upgrade"):
         selection = sys.argv[1:]
         #print ' '.join(str(pkg) for pkg in selection)
         packages_to_install = []
@@ -53,5 +43,6 @@ try:
         installations = ' '.join(pkg.name for pkg in packages_to_install)
         removals = ' '.join(pkg.name for pkg in packages_to_remove)
         print("%s###%s" % (installations, removals))
-except:
+except Exception as e:
+    print (e)
     print(sys.exc_info()[0])

@@ -4,6 +4,8 @@ import os
 import sys
 import apt
 
+from gi.repository import Gio
+
 #def checkDependencies(changes, cache):
 #    foundSomething = False
 #    for pkg in changes:
@@ -46,16 +48,8 @@ try:
         else:
             cache.update()
 
-    sys.path.append('/usr/lib/linuxmint/common')
-    from configobj import ConfigObj
-    config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
-    try:
-        if (config['update']['dist_upgrade'] == "True"):
-            dist_upgrade = True
-        else:
-            dist_upgrade = False
-    except:
-        dist_upgrade = True
+    settings = Gio.Settings("com.linuxmint.updates")
+    dist_upgrade = settings.get_boolean("dist-upgrade")
 
     # Reopen the cache to reflect any updates
     cache.open(None)
