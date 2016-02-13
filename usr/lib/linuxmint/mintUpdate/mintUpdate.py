@@ -937,7 +937,7 @@ class RefreshThread(threading.Thread):
                         if num_visible == 0:
                             self.application.builder.get_object("notebook_status").set_current_page(TAB_UPTODATE)
                         self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
-                        logger.write("System is up to date")
+                        self.application.logger.write("System is up to date")
 
                 Gdk.threads_leave()
 
