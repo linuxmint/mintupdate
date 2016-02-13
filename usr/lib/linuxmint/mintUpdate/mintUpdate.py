@@ -1546,12 +1546,16 @@ class MintUpdate():
                 if self.builder.get_object("notebook_details").get_current_page() == 0:
                     # Description tab
                     description = package_update.description
-                    self.buffer.set_text(description)
+                    description = description.split("\\n")
+                    for line in description:
+                        self.buffer.insert(self.buffer.get_end_iter(), line)
+                        self.buffer.insert(self.buffer.get_end_iter(), "\n")
+
                     if (len(package_update.packages) > 1):
-                        dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
+                        dimmed_description = "%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
                         self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
                     elif (package_update.packages[0] != package_update.alias):
-                        dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
+                        dimmed_description = "%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
                         self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
                 else:
                     # Changelog tab
