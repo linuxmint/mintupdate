@@ -280,9 +280,10 @@ class InstallKernelThread(threading.Thread):
 
         for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-generic' % self.version, 'linux-image-%s-generic' % self.version, 'linux-image-extra-%s-generic' % self.version]:
             if self.remove:
-                f.write(b"%s\tdeinstall\n" % pkg.encode("utf-8"))
+                pkg_line = "%s\tdeinstall\n" % pkg
             else:
-                f.write(b"%s\tinstall\n" % pkg.encode("utf-8"))
+                pkg_line = "%s\tinstall\n" % pkg
+            f.write(pkg_line.encode("utf-8"))
         cmd.append("--set-selections-file")
         cmd.append("%s" % f.name)
         f.flush()
