@@ -2148,12 +2148,12 @@ class MintUpdate():
                             description_label.set_markup("%s" % description.strip())
                             description_label.set_alignment(0, 0.5);
                             if prefix == "fix":
-                                fixes_box.attach(link, 0, 1, num_fixes, num_fixes+1, xoptions=Gtk.FILL, yoptions=Gtk.FILL, xpadding=3, ypadding=0)
-                                fixes_box.attach(description_label, 1, 2, num_fixes, num_fixes+1, xoptions=Gtk.FILL, yoptions=Gtk.FILL, xpadding=0, ypadding=0)
+                                fixes_box.attach(link, 0, 1, num_fixes, num_fixes+1, xoptions=Gtk.AttachOptions.FILL, yoptions=Gtk.AttachOptions.FILL, xpadding=3, ypadding=0)
+                                fixes_box.attach(description_label, 1, 2, num_fixes, num_fixes+1, xoptions=Gtk.AttachOptions.FILL, yoptions=Gtk.AttachOptions.FILL, xpadding=0, ypadding=0)
                                 num_fixes += 1
                             elif prefix == "bug":
-                                bugs_box.attach(link, 0, 1, num_bugs, num_bugs+1, xoptions=Gtk.FILL, yoptions=Gtk.FILL, xpadding=3, ypadding=0)
-                                bugs_box.attach(description_label, 1, 2, num_bugs, num_bugs+1, xoptions=Gtk.FILL, yoptions=Gtk.FILL, xpadding=0, ypadding=0)
+                                bugs_box.attach(link, 0, 1, num_bugs, num_bugs+1, xoptions=Gtk.AttachOptions.FILL, yoptions=Gtk.AttachOptions.FILL, xpadding=3, ypadding=0)
+                                bugs_box.attach(description_label, 1, 2, num_bugs, num_bugs+1, xoptions=Gtk.AttachOptions.FILL, yoptions=Gtk.AttachOptions.FILL, xpadding=0, ypadding=0)
                                 num_bugs += 1
                     scrolled_fixes.add_with_viewport(fixes_box)
                     scrolled_regressions.add_with_viewport(bugs_box)
