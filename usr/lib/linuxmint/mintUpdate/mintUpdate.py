@@ -375,6 +375,7 @@ class InstallThread(threading.Thread):
                                     scrolledWindow.add(treeview)
                                     dialog.vbox.pack_start(label, False, False, 0)
                                     dialog.vbox.pack_start(scrolledWindow, True, True, 0)
+                                    dialog.vbox.set_border_width(6)
 
                                 if len(installations) > 0:
                                     # Installations
