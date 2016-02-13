@@ -1,12 +1,12 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import os
-import commands
+import subprocess
 import apt
 import sys
 
 try:
-    current_version = commands.getoutput("uname -r").replace("-generic", "")
+    current_version = subprocess.check_output("uname -r", shell = True).decode("utf-8").replace("-generic", "").strip()
 
     cache = apt.Cache()
 
@@ -35,10 +35,10 @@ try:
             if recommended_kernel is not None and version in recommended_kernel:
                 recommended = 1
 
-            resultString = u"KERNEL###%s###%s###%s###%s###%s###%s" % (version, pkg_version, installed, used, recommended, installable)
-            print resultString.encode('ascii', 'xmlcharrefreplace');
+            resultString = "KERNEL###%s###%s###%s###%s###%s###%s" % (version, pkg_version, installed, used, recommended, installable)
+            print(resultString.encode("utf-8").decode('ascii', 'xmlcharrefreplace'))
 
-except Exception, detail:
-    print "ERROR###ERROR###ERROR###ERROR"
-    print detail
+except:
+    print("ERROR###ERROR###ERROR###ERROR")
+    print(sys.exc_info()[0])
     sys.exit(1)

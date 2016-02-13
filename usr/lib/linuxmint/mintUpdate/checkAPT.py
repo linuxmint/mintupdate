@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import os
 import sys
 import apt
-import commands
+
+from gi.repository import Gio
 
 #def checkDependencies(changes, cache):
 #    foundSomething = False
@@ -47,16 +48,8 @@ try:
         else:
             cache.update()
 
-    sys.path.append('/usr/lib/linuxmint/common')
-    from configobj import ConfigObj
-    config = ConfigObj("/etc/linuxmint/mintUpdate.conf")
-    try:
-        if (config['update']['dist_upgrade'] == "True"):
-            dist_upgrade = True
-        else:
-            dist_upgrade = False
-    except:
-        dist_upgrade = True
+    settings = Gio.Settings("com.linuxmint.updates")
+    dist_upgrade = settings.get_boolean("dist-upgrade")
 
     # Reopen the cache to reflect any updates
     cache.open(None)
@@ -100,9 +93,9 @@ try:
                             update_type = "linuxmint"
 
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, update_origin, short_description, description)
-                print resultString.encode('ascii', 'xmlcharrefreplace')
+                print(resultString.encode('ascii', 'xmlcharrefreplace'))
 
-except Exception, detail:
-    print "CHECK_APT_ERROR---EOL---"
-    print detail
+except:
+    print("CHECK_APT_ERROR---EOL---")
+    print(sys.exc_info()[0])
     sys.exit(1)

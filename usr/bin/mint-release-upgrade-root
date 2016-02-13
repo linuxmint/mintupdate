@@ -1,11 +1,11 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
 import os, sys, gettext
 
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 if len(sys.argv) != 3:
-    print "Missing arguments!"
+    print("Missing arguments!")
     sys.exit(1)
 
 codename = sys.argv[1]

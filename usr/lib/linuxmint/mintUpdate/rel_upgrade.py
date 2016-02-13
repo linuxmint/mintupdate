@@ -1,9 +1,11 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('GdkX11', '3.0')
 from gi.repository import Gtk, GdkPixbuf, GdkX11
 import gettext
 import tempfile
-from configobj import ConfigObj
 from subprocess import Popen, PIPE
 import os, apt, time
 
@@ -46,10 +48,11 @@ class Assistant:
             if not os.path.exists(rel_path):
                 self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("No upgrades were found."))
             else:
-                self.config = ConfigObj(os.path.join(rel_path, "info"))
-                self.rel_target_name = self.config['general']['target_name']
-                self.rel_target_codename = self.config['general']['target_codename']
-                self.rel_editions = self.config['general']['editions']
+                with open(os.path.join(rel_path, "info")) as f:
+                    config = dict([line.strip().split("=") for line in f])
+                self.rel_target_name = config['target_name']
+                self.rel_target_codename = config['target_codename']
+                self.rel_editions = config['editions']
                 if self.current_edition.lower() in self.rel_editions:
                     label = Gtk.Label()
                     label.set_markup(_("A new version of Linux Mint is available!"))
