@@ -439,7 +439,9 @@ class InstallThread(threading.Thread):
                     f = tempfile.NamedTemporaryFile()
 
                     for pkg in packages:
-                        f.write(b"%s\tinstall\n" % pkg.encode("utf-8"))
+                        pkg_line = "%s\tinstall\n" % pkg
+                        f.write(pkg_line.encode("utf-8"))
+
                     cmd.append("--set-selections-file")
                     cmd.append("%s" % f.name)
                     f.flush()
