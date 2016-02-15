@@ -47,6 +47,8 @@
   <object class="GtkWindow" id="main_window">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="hexpand">False</property>
+    <property name="vexpand">False</property>
     <property name="title" translatable="yes">mintUpdate</property>
     <property name="modal">True</property>
     <property name="window_position">center</property>
@@ -60,6 +62,8 @@
           <object class="GtkNotebook" id="notebook1">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <property name="show_border">False</property>
             <child>
               <object class="GtkVBox" id="vbox4">
@@ -181,6 +185,7 @@
                   <object class="GtkTable" id="table1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="vexpand">False</property>
                     <property name="border_width">3</property>
                     <property name="n_rows">6</property>
                     <property name="n_columns">6</property>
@@ -757,7 +762,7 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -834,7 +839,7 @@
                         <property name="right_attach">2</property>
                         <property name="top_attach">2</property>
                         <property name="bottom_attach">3</property>
-                        <property name="x_options"/>
+                        <property name="x_options">GTK_EXPAND</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -852,7 +857,7 @@
                         <property name="right_attach">2</property>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
-                        <property name="x_options"/>
+                        <property name="x_options">GTK_EXPAND</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -870,7 +875,7 @@
                         <property name="right_attach">3</property>
                         <property name="top_attach">2</property>
                         <property name="bottom_attach">3</property>
-                        <property name="x_options"/>
+                        <property name="x_options">GTK_EXPAND</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -888,7 +893,7 @@
                         <property name="right_attach">3</property>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
-                        <property name="x_options"/>
+                        <property name="x_options">GTK_EXPAND</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -906,7 +911,7 @@
                         <property name="right_attach">4</property>
                         <property name="top_attach">2</property>
                         <property name="bottom_attach">3</property>
-                        <property name="x_options"/>
+                        <property name="x_options">GTK_EXPAND</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -924,7 +929,7 @@
                         <property name="right_attach">4</property>
                         <property name="top_attach">1</property>
                         <property name="bottom_attach">2</property>
-                        <property name="x_options"/>
+                        <property name="x_options">GTK_EXPAND</property>
                         <property name="y_options"/>
                       </packing>
                     </child>
@@ -991,6 +996,8 @@
                   <object class="GtkLabel" id="label82">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="hexpand">True</property>
                     <property name="xalign">0</property>
                     <property name="yalign">1.1175871339474952e-09</property>
                     <property name="label" translatable="yes">&lt;i&gt;Note: The list only gets refreshed while the mintUpdate window is closed (system tray mode).&lt;/i&gt;</property>
@@ -1020,9 +1027,8 @@
             <child>
               <object class="GtkVBox" id="vbox_main">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can_focus">True</property>
                 <property name="border_width">12</property>
-                <property name="resize_mode">queue</property>
                 <child>
                   <object class="GtkScrolledWindow" id="scrolledwindow2">
                     <property name="visible">True</property>
@@ -1050,7 +1056,7 @@
                 <child>
                   <object class="GtkToolbar" id="toolbar1">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
                     <child>
                       <object class="GtkToolItem" id="toolbutton3">
                         <property name="visible">True</property>
@@ -1125,8 +1131,8 @@
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -1208,7 +1214,7 @@
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
