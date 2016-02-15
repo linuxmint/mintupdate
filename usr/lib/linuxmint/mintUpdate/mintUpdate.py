@@ -1350,7 +1350,7 @@ class MintUpdate():
 
             descriptionsMenuItem = Gtk.CheckMenuItem(_("Show descriptions"))
             descriptionsMenuItem.set_active(self.settings.get_boolean("show-descriptions"))
-            descriptionsMenuItem.connect("toggled", self.setVisibleDescriptions, self.treeview, self.statusIcon, self.builder)
+            descriptionsMenuItem.connect("toggled", self.setVisibleDescriptions)
             viewSubmenu.append(descriptionsMenuItem)
 
             viewSubmenu.append(historyMenuItem)
