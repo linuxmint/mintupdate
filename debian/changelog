@@ -1,3 +1,24 @@
+mintupdate (5.0.1) sarah; urgency=medium
+
+  [ Gwendal Le Bihan ]
+  * Migrate to Python3 / Gtk3
+  * shebangs
+
+  [ Clement Lefebvre ]
+  * Migrate to gsettings
+  * Made icons themeable and non-configurable
+  * Use a class object in mintupdate.py
+  * Improved changelog parsing
+  * Parse carriage returns in package descriptions
+
+  [ JosephMcc ]
+  * main.ui: Add a primary-toolbar style class to the main toolbar. Gives it a proper toolbar appearance and brings back the toolbar separators
+  * preferences.ui: Use what seems to be a standard type of gtk3 layout in the blacklisted packages tab
+  * dialogs: Left align the close button in the information and history dialogs so it's consistent with other mintupdate dialogs and most other gtk dialogs. Also use consistent spacing and border widths in both dialogs
+  * preferences.ui: Tweak the layout of all the widgets so things behave properly when the window is resized
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 19 Feb 2016 11:50:34 +0000
+
 mintupdate (5.0.0) sarah; urgency=medium
 
   * Added dependency on python-pycurl
