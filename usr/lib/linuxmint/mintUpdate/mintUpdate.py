@@ -592,6 +592,15 @@ class RefreshThread(threading.Thread):
                 break
         return mint_layer_found
 
+    def check_malware(self):
+        # Check the presence of malware
+        OK = True
+        for filename in ["/etc/cron.hourly/man.sh", "/var/lib/apt-cache", "/var/lib/man", "/var/lib/man.cy"]:
+            if os.path.exists(filename):
+                OK = False
+                break
+        return OK
+
     def run(self):
         global logger
         global app_hidden
@@ -639,6 +648,36 @@ class RefreshThread(threading.Thread):
                             for alias_package in alias_packages.split(','):
                                 alias_package = alias_package.strip()
                                 aliases[alias_package] = alias_object
+
+            if not self.check_malware():
+                gtk.gdk.threads_enter()
+                label1 = _("Your computer is infected!!!")
+                label2 = _("A TSUNAMI backdoor was found on your computer, indicating you installed a hacked version of Linux Mint.")
+                label3 = _("Please go offline immediately, download Linux Mint again and completely reinstall it.")
+                infobar = gtk.InfoBar()
+                infobar.set_message_type(gtk.MESSAGE_ERROR)
+                info_label = gtk.Label()
+                infobar_message = "%s\n<small>%s</small>" % (_("Your computer is running a hacked version of Linux Mint!"), _("For more information, please visit http://blog.linuxmint.com/?p=2994."))
+                info_label.set_markup(infobar_message)
+                infobar.get_content_area().pack_start(info_label,False, False)               
+                wTree.get_widget("hbox_infobar").pack_start(infobar, True, True)
+                infobar.show_all()
+                self.statusIcon.set_from_file(icon_error)
+                self.statusIcon.set_tooltip("%s\n%s\n%s" % (label1, label2, label3))
+                self.statusIcon.set_visible(True)
+                statusbar.push(context_id, _("Malware detected!!!"))
+                logger.write("Malware detected!!!")
+                self.wTree.get_widget("notebook_status").set_current_page(TAB_ERROR)
+                self.wTree.get_widget("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
+                self.wTree.get_widget("label_error_details").show()
+                if (not app_hidden):
+                        self.wTree.get_widget("window1").window.set_cursor(None)
+                else:
+                    self.wTree.get_widget("window1").show()
+                    app_hidden = False
+                self.wTree.get_widget("window1").set_sensitive(True)
+                gtk.gdk.threads_leave()
+                return False
 
             # Check to see if no other APT process is running
             if self.root_mode:
