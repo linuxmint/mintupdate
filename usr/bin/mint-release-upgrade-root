@@ -14,7 +14,7 @@ window_id = int(sys.argv[2])
 
 tool = "/usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py"
 sentence = _("Please enter your password to perform the upgrade")
-icon = "/usr/lib/linuxmint/mintUpdate/icons/rel_upgrade.png"
+icon = "mintupdate-release-upgrade"
 
 if os.path.exists("/usr/bin/gksu"):
     launcher = "gksu  --message \"<b>%s</b>\"" % sentence

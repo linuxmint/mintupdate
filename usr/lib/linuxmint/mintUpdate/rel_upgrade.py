@@ -30,7 +30,7 @@ class Assistant:
         page = self.assistant.append_page(self.vbox_intro)
         self.assistant.set_page_type(self.vbox_intro, Gtk.AssistantPageType.INTRO)
         self.assistant.set_page_title(self.vbox_intro, _("Introduction"))
-        self.assistant.set_icon(GdkPixbuf.Pixbuf.new_from_file("/usr/lib/linuxmint/mintUpdate/icons/rel_upgrade.png"))
+        self.assistant.set_icon_name("minutupdate-release-upgrade")
 
         if not os.path.exists("/etc/linuxmint/info"):
             self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/failure.png', _("Your system is missing critical components. A package corresponding to your edition of Linux Mint should provide the virtual package 'mint-info' and the file /etc/linuxmint/info."))
