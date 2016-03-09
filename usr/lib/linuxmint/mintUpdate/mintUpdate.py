@@ -944,7 +944,7 @@ class RefreshThread(threading.Thread):
                         mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
                         if mirror_timestamp is None:
                             infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is not up to date") % mirror_url)
-                            infobar_message_type = Gtk.MESSAGE_WARNING
+                            infobar_message_type = Gtk.MessageType.WARNING
                         else:
                             mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
                             if mint_timestamp is not None:
@@ -956,7 +956,7 @@ class RefreshThread(threading.Thread):
                                     mirror_age = (mint_date - mirror_date).days
                                     if (mirror_age > 2):
                                         infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("The last update on %(mirror)s was %(days)d days ago") % {'mirror': mirror_url, 'days':(now - mirror_date).days})
-                                        infobar_message_type = Gtk.MESSAGE_WARNING
+                                        infobar_message_type = Gtk.MessageType.WARNING
                     if infobar_message is not None:
                         infobar = Gtk.InfoBar()
                         infobar.set_message_type(infobar_message_type)
