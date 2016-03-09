@@ -859,7 +859,7 @@ class RefreshThread(threading.Thread):
                         if len(shortdesc) > 100:
                             shortdesc = shortdesc[:100] + "..."
                         if (self.application.settings.get_boolean("show-descriptions")):
-                            model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<small><span foreground='#5C5C5C'>%s</span></small>" % shortdesc)
+                            model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<i><small>%s</small></i>" % shortdesc)
                         else:
                             model.set_value(iter, UPDATE_ALIAS, package_update.alias)
                         model.set_value(iter, UPDATE_LEVEL_PIX, GdkPixbuf.Pixbuf.new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(package_update.level) + ".png"))
@@ -1109,7 +1109,7 @@ class MintUpdate():
                 window_id = repr(socket.get_id())
 
             self.buffer = self.builder.get_object("textview_description").get_buffer()
-            self.buffer.create_tag("dimmed", scale=0.9, foreground="#5C5C5C", style=Pango.Style.ITALIC)
+            self.buffer.create_tag("dimmed", scale=0.9, style=Pango.Style.ITALIC)
 
             # the treeview
             cr = Gtk.CellRendererToggle()
