@@ -585,6 +585,10 @@ class RefreshThread(threading.Thread):
         vpaned_position = self.application.builder.get_object("vpaned1").get_position()
         for child in self.application.builder.get_object("hbox_infobar").get_children():
             child.destroy()
+
+        context = self.application.builder.get_object("textview_description").get_style_context()
+        insensitive_color = context.get_color(Gtk.StateFlags.INSENSITIVE)
+        insensitive_color = "#{0:02x}{1:02x}{2:02x}".format(int(insensitive_color.red  * 255), int(insensitive_color.green * 255), int(insensitive_color.blue * 255))
         Gdk.threads_leave()
         try:
             if (self.root_mode):
@@ -859,7 +863,7 @@ class RefreshThread(threading.Thread):
                         if len(shortdesc) > 100:
                             shortdesc = shortdesc[:100] + "..."
                         if (self.application.settings.get_boolean("show-descriptions")):
-                            model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<i><small>%s</small></i>" % shortdesc)
+                            model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<i><small><span foreground='%s'>%s</span></small></i>" % (insensitive_color, shortdesc))
                         else:
                             model.set_value(iter, UPDATE_ALIAS, package_update.alias)
                         model.set_value(iter, UPDATE_LEVEL_PIX, "mintupdate-level"+ str(package_update.level))
@@ -1109,7 +1113,10 @@ class MintUpdate():
                 window_id = repr(socket.get_id())
 
             self.buffer = self.builder.get_object("textview_description").get_buffer()
-            self.buffer.create_tag("dimmed", scale=0.9, style=Pango.Style.ITALIC)
+            context = self.builder.get_object("textview_description").get_style_context()
+            insensitive_color = context.get_color(Gtk.StateFlags.INSENSITIVE)
+            insensitive_color = "#{0:02x}{1:02x}{2:02x}".format(int(insensitive_color.red  * 255), int(insensitive_color.green * 255), int(insensitive_color.blue * 255)) 
+            self.buffer.create_tag("dimmed", scale=0.9, foreground="%s" % insensitive_color, style=Pango.Style.ITALIC)
 
             # the treeview
             cr = Gtk.CellRendererToggle()
