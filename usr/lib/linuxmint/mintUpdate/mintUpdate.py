@@ -605,7 +605,7 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("vpaned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
-            model = Gtk.TreeStore(str, str, GdkPixbuf.Pixbuf, str, str, str, int, str, GdkPixbuf.Pixbuf, str, str, str, object)
+            model = Gtk.TreeStore(str, str, str, str, str, str, int, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
@@ -862,13 +862,13 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<small><span foreground='#5C5C5C'>%s</span></small>" % shortdesc)
                         else:
                             model.set_value(iter, UPDATE_ALIAS, package_update.alias)
-                        model.set_value(iter, UPDATE_LEVEL_PIX, GdkPixbuf.Pixbuf.new_from_file("/usr/lib/linuxmint/mintUpdate/icons/level" + str(package_update.level) + ".png"))
+                        model.set_value(iter, UPDATE_LEVEL_PIX, "mintupdate-level"+ str(package_update.level))
                         model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)
                         model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)
                         model.set_value(iter, UPDATE_LEVEL_STR, str(package_update.level))
                         model.set_value(iter, UPDATE_SIZE, package_update.size)
                         model.set_value(iter, UPDATE_SIZE_STR, size_to_string(package_update.size))
-                        model.set_value(iter, UPDATE_TYPE_PIX, GdkPixbuf.Pixbuf.new_from_file("/usr/lib/linuxmint/mintUpdate/icons/update-type-%s.png" % package_update.type))
+                        model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s" % package_update.type)
                         model.set_value(iter, UPDATE_TYPE, package_update.type)
                         model.set_value(iter, UPDATE_TOOLTIP, package_update.tooltip)
                         model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(package_update.level), package_update.alias))
@@ -1123,7 +1123,7 @@ class MintUpdate():
             column2.set_sort_column_id(UPDATE_ALIAS)
             column2.set_resizable(True)
 
-            column3 = Gtk.TreeViewColumn(_("Level"), Gtk.CellRendererPixbuf(), pixbuf=UPDATE_LEVEL_PIX)
+            column3 = Gtk.TreeViewColumn(_("Level"), Gtk.CellRendererPixbuf(), icon_name=UPDATE_LEVEL_PIX)
             column3.set_sort_column_id(UPDATE_LEVEL_STR)
             column3.set_resizable(True)
 
@@ -1139,7 +1139,7 @@ class MintUpdate():
             column6.set_sort_column_id(UPDATE_SIZE)
             column6.set_resizable(True)
 
-            column7 = Gtk.TreeViewColumn(_("Type"), Gtk.CellRendererPixbuf(), pixbuf=UPDATE_TYPE_PIX)
+            column7 = Gtk.TreeViewColumn(_("Type"), Gtk.CellRendererPixbuf(), icon_name=UPDATE_TYPE_PIX)
             column7.set_sort_column_id(UPDATE_TYPE)
             column7.set_resizable(True)
 
@@ -1200,8 +1200,8 @@ class MintUpdate():
 
             self.builder.get_object("label_success").set_markup("<b>" + _("Your system is up to date") + "</b>")
             self.builder.get_object("label_error").set_markup("<b>" + _("Could not refresh the list of updates") + "</b>")
-            self.builder.get_object("image_success_status").set_from_file("/usr/lib/linuxmint/mintUpdate/icons/yes.png")
-            self.builder.get_object("image_error_status").set_from_file("/usr/lib/linuxmint/mintUpdate/rel_upgrades/failure.png")
+            self.builder.get_object("image_success_status").set_pixel_size(96)
+            self.builder.get_object("image_error_status").set_pixel_size(96)
 
             self.builder.get_object("vpaned1").set_position(self.settings.get_int('window-pane-position'))
 
@@ -1210,6 +1210,7 @@ class MintUpdate():
             fileMenu.set_submenu(fileSubmenu)
             closeMenuItem = Gtk.ImageMenuItem(Gtk.STOCK_CLOSE)
             closeMenuItem.set_use_stock(True)
+            closeMenuItem.set_image(Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU))
             closeMenuItem.set_label(_("Close"))
             closeMenuItem.connect("activate", self.hide_main_window)
             fileSubmenu.append(closeMenuItem)
@@ -1225,7 +1226,7 @@ class MintUpdate():
             if os.path.exists("/usr/bin/software-sources") or os.path.exists("/usr/bin/software-properties-gtk") or os.path.exists("/usr/bin/software-properties-kde"):
                 sourcesMenuItem = Gtk.ImageMenuItem(Gtk.STOCK_PREFERENCES)
                 sourcesMenuItem.set_use_stock(True)
-                sourcesMenuItem.set_image(Gtk.Image.new_from_file("/usr/lib/linuxmint/mintUpdate/icons/software-properties.png"))
+                sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("software-properties", Gtk.IconSize.MENU))
                 sourcesMenuItem.set_label(_("Software sources"))
                 sourcesMenuItem.connect("activate", self.open_repositories)
                 editSubmenu.append(sourcesMenuItem)
@@ -1249,7 +1250,7 @@ class MintUpdate():
                     rel_target = config['target_name']
                     relUpgradeMenuItem = Gtk.ImageMenuItem(Gtk.STOCK_PREFERENCES)
                     relUpgradeMenuItem.set_use_stock(True)
-                    relUpgradeMenuItem.set_image(Gtk.Image.new_from_file("/usr/lib/linuxmint/mintUpdate/icons/rel_upgrade.png"))
+                    relUpgradeMenuItem.set_image(Gtk.Image.new_from_icon_name("mintupdate-release-upgrade", Gtk.IconSize.MENU))
                     relUpgradeMenuItem.set_label(_("Upgrade to %s") % rel_target)
                     relUpgradeMenuItem.connect("activate", self.open_rel_upgrade)
                     editSubmenu.append(relUpgradeMenuItem)
