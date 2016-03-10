@@ -35,7 +35,8 @@
                   <object class="GtkToolButton" id="tool_clear">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock_id">gtk-clear</property>
+                    <property name="label" translatable="yes">Clear</property>
+                    <property name="icon_name">edit-clear-symbolic</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -46,7 +47,8 @@
                   <object class="GtkToolButton" id="tool_select_all">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock_id">gtk-select-all</property>
+                    <property name="label" translatable="yes">Select all</property>
+                    <property name="icon_name">edit-select-all-symbolic</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -67,7 +69,8 @@
                   <object class="GtkToolButton" id="tool_refresh">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="stock_id">gtk-refresh</property>
+                    <property name="label" translatable="yes">Refresh</property>
+                    <property name="icon_name">view-refresh-symbolic</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -89,7 +92,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Apply updates</property>
-                    <property name="stock_id">gtk-apply</property>
+                    <property name="icon_name">mail-replied-symbolic</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
