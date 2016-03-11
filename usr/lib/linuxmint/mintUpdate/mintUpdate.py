@@ -1732,11 +1732,25 @@ class MintUpdate():
         window = builder.get_object("main_window")
         window.set_title(_("Preferences") + " - " + _("Update Manager"))
         window.set_icon_name("mintupdate")
-        window.show()
+
+        switch_container = builder.get_object("switch_container")
+        stack = Gtk.Stack()
+        stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
+        stack.set_transition_duration(150)
+        stack_switcher = Gtk.StackSwitcher()
+        stack_switcher.set_stack(stack)
+        switch_container.pack_start(stack_switcher, True, True, 0)
+        stack_switcher.set_halign(Gtk.Align.CENTER)
+
+        page_holder = builder.get_object("page_container")
+        page_holder.add(stack)
+
+        stack.add_titled(builder.get_object("page_options"), "page_options", _("Options"))
+        stack.add_titled(builder.get_object("page_levels"), "page_levels", _("Levels"))
+        stack.add_titled(builder.get_object("page_refresh"), "page_refresh", _("Auto-refresh"))
+        stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklisted packages"))
 
         #l10n
-        builder.get_object("label37").set_text(_("Levels"))
-        builder.get_object("label36").set_text(_("Auto-Refresh"))
         builder.get_object("label39").set_markup("<b>" + _("Level") + "</b>")
         builder.get_object("label40").set_markup("<b>" + _("Description") + "</b>")
         builder.get_object("label48").set_markup("<b>" + _("Tested?") + "</b>")
@@ -1757,7 +1771,6 @@ class MintUpdate():
         builder.get_object("label_autorefresh").set_text(_("Then, refresh the list of updates every:"))
         builder.get_object("label82").set_text("<i>" + _("Note: The list only gets refreshed while the update manager window is closed (system tray mode).") + "</i>")
         builder.get_object("label82").set_use_markup(True)
-        builder.get_object("label83").set_text(_("Options"))
         builder.get_object("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation of new packages or the removal of installed packages"))
         builder.get_object("checkbutton_hide_window_after_update").set_label(_("Hide the update manager after applying updates"))
         builder.get_object("checkbutton_hide_systray").set_label(_("Only show a tray icon when updates are available or in case of errors"))
@@ -1767,6 +1780,8 @@ class MintUpdate():
         builder.get_object("label_minutes").set_text(_("minutes"))
         builder.get_object("label_hours").set_text(_("hours"))
         builder.get_object("label_days").set_text(_("days"))
+        builder.get_object("pref_button_cancel").set_label(_("Cancel"))
+        builder.get_object("pref_button_apply").set_label(_("Apply"))
 
         builder.get_object("visible1").set_active(self.settings.get_boolean("level1-is-visible"))
         builder.get_object("visible2").set_active(self.settings.get_boolean("level2-is-visible"))
@@ -1826,6 +1841,8 @@ class MintUpdate():
         builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
         builder.get_object("button_add").set_always_show_image(True)
         builder.get_object("button_remove").set_always_show_image(True)
+
+        window.show_all()
 
     def save_preferences(self, widget, builder):
         self.settings.set_boolean('hide-window-after-update', builder.get_object("checkbutton_hide_window_after_update").get_active())
