@@ -582,7 +582,7 @@ class RefreshThread(threading.Thread):
 
     def run(self):
         Gdk.threads_enter()
-        vpaned_position = self.application.builder.get_object("vpaned1").get_position()
+        vpaned_position = self.application.builder.get_object("paned1").get_position()
         for child in self.application.builder.get_object("hbox_infobar").get_children():
             child.destroy()
 
@@ -597,7 +597,7 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write("Starting refresh")
             Gdk.threads_enter()
             self.application.set_status_message(_("Starting refresh..."))
-            self.application.builder.get_object("notebook_status").set_current_page(TAB_UPDATES)
+            self.application.stack.set_visible_child_name("updates_available")
             if (not self.application.app_hidden):
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.application.window.set_sensitive(False)
@@ -606,7 +606,7 @@ class RefreshThread(threading.Thread):
             self.application.statusIcon.set_from_icon_name("mintupdate-checking")
             self.application.statusIcon.set_tooltip_text(_("Checking for updates"))
             self.application.statusIcon.set_visible(not self.application.settings.get_boolean("hide-systray"))
-            self.application.builder.get_object("vpaned1").set_position(vpaned_position)
+            self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
             model = Gtk.TreeStore(str, str, str, str, str, str, int, str, str, str, str, str, object)
@@ -649,7 +649,7 @@ class RefreshThread(threading.Thread):
 
             Gdk.threads_enter()
             self.application.set_status_message(_("Finding the list of updates..."))
-            self.application.builder.get_object("vpaned1").set_position(vpaned_position)
+            self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
             if self.application.app_hidden:
                 refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py 2>/dev/null"
@@ -677,7 +677,7 @@ class RefreshThread(threading.Thread):
                     infobar.show_all()
                     self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s\n%s" % (label1, label2, label3), "mintupdate-error", True)
                     self.application.logger.write("Error: The APT policy is incorrect!")
-                    self.application.builder.get_object("notebook_status").set_current_page(TAB_ERROR)
+                    self.application.stack.set_visible_child_name("status_error")
                     self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
                     self.application.builder.get_object("label_error_details").show()
                     if (not self.application.app_hidden):
@@ -705,7 +705,7 @@ class RefreshThread(threading.Thread):
 
             if (len(updates) == None):
                 Gdk.threads_enter()
-                self.application.builder.get_object("notebook_status").set_current_page(TAB_UPTODATE)
+                self.application.stack.set_visible_child_name("status_updated")
                 self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
                 self.application.logger.write("System is up to date")
                 Gdk.threads_leave()
@@ -719,7 +719,7 @@ class RefreshThread(threading.Thread):
                         Gdk.threads_enter()
                         self.application.set_status(_("Could not refresh the list of updates"), "%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg), "mintupdate-error", True)
                         self.application.logger.write("Error in checkAPT.py, could not refresh the list of updates")
-                        self.application.builder.get_object("notebook_status").set_current_page(TAB_ERROR)
+                        self.application.stack.set_visible_child_name("status_error")
                         self.application.builder.get_object("label_error_details").set_markup("<b>%s</b>" % error_msg)
                         self.application.builder.get_object("label_error_details").show()
                         if (not self.application.app_hidden):
@@ -904,7 +904,7 @@ class RefreshThread(threading.Thread):
                         self.application.logger.write("Found " + str(num_safe) + " recommended software updates")
                     else:
                         if num_visible == 0:
-                            self.application.builder.get_object("notebook_status").set_current_page(TAB_UPTODATE)
+                            self.application.stack.set_visible_child_name("status_updated")
                         self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
                         self.application.logger.write("System is up to date")
 
@@ -920,7 +920,7 @@ class RefreshThread(threading.Thread):
             self.application.treeview.set_model(model)
             del model
             self.application.window.set_sensitive(True)
-            self.application.builder.get_object("vpaned1").set_position(vpaned_position)
+            self.application.builder.get_object("paned1").set_position(vpaned_position)
 
             try:
                 sources_path = "/etc/apt/sources.list.d/official-package-repositories.list"
@@ -987,7 +987,7 @@ class RefreshThread(threading.Thread):
             if (not self.application.app_hidden):
                 self.application.window.get_window().set_cursor(None)
             self.application.window.set_sensitive(True)
-            self.application.builder.get_object("vpaned1").set_position(vpaned_position)
+            self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
     def _on_infobar_response(self, infobar, response_id):
@@ -1091,11 +1091,15 @@ class MintUpdate():
         self.context_id = self.statusbar.get_context_id("mintUpdate")
         self.window = self.builder.get_object("main_window")
         self.treeview = self.builder.get_object("treeview_update")
+        self.stack = Gtk.Stack()
+        self.builder.get_object("stack_container").pack_start(self.stack, True, True, 0)
+        self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+        self.stack.set_transition_duration(175)
 
         try:
             self.window.set_title(_("Update Manager"))
             self.window.set_default_size(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
-            self.builder.get_object("vpaned1").set_position(self.settings.get_int('window-pane-position'))
+            self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
             vbox = self.builder.get_object("vbox_main")
             self.window.set_icon_name("mintupdate")
@@ -1117,6 +1121,15 @@ class MintUpdate():
             insensitive_color = context.get_color(Gtk.StateFlags.INSENSITIVE)
             insensitive_color = "#{0:02x}{1:02x}{2:02x}".format(int(insensitive_color.red  * 255), int(insensitive_color.green * 255), int(insensitive_color.blue * 255)) 
             self.buffer.create_tag("dimmed", scale=0.9, foreground="%s" % insensitive_color, style=Pango.Style.ITALIC)
+
+            # Configure page
+            configure_page = self.builder.get_object("configure_page")
+            self.stack.add_named(configure_page, "configure")
+            self.builder.get_object("button_configure_finish").connect("clicked", self.on_configure_finished)
+
+            # Updates page
+            updates_page = self.builder.get_object("updates_page")
+            self.stack.add_named(updates_page, "updates_available")
 
             # the treeview
             cr = Gtk.CellRendererToggle()
@@ -1210,7 +1223,7 @@ class MintUpdate():
             self.builder.get_object("image_success_status").set_pixel_size(96)
             self.builder.get_object("image_error_status").set_pixel_size(96)
 
-            self.builder.get_object("vpaned1").set_position(self.settings.get_int('window-pane-position'))
+            self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
@@ -1353,6 +1366,11 @@ class MintUpdate():
             aboutMenuItem.set_label(_("About"))
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
+            configMenuItem = Gtk.ImageMenuItem()
+            configMenuItem.set_image(Gtk.Image.new_from_icon_name("system-run", Gtk.IconSize.MENU))
+            configMenuItem.set_label(_("Initial setup"))
+            configMenuItem.connect("activate", self.show_configuration)
+            helpSubmenu.append(configMenuItem)
 
             self.builder.get_object("menubar1").append(fileMenu)
             self.builder.get_object("menubar1").append(editMenu)
@@ -1363,13 +1381,28 @@ class MintUpdate():
                 showWindow = sys.argv[1]
                 if (showWindow == "show"):
                     self.window.show_all()
-                    self.builder.get_object("vpaned1").set_position(self.settings.get_int('window-pane-position'))
+                    self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
                     self.app_hidden = False
 
-            self.builder.get_object("notebook_details").set_current_page(0)
+            # Status pages
+            status_updated_page = self.builder.get_object("status_updated")
+            self.stack.add_named(status_updated_page, "status_updated")
 
-            refresh = RefreshThread(self)
-            refresh.start()
+            status_error_page = self.builder.get_object("status_error")
+            self.stack.add_named(status_error_page, "status_error")
+
+            self.stack.show_all()
+            if self.settings.get_boolean("show-configuration"):
+                self.stack.set_visible_child_name("configure")
+                self.set_status_message(_("Initial setup"))
+                self.builder.get_object("toolbar1").set_sensitive(False)
+                self.builder.get_object("menubar1").set_sensitive(False)
+            else:
+                self.stack.set_visible_child_name("updates_available")
+                refresh = RefreshThread(self)
+                refresh.start()
+
+            self.builder.get_object("notebook_details").set_current_page(0)
 
             auto_refresh = AutomaticRefreshThread(self)
             auto_refresh.start()
@@ -1412,7 +1445,7 @@ class MintUpdate():
     def save_window_size(self):
         self.settings.set_int('window-width', self.window.get_size()[0])
         self.settings.set_int('window-height', self.window.get_size()[1])
-        self.settings.set_int('window-pane-position', self.builder.get_object("vpaned1").get_position())
+        self.settings.set_int('window-pane-position', self.builder.get_object("paned1").get_position())
 
 ######### MENU/TOOLBAR FUNCTIONS ################
 
@@ -1468,6 +1501,20 @@ class MintUpdate():
         install = InstallThread(self)
         install.start()
 
+######### CONFIGURE PAGE FUNCTIONS #######
+
+    def on_configure_finished(self, button):
+        self.settings.set_boolean("show-configuration", False)
+        self.builder.get_object("toolbar1").set_sensitive(True)
+        self.builder.get_object("menubar1").set_sensitive(True)
+        refresh = RefreshThread(self, root_mode=True)
+        refresh.start()
+
+    def show_configuration(self, widget):
+        self.stack.set_visible_child_name("configure")
+        self.set_status_message(_("Initial setup"))
+        self.builder.get_object("toolbar1").set_sensitive(False)
+        self.builder.get_object("menubar1").set_sensitive(False)
 
 ######### TREEVIEW/SELECTION FUNCTIONS #######
 
