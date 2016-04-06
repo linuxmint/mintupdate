@@ -609,7 +609,7 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
-            model = Gtk.TreeStore(str, str, str, str, str, str, int, str, str, str, str, str, object)
+            model = Gtk.TreeStore(str, str, GdkPixbuf.Pixbuf, str, str, str, int, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
@@ -866,7 +866,11 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<i><small><span foreground='%s'>%s</span></small></i>" % (insensitive_color, shortdesc))
                         else:
                             model.set_value(iter, UPDATE_ALIAS, package_update.alias)
-                        model.set_value(iter, UPDATE_LEVEL_PIX, "mintupdate-level"+ str(package_update.level))
+
+                        theme = Gtk.IconTheme.get_default()
+                        pixbuf = theme.load_icon("mintupdate-level" + str(package_update.level), 22, 0)
+                        
+                        model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
                         model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)
                         model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)
                         model.set_value(iter, UPDATE_LEVEL_STR, str(package_update.level))
@@ -1143,7 +1147,7 @@ class MintUpdate():
             column2.set_sort_column_id(UPDATE_ALIAS)
             column2.set_resizable(True)
 
-            column3 = Gtk.TreeViewColumn(_("Level"), Gtk.CellRendererPixbuf(), icon_name=UPDATE_LEVEL_PIX)
+            column3 = Gtk.TreeViewColumn(_("Level"), Gtk.CellRendererPixbuf(), pixbuf=UPDATE_LEVEL_PIX)
             column3.set_sort_column_id(UPDATE_LEVEL_STR)
             column3.set_resizable(True)
 
