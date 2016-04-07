@@ -1111,15 +1111,6 @@ class MintUpdate():
             accel_group = Gtk.AccelGroup()
             self.window.add_accel_group(accel_group)
 
-            # Get the window socket (needed for synaptic later on)
-
-            if os.getuid() != 0 :
-                # If we're not in root mode do that (don't know why it's needed.. very weird)
-                socket = Gtk.Socket()
-                vbox.pack_start(socket, False, False, 0)
-                socket.show()
-                window_id = repr(socket.get_id())
-
             self.buffer = self.builder.get_object("textview_description").get_buffer()
             context = self.builder.get_object("textview_description").get_style_context()
             insensitive_color = context.get_color(Gtk.StateFlags.INSENSITIVE)
