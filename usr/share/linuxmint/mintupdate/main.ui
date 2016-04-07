@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.1 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkBox" id="configure_page">
@@ -415,6 +415,7 @@
               <object class="GtkScrolledWindow" id="scrolledwindow2">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="border_width">2</property>
                 <child>
                   <object class="GtkTextView" id="textview_description">
                     <property name="visible">True</property>
@@ -445,6 +446,7 @@
               <object class="GtkScrolledWindow" id="scrolledwindow_changes">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="border_width">2</property>
                 <child>
                   <object class="GtkTextView" id="textview_changes">
                     <property name="visible">True</property>
