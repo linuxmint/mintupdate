@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" type="guide" id="security-policy">
+
+   <info>
+    <link type="guide" xref="index"/>
+    <credit type="author">
+      <name>Линукс Минт</name>
+      <email>root@linuxmint.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+  </info>
+
+  <title>Choosing a security policy</title>
+
+  <p>New updates patch known security holes and fix known bugs, but they can also introduce new issues called 'regressions'.</p>
+
+  <p>Attacks exploiting vulnerabilities in your operating system can have devastating effects but they are very rare. They're much more common online, against websites or bad online passwords and practices.</p>
+
+  <p>Regressions are very common but the issues they introduce are usually quickly fixed by new updates and they rarely break critical parts of the operating system.</p>
+
+  <p>The following criteria should be considered to choose the best security policy for this computer:</p>
+
+    <list>
+      <item>
+        <p>Who can access this computer (either directly or from the network) and would they attack it? Are there other local users? Who else is connected on this network?</p>
+      </item>
+      <item>
+        <p>Are you experienced enough with Linux to fix this computer if a regression makes it unable to reboot, or if you can no longer log in, or connect to the Internet?</p>
+      </item>
+    </list>
+
+  <note><p>When you choose a security policy, some of the preferences are changed in the Update Manager. You can tune these preferences individually by clicking on the Edit-&gt;Preferences menu in the menubar.</p></note>
+
+</page>

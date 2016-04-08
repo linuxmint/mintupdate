@@ -6,6 +6,7 @@ PATH = "/usr/share/linuxmint/locale"
 import os, gettext, sys
 sys.path.append('/usr/lib/linuxmint/common')
 import additionalfiles
+import subprocess
 
 os.environ['LANG'] = "en_US.UTF-8"
 gettext.install(DOMAIN, PATH)
@@ -35,3 +36,19 @@ OnlyShowIn=KDE;
 """
 
 additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate-kde.desktop", prefix, _("Update Manager"), _("Show and install available updates"), suffix, genericName=_("Show and install available updates"))
+
+locales = []
+cur_dir = os.getcwd()
+os.chdir("/usr/share/linuxmint/locale")
+lines = subprocess.getoutput("find */LC_MESSAGES/mintupdate.mo")
+for line in lines.split("\n"):
+    line = line.strip().split("/")[0]
+    locales.append(line)
+os.chdir(cur_dir)
+
+for locale in locales:
+    os.system("mkdir -p usr/share/help/%s/mintupdate/" % locale)
+    os.system("msgunfmt /usr/share/linuxmint/locale/%s/LC_MESSAGES/mintupdate.mo > /tmp/%s.po" % (locale, locale))
+    os.system("xml2po -p /tmp/%s.po -o usr/share/help/%s/mintupdate/index.page usr/share/help/C/mintupdate/index.page" % (locale, locale))
+    os.system("xml2po -p /tmp/%s.po -o usr/share/help/%s/mintupdate/policy.page usr/share/help/C/mintupdate/policy.page" % (locale, locale))
+    os.system("cp usr/share/help/C/mintupdate/legal.xml usr/share/help/%s/mintupdate/" % locale)

@@ -1121,6 +1121,7 @@ class MintUpdate():
             configure_page = self.builder.get_object("configure_page")
             self.stack.add_named(configure_page, "configure")
             self.builder.get_object("button_configure_finish").connect("clicked", self.on_configure_finished)
+            self.builder.get_object("button_configure_help").connect("clicked", self.on_configure_help)
 
             # Updates page
             updates_page = self.builder.get_object("updates_page")
@@ -1218,6 +1219,20 @@ class MintUpdate():
             self.builder.get_object("image_success_status").set_pixel_size(96)
             self.builder.get_object("image_error_status").set_pixel_size(96)
 
+            #l10n for security policy page
+            self.builder.get_object("label_welcome1").set_markup("<big><b>%s</b></big>" % _("Welcome to the Update Manager"))
+            self.builder.get_object("label_welcome2").set_markup("%s" % _("This tool provides your operating system with software and security updates."))
+            self.builder.get_object("label_welcome3").set_markup("%s" % _("Please choose a security policy."))
+            self.builder.get_object("label_policy1_1").set_markup("<b>%s</b>" % _("If it ain't broke don't fix it!"))
+            self.builder.get_object("label_policy1_2").set_markup("<small>%s</small>" % _("Recommended for novice users."))
+            self.builder.get_object("label_policy1_3").set_markup("<small>    %s</small>" % _("Retrieve all available updates (including software, security and kernel updates)."))
+            self.builder.get_object("label_policy2_1").set_markup("<b>%s</b>" % _("Stability vs security"))
+            self.builder.get_object("label_policy2_2").set_markup("<small>%s</small>" % _("Recommended for most users."))
+            self.builder.get_object("label_policy2_3").set_markup("<small>    %s</small>\n<small>    %s</small>" % (_("Retrieve all security updates."), _("Only retrieve software updates which do not impact critical parts of the operating system.")))
+            self.builder.get_object("label_policy3_1").set_markup("<b>%s</b>" % _("Security comes first!"))
+            self.builder.get_object("label_policy3_2").set_markup("<small>%s</small>" % _("For experienced users, public computers or servers."))
+            self.builder.get_object("label_policy3_3").set_markup("<small>    %s</small>" % _("Retrieve all available updates (including software, security and kernel updates)."))
+
             self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
@@ -1245,6 +1260,11 @@ class MintUpdate():
                 sourcesMenuItem.set_label(_("Software sources"))
                 sourcesMenuItem.connect("activate", self.open_repositories)
                 editSubmenu.append(sourcesMenuItem)
+            configMenuItem = Gtk.ImageMenuItem()
+            configMenuItem.set_image(Gtk.Image.new_from_icon_name("security-medium", Gtk.IconSize.MENU))
+            configMenuItem.set_label(_("Security policy"))
+            configMenuItem.connect("activate", self.show_configuration)
+            editSubmenu.append(configMenuItem)
 
             rel_edition = 'unknown'
             rel_codename = 'unknown'
@@ -1361,11 +1381,6 @@ class MintUpdate():
             aboutMenuItem.set_label(_("About"))
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
-            configMenuItem = Gtk.ImageMenuItem()
-            configMenuItem.set_image(Gtk.Image.new_from_icon_name("system-run", Gtk.IconSize.MENU))
-            configMenuItem.set_label(_("Initial setup"))
-            configMenuItem.connect("activate", self.show_configuration)
-            helpSubmenu.append(configMenuItem)
 
             self.builder.get_object("menubar1").append(fileMenu)
             self.builder.get_object("menubar1").append(editMenu)
@@ -1388,10 +1403,7 @@ class MintUpdate():
 
             self.stack.show_all()
             if self.settings.get_boolean("show-configuration"):
-                self.stack.set_visible_child_name("configure")
-                self.set_status_message(_("Initial setup"))
-                self.builder.get_object("toolbar1").set_sensitive(False)
-                self.builder.get_object("menubar1").set_sensitive(False)
+                self.show_configuration()
             else:
                 self.stack.set_visible_child_name("updates_available")
                 refresh = RefreshThread(self)
@@ -1502,12 +1514,15 @@ class MintUpdate():
         self.settings.set_boolean("show-configuration", False)
         self.builder.get_object("toolbar1").set_sensitive(True)
         self.builder.get_object("menubar1").set_sensitive(True)
-        refresh = RefreshThread(self, root_mode=True)
+        refresh = RefreshThread(self)
         refresh.start()
 
-    def show_configuration(self, widget):
+    def on_configure_help(self, button):
+        os.system("yelp help:mintupdate/security-policy &")
+
+    def show_configuration(self, widget=None):
         self.stack.set_visible_child_name("configure")
-        self.set_status_message(_("Initial setup"))
+        self.set_status_message("")
         self.builder.get_object("toolbar1").set_sensitive(False)
         self.builder.get_object("menubar1").set_sensitive(False)
 
@@ -1823,7 +1838,7 @@ class MintUpdate():
         builder.get_object("label_hours").set_text(_("hours"))
         builder.get_object("label_days").set_text(_("days"))
         builder.get_object("pref_button_cancel").set_label(_("Cancel"))
-        builder.get_object("pref_button_apply").set_label(_("Apply"))
+        builder.get_object("pref_button_apply").set_label(_("Apply"))        
 
         builder.get_object("visible1").set_active(self.settings.get_boolean("level1-is-visible"))
         builder.get_object("visible2").set_active(self.settings.get_boolean("level2-is-visible"))
