@@ -1586,8 +1586,8 @@ class MintUpdate():
             policy = "radiobutton_policy_3"
         self.builder.get_object(policy).set_active(True)
         self.stack.set_visible_child_name("configure")
-        self.set_status_message("")
         self.set_status(_("Please choose a security policy."), _("Please choose a security policy."), "mintupdate-updates-available", True)
+        self.set_status_message("")
         self.builder.get_object("toolbar1").set_sensitive(False)
         self.builder.get_object("menubar1").set_sensitive(False)    
 
