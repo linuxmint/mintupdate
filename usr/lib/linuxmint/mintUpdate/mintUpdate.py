@@ -1518,6 +1518,53 @@ class MintUpdate():
 
     def on_configure_finished(self, button):
         self.settings.set_boolean("show-configuration", False)
+
+        if (self.builder.get_object("radiobutton_policy_1").get_active()):
+            self.settings.set_boolean("level1-is-visible", True)
+            self.settings.set_boolean("level2-is-visible", True)
+            self.settings.set_boolean("level3-is-visible", True)
+            self.settings.set_boolean("level4-is-visible", False)
+            self.settings.set_boolean("level5-is-visible", False)
+            self.settings.set_boolean("security-updates-are-visible", False)
+            self.settings.set_boolean("kernel-updates-are-visible", False)
+            self.settings.set_boolean("level1-is-safe", True)
+            self.settings.set_boolean("level2-is-safe", True)
+            self.settings.set_boolean("level3-is-safe", True)
+            self.settings.set_boolean("level4-is-safe", False)
+            self.settings.set_boolean("level5-is-safe", False)
+            self.settings.set_boolean("security-updates-are-safe", False)
+            self.settings.set_boolean("kernel-updates-are-safe", False)
+        elif (self.builder.get_object("radiobutton_policy_2").get_active()):
+            self.settings.set_boolean("level1-is-visible", True)
+            self.settings.set_boolean("level2-is-visible", True)
+            self.settings.set_boolean("level3-is-visible", True)
+            self.settings.set_boolean("level4-is-visible", False)
+            self.settings.set_boolean("level5-is-visible", False)
+            self.settings.set_boolean("security-updates-are-visible", True)
+            self.settings.set_boolean("kernel-updates-are-visible", True)
+            self.settings.set_boolean("level1-is-safe", True)
+            self.settings.set_boolean("level2-is-safe", True)
+            self.settings.set_boolean("level3-is-safe", True)
+            self.settings.set_boolean("level4-is-safe", False)
+            self.settings.set_boolean("level5-is-safe", False)
+            self.settings.set_boolean("security-updates-are-safe", False)
+            self.settings.set_boolean("kernel-updates-are-safe", False)
+        elif (self.builder.get_object("radiobutton_policy_3").get_active()):
+            self.settings.set_boolean("level1-is-visible", True)
+            self.settings.set_boolean("level2-is-visible", True)
+            self.settings.set_boolean("level3-is-visible", True)
+            self.settings.set_boolean("level4-is-visible", True)
+            self.settings.set_boolean("level5-is-visible", True)
+            self.settings.set_boolean("security-updates-are-visible", True)
+            self.settings.set_boolean("kernel-updates-are-visible", True)
+            self.settings.set_boolean("level1-is-safe", True)
+            self.settings.set_boolean("level2-is-safe", True)
+            self.settings.set_boolean("level3-is-safe", True)
+            self.settings.set_boolean("level4-is-safe", True)
+            self.settings.set_boolean("level5-is-safe", True)
+            self.settings.set_boolean("security-updates-are-safe", True)
+            self.settings.set_boolean("kernel-updates-are-safe", True)
+                    
         self.builder.get_object("toolbar1").set_sensitive(True)
         self.builder.get_object("menubar1").set_sensitive(True)
         self.updates_inhibited = False
@@ -1529,11 +1576,17 @@ class MintUpdate():
 
     def show_configuration(self, widget=None):
         self.updates_inhibited = True
+        policy = "radiobutton_policy_1"
+        if (self.settings.get_boolean("security-updates-are-visible")):
+            policy = "radiobutton_policy_2"
+        if (self.settings.get_boolean("level5-is-safe")):
+            policy = "radiobutton_policy_3"
+        self.builder.get_object(policy).set_active(True)
         self.stack.set_visible_child_name("configure")
         self.set_status_message("")
         self.set_status(_("Please choose a security policy."), _("Please choose a security policy."), "mintupdate-updates-available", True)
         self.builder.get_object("toolbar1").set_sensitive(False)
-        self.builder.get_object("menubar1").set_sensitive(False)
+        self.builder.get_object("menubar1").set_sensitive(False)    
 
 ######### TREEVIEW/SELECTION FUNCTIONS #######
 
