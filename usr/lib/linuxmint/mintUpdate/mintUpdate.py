@@ -581,6 +581,11 @@ class RefreshThread(threading.Thread):
         return mint_layer_found
 
     def run(self):
+
+        if self.application.updates_inhibited:
+            self.application.logger.write("Updates are inhibited, skipping refresh.")
+            return False
+
         Gdk.threads_enter()
         vpaned_position = self.application.builder.get_object("paned1").get_position()
         for child in self.application.builder.get_object("hbox_infobar").get_children():
@@ -1079,6 +1084,7 @@ class MintUpdate():
     def __init__(self):
         Gdk.threads_init()
         self.app_hidden = True
+        self.updates_inhibited = False
         self.logger = Logger()
         self.logger.write("Launching mintUpdate")
         self.settings = Gio.Settings("com.linuxmint.updates")
@@ -1514,6 +1520,7 @@ class MintUpdate():
         self.settings.set_boolean("show-configuration", False)
         self.builder.get_object("toolbar1").set_sensitive(True)
         self.builder.get_object("menubar1").set_sensitive(True)
+        self.updates_inhibited = False
         refresh = RefreshThread(self)
         refresh.start()
 
@@ -1521,8 +1528,10 @@ class MintUpdate():
         os.system("yelp help:mintupdate/security-policy &")
 
     def show_configuration(self, widget=None):
+        self.updates_inhibited = True
         self.stack.set_visible_child_name("configure")
         self.set_status_message("")
+        self.set_status(_("Please choose a security policy."), _("Please choose a security policy."), "mintupdate-updates-available", True)
         self.builder.get_object("toolbar1").set_sensitive(False)
         self.builder.get_object("menubar1").set_sensitive(False)
 
