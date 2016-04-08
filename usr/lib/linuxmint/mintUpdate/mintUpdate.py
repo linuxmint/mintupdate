@@ -734,6 +734,7 @@ class RefreshThread(threading.Thread):
                         return False
 
                     values = pkg.split("###")
+
                     if len(values) == 10:
                         status = values[0]
                         package = values[1]
@@ -764,10 +765,10 @@ class RefreshThread(threading.Thread):
                                 update_type = "package"
                                 is_a_mint_package = True
 
-                            security_update = (update_type == "security")
-
                             if update_type == "security":
                                 tooltip = _("Security update")
+                            if update_type == "kernel":                            
+                                tooltip = _("Kernel update")
                             elif update_type == "backport":
                                 tooltip = _("Software backport. Be careful when upgrading. New versions of sofware can introduce regressions.")
                             elif update_type == "unstable":
@@ -847,15 +848,19 @@ class RefreshThread(threading.Thread):
                         package_update.short_description = self.clean_l10n_short_description(package_update.short_description)
                         package_update.description = self.clean_l10n_description(package_update.description)
 
-                    security_update = (package_update.type == "security")
+                    if package_update.type == "security":
+                        visible = self.application.settings.get_boolean('security-updates-are-visible')
+                        safe = self.application.settings.get_boolean('security-updates-are-safe')
+                    elif package_update.type == "kernel":
+                        visible = self.application.settings.get_boolean('kernel-updates-are-visible')
+                        safe = self.application.settings.get_boolean('kernel-updates-are-safe')
+                    else:
+                        visible = self.application.settings.get_boolean('level%s-is-visible' % str(package_update.level))
+                        safe = self.application.settings.get_boolean('level%s-is-safe' % str(package_update.level))
 
-                    if ((self.application.settings.get_boolean("level" + str(package_update.level) + "-is-visible")) or (security_update and self.application.settings.get_boolean('security-updates-are-visible'))):
+                    if visible:
                         iter = model.insert_before(None, None)
-                        if (security_update and self.application.settings.get_boolean('security-updates-are-safe')):
-                            model.set_value(iter, UPDATE_CHECKED, "true")
-                            num_safe = num_safe + 1
-                            download_size = download_size + package_update.size
-                        elif (self.application.settings.get_boolean("level" + str(package_update.level) + "-is-safe")):
+                        if safe:
                             model.set_value(iter, UPDATE_CHECKED, "true")
                             num_safe = num_safe + 1
                             download_size = download_size + package_update.size

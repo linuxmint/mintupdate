@@ -6,27 +6,6 @@ import apt
 
 from gi.repository import Gio
 
-#def checkDependencies(changes, cache):
-#    foundSomething = False
-#    for pkg in changes:
-#        for dep in pkg.candidateDependencies:
-#            for o in dep.or_dependencies:
-#                try:
-#                    if cache[o.name].isUpgradable:
-#                        pkgFound = False
-#                        for pkg2 in changes:
-#                            if o.name == pkg2.name:
-#                                pkgFound = True
-#                        if pkgFound == False:
-#                            newPkg = cache[o.name]
-#                            changes.append(newPkg)
-#                            foundSomething = True
-#                except Exception, detail:
-#                    pass # don't know why we get these..
-#    if (foundSomething):
-#        changes = checkDependencies(changes, cache)
-#    return changes
-
 try:
     cache = apt.Cache()
 
@@ -50,14 +29,12 @@ try:
 
     settings = Gio.Settings("com.linuxmint.updates")
     dist_upgrade = settings.get_boolean("dist-upgrade")
+    kernel_updates = settings.get_boolean("kernel-updates-are-visible")
 
     # Reopen the cache to reflect any updates
     cache.open(None)
     cache.upgrade(dist_upgrade)
     changes = cache.get_changes()
-
-    # Add dependencies
-    #changes = checkDependencies(changes, cache)
 
     for pkg in changes:
         if (pkg.is_installed and pkg.marked_upgrade):
@@ -95,7 +72,21 @@ try:
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, update_origin, short_description, description)
                 print(resultString.encode('ascii', 'xmlcharrefreplace'))
 
-except:
+    if kernel_updates:        
+        if 'linux-image-generic' in cache:
+            versions = cache['linux-image-generic'].candidate.version.split(".")
+            if len(versions) > 3:
+                version = "%s.%s.%s-%s" % (versions[0], versions[1], versions[2], versions[3])
+                for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                    pkgname = pkgname.replace('VERSION', version)
+                    if pkgname in cache:
+                        pkg = cache[pkgname]
+                        if not pkg.is_installed:
+                            resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (pkgname, pkg.candidate.version, "", pkg.candidate.size, "linux-kernel", "kernel", "ubuntu", pkg.candidate.raw_description, pkg.candidate.description)
+                            print(resultString.encode('ascii', 'xmlcharrefreplace'))
+
+except Exception as error:
     print("CHECK_APT_ERROR---EOL---")
     print(sys.exc_info()[0])
+    print(error)
     sys.exit(1)
