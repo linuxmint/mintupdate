@@ -39,8 +39,6 @@ libc.prctl(15, byref(buff), 0, 0, 0)
 # i18n
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
-KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
-
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
 
 package_short_descriptions = {}

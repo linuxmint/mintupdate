@@ -92,7 +92,7 @@ class SidebarSwitcher(Gtk.Bin):
         self.stack = stack
 
 class KernelRow(Gtk.ListBoxRow):
-    def __init__(self, version, text, installed, used, recommended, installable, has_fixes, has_regressions, window, application):
+    def __init__(self, version, pkg_version, text, installed, used, recommended, installable, window, application):
         Gtk.ListBoxRow.__init__(self)
 
         self.application = application
@@ -143,57 +143,21 @@ class KernelRow(Gtk.ListBoxRow):
         hidden_box.set_margin_bottom(6)
         self.revealer.add(hidden_box)
 
-        if has_fixes or has_regressions:
-            if has_fixes:
-                image = Gtk.Image.new_from_icon_name('emblem-default-symbolic', Gtk.IconSize.MENU)
-                image.set_sensitive(False)
-                image.set_tooltip_text(_("Has known fixes"))
-                info_box.pack_start(image, False, False, 0)
-                fixes_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-                fixes_box.set_margin_bottom(6)
-                fixes_header = Gtk.Label()
-                fixes_header.set_markup("<b>%s</b>" % _("Fixes"))
-                fixes_box.pack_start(fixes_header, True, True, 0)
-                hidden_box.pack_start(fixes_box, True, True, 0)
-
-            if has_regressions:
-                image = Gtk.Image.new_from_icon_name('edit-delete-symbolic', Gtk.IconSize.MENU)
-                image.set_sensitive(False)
-                image.set_tooltip_text(_("Has known regressions"))
-                info_box.pack_start(image, False, False, 0)
-                regressions_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-                regressions_box.set_margin_bottom(6)
-                regressions_header = Gtk.Label()
-                regressions_header.set_markup("<b>%s</b>" % _("Known issues"))
-                regressions_box.pack_start(regressions_header, True, True, 0)
-                hidden_box.pack_start(regressions_box, True, True, 0)
-
-            if os.path.exists(os.path.join(KERNEL_INFO_DIR, version)):
-                kernel_file = open(os.path.join(KERNEL_INFO_DIR, version))
-                lines = kernel_file.readlines()
-                for line in lines:
-                    elements = line.split("---")
-                    if len(elements) == 4:
-                        (prefix, title, url, description) = elements
-                        link = Gtk.Label()
-                        link.set_markup("<a href='%s'>%s</a>" % (url.strip(), title.strip()))
-                        link.set_line_wrap(True)
-                        description_label = Gtk.Label()
-                        description = description.strip()
-                        description = re.sub(r'CVE-(\d+)-(\d+)', r'<a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=\g<0>">\g<0></a>', description)
-                        description_label.set_markup("%s" % description.strip())
-                        description_label.set_line_wrap(True)
-                        if prefix == "fix":
-                            fixes_box.pack_start(link, True, True, 0)
-                            fixes_box.pack_start(description_label, True, True, 0)
-                        elif prefix == "bug":
-                            regressions_box.pack_start(link, True, True, 0)
-                            regressions_box.pack_start(description_label, True, True, 0)
-        else:
-            no_info_label = Gtk.Label()
-            no_info_label.set_markup("<b>%s</b>" % _("No information available"))
-            no_info_label.set_margin_bottom(6)
-            hidden_box.pack_start(no_info_label, True, True, 0)
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        box.set_margin_bottom(6)
+        hidden_box.pack_start(box, True, True, 0)
+        link = Gtk.Label()
+        link.set_markup("<a href='https://launchpad.net/ubuntu/+source/linux/+bugs?field.searchtext=%s'>Bug reports</a>" % version)
+        link.set_line_wrap(True)
+        box.pack_start(link, False, False, 2)
+        link = Gtk.Label()
+        link.set_markup("<a href='http://changelogs.ubuntu.com/changelogs/pool/main/l/linux/linux_%s/changelog'>Changelog</a>" % pkg_version)
+        link.set_line_wrap(True)
+        box.pack_start(link, False, False, 2)
+        link = Gtk.Label()
+        link.set_markup("<a href='https://people.canonical.com/~ubuntu-security/cve/pkg/linux.html'>CVE Tracker</a>")
+        link.set_line_wrap(True)
+        box.pack_start(link, False, False, 2)
 
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         button = Gtk.Button.new_with_label("")
@@ -264,11 +228,10 @@ class KernelWindow():
 
         builder.get_object("title_warning").set_markup("<span font_weight='bold' size='x-large'>%s</span>" % _("Warning!"))
         builder.get_object("sub_title_warning").set_markup("<big><b>%s</b></big>" % _("Proceed with caution"))
-        builder.get_object("label_warning").set_markup(_("The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer. Only install or remove kernels if you're experienced with kernels, drivers, dkms and you know how to recover a non-booting computer."))
-        builder.get_object("label_more_info_1").set_markup("%s" % _("Fixes can represent bug fixes, improvements in hardware support or security fixes."))
-        builder.get_object("label_more_info_2").set_markup("%s" % _("Security fixes are important when local users represent a potential threat (in companies, libraries, schools or public places for instance) or when the computer can be threatened by remote attacks (servers for instance)."))
-        builder.get_object("label_more_info_3").set_markup("%s" % _("Bug fixes and hardware improvements are important if one of your devices isn't working as expected and the newer kernel addresses that problem."))
-        builder.get_object("label_more_info_4").set_markup("%s" % _("Regressions represent something which worked well and no longer works after an update. It is common in software development that a code change or even a bug fix introduces side effects and breaks something else. Because of regressions it is recommended to be selective when installing updates or newer kernels."))
+        builder.get_object("label_warning").set_markup(_("The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer. Only install or remove kernels if you are experienced with kernels, drivers, DKMS modules and you know how to recover a non-booting computer."))
+        builder.get_object("label_more_info_1").set_markup("%s" % _("You can install multiple kernels on your computer and you can select the one you want to use from the advanced options in the boot menu."))
+        builder.get_object("label_more_info_2").set_markup("%s" % _("By default, your computer will boot with the most recent kernel installed."))
+        builder.get_object("label_more_info_3").set_markup("%s" % _("If you are using proprietary drivers, or DKMS modules, please be aware that they will only work with the most recent kernel installed on your computer. They get recompiled every time a new kernel is installed or removed. To use proprietary drivers or DKMS modules with one particular kernel, make sure to remove all the kernels which are more recent."))
 
         # Setup the main kernel page
         stack = Gtk.Stack()
@@ -298,38 +261,8 @@ class KernelWindow():
                 installable = (installable == "1")
                 label = version
 
-                has_fixes = False
-                has_regressions = False
-                if os.path.exists(os.path.join(KERNEL_INFO_DIR, version)):
-                    kernel_file = open(os.path.join(KERNEL_INFO_DIR, version))
-                    lines = kernel_file.readlines()
-                    num_fixes = 0
-                    num_bugs = 0
-                    for line in lines:
-                        elements = line.split("---")
-                        if len(elements) == 4:
-                            (prefix, title, url, description) = elements
-                            if prefix == "fix":
-                                num_fixes += 1
-                            elif prefix == "bug":
-                                num_bugs += 1
-                    if num_fixes > 0:
-                        has_fixes = True
-                    if num_bugs > 0:
-                        has_regressions = True
-
-                if os.path.exists(os.path.join(KERNEL_INFO_DIR, "versions")):
-                    kernel_file = open(os.path.join(KERNEL_INFO_DIR, "versions"))
-                    lines = kernel_file.readlines()
-                    for line in lines:
-                        elements = line.split("\t")
-                        if len(elements) == 3:
-                            (versions_version, versions_tag, versions_upstream) = elements
-                            if version in versions_version:
-                                label = "%s (%s)" % (version, versions_upstream.strip())
-
                 page_label = label.split(".")[0] + "." + label.split(".")[1]
-                kernel_list.append([version, page_label, label, installed, used, recommended, installable, has_fixes, has_regressions])
+                kernel_list.append([version, pkg_version, page_label, label, installed, used, recommended, installable])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
 
@@ -345,10 +278,11 @@ class KernelWindow():
             stack_switcher.add_titled(page, page)
 
             for kernel in kernel_list:
-                if kernel[4]:
-                    current_label.set_markup("<b>%s %s %s</b>" % (_("Kernel"), kernel[2], _("currently loaded")))
-                if kernel[1] == page:
-                    row = KernelRow(kernel[0], kernel[2], kernel[3], kernel[4], kernel[5], kernel[6], kernel[7], kernel[8], self.window, self.application)
+                (version, pkg_version, page_label, label, installed, used, recommended, installable) = kernel
+                if used:
+                    current_label.set_markup("<b>%s %s</b>" % (_("You are currently using the following kernel:"), kernel[3]))
+                if page_label == page:
+                    row = KernelRow(version, pkg_version, label, installed, used, recommended, installable, self.window, self.application)
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)
