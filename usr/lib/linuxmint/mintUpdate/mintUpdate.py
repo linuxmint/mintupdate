@@ -1228,19 +1228,19 @@ class MintUpdate():
             self.builder.get_object("image_success_status").set_pixel_size(96)
             self.builder.get_object("image_error_status").set_pixel_size(96)
 
-            #l10n for security policy page
+            #l10n for update policy page
             self.builder.get_object("label_welcome1").set_markup("<big><b>%s</b></big>" % _("Welcome to the Update Manager"))
             self.builder.get_object("label_welcome2").set_markup("%s" % _("This tool provides your operating system with software and security updates."))
-            self.builder.get_object("label_welcome3").set_markup("%s" % _("Please choose a security policy."))
+            self.builder.get_object("label_welcome3").set_markup("%s" % _("Please choose an update policy."))
             self.builder.get_object("label_policy1_1").set_markup("<b>%s</b>" % _("Don't break my computer!"))
             self.builder.get_object("label_policy1_2").set_markup("<small><i>%s</i></small>" % _("Recommended for novice users."))
             self.builder.get_object("label_policy1_3").set_markup("<small>%s\n%s</small>" % (_("Only select updates which are known to be safe or which do not impact critical parts of the operating system."), _("Don't show me updates which can harm the stability of my system.")))
-            self.builder.get_object("label_policy2_1").set_markup("<b>%s</b>" % _("Stability comes first!"))            
+            self.builder.get_object("label_policy2_1").set_markup("<b>%s</b>" % _("Optimize stability and security"))
             self.builder.get_object("label_policy2_2").set_markup("<small><i>%s</i></small>" % _("Recommended for most users."))
             self.builder.get_object("label_policy2_3").set_markup("<small>%s\n%s</small>" % (_("Only select updates which are known to be safe or which do not impact critical parts of the operating system."), _("But also show me security and kernel updates.")))
-            self.builder.get_object("label_policy3_1").set_markup("<b>%s</b>" % _("Security comes first!"))
-            self.builder.get_object("label_policy3_2").set_markup("<small><i>%s</i></small>" % _("For experienced users, public computers or servers."))
-            self.builder.get_object("label_policy3_3").set_markup("<small>%s\n%s</small>" % (_("Select all available updates."), _("Security is more important than stability. If a regression breaks something, I'll fix it.")))    
+            self.builder.get_object("label_policy3_1").set_markup("<b>%s</b>" % _("Always update everything"))
+            self.builder.get_object("label_policy3_2").set_markup("<small><i>%s</i></small>" % _("Recommended for experienced users."))
+            self.builder.get_object("label_policy3_3").set_markup("<small>%s\n%s</small>" % (_("Select all available updates."), _("Keep my computer fully up to date. If a regression breaks something, I'll fix it.")))
 
             self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
@@ -1271,7 +1271,7 @@ class MintUpdate():
                 editSubmenu.append(sourcesMenuItem)
             configMenuItem = Gtk.ImageMenuItem()
             configMenuItem.set_image(Gtk.Image.new_from_icon_name("security-medium", Gtk.IconSize.MENU))
-            configMenuItem.set_label(_("Security policy"))
+            configMenuItem.set_label(_("Update policy"))
             configMenuItem.connect("activate", self.show_configuration)
             editSubmenu.append(configMenuItem)
 
@@ -1586,7 +1586,7 @@ class MintUpdate():
             policy = "radiobutton_policy_3"
         self.builder.get_object(policy).set_active(True)
         self.stack.set_visible_child_name("configure")
-        self.set_status(_("Please choose a security policy."), _("Please choose a security policy."), "mintupdate-updates-available", True)
+        self.set_status(_("Please choose an update policy."), _("Please choose an update policy."), "mintupdate-updates-available", True)
         self.set_status_message("")
         self.builder.get_object("toolbar1").set_sensitive(False)
         self.builder.get_object("menubar1").set_sensitive(False)    

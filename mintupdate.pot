@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-08 16:16+0100\n"
+"POT-Creation-Date: 2016-04-09 22:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgid "root@linuxmint.com"
 msgstr ""
 
 #: usr/share/help/C/mintupdate/policy.page:16(title)
-msgid "Choosing a security policy"
+msgid "Choosing an update policy"
 msgstr ""
 
 #: usr/share/help/C/mintupdate/policy.page:18(p)
@@ -40,43 +40,86 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/policy.page:20(p)
 msgid ""
-"Attacks exploiting vulnerabilities in your operating system can have "
-"devastating effects but they are very rare. They're much more common online, "
-"against websites or bad online passwords and practices."
+"Regressions are very common but they are usually quickly fixed by new "
+"updates and they rarely break critical parts of the operating system."
 msgstr ""
 
 #: usr/share/help/C/mintupdate/policy.page:22(p)
-msgid ""
-"Regressions are very common but the issues they introduce are usually "
-"quickly fixed by new updates and they rarely break critical parts of the "
-"operating system."
+msgid "There are different types of updates:"
 msgstr ""
 
-#: usr/share/help/C/mintupdate/policy.page:24(p)
+#: usr/share/help/C/mintupdate/policy.page:25(p)
 msgid ""
-"The following criteria should be considered to choose the best security "
-"policy for this computer:"
+"'Software updates' are updates which fix bugs (or also sometimes which bring "
+"new features)."
 msgstr ""
 
-#: usr/share/help/C/mintupdate/policy.page:28(p)
-msgid ""
-"Who can access this computer (either directly or from the network) and would "
-"they attack it? Are there other local users? Who else is connected on this "
-"network?"
+#: usr/share/help/C/mintupdate/policy.page:26(p)
+msgid "'Security updates' are updates which patch vulnerabilities."
 msgstr ""
 
-#: usr/share/help/C/mintupdate/policy.page:31(p)
-msgid ""
-"Are you experienced enough with Linux to fix this computer if a regression "
-"makes it unable to reboot, or if you can no longer log in, or connect to the "
-"Internet?"
+#: usr/share/help/C/mintupdate/policy.page:27(p)
+msgid "'Kernel updates' represent the installation of a newer kernel."
 msgstr ""
 
-#: usr/share/help/C/mintupdate/policy.page:35(p)
+#: usr/share/help/C/mintupdate/policy.page:30(p)
 msgid ""
-"When you choose a security policy, some of the preferences are changed in "
-"the Update Manager. You can tune these preferences individually by clicking "
-"on the Edit-&gt;Preferences menu in the menubar."
+"In Linux Mint, kernel updates bring both security patches and bug fixes (and "
+"sometimes even new features), and they impact critical parts of the "
+"operating system. This makes kernel updates important from a security point "
+"of view, but also prone to regressions which can be hard to fix for novice "
+"users."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/policy.page:32(p)
+msgid ""
+"The more updates you take, the more likely something will break. It might be "
+"something small, something you don't use and it might get fixed with "
+"tomorrow's updates. But what if you can't reboot? what if it breaks your "
+"drivers and you can no longer log in or connect to the Internet?"
+msgstr ""
+
+#: usr/share/help/C/mintupdate/policy.page:34(p)
+msgid ""
+"On the the hand, if you don't update anything, you're missing bug fixes, "
+"improvements and more importantly patches for security holes."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/policy.page:36(p)
+msgid "When choosing an update policy, ask yourself the following questions:"
+msgstr ""
+
+#: usr/share/help/C/mintupdate/policy.page:39(p)
+msgid ""
+"Do you need a particular software or kernel update? Are you waiting for a "
+"particular bug fix or for some hardware device to be recognized by a newer "
+"kernel?"
+msgstr ""
+
+#: usr/share/help/C/mintupdate/policy.page:40(p)
+msgid ""
+"If things go wrong, are you experienced enough to fix your computer? Do you "
+"know how to fix boot, login, kernel and module issues?"
+msgstr ""
+
+#: usr/share/help/C/mintupdate/policy.page:41(p)
+msgid ""
+"Can your computer be accessed by malicious people? Are there other local "
+"users on this computer or on the network? Do you run a server or anything "
+"people can connect to from the outside world?"
+msgstr ""
+
+#: usr/share/help/C/mintupdate/policy.page:44(p)
+msgid ""
+"Try to assess your level of experience with Linux, and your requirements "
+"when it comes to bug fixes and security."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/policy.page:46(p)
+msgid ""
+"When you choose an update policy, some of the preferences are changed in the "
+"Update Manager. You can tune these preferences individually by clicking on "
+"the Edit-&gt;Preferences menu in the menubar."
 msgstr ""
 
 #: usr/share/help/C/mintupdate/index.page:14(title)
@@ -460,8 +503,8 @@ msgid ""
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1234
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1590
-msgid "Please choose a security policy."
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
+msgid "Please choose an update policy."
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
@@ -484,7 +527,7 @@ msgid "Don't show me updates which can harm the stability of my system."
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1238
-msgid "Stability comes first!"
+msgid "Optimize stability and security"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
@@ -496,11 +539,11 @@ msgid "But also show me security and kernel updates."
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1241
-msgid "Security comes first!"
+msgid "Always update everything"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1242
-msgid "For experienced users, public computers or servers."
+msgid "Recommended for experienced users."
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1243
@@ -509,8 +552,8 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1243
 msgid ""
-"Security is more important than stability. If a regression breaks something, "
-"I'll fix it."
+"Keep my computer fully up to date. If a regression breaks something, I'll "
+"fix it."
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1247
@@ -535,7 +578,7 @@ msgid "Software sources"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1274
-msgid "Security policy"
+msgid "Update policy"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1298
