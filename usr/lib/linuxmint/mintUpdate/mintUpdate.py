@@ -9,6 +9,8 @@ import threading
 import time
 import gettext
 import fnmatch
+import io
+import tarfile
 import urllib.request
 import re
 import proxygsettings
@@ -137,10 +139,104 @@ class ChangelogRetriever(threading.Thread):
         if ":" in self.version:
             self.version = self.version.split(":")[-1]
 
+    def get_ppa_info(self):
+        ppa_sources_file = "/etc/apt/sources.list"
+        ppa_sources_dir = "/etc/apt/sources.list.d/"
+        ppa_words = self.origin.lstrip("LP-PPA-").split("-")
+
+        source = ppa_sources_file
+        if os.path.exists(ppa_sources_dir):
+            for filename in os.listdir(ppa_sources_dir):
+                if filename.startswith(self.origin.lstrip("LP-PPA-")):
+                    source = os.path.join(ppa_sources_dir, filename)
+                    break
+        if not os.path.exists(source):
+            return None, None
+        try:
+            with open(source) as f:
+                for line in f:
+                    if (not line.startswith("#") and all(word in line for word in ppa_words)):
+                        ppa_info = line.split("ppa.launchpad.net/")[1]
+                        break
+                else:
+                    return None, None
+        except EnvironmentError as e:
+            print ("Error encountered while trying to get PPA owner and name: %s" % e)
+            return None, None
+        ppa_owner, ppa_name, ppa_x = ppa_info.split("/", 2)
+        return ppa_owner, ppa_name
+
+    def get_ppa_changelog(self, ppa_owner, ppa_name):
+        max_tarball_size = 1000000
+        print ("\nFetching changelog for PPA package %s/%s/%s ..." % (ppa_owner, ppa_name, self.source_package))
+        if self.source_package.startswith("lib"):
+            ppa_abbr = self.source_package[:4]
+        else:
+            ppa_abbr = self.source_package[0]
+        deb_dsc_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s_%s.dsc" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, self.source_package, self.version)
+        try:
+            deb_dsc = urllib.request.urlopen(deb_dsc_uri, None, 10).read().decode("utf-8")
+        except Exception as e:
+            print ("Could not open Launchpad URL %s - %s" % (deb_dsc_uri, e))
+            return
+        for line in deb_dsc.split("\n"):
+            if "debian.tar" not in line:
+                continue
+            tarball_line = line.strip().split(" ", 2)
+            if len(tarball_line) == 3:
+                deb_checksum, deb_size, deb_filename = tarball_line
+                break
+        else:
+            deb_filename = None
+        if not deb_filename or not deb_size or not deb_size.isdigit():
+            print ("Unsupported debian .dsc file format. Skipping this package.")
+            return
+        if (int(deb_size) > max_tarball_size):
+            print ("Tarball size %s B exceeds maximum download size %d B. Skipping download." % (deb_size, max_tarball_size))
+            return
+        deb_file_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
+        try:
+            deb_file = urllib.request.urlopen(deb_file_uri, None, 10).read().decode("utf-8")
+        except Exception as e:
+            print ("Could not download tarball from %s - %s" % (deb_file_uri, e))
+            return
+        if deb_filename.endswith(".xz"):
+            cmd = ["xz", "--decompress"]
+            try:
+                xz = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+                xz.stdin.write(deb_file)
+                xz.stdin.close()
+                deb_file = xz.stdout.read()
+                xz.stdout.close()
+            except EnvironmentError as e:
+                print ("Error encountered while decompressing xz file: %s" % e)
+                return
+        deb_file = io.BytesIO(deb_file)
+        try:
+            with tarfile.open(fileobj = deb_file) as f:
+                deb_changelog = f.extractfile("debian/changelog").read()
+        except tarfile.TarError as e:
+            print ("Error encountered while reading tarball: %s" % e)
+            return
+
+        return deb_changelog
+
     def run(self):
         Gdk.threads_enter()
         self.application.builder.get_object("textview_changes").get_buffer().set_text(_("Downloading changelog..."))
         Gdk.threads_leave()
+
+        if self.ps == {}:
+            # use default urllib.request proxy mechanisms (possibly *_proxy environment vars)
+            proxy = urllib.request.ProxyHandler()
+        else:
+            # use proxy settings retrieved from gsettings
+            proxy = urllib.request.ProxyHandler(self.ps)
+
+        opener = urllib.request.build_opener(proxy)
+        urllib.request.install_opener(opener)
+
+        changelog = [_("No changelog available")]
 
         changelog_sources = []
         if self.origin == "linuxmint":
@@ -166,18 +262,16 @@ class ChangelogRetriever(threading.Thread):
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
                 changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-
-        changelog = [_("No changelog available")]
-
-        if self.ps == {}:
-            # use default urllib.request proxy mechanisms (possibly *_proxy environment vars)
-            proxy = urllib.request.ProxyHandler()
-        else:
-            # use proxy settings retrieved from gsettings
-            proxy = urllib.request.ProxyHandler(self.ps)
-
-        opener = urllib.request.build_opener(proxy)
-        urllib.request.install_opener(opener)
+        elif self.origin.startswith("LP-PPA"):
+            ppa_owner, ppa_name = self.get_ppa_info()
+            if ppa_owner and ppa_name:
+                deb_changelog = self.get_ppa_changelog(ppa_owner, ppa_name)
+                if not deb_changelog:
+                    changelog_sources.append("https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppa_owner, ppa_name, self.source_package, self.version))
+                else:
+                    changelog = "%s\n" % deb_changelog
+            else:
+                print ("PPA owner or name could not be determined")
 
         for changelog_source in changelog_sources:
             try:
@@ -195,6 +289,14 @@ class ChangelogRetriever(threading.Thread):
                             change = ""
                         if change == "" or stripped_change.startswith("*") or stripped_change.startswith("["):
                             changelog = changelog + change + "\n"
+                elif "launchpad.net" in changelog_source:
+                    changes = source.split("Changes:")[1].split("Checksums")[0].split("\n")
+                    for change in changes:
+                        stripped_change = change.strip()
+                        if stripped_change != "":
+                            if stripped_change == ".":
+                                stripped_change = ""
+                            changelog = changelog + stripped_change + "\n"
                 else:
                     changelog = source
                 changelog = changelog.split("\n")
@@ -765,7 +867,7 @@ class RefreshThread(threading.Thread):
 
                             if update_type == "security":
                                 tooltip = _("Security update")
-                            if update_type == "kernel":                            
+                            if update_type == "kernel":
                                 tooltip = _("Kernel update")
                             elif update_type == "backport":
                                 tooltip = _("Software backport. Be careful when upgrading. New versions of sofware can introduce regressions.")
@@ -877,7 +979,7 @@ class RefreshThread(threading.Thread):
 
                         theme = Gtk.IconTheme.get_default()
                         pixbuf = theme.load_icon("mintupdate-level" + str(package_update.level), 22, 0)
-                        
+
                         model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
                         model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)
                         model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)
@@ -1567,7 +1669,7 @@ class MintUpdate():
             self.settings.set_boolean("level5-is-safe", True)
             self.settings.set_boolean("security-updates-are-safe", True)
             self.settings.set_boolean("kernel-updates-are-safe", True)
-                    
+
         self.builder.get_object("toolbar1").set_sensitive(True)
         self.builder.get_object("menubar1").set_sensitive(True)
         self.updates_inhibited = False
@@ -1589,7 +1691,7 @@ class MintUpdate():
         self.set_status(_("Please choose an update policy."), _("Please choose an update policy."), "mintupdate-updates-available", True)
         self.set_status_message("")
         self.builder.get_object("toolbar1").set_sensitive(False)
-        self.builder.get_object("menubar1").set_sensitive(False)    
+        self.builder.get_object("menubar1").set_sensitive(False)
 
 ######### TREEVIEW/SELECTION FUNCTIONS #######
 
@@ -1905,7 +2007,7 @@ class MintUpdate():
         builder.get_object("label_hours").set_text(_("hours"))
         builder.get_object("label_days").set_text(_("days"))
         builder.get_object("pref_button_cancel").set_label(_("Cancel"))
-        builder.get_object("pref_button_apply").set_label(_("Apply"))        
+        builder.get_object("pref_button_apply").set_label(_("Apply"))
 
         builder.get_object("visible1").set_active(self.settings.get_boolean("level1-is-visible"))
         builder.get_object("visible2").set_active(self.settings.get_boolean("level2-is-visible"))

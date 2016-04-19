@@ -53,6 +53,8 @@ try:
                         update_origin = "ubuntu"
                     elif origin.origin == "Debian":
                         update_origin = "debian"
+                    elif origin.origin.startswith("LP-PPA"):
+                        update_origin = origin.origin
                     if origin.origin == "Ubuntu" and '-security' in origin.archive:
                         update_type = "security"
                         break
@@ -72,7 +74,7 @@ try:
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, update_origin, short_description, description)
                 print(resultString.encode('ascii', 'xmlcharrefreplace'))
 
-    if kernel_updates:        
+    if kernel_updates:
         if 'linux-image-generic' in cache:
             versions = cache['linux-image-generic'].candidate.version.split(".")
             if len(versions) > 3:
