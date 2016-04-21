@@ -771,7 +771,7 @@ class RefreshThread(threading.Thread):
                     label2 = _("Do not install or update anything, it could break your operating system!")
                     label3 = _("Switch to a different Linux Mint mirror to solve this situation.")
                     infobar = Gtk.InfoBar()
-                    infobar.set_message_type(Gtk.MESSAGE_ERROR)
+                    infobar.set_message_type(Gtk.MessageType.ERROR)
                     info_label = Gtk.Label()
                     infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
                     info_label.set_markup(infobar_message)
