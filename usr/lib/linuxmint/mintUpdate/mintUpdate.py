@@ -1743,18 +1743,7 @@ class MintUpdate():
                 package_update = model.get_value(iter, UPDATE_OBJ)
                 if self.builder.get_object("notebook_details").get_current_page() == 0:
                     # Description tab
-                    description = package_update.description
-                    description = description.split("\\n")
-                    for line in description:
-                        self.buffer.insert(self.buffer.get_end_iter(), line)
-                        self.buffer.insert(self.buffer.get_end_iter(), "\n")
-
-                    if (len(package_update.packages) > 1):
-                        dimmed_description = "%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
-                        self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
-                    elif (package_update.packages[0] != package_update.alias):
-                        dimmed_description = "%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
-                        self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
+                    self.display_package_description(package_update)
                 else:
                     # Changelog tab
                     retriever = ChangelogRetriever(package_update, self)
@@ -1762,6 +1751,35 @@ class MintUpdate():
         except Exception as e:
             print (e)
             print(sys.exc_info()[0])
+
+    def switch_page(self, notebook, page, page_num):
+        self.builder.get_object("textview_description").get_buffer().set_text("")
+        self.builder.get_object("textview_changes").get_buffer().set_text("")
+        selection = self.treeview.get_selection()
+        (model, iter) = selection.get_selected()
+        if (iter != None):
+            package_update = model.get_value(iter, UPDATE_OBJ)
+            if (page_num == 0):
+                # Description tab
+                self.display_package_description(package_update)
+            else:
+                # Changelog tab
+                retriever = ChangelogRetriever(package_update, self)
+                retriever.start()
+
+    def display_package_description(self, package_update):
+        description = package_update.description
+        description = description.split("\\n")
+        for line in description:
+            self.buffer.insert(self.buffer.get_end_iter(), line)
+            self.buffer.insert(self.buffer.get_end_iter(), "\n")
+
+        if (len(package_update.packages) > 1):
+            dimmed_description = "%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
+            self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
+        elif (package_update.packages[0] != package_update.alias):
+            dimmed_description = "%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
+            self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
 
     def treeview_right_clicked(self, widget, event):
         if event.button == 3:
@@ -1782,26 +1800,6 @@ class MintUpdate():
         self.settings.set_strv("blacklisted-packages", blacklist)
         refresh = RefreshThread(self)
         refresh.start()
-
-    def switch_page(self, notebook, page, page_num):
-        selection = self.treeview.get_selection()
-        (model, iter) = selection.get_selected()
-        if (iter != None):
-            package_update = model.get_value(iter, UPDATE_OBJ)
-            if (page_num == 0):
-                # Description tab
-                description = package_update.description
-                self.buffer.set_text(description)
-                if (len(package_update.packages) > 1):
-                    dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
-                    self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
-                elif (package_update.packages[0] != package_update.name):
-                    dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
-                    self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
-            else:
-                # Changelog tab
-                retriever = ChangelogRetriever(package_update, self)
-                retriever.start()
 
 
 ######### SYSTRAY ####################
