@@ -12,36 +12,36 @@
 
   </info>
 
-  <title>Choosing an update policy</title>
+  <title>选择一个更新策略</title>
 
-  <p>New updates patch known security holes and fix known bugs, but they can also introduce new issues called 'regressions'.</p>
+  <p>新的更新修复了已知的安全漏洞和错误，但也可能引入新的“功能回退”问题。</p>
 
-  <p>Regressions are very common but they are usually quickly fixed by new updates and they rarely break critical parts of the operating system.</p>
+  <p>功能回退是会普遍发生的现象，但通常它们很快会在新的更新中被修复，而且他们很少会破坏系统的关键部分。</p>
 
-  <p>There are different types of updates:</p>
+  <p>有不同类型的更新：</p>
 
   <list>
-    <item><p>'Software updates' are updates which fix bugs (or also sometimes which bring new features).</p></item>
-    <item><p>'Security updates' are updates which patch vulnerabilities.</p></item>
-    <item><p>'Kernel updates' represent the installation of a newer kernel.</p></item>
+    <item><p>“软件更新”是修复功能错误的更新(或者是带来新特性)。</p></item>
+    <item><p>“安全更新”是修补安全漏洞的更新。</p></item>
+    <item><p>“内核更新”表示安装新的内核。</p></item>
   </list>
 
-  <note><p>In Linux Mint, kernel updates bring both security patches and bug fixes (and sometimes even new features), and they impact critical parts of the operating system. This makes kernel updates important from a security point of view, but also prone to regressions which can be hard to fix for novice users.</p></note>
+  <note><p>在Linux Mint中，内核更新可以同时提供安全补丁和错误修复（有时也会包含一些新特性），而且这会影响到系统的关键部分。因此，从安全的角度来看，内核更新至关重要，但它同时也容易引发新用户难以修复的功能回退问题。</p></note>
 
-  <p>The more updates you take, the more likely something will break. It might be something small, something you don't use and it might get fixed with tomorrow's updates. But what if you can't reboot? what if it breaks your drivers and you can no longer log in or connect to the Internet?</p>
+  <p>系统更新的越多，就越容易被破坏。它可能是某个微小的、您不会用到的组件，并且在后续更新中很快会被修复。但是如果您的系统无法重新启动了呢？如果它损坏了您的驱动并且您无法登录或者连接到网络了呢？</p>
 
-  <p>On the the hand, if you don't update anything, you're missing bug fixes, improvements and more importantly patches for security holes.</p>
+  <p>另一方面，如果您不进行更新，您将会错过错误修复、功能改进以及更加重要的安全漏洞补丁。</p>
 
-  <p>When choosing an update policy, ask yourself the following questions:</p>
+  <p>当选择更新策略时，请注意以下问题：</p>
 
     <list>
-      <item><p>Do you need a particular software or kernel update? Are you waiting for a particular bug fix or for some hardware device to be recognized by a newer kernel?</p></item>
-      <item><p>If things go wrong, are you experienced enough to fix your computer? Do you know how to fix boot, login, kernel and module issues?</p></item>
-      <item><p>Can your computer be accessed by malicious people? Are there other local users on this computer or on the network? Do you run a server or anything people can connect to from the outside world?</p></item>
+      <item><p>您是否需要特定的软件或者内核更新？是否在等待新内核修复某一特定错误或者支持某些硬件？</p></item>
+      <item><p>如果发生了异常，您是否有足够的经验来修复您的电脑？您是否知道该怎样修复启动、登录、内核以及模块方面的问题？</p></item>
+      <item><p>您的计算机能否被恶意用户访问？在这台计算机或者网络上是否还有其他的本地用户？您是否有运行服务器或者其他的能够让外部用户访问的软件？</p></item>
     </list>
 
-  <p>Try to assess your level of experience with Linux, and your requirements when it comes to bug fixes and security.</p>
+  <p>请尝试评估您的Linux使用经验等级以及您对错误修复和安全方面的需求。</p>
 
-  <note><p>When you choose an update policy, some of the preferences are changed in the Update Manager. You can tune these preferences individually by clicking on the Edit-&gt;Preferences menu in the menubar.</p></note>
+  <note><p>当您选择了更新策略以后，更新管理器的某些配置将会改变。您可以通过点击菜单栏中的“编辑-&gt;首选项”菜单来单独调整这些配置。</p></note>
 
 </page>

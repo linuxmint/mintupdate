@@ -12,36 +12,36 @@
 
   </info>
 
-  <title>Choosing an update policy</title>
+  <title>업데이트 정책 선택하기</title>
 
-  <p>New updates patch known security holes and fix known bugs, but they can also introduce new issues called 'regressions'.</p>
+  <p>새 업데이트는 알려진 보안 위험이나 버그를 수정하며, '리그레션'이라 불리는 새로운 이슈들을 소개도 합니다.</p>
 
-  <p>Regressions are very common but they are usually quickly fixed by new updates and they rarely break critical parts of the operating system.</p>
+  <p>리그레션은 매우 일반적인 것이지만 새 업데이트를 통해서 금방 고쳐지며 운영 체제의 핵심 부분을 훼손하는 일은 드뭅니다.</p>
 
-  <p>There are different types of updates:</p>
+  <p>여러 형식의 업데이트:</p>
 
   <list>
-    <item><p>'Software updates' are updates which fix bugs (or also sometimes which bring new features).</p></item>
-    <item><p>'Security updates' are updates which patch vulnerabilities.</p></item>
-    <item><p>'Kernel updates' represent the installation of a newer kernel.</p></item>
+    <item><p>'소프트웨어 업데이트'는 버그를 수정하는 업데이트입니다 (또는 새 기능을 가져오기도 합니다).</p></item>
+    <item><p>'보안 업데이트'는 취약점을 보완하는 업데이트입니다.</p></item>
+    <item><p>'커널 업데이트'는 새 커널 설치를 말합니다.</p></item>
   </list>
 
-  <note><p>In Linux Mint, kernel updates bring both security patches and bug fixes (and sometimes even new features), and they impact critical parts of the operating system. This makes kernel updates important from a security point of view, but also prone to regressions which can be hard to fix for novice users.</p></note>
+  <note><p>리눅스 민트의 경우, 커널 업데이트는 보안 패치와 버그 수정을 합니다 (그리고 가끔 새 기능 추가도 하구요), 그리고 운영 체제의 핵심 부분에 영향을 줍니다. 그래서 보안이라는 관점에서 커널 업데이트는 중요합니다, 그러나 초보 사용자에게는 어렵기 때문에 잘못되는 경향이 있습니다.</p></note>
 
-  <p>The more updates you take, the more likely something will break. It might be something small, something you don't use and it might get fixed with tomorrow's updates. But what if you can't reboot? what if it breaks your drivers and you can no longer log in or connect to the Internet?</p>
+  <p>업데이트는 할수록, 뭔가를 고장낼 수도 있습니다. 어떤 것은 작고, 사용하지 않는 것일 수 도 있고 다음 업데이트에서 고쳐질 수도 있는 것입니다. 하지만 다시 시작할 수 없다면 어떻게 하죠? 여러분의 드라이버를 고장 내거나 더는 로그인 할 수 없게 되거나 또는 인터넷에 연결할 수 없게 된다면요?</p>
 
-  <p>On the the hand, if you don't update anything, you're missing bug fixes, improvements and more importantly patches for security holes.</p>
+  <p>다른 한 편으로, 아무것도 업데이트하지 않으면, 버그 수정, 성능 향상 그리고 중요한 보안 패치들을 놓치게 됩니다.</p>
 
-  <p>When choosing an update policy, ask yourself the following questions:</p>
+  <p>업데이트 정책을 선택할 때는, 다음 질문을 스스로에게 해보세요:</p>
 
     <list>
-      <item><p>Do you need a particular software or kernel update? Are you waiting for a particular bug fix or for some hardware device to be recognized by a newer kernel?</p></item>
-      <item><p>If things go wrong, are you experienced enough to fix your computer? Do you know how to fix boot, login, kernel and module issues?</p></item>
-      <item><p>Can your computer be accessed by malicious people? Are there other local users on this computer or on the network? Do you run a server or anything people can connect to from the outside world?</p></item>
+      <item><p>특별한 소프트웨어나 커널 업데이트가 필요한가요? 기다리는 특별한 버그 수정이나 새 커널에서 인식하길 바라는 새로는 장비가 있으신가요?</p></item>
+      <item><p>일이 잘못되는 경우, 컴퓨터를 직접 고칠 만큼의 경험이 있으신가요? 부트, 로그인, 커널과 모듈 이슈들을 다룰 줄 아시나요?</p></item>
+      <item><p>여러분의 컴퓨터에 악의적인 사람들이 접근할 수 있나요? 이 컴퓨터 또는 네트워크에 다른 로컬 사용자가 있나요? 서버나 외부에서 연결할 수 있는 뭔가를 운용하시나요?</p></item>
     </list>
 
-  <p>Try to assess your level of experience with Linux, and your requirements when it comes to bug fixes and security.</p>
+  <p>리눅스 사용 경험과, 버그 수정이나 보안 문제에 관한 필요성을 가늠해 보세요.</p>
 
-  <note><p>When you choose an update policy, some of the preferences are changed in the Update Manager. You can tune these preferences individually by clicking on the Edit-&gt;Preferences menu in the menubar.</p></note>
+  <note><p>업데이트 정책을 선택하실 때는, 업데이트 관리자의 설정이 몇 가지 바뀌게 됩니다. 메뉴바의 편집 - 설정에서 하나씩 클릭해서 조절하실 수 있습니다.</p></note>
 
 </page>
