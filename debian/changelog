@@ -1,3 +1,50 @@
+mintupdate (5.0.2) sarah; urgency=medium
+
+  [ brennanhm ]
+  * Show changelog from PPA packages - issue #56
+  * In ChangelogRetriever(), check if package origin contains 'LP-PPA'. If so, download change record from LaunchPad
+  * ChangelogRetriever() now extracts PPA owner and name from /etc/apt/sources.list.d/
+  * Extract PPA owner and name from Apt sources
+  * Download full changelog from Launchpad
+  * Improve exception handling
+  * Download debian tarball using urllib2
+  * Verify format of tarball line
+  * Check Apt sources.list file for PPA info
+  * Prefer source file in PPA sources directory
+
+  [ JosephMcc ]
+  * Complete revamp of the kernel install/remove dialog
+  * convert all icons to themed icons. Properly install all unique icons to the hicolor icon theme. This gives proper support for HiDpi and allows third party themes to theme the icons
+  * toolbar: Convert the icons to symbolic for better dark theme support
+  * Remove the use of some hard-coded text color
+  * Fix an error using the value for Gtk.MessageType
+  * preferences: Redesign the dialog to use a stack and stack switcher
+  * Change the ui to use a Gtk.Stack instead of Gtk.Notebook. Add a dummy page to the stack to allow initial configuration.
+  * Add a "wide" style class to the main windows GtkPaned
+
+  [ Clement Lefebvre ]
+  * Re-implement dimmed colors but without hardcoding the value
+  * Force level icons to 22px (should also work in hidpi, assuming gtk3 translates the size according to the scale)
+  * Removed Gtk.Socket in mintupdate.py (previously needed by synaptic but now works without it).
+  * Fixed broken notebook borders with Mint-Y theme
+  * Implemented the UI and the help for the security policy screen
+  * Inhibit refresh when a policy is being chosen
+  * Fixed wrong sentence in policy screen, added kernel updates settings
+  * Implemented policy selection/detection
+  * Implemented kernel updates
+  * Simplified kernel warning page, added info on kernel installation/selection/dkms and simplified kernel related info
+  * Tuned policies
+  * Don't show a status message when choosing the policy
+  * Rephrased policies and help
+  * Updated generated files
+  * Fixed "\n" not split correctly in short descriptions
+  * Fixed package description not being parsed correctly when switching notebook page
+
+  [ Ryan Rafe Lee ]
+  * Fixed bug caused by using PyGTK style
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 22 Apr 2016 11:45:31 +0100
+
 mintupdate (5.0.1) sarah; urgency=medium
 
   [ Gwendal Le Bihan ]
