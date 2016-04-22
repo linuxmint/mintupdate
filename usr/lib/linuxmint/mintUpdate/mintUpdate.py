@@ -573,6 +573,7 @@ class RefreshThread(threading.Thread):
             value = re.sub(r'Description-(\S+): ', r'', description)
             # Only take the first line and trim it
             value = value.split("\n")[0].strip()
+            value = value.split("\\n")[0].strip()
             # Capitalize the first letter
             value = value[:1].upper() + value[1:]
             # Add missing punctuation
