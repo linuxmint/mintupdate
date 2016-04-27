@@ -1,3 +1,10 @@
+mintupdate (5.0.3) sarah; urgency=medium
+
+  * CheckAPT: Don't consider backport as an opt-in backport source (in Sarah backport is now part of the default repositories and used by the distribution to offer newer stable versions)
+  * Fixed logic which determines whether a security/kernel update is safe/visible
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 27 Apr 2016 13:09:06 +0100
+
 mintupdate (5.0.2) sarah; urgency=medium
 
   [ brennanhm ]
