@@ -949,15 +949,18 @@ class RefreshThread(threading.Thread):
                         package_update.short_description = self.clean_l10n_short_description(package_update.short_description)
                         package_update.description = self.clean_l10n_description(package_update.description)
 
+                    level_is_visible = self.application.settings.get_boolean('level%s-is-visible' % str(package_update.level))
+                    level_is_safe = self.application.settings.get_boolean('level%s-is-safe' % str(package_update.level))
+
                     if package_update.type == "security":
-                        visible = self.application.settings.get_boolean('security-updates-are-visible')
-                        safe = self.application.settings.get_boolean('security-updates-are-safe')
+                        visible = (level_is_visible or self.application.settings.get_boolean('security-updates-are-visible'))
+                        safe = (level_is_safe or self.application.settings.get_boolean('security-updates-are-safe'))
                     elif package_update.type == "kernel":
-                        visible = self.application.settings.get_boolean('kernel-updates-are-visible')
-                        safe = self.application.settings.get_boolean('kernel-updates-are-safe')
+                        visible = (level_is_visible or self.application.settings.get_boolean('kernel-updates-are-visible'))
+                        safe = (level_is_safe or self.application.settings.get_boolean('kernel-updates-are-safe'))
                     else:
-                        visible = self.application.settings.get_boolean('level%s-is-visible' % str(package_update.level))
-                        safe = self.application.settings.get_boolean('level%s-is-safe' % str(package_update.level))
+                        visible = level_is_visible
+                        safe = level_is_safe
 
                     if visible:
                         iter = model.insert_before(None, None)
