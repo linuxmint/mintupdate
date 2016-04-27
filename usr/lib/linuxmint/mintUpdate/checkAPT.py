@@ -65,9 +65,6 @@ try:
                         if origin.component == "romeo":
                             update_type = "unstable"
                             break
-                        elif origin.component == "backport":
-                            update_type = "backport"
-                            break
                         else:
                             update_type = "linuxmint"
 
