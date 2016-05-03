@@ -4,7 +4,11 @@ import os
 import sys
 import apt
 
-from gi.repository import Gio
+from gi.repository import Gio, Gtk
+
+from aptdaemon import client
+from aptdaemon.errors import NotAuthorizedError, TransactionFailed
+from aptdaemon.gtk3widgets import AptErrorDialog, AptProgressDialog
 
 try:
     cache = apt.Cache()
