@@ -3,7 +3,9 @@
 import os
 import sys
 import apt
+import gi
 
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, Gtk
 
 from aptdaemon import client
