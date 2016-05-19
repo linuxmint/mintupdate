@@ -868,7 +868,7 @@ class RefreshThread(threading.Thread):
 
                             if update_type == "security":
                                 tooltip = _("Security update")
-                            if update_type == "kernel":
+                            elif update_type == "kernel":
                                 tooltip = _("Kernel update")
                             elif update_type == "backport":
                                 tooltip = _("Software backport. Be careful when upgrading. New versions of sofware can introduce regressions.")
