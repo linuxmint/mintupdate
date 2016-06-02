@@ -1335,16 +1335,16 @@ class MintUpdate():
             self.builder.get_object("image_error_status").set_pixel_size(96)
 
             #l10n for update policy page
-            self.builder.get_object("label_welcome1").set_markup("<span size='x-large'><b>%s</b></span>" % _("Welcome to the Update Manager"))
-            self.builder.get_object("label_welcome2").set_markup("<big>%s</big>" % _("This tool provides your operating system with software and security updates."))
-            self.builder.get_object("label_welcome3").set_markup("<big>%s</big>" % _("Please choose an update policy."))
-            self.builder.get_object("label_policy1_1").set_markup("<big><b>%s</b></big>" % _("Don't break my computer!"))
+            self.builder.get_object("label_welcome1").set_markup("<span size='large'><b>%s</b></span>" % _("Welcome to the Update Manager"))
+            self.builder.get_object("label_welcome2").set_markup("%s" % _("This tool provides your operating system with software and security updates."))
+            self.builder.get_object("label_welcome3").set_markup("%s" % _("Please choose an update policy."))
+            self.builder.get_object("label_policy1_1").set_markup("<b>%s</b>" % _("Don't break my computer!"))
             self.builder.get_object("label_policy1_2").set_markup("<i>%s</i>" % _("Recommended for novice users."))
             self.builder.get_object("label_policy1_3").set_markup("%s\n%s" % (_("Only select updates which are known to be safe or which do not impact critical parts of the operating system."), _("Don't show me updates which can harm the stability of my system.")))
-            self.builder.get_object("label_policy2_1").set_markup("<big><b>%s</b></big>" % _("Optimize stability and security"))
+            self.builder.get_object("label_policy2_1").set_markup("<b>%s</b>" % _("Optimize stability and security"))
             self.builder.get_object("label_policy2_2").set_markup("<i>%s</i>" % _("Recommended for most users."))
             self.builder.get_object("label_policy2_3").set_markup("%s\n%s" % (_("Only select updates which are known to be safe or which do not impact critical parts of the operating system."), _("But also show me security and kernel updates.")))
-            self.builder.get_object("label_policy3_1").set_markup("<big><b>%s</b></big>" % _("Always update everything"))
+            self.builder.get_object("label_policy3_1").set_markup("<b>%s</b>" % _("Always update everything"))
             self.builder.get_object("label_policy3_2").set_markup("<i>%s</i>" % _("Recommended for experienced users."))
             self.builder.get_object("label_policy3_3").set_markup("%s\n%s" % (_("Select all available updates."), _("Keep my computer fully up to date. If a regression breaks something, I'll fix it.")))
 
