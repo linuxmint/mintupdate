@@ -144,8 +144,8 @@
     <property name="title" translatable="yes">mintUpdate</property>
     <property name="modal">True</property>
     <property name="window_position">center</property>
-    <property name="default_width">650</property>
-    <property name="default_height">350</property>
+    <property name="default_width">750</property>
+    <property name="default_height">400</property>
     <property name="gravity">center</property>
     <child>
       <object class="GtkBox" id="box1">
@@ -257,8 +257,6 @@
     <property name="visible">True</property>
     <property name="can_focus">True</property>
     <property name="border_width">6</property>
-    <property name="hscrollbar_policy">never</property>
-    <property name="vscrollbar_policy">never</property>
     <property name="shadow_type">in</property>
     <child>
       <object class="GtkViewport" id="viewport2">
@@ -287,6 +285,7 @@
               <object class="GtkImage" id="image10">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="pixel_size">22</property>
                 <property name="icon_name">mintupdate-level1</property>
               </object>
               <packing>
@@ -410,6 +409,7 @@
               <object class="GtkImage" id="image11">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="pixel_size">22</property>
                 <property name="icon_name">mintupdate-level2</property>
               </object>
               <packing>
@@ -421,6 +421,7 @@
               <object class="GtkImage" id="image12">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="pixel_size">22</property>
                 <property name="icon_name">mintupdate-level3</property>
               </object>
               <packing>
@@ -432,6 +433,7 @@
               <object class="GtkImage" id="image13">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="pixel_size">22</property>
                 <property name="icon_name">mintupdate-level4</property>
               </object>
               <packing>
@@ -443,6 +445,7 @@
               <object class="GtkImage" id="image14">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="pixel_size">22</property>
                 <property name="icon_name">mintupdate-level5</property>
               </object>
               <packing>
