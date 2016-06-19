@@ -334,7 +334,7 @@ class AutomaticRefreshThread(threading.Thread):
                     self.application.logger.write("The mintUpdate window is open, skipping initial refresh")
         except Exception as e:
             print (e)
-            self.application.logger.write_error("Exception occured during the initial refresh: " + str(sys.exc_info()[0]))
+            self.application.logger.write_error("Exception occurred during the initial refresh: " + str(sys.exc_info()[0]))
 
         # Autorefresh (also with APT cache refresh)
         try:
@@ -354,7 +354,7 @@ class AutomaticRefreshThread(threading.Thread):
                         self.application.logger.write("The mintUpdate window is open, skipping auto-refresh")
         except Exception as e:
             print (e)
-            self.application.logger.write_error("Exception occured in the auto-refresh thread.. so it's probably dead now: " + str(sys.exc_info()[0]))
+            self.application.logger.write_error("Exception occurred in the auto-refresh thread.. so it's probably dead now: " + str(sys.exc_info()[0]))
 
 class InstallThread(threading.Thread):
 
@@ -552,7 +552,7 @@ class InstallThread(threading.Thread):
 
         except Exception as e:
             print (e)
-            self.application.logger.write_error("Exception occured in the install thread: " + str(sys.exc_info()[0]))
+            self.application.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
             Gdk.threads_enter()
             self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
             self.application.logger.write_error("Could not install security updates")
@@ -871,7 +871,7 @@ class RefreshThread(threading.Thread):
                             elif update_type == "kernel":
                                 tooltip = _("Kernel update")
                             elif update_type == "backport":
-                                tooltip = _("Software backport. Be careful when upgrading. New versions of sofware can introduce regressions.")
+                                tooltip = _("Software backport. Be careful when upgrading. New versions of software can introduce regressions.")
                             elif update_type == "unstable":
                                 tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
                             else:
@@ -1098,8 +1098,8 @@ class RefreshThread(threading.Thread):
 
         except Exception as e:
             print (e)
-            print("-- Exception occured in the refresh thread: " + str(sys.exc_info()[0]))
-            self.application.logger.write_error("Exception occured in the refresh thread: " + str(sys.exc_info()[0]))
+            print("-- Exception occurred in the refresh thread: " + str(sys.exc_info()[0]))
+            self.application.logger.write_error("Exception occurred in the refresh thread: " + str(sys.exc_info()[0]))
             Gdk.threads_enter()
             self.application.set_status(_("Could not refresh the list of updates"), _("Could not refresh the list of updates"), "mintupdate-error", True)
             if (not self.application.app_hidden):
@@ -1536,7 +1536,7 @@ class MintUpdate():
         except Exception as e:
             print (e)
             print(sys.exc_info()[0])
-            self.logger.write_error("Exception occured in main thread: " + str(sys.exc_info()[0]))
+            self.logger.write_error("Exception occurred in main thread: " + str(sys.exc_info()[0]))
             self.logger.close()
 
 ######### UTILITY FUNCTIONS #########
