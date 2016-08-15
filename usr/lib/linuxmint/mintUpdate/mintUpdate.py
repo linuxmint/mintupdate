@@ -18,10 +18,13 @@ import subprocess
 import lsb_release
 import pycurl
 import datetime
+
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
 gi.require_version('GdkX11', '3.0') # Needed to get xid
+gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
+from gi.repository import AppIndicator3 as AppIndicator
 
 try:
     numMintUpdate = subprocess.check_output("ps -A | grep mintUpdate | wc -l", shell = True)
@@ -1188,6 +1191,42 @@ class Logger():
             pass # cause it might be closed already
 
 
+class StatusIcon():
+    def __init__(self, app):
+        self.app = app
+        self.icon = AppIndicator.Indicator.new("mintUpdate", "mintupdate", AppIndicator.IndicatorCategory.APPLICATION_STATUS)
+        self.icon.set_status(AppIndicator.IndicatorStatus.ACTIVE)
+        self.icon.set_title(_("Update Manager"))
+        
+        self.menu = Gtk.Menu()
+        item = Gtk.MenuItem()
+        item.set_label(_("Update Manager"))
+        item.connect("activate", self.app.on_statusicon_clicked)
+        self.menu.append(item)
+
+        item = Gtk.MenuItem()
+        item.set_label(_("Exit"))
+        item.connect("activate", self.cb_exit, '')
+        self.menu.append(item)
+
+        self.menu.show_all()
+        self.icon.set_menu(self.menu)
+
+    def cb_exit(self, w, data):
+        self.app.quit_from_systray(None, None)
+
+    def set_from_icon_name(self, name):
+        self.icon.set_icon(name)
+
+    def set_tooltip_text(self, text):
+        pass # appindicator doesn't support that
+
+    def set_visible(self, visible):
+        if visible:
+            self.icon.set_status(AppIndicator.IndicatorStatus.ACTIVE)
+        else:
+            self.icon.set_status(AppIndicator.IndicatorStatus.PASSIVE)
+
 class MintUpdate():
 
     def __init__(self):
@@ -1197,7 +1236,10 @@ class MintUpdate():
         self.logger = Logger()
         self.logger.write("Launching mintUpdate")
         self.settings = Gio.Settings("com.linuxmint.updates")
-        self.statusIcon = Gtk.StatusIcon()
+        if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
+            self.statusIcon = StatusIcon(self)
+        else:
+            self.statusIcon = Gtk.StatusIcon()
         self.statusIcon.set_from_icon_name("mintupdate-checking")
         self.statusIcon.set_tooltip_text (_("Checking for updates"))
         self.statusIcon.set_visible(not self.settings.get_boolean("hide-systray"))
@@ -1318,8 +1360,9 @@ class MintUpdate():
             menuItem.connect('activate', self.quit_from_systray)
             menu.append(menuItem)
 
-            self.statusIcon.connect('activate', self.on_statusicon_clicked)
-            self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
+            if os.getenv("XDG_CURRENT_DESKTOP") != "KDE":
+                self.statusIcon.connect('activate', self.on_statusicon_clicked)
+                self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
 
             # Set text for all visible widgets (because of i18n)
             self.builder.get_object("tool_apply").set_label(_("Install Updates"))
