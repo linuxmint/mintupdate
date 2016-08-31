@@ -1975,6 +1975,13 @@ class MintUpdate():
             print (e)
             print(sys.exc_info()[0])
 
+        try:
+            version = subprocess.getoutput("/usr/lib/linuxmint/common/version.py mintupdate")
+            dlg.set_version(version)
+        except Exception as e:
+            print (e)
+            print(sys.exc_info()[0])
+
         dlg.set_icon_name("mintupdate")
         dlg.set_logo_icon_name("mintupdate")
         dlg.set_website("http://www.github.com/linuxmint/mintupdate")
