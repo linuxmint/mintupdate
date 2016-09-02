@@ -1787,31 +1787,29 @@ class MintUpdate():
             (model, iter) = selection.get_selected()
             if (iter != None):
                 package_update = model.get_value(iter, UPDATE_OBJ)
+                self.display_package_description(package_update)
                 if self.builder.get_object("notebook_details").get_current_page() == 0:
                     # Description tab
-                    self.display_package_description(package_update)
+                    self.changelog_retriever_started = False
                 else:
                     # Changelog tab
                     retriever = ChangelogRetriever(package_update, self)
                     retriever.start()
+                    self.changelog_retriever_started = True
         except Exception as e:
             print (e)
             print(sys.exc_info()[0])
 
     def switch_page(self, notebook, page, page_num):
-        self.builder.get_object("textview_description").get_buffer().set_text("")
-        self.builder.get_object("textview_changes").get_buffer().set_text("")
         selection = self.treeview.get_selection()
         (model, iter) = selection.get_selected()
         if (iter != None):
-            package_update = model.get_value(iter, UPDATE_OBJ)
-            if (page_num == 0):
-                # Description tab
-                self.display_package_description(package_update)
-            else:
+            if (page_num == 1 and not self.changelog_retriever_started):
                 # Changelog tab
+                package_update = model.get_value(iter, UPDATE_OBJ)
                 retriever = ChangelogRetriever(package_update, self)
                 retriever.start()
+                self.changelog_retriever_started = True
 
     def display_package_description(self, package_update):
         description = package_update.description
