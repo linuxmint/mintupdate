@@ -1717,7 +1717,9 @@ class MintUpdate():
             self.settings.set_boolean("security-updates-are-safe", True)
             self.settings.set_boolean("kernel-updates-are-safe", True)
 
+        self.builder.get_object("toolbar1").set_visible(True)
         self.builder.get_object("toolbar1").set_sensitive(True)
+        self.builder.get_object("menubar1").set_visible(True)
         self.builder.get_object("menubar1").set_sensitive(True)
         self.updates_inhibited = False
         refresh = RefreshThread(self)
@@ -1738,7 +1740,9 @@ class MintUpdate():
         self.set_status(_("Please choose an update policy."), _("Please choose an update policy."), "mintupdate-updates-available", True)
         self.set_status_message("")
         self.builder.get_object("toolbar1").set_sensitive(False)
+        self.builder.get_object("toolbar1").set_visible(False)
         self.builder.get_object("menubar1").set_sensitive(False)
+        self.builder.get_object("menubar1").set_visible(False)
 
 ######### TREEVIEW/SELECTION FUNCTIONS #######
 
