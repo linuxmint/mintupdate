@@ -114,11 +114,11 @@ class PackageUpdate():
                         break
                 # Overwrite lib packages
                 for prefix in ["lib", "gir1.2"]:
-                    if (self.main_package.startswith(suffix) and not package.startswith(suffix)):
+                    if (self.main_package.startswith(prefix) and not package.startswith(prefix)):
                         overwrite_main_package = True
                         break
                 for keyword in ["-locale-", "-l10n-", "-help-"]:
-                    if (self.main_package.startswith(suffix) and not package.startswith(suffix)):
+                    if (keyword in self.main_package) and (keyword not in package):
                         overwrite_main_package = True
                         break
         if overwrite_main_package:
