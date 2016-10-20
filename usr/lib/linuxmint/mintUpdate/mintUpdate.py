@@ -49,7 +49,7 @@ gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 package_short_descriptions = {}
 package_descriptions = {}
 
-(UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(13)
+(UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(14)
 
 def size_to_string(size):
     strSize = str(size) + _("B")
@@ -80,7 +80,7 @@ class Alias():
         self.description = description
 
 class PackageUpdate():
-    def __init__(self, source_package_name, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, tooltip):
+    def __init__(self, source_package_name, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, site, tooltip):
         self.name = source_package_name
         self.description = ""
         self.short_description = ""
@@ -93,6 +93,7 @@ class PackageUpdate():
         self.warning = warning
         self.type = update_type
         self.origin = origin
+        self.site = site
         self.tooltip = tooltip
         self.packages = []
         self.alias = source_package_name
@@ -718,8 +719,8 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
-            model = Gtk.TreeStore(str, str, GdkPixbuf.Pixbuf, str, str, str, int, str, str, str, str, str, object)
-            # UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_LEVEL_STR,
+            model = Gtk.TreeStore(str, str, GdkPixbuf.Pixbuf, str, str, str, str, int, str, str, str, str, str, object)
+            # UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
             model.set_sort_column_id( UPDATE_SORT_STR, Gtk.SortType.ASCENDING )
@@ -839,7 +840,7 @@ class RefreshThread(threading.Thread):
 
                     values = pkg.split("###")
 
-                    if len(values) == 10:
+                    if len(values) == 11:
                         status = values[0]
                         package = values[1]
                         newVersion = values[2]
@@ -850,6 +851,7 @@ class RefreshThread(threading.Thread):
                         origin = values[7]
                         short_description = values[8]
                         description = values[9]
+                        site = values[10]
 
                         package_names.add(package.replace(":i386", "").replace(":amd64", ""))
 
@@ -923,7 +925,7 @@ class RefreshThread(threading.Thread):
                             level = int(level)
 
                             # Create a new Update
-                            update = PackageUpdate(source_package, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, tooltip)
+                            update = PackageUpdate(source_package, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, site, tooltip)
                             update.add_package(package, size, short_description, description)
                             package_updates[source_package] = update
                         else:
@@ -990,6 +992,7 @@ class RefreshThread(threading.Thread):
                         model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
                         model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)
                         model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)
+                        model.set_value(iter, UPDATE_SOURCE, "%s (%s)" % (package_update.origin, package_update.site))
                         model.set_value(iter, UPDATE_LEVEL_STR, str(package_update.level))
                         model.set_value(iter, UPDATE_SIZE, package_update.size)
                         model.set_value(iter, UPDATE_SIZE_STR, size_to_string(package_update.size))
@@ -1316,6 +1319,10 @@ class MintUpdate():
             column7.set_sort_column_id(UPDATE_TYPE)
             column7.set_resizable(True)
 
+            column8 = Gtk.TreeViewColumn(_("Source"), Gtk.CellRendererText(), text=UPDATE_SOURCE)
+            column8.set_sort_column_id(UPDATE_SOURCE)
+            column8.set_resizable(True)
+
             self.treeview.set_tooltip_column(UPDATE_TOOLTIP)
 
             self.treeview.append_column(column7)
@@ -1324,6 +1331,7 @@ class MintUpdate():
             self.treeview.append_column(column2)
             self.treeview.append_column(column4)
             self.treeview.append_column(column5)
+            self.treeview.append_column(column8)
             self.treeview.append_column(column6)
 
             self.treeview.set_headers_clickable(True)
@@ -1503,6 +1511,12 @@ class MintUpdate():
             sizeColumnMenuItem.set_active(self.settings.get_boolean("show-size-column"))
             column6.set_visible(self.settings.get_boolean("show-size-column"))
             sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column6, "show-size-column")
+            visibleColumnsMenu.append(sizeColumnMenuItem)
+
+            sizeColumnMenuItem = Gtk.CheckMenuItem(_("Source"))
+            sizeColumnMenuItem.set_active(self.settings.get_boolean("show-source-column"))
+            column8.set_visible(self.settings.get_boolean("show-source-column"))
+            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column8, "show-source-column")
             visibleColumnsMenu.append(sizeColumnMenuItem)
 
             viewSubmenu.append(visibleColumnsMenuItem)
