@@ -989,10 +989,13 @@ class RefreshThread(threading.Thread):
                         theme = Gtk.IconTheme.get_default()
                         pixbuf = theme.load_icon("mintupdate-level" + str(package_update.level), 22, 0)
 
+                        origin = package_update.origin
+                        origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ")
+
                         model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
                         model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)
                         model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)
-                        model.set_value(iter, UPDATE_SOURCE, "%s (%s)" % (package_update.origin, package_update.site))
+                        model.set_value(iter, UPDATE_SOURCE, "%s (%s)" % (origin, package_update.site))
                         model.set_value(iter, UPDATE_LEVEL_STR, str(package_update.level))
                         model.set_value(iter, UPDATE_SIZE, package_update.size)
                         model.set_value(iter, UPDATE_SIZE_STR, size_to_string(package_update.size))
@@ -1319,7 +1322,7 @@ class MintUpdate():
             column7.set_sort_column_id(UPDATE_TYPE)
             column7.set_resizable(True)
 
-            column8 = Gtk.TreeViewColumn(_("Source"), Gtk.CellRendererText(), text=UPDATE_SOURCE)
+            column8 = Gtk.TreeViewColumn(_("Origin"), Gtk.CellRendererText(), text=UPDATE_SOURCE)
             column8.set_sort_column_id(UPDATE_SOURCE)
             column8.set_resizable(True)
 
@@ -1513,10 +1516,10 @@ class MintUpdate():
             sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column6, "show-size-column")
             visibleColumnsMenu.append(sizeColumnMenuItem)
 
-            sizeColumnMenuItem = Gtk.CheckMenuItem(_("Source"))
-            sizeColumnMenuItem.set_active(self.settings.get_boolean("show-source-column"))
-            column8.set_visible(self.settings.get_boolean("show-source-column"))
-            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column8, "show-source-column")
+            sizeColumnMenuItem = Gtk.CheckMenuItem(_("Origin"))
+            sizeColumnMenuItem.set_active(self.settings.get_boolean("show-origin-column"))
+            column8.set_visible(self.settings.get_boolean("show-origin-column"))
+            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column8, "show-origin-column")
             visibleColumnsMenu.append(sizeColumnMenuItem)
 
             viewSubmenu.append(visibleColumnsMenuItem)
