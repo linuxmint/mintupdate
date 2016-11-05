@@ -528,7 +528,7 @@ class InstallThread(threading.Thread):
                         else:
                             self.application.logger.write("Install failed")
 
-                    if self.application.settings.get_boolean("hide-window-after-update"):
+                    if update_successful and self.application.settings.get_boolean("hide-window-after-update"):
                         Gdk.threads_enter()
                         self.application.app_hidden = True
                         self.application.window.hide()
