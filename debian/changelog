@@ -1,3 +1,25 @@
+mintupdate (5.1.1) serena; urgency=medium
+
+  [ xenopeek ]
+  * mintUpdate.py: don't download changelog each time on tab switch
+  * mintUpdate.py: show version number to About Dialog
+
+  [ brennanhm ]
+  * Improve visibility of buttons in update policy window - issue #170
+
+  [ Clement Lefebvre ]
+  * Fixed typos and logic errors in name resolution
+
+  [ brennanhm ]
+  * Prevent reset of package selection if update fails - issue #120
+  * Add optional 'source' column to the main overview - Issue #77
+
+  [ Clement Lefebvre ]
+  * Rename Source -> Origin in previously merged PR.
+  * Don't hide window when update fails
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 05 Nov 2016 13:28:52 +0000
+
 mintupdate (5.1.0) sarah; urgency=medium
 
   * [tomoe-musashi] Fixed typo
