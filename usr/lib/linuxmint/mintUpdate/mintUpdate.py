@@ -513,7 +513,20 @@ class InstallThread(threading.Thread):
                     returnCode = comnd.wait()
                     self.application.logger.write("Return code:" + str(returnCode))
                     f.close()
-                    self.application.logger.write("Install finished")
+
+                    latest_apt_update = ''
+                    update_successful = False
+                    with open("/var/log/apt/history.log") as apt_history:
+                        for line in reversed(list(apt_history)):
+                            if "Start-Date" in line:
+                                break
+                            else:
+                                latest_apt_update += line
+                        if f.name in latest_apt_update and "End-Date" in latest_apt_update:
+                            update_successful = True
+                            self.application.logger.write("Install finished")
+                        else:
+                            self.application.logger.write("Install failed")
 
                     if self.application.settings.get_boolean("hide-window-after-update"):
                         Gdk.threads_enter()
@@ -532,7 +545,7 @@ class InstallThread(threading.Thread):
                         command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
                         os.system(command)
 
-                    else:
+                    if update_successful:
                         # Refresh
                         Gdk.threads_enter()
                         self.application.set_status(_("Checking for updates"), _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
@@ -541,6 +554,13 @@ class InstallThread(threading.Thread):
                         Gdk.threads_leave()
                         refresh = RefreshThread(self.application)
                         refresh.start()
+                    else:
+                        Gdk.threads_enter()
+                        self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
+                        self.application.window.get_window().set_cursor(None)
+                        self.application.window.set_sensitive(True)
+                        Gdk.threads_leave()
+
                 else:
                     # Stop the blinking but don't refresh
                     Gdk.threads_enter()
