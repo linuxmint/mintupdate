@@ -1304,7 +1304,9 @@ class MintUpdate():
             configure_page = self.builder.get_object("configure_page")
             self.stack.add_named(configure_page, "configure")
             self.builder.get_object("button_configure_finish").connect("clicked", self.on_configure_finished)
+            self.builder.get_object("button_configure_finish").set_label(_("OK"))          
             self.builder.get_object("button_configure_help").connect("clicked", self.on_configure_help)
+            self.builder.get_object("button_configure_help").set_label(_("Help"))
 
             # Updates page
             updates_page = self.builder.get_object("updates_page")
