@@ -18,6 +18,7 @@ import subprocess
 import lsb_release
 import pycurl
 import datetime
+from html.parser import HTMLParser
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -590,9 +591,14 @@ class RefreshThread(threading.Thread):
         threading.Thread.__init__(self)
         self.root_mode = root_mode
         self.application = application
+        self.parser = HTMLParser()
 
     def clean_l10n_short_description(self, description):
         try:
+            try:
+                description = self.parser.unescape(description)
+            except:
+                print ("Unable to unescape '%s'" % description)
             # Remove "Description-xx: " prefix
             value = re.sub(r'Description-(\S+): ', r'', description)
             # Only take the first line and trim it
@@ -614,6 +620,10 @@ class RefreshThread(threading.Thread):
 
     def clean_l10n_description(self, description):
             try:
+                try:
+                    description = self.parser.unescape(description)
+                except:
+                    print ("Unable to unescape '%s'" % description)
                 lines = description.split("\n")
                 value = ""
                 num = 0
@@ -1862,10 +1872,10 @@ class MintUpdate():
             self.buffer.insert(self.buffer.get_end_iter(), "\n")
 
         if (len(package_update.packages) > 1):
-            dimmed_description = "%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
+            dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
             self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
         elif (package_update.packages[0] != package_update.alias):
-            dimmed_description = "%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
+            dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
             self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
 
     def treeview_right_clicked(self, widget, event):
