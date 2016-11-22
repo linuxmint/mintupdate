@@ -244,17 +244,17 @@ class KernelWindow():
 
         builder.get_object("button_close").connect("clicked", self.hide_window)
 
-        kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py | grep \"###\"", shell = True).decode("utf-8")
+        kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py | sort | grep \"###\"", shell = True).decode("utf-8")
         kernels = kernels.split("\n")
         kernel_list = []
         pages_needed = []
         for kernel in kernels:
             values = kernel.split('###')
-            if len(values) == 7:
+            if len(values) == 8:
                 status = values[0]
                 if status != "KERNEL":
                     continue
-                (status, version, pkg_version, installed, used, recommended, installable) = values
+                (status, version_id, version, pkg_version, installed, used, recommended, installable) = values
                 installed = (installed == "1")
                 used = (used == "1")
                 recommended = (recommended == "1")

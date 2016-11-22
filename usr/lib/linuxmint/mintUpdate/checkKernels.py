@@ -35,7 +35,17 @@ try:
             if recommended_kernel is not None and version in recommended_kernel:
                 recommended = 1
 
-            resultString = "KERNEL###%s###%s###%s###%s###%s###%s" % (version, pkg_version, installed, used, recommended, installable)
+            # provide a representation of the version which helps sorting the kernels
+            version_array = pkg_version.replace("-", ".").split(".")
+            versions = []
+            for element in version_array:
+                if len(element) == 1:
+                    element = "00%s" % element
+                elif len(element) == 2:
+                    element = "0%s" % element
+                versions.append(element)
+
+            resultString = "KERNEL###%s###%s###%s###%s###%s###%s###%s" % (".".join(versions), version, pkg_version, installed, used, recommended, installable)
             print(resultString.encode("utf-8").decode('ascii', 'xmlcharrefreplace'))
 
 except:
