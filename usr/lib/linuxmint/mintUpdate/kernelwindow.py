@@ -92,7 +92,7 @@ class SidebarSwitcher(Gtk.Bin):
         self.stack = stack
 
 class KernelRow(Gtk.ListBoxRow):
-    def __init__(self, version, pkg_version, text, installed, used, recommended, installable, window, application):
+    def __init__(self, version, pkg_version, text, installed, used, title, installable, window, application):
         Gtk.ListBoxRow.__init__(self)
 
         self.application = application
@@ -116,20 +116,12 @@ class KernelRow(Gtk.ListBoxRow):
         hbox.pack_end(info_box, False, False, 0)
         INFO_GROUP.add_widget(info_box)
 
-        if installed:
+        if title != "":
             label = Gtk.Label()
             label.set_margin_right(6)
             label.set_margin_left(6)
             label.props.xalign = 0.5
-            label.set_markup("<i>%s</i>" % _("Installed"))
-            Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(label), "dim-label")
-            hbox.pack_start(label, True, False, 0)
-        elif recommended:
-            label = Gtk.Label()
-            label.set_margin_right(6)
-            label.set_margin_left(6)
-            label.props.xalign = 0.5
-            label.set_markup("<i>%s</i>" % _("Recommended"))
+            label.set_markup("<i>%s</i>" % title)
             Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(label), "dim-label")
             hbox.pack_start(label, True, False, 0)
 
@@ -250,19 +242,35 @@ class KernelWindow():
         pages_needed = []
         for kernel in kernels:
             values = kernel.split('###')
-            if len(values) == 8:
+            if len(values) == 9:
                 status = values[0]
                 if status != "KERNEL":
                     continue
-                (status, version_id, version, pkg_version, installed, used, recommended, installable) = values
+                (status, version_id, version, pkg_version, installed, used, recommended_stability, recommended_security, installable) = values
                 installed = (installed == "1")
                 used = (used == "1")
-                recommended = (recommended == "1")
+                title = ""
+                if used:
+                    title = _("Active")
+                elif installed:
+                    title = _("Installed")
+                recommend = None
+                if recommended_stability == "1":
+                    recommend = _("Most stable recommendation")
+                elif recommended_security == "1":
+                    recommend = _("Most secure recommendation")
+
+                if recommend is not None:
+                    if title == "":
+                        title = recommend
+                    else:
+                        title = "%s - %s" % (recommend, title)
+
                 installable = (installable == "1")
                 label = version
 
                 page_label = label.split(".")[0] + "." + label.split(".")[1]
-                kernel_list.append([version, pkg_version, page_label, label, installed, used, recommended, installable])
+                kernel_list.append([version, pkg_version, page_label, label, installed, used, title, installable])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
 
@@ -278,11 +286,11 @@ class KernelWindow():
             stack_switcher.add_titled(page, page)
 
             for kernel in kernel_list:
-                (version, pkg_version, page_label, label, installed, used, recommended, installable) = kernel
+                (version, pkg_version, page_label, label, installed, used, title, installable) = kernel
                 if used:
                     current_label.set_markup("<b>%s %s</b>" % (_("You are currently using the following kernel:"), kernel[3]))
                 if page_label == page:
-                    row = KernelRow(version, pkg_version, label, installed, used, recommended, installable, self.window, self.application)
+                    row = KernelRow(version, pkg_version, label, installed, used, title, installable, self.window, self.application)
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)

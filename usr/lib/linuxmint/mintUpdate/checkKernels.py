@@ -13,11 +13,20 @@ try:
     recommended_kernel = None
     if 'linux-kernel-generic' in cache:
         recommended_kernel = cache['linux-kernel-generic'].candidate.version
+    recommended_image = None
+    if 'linux-image-generic' in cache:
+        try:
+            recommended_image = cache['linux-image-generic'].candidate.version
+            versions = recommended_image.split(".")
+            recommended_image = "%s.%s.%s-%s" % (versions[0], versions[1], versions[2], versions[3])
+        except:
+            pass #best effort
 
     for pkg in cache:
         installed = 0
         used = 0
-        recommended = 0
+        recommended_stability = 0
+        recommended_security = 0
         installable = 0
         pkg_version = ""
         package = pkg.name
@@ -33,7 +42,9 @@ try:
             if version == current_version:
                 used = 1
             if recommended_kernel is not None and version in recommended_kernel:
-                recommended = 1
+                recommended_stability = 1
+            if recommended_image is not None and recommended_image in version:
+                recommended_security = 1
 
             # provide a representation of the version which helps sorting the kernels
             version_array = pkg_version.replace("-", ".").split(".")
@@ -45,7 +56,7 @@ try:
                     element = "0%s" % element
                 versions.append(element)
 
-            resultString = "KERNEL###%s###%s###%s###%s###%s###%s###%s" % (".".join(versions), version, pkg_version, installed, used, recommended, installable)
+            resultString = "KERNEL###%s###%s###%s###%s###%s###%s###%s###%s" % (".".join(versions), version, pkg_version, installed, used, recommended_stability, recommended_security, installable)
             print(resultString.encode("utf-8").decode('ascii', 'xmlcharrefreplace'))
 
 except:
