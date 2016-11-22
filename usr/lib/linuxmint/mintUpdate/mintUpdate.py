@@ -901,10 +901,11 @@ class RefreshThread(threading.Thread):
                                 update_type = "package"
                                 is_a_mint_package = True
 
-                            if update_type == "security":
-                                tooltip = _("Security update")
-                            elif update_type == "kernel":
+                            if source_package in ["linux", "linux-kernel"] or update_type == "kernel":
+                                update_type = "kernel"
                                 tooltip = _("Kernel update")
+                            elif update_type == "security":
+                                tooltip = _("Security update")
                             elif update_type == "backport":
                                 tooltip = _("Software backport. Be careful when upgrading. New versions of software can introduce regressions.")
                             elif update_type == "unstable":
@@ -977,7 +978,10 @@ class RefreshThread(threading.Thread):
                         package_update.alias = alias.name
                         package_update.short_description = alias.short_description
                         package_update.description = alias.description
-
+                    elif package_update.type == "kernel":
+                        package_update.alias = "Linux kernel %s" % package_update.newVersion
+                        package_update.short_description = _("The Linux kernel.")
+                        package_update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
                     else:
                         # l10n descriptions
                         self.l10n_descriptions(package_update)
@@ -987,12 +991,12 @@ class RefreshThread(threading.Thread):
                     level_is_visible = self.application.settings.get_boolean('level%s-is-visible' % str(package_update.level))
                     level_is_safe = self.application.settings.get_boolean('level%s-is-safe' % str(package_update.level))
 
-                    if package_update.type == "security":
-                        visible = (level_is_visible or self.application.settings.get_boolean('security-updates-are-visible'))
-                        safe = (level_is_safe or self.application.settings.get_boolean('security-updates-are-safe'))
-                    elif package_update.type == "kernel":
+                    if package_update.type == "kernel":
                         visible = (level_is_visible or self.application.settings.get_boolean('kernel-updates-are-visible'))
                         safe = (level_is_safe or self.application.settings.get_boolean('kernel-updates-are-safe'))
+                    elif package_update.type == "security":
+                        visible = (level_is_visible or self.application.settings.get_boolean('security-updates-are-visible'))
+                        safe = (level_is_safe or self.application.settings.get_boolean('security-updates-are-safe'))
                     else:
                         visible = level_is_visible
                         safe = level_is_safe

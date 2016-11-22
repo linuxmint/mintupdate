@@ -88,7 +88,7 @@ try:
                     if pkgname in cache:
                         pkg = cache[pkgname]
                         if not pkg.is_installed:
-                            resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (pkgname, pkg.candidate.version, "", pkg.candidate.size, "linux-kernel", "kernel", "ubuntu", pkg.candidate.raw_description, pkg.candidate.description)
+                            resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (pkgname, pkg.candidate.version, "", pkg.candidate.size, "linux", "kernel", "ubuntu", pkg.candidate.raw_description, pkg.candidate.description, "security.ubuntu.com")
                             print(resultString.encode('ascii', 'xmlcharrefreplace'))
 
 except Exception as error:

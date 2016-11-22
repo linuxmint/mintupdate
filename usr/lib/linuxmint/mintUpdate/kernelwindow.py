@@ -53,7 +53,7 @@ class InstallKernelThread(threading.Thread):
         f.flush()
         comnd = subprocess.Popen(' '.join(cmd), stdout=self.application.logger.log, stderr=self.application.logger.log, shell=True)
         returnCode = comnd.wait()
-        f.close()   
+        f.close()
 
 class SidebarSwitcherRow(Gtk.ListBoxRow):
     def __init__(self, name, widget):
@@ -114,7 +114,7 @@ class KernelRow(Gtk.ListBoxRow):
         info_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         info_box.set_spacing(6)
         hbox.pack_end(info_box, False, False, 0)
-        INFO_GROUP.add_widget(info_box) 
+        INFO_GROUP.add_widget(info_box)
 
         if installed:
             label = Gtk.Label()
