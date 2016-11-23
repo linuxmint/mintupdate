@@ -979,7 +979,7 @@ class RefreshThread(threading.Thread):
                         package_update.short_description = alias.short_description
                         package_update.description = alias.description
                     elif package_update.type == "kernel":
-                        package_update.alias = "Linux kernel %s" % package_update.newVersion
+                        package_update.alias = _("Linux kernel %s") % package_update.newVersion
                         package_update.short_description = _("The Linux kernel.")
                         package_update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
                     else:
