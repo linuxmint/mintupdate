@@ -255,10 +255,10 @@ class KernelWindow():
                 elif installed:
                     title = _("Installed")
                 recommend = None
-                if recommended_stability == "1":
-                    recommend = _("Most stable recommendation")
-                elif recommended_security == "1":
-                    recommend = _("Most secure recommendation")
+                if recommended_security == "1":
+                    recommend = _("Recommended for security")
+                elif recommended_stability == "1":
+                    recommend = _("Recommended for stability")
 
                 if recommend is not None:
                     if title == "":
