@@ -2227,14 +2227,14 @@ class MintUpdate():
         hbox.pack_end(entry, True, True, 0)
         dialog.vbox.pack_end(hbox, True, True, 0)
         dialog.show_all()
-        dialog.run()
-        name = entry.get_text()
+        if dialog.run() == Gtk.ResponseType.OK:
+            name = entry.get_text()
+            pkg = name.strip()
+            if pkg != '':
+                model = treeview_blacklist.get_model()
+                iter = model.insert_before(None, None)
+                model.set_value(iter, 0, pkg)
         dialog.destroy()
-        pkg = name.strip()
-        if pkg != '':
-            model = treeview_blacklist.get_model()
-            iter = model.insert_before(None, None)
-            model.set_value(iter, 0, pkg)
 
     def remove_blacklisted_package(self, widget, treeview_blacklist):
         selection = treeview_blacklist.get_selection()
