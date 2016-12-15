@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-07 12:40+0000\n"
+"POT-Creation-Date: 2016-12-15 18:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,15 +193,27 @@ msgstr ""
 msgid "Are you sure you want to install the %s kernel?"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:221
-msgid "Warning!"
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:204
+msgid "Kernels"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:222
-msgid "Proceed with caution"
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:219
+msgid "Continue"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:221
+msgid "Do not show this message again"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:223
+msgid "Warning!"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:224
+msgid "Proceed with caution"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:225
 msgid ""
 "The Linux kernel is a critical part of the system. Regressions can lead to "
 "lack of networking, lack of sound, lack of graphical environment or even the "
@@ -210,18 +222,18 @@ msgid ""
 "a non-booting computer."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:224
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:226
 msgid ""
 "You can install multiple kernels on your computer and you can select the one "
 "you want to use from the advanced options in the boot menu."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:225
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:227
 msgid ""
 "By default, your computer will boot with the most recent kernel installed."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:226
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:228
 msgid ""
 "If you are using proprietary drivers, or DKMS modules, please be aware that "
 "they will only work with the most recent kernel installed on your computer. "
@@ -230,23 +242,28 @@ msgid ""
 "remove all the kernels which are more recent."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:254
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
+msgid "Close"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:257
 msgid "Active"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:256
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:259
 msgid "Installed"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:259
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:262
 msgid "Recommended for security"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:261
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:264
 msgid "Recommended for stability"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:291
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:294
 msgid "You are currently using the following kernel:"
 msgstr ""
 
@@ -608,10 +625,6 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1443
 msgid "_File"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
-msgid "Close"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1453
