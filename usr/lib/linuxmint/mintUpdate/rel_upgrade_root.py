@@ -76,7 +76,7 @@ for pkg in changes:
                 update_type = "package"
                 for origin in pkg.candidate.origins:
                     if origin.origin == "linuxmint":
-                        if origin.component != "romeo" and origin.component != "backport" and package != "linux-kernel-generic":
+                        if origin.component != "romeo" and package != "linux-kernel-generic":
                             pkg_line = "%s\tinstall\n" % package
                             f.write(pkg_line.encode("utf-8"))
 
