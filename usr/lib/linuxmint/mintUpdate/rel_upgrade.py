@@ -181,7 +181,8 @@ class Assistant:
         f = tempfile.NamedTemporaryFile()
 
         for pkg in packages:
-            f.write("%s\tinstall\n" % pkg)
+            pkg_line = "%s\tinstall\n" % pkg
+            f.write(pkg_line.encode("utf-8"))
         cmd.append("--set-selections-file")
         cmd.append("%s" % f.name)
         f.flush()
