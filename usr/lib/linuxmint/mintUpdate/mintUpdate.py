@@ -19,6 +19,7 @@ import lsb_release
 import pycurl
 import datetime
 from html.parser import HTMLParser
+import configparser
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -1482,12 +1483,12 @@ class MintUpdate():
                         if "CODENAME=" in line:
                             rel_codename = line.split('=')[1].replace('"', '').split()[0]
 
-            rel_path = "/usr/share/mint-upgrade-info/%s" % rel_codename
+            rel_path = "/usr/share/mint-upgrade-info/%s/info" % rel_codename
             if os.path.exists(rel_path):
-                with open(os.path.join(rel_path, "info")) as f:
-                    config = dict([line.strip().split("=") for line in f])
-                if rel_edition.lower() in config['editions']:
-                    rel_target = config['target_name']
+                config = configparser.ConfigParser()
+                config.read(rel_path)
+                if rel_edition.lower() in config['general']['editions']:
+                    rel_target = config['general']['target_name']
                     relUpgradeMenuItem = Gtk.ImageMenuItem(Gtk.STOCK_PREFERENCES)
                     relUpgradeMenuItem.set_use_stock(True)
                     relUpgradeMenuItem.set_image(Gtk.Image.new_from_icon_name("mintupdate-release-upgrade", Gtk.IconSize.MENU))

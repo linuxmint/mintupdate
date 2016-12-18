@@ -8,6 +8,7 @@ import gettext
 import tempfile
 from subprocess import Popen, PIPE
 import os, apt, time
+import configparser
 
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
@@ -48,11 +49,11 @@ class Assistant:
             if not os.path.exists(rel_path):
                 self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("No upgrades were found."))
             else:
-                with open(os.path.join(rel_path, "info")) as f:
-                    config = dict([line.strip().split("=") for line in f])
-                self.rel_target_name = config['target_name']
-                self.rel_target_codename = config['target_codename']
-                self.rel_editions = config['editions']
+                config = configparser.ConfigParser()
+                config.read(os.path.join(rel_path, "info"))
+                self.rel_target_name = config['general']['target_name']
+                self.rel_target_codename = config['general']['target_codename']
+                self.rel_editions = config['general']['editions']
                 if self.current_edition.lower() in self.rel_editions:
                     label = Gtk.Label()
                     label.set_markup(_("A new version of Linux Mint is available!"))
