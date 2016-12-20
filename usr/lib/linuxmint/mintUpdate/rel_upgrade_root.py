@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import os, sys, apt, tempfile, gettext
-from subprocess import Popen, PIPE
+import subprocess
 
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
@@ -38,9 +38,8 @@ os.system("cp %s /etc/apt/sources.list.d/official-package-repositories.list" % s
 #-------------------------
 
 cache = apt.Cache()
-from subprocess import Popen, PIPE
 cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive", "--parent-window-id", "%d" % window_id]
-comnd = Popen(' '.join(cmd), shell=True)
+comnd = subprocess.Popen(' '.join(cmd), shell=True)
 returnCode = comnd.wait()
 
 # STEP 3: INSTALL LEVEL 1 UPDATES
@@ -83,5 +82,20 @@ for pkg in changes:
 cmd.append("--set-selections-file")
 cmd.append("%s" % f.name)
 f.flush()
-comnd = Popen(' '.join(cmd), shell=True)
+comnd = subprocess.Popen(' '.join(cmd), shell=True)
 returnCode = comnd.wait()
+
+# STEP 4: UPDATE GRUB
+#--------------------
+
+try:
+    if os.path.exists("/etc/grub.d/10_linux"):
+        if os.path.exists("/etc/linuxmint/info"):
+            mint_grub_title = subprocess.getoutput("grep GRUB_TITLE /etc/linuxmint/info | awk -F = '{print $2}'")
+        else:
+            mint_grub_title = "Linux Mint"
+        os.system("sed -i -e 's@OS=\"${GRUB_DISTRIBUTOR}\"@OS=\"%s\"@g' /etc/grub.d/10_linux" % mint_grub_title)
+        os.system("sed -i -e 's@OS=\"Linux Mint .*@OS=\"%s\"@g' /etc/grub.d/10_linux" % mint_grub_title)
+        subprocess.call("update-grub")
+except Exception as detail:
+    syslog.syslog("Couldn't update grub: %s" % detail)
