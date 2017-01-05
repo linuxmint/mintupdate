@@ -15,7 +15,6 @@ import urllib.request
 import re
 import proxygsettings
 import subprocess
-import lsb_release
 import pycurl
 import datetime
 from html.parser import HTMLParser
@@ -1090,7 +1089,7 @@ class RefreshThread(threading.Thread):
                     mirror_url = None
                     infobar_message = None
                     infobar_message_type = Gtk.MessageType.QUESTION
-                    codename = lsb_release.get_distro_information()['CODENAME']
+                    codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
                     with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
                         for line in sources_file:
                             line = line.strip()

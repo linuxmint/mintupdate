@@ -6,12 +6,7 @@ import apt
 import gi
 import platform
 
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gio, Gtk
-
-from aptdaemon import client
-from aptdaemon.errors import NotAuthorizedError, TransactionFailed
-from aptdaemon.gtk3widgets import AptErrorDialog, AptProgressDialog
+from gi.repository import Gio
 
 class KernelVersion():
 
