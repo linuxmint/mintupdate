@@ -1419,10 +1419,10 @@ class MintUpdate():
             self.builder.get_object("label9").set_text(_("Description"))
             self.builder.get_object("label8").set_text(_("Changelog"))
 
-            self.builder.get_object("label_success").set_markup("<b>" + _("Your system is up to date") + "</b>")
+            self.builder.get_object("label_success").set_markup("<b>" + _("Your system is up to date") + "</b>\n\n<big><big><b>" + _("Good job!") + "</b></big></big>")
             self.builder.get_object("label_error").set_markup("<b>" + _("Could not refresh the list of updates") + "</b>")
-            self.builder.get_object("image_success_status").set_pixel_size(96)
-            self.builder.get_object("image_error_status").set_pixel_size(96)
+            self.builder.get_object("image_success_status").set_pixel_size(192)
+            self.builder.get_object("image_error_status").set_pixel_size(192)
 
             #l10n for update policy page
             self.builder.get_object("label_welcome1").set_markup("<span size='large'><b>%s</b></span>" % _("Welcome to the Update Manager"))
