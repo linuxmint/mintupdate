@@ -419,6 +419,7 @@ class InstallThread(threading.Thread):
                                     else:
                                         label.set_text(_("The following %d packages will be removed:") % len(removals))
                                     label.set_alignment(0, 0.5)
+                                    label.set_padding(20, 0)
                                     scrolledWindow = Gtk.ScrolledWindow()
                                     scrolledWindow.set_shadow_type(Gtk.ShadowType.IN)
                                     scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -450,6 +451,7 @@ class InstallThread(threading.Thread):
                                     else:
                                         label.set_text(_("The following %d packages will be installed:") % len(installations))
                                     label.set_alignment(0, 0.5)
+                                    label.set_padding(20, 0)
                                     scrolledWindow = Gtk.ScrolledWindow()
                                     scrolledWindow.set_shadow_type(Gtk.ShadowType.IN)
                                     scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
