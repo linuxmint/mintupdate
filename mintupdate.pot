@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-07 12:40+0000\n"
+"POT-Creation-Date: 2017-01-24 22:35-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,8 +152,8 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:37
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:501
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:177
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py:60
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:178
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py:59
 msgid "Please wait, this can take some time"
 msgstr ""
 
@@ -301,7 +301,7 @@ msgid "Installing updates"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:503
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py:62
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py:61
 msgid "Update is complete"
 msgstr ""
 
@@ -541,6 +541,10 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1420
 msgid "Changelog"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1422
+msgid "Good job!"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1428
@@ -860,115 +864,115 @@ msgstr ""
 msgid "Name:"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:20
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:21
 msgid "System Upgrade"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:32
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:33
 msgid "Introduction"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:36
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:37
 msgid ""
 "Your system is missing critical components. A package corresponding to your "
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:49
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:50
 msgid "No upgrades were found."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:58
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:59
 msgid "A new version of Linux Mint is available!"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:68
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:69
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:77
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:78
 msgid "Release notes"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:84
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:85
 msgid ""
 "Please read the release notes before upgrading. They explain all the known "
 "issues, workarounds and solutions associated with the new version."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:88
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:89
 #, python-format
 msgid "Release notes for %s"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:91
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:92
 msgid "Click on the link to open the release notes."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:99
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:100
 msgid "New features"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:106
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:107
 msgid "Please look at the new features introduced in the new version."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:110
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:111
 #, python-format
 msgid "New features in %s"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:113
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:114
 msgid "Click on the link to browse the new features."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:121
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:122
 msgid "Requirements"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:131
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:132
 #, python-format
 msgid "The package %s needs to be installed before upgrading."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:135
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:136
 #, python-format
 msgid "Install %s"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:140
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:141
 msgid "Click on the button to install the missing package."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:154
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:155
 msgid ""
 "New releases provide bug fixes and new features but they also sometimes "
 "introduce new issues. Upgrading always represents a risk. Your data is safe "
 "but new issues can potentially affect your operating system."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:158
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:159
 #, python-format
 msgid "I understand the risk. I want to upgrade to %s."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:168
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:169
 msgid "Summary"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:179
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:180
 msgid "The package was installed"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:265
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:267
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:274
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:276
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
