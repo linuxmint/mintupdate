@@ -201,7 +201,7 @@ class KernelWindow():
         builder = Gtk.Builder()
         builder.add_from_file(gladefile)
         self.window = builder.get_object("window1")
-        self.window.set_title("Kernels")
+        self.window.set_title(_("Kernels"))
         listbox_series = builder.get_object("listbox_series")
         scrolled_series = builder.get_object("box7")
         kernel_stack_box = builder.get_object("box1")
@@ -216,7 +216,9 @@ class KernelWindow():
         # Setup the kernel warning page
         self.main_stack.add_named(info_box, "info_box")
         builder.get_object("button_continue").connect("clicked", self.on_continue_clicked, main_box)
+        builder.get_object("button_continue").set_label(_("Continue"))
         hide_info_checkbox = builder.get_object("checkbutton1").connect("toggled", self.on_info_checkbox_toggled)
+        builder.get_object("checkbutton1").set_label(_("Do not show this message again"))
 
         builder.get_object("title_warning").set_markup("<span font_weight='bold' size='x-large'>%s</span>" % _("Warning!"))
         builder.get_object("sub_title_warning").set_markup("<big><b>%s</b></big>" % _("Proceed with caution"))
@@ -235,6 +237,7 @@ class KernelWindow():
         kernel_stack_box.pack_start(stack, True, True, 0)
 
         builder.get_object("button_close").connect("clicked", self.hide_window)
+        builder.get_object("button_close").set_label(_("Close"))
 
         kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py | sort | grep \"###\"", shell = True).decode("utf-8")
         kernels = kernels.split("\n")
