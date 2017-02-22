@@ -1108,22 +1108,25 @@ class RefreshThread(threading.Thread):
                             infobar_message = "%s\n<small>%s</small>" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com"))
                     elif not self.application.app_hidden:
                         # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
+                        mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
                         mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
                         if mirror_timestamp is None:
-                            infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is not up to date") % mirror_url)
-                            infobar_message_type = Gtk.MessageType.WARNING
-                        else:
-                            mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                            if mint_timestamp is not None:
-                                mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
-                                now = datetime.datetime.now()
-                                mint_age = (now - mint_date).days
-                                if (mint_age > 2):
-                                    mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
-                                    mirror_age = (mint_date - mirror_date).days
-                                    if (mirror_age > 2):
-                                        infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("The last update on %(mirror)s was %(days)d days ago") % {'mirror': mirror_url, 'days':(now - mirror_date).days})
-                                        infobar_message_type = Gtk.MessageType.WARNING
+                            if mint_timestamp is None:
+                                # Both default repo and mirror are unreachable, assume there's no Internet connection
+                                pass
+                            else:
+                                infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is unreachable") % mirror_url)
+                                infobar_message_type = Gtk.MessageType.WARNING
+                        elif mint_timestamp is not None:
+                            mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
+                            now = datetime.datetime.now()
+                            mint_age = (now - mint_date).days
+                            if (mint_age > 2):
+                                mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
+                                mirror_age = (mint_date - mirror_date).days
+                                if (mirror_age > 2):
+                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("The last update on %(mirror)s was %(days)d days ago") % {'mirror': mirror_url, 'days':(now - mirror_date).days})
+                                    infobar_message_type = Gtk.MessageType.WARNING
                     if infobar_message is not None:
                         infobar = Gtk.InfoBar()
                         infobar.set_message_type(infobar_message_type)
