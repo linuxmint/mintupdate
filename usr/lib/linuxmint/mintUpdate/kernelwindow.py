@@ -143,7 +143,10 @@ class KernelRow(Gtk.ListBoxRow):
         link.set_line_wrap(True)
         box.pack_start(link, False, False, 2)
         link = Gtk.Label()
-        link.set_markup("<a href='http://changelogs.ubuntu.com/changelogs/pool/main/l/linux/linux_%s/changelog'>Changelog</a>" % pkg_version)
+        changelog_version = pkg_version
+        if "~" in pkg_version:
+            changelog_version = pkg_version.split("~")[0]
+        link.set_markup("<a href='http://changelogs.ubuntu.com/changelogs/pool/main/l/linux/linux_%s/changelog'>Changelog</a>" % changelog_version)
         link.set_line_wrap(True)
         box.pack_start(link, False, False, 2)
         link = Gtk.Label()
