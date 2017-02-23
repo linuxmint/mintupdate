@@ -1,24 +1,22 @@
 #!/usr/bin/python3
 
 import os
-import codecs
 import sys
 import gi
 import tempfile
 import threading
 import time
 import gettext
-import fnmatch
 import io
 import tarfile
 import urllib.request
-import re
 import proxygsettings
 import subprocess
 import pycurl
 import datetime
-from html.parser import HTMLParser
 import configparser
+import traceback
+import setproctitle
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -26,6 +24,8 @@ gi.require_version('GdkX11', '3.0') # Needed to get xid
 gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
 from gi.repository import AppIndicator3 as AppIndicator
+
+from Classes import Update
 
 try:
     numMintUpdate = subprocess.check_output("ps -A | grep mintUpdate | wc -l", shell = True)
@@ -35,22 +35,14 @@ except Exception as e:
     print (e)
     print(sys.exc_info()[0])
 
-newname = b"mintUpdate"
-from ctypes import cdll, byref, create_string_buffer
-libc = cdll.LoadLibrary('libc.so.6')
-buff = create_string_buffer(len(newname)+1)
-buff.value = newname
-libc.prctl(15, byref(buff), 0, 0, 0)
+setproctitle.setproctitle("mintUpdate")
 
 # i18n
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
 
-package_short_descriptions = {}
-package_descriptions = {}
-
-(UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(14)
+(UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(14)
 
 def size_to_string(size):
     strSize = str(size) + _("B")
@@ -62,78 +54,12 @@ def size_to_string(size):
         strSize = str(size // (1024 * 1024 * 1024)) + _("GB")
     return strSize
 
-class Alias():
-    def __init__(self, name, short_description, description):
-
-        name = name.strip()
-        short_description = short_description.strip()
-        description = description.strip()
-
-        if (name.startswith('_("') and name.endswith('")')):
-            name = _(name[3:-2])
-        if (short_description.startswith('_("') and short_description.endswith('")')):
-            short_description = _(short_description[3:-2])
-        if (description.startswith('_("') and description.endswith('")')):
-            description = _(description[3:-2])
-
-        self.name = name
-        self.short_description = short_description
-        self.description = description
-
-class PackageUpdate():
-    def __init__(self, source_package_name, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, site, tooltip):
-        self.name = source_package_name
-        self.description = ""
-        self.short_description = ""
-        self.main_package = None # This is the package within the update which is used for the descriptions
-        self.level = level
-        self.oldVersion = oldVersion
-        self.newVersion = newVersion
-        self.size = 0
-        self.extraInfo = extraInfo
-        self.warning = warning
-        self.type = update_type
-        self.origin = origin
-        self.site = site
-        self.tooltip = tooltip
-        self.packages = []
-        self.alias = source_package_name
-
-    def add_package(self, package, size, short_description, description):
-        self.packages.append(package)
-        self.size += size
-        overwrite_main_package = False
-        if self.main_package is None or package == self.name:
-            overwrite_main_package = True
-        else:
-            if self.main_package == self.name:
-                overwrite_main_package = False
-            else:
-                # Overwrite dev, dbg, common, arch packages
-                for suffix in ["-dev", "-dbg", "-common", "-core", "-data", "-doc", ":i386", ":amd64"]:
-                    if (self.main_package.endswith(suffix) and not package.endswith(suffix)):
-                        overwrite_main_package = True
-                        break
-                # Overwrite lib packages
-                for prefix in ["lib", "gir1.2"]:
-                    if (self.main_package.startswith(prefix) and not package.startswith(prefix)):
-                        overwrite_main_package = True
-                        break
-                for keyword in ["-locale-", "-l10n-", "-help-"]:
-                    if (keyword in self.main_package) and (keyword not in package):
-                        overwrite_main_package = True
-                        break
-        if overwrite_main_package:
-            self.description = description
-            self.short_description = short_description
-            self.main_package  = package
-
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
         threading.Thread.__init__(self)
-        self.source_package = package_update.name
+        self.source_package = package_update.source_name
         self.level = package_update.level
-        self.version = package_update.newVersion
+        self.version = package_update.new_version
         self.origin = package_update.origin
         self.application = application
         # get the proxy settings from gsettings
@@ -384,7 +310,7 @@ class InstallThread(threading.Thread):
                 if (checked == "true"):
                     installNeeded = True
                     package_update = model.get_value(iter, UPDATE_OBJ)
-                    for package in package_update.packages:
+                    for package in package_update.package_names:
                         packages.append(package)
                         self.application.logger.write("Will install " + str(package))
                 iter = model.iter_next(iter)
@@ -593,116 +519,6 @@ class RefreshThread(threading.Thread):
         threading.Thread.__init__(self)
         self.root_mode = root_mode
         self.application = application
-        self.parser = HTMLParser()
-
-    def clean_l10n_short_description(self, description):
-        try:
-            try:
-                description = self.parser.unescape(description)
-            except:
-                print ("Unable to unescape '%s'" % description)
-            # Remove "Description-xx: " prefix
-            value = re.sub(r'Description-(\S+): ', r'', description)
-            # Only take the first line and trim it
-            value = value.split("\n")[0].strip()
-            value = value.split("\\n")[0].strip()
-            # Capitalize the first letter
-            value = value[:1].upper() + value[1:]
-            # Add missing punctuation
-            if len(value) > 0 and value[-1] not in [".", "!", "?"]:
-                value = "%s." % value
-            # Replace & signs with &amp; (because we pango it)
-            value = value.replace('&', '&amp;')
-
-            return value
-        except Exception as e:
-            print(e)
-            print(sys.exc_info()[0])
-            return description
-
-    def clean_l10n_description(self, description):
-            try:
-                try:
-                    description = self.parser.unescape(description)
-                except:
-                    print ("Unable to unescape '%s'" % description)
-                lines = description.split("\n")
-                value = ""
-                num = 0
-                newline = False
-                for line in lines:
-                    line = line.strip()
-                    if len(line) > 0:
-                        if line == ".":
-                            value = "%s\n" % (value)
-                            newline = True
-                        else:
-                            if (newline):
-                                value = "%s%s" % (value, line.capitalize())
-                            else:
-                                value = "%s %s" % (value, line)
-                            newline = False
-                        num += 1
-                value = value.replace("  ", " ").strip()
-                # Capitalize the first letter
-                value = value[:1].upper() + value[1:]
-                # Add missing punctuation
-                if len(value) > 0 and value[-1] not in [".", "!", "?"]:
-                    value = "%s." % value
-                return value
-            except Exception as e:
-                print (e)
-                print(sys.exc_info()[0])
-                return description
-
-    def l10n_descriptions(self, package_update):
-        package_name = package_update.name.replace(":i386", "").replace(":amd64", "")
-        if package_name in package_descriptions:
-            package_update.short_description = package_short_descriptions[package_name]
-            package_update.description = package_descriptions[package_name]
-
-    def fetch_l10n_descriptions(self, package_names):
-        if os.path.exists("/var/lib/apt/lists"):
-            try:
-                super_buffer = []
-                for file in os.listdir("/var/lib/apt/lists"):
-                    if ("i18n_Translation") in file and not file.endswith("Translation-en"):
-                        fd = codecs.open(os.path.join("/var/lib/apt/lists", file), "r", "utf-8")
-                        super_buffer += fd.readlines()
-
-                i = 0
-                while i < len(super_buffer):
-                    line = super_buffer[i].strip()
-                    if line.startswith("Package: "):
-                        try:
-                            pkgname = line.replace("Package: ", "")
-                            short_description = ""
-                            description = ""
-                            j = 2 # skip md5 line after package name line
-                            while True:
-                                if (i+j >= len(super_buffer)):
-                                    break
-                                line = super_buffer[i+j].strip()
-                                if line.startswith("Package: "):
-                                    break
-                                if j==2:
-                                    short_description = line
-                                else:
-                                    description += "\n" + line
-                                j += 1
-                            if pkgname in package_names:
-                                if not pkgname in package_descriptions:
-                                    package_short_descriptions[pkgname] = short_description
-                                    package_descriptions[pkgname] = description
-                        except Exception as e:
-                            print (e)
-                            print("a %s" % sys.exc_info()[0])
-                    i += 1
-                del super_buffer
-            except Exception as e:
-                print (e)
-                print("Could not fetch l10n descriptions..")
-                print(sys.exc_info()[0])
 
     def check_policy(self):
         # Check the presence of the Mint layer
@@ -752,22 +568,10 @@ class RefreshThread(threading.Thread):
             Gdk.threads_leave()
 
             model = Gtk.TreeStore(str, str, GdkPixbuf.Pixbuf, str, str, str, str, int, str, str, str, str, str, object)
-            # UPDATE_CHECKED, UPDATE_ALIAS, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR,
+            # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
             model.set_sort_column_id( UPDATE_SORT_STR, Gtk.SortType.ASCENDING )
-
-            aliases = {}
-            with open("/usr/lib/linuxmint/mintUpdate/aliases") as alias_file:
-                for line in alias_file:
-                    if not line.startswith('#'):
-                        splitted = line.split("#####")
-                        if len(splitted) == 4:
-                            (alias_packages, alias_name, alias_short_description, alias_description) = splitted
-                            alias_object = Alias(alias_name, alias_short_description, alias_description)
-                            for alias_package in alias_packages.split(','):
-                                alias_package = alias_package.strip()
-                                aliases[alias_package] = alias_object
 
             # Check to see if no other APT process is running
             if self.root_mode:
@@ -799,9 +603,9 @@ class RefreshThread(threading.Thread):
                 refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s 2>/dev/null" % self.application.window.get_window().get_xid()
             if self.root_mode:
                 refresh_command = "sudo %s" % refresh_command
-            updates =  subprocess.check_output(refresh_command, shell = True).decode("utf-8")
+            output =  subprocess.check_output(refresh_command, shell = True).decode("utf-8")
 
-            if len(updates) > 0 and not "CHECK_APT_ERROR" in updates:
+            if len(output) > 0 and not "CHECK_APT_ERROR" in output:
                 if not self.check_policy():
                     Gdk.threads_enter()
                     label1 = _("Your APT cache is corrupted.")
@@ -828,34 +632,24 @@ class RefreshThread(threading.Thread):
                     Gdk.threads_leave()
                     return False
 
-            # Look for mintupdate
-            if ("UPDATE###mintupdate###" in updates or "UPDATE###mint-upgrade-info###" in updates):
-                new_mintupdate = True
-            else:
-                new_mintupdate = False
-
-            updates = updates.split("---EOL---")
+            lines = output.split("---EOL---")
 
             # Look at the updates one by one
-            package_updates = {}
-            package_names = set()
             num_visible = 0
             num_safe = 0
             download_size = 0
-            num_ignored = 0
-            ignored_list = self.application.settings.get_strv("blacklisted-packages")
 
-            if (len(updates) == None):
+            if (len(lines) == None):
                 Gdk.threads_enter()
                 self.application.stack.set_visible_child_name("status_updated")
                 self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
                 self.application.logger.write("System is up to date")
                 Gdk.threads_leave()
             else:
-                for pkg in updates:
-                    if pkg.startswith("CHECK_APT_ERROR"):
+                for line in lines:
+                    if line.startswith("CHECK_APT_ERROR"):
                         try:
-                            error_msg = updates[1].replace("E:", "\n")
+                            error_msg = lines[1].replace("E:", "\n")
                         except:
                             error_msg = ""
                         Gdk.threads_enter()
@@ -870,206 +664,85 @@ class RefreshThread(threading.Thread):
                         Gdk.threads_leave()
                         return False
 
-                    values = pkg.split("###")
+                    if "###" in line:
+                        update = Update(package=None, input_string=line)
 
-                    if len(values) == 11:
-                        status = values[0]
-                        package = values[1]
-                        newVersion = values[2]
-                        oldVersion = values[3]
-                        size = int(values[4])
-                        source_package = values[5]
-                        update_type = values[6]
-                        origin = values[7]
-                        short_description = values[8]
-                        description = values[9]
-                        site = values[10]
+                        level_is_visible = self.application.settings.get_boolean('level%s-is-visible' % str(update.level))
+                        level_is_safe = self.application.settings.get_boolean('level%s-is-safe' % str(update.level))
 
-                        package_names.add(package.replace(":i386", "").replace(":amd64", ""))
+                        if update.type == "kernel":
+                            visible = (level_is_visible or self.application.settings.get_boolean('kernel-updates-are-visible'))
+                            safe = (level_is_safe or self.application.settings.get_boolean('kernel-updates-are-safe'))
+                        elif update.type == "security":
+                            visible = (level_is_visible or self.application.settings.get_boolean('security-updates-are-visible'))
+                            safe = (level_is_safe or self.application.settings.get_boolean('security-updates-are-safe'))
+                        else:
+                            visible = level_is_visible
+                            safe = level_is_safe
 
-                        if not source_package in package_updates:
-                            updateIsBlacklisted = False
-                            for blacklist in ignored_list:
-                                if fnmatch.fnmatch(source_package, blacklist):
-                                    num_ignored = num_ignored + 1
-                                    updateIsBlacklisted = True
-                                    break
+                        if visible:
+                            iter = model.insert_before(None, None)
+                            if safe:
+                                model.set_value(iter, UPDATE_CHECKED, "true")
+                                num_safe = num_safe + 1
+                                download_size = download_size + update.size
+                            else:
+                                model.set_value(iter, UPDATE_CHECKED, "false")
 
-                            if updateIsBlacklisted:
-                                continue
+                            model.row_changed(model.get_path(iter), iter)
 
-                            is_a_mint_package = False
-                            if (update_type == "linuxmint"):
-                                update_type = "package"
-                                is_a_mint_package = True
+                            shortdesc = update.short_description
+                            if len(shortdesc) > 100:
+                                shortdesc = shortdesc[:100] + "..."
+                            if (self.application.settings.get_boolean("show-descriptions")):
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name + "\n<i><small><span foreground='%s'>%s</span></small></i>" % (insensitive_color, shortdesc))
+                            else:
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name)
 
-                            if source_package in ["linux", "linux-kernel"] or update_type == "kernel":
-                                update_type = "kernel"
+                            theme = Gtk.IconTheme.get_default()
+                            pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
+
+                            origin = update.origin
+                            origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ")
+
+                            if update.type == "kernel":
                                 tooltip = _("Kernel update")
-                            elif update_type == "security":
+                            elif update.type == "security":
                                 tooltip = _("Security update")
-                            elif update_type == "backport":
+                            elif update.type == "backport":
                                 tooltip = _("Software backport. Be careful when upgrading. New versions of software can introduce regressions.")
-                            elif update_type == "unstable":
+                            elif update.type == "unstable":
                                 tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
                             else:
                                 tooltip = _("Software update")
 
-                            extraInfo = ""
-                            warning = ""
-                            if is_a_mint_package:
-                                level = 1 # Level 1 by default
-                            else:
-                                level = 3 # Level 3 by default
-                            rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
-                            rules = rulesFile.readlines()
-                            goOn = True
-                            foundPackageRule = False # whether we found a rule with the exact package name or not
-                            for rule in rules:
-                                if (goOn == True):
-                                    rule_fields = rule.split("|")
-                                    if (len(rule_fields) == 5):
-                                        rule_package = rule_fields[0]
-                                        rule_version = rule_fields[1]
-                                        rule_level = rule_fields[2]
-                                        rule_extraInfo = rule_fields[3]
-                                        rule_warning = rule_fields[4]
-                                        if (rule_package == source_package):
-                                            foundPackageRule = True
-                                            if (rule_version == newVersion):
-                                                level = rule_level
-                                                extraInfo = rule_extraInfo
-                                                warning = rule_warning
-                                                goOn = False # We found a rule with the exact package name and version, no need to look elsewhere
-                                            else:
-                                                if (rule_version == "*"):
-                                                    level = rule_level
-                                                    extraInfo = rule_extraInfo
-                                                    warning = rule_warning
-                                        else:
-                                            if (rule_package.startswith("*")):
-                                                keyword = rule_package.replace("*", "")
-                                                index = source_package.find(keyword)
-                                                if (index > -1 and foundPackageRule == False):
-                                                    level = rule_level
-                                                    extraInfo = rule_extraInfo
-                                                    warning = rule_warning
-                            rulesFile.close()
-                            level = int(level)
-
-                            # Create a new Update
-                            update = PackageUpdate(source_package, level, oldVersion, newVersion, extraInfo, warning, update_type, origin, site, tooltip)
-                            update.add_package(package, size, short_description, description)
-                            package_updates[source_package] = update
-                        else:
-                            # Add the package to the Update
-                            update = package_updates[source_package]
-                            update.add_package(package, size, short_description, description)
-
-                self.fetch_l10n_descriptions(package_names)
-
-                for source_package in package_updates.keys():
-
-                    package_update = package_updates[source_package]
-
-                    if (new_mintupdate and package_update.name != "mintupdate" and package_update.name != "mint-upgrade-info"):
-                        continue
-
-                    if source_package in aliases.keys():
-                        alias = aliases[source_package]
-                        package_update.alias = alias.name
-                        package_update.short_description = alias.short_description
-                        package_update.description = alias.description
-                    elif package_update.type == "kernel":
-                        package_update.alias = _("Linux kernel %s") % package_update.newVersion
-                        package_update.short_description = _("The Linux kernel.")
-                        package_update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
-                    else:
-                        # l10n descriptions
-                        self.l10n_descriptions(package_update)
-                        package_update.short_description = self.clean_l10n_short_description(package_update.short_description)
-                        package_update.description = self.clean_l10n_description(package_update.description)
-
-                    level_is_visible = self.application.settings.get_boolean('level%s-is-visible' % str(package_update.level))
-                    level_is_safe = self.application.settings.get_boolean('level%s-is-safe' % str(package_update.level))
-
-                    if package_update.type == "kernel":
-                        visible = (level_is_visible or self.application.settings.get_boolean('kernel-updates-are-visible'))
-                        safe = (level_is_safe or self.application.settings.get_boolean('kernel-updates-are-safe'))
-                    elif package_update.type == "security":
-                        visible = (level_is_visible or self.application.settings.get_boolean('security-updates-are-visible'))
-                        safe = (level_is_safe or self.application.settings.get_boolean('security-updates-are-safe'))
-                    else:
-                        visible = level_is_visible
-                        safe = level_is_safe
-
-                    if visible:
-                        iter = model.insert_before(None, None)
-                        if safe:
-                            model.set_value(iter, UPDATE_CHECKED, "true")
-                            num_safe = num_safe + 1
-                            download_size = download_size + package_update.size
-                        else:
-                            model.set_value(iter, UPDATE_CHECKED, "false")
-
-                        model.row_changed(model.get_path(iter), iter)
-
-                        shortdesc = package_update.short_description
-                        if len(shortdesc) > 100:
-                            shortdesc = shortdesc[:100] + "..."
-                        if (self.application.settings.get_boolean("show-descriptions")):
-                            model.set_value(iter, UPDATE_ALIAS, package_update.alias + "\n<i><small><span foreground='%s'>%s</span></small></i>" % (insensitive_color, shortdesc))
-                        else:
-                            model.set_value(iter, UPDATE_ALIAS, package_update.alias)
-
-                        theme = Gtk.IconTheme.get_default()
-                        pixbuf = theme.load_icon("mintupdate-level" + str(package_update.level), 22, 0)
-
-                        origin = package_update.origin
-                        origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ")
-
-                        model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
-                        model.set_value(iter, UPDATE_OLD_VERSION, package_update.oldVersion)
-                        model.set_value(iter, UPDATE_NEW_VERSION, package_update.newVersion)
-                        model.set_value(iter, UPDATE_SOURCE, "%s (%s)" % (origin, package_update.site))
-                        model.set_value(iter, UPDATE_LEVEL_STR, str(package_update.level))
-                        model.set_value(iter, UPDATE_SIZE, package_update.size)
-                        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(package_update.size))
-                        model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s" % package_update.type)
-                        model.set_value(iter, UPDATE_TYPE, package_update.type)
-                        model.set_value(iter, UPDATE_TOOLTIP, package_update.tooltip)
-                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(package_update.level), package_update.alias))
-                        model.set_value(iter, UPDATE_OBJ, package_update)
-                        num_visible = num_visible + 1
+                            model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
+                            model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
+                            model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
+                            model.set_value(iter, UPDATE_SOURCE, "%s (%s)" % (origin, update.site))
+                            model.set_value(iter, UPDATE_LEVEL_STR, str(update.level))
+                            model.set_value(iter, UPDATE_SIZE, update.size)
+                            model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
+                            model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s" % update.type)
+                            model.set_value(iter, UPDATE_TYPE, update.type)
+                            model.set_value(iter, UPDATE_TOOLTIP, tooltip)
+                            model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(update.level), update.display_name))
+                            model.set_value(iter, UPDATE_OBJ, update)
+                            num_visible = num_visible + 1
 
                 Gdk.threads_enter()
-                if (new_mintupdate):
-                    self.statusString = _("A new version of the update manager is available")
-                    self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
-                    self.application.logger.write("Found a new version of mintupdate")
-                else:
-                    if (num_safe > 0):
-                        if (num_safe == 1):
-                            if (num_ignored == 0):
-                                self.statusString = _("1 recommended update available (%(size)s)") % {'size':size_to_string(download_size)}
-                            elif (num_ignored == 1):
-                                self.statusString = _("1 recommended update available (%(size)s), 1 ignored") % {'size':size_to_string(download_size)}
-                            elif (num_ignored > 1):
-                                self.statusString = _("1 recommended update available (%(size)s), %(ignored)d ignored") % {'size':size_to_string(download_size), 'ignored':num_ignored}
-                        else:
-                            if (num_ignored == 0):
-                                self.statusString = _("%(recommended)d recommended updates available (%(size)s)") % {'recommended':num_safe, 'size':size_to_string(download_size)}
-                            elif (num_ignored == 1):
-                                self.statusString = _("%(recommended)d recommended updates available (%(size)s), 1 ignored") % {'recommended':num_safe, 'size':size_to_string(download_size)}
-                            elif (num_ignored > 0):
-                                self.statusString = _("%(recommended)d recommended updates available (%(size)s), %(ignored)d ignored") % {'recommended':num_safe, 'size':size_to_string(download_size), 'ignored':num_ignored}
-                        self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
-                        self.application.logger.write("Found " + str(num_safe) + " recommended software updates")
+                if (num_safe > 0):
+                    if (num_safe == 1):
+                        self.statusString = _("1 recommended update available (%(size)s)") % {'size':size_to_string(download_size)}
                     else:
-                        if num_visible == 0:
-                            self.application.stack.set_visible_child_name("status_updated")
-                        self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
-                        self.application.logger.write("System is up to date")
+                        self.statusString = _("%(recommended)d recommended updates available (%(size)s)") % {'recommended':num_safe, 'size':size_to_string(download_size)}
+                    self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
+                    self.application.logger.write("Found " + str(num_safe) + " recommended software updates")
+                else:
+                    if num_visible == 0:
+                        self.application.stack.set_visible_child_name("status_updated")
+                    self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
+                    self.application.logger.write("System is up to date")
 
                 Gdk.threads_leave()
 
@@ -1138,14 +811,14 @@ class RefreshThread(threading.Thread):
                         self.application.builder.get_object("hbox_infobar").pack_start(infobar, True, True,0)
                         infobar.show_all()
             except Exception as e:
-                print (e)
+                print(sys.exc_info()[0])
                 # best effort, just print out the error
                 print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
 
             Gdk.threads_leave()
 
         except Exception as e:
-            print (e)
+            traceback.print_exc()
             print("-- Exception occurred in the refresh thread: " + str(sys.exc_info()[0]))
             self.application.logger.write_error("Exception occurred in the refresh thread: " + str(sys.exc_info()[0]))
             Gdk.threads_enter()
@@ -1242,7 +915,7 @@ class StatusIcon():
         self.icon = AppIndicator.Indicator.new("mintUpdate", "mintupdate", AppIndicator.IndicatorCategory.APPLICATION_STATUS)
         self.icon.set_status(AppIndicator.IndicatorStatus.ACTIVE)
         self.icon.set_title(_("Update Manager"))
-        
+
         self.menu = Gtk.Menu()
         item = Gtk.MenuItem()
         item.set_label(_("Update Manager"))
@@ -1323,7 +996,7 @@ class MintUpdate():
             configure_page = self.builder.get_object("configure_page")
             self.stack.add_named(configure_page, "configure")
             self.builder.get_object("button_configure_finish").connect("clicked", self.on_configure_finished)
-            self.builder.get_object("button_configure_finish").set_label(_("OK"))          
+            self.builder.get_object("button_configure_finish").set_label(_("OK"))
             self.builder.get_object("button_configure_help").connect("clicked", self.on_configure_help)
             self.builder.get_object("button_configure_help").set_label(_("Help"))
 
@@ -1339,8 +1012,8 @@ class MintUpdate():
             column1.set_sort_column_id(UPDATE_CHECKED)
             column1.set_resizable(True)
 
-            column2 = Gtk.TreeViewColumn(_("Package"), Gtk.CellRendererText(), markup=UPDATE_ALIAS)
-            column2.set_sort_column_id(UPDATE_ALIAS)
+            column2 = Gtk.TreeViewColumn(_("Package"), Gtk.CellRendererText(), markup=UPDATE_DISPLAY_NAME)
+            column2.set_sort_column_id(UPDATE_DISPLAY_NAME)
             column2.set_resizable(True)
 
             column3 = Gtk.TreeViewColumn(_("Level"), Gtk.CellRendererPixbuf(), pixbuf=UPDATE_LEVEL_PIX)
@@ -1880,11 +1553,11 @@ class MintUpdate():
             self.buffer.insert(self.buffer.get_end_iter(), line)
             self.buffer.insert(self.buffer.get_end_iter(), "\n")
 
-        if (len(package_update.packages) > 1):
-            dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.packages), " ".join(sorted(package_update.packages)))
+        if (len(package_update.package_names) > 1):
+            dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.package_names), " ".join(sorted(package_update.package_names)))
             self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
-        elif (package_update.packages[0] != package_update.alias):
-            dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.packages[0])
+        elif (package_update.package_names[0] != package_update.display_name):
+            dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.package_names[0])
             self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
 
     def treeview_right_clicked(self, widget, event):
@@ -1894,7 +1567,7 @@ class MintUpdate():
                 package_update = model.get_value(iter, UPDATE_OBJ)
                 menu = Gtk.Menu()
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore updates for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, package_update.name)
+                menuItem.connect("activate", self.add_to_ignore_list, package_update.source_name)
                 menu.append(menuItem)
                 menu.attach_to_widget (widget, None)
                 menu.show_all()
