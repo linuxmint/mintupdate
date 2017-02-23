@@ -121,10 +121,6 @@ class Update():
         for package_name in package_names.split(", "):
             self.package_names.append(package_name)
 
-    def print(self):
-        output_string = "%d %s %s (%s)" % (self.level, self.source_name, self.new_version, " ".join(self.package_names))
-        print(output_string)
-
 class Alias():
     def __init__(self, name, short_description, description):
 
