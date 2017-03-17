@@ -128,6 +128,13 @@ class APTCheck():
 
         source_name = package.candidate.source_name
 
+        # added by Sven Kochmann, March 2017
+        # Source name is ok, unless it is about kernels... then source_name will be just 'linux' or 'linux-hwe'
+        # Therefore, we use the package.name for sorting/grouping now; this here groups the "real" kernel-update together,
+        # i.e. does not accidently group together the libc-dev update from 4.4 and the image from 4.8...
+        if kernel_update and (package.name.startswith("linux-image") or package.name.startswith("linux-headers")):
+                source_name = package.name.replace("-generic", "").replace("-extra", "").replace("-headers", "").replace("-image", "")
+
         # ignore blacklisted packages
         for blacklist in self.settings.get_strv("blacklisted-packages"):
             if fnmatch.fnmatch(source_name, blacklist):
