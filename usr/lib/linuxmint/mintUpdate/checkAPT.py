@@ -33,6 +33,7 @@ class KernelVersion():
             self.numeric_versions.append(element)
         self.numeric_representation = ".".join(self.numeric_versions)
         self.std_version = "%s.%s.%s-%s" % (version_array[0], version_array[1], version_array[2], version_array[3])
+        self.series = "%s.%s.%s" % (version_array[0], version_array[1], version_array[2])
 
 # These updates take priority over other updates.
 # If a new version of these packages is available,
@@ -105,14 +106,14 @@ class APTCheck():
                                 if not pkg.is_installed:
                                     self.add_update(pkg, kernel_update=True)
                     else:
-                        # We're using a branch which is more recent than the recommended one, so we should recommend the latest kernel
+                        # We're using a series which is more recent than the recommended one, so we should recommend the latest kernel on that series
                         max_kernel = uname_kernel
                         for pkg in self.cache:
                             package_name = pkg.name
                             if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith("-generic"):
                                 version = package_name.replace("linux-image-", "").replace("-generic", "")
                                 kernel = KernelVersion(version)
-                                if kernel.numeric_representation > max_kernel.numeric_representation:
+                                if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                                     max_kernel = kernel
                         if max_kernel.numeric_representation != uname_kernel.numeric_representation:
                             for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
