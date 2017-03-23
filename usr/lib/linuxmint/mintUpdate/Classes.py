@@ -23,8 +23,8 @@ class Update():
             self.description = package.candidate.description
             if (self.new_version != self.old_version):
                 self.type = "package"
-                self.origin = "linuxmint"
                 for origin in package.candidate.origins:
+                    self.origin = origin.origin
                     self.site = origin.site
                     if origin.origin == "Ubuntu":
                         self.origin = "ubuntu"
