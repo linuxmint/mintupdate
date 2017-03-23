@@ -23,6 +23,7 @@ class Update():
             self.description = package.candidate.description
             if (self.new_version != self.old_version):
                 self.type = "package"
+                self.origin = ""
                 for origin in package.candidate.origins:
                     self.origin = origin.origin
                     self.site = origin.site
