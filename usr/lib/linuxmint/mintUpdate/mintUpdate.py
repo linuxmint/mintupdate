@@ -1012,7 +1012,7 @@ class MintUpdate():
             column1.set_sort_column_id(UPDATE_CHECKED)
             column1.set_resizable(True)
 
-            column2 = Gtk.TreeViewColumn(_("Package"), Gtk.CellRendererText(), markup=UPDATE_DISPLAY_NAME)
+            column2 = Gtk.TreeViewColumn(_("Name"), Gtk.CellRendererText(), markup=UPDATE_DISPLAY_NAME)
             column2.set_sort_column_id(UPDATE_DISPLAY_NAME)
             column2.set_resizable(True)
 
