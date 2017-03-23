@@ -242,7 +242,7 @@ class KernelWindow():
         builder.get_object("button_close").connect("clicked", self.hide_window)
         builder.get_object("button_close").set_label(_("Close"))
 
-        kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py | sort | grep \"###\"", shell = True).decode("utf-8")
+        kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py | sort -r | grep \"###\"", shell = True).decode("utf-8")
         kernels = kernels.split("\n")
         kernel_list = []
         pages_needed = []
