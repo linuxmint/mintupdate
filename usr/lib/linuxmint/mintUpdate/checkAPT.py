@@ -23,6 +23,7 @@ class KernelVersion():
             self.numeric_versions.append(element)
         self.numeric_representation = ".".join(self.numeric_versions)
         self.std_version = "%s.%s.%s-%s" % (version_array[0], version_array[1], version_array[2], version_array[3])
+        self.series = "%s.%s.%s" % (version_array[0], version_array[1], version_array[2])
 
 try:
     cache = apt.Cache()
@@ -108,14 +109,14 @@ try:
                                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (pkgname, pkg.candidate.version, "", pkg.candidate.size, "linux", "kernel", "ubuntu", pkg.candidate.raw_description, pkg.candidate.description, "security.ubuntu.com")
                                 print(resultString.encode('ascii', 'xmlcharrefreplace'))
                 else:
-                    # We're using a branch which is more recent than the recommended one, so we should recommend the latest kernel
+                    # We're using a series which is more recent than the recommended one, so we should recommend the latest kernel in that series
                     max_kernel = uname_kernel
                     for pkg in cache:
                         package_name = pkg.name
                         if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith("-generic"):
                             version = package_name.replace("linux-image-", "").replace("-generic", "")
                             kernel = KernelVersion(version)
-                            if kernel.numeric_representation > max_kernel.numeric_representation:
+                            if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                                 max_kernel = kernel
                     if max_kernel.numeric_representation != uname_kernel.numeric_representation:
                         for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
