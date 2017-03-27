@@ -693,7 +693,17 @@ class RefreshThread(threading.Thread):
 
                             shortdesc = update.short_description
                             if len(shortdesc) > 100:
-                                shortdesc = shortdesc[:100] + "..."
+                                try:
+                                    shortdesc = shortdesc[:100]
+                                    # Remove the last word.. in case we chomped
+                                    # a word containing an &#234; character..
+                                    # if we ended up with &.. without the code and ; sign
+                                    # pango would fail to set the markup
+                                    words = shortdesc.split()
+                                    shortdesc = " ".join(words[:-1]) + "..."
+                                except:
+                                    pass
+
                             if (self.application.settings.get_boolean("show-descriptions")):
                                 model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name + "\n<i><small><span foreground='%s'>%s</span></small></i>" % (insensitive_color, shortdesc))
                             else:

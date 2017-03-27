@@ -217,8 +217,6 @@ class APTCheck():
                                             # Add missing punctuation
                                             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                                                 value = "%s." % value
-                                            # Replace & signs with &amp; (because we pango it)
-                                            value = value.replace('&', '&amp;')
                                             update.short_description = value
                                         except Exception as e:
                                             print(e)
@@ -277,6 +275,10 @@ class APTCheck():
             if update.short_description.endswith("."):
                 update.short_description = update.short_description[:-1]
             update.short_description = update.short_description.capitalize()
+            if "& " in update.short_description:
+                update.short_description = update.short_description.replace('&', '&amp;')
+            if "& " in update.description:
+                update.description = update.description.replace('&', '&amp;')
 
 if __name__ == "__main__":
     try:

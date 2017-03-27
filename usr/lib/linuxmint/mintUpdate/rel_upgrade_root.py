@@ -42,7 +42,7 @@ cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup"
 comnd = subprocess.Popen(' '.join(cmd), shell=True)
 returnCode = comnd.wait()
 
-# STEP 3: INSTALL LEVEL 1 UPDATES
+# STEP 3: INSTALL MINT UPDATES
 #--------------------------------
 
 dist_upgrade = True
