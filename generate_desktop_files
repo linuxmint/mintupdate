@@ -23,7 +23,10 @@ StartupNotify=false
 NotShowIn=KDE;
 """
 
-additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate.desktop", prefix, _("Update Manager"), _("Show and install available updates"), suffix)
+name = _("Update Manager")
+comment = _("Show and install available updates")
+
+additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate.desktop", prefix, "Update Manager", "Show and install available updates", suffix)
 
 suffix = """Exec=mintupdate
 Icon=mintupdate
@@ -35,7 +38,7 @@ StartupNotify=false
 OnlyShowIn=KDE;
 """
 
-additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate-kde.desktop", prefix, _("Update Manager"), _("Show and install available updates"), suffix, genericName=_("Show and install available updates"))
+additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate-kde.desktop", prefix, "Update Manager", "Show and install available updates", suffix, genericName="Show and install available updates")
 
 locales = []
 cur_dir = os.getcwd()

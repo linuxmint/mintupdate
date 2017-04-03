@@ -1129,7 +1129,7 @@ class MintUpdate():
             self.builder.get_object("label_policy3_2").set_markup("<i>%s</i>" % _("Recommended for experienced users."))
             self.builder.get_object("label_policy3_3").set_markup("%s\n%s" % (_("Always select all updates."), _("If a regression breaks something, I'll fix it.")))
 
-            self.builder.get_object("label_policy_hint").set_markup(_("Security and kernel updates are always shown and updates with known issues (very rare) are always hidden. You can change this and fine-tune your policy in the preferences."))
+            self.builder.get_object("label_policy_hint").set_markup(_("Security and kernel updates are always visible and updates with known issues (very rare) are always hidden. You can change this and fine-tune your policy in the preferences."))
 
             self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
