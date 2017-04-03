@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="updates">
+
+  <info>
+    <link type="guide" xref="index#concepts"/>
+
+    <credit type="author">
+      <name>Линукс Минт</name>
+      <email>root@linuxmint.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc>There are different types of updates</desc>
+  </info>
+
+    <title>The different types of updates</title>
+
+    <p>Има различни типове актуализации:</p>
+
+    <list>
+      <item><p>'Софтуерни актуализации' са актуализации, които оправят бъгове (и само понякога добавят нови функции).</p></item>
+      <item><p>'Актуализации по сигурността' са актуализации, които закърпват уязвимости.</p></item>
+      <item><p>'Актуализации на ядра' представляват инсталация на по-ново ядро.</p></item>
+    </list>
+
+    <p>Security is very important but also very technical. Vulnerabilities don't always affect your computer and can be quite difficult to understand. Most people don't understand them at all and their personal computers are rarely at risk. That said, a security breach can have dire consequences, so it is always recommended to take them seriously.</p>
+
+    <p>By default, security updates are always visible, no matter what policy you chose and what level they are.</p>
+
+    <p>Software updates aren't as important. They bring bug fixes or improvements which are not related to security. As such they're less urgent and can even be considered optional.</p>
+
+    <note><p>В Линукс Минт, актуализациите на ядрото носят кръпки по сигурността и поправят грешки (понякога добавят и нови функции), те влияят на критични части от операционната система. Това прави тези актуализации важни,но също така те могат да доведат до регресии, които трудно могат да бъдат поправени от неопитни потребители.</p></note>
+
+</page>

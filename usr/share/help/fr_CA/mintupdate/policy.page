@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page xmlns="http://projectmallard.org/1.0/" type="guide" id="security-policy">
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="policy">
 
-   <info>
-    <link type="guide" xref="index"/>
+  <info>
+    <link type="guide" xref="index#levels"/>
+
     <credit type="author">
       <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
@@ -10,38 +11,57 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
+    <desc>Choix d'une politique de mise à jour</desc>
   </info>
 
-  <title>Choosing an update policy</title>
+  <title>Politique de mises à jour</title>
 
-  <p>New updates patch known security holes and fix known bugs, but they can also introduce new issues called 'regressions'.</p>
+    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
 
-  <p>Regressions are very common but they are usually quickly fixed by new updates and they rarely break critical parts of the operating system.</p>
+    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
 
-  <p>There are different types of updates:</p>
-
-  <list>
-    <item><p>'Software updates' are updates which fix bugs (or also sometimes which bring new features).</p></item>
-    <item><p>'Security updates' are updates which patch vulnerabilities.</p></item>
-    <item><p>'Kernel updates' represent the installation of a newer kernel.</p></item>
-  </list>
-
-  <note><p>In Linux Mint, kernel updates bring both security patches and bug fixes (and sometimes even new features), and they impact critical parts of the operating system. This makes kernel updates important from a security point of view, but also prone to regressions which can be hard to fix for novice users.</p></note>
-
-  <p>The more updates you take, the more likely something will break. It might be something small, something you don't use and it might get fixed with tomorrow's updates. But what if you can't reboot? what if it breaks your drivers and you can no longer log in or connect to the Internet?</p>
-
-  <p>On the the hand, if you don't update anything, you're missing bug fixes, improvements and more importantly patches for security holes.</p>
-
-  <p>When choosing an update policy, ask yourself the following questions:</p>
+    <p>All policies have this in common:</p>
 
     <list>
-      <item><p>Do you need a particular software or kernel update? Are you waiting for a particular bug fix or for some hardware device to be recognized by a newer kernel?</p></item>
-      <item><p>If things go wrong, are you experienced enough to fix your computer? Do you know how to fix boot, login, kernel and module issues?</p></item>
-      <item><p>Can your computer be accessed by malicious people? Are there other local users on this computer or on the network? Do you run a server or anything people can connect to from the outside world?</p></item>
+      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
+      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
+      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
     </list>
 
-  <p>Try to assess your level of experience with Linux, and your requirements when it comes to bug fixes and security.</p>
+    <note><p>Lorsque vous choisissez une politique de mise à jour, certaines des préférences sont modifiées dans le Gestionnaire de mises à jour. Vous pouvez adapter ces préférences individuellement en cliquant sur le menu "Édition"; "Préférences" dans la barre de menus.</p></note>
 
-  <note><p>When you choose an update policy, some of the preferences are changed in the Update Manager. You can tune these preferences individually by clicking on the Edit-&gt;Preferences menu in the menubar.</p></note>
+    <section id="policy1">
+
+      <title>Novice users</title>
+
+      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+
+      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+
+      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+
+    </section>
+
+    <section id="policy2">
+
+      <title>Regular users</title>
+
+      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+
+      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+
+      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+
+    </section>
+
+    <section id="policy3">
+
+      <title>Advanced users</title>
+
+      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+
+      <p>In this policy, all recommended updates are visible and selected by default.</p>
+
+    </section>
 
 </page>

@@ -219,6 +219,7 @@ class KernelWindow():
         # Setup the kernel warning page
         self.main_stack.add_named(info_box, "info_box")
         builder.get_object("button_continue").connect("clicked", self.on_continue_clicked, main_box)
+        builder.get_object("button_help").connect("clicked", self.show_help)
         builder.get_object("button_continue").set_label(_("Continue"))
         hide_info_checkbox = builder.get_object("checkbutton1").connect("toggled", self.on_info_checkbox_toggled)
         builder.get_object("checkbutton1").set_label(_("Do not show this message again"))
@@ -226,9 +227,7 @@ class KernelWindow():
         builder.get_object("title_warning").set_markup("<span font_weight='bold' size='x-large'>%s</span>" % _("Warning!"))
         builder.get_object("sub_title_warning").set_markup("<big><b>%s</b></big>" % _("Proceed with caution"))
         builder.get_object("label_warning").set_markup(_("The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer. Only install or remove kernels if you are experienced with kernels, drivers, DKMS modules and you know how to recover a non-booting computer."))
-        builder.get_object("label_more_info_1").set_markup("%s" % _("You can install multiple kernels on your computer and you can select the one you want to use from the advanced options in the boot menu."))
-        builder.get_object("label_more_info_2").set_markup("%s" % _("By default, your computer will boot with the most recent kernel installed."))
-        builder.get_object("label_more_info_3").set_markup("%s" % _("If you are using proprietary drivers, or DKMS modules, please be aware that they will only work with the most recent kernel installed on your computer. They get recompiled every time a new kernel is installed or removed. To use proprietary drivers or DKMS modules with one particular kernel, make sure to remove all the kernels which are more recent."))
+        builder.get_object("label_more_info_1").set_markup("%s" % _("Before installing or removing kernels, please make sure to read the help section, to make sure you know how to select kernels, how to revert updates and how to check your DKMS status."))
 
         # Setup the main kernel page
         stack = Gtk.Stack()
@@ -280,7 +279,7 @@ class KernelWindow():
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
 
-        for page in pages_needed:
+        for page in reversed(pages_needed):
             scw = Gtk.ScrolledWindow()
             scw.set_shadow_type(Gtk.ShadowType.IN)
             list_box = Gtk.ListBox()
@@ -323,3 +322,6 @@ class KernelWindow():
 
     def on_row_activated(self, list_box, row):
         row.show_hide_children(row)
+
+    def show_help(self, widget):
+        os.system("yelp help:mintupdate/index &")

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page xmlns="http://projectmallard.org/1.0/" type="guide" id="security-policy">
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="policy">
 
-   <info>
-    <link type="guide" xref="index"/>
+  <info>
+    <link type="guide" xref="index#levels"/>
+
     <credit type="author">
       <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
@@ -10,38 +11,57 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
+    <desc>Elección de una política de actualización</desc>
   </info>
 
-  <title>Elección de una política de actualización</title>
+  <title>Política de actualizaciones</title>
 
-  <p>Las actualizaciones corrigen agujeros de seguridad y errores conocidos, pero también pueden introducir problemas nuevos llamados 'regresiones'.</p>
+    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
 
-  <p>Las regresiones son muy comunes pero se suelen corregir rápidamente con nuevas actualizaciones y raramente afectan a partes críticas del sistema operativo.</p>
+    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
 
-  <p>Existen diferentes tipos de actualizaciones:</p>
-
-  <list>
-    <item><p>Las 'actualizaciones de software' reparan errores (a veces también aportan nuevas prestaciones).</p></item>
-    <item><p>Las 'actualizaciones de seguridad' corrigen vulnerabilidades.</p></item>
-    <item><p>Las 'actualizaciones del kernel' suponen la instalación de un kernel más actual.</p></item>
-  </list>
-
-  <note><p>En Linux Mint, las actualizaciones del kernel reparan errores y vulnerabilidades (a veces también introducen nuevas prestaciones), actuando sobre partes críticas del sistema operativo. Esto hace que las actualizaciones del kernel sean importantes desde el punto de vista de la seguridad, pero también hace que puedan llevar a regresiones difíciles de reparar para usuarios noveles.</p></note>
-
-  <p>Cuantas más actualizaciones se hacen, más posibilidades hay de que algo se estropee. Puede ser algo pequeño, que no usemos, y que se repare en siguientes actualizaciones. Pero ¿Y si no se puede reiniciar el equipo? ¿Y si se daña un driver y ya no se puede conectar a Internet?</p>
-
-  <p>Por otra parte, si no se actualiza nada, se pierden las correcciones de errores, mejoras y aún más importante, los parches para agujeros de seguridad.</p>
-
-  <p>Al elegir una política de actualizaciones, pregúntese lo siguiente:</p>
+    <p>All policies have this in common:</p>
 
     <list>
-      <item><p>¿Necesita una actualización concreta de software o del kernel? ¿Está esperando una corrección de error o que un nuevo kernel reconozca un dispositivo hardware en particular?</p></item>
-      <item><p>Si algo falla, ¿Tiene experiencia suficiente para reparar el equipo? ¿Sabe cómo solucionar problemas de arranque, inicio de sesión, kernel o módulos?</p></item>
-      <item><p>¿Existen personas malintencionadas que puedan acceder a su equipo? ¿El equipo tiene otros usuarios locales o de red? ¿Está ejecutando un servidor o algo a lo que la gente pueda conectarse desde el exterior?</p></item>
+      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
+      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
+      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
     </list>
 
-  <p>Evalue su nivel de experiencia con Linux, y sus necesidades en materia de corrección de errores y de seguridad.</p>
+    <note><p>Al elegir una política de actualizaciones, se cambian algunas preferencias del Administrador de Actualizaciones. Puede ajustar esas preferencias individualmente haciendo clic en el menú Editar-&gt;Preferencias.</p></note>
 
-  <note><p>Al elegir una política de actualizaciones, se cambian algunas preferencias del Administrador de Actualizaciones. Puede ajustar esas preferencias individualmente haciendo clic en el menú Editar-&gt;Preferencias.</p></note>
+    <section id="policy1">
+
+      <title>Novice users</title>
+
+      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+
+      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+
+      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+
+    </section>
+
+    <section id="policy2">
+
+      <title>Regular users</title>
+
+      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+
+      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+
+      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+
+    </section>
+
+    <section id="policy3">
+
+      <title>Advanced users</title>
+
+      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+
+      <p>In this policy, all recommended updates are visible and selected by default.</p>
+
+    </section>
 
 </page>

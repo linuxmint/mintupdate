@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page xmlns="http://projectmallard.org/1.0/" type="guide" id="security-policy">
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="policy">
 
-   <info>
-    <link type="guide" xref="index"/>
+  <info>
+    <link type="guide" xref="index#levels"/>
+
     <credit type="author">
       <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
@@ -10,38 +11,57 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
+    <desc>Odabir pravila nadopuna</desc>
   </info>
 
-  <title>Odabiranje pravila nadopuna</title>
+  <title>Pravila nadopunjavanja</title>
 
-  <p>Nove nadopune zakrpa za poznate sigurnosne rupe i popravci poznatih grešaka, oni isto tako mogu prouzročiti problem i poteškoće u radu sustava.</p>
+    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
 
-  <p>Problemi i poteškoće u radu sustava su vrlo česti ali su uobičajeno brzo ispravljeni novim nadopunama i rijetko kada sruše ključne dijelove operativnog sustava.</p>
+    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
 
-  <p>Postoje različite vrste nadopuna:</p>
-
-  <list>
-    <item><p>'Nadopune softvera' su nadopune koje popravljaju greške (a ponekad donose i nove značajke).</p></item>
-    <item><p>'Sigurnosne nadopune' su nadopune koje zakrpaju ranjivost sustava.</p></item>
-    <item><p>'Nadopune kernela' predstavljaju instalaciju novog kernela.</p></item>
-  </list>
-
-  <note><p>U Linux Mintu, nadopune kernela donose oboje, sigurnosne zakrpe i popravke grešaka (a ponekad čak i nove značajke) i one utječu na ključne dijelove operativnog sustava. To čini nadopune kernela bitnima sa sigurnosnog gledišta, ali isto tako i sklonost problemima i poteškoćama u radu sustava koje mogu biti teške za popraviti neiskusnim korisnicima.</p></note>
-
-  <p>Što više nadopuna preuzmete, veća je vjerojatnost da se nešto slomi. To može biti nešto neznatno, nešto što ne koristite i može biti popravljeno sutrašnjim nadopunama. Ali što ako ne možete ponovno pokrenuti sustav? Što ako se slome vaši upravljački programi i ne možete se više prijaviti na sustav ili povezati na Internet?</p>
-
-  <p>Ali ipak, ako ništa ne nadopunite, propuštate popravke grešaka, poboljšanja i vrlo bitne zakrpe za sigurnosne rupe.</p>
-
-  <p>Kada odabirete pravilo nadopunjavanja, zapitajte se sljedeća pitanja:</p>
+    <p>All policies have this in common:</p>
 
     <list>
-      <item><p>Je li vam potrebna određena nadopuna softvera ili kernela? Očekujete li određeni popravak greške ili da novi hardverski uređaj bude prepoznat novijim kernelom?</p></item>
-      <item><p>Ako ovo pođe po krivu, jeste li dovoljno iskusni da popravite svoje računalo? Znate li kako popraviti pokretanje računala, prijavu, kernel i probleme s kernelovim modulima?</p></item>
-      <item><p>Mogu li vašem računalu pristupiti zlonamjerne osobe? Postoje li drugi lokalni korisnici na ovom računalu ili na lokalnoj mreži? Pristupate li vanjskom poslužitelju i može li se bilo koja osoba povezati na vaše računalo s interneta?</p></item>
+      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
+      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
+      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
     </list>
 
-  <p>Pokušajte procijeniti vašu razinu iskustva s Linuxom i vaše zahtjeve kada su u pitanju popravci grešaka i sigurnosti.</p>
+    <note><p>Kada odabirete pravilo nadopunjavanja, neke od osobitosti su promijenjene u Upravitelju nadopuna. Možete prilagođavati te osobitosti pojedinačno klikom na Uredi zatim na Osobitosti u traci izbornika.</p></note>
 
-  <note><p>Kada odabirete pravilo nadopunjavanja, neke od osobitosti su promijenjene u Upravitelju nadopuna. Možete prilagođavati te osobitosti pojedinačno klikom na Uredi zatim na Osobitosti u izborniku u alatnoj traci.</p></note>
+    <section id="policy1">
+
+      <title>Novice users</title>
+
+      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+
+      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+
+      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+
+    </section>
+
+    <section id="policy2">
+
+      <title>Regular users</title>
+
+      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+
+      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+
+      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+
+    </section>
+
+    <section id="policy3">
+
+      <title>Advanced users</title>
+
+      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+
+      <p>In this policy, all recommended updates are visible and selected by default.</p>
+
+    </section>
 
 </page>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page xmlns="http://projectmallard.org/1.0/" type="guide" id="security-policy">
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="policy">
 
-   <info>
-    <link type="guide" xref="index"/>
+  <info>
+    <link type="guide" xref="index#levels"/>
+
     <credit type="author">
       <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
@@ -10,38 +11,57 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
+    <desc>Val á uppfærslustefnu</desc>
   </info>
 
-  <title>Val á uppfærslustefnu</title>
+  <title>Uppfærslustefna</title>
 
-  <p>Nýjar uppfærslur plástra yfir öryggisholur og laga þekkta galla, en þær geta líka komið með ný vandamál sem kallast "hnignun"</p>
+    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
 
-  <p>Hnignun (regressions) kemur oft upp en vandamálin sem slíkt hefur í för með sér eru yfirleitt löguð mjög fljótt með nýjum uppfærslum og hefur sjaldnast áhrif á mjög mikilvæga þætti stýrikerfisins.</p>
+    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
 
-  <p>Það eru til mismunandi tegundir af uppfærslum:</p>
-
-  <list>
-    <item><p>'Hugbúnaðaruppfærslur' eru uppfærslur sem eiga að laga galla (en geta einnig á stundum komið með nýja eiginleika).</p></item>
-    <item><p>'Öryggisuppfærslur' eru uppfærslur sem laga öryggisgalla.</p></item>
-    <item><p>'Kjarnauppfærslur' tákna að þá er verið að setja upp nýjan kjarna.</p></item>
-  </list>
-
-  <note><p>Kjarnauppfærslur í Linux Mint kerfinu þýða að kjarnar fá bæði öryggisplástra og villuleiðréttingar (auk þess að stundum eru settir inn nýir eiginleikar), og hefur þetta áhrif á mikilvægustu hluta stýrikerfisins. Þetta þýðir að kjarnauppfærslur eru mjög mikilvægar út frá öryggissjónarmiðum, en geta valdið hnignun ýmissa eiginleika sem erfitt getur verið fyrir byrjendur að eiga við.</p></note>
-
-  <p>Því fleiri uppfærslur sem þú tekur inn í einu, því meiri líkur eru á að eitthvað fari úrskeiðis. Það getur verið eitthvað smálegt, eitthvað sem þú notar aldrei, og getur verið eitthvað sem svo er lagað í næstu uppfærslu. En hvað ef það er eitthvað sem veldur því að ekki er hægt að endurræsa tölvuna? Eða ef það er eitthvað sem skemmir reklana þína og þú getur ekki lengur skráð þig inn eða tengst internetinu?</p>
-
-  <p>Hinsvegar, ef þú uppfærir ekki neitt, þá missirðu af villulagfæringum, betrumbótum auk þess sem er kannski mikilvægast; allskyns endurbótum sem miða að því að útrýma öryggisholum.</p>
-
-  <p>Þegar þú stendur frammi fyrir vali á uppfærslustefnu, ættirðu að spyrja þig eftirfarandi spurninga:</p>
+    <p>All policies have this in common:</p>
 
     <list>
-      <item><p>Þarftu í alvörunni ákveðinn hugbúnað eða kjarnauppfærslu? Ertu að bíða eftir viðgerð á tiltekinni villu eða að ákveðið tæki sé þekkt af nýjum kjarna?</p></item>
-      <item><p>Ef eitthvað fer úrskeiðis, hversu vanur ertu og er það nóg til að geta lagað tölvuna? Kanntu að laga vandamál við ræsingu, innskráningu, keyrslu kjarna og kjarnaeininga?</p></item>
-      <item><p>Geta óprúttnir aðilar fengið aðgang að tölvunni þinni? Eru aðrir notendur á þessari tölvu eða á þessu staðarneti? Ertu að keyra vefþjón eða eitthvað annað sem fólk tengist við utanfrá?</p></item>
+      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
+      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
+      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
     </list>
 
-  <p>Reyndu að meta hversu mikla kunnáttu þú hefur í meðferð Linux, og hverjar kröfur þínar eru varðandi villubætur og öryggi.</p>
+    <note><p>Þegar þú velur uppfærslustefnu (update policy), er sumum valkostum uppfærslustjórans breytt. Þú getur fínstillt þessa valkosti með því að smella á Breyta-&gt;Valkostir í valmyndastikunni.</p></note>
 
-  <note><p>Þegar þú velur uppfærslustefnu (update policy), er sumum valkostum uppfærslustjórans breytt. Þú getur fínstillt þessa valkosti með því að smella á Breyta-&gt;Valkostir í valmyndastikunni.</p></note>
+    <section id="policy1">
+
+      <title>Novice users</title>
+
+      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+
+      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+
+      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+
+    </section>
+
+    <section id="policy2">
+
+      <title>Regular users</title>
+
+      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+
+      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+
+      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+
+    </section>
+
+    <section id="policy3">
+
+      <title>Advanced users</title>
+
+      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+
+      <p>In this policy, all recommended updates are visible and selected by default.</p>
+
+    </section>
 
 </page>

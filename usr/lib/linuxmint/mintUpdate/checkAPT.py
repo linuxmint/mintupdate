@@ -14,7 +14,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias
+from Classes import Update, Alias, Rule
 
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
@@ -46,6 +46,7 @@ class APTCheck():
         self.settings = Gio.Settings("com.linuxmint.updates")
         self.cache = apt.Cache()
         self.priority_updates_available = False
+        self.load_rules()
 
     def load_aliases(self):
         self.aliases = {}
@@ -59,6 +60,26 @@ class APTCheck():
                         for alias_package in alias_packages.split(','):
                             alias_package = alias_package.strip()
                             self.aliases[alias_package] = alias_object
+
+    def load_rules(self):
+        self.level = 2 # Level 2 by default
+        self.named_rules = {}
+        self.wildcard_rules = {}
+        with open("/usr/lib/linuxmint/mintUpdate/rules","r") as rulesFile:
+            rules = rulesFile.readlines()
+            for rule in rules:
+                if "|" not in rule:
+                    continue
+                rule_fields = rule.strip().split("|")
+                if (len(rule_fields) == 3):
+                    rule_level = int(rule_fields[0])
+                    rule_name = rule_fields[1]
+                    rule_version = rule_fields[2]
+                    rule = Rule(rule_name, rule_version, rule_level)
+                    if rule.is_wildcard:
+                        self.wildcard_rules[rule.name] = rule
+                    else:
+                        self.named_rules[rule.name] = rule
 
     def refresh_cache(self):
         if os.getuid() == 0 :
@@ -144,6 +165,18 @@ class APTCheck():
                 update.add_package(package)
             else:
                 update = Update(package)
+
+                if source_name in self.named_rules.keys():
+                    rule = self.named_rules[source_name]
+                    if (rule.match(update.source_name, update.new_version)):
+                        update.level = rule.level
+                else:
+                    for rule_name in self.wildcard_rules.keys():
+                        rule = self.wildcard_rules[rule_name]
+                        if rule.match(source_name, update.new_version):
+                            update.level = rule.level
+                            break
+
                 self.updates[source_name] = update
             if kernel_update:
                 update.type = "kernel"

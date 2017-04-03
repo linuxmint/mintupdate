@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page xmlns="http://projectmallard.org/1.0/" type="guide" id="security-policy">
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="policy">
 
-   <info>
-    <link type="guide" xref="index"/>
+  <info>
+    <link type="guide" xref="index#levels"/>
+
     <credit type="author">
       <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
@@ -10,38 +11,57 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
+    <desc>选择一个更新策略</desc>
   </info>
 
-  <title>选择一个更新策略</title>
+  <title>更新策略</title>
 
-  <p>新的更新修复了已知的安全漏洞和错误，但也可能引入新的“功能回退”问题。</p>
+    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
 
-  <p>功能回退是会普遍发生的现象，但通常它们很快会在新的更新中被修复，而且他们很少会破坏系统的关键部分。</p>
+    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
 
-  <p>有不同类型的更新：</p>
-
-  <list>
-    <item><p>“软件更新”是修复功能错误的更新(或者是带来新特性)。</p></item>
-    <item><p>“安全更新”是修补安全漏洞的更新。</p></item>
-    <item><p>“内核更新”表示安装新的内核。</p></item>
-  </list>
-
-  <note><p>在Linux Mint中，内核更新可以同时提供安全补丁和错误修复（有时也会包含一些新特性），而且这会影响到系统的关键部分。因此，从安全的角度来看，内核更新至关重要，但它同时也容易引发新用户难以修复的功能回退问题。</p></note>
-
-  <p>系统更新的越多，就越容易被破坏。它可能是某个微小的、您不会用到的组件，并且在后续更新中很快会被修复。但是如果您的系统无法重新启动了呢？如果它损坏了您的驱动并且您无法登录或者连接到网络了呢？</p>
-
-  <p>另一方面，如果您不进行更新，您将会错过错误修复、功能改进以及更加重要的安全漏洞补丁。</p>
-
-  <p>当选择更新策略时，请注意以下问题：</p>
+    <p>All policies have this in common:</p>
 
     <list>
-      <item><p>您是否需要特定的软件或者内核更新？是否在等待新内核修复某一特定错误或者支持某些硬件？</p></item>
-      <item><p>如果发生了异常，您是否有足够的经验来修复您的电脑？您是否知道该怎样修复启动、登录、内核以及模块方面的问题？</p></item>
-      <item><p>您的计算机能否被恶意用户访问？在这台计算机或者网络上是否还有其他的本地用户？您是否有运行服务器或者其他的能够让外部用户访问的软件？</p></item>
+      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
+      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
+      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
     </list>
 
-  <p>请尝试评估您的Linux使用经验等级以及您对错误修复和安全方面的需求。</p>
+    <note><p>当您选择了更新策略以后，更新管理器的某些配置将会改变。您可以通过点击菜单栏中的“编辑-&gt;首选项”菜单来单独调整这些配置。</p></note>
 
-  <note><p>当您选择了更新策略以后，更新管理器的某些配置将会改变。您可以通过点击菜单栏中的“编辑-&gt;首选项”菜单来单独调整这些配置。</p></note>
+    <section id="policy1">
+
+      <title>Novice users</title>
+
+      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+
+      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+
+      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+
+    </section>
+
+    <section id="policy2">
+
+      <title>Regular users</title>
+
+      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+
+      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+
+      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+
+    </section>
+
+    <section id="policy3">
+
+      <title>Advanced users</title>
+
+      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+
+      <p>In this policy, all recommended updates are visible and selected by default.</p>
+
+    </section>
 
 </page>

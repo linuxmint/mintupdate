@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page xmlns="http://projectmallard.org/1.0/" type="guide" id="security-policy">
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="policy">
 
-   <info>
-    <link type="guide" xref="index"/>
+  <info>
+    <link type="guide" xref="index#levels"/>
+
     <credit type="author">
       <name>Линукс Минт</name>
       <email>root@linuxmint.com</email>
@@ -10,38 +11,57 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
+    <desc>Избор на правила за актуализиране</desc>
   </info>
 
-  <title>Избор на правила за актуализиране</title>
+  <title>Правила за актуализиране</title>
 
-  <p>Новите актуализации закърпват известните дупки в сигурността и известните бъгове, но също така могат да предизвикат нови проблеми, наречени 'регресии'.</p>
+    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
 
-  <p>Регресиите са често срещани, но обикновено те се поправят бързо от нови актуализации и те рядко чупят критични части от операционната система.</p>
+    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
 
-  <p>Има различни типове актуализации:</p>
-
-  <list>
-    <item><p>'Софтуерни актуализации' са актуализации, които оправят бъгове (и само понякога добавят нови функции).</p></item>
-    <item><p>'Актуализации по сигурността' са актуализации, които закърпват уязвимости.</p></item>
-    <item><p>'Актуализации на ядра' представляват инсталация на по-ново ядро.</p></item>
-  </list>
-
-  <note><p>В Линукс Минт, актуализациите на ядрото носят кръпки по сигурността и поправят грешки (понякога добавят и нови функции), те влияят на критични части от операционната система. Това прави тези актуализации важни,но също така те могат да доведат до регресии, които трудно могат да бъдат поправени от неопитни потребители.</p></note>
-
-  <p>Колкото повече актуализации приемате, толкова по-вероятно е нещо да се счупи. Може да е нещо малко, нещо което не използваш и може да бъде оправено още с утрешните актуализации. Но ако не можеш да рестартираш? Или ами ако се счупят драйверите и не можеш да се впишеш или да се свържеш с интернет?</p>
-
-  <p>От една страна, ако не актуализираш няма да счупиш нищо, но изпускаш поправки на бъгове, подобрения и по-важното, кръпки на дупки в сигурността.</p>
-
-  <p>Когато избираш правила за актуализиране, запитай се следното:</p>
+    <p>All policies have this in common:</p>
 
     <list>
-      <item><p>Имаш ли нужда от конкретна софтуерна актуализация? Чакаш ли поправка на конкретен бъг или хардуерно устройство да бъде разпознато от по-новото ядро?</p></item>
-      <item><p>Ако нещо се обърка имаш ли достатъчно опит да оправиш компютъра? Знаеш ли как да оправиш стартирането, вписването, грешки в ядрото или в модулите?</p></item>
-      <item><p>Възможно ли е лоши хора да имат достъп до компютъра? Има ли други локални или мрежови потребители? Имали сървър или нещо друго, което контактува с външния свят?</p></item>
+      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
+      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
+      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
     </list>
 
-  <p>Опитайте да оцените нивото си на опит с Линукс и вашите изисквания, свързани с поправките на бъгове и сигурността.</p>
+    <note><p>Когато избирате правила за актуализации, някои от настройките в Мениджъра на актуализациите ще бъдат променени. Може да зададеш индивидуални настройки, като натиснеш на Редакция-&gt;Настройки на лента с менюта.</p></note>
 
-  <note><p>Когато избирате правила за актуализации, някои от настройките в Мениджъра на актуализациите ще бъдат променени. Може да зададеш индивидуални настройки, като натиснеш на Редакция-&gt;Настройки на лента с менюта.</p></note>
+    <section id="policy1">
+
+      <title>Novice users</title>
+
+      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+
+      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+
+      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+
+    </section>
+
+    <section id="policy2">
+
+      <title>Regular users</title>
+
+      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+
+      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+
+      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+
+    </section>
+
+    <section id="policy3">
+
+      <title>Advanced users</title>
+
+      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+
+      <p>In this policy, all recommended updates are visible and selected by default.</p>
+
+    </section>
 
 </page>

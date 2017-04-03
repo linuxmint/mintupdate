@@ -3,6 +3,28 @@
 import gettext
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
+class Rule():
+
+    def __init__(self, name, version, level):
+        self.name = name
+        self.version = version
+        self.level = level
+        self.is_wildcard = False
+        if self.name.startswith("*"):
+            self.name = self.name.replace("*", "")
+            self.is_wildcard = True
+
+    def match(self, pkg_name, pkg_version):
+        matches = False
+        if (self.version == "*" or self.version == pkg_version):
+            if self.is_wildcard:
+                if (pkg_name.find(self.name) > -1):
+                    matches = True
+            else:
+                if (pkg_name == self.name):
+                    matches = True
+        return matches
+
 class Update():
 
     def __init__(self, package=None, input_string=None):
@@ -46,37 +68,7 @@ class Update():
                 if self.source_name in ["linux", "linux-kernel"]:
                     self.type = "kernel"
 
-            # Find the update level
-            self.level = 3 # Level 3 by default
-            if self.origin == "linuxmint":
-                self.level = 1 # Level 1 by default
-            rulesFile = open("/usr/lib/linuxmint/mintUpdate/rules","r")
-            rules = rulesFile.readlines()
-            foundPackageRule = False # whether we found a rule with the exact package name or not
-            for rule in rules:
-                rule_fields = rule.split("|")
-                if (len(rule_fields) == 5):
-                    rule_name = rule_fields[0]
-                    rule_version = rule_fields[1]
-                    rule_level = int(rule_fields[2])
-                    if (rule_name == self.source_name):
-                        foundPackageRule = True
-                        if (rule_version == self.new_version):
-                            self.level = rule_level
-                            break
-                        else:
-                            if (rule_version == "*"):
-                                self.level = rule_level
-                    else:
-                        if (rule_name.startswith("*")):
-                            keyword = rule_name.replace("*", "")
-                            index = self.source_name.find(keyword)
-                            if (index > -1 and foundPackageRule == False):
-                                self.level = rule_level
-
-            rulesFile.close()
-
-
+            self.level = 2 # Level 2 by default
         else:
             # Build the class from the input_string
             self.parse(input_string)

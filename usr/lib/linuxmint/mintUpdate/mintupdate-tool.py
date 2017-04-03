@@ -10,14 +10,11 @@ from checkAPT import APTCheck
 
 from gi.repository import Gio
 
-def usage():
-    print
-
 if __name__ == "__main__":
 
     settings = Gio.Settings("com.linuxmint.updates")
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog="mintupdate-tool")
     parser.add_argument("command", help="a command")
 
     group = parser.add_mutually_exclusive_group()

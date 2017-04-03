@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page xmlns="http://projectmallard.org/1.0/" type="guide" id="index">
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" xmlns:e="http://projectmallard.org/experimental/" type="guide" style="task" id="index">
 
   <info>
-
     <credit type="author">
       <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
     </credit>
 
+
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
   </info>
 
-  <title>Gestor de Atualizações</title>
-
-	<p>Bemvindo ao Gestor de Atualizações.</p>
+  <title>
+    <media type="image" mime="image/png" src="figures/mintupdate.png" height="40" its:translate="no"/> Update Manager
+  </title>
 
   <p>O Gestor de Atualizações fornece o seu sistema operativo com atualizações de software e de segurança</p>
 
+  <p>Updates are important because they keep your computer safe, eliminate bugs and can even add new features to your operating system.</p>
+
+  <p>Unfortunately they also sometimes introduce new issues called 'regressions', which can break things which worked well before.</p>
+
+  <p>It is recommended to apply security updates but also to understand how updates can affect your computer, so you can review them, apply them with caution and be prepared in case something goes wrong.</p>
+
+  <section id="concepts">
+    <title>Core concepts</title>
+
+    <p>This section explains the core concepts related to software updates.</p>
+  </section>
+
+  <section id="levels">
+    <title>Applying updates</title>
+
+    <p>This section explains update levels, policies.</p>
+  </section>
+
+  <section id="kernel">
+    <title>Kernel updates</title>
+
+    <p>This section explains kernel updates.</p>
+  </section>
+
+  <section id="advanced">
+    <title>Advanced techniques</title>
+
+    <p>This section explains advanced techniques.</p>
+  </section>
 </page>

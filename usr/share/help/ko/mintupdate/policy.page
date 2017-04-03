@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page xmlns="http://projectmallard.org/1.0/" type="guide" id="security-policy">
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="policy">
 
-   <info>
-    <link type="guide" xref="index"/>
+  <info>
+    <link type="guide" xref="index#levels"/>
+
     <credit type="author">
       <name>리눅스 민트</name>
       <email>root@linuxmint.com</email>
@@ -10,38 +11,57 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
+    <desc>업데이트 정책 선택하기</desc>
   </info>
 
-  <title>업데이트 정책 선택하기</title>
+  <title>업데이트 정책</title>
 
-  <p>새 업데이트는 알려진 보안 위험이나 버그를 수정하며, '리그레션'이라 불리는 새로운 이슈들을 소개도 합니다.</p>
+    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
 
-  <p>리그레션은 매우 일반적인 것이지만 새 업데이트를 통해서 금방 고쳐지며 운영 체제의 핵심 부분을 훼손하는 일은 드뭅니다.</p>
+    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
 
-  <p>여러 형식의 업데이트:</p>
-
-  <list>
-    <item><p>'소프트웨어 업데이트'는 버그를 수정하는 업데이트입니다 (또는 새 기능을 가져오기도 합니다).</p></item>
-    <item><p>'보안 업데이트'는 취약점을 보완하는 업데이트입니다.</p></item>
-    <item><p>'커널 업데이트'는 새 커널 설치를 말합니다.</p></item>
-  </list>
-
-  <note><p>리눅스 민트의 경우, 커널 업데이트는 보안 패치와 버그 수정을 합니다 (그리고 가끔 새 기능 추가도 하구요), 그리고 운영 체제의 핵심 부분에 영향을 줍니다. 그래서 보안이라는 관점에서 커널 업데이트는 중요합니다, 그러나 초보 사용자에게는 어렵기 때문에 잘못되는 경향이 있습니다.</p></note>
-
-  <p>업데이트는 할수록, 뭔가를 고장낼 수도 있습니다. 어떤 것은 작고, 사용하지 않는 것일 수 도 있고 다음 업데이트에서 고쳐질 수도 있는 것입니다. 하지만 다시 시작할 수 없다면 어떻게 하죠? 여러분의 드라이버를 고장 내거나 더는 로그인 할 수 없게 되거나 또는 인터넷에 연결할 수 없게 된다면요?</p>
-
-  <p>다른 한 편으로, 아무것도 업데이트하지 않으면, 버그 수정, 성능 향상 그리고 중요한 보안 패치들을 놓치게 됩니다.</p>
-
-  <p>업데이트 정책을 선택할 때는, 다음 질문을 스스로에게 해보세요:</p>
+    <p>All policies have this in common:</p>
 
     <list>
-      <item><p>특별한 소프트웨어나 커널 업데이트가 필요한가요? 기다리는 특별한 버그 수정이나 새 커널에서 인식하길 바라는 새로는 장비가 있으신가요?</p></item>
-      <item><p>일이 잘못되는 경우, 컴퓨터를 직접 고칠 만큼의 경험이 있으신가요? 부트, 로그인, 커널과 모듈 이슈들을 다룰 줄 아시나요?</p></item>
-      <item><p>여러분의 컴퓨터에 악의적인 사람들이 접근할 수 있나요? 이 컴퓨터 또는 네트워크에 다른 로컬 사용자가 있나요? 서버나 외부에서 연결할 수 있는 뭔가를 운용하시나요?</p></item>
+      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
+      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
+      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
     </list>
 
-  <p>리눅스 사용 경험과, 버그 수정이나 보안 문제에 관한 필요성을 가늠해 보세요.</p>
+    <note><p>업데이트 정책을 선택하실 때는, 업데이트 관리자의 설정이 몇 가지 바뀌게 됩니다. 메뉴바의 편집 - 설정에서 하나씩 클릭해서 조절하실 수 있습니다.</p></note>
 
-  <note><p>업데이트 정책을 선택하실 때는, 업데이트 관리자의 설정이 몇 가지 바뀌게 됩니다. 메뉴바의 편집 - 설정에서 하나씩 클릭해서 조절하실 수 있습니다.</p></note>
+    <section id="policy1">
+
+      <title>Novice users</title>
+
+      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+
+      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+
+      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+
+    </section>
+
+    <section id="policy2">
+
+      <title>Regular users</title>
+
+      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+
+      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+
+      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+
+    </section>
+
+    <section id="policy3">
+
+      <title>Advanced users</title>
+
+      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+
+      <p>In this policy, all recommended updates are visible and selected by default.</p>
+
+    </section>
 
 </page>

@@ -1116,15 +1116,20 @@ class MintUpdate():
             self.builder.get_object("label_welcome1").set_markup("<span size='large'><b>%s</b></span>" % _("Welcome to the Update Manager"))
             self.builder.get_object("label_welcome2").set_markup("%s" % _("This tool provides your operating system with software and security updates."))
             self.builder.get_object("label_welcome3").set_markup("%s" % _("Please choose an update policy."))
-            self.builder.get_object("label_policy1_1").set_markup("<b>%s</b>" % _("Don't break my computer!"))
+
+            self.builder.get_object("label_policy1_1").set_markup("<b>%s</b>" % _("Just keep my computer safe"))
             self.builder.get_object("label_policy1_2").set_markup("<i>%s</i>" % _("Recommended for novice users."))
-            self.builder.get_object("label_policy1_3").set_markup("%s\n%s" % (_("Only select updates which are known to be safe or which do not impact critical parts of the operating system."), _("Don't show me updates which can harm the stability of my system.")))
-            self.builder.get_object("label_policy2_1").set_markup("<b>%s</b>" % _("Optimize stability and security"))
+            self.builder.get_object("label_policy1_3").set_markup("%s\n%s" % (_("Select updates which do not impact important parts of the operating systems."), _("Show security and kernel updates so I can review them and apply them with caution.")))
+
+            self.builder.get_object("label_policy2_1").set_markup("<b>%s</b>" % _("Let me review sensitive updates"))
             self.builder.get_object("label_policy2_2").set_markup("<i>%s</i>" % _("Recommended for most users."))
-            self.builder.get_object("label_policy2_3").set_markup("%s\n%s" % (_("Only select updates which are known to be safe or which do not impact critical parts of the operating system."), _("But also show me security and kernel updates.")))
+            self.builder.get_object("label_policy2_3").set_markup("%s\n%s" % (_("Select security updates and updates which do not impact important parts of the operating systems."), _("Show kernel updates and sensitive updates so I can review them and apply them with caution.")))
+
             self.builder.get_object("label_policy3_1").set_markup("<b>%s</b>" % _("Always update everything"))
             self.builder.get_object("label_policy3_2").set_markup("<i>%s</i>" % _("Recommended for experienced users."))
-            self.builder.get_object("label_policy3_3").set_markup("%s\n%s" % (_("Select all available updates."), _("Keep my computer fully up to date. If a regression breaks something, I'll fix it.")))
+            self.builder.get_object("label_policy3_3").set_markup("%s\n%s" % (_("Always select all updates."), _("If a regression breaks something, I'll fix it.")))
+
+            self.builder.get_object("label_policy_hint").set_markup(_("Security and kernel updates are always shown and updates with known issues (very rare) are always hidden. You can change this and fine-tune your policy in the preferences."))
 
             self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
@@ -1301,7 +1306,7 @@ class MintUpdate():
             self.stack.add_named(status_error_page, "status_error")
 
             self.stack.show_all()
-            if self.settings.get_boolean("show-configuration"):
+            if self.settings.get_boolean("show-policy-configuration"):
                 self.show_configuration()
             else:
                 self.stack.set_visible_child_name("updates_available")
@@ -1410,53 +1415,39 @@ class MintUpdate():
 ######### CONFIGURE PAGE FUNCTIONS #######
 
     def on_configure_finished(self, button):
-        self.settings.set_boolean("show-configuration", False)
+        self.settings.set_boolean("show-policy-configuration", False)
 
         if (self.builder.get_object("radiobutton_policy_1").get_active()):
-            self.settings.set_boolean("level1-is-visible", True)
-            self.settings.set_boolean("level2-is-visible", True)
-            self.settings.set_boolean("level3-is-visible", True)
+            self.settings.set_boolean("level3-is-visible", False)
             self.settings.set_boolean("level4-is-visible", False)
-            self.settings.set_boolean("level5-is-visible", False)
-            self.settings.set_boolean("security-updates-are-visible", False)
-            self.settings.set_boolean("kernel-updates-are-visible", False)
-            self.settings.set_boolean("level1-is-safe", True)
-            self.settings.set_boolean("level2-is-safe", True)
-            self.settings.set_boolean("level3-is-safe", True)
+            self.settings.set_boolean("level3-is-safe", False)
             self.settings.set_boolean("level4-is-safe", False)
-            self.settings.set_boolean("level5-is-safe", False)
             self.settings.set_boolean("security-updates-are-safe", False)
             self.settings.set_boolean("kernel-updates-are-safe", False)
         elif (self.builder.get_object("radiobutton_policy_2").get_active()):
-            self.settings.set_boolean("level1-is-visible", True)
-            self.settings.set_boolean("level2-is-visible", True)
-            self.settings.set_boolean("level3-is-visible", True)
-            self.settings.set_boolean("level4-is-visible", False)
-            self.settings.set_boolean("level5-is-visible", False)
-            self.settings.set_boolean("security-updates-are-visible", True)
-            self.settings.set_boolean("kernel-updates-are-visible", True)
-            self.settings.set_boolean("level1-is-safe", True)
-            self.settings.set_boolean("level2-is-safe", True)
-            self.settings.set_boolean("level3-is-safe", True)
-            self.settings.set_boolean("level4-is-safe", False)
-            self.settings.set_boolean("level5-is-safe", False)
-            self.settings.set_boolean("security-updates-are-safe", False)
-            self.settings.set_boolean("kernel-updates-are-safe", False)
-        elif (self.builder.get_object("radiobutton_policy_3").get_active()):
-            self.settings.set_boolean("level1-is-visible", True)
-            self.settings.set_boolean("level2-is-visible", True)
             self.settings.set_boolean("level3-is-visible", True)
             self.settings.set_boolean("level4-is-visible", True)
-            self.settings.set_boolean("level5-is-visible", True)
-            self.settings.set_boolean("security-updates-are-visible", True)
-            self.settings.set_boolean("kernel-updates-are-visible", True)
-            self.settings.set_boolean("level1-is-safe", True)
-            self.settings.set_boolean("level2-is-safe", True)
+            self.settings.set_boolean("level3-is-safe", False)
+            self.settings.set_boolean("level4-is-safe", False)
+            self.settings.set_boolean("security-updates-are-safe", True)
+            self.settings.set_boolean("kernel-updates-are-safe", False)
+        elif (self.builder.get_object("radiobutton_policy_3").get_active()):
+            self.settings.set_boolean("level3-is-visible", True)
+            self.settings.set_boolean("level4-is-visible", True)
             self.settings.set_boolean("level3-is-safe", True)
             self.settings.set_boolean("level4-is-safe", True)
-            self.settings.set_boolean("level5-is-safe", True)
             self.settings.set_boolean("security-updates-are-safe", True)
             self.settings.set_boolean("kernel-updates-are-safe", True)
+
+        # Common to all policies
+        self.settings.set_boolean("level1-is-visible", True)
+        self.settings.set_boolean("level2-is-visible", True)
+        self.settings.set_boolean("level5-is-visible", False)
+        self.settings.set_boolean("level1-is-safe", True)
+        self.settings.set_boolean("level2-is-safe", True)
+        self.settings.set_boolean("level5-is-safe", False)
+        self.settings.set_boolean("security-updates-are-visible", True)
+        self.settings.set_boolean("kernel-updates-are-visible", True)
 
         self.builder.get_object("toolbar1").set_visible(True)
         self.builder.get_object("toolbar1").set_sensitive(True)
@@ -1467,7 +1458,7 @@ class MintUpdate():
         refresh.start()
 
     def on_configure_help(self, button):
-        os.system("yelp help:mintupdate/security-policy &")
+        os.system("yelp help:mintupdate/index &")
 
     def show_configuration(self, widget=None):
         self.updates_inhibited = True
@@ -1696,7 +1687,7 @@ class MintUpdate():
 ######### HELP/ABOUT/SOURCES SCREEN #########
 
     def open_help(self, widget):
-        os.system("yelp help:linuxmint/software-updates &")
+        os.system("yelp help:mintupdate/index &")
 
     def open_rel_upgrade(self, widget):
         os.system("/usr/bin/mint-release-upgrade &")
@@ -1767,25 +1758,26 @@ class MintUpdate():
         stack.add_titled(builder.get_object("page_options"), "page_options", _("Options"))
         stack.add_titled(builder.get_object("page_levels"), "page_levels", _("Levels"))
         stack.add_titled(builder.get_object("page_refresh"), "page_refresh", _("Auto-refresh"))
-        stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklisted packages"))
+        stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
 
         #l10n
-        builder.get_object("label39").set_markup("<b>" + _("Level") + "</b>")
-        builder.get_object("label40").set_markup("<b>" + _("Description") + "</b>")
-        builder.get_object("label48").set_markup("<b>" + _("Tested?") + "</b>")
-        builder.get_object("label54").set_markup("<b>" + _("Origin") + "</b>")
-        builder.get_object("label41").set_markup("<b>" + _("Safe?") + "</b>")
-        builder.get_object("label42").set_markup("<b>" + _("Visible?") + "</b>")
-        builder.get_object("label43").set_text(_("Certified updates. Tested through Romeo or directly maintained by Linux Mint."))
-        builder.get_object("label44").set_text(_("Recommended updates. Tested and approved by Linux Mint."))
-        builder.get_object("label45").set_text(_("Safe updates. Not tested but believed to be safe."))
-        builder.get_object("label46").set_text(_("Unsafe updates. Could potentially affect the stability of the system."))
-        builder.get_object("label47").set_text(_("Dangerous updates. Known to affect the stability of the systems depending on certain specs or hardware."))
-        builder.get_object("label55").set_text(_("Linux Mint"))
-        builder.get_object("label56").set_text(_("Upstream"))
-        builder.get_object("label57").set_text(_("Upstream"))
-        builder.get_object("label58").set_text(_("Upstream"))
-        builder.get_object("label59").set_text(_("Upstream"))
+        builder.get_object("label39").set_markup("<b>" + _("Impact level") + "</b>")
+        builder.get_object("label_recommandation").set_markup("<b>" + _("Description") + "</b>")
+        builder.get_object("label41").set_markup("<b>" + _("Selected") + "</b>")
+        builder.get_object("label42").set_markup("<b>" + _("Visible") + "</b>")
+
+        builder.get_object("label_level_1").set_text(_("Minimal"))
+        builder.get_object("label_level_2").set_text(_("Normal"))
+        builder.get_object("label_level_3").set_text(_("Large"))
+        builder.get_object("label_level_4").set_text(_("Sensitive"))
+        builder.get_object("label_level_5").set_text(_("Dangerous"))
+
+        builder.get_object("label_impact_1").set_text(_("No impact on the system or other applications."))
+        builder.get_object("label_impact_2").set_text(_("Default level. Usually low impact on the system."))
+        builder.get_object("label_impact_3").set_text(_("Apply with caution. Impact on multiple applications."))
+        builder.get_object("label_impact_4").set_text(_("Apply one by one. Impact on sensitive parts of the system."))
+        builder.get_object("label_impact_5").set_text(_("Very rare. Not recommended. Known to create issues."))
+
         builder.get_object("label_refresh").set_text(_("First, refresh the list of updates after:"))
         builder.get_object("label_autorefresh").set_text(_("Then, refresh the list of updates every:"))
         builder.get_object("label82").set_text("<i>" + _("Note: The list only gets refreshed while the update manager window is closed (system tray mode).") + "</i>")
@@ -1795,9 +1787,9 @@ class MintUpdate():
         builder.get_object("checkbutton_hide_systray").set_label(_("Only show a tray icon when updates are available or in case of errors"))
         builder.get_object("checkbutton_default_repo_is_ok").set_label(_("Don't suggest to switch to a local mirror"))
         builder.get_object("checkbutton_security_visible").set_label(_("Always show security updates"))
-        builder.get_object("checkbutton_security_safe").set_label(_("Always select and trust security updates"))
+        builder.get_object("checkbutton_security_safe").set_label(_("Always select security updates"))
         builder.get_object("checkbutton_kernel_visible").set_label(_("Always show kernel updates"))
-        builder.get_object("checkbutton_kernel_safe").set_label(_("Always select and trust kernel updates"))
+        builder.get_object("checkbutton_kernel_safe").set_label(_("Always select kernel updates"))
         builder.get_object("label_minutes").set_text(_("minutes"))
         builder.get_object("label_hours").set_text(_("hours"))
         builder.get_object("label_days").set_text(_("days"))
