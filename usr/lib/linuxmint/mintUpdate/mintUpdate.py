@@ -1164,6 +1164,78 @@ class MintUpdate():
             configMenuItem.connect("activate", self.show_configuration)
             editSubmenu.append(configMenuItem)
 
+            editSubmenu.append(Gtk.SeparatorMenuItem())
+
+            item = Gtk.ImageMenuItem(Gtk.STOCK_CLEAR)
+            item.set_use_stock(True)
+            item.set_label(_("Clear"))
+            item.connect("activate", self.clear)
+            key, mod = Gtk.accelerator_parse("<Control>C")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            item = Gtk.ImageMenuItem(Gtk.STOCK_SELECT_ALL)
+            item.set_use_stock(True)
+            item.set_label(_("Select All"))
+            item.connect("activate", self.select_all)
+            key, mod = Gtk.accelerator_parse("<Control>A")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            item = Gtk.ImageMenuItem(Gtk.STOCK_REFRESH)
+            item.set_use_stock(True)
+            item.set_label(_("Refresh"))
+            item.connect("activate", self.force_refresh)
+            key, mod = Gtk.accelerator_parse("<Control>R")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            item = Gtk.ImageMenuItem(Gtk.STOCK_APPLY)
+            item.set_use_stock(True)
+            item.set_label(_("Install"))
+            item.connect("activate", self.install)
+            key, mod = Gtk.accelerator_parse("<Control>I")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            editSubmenu.append(Gtk.SeparatorMenuItem())
+
+            item = Gtk.MenuItem(_("Select level 1 updates"))
+            item.connect("activate", self.select_level1)
+            key, mod = Gtk.accelerator_parse("<Control>1")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            item = Gtk.MenuItem(_("Select level 2 updates"))
+            item.connect("activate", self.select_level2)
+            key, mod = Gtk.accelerator_parse("<Control>2")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            item = Gtk.MenuItem(_("Select level 3 updates"))
+            item.connect("activate", self.select_level3)
+            key, mod = Gtk.accelerator_parse("<Control>3")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            item = Gtk.MenuItem(_("Select level 4 updates"))
+            item.connect("activate", self.select_level4)
+            key, mod = Gtk.accelerator_parse("<Control>4")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            item = Gtk.MenuItem(_("Select security updates"))
+            item.connect("activate", self.select_security_updates)
+            key, mod = Gtk.accelerator_parse("<Control>S")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
+            item = Gtk.MenuItem(_("Select kernel updates"))
+            item.connect("activate", self.select_kernel_updates)
+            key, mod = Gtk.accelerator_parse("<Control>K")
+            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            editSubmenu.append(item)
+
             rel_edition = 'unknown'
             rel_codename = 'unknown'
             if os.path.exists("/etc/linuxmint/info"):
@@ -1382,10 +1454,42 @@ class MintUpdate():
         self.set_status_message(_("No updates selected"))
 
     def select_all(self, widget):
+        self.select_updates()
+
+    def select_level1(self, widget):
+        self.select_updates(1)
+
+    def select_level2(self, widget):
+        self.select_updates(2)
+
+    def select_level3(self, widget):
+        self.select_updates(3)
+
+    def select_level4(self, widget):
+        self.select_updates(4)
+
+    def select_security_updates(self, widget):
+        self.select_updates(level=None, security=True, kernel=False)
+
+    def select_kernel_updates(self, widget):
+        self.select_updates(level=None, security=False, kernel=True)
+
+    def select_updates(self, level=None, security=False, kernel=False):
         model = self.treeview.get_model()
         iter = model.get_iter_first()
         while (iter != None):
-            model.set_value(iter, UPDATE_CHECKED, "true")
+            update =  model.get_value(iter, UPDATE_OBJ)
+            if level is not None:
+                if level == update.level:
+                    model.set_value(iter, UPDATE_CHECKED, "true")
+            elif security:
+                if update.type == "security":
+                    model.set_value(iter, UPDATE_CHECKED, "true")
+            elif kernel:
+                if update.type == "kernel":
+                    model.set_value(iter, UPDATE_CHECKED, "true")
+            else:
+                model.set_value(iter, UPDATE_CHECKED, "true")
             iter = model.iter_next(iter)
         iter = model.get_iter_first()
         download_size = 0
