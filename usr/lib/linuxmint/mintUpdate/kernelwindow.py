@@ -44,7 +44,7 @@ class InstallKernelThread(threading.Thread):
 
         for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-generic' % self.version, 'linux-image-%s-generic' % self.version, 'linux-image-extra-%s-generic' % self.version]:
             if self.remove:
-                pkg_line = "%s\tdeinstall\n" % pkg
+                pkg_line = "%s\tpurge\n" % pkg
             else:
                 pkg_line = "%s\tinstall\n" % pkg
             f.write(pkg_line.encode("utf-8"))
