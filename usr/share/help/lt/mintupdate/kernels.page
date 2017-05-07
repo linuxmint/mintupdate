@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Branduoliai ir branduolių atnaujinimai</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Branduolių atnaujinimai</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Branduolys yra centrinė jūsų operacinės sistemos dalis. Be kita ko, jis yra atsakingas už jūsų aparatinės įrangos palaikymą.</p>
 
   <note><p>Sistemoje Linux Mint, branduolio atnaujinimai pateikia tiek saugumo pataisas, tiek ir klaidų ištaisymus (o kartais, netgi naujas ypatybes), ir šie atnaujinimai paveikia kritines operacinės sistemos dalis. Tai padaro branduolio atnaujinimus svarbius saugumo požiūriu, bet taip pat linkusius į regresijas, kurias naujiems naudotojams gali būti sunku pataisyti.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Žiūrint iš saugumo pusės, yra svarbu taikyti branduolio atnaujinimus.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Kita vertus, branduolio regresija gali paveikti jūsų galimybę prisijungti prie interneto, paleisti savo darbalaukio aplinką arba netgi galimybę paleisti operacinę sistemą.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Dėl šios priežasties, taikant branduolio atnaujinimus, yra svarbu būti apdairiais ir žinoti kaip, kažkam nutikus, sugrąžinti branduolio atnaujinimus.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Gali būti įdiegti keli branduoliai</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Kai taikote atnaujinimą, jūs pakeičiate senąją programinės įrangos versiją naująja.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Tačiau kalbant apie branduolius, viskas yra šiek tiek kitaip. Kai taikote "branduolio atnaujinimą", jūs, iš tiesų, neatnaujinate branduolį, o šalia esamo branduolio įdiegiate naują.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Kas kartą kai taikote branduolio atnaujinimą, jūs savo sistemoje įdiegiate naują branduolį, nepašalindami senojo.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Paleidimo metu, kompiuteris pasirenka patį naujausią branduolį.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Esamo branduolio identifikavimas</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Jeigu norite žinoti kurį branduolį šiuo metu naudojate, atverkite terminalą ir įrašykite:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Branduolių įdiegimas ir šalinimas</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Jūs galite įdiegti ir šalinti branduolius atnaujinimų tvarkytuvėje.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Pasirinkite meniu "Rodymas" -&gt; "Linux branduoliai".</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Jūs negalite pašalinti branduolio, kurį šiuo metu naudojate. Norėdami jį pašalinti, paleiskite kompiuterį iš naujo ir pasirinkite paleisti kitą branduolį.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Branduolio pasirinkimas</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Jūs galite turėti įdiegtus kelis branduolius, tačiau vienu metu galite naudoti tik vieną branduolį.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Kai paleidžiate kompiuterį, pats pirmas ekranas kurį matote yra vadinamas Grub meniu. Šis meniu leidžia jums pasirinkti operacines sistemas, tačiau be to, galite jį naudoti ir branduolio pasirinkimui.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Norėdami pasirinkti branduolį, Grub meniu pasirinkite "Išplėstinius parametrus" (angl. Advanced options). Jūs turėtumėte matyti visus šiuo metu įdiegtus branduolius. Pasirinkite tą kurį norite naudoti ir jūsų kompiuteris paleis atitinkamą branduolį.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>DKMS būsenos tikrinimas</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Branduolyje yra visos atvirojo kodo tvarkyklės ir jos, dažniausiai, veikia labai gerai. Nuosavybinės tvarkyklės (NVIDIA, AMD, Broadcom...ir t.t.) nėra įtrauktos į branduolį ir jos turi būti kompiliuojamos kiekvienam jūsų įdiegtam branduoliui. Tai atliekama per mechanizmą, kuris vadinasi DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Jeigu nuosavybinė tvarkyklė nėra tinkamai iš naujo kompiliuojama jūsų branduoliui, naudojant DKMS, tuomet ji nefunkcionuos teisingai su tuo branduoliu.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Įdiegę ar pašalinę branduolį ir norėdami įsitikinti, jog visos nuosavybinės tvarkyklės yra tinkamai įdiegtos kiekvienam jūsų branduoliui, jūs galite patikrinti savo DKMS būseną, naudodami šią komandą:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Nauja branduolio seka, dažniausiai tampa prieinama dar prieš tai, kai nuosavybinės tvarkyklės palaiko ją per DKMS. Jeigu naudojate nuosavybines tvarkykles, rekomenduojama apsistoti ties branduolio atnaujinimais ir nediegti branduolių iš sekos, kuri yra naujesnė negu rekomenduojamų branduolių seka.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Branduolio atnaujinimo sugrąžinimas</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Jeigu su jūsų paskiausiai įdiegtu branduoliu (ar paskiausiu branduolio atnaujinimu) kažkas neveikia, paleiskite kompiuterį iš naujo, pasirinkite branduolį, kurį naudojote prieš tai, pašalinkite naująjį branduolį ir dar kartą paleiskite kompiuterį iš naujo.</p>
 
   </section>
 

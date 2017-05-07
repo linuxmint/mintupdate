@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Opdatering fra kommandolinjen</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>Brug af mintupdate-tool</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Opdateringshåndtering indeholder et kommandolinjeværktøj kaldet "mintupdate-tool".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Hvis du har erfaring med Linux, kan du anvende dette værktøj i dine skripter eller dine cron-job til at automatisere installeringen af programopdateringer.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Opdateringsoversigt</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Du kan anvende kommandoen "list" til at få vist en oversigt over opdateringer:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>Oversigten kan filtreres efter niveau med argumentet -l.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Du kan tilføje sikkerhedsopdateringer med -s.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Du kan tilføje kerneopdateringer med -k eller fjerne dem med -nk.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>F.eks. vil følgende kommando opliste alle sikkerhedsopdateringer såvel som fejlrettelser med niveau 1 og 2:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Installerer opdateringer</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Du kan bruge kommandoen "upgrade" for at installere opdateringer med brug af de samme tilvalg.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>F.eks. vil følgende kommando installere alle sikkerhedsopdateringer såvel som fejlrettelser med niveau 1 og 2:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Bemærk argumentet -r, som blev tilføjet for at opdatere cachen.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Få flere informationer om mintupdate-tool og en komplet oversigt over argumenter ved at indtaste:</p>
 
   <screen>mintupdate-tool -h</screen>
 

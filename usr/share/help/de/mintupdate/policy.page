@@ -16,51 +16,51 @@
 
   <title>Aktualisierungsrichtlinie</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Die Aktualisierungsverwaltung ist sehr stark konfigurierbar. Sie können in den Einstellungen die Feineinstellungen vornehmen, welche Ebenen Sie angezeigt bekommen möchten und welche vorgewählt werden sollen. Das ist Ihr Rechner und Sie können ihn so einstellen wie Sie es wollen.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Beim ersten Start wird versucht zu verstehen wer Sie sind und diese Einstellungen für Sie festzulegen. Um das zu tun werden Ihnen drei Aktualisierungsrichtlinien angezeigt und Sie werden gefragt welche Ihnen am besten gefällt.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Alle Richtlinien haben das gemeinsam:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Aus Sicherheitsgründen sind Sicherheitsaktualisierungen immer sichtbar (unabhängig davon, in welcher Ebene diese sich befinden).</p></item>
+      <item><p>Aus Sicherheitsgründen sind Kernelaktualisierungen (Ebene 4) immer sichtbar.</p></item>
+      <item><p>Aus Stabilitätsgründen sind Ebene-5-Aktualisierungen immer ausgeblendet.</p></item>
     </list>
 
     <note><p>Wenn Sie eine Aktualisierungsrichtlinie auswählen werden einige Voreinstellungen in der Aktualisierungsverwaltung geändert. Sie können diese Voreinstellungen individuell anpassen, indem Sie im Menü »Bearbeiten« und dann »Einstellungen« öffnen.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Anfänger</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>Die erste Regel ist für Anfänger gemacht. Sie geht davon aus, dass diese Benutzer nicht in der Lage sind kritische Probleme zu beheben, die empfindliche Teile des Systems beeinträchtigen und versucht, das Risiko zu mindern, kritische Rückschritte zu erleiden.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Fehlerkorrekturen sind optional, so dass diese Richtlinie ihr Augenmerk auf Sicherheitsaktualisierungen der Ebene 1 und 2 legt, mit minimaler Auswirkung auf das Betriebssystem. Diese Aktualisierungen sind sichtbar und  standardmäßig ausgewählt.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Sicherheit ist zwar genauso wichtig, aber einige Sicherheitsaktualisierungen (und insbesondere Kernaktualisierungen) betreffen empfindliche Bereiche des Systems. Solche Aktualisierungen sind sichtbar und Anfängern wird empfohlen sie mit Bedacht auszuwählen und getrennt anzuwenden, mit Unterstützung eines erfahrenen Benutzers oder erst dann, nachdem Sie sich mit dem Forum und Chatbereich vertraut gemacht haben, so dass Sie wissen, wo man Hilfe finden kann.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Regelmäßige Benutzer</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Die zweite Richtlinie wurde für die große Mehrheit an Benutzern erstellt. Sie geht davon aus, dass diese Benutzer keine Anfänger im Umgang mit Linux sind und entweder wissen, wie sie normale Problem lösen können oder wissen wo Sie Hilfe finden können.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Diese Richtlinie zeigt alle empfohlenen Aktualisierungen. Sicherheits- und sichere Fehleraktualisierungen (Ebene 1 und 2) werden standardmäßig ausgewählt.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Benutzern werden empfohlen, Aktualisierungen der Ebene 3 und 4 mit Vorsicht und getrennt auszuwählen und anzuwenden und Hilfe zu suchen, wenn etwas schief geht.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Fortgeschrittene Benutzer</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Diese Richtlinie ist für fortgeschrittene Benutzer von Rechnern gemacht, wo das Risiko kritischer Regressionen akzeptabel ist. Sie geht davon aus, dass diese Benutzer in der Lage sind, jedes Problem zu beheben und alle Aktualisierungen auf einmal anzuwenden.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>In dieser Richtlinie sind alle empfohlenen Aktualisierungen sichtbar und standardmäßig ausgewählt.</p>
 
     </section>
 

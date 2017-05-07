@@ -14,53 +14,53 @@
     <desc>Elecció d'una política d'actualització</desc>
   </info>
 
-  <title>Política d'actualitzacions</title>
+  <title>Política d'actualització</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>L'administrador d'actualitzacions és molt configurable. Podeu anar a les preferències i ajustar amb detall els nivells que voleu mostrar i què voleu preseleccionar. És el vostre equip i podeu configurar-lo al vostre gust.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>La primera vegada que l'obriu, intentarà establir els ajustos més adequats. Per això, us mostrarà tres polítiques d'actualització, i us demanarà que seleccioneu la que preferiu.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Totes les polítiques tenen això en comú:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Per raons de seguretat, les actualitzacions de seguretat sempre són visibles (no importa quin nivell tinguin).</p></item>
+      <item><p>Per raons de seguretat, les actualitzacions del nucli (que són de nivell 4) sempre són visibles.</p></item>
+      <item><p>Per raons d'estabilitat, les actualitzacions de nivell 5 sempre són ocultes.</p></item>
     </list>
 
-    <note><p>En triar una política d'actualitzacions, es canvien algunes preferències de l'Administrador d'Actualitzacions. Podeu ajustar aquestes preferències individualment fent clic al menú Edita-&gt;Preferències.</p></note>
+    <note><p>En triar una política d'actualitzacions, es canvien algunes preferències del gestor d'actualitzacions. Podeu ajustar aquestes preferències individualment en fer clic al menú Edita-&gt;Preferències.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Usuaris novells</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>La primera política està pensada per a usuaris novells. Assumeix que aquests usuaris no saben com solucionar problemes crítics que afecten parts sensibles del sistema, i intenta minimitzar el risc de patir regressions crítiques.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Les solucions d'errors són opcionals, de manera que aquesta política se centra en les actualitzacions segures (nivells 1 i 2) amb impacte mínim en el sistema operatiu. Aquestes actualitzacions són visibles i preseleccionades per defecte.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>La seguretat també és important, però algunes actualitzacions de seguretat (i les del nucli en particular) afecten a parts sensibles del sistema. Aquestes actualitzacions són visibles i es recomana als usuaris novells seleccionar-les i aplicar-les amb cura, de forma aïllada i idealment amb l'ajuda d'un usuari expert, o després de familiaritzar-se amb els fòrums i xats, de manera que sàpiguen com buscar ajuda.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Usuaris intermedis</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>La segona política està feta per a la immensa majoria de la gent. Assumeix que aquests usuaris no són nous en Linux i fins i tot saben com solucionar problemes comuns, o saben on trobar ajuda.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Aquesta política mostra totes les actualitzacions recomanades. Les actualitzacions de seguretat i les de solució de problemes segures (nivells 1 i 2) són preseleccionades per defecte.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Es recomana als usuaris seleccionar i aplicar les actualitzacions de nivells 3 i 4 amb precaució i de forma aïllada, i buscar ajuda si alguna cosa falla.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Usuaris avançats</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Aquesta política està pensada per a usuaris avançats i per equips on es pugui assumir el risc de regressions crítiques. S'entén que aquests usuaris són capaços d'arreglar qualsevol problema i volen aplicar totes les actualitzacions alhora.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>En aquesta política, totes les actualitzacions recomanades estan visibles i seleccionades per defecte.</p>
 
     </section>
 

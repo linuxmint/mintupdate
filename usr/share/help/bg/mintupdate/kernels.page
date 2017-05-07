@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Ядра и актуализации на ядрото</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Актуализации на ядрото</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Ядрото е критична част от операционната система. Наред с другите неща, то е отговорно за поддръжката на хардуера.</p>
 
   <note><p>В Линукс Минт, актуализациите на ядрото носят кръпки по сигурността и поправят грешки (понякога добавят и нови функции), те влияят на критични части от операционната система. Това прави тези актуализации важни,но също така те могат да доведат до регресии, които трудно могат да бъдат поправени от неопитни потребители.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>От гледна точка на сигурността е важно да се прилагат актуализациите на ядрото.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Регресии в ядрото могат да афектират върху възможността да се свържеш с интернет, да стартираш графичната среда или да стартираш операционната система.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Заради тази причина е важно да се внимава, когато се прилагат актуализациите на ядрото и да знаеш как да върнеш промените, ако нещо се обърка.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Могат да бъдат инсталирани много ядра</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Когато прилагаш актуализация, заменяш стара версия на софтуера с нова.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Но при ядрото нещата са различни. Когато прилагаш "актуализация на ядрото", всъщност не актуализираш ядрото, а инсталираш ново, заедно със съществуващото.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Всеки път, когато прилагаш актуализация, инсталираш ново ядро в системата, без да премахваш старите.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>По-време на стартиране, компютъра избира най-новото.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Идентифициране на текущото ядро</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Ако искаш да знаеш кое ядро използваш в момента, отвори терминал и напиши:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Инсталиране и премахване на ядра</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Може да инсталираш и премахваш ядра от мениджъра на актуализациите.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Избери "Преглед" -&gt; "Линукс ядра" от лентата.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Не може да премахнеш ядрото, което използваш в момента. За да го махнеш, трябва да рестартираш и да избереш различно ядро за стартиране.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Избор на ядра</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Може да имаш много инсталирани ядра, но можеш да стартираш само едно от тях.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Когато стартираш компютъра, най-първият екран се нарича Grub меню. Това мени ти позволява да избереш операционна система, но също така се използва и за избиране на ядро.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>За избор на ядро изберете "Advanced options" от Grub менюто.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Проверка на DKMS статуса</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Ядрото включва всички драйвери с отворен код и те обикновено работят много добре. Затворените драйвери (NVIDIA, AMD, Broadcom и др.) не са включени и трябва да ги компилираш самостоятелно за всяко инсталирано ядро. Това става посредством механизъм наречен DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Ако затвореният драйвер не е компилиран правилно чрез DKMS за някое от ядрото, той няма да работи правилно с това ядро.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>След инсталиране или премахване на ядро, може да провериш DKMS статуса, за да провериш дали всички затворени драйвери са за инсталирани правилно с командата:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Обикновено новото ядро идва преди dkms поддръжката на затворените драйвери. Ако използвате такива драйвери е препоръчително да се придържате към актуализациите на ядрото, без да инсталирате ядра по-нови от препоръчителното ядро.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Връщане на промените в ядрото</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Ако не работи с последното инсталирано ядро (или с последната актуализация на ядрото), рестартирай и избери ядрото, което преди това си ползвал, премахни новото ядро и отново рестартирай.</p>
 
   </section>
 

@@ -16,51 +16,51 @@
 
   <title>Pravila nadopunjavanja</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Upravitelj nadopuna je vrlo prilagodljiv. U osobitostima možete precizno prilagoditi koju razinu želite imati prikazanu i koju razinu želite imati predodabranu. Ovo je vaše računalo i stoga ga možete prilagoditi kako vi želite.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Prvi puta kada ga pokrenete, pokušat će shvatiti tko ste vi i postaviti te postavke za vas. Kako bi to učinio, prikazat će vam tri pravila nadopunjavanja i upitati vas da odaberete ono pravilo koje je najbolje za vas.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Svim pravilima je ovo zajedničko:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Iz sigurnosnih razloga, sigurnosne nadopune su uvijek vidljive (bez obzira na kojoj su razini).</p></item>
+      <item><p>Iz sigurnosnih razloga, nadopune kernela (koje su razina 4) su uvijek vidljive.</p></item>
+      <item><p>Iz razloga stabilnosti, nadopune razine 5 su uvijek skrivene.</p></item>
     </list>
 
     <note><p>Kada odabirete pravilo nadopunjavanja, neke od osobitosti su promijenjene u Upravitelju nadopuna. Možete prilagođavati te osobitosti pojedinačno klikom na Uredi zatim na Osobitosti u traci izbornika.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Novi korisnici</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>Prvo pravilo je namijenjeno novim korisnicima. Pretpostavlja da ti korisnici ne mogu ukloniti kritične probleme koji utječu na osjetljive dijelove sustava i pokušava umanjiti njihov rizik da se suoče s kritičnim nestabilnostima.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Popravci greška su neobavezni, stoga je to pravilo usredotočeno na sigurne nadopune (razina 1 i 2) s minimalnim utjecajem na operativni sustav. Te nadopune su vidljive i predodabrane po zadanome.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Sigurnost je isto bitna ali neke sigurnosne nadopune (a osobito nadopune kernela) obuhvaćaju osjetljive dijelove sustava. Te nadopune su vidljive i preporučljivo je novim korisnicima da ih odaberu i primijene uz oprez, izdvojeno i idealno ili uz pomoć naprednog korisnika, ili nakon što se upoznaju s forumom i kanalom za razgovor tako da znaju kako zatražiti pomoć.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Uobičajeni korisnici</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Drugo pravilo je namijenjeno za golemu većinu korisnika. Pretpostavlja da ti korisnici nisu novi u Linuxu i ili znaju kako riješiti uobičajene probleme, ili znaju gdje pronaći pomoć.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Ovo pravilo prikazuje sve preporučene nadopune. Sigurnosne nadopune i sigurne nadopune popravaka grešaka (razina 1i 2) su predodabrane po zadanome.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Korisnicima je preporučeno da odaberu i primijene nadopune razine 3 i 4 uz oprez i izdvojeno i da potraže pomoć ako nešto krivo krene.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Napredni korisnici</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Ovo pravilo je namijenjeno naprednim korisnicima na računalima gdje je rizik kritične nestabilnosti prihvatljiv. Pretpostavlja da ti korisnici znaju popraviti sve probleme i žele primijeniti sve nadopune odjednom.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>U ovom pravilu, sve preporučene nadopune su vidljive i odabrane po zadanome.</p>
 
     </section>
 

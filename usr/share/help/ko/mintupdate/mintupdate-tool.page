@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>명령문으로 업데이트하기</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>mintupdate-tool 사용하기</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>업데이트 매니저는 명령문 도구  "mintupdate-tool"을 제공합니다.</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>리눅스 사용 경험이 있으시면, 스크립트 또는 cron 작업을 이용해서 소프트웨어 업데이트 설치를 자동화해보세요.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>업데이트 목록 나열하기</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>"list" 명령을 통해서 목록 업데이트를 할 수 있습니다:</p>
 
-  <screen>mintupdate-tool list</screen>
+  <screen>mintupdate-tool 목록</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>-l 아규먼트를 이용해서 레벨에 따라 나눌 수 있습니다.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>-s를 이용해서 보안 업데이트를 더할 수 있습니다.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>-k를 이용해서 커널 업데이트를, 또는 -nk를 이용해서 제거를 할 수 있습니다.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>예를 들면, 다음 명령은 모든 보안 업데이트와, 레벨 1 과 2 버그 수정 업데이트를 나열합니다:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>업데이트 적용하기</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>업데이트 적용에는 "upgrade" 명령어를 사용하며, 옵션은 같습니다.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>예를 들면, 다음 명령은 모든 보안 업데이트와, 레벨 1 과 2 버그 수정 업데이트를 적용합니다:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>-r 옵션은, 캐시를 새로 고치기 위해 더해졌습니다.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>더 많은 mintupdate-tool에 관한 정보와 아규먼트에 대한 모든 목록을 살펴보시려면, 이렇게 입력하세요:</p>
 
   <screen>mintupdate-tool -h</screen>
 

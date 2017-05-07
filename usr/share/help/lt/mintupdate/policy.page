@@ -16,51 +16,51 @@
 
   <title>Atnaujinimų politika</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Atnaujinimų tvarkytuvė yra plačiai konfigūruojama. Jūs galite pereiti į nuostatas ir derinti kuriuos lygius norite matyti, ir kuriuos lygius norite iš anksto pažymėti. Tai yra jūsų kompiuteris ir todėl, galite jį derinti taip, kaip jums patinka.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Pirmą kartą paleidus atnaujinimų tvarkytuvę, ji pamėgins suprasti kas jūs esate ir nustatys jums tam tikrus nustatymus. Tam, kad tai atliktų, atnaujinimų tvarkytuvė jums parodys tris atnaujinimų politikas ir paprašys, kad pasirinktumėte tą politiką, kuri jums tinka labiausiai.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Visos politikos turi šį tą bendro:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Saugumo sumetimais, saugumo atnaujinimai yra visada matomi (nepriklausomai nuo to, kurio lygio jie yra).</p></item>
+      <item><p>Saugumo sumetimais, branduolio atnaujinimai (kurie yra 4 lygio) yra visada matomi.</p></item>
+      <item><p>Stabilumo sumetimais, 5 lygio atnaujinimai yra visada paslėpti.</p></item>
     </list>
 
     <note><p>Kai pasirenkate atnaujinimų politiką, Atnaujinimų tvarkytuvėje yra keičiamos kai kurios nuostatos. Galite atskirai derinti šias nuostatas, meniu juostoje nuspaudę meniu Keisti-&gt;Nuostatos.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Nauji naudotojai</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>Pirmoji politika yra sukurta, galvojant apie naujus naudotojus. Ji numano, kad šie naudotojai negali apeiti kritinių problemų, paveikiančių jautrias jų sistemos dalis ir todėl ji bando sumažinti kritinių regresijų kentėjimų riziką.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Klaidų pataisymai yra pasirinktiniai, taigi, ši politika susitelkia ties saugiais atnaujinimais (1 ir 2 lygio), kurie turi mažiausią poveikį jūsų sistemai. Pagal numatymą, šie atnaujinimai yra matomi ir iš anksto pažymėti.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Saugumas taipogi yra svarbus, tačiau kai kurie saugumo atnaujinimai (ypač branduolio atnaujinimai) paveikia jautrias sistemos dalis. Šie atnaujinimai yra matomi ir naujiems naudotojams yra rekomenduojama žymėti ir taikyti juos apdairiai, izoliuotoje aplinkoje ir, idealiausiu atveju, padedant pažengusiam naudotojui arba po to, kai naudotojai jau yra susipažinę su forumais ir pokalbių kanalais, ir tokiu būdu jau žino kaip ieškoti pagalbos.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Normalūs naudotojai</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Antroji politika yra sukurta didžiajai daugumai žmonių. Ji numano, kad šie naudotojai nėra naujokai Linux aplinkoje ir arba žino kaip spręsti įprastas problemas, arba žino kur rasti pagalbą.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Ši politika rodo visus rekomenduojamus atnaujinimus. Pagal numatymą, saugumo atnaujinimai ir saugūs klaidų pataisymų atnaujinimai (1 ir 2 lygio) yra iš anksto pažymėti.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Naudotojams yra rekomenduojama žymėti ir taikyti 3 ir 4 lygio atnaujinimus apdairiai ir izoliuotoje aplinkoje ir, jeigu kažkas nutinka, ieškoti pagalbos.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Patyrę naudotojai</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Ši politika yra sukurta patyrusiems naudotojams, kompiuteriuose, kuriuose kritinių regresijų rizika yra priimtina. Politika numano, kad šie naudotojai gali pataisyti bet kurią problemą ir, kad naudotojai vienu metu nori taikyti visus atnaujinimus.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>Pagal numatymą, šioje politikoje visi rekomenduojami atnaujinimai yra iš anksto pažymėti.</p>
 
     </section>
 

@@ -11,50 +11,50 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>ከ ትእዛዝ መስመር ላይ ማሻሻያ</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>የ ሚንት ማሻሻያ-መሳሪያ በ መጠቀም</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>የ ማሻሻያ አስተዳዳሪ የሚያቀርበው የ ትእዛዝ መስመር "የ ሚንት ማሻሻያ-መሳሪያ" ይባላል</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>እርስዎ ብዙ ልምድ ካለዎት ሊነክስን በ መጠቀም: ይህን መአሪያ መጠቀም ይችላሉ በ እርስዎ cron ጽሁፍ ውስጥ ራሱ በራሱ እንዲገጥም የ ሶፍትዌር ማሻሻያዎችን</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>የ ማሻሻያ ዝርዝር</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>እርስዎ መጠቀም ይችላሉ "ዝርዝር" ትእዛዝ ከ ዝርዝር ማሻሻያ ውስጥ:</p>
 
-  <screen>mintupdate-tool list</screen>
+  <screen>የ ሚንት ማሻሻያ-መሳሪያ ዝርዝር</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>ይህን ዝርዝር ማጣራት ይቻላል በ ደረጃዎች በ -l ክርክር.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>እርስዎ የ ደህንነት ማሻሻያ መጨመር ይችላሉ በ -s.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>እርስዎ የ ከረኔል ማሻሻያ መጨመር ይችላሉ በ -k, ወይንም ማስወገድ በ -nk.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>ለምሳሌ: የሚቀጥለው ትእዛዝ ዝርዝር የ ደህንነት ማሻሻያ: እንዲሁም ደረጃ 1 እና 2 ችግር መጠገኛ ማሻሻያ ይይዛል</p>
 
-  <screen>mintupdate-tool list -l12 -s -nk</screen>
+  <screen>የ ሚንት ማሻሻያ-መሳሪያ ዝርዝር -l12 -s -nk</screen>
 
   </section>
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>ማሻሻያ መፈጸሚያ</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>እርስዎ መጠቀም ይችላሉ የ "ማሻሻያ" ትእዛዝ ማሻሻያ ለ መፈጸም: ተመሳሳይ ምርጫ በ መጠቀም</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>ለምሳሌ: የሚቀጥለው ትእዛዝ የሚፈጽመው ሁሉንም የ ደህንነት ማሻሻያ እንዲሁም ደረጃ 1 እና 2 ችግር መፍቻ ማሻያዎችን ነው:</p>
 
-  <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
+  <screen>sudo የ ሚንት ማሻሻያ-መሳሪያ ማሻሻያ -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>ማስታወሻ የ -r ክርክር የ ተጨመረው cache ለ ማነቃቃት ነው</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>በ በለጠ ለ መረዳት ስለ ሚንት ማሻሻያ-መሳሪያ እና ለ ሙሉ ዝርዝር ክርክር አይነት:</p>
 
-  <screen>mintupdate-tool -h</screen>
+  <screen>የ ሚንት ማሻሻያ-መሳሪያ -h</screen>
 
   </section>
 

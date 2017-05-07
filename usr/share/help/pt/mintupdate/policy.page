@@ -16,51 +16,51 @@
 
   <title>Política de atualização</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>O gestor de atualizações é altamente configurável. Pode ir às preferências e ajustar os níveis que pretende selecionar e quais os níveis que pretende pré-selecionar. Este é o seu computador e, por isso, pode ajustá-lo da maneira pretendida.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Na primeira vez que o iniciar, ele tentará saber quem é e definir essas configurações para si. Para fazer isso, ele irá mostrar-lhe três políticas de atualização e pedir-lhe para escolher a que prefere.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Todas as políticas têm isto em comum:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Por razões de segurança, atualizações de segurança são sempre visíveis (não importa qual o seu nível).</p></item>
+      <item><p>Por razões de segurança, as atualizações do kernel (nível 4) estão sempre visíveis.</p></item>
+      <item><p>Por razões de estabilidade, as atualizações de nível 5 estão sempre ocultas.</p></item>
     </list>
 
     <note><p>Quando escolhe uma política de atualizações, algumas preferências são alteradas no Gestor de Atualizações. Pode afinar essas preferências individualmente carregando no menu Editar-&gt;Preferências na barra de menus.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Utilizadores principiantes</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>A primeira política é pensado com os principiantes em mente. Assume que esses utilizadores são incapazes de trabalhar em volta de questões críticas que afetam partes sensíveis de seu sistema e tenta minimizar o risco de sofrer regressões críticas.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Correções de erros são opcionais, portanto, esta política foca-se nas atualizações seguras (nível 1 e 2) com impacto mínimo no sistema operativo. Essas atualizações são visíveis e pré-selecionadas por padrão.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>A segurança também é importante, mas algumas atualizações de segurança (e atualizações de kernel em particular) afetam partes sensíveis do sistema. Estas atualizações são visíveis e os principiantes são  recomendados a selecioná-las e aplicá-las com atenção, isoladamente e de preferência com ajuda de um utilizador experiente, ou após familiarizar-se com os fóruns e os canais de conversação para que saibam como procurar ajuda.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Utilizadores regulares</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>A segunda politica é feita para a maioria das pessoas. Assumem que esses utilizadores não são novos utilizadores de Linux que sabem resolver problemas comuns, ou sabem onde procurar ajuda.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Esta política mostra todas as atualizações recomendadas. As atualizações de segurança e as atualizações de correções de erros (nível 1 e 2) são pré-selecionadas por padrão.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Os utilizadores são recomendados a selecionar e aplicar atualizações de nível 3 e 4 isoladamente, com atenção e procurar ajuda se algo falhar.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Utilizadores avançados</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Esta política é feita para utilizadores avançados em computadores onde o risco de regressões críticas é aceitáveis. Assuma que esses utilizadores são capazes de corrigir qualquer problema e pretendem aplicar todas as atualizações de uma só vez.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>Nesta política, todas as atualizações recomendadas são visíveis e selecionadas por padrão.</p>
 
     </section>
 

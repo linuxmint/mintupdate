@@ -16,51 +16,51 @@
 
   <title>Opdateringspolitik</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Opdateringshåndtering kan konfigureres på mange måder. Du kan gå ind i indstillingerne og vælge, hvilke niveauer der skal vises, og hvilke niveauer der skal være valgte på forhånd. Det er din computer, så du kan justere den, som du vil.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Første gang du starter den, vil den forsøge at forstå, hvem du er og lave indstillingerne for dig. For at gøre dette vil den vise dig tre opdateringspolitikker og bede dig vælge den, du synes bedst om.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Alle politikker har dette til fælles:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Af sikkerhedsgrunde er sikkerhedsopdateringer altid synlige (uanset hvilket niveau de har).</p></item>
+      <item><p>Af sikkerhedsgrunde er kerneopdateringer (som har niveau 4) altid synlige.</p></item>
+      <item><p>Af stabiltetsgrunde er opdateringer på niveau 5 altid skjulte.</p></item>
     </list>
 
     <note><p>Når du vælger en opdateringspolitik, ændres nogle af indstillingerne i Opdateringshåndtering. Du kan finjustere disse indstillinger individuelt ved at klikke på Redigér-&gt;Indstillinger i menulinjen.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Nybegyndere</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>Den første politik er lavet med nybegyndere i tankerne. Det antages, at disse brugere ikke kan løse kritiske problemer, som påvirker følsomme dele af deres system, og prøver at minimere risikoen for, at de oplever alvorlige problemer.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Fejlrettelser er valgfrie, så denne politik fokuserer på sikre opdateringer (niveau 1 og 2) med minimal påvirkning af styresystemet. Disse opdateringer er synlige og som standard valgt på forhånd.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Sikkerhed er også vigtig, men nogle sikkerhedsopdateringer (og især kerneopdateringer) påvirker systemets følsomme dele. Disse opdateringer er synlige, og det anbefales, at nybegyndere vælger og installerer dem med forsigtighed hver for sig og ideelt set med en erfaren brugers hjælp, eller efter de er blevet bekendte med foraene og chatkanalen, så de ved, hvor de kan søge hjælp.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Almindelige brugere</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Den anden politik er for det store flertal. Det antages, at brugerne har erfaring med Linux og enten ved, hvordan man løser almindelige problemer, eller hvor man kan finde hjælp.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Denne politik viser alle anbefalede opdateringer. Sikkerhedsopdateringer og sikre fejlrettelser (niveau 1 og 2) er som standard valgt på forhånd.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Brugerne anbefales at vælge og installere opdateringer på niveau 3 og 4 med forsigtighed og hver for sig og søge hjælp, hvis noget går galt.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Avancerede brugere</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Denne politik er for avancerede brugere på computere, hvor risikoen for kritiske regressioner er acceptabel. Det antages, at disse brugere kan løse alle problemer og vil installere alle opdateringer med det samme.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>I denne politik er alle anbefalede opdateringer synlige og som standard valgt på forhånd.</p>
 
     </section>
 

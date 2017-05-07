@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Atnaujinimas iš komandų eilutės</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>Komandos mintupdate-tool naudojimas</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Atnaujinimų tvarkytuvė pateikia komandų eilutės paslaugų programą, pavadinimu "mintupdate-tool".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Jeigu esate patyręs Linux naudotojas, galite naudoti šį įrankį savo scenarijuose ar savo cron užduotyse, kad automatizuotumėte programinės įrangos atnaujinimų diegimą.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Atnaujinimų išvardijimas</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Norėdami išvardyti atnaujinimus, galite naudoti "list" komandą:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>Sąrašas gali būti filtruojamas pagal lygius, naudojant -l argumentą.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Jūs galite pridėti saugumo atnaujinimus, naudojant -s.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Jūs galite pridėti branduolio atnaujinimus, naudojant -k arba pašalinti juos, naudojant -nk.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>Pavyzdžiui, ši komanda išvardija visus saugumo atnaujinimus, o taip pat 1 ir 2 lygio klaidų pataisymų atnaujinimus:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Atnaujinimų taikymas</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Norėdami taikyti atnaujinimus, galite naudoti komandą "upgrade", naudojant tuos pačius parametrus.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>Pavyzdžiui, ši komanda taiko visus saugumo atnaujinimus, o taip pat 1 ir 2 lygio klaidų pataisymų atnaujinimus:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Pastebėkite -r argumentą, kuris buvo pridėtas tam, kad iš naujo būtų įkeltas podėlis.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Išsamesnei informacijai apie mintupdate-tool ir pilną argumentų sąrašą, rašykite:</p>
 
   <screen>mintupdate-tool -h</screen>
 

@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Bijwerken via een terminalopdracht</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>Met gebruikmaking van mintupdate-tool</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Het Bijwerkbeheer bevat een opdrachtregel-gereedschapje genaamd 'mintupdate-tool'.</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Als u veel ervaring heeft met Linux, dan kunt u dit gereedschapje gebruiken in uw scripts of cron-taken, om het installeren van bijgewerkte programmatuur te automatiseren.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Bijgewerkte pakketten weergeven in een lijst</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>U kunt de opdracht 'list' gebruiken om bijgewerkte pakketten weer te geven in een lijst:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>De lijst kan worden gefilterd op niveaus, door middel van de parameter -l.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>U kunt veiligheidsreparaties toevoegen met de parameter -s.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>U kunt bijgewerkte systeemkernen toevoegen met de parameter -k, of hen juist verwijderen met -nk.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>Bijvoorbeeld: de volgende opdracht geeft alle veiligheidsreparaties weer in een lijst, plus foutreparaties van niveau 1 en 2:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Bijgewerkte pakketten installeren</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>U kunt de opdracht 'upgrade' gebruiken om bijgewerkte pakketten te installeren, met gebruikmaking van dezelfde parameters.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>Bijvoorbeeld: de volgende opdracht installeert alle veiligheidsreparaties, alsook foutreparaties van niveau 1 en 2:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Let op de parameter -r, die is toegevoegd om de tijdelijke opslag te verversen.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Voor meer informatie omtrent mintupdate-tool en een volledige lijst van beschikbare parameters, tikt u in:</p>
 
   <screen>mintupdate-tool -h</screen>
 

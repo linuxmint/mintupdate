@@ -11,137 +11,137 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>Uppdateringar förses med en nivåsiffra som visar hur stor påverkan de kan ha på systemet</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>Uppdaterings nivåer</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>Uppdateringar förses med en nivåsiffra som visar hur stor påverkan de kan ha på systemet.</p>
 
-    <p>There are 4 levels:</p>
+    <p>Det finns 4 nivåer:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
       <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Ingen påverkan på system eller andra program.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
       <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Standardnivå. Vanligen låg påverkan på systemet.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>Stor</p></td>
+      <td><p>Tillämpas med försiktighet. Påverkar ett flertal program.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>Känslig</p></td>
+      <td><p>Tillämpas en och en. Påverkar känsliga delar av systemet.</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>Det finns också en speciell nivå som tilldelas uppdateringar med kända kritiska problem:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>Farlig</p></td>
+      <td><p>Mycket sällsynta. Rekommenderas inte. Kända för att orsaka problem.</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Nivå 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>Uppdateringar på nivå 1, påverkar bara det egna programmet och har ingen inverkan på resten av systemet.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>De är vanligen uppdateringar för enskilda program. Som t.ex.:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>Kalkylatorn</p></item>
+        <item><p>PDF-läsaren</p></item>
+        <item><p>Textredigeraren</p></item>
+        <item><p>Mediaspelaren</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>Du kan tillämpa dessa uppdateringar utan oro för regressioner. I värsta fall kan en regression påverka programmet du uppgraderar, men inte själva operativsystemet.</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Nivå 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>Detta är standardnivån, så majoriteten av uppdateringar är på nivå 2.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Dessa uppdateringar är inte kända för att påverka stora områden eller känsliga delar av systemet, men det finns heller inga garantier för att de bara påverkar det egna programmet.</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>Generellt, bör du kunna tillämpa dessa uppdateringar utan oro för regressioner.</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>Om en viktig regression, eller potentiell regression, hittas i en nivå 2-uppdatering, kommer nivån att höjas till 3 eller 4.</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Nivå 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>Uppdateringar på nivå 3 påverkar inte bara det egna programmet, utan har också inverkan på andra program.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Typiska exempel på nivå 3-uppdateringar är GTK, DBUS, etc... En regression i dessa uppdateringar skulle inte hindra din dator från att starta ordentligt, men kan inverka på många andra program.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Skrivbordsmiljöer är nivå 3-uppdateringar. Om en kritisk regression inträffar i Cinnamon, kan du få problem att logga in.</p>
 
-    <p>Sensitive applications such as Firefox are also level 3. Novice users would be unable to perform common tasks if these applications stopped working.</p>
+    <p>Känsliga program som Firefox är också på nivå 3. Oerfarna användare skulle få problem att utföra vanliga aktiviteter om dessa program slutade att fungera.</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>Det finns inte många nivå 3-uppdateringar. Det rekommenderas att man tillämpar dem med försiktighet och isolerat. Notera vilka uppdateringar du tillämpar och kontrollera systemet efteråt, för att säkerställa att allt fungerar som det skall.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Om något går sönder, kan du söka hjälp på forum eller chattkanalen och berätta för folk vilken uppdatering som orsakat problem och vad som är trasigt.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Om du blint tillämpar hundratals uppdateringar utan att kunna peka ut vilken som är problematisk, lär du inte hitta någon hjälp. Alla nivå 3-uppdateringar är rekommenderade, men du förväntas vara försiktig och veta vad det är du uppgraderar.</p></note>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Nivå 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>Uppdateringar på nivå 4 påverkar känsliga delar av operativsystemet såsom:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Startsekvens</p></item>
+        <item><p>Utseendehantering (inloggningsskärm, sessionshantering)</p></item>
+        <item><p>Kärna (hårdvarustöd)</p></item>
+        <item><p>Drivrutiner (nätverk, NVIDIA/AMD)</p></item>
+        <item><p>Skärm (Xorg, mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>Liksom andra uppdateringar är alla nivå 4-uppdateringar rekommenderade, särskilt säkerhetsuppdateringar.</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>Om en kritisk regression finns i en av dessa uppdateringar, kan det dock påverka en känslig del av ditt system.</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>Du kan bli sittande utan internetuppkoppling, utan möjlighet att starta skrivbordsmiljön eller till och med utan att kunna starta operativsystemet.</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>Av detta skäl bör du alltid vara försiktig när du tillämpar nivå 4-uppdateringar (inklusive kärnuppdateringar). Tillämpa dem en och en, och notera vilken version det är du tänker tillämpa.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Om något går sönder, kan du söka hjälp på forum eller chattkanalen och berätta för folk vilken uppdatering som orsakat problem och vad som är trasigt.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Om du blint tillämpar hundratals uppdateringar utan att kunna peka ut vilken som är problematisk, lär du inte hitta någon hjälp. Alla nivå 4-uppdateringar är rekommenderade, men du förväntas vara försiktig och veta vad det är du uppgraderar.</p></note>
 
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Nivå 5</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>Uppdateringar på nivå 5 är extremt ovanliga.</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>När ett kritiskt fel hittas i en uppdatering, rättas den vanligen till så snabbt som möjligt.</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>Det finns många sätt för Linux Mint att lösa problem och många mekanismer på plats, både på distans i förråden och lokalt i ditt operativsystem. Så under normala omständigheter borde inga uppdateringar behöva svartlistas.</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>Om en uppdatering hade ett kritiskt fel och en lösning var under upparbetning men ännu inte färdigställd, kunde Linux Mint markera en specifik version av uppdateringen som nivå 5 (dvs "rekommenderas inte"). Detta skulle förhindra användare från att tillämpa den tills den nya versionen når förrådet.</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>Uppdateringar på nivå 5, är kända för att kunna orsaka problem. De är mycket sällsynta och oftast tillfälliga. De visas inte som standard och de bör inte tillämpas.</p></note>
 
   </section>
 

@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Nadopuna iz naredbenog redka</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>Upotreba mintupdate-tool</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Upravitelj nadopuna omogućava alat naredbenog redka koji se naziva "mintupdate-tool".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Ako ste iskusni u radu s Linuxom, možete koristiti ovaj alat u vašim skriptama ili vašim cron zadacima kako bi automatizirali instalaciju nadopuna softvera.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Prikaz nadopuna</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Možete koristiti "list" naredbu za prikaz nadopuna:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>Prikaz se može filtrirati po razinama s -l argumentom.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Možete dodati sigurnosne nadopune sa -s</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Možete dodati nadopune krenela sa -k, ili ih ukloniti sa -nk.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>Na primjer, sljedeća naredba prikazuje sve sigurnosne nadopune, kao i razinu 1 i razinu 2 nadopuna popravaka grešaka:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Primijenjivanje nadopuna</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Možete koristiti "upgrade" naredbu kako bi primijenili nadopune, koristeći iste mogućnosti.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>Na primjer, sljedeća naredba primijenjuje sve sigurnosne nadopune, kao i razinu 1 i razinu 2 nadopuna popravaka grešaka:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Napomena: -r argument, je dodan za osvježavanje predmemorije.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Za više informacija o mintupdate-tool i potpunom popisu argumenata, upišite:</p>
 
   <screen>mintupdate-tool -h</screen>
 

@@ -16,51 +16,51 @@
 
   <title>更新策略</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>这个更新管理器是高度可配置的。您可以在首选项当中对您想要显示和预选的等级进行微调。这是您的计算机，因此您可以以您想要的方式来调整它。</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>在您第一次启动时，它会试图了解您对 Linux 的熟悉程度，并据此为您作出设定。为此它会显示三个更新策略，让您选择其中最喜欢的一个。</p>
 
-    <p>All policies have this in common:</p>
+    <p>以下是这些策略所共有的：</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>出于安全的理由，安全更新（不管是哪个等级）总是可见的。</p></item>
+      <item><p>出于安全的理由，内核更新（属于等级 4）总是可见的。</p></item>
+      <item><p>出于稳定性的理由，等级5的更新总是隐藏的。</p></item>
     </list>
 
     <note><p>当您选择了更新策略以后，更新管理器的某些配置将会改变。您可以通过点击菜单栏中的“编辑-&gt;首选项”菜单来单独调整这些配置。</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>新手用户</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>第一种策略是为新手用户准备的。它假设用户没有能力解决影响到系统敏感部位的严重问题，因此会尽量减少他们遭遇严重回退的风险。</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>错误修复是非强制的，因此这一策略会集中于对操作系统的影响最小的无害的更新（等级1和等级2）。这些更新是可见且默认选取的。</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>安全同样重要，但一些安全更新（尤其是内核更新）会影响到系统的敏感部位。这些更新是可见的，建议新手用户谨慎并单独地选取和应用它们，理想情况下应该在有经验的用户的帮助下进行，或者在熟悉论坛与聊天频道的使用、知道如何寻求帮助之后再进行操作。</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>一般用户</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>第二种策略是为大多数用户准备的。它假设用户并非 Linux 新手，知道如何解决常见的问题，或者知道如何寻求帮助。</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>这一策略会显示所有推荐的更新，并默认选取安全更新和无害的错误修复更新（等级1和等级2）。</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>建议用户谨慎并单独地选取和应用等级3和等级4的更新，在出错时积极寻求帮助。</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>高级用户</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>这一策略是为高级用户准备的，用于可以承受严重回退的风险的计算机。它假设这些用户能够处理任何问题，并且希望立刻应用所有更新。</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>在这一策略中，所有推荐的更新都是可见并且默认选取的。</p>
 
     </section>
 

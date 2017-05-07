@@ -11,137 +11,137 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>Bijgewerkte pakketten krijgen een niveau-aanduiding, die aangeeft hoeveel invloed ze hebben op het besturingssysteem</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>Niveaus van bijgewerkte pakketten</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>Bijgewerkte pakketten krijgen een niveau-aanduiding, die aangeeft hoeveel invloed ze hebben op het besturingssysteem.</p>
 
-    <p>There are 4 levels:</p>
+    <p>Er zijn vier niveaus:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Minimaal</p></td>
+      <td><p>Geen invloed op het systeem of op andere toepassingen.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
-      <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Normaal</p></td>
+      <td><p>Standaardniveau. Doorgaans weinig invloed op het systeem.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>Groot</p></td>
+      <td><p>Wees enigszins voorzichtig met installeren. Invloed op meerdere toepassingen.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>Gevoelig</p></td>
+      <td><p>Installeer deze pakketten één voor één. Invloed op belangrijke onderdelen van het systeem.</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>En er is ook nog een speciaal niveau voor bijgewerkte pakketten met bekende kritieke problemen:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>Gevaarlijk</p></td>
+      <td><p>Zeer zeldzaam. Niet aanbevolen. Bekend problematisch.</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Niveau 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>Bijgewerkte pakketten van niveau 1, beïnvloeden alleen hun eigen programmatuur en niet de rest van het systeem.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>Het betreft doorgaans bijgewerkte pakketten voor individuele toepassingen. Bijvoorbeeld:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>De rekenmachine</p></item>
+        <item><p>De PDF-lezer</p></item>
+        <item><p>De tekstbewerker</p></item>
+        <item><p>De mediaspeler</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>U kunt deze bijgewerkte pakketten installeren zonder u zorgen te hoeven maken over regressies. In het ergste geval zou een regressie alleen de programmatuur kunnen beïnvloeden die u aan het bijwerken bent, en niet het besturingssysteem zelf.</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Niveau 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>Dit is het standaardniveau, dus de overgrote meerderheid van de bijgewerkte pakketten zijn niveau 2.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Deze bijgewerkte pakketten beïnvloeden geen grote of gevoelige onderdelen van het systeem, maar ze zouden wel meer kunnen beïnvloeden dan alleen hun eigen programmatuur.</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>Over het algemeen kunt u deze bijgewerkte pakketten installeren zonder u zorgen te hoeven maken over regressies.</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>Indien er een belangrijke regressie, of de mogelijkheid van zo'n regressie, aangetroffen zou worden in een bijgewerkt pakket van niveau 2, dan zou zijn niveau worden gewijzigd in 3 of 4.</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Niveau 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>Bijgewerkte pakketten van niveau 3 beïnvloeden niet alleen zichzelf, maar ook andere toepassingen.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Typische voorbeelden van bijgewerkte pakketten van niveau 3 zijn GTK, DBUS enzovoorts. Een regressie in deze bijgewerkte pakketten zou de opstartbaarheid van uw computer niet kunnen beïnvloeden, maar wel vele toepassingen.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Bijgewerkte pakketten voor werkomgevingen zijn eveneens niveau 3. Indien er een kritieke regressie zou optreden in Cinnamon, dan zou u wel eens niet in staat kunnen zijn om uzelf aan te melden.</p>
 
-    <p>Sensitive applications such as Firefox are also level 3. Novice users would be unable to perform common tasks if these applications stopped working.</p>
+    <p>Gevoelige toepassingen zoals Firefox zijn ook niveau 3. Beginners met Linux zouden gewone taken niet kunnen uitvoeren indien deze toepassingen niet meer zouden werken.</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>Er zijn niet veel bijgewerkte pakketten van niveau 3. Het wordt sterk aangeraden om ze te installeren, maar wel met enige voorzichtigheid en één voor één. Let erop welke bijgewerkte pakketten u installeert en kijk nadien het systeem na om te zien of alles nog goed werkt.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Als er iets kapot gaat, kunt u hulp zoeken op het forum of op het IRC-kanaal. Daar kunt u vertellen welk bijgewerkt pakket de regressie heeft veroorzaakt en wat er precies kapot is.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Als u blindelings honderden bijgewerkte pakketten installeert en dus niet in staat bent om nadien een problematisch pakket aan te wijzen, dan zult u moeilijk hulp kunnen vinden. Alle bijgewerkte pakketten van niveau 3 worden sterk aangeraden, maar u dient wel voorzichtig te zijn en te weten welke pakketten u installeert.</p></note>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Niveau 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>Bijgewerkte pakketten van niveau 4 zijn pakketten die gevoelige onderdelen van het besturingssysteem beïnvloeden, zoals:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Het opstarten</p></item>
+        <item><p>De vensterbeheerder (aanmeldscherm, sessiebeheer)</p></item>
+        <item><p>De systeemkern (apparatuurondersteuning)</p></item>
+        <item><p>De stuurprogramma's (draadloos netwerk, Nvidia/Broadcom)</p></item>
+        <item><p>De schermweergave (Xorg, mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>Net zoals andere bijgewerkte pakketten, worden alle bijgewerkte pakketten van niveau 4 aangeraden. In het bijzonder als het veiligheidsreparaties betreft.</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>Echter, indien er een kritieke regressie zou zitten in een van deze bijgewerkte pakketten, dan zou dit een belangrijk onderdeel van uw systeem kunnen beïnvloeden.</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>U zoudt zonder internetverbinding kunnen komen te zitten, of zonder de mogelijkheid om uw werkomgeving te starten. Of zelfs zonder de mogelijkheid om uw hele besturingssysteem op te starten.</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>Om deze reden kunt u beter altijd voorzichtig zijn met het installeren van bijgewerkte pakketten van niveau 4 (inclusief bijgewerkte systeemkernen). Installeer hen één voor één en let op de versies die u installeert.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Als er iets kapot gaat, kunt u hulp zoeken op het forum of op het IRC-kanaal. Daar kunt u vertellen welk bijgewerkt pakket de regressie heeft veroorzaakt en wat er precies kapot is.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Als u blindelings honderden bijgewerkte pakketten installeert en dus niet in staat bent om nadien een eventueel problematisch pakket aan te wijzen, zult u waarschijnlijk geen hulp kunnen vinden. Alle bijgewerkte pakketten van niveau 4 worden aangeraden, maar u wordt wel verondersteld om voorzichtig te zijn en te weten wat u bijwerkt.</p></note>
 
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Niveau 5</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>Bijgewerkte pakketten van niveau 5 zijn uitzonderlijk zeldzaam.</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>Wanneer er een kritieke fout wordt aangetroffen in een bijgewerkt pakket, wordt het doorgaans zo snel mogelijk hersteld.</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>Er zijn vele manieren voor Linux Mint om problemen aan te pakken, en er zijn daar veel mechanismen voor aanwezig, zowel in uw besturingssysteem als in de pakketbronnen. Dus onder normale omstandigheden hoeven bijgewerkte pakketten niet op de zwarte lijst te worden gezet.</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>Indien er een kritieke fout zou worden gevonden in een bijgewerkt pakket en indien men nog niet gereed zou zijn met de oplossing, dan zou Linux Mint een bepaalde versie van een bijgewerkt pakket kunnen markeren als niveau 5 (d.i. 'niet aanbevolen'). Dit zou gebruikers ervan moeten weerhouden om het te installeren voordat de nieuwe herstelde versie in de pakketbronnen belandt.</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>Bijgewerkte pakketten van niveau 5 hebben bekende problemen. Ze zijn zeer zeldzaam en gewoonlijk slechts tijdelijk. Ze zijn standaard niet zichtbaar en zouden beslist niet moeten worden geïnstalleerd.</p></note>
 
   </section>
 

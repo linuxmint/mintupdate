@@ -11,137 +11,137 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>每个更新都有一个等级来说明其对操作系统的影响程度</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>更新等级</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>每个更新都有一个等级来说明其对操作系统的影响程度。</p>
 
-    <p>There are 4 levels:</p>
+    <p>总共有四个等级：</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>极小</p></td>
+      <td><p>对系统和其它应用没有影响</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
-      <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>正常</p></td>
+      <td><p>默认的等级。通常对系统的影响很小。</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>较大</p></td>
+      <td><p>请谨慎应用。对多个应用会造成影响。</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>敏感</p></td>
+      <td><p>请逐个应用。对系统敏感部位会造成影响。</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>此外还有一个特殊的等级，包括那些已知带有严重问题的更新。</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>危险</p></td>
+      <td><p>极其罕见。不推荐。已知会造成问题。</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> 等级1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>等级1的更新只会影响它们自己的软件，对系统的其它部分没有影响。</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>它们通常是单个应用程序的更新。例如：</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>计算器</p></item>
+        <item><p>PDF 阅读器</p></item>
+        <item><p>文本编辑器</p></item>
+        <item><p>媒体播放器</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>您可以应用这些更新而不必担心回退。在最坏的情况下，回退只会影响您所更新的软件，而不会影响操作系统本身。</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> 等级 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>这是默认的级别，因此绝大多数更新属于等级2。</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>这些更新未发现会造成大范围的影响，或者影响系统的敏感部位。不过也不保证它们只会影响自己的软件。</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>通常，您可以应用这些更新而不必担心回退。</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>如果在等级2中发现了重大的回退或者发现了潜在的回退，它的级别会被调整到等级3或等级4。</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> 等级 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>等级3的更新不仅会影响其本身，还会对其它的应用造成影响。</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>等级3的典型示例是GTK、DBUS等。这些更新中的回退不会影响计算机的正常启动，但它可能对许多程序造成影响。</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>桌面环境也属于等级3的更新。如果Cinnamon发生了严重的回退，您可能无法登录用户。</p>
 
-    <p>Sensitive applications such as Firefox are also level 3. Novice users would be unable to perform common tasks if these applications stopped working.</p>
+    <p>Firefox等敏感程序也属于等级3的更新。如果这些程序停止工作，新手用户可能无法执行常规的任务。</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>等级3的更新并不多。建议您小心地单独应用这些更新。记录您应用了哪些更新，并在更新之后检查系统以确保一切运行正常。</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>如果某个程序崩溃，请到论坛或聊天室寻求帮助，并告诉大家是哪个更新引起了回退以及哪个程序发生了崩溃。</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>如果您盲目地应用了上百项更新并且不清楚哪一项是有问题的，您可能无法得到帮助。所有等级3的更新都是推荐应用的，但您应该对此保持谨慎并且清楚您升级了什么。</p></note>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> 等级 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>等级4的更新是对操作系统的敏感部分进行的更新，例如：</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>启动顺序</p></item>
+        <item><p>显示管理器(登录屏幕，会话管理器)</p></item>
+        <item><p>内核(硬件支持)</p></item>
+        <item><p>驱动(网络，NVIDIA/AMD)</p></item>
+        <item><p>显示(Xorg，mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>与其他更新一样，推荐应用所有等级4的更新，尤其是安全更新。</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>但是，如果这些更新中出现了一个严重的回退，它可能会影响到您的系统的敏感部位。</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>您可能会连不上网，无法启动桌面环境或甚至是操作系统本身。</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>所以您应该总是谨慎对待等级4的更新（包括内核更新），单个地处理它们并记录每次更新的版本。</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>如果某个程序崩溃，请到论坛或聊天室寻求帮助，并告诉大家是哪个更新引起了回退以及哪个程序发生了崩溃。</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>如果您盲目地进行大量更新，出现问题后您将无法准确定位错误位置，进而无法采取任何有效措施。我们推荐应用所有等级4的更新，但您必须十分谨慎地对待这些更新并清楚地知道每一次更新的内容。</p></note>
 
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> 等级 5</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>等级5的更新极其罕见。</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>如果发现某个更新包含严重错误，一般会很快被修复。</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>Linux Mint可以通过很多方法来定位问题，并且在远端库和本地都有很多机制来寻找问题。所以在正常情况下，您不需要把更新列入黑名单。</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>如果一个更新有严重的错误，而且没有尚未得到解决，Linux Mint 会将此更新的特定版本标记为等级5（即“不推荐”），以避免用户应用此更新，直到已修复错误的新版本到达软件库。</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>等级5的更新已知会造成问题。它们十分罕见，而且一般时暂时的。这些更新默认不可见，建议不要应用。</p></note>
 
   </section>
 

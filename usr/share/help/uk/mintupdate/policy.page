@@ -14,53 +14,53 @@
     <desc>Вибір політики оновлення</desc>
   </info>
 
-  <title>Метод оновлення</title>
+  <title>Політика оновлення</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Керівник оновлень легко налаштовується. Ви можете піти у режим налаштування та точного налаштування, обрати які рівні Ви бажаєте показати й котрі рівні Ви волієте встановити. Це Ваш комп’ютер і тому Ви можете налаштувати його, як Вам заманеться.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Під час першого запуску, він буде намагатися зрозуміти, хто Ви і встановити ці налаштування для Вас. Для цього, він покаже Вам три політики оновлення і попрохає Вас вибрати ту, яка Вам більше подобається.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Усі політики мають спільну рису:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>З міркувань безпеки, оновлення безпеки завжди видно (незалежно від того, на якому рівні вони знаходяться).</p></item>
+      <item><p>З міркувань безпеки, оновлення ядра (які знаходяться на рівні 4) завжди видно.</p></item>
+      <item><p>З міркувань стабільности, оновлення 5 рівню будуть завжди приховані.</p></item>
     </list>
 
-    <note><p>Коли Ви обираєте політику оновлення, деякі налаштування у Керівнику оновленнями змінюються. Ви можете змінити ці налаштування самостійно, натиснувши у рядку меню Зміни, потім Параметри.</p></note>
+    <note><p>Коли Ви обираєте політику оновлення, деякі налаштування у Керівнику оновлень змінюються. Ви можете змінити ці налаштування самостійно, натиснувши у рядку меню Зміни, потім Параметри.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Користувачі початківці</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>Перше правило створено для нових користувачів. Передбачається, що користувачі не зможуть обійти важливі питання, що чепають чутливі частини їх системи й старається унайменшити їх ризик критичної регресії.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Виправлення помилок опційні, так що ця політика спрямована на безпечні оновлення (рівень 1 та 2) з найменшим навантаженням на операційну систему. Ці оновлення видно й встановлено типовими.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Безпека також важлива, але деякі оновлення безпеки (й зокрема оновлення ядра) впливають на чутливі частини системи. Ці оновлення видно й початківцям радиться обирати та застосовувати їх обережно, в ізоляції, в ідеалі, або за допомогою досвідченого користувача, або після того, як дізналися про наявність толоки і гутірки, щоб знати, куди звертатися за допомогою.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Звичайні користувачі</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Друга політика створена для переважної більшости людей. Вона припускає, що ці користувачі не є новими у Linux і або знають, як вирішувати поширені проблеми або вони знають, де знайти допомогу.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Ця політика показує усі рекомендовані оновлення. Оновлення безпеки та виправлення помилок оновлення (рівні 1 та 2) попередньо обрані типовими.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Користувачам радиться обирати та застосовувати оновлення рівню 3 й рівню 4 з обережністю, в ізоляції та звернутися за допомогою, якщо щось піде не так.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Досвідчені користувачі</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Ця політика створена для просунутих користувачів комп’ютерів, де ризик критичної регресії є прийнятним. Передбачається, що ці користувачі можуть виправити будь-яку проблему й бажають застосувати усі оновлення одразу.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>У цій політиці усі рекомендовані оновлення будуть видимі та вибрані типово.</p>
 
     </section>
 

@@ -16,51 +16,51 @@
 
   <title>Politique de mises à jour</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Le gestionnaire des mises à jour est hautement configurable. Vous pouvez aller dans les préférences et régler avec précision les niveaux que vous voulez afficher et les niveaux que vous voulez présélectionner. C'est votre ordinateur et vous pouvez le mettre au point comme vous voulez.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>La première fois que vous le lancez, il tentera de comprendre qui vous êtes et de définir ces réglages pour vous. Pour ce faire, il affichera trois politiques de mises à jour et vous demandera de choisir celle que vous aimez le plus.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Toutes les politiques ont ceci en commun :</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Pour des raisons de sécurité, les mises à jour de sécurité sont toujours visibles (peu importe leur niveau).</p></item>
+      <item><p>Pour des raisons de sécurité, les mises à jour du noyau (qui sont de niveau 4) sont toujours visibles.</p></item>
+      <item><p>Pour des raisons de stabilité, les mises à jour de niveau 5 sont toujours cachées.</p></item>
     </list>
 
     <note><p>Lorsque vous choisissez une politique de mise à jour, certaines des préférences sont modifiées dans le Gestionnaire de mises à jour. Vous pouvez adapter ces préférences individuellement en cliquant sur le menu "Édition"; "Préférences" dans la barre de menus.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Utilisateurs débutants</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>Cette première politique est conçue pour les utilisateurs débutants. Elle suppose que ces utilisateurs ne sont pas capables de contourner les problèmes critiques affectant des parties sensibles de leur système et essaie de minimiser leur risque de souffrir de régressions critiques.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Les corrections de bogues sont optionnelles, aussi cette politique se focalise sur les mises à jour sûres (niveau 1 et 2) avec un impact minimal sur le système d'exploitation. Ces mises à jour sont visibles et présélectionnées par défaut.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>La sécurité est aussi importante mais certaines mises à jour de sécurité (et les mises à jours du noyau en particulier) affectent des parties sensibles du système. Ces mises à jour sont visibles et il est conseillé aux utilisateurs débutants de les sélectionner et de les appliquer avec précaution, séparément et idéalement avec l'aide d'un utilisateur expérimenté, ou après qu'ils se sont familiarisés avec les forums et le canal de chat de sorte qu'ils sachent comment chercher de l'aide.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Utilisateurs réguliers</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>La seconde politique est conçue pour la grande majorité des gens. Elle suppose que ces utilisateurs ne sont pas novices sous Linux et soit ils savent résoudre les problèmes communs soit ils savent où chercher de l'aide.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Cette politique affiche toutes les mises à jour recommandées. Les miss à jour de sécurité et les corrections sûres de bogues (niveau 1 et 2) sont présélectionnées par défaut.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Les utilisateurs sont invités à sélectionner et appliquer les mises à jour de niveau 3 et 4 avec précaution et de façon isolée et de chercher de l'aide si quelque chose ne va pas.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Utilisateurs avancés</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Cette politique est conçue pour les utilisateurs avancés sur les ordinateurs où le risque de régressions critiques est acceptable. Elle suppose que ces utilisateurs sont capables de résoudre tous les problèmes et veulent appliquer toutes les mises à jour en même temps.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>Dans cette politique, toutes les mises à jour sont visibles et sélectionnées par défaut.</p>
 
     </section>
 

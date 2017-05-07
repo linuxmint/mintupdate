@@ -11,137 +11,137 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>ማሻሻያዎች ደረጃ ይሰጣቸዋል በ እርስዎ የ መስሪያ ስርአት ላይ ለሚፈጽሙት ተፅእኖ</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>የ ማሻሻያ ደረጃዎች</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>ማሻሻያዎች ደረጃ ይሰጣቸዋል በ እርስዎ የ መስሪያ ስርአት ላይ ለሚፈጽሙት ተፅእኖ</p>
 
-    <p>There are 4 levels:</p>
+    <p>እነዚህ 4 ደረጃዎች አሉ:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>አነስተኛ</p></td>
+      <td><p>በ ስርአቱ ወይንም በ ሌሎች መተግበሪያ ላይ ተፅእኖ አይፈጥርም</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
-      <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>መደበኛ</p></td>
+      <td><p>ነባር ደረጃ ብዙ ጊዜ ተፅእኖው በ ስርአቱ ላይ በጣም አነስተኛ ነው</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>ትልቅ</p></td>
+      <td><p>በ ጥንቃቄ ይፈጽሙ: ይህ በ በርካታ መተግበሪያዎች ላይ ተፅእኖ ይፈጥራል</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>አንድ በ አንድ መፈጸሚያ: ይህ በ sensitive አካሎች ላይ ተፅእኖ ይፈጥራል በ ስርአቱ ውስጥ</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>እንዲሁም የ ተለየ ደረጃ ማሻሻያ አለ የ ታወቀውን አደገኛ ችግር ማሻሻያ</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>አደገኛ</p></td>
+      <td><p>አንዳንድ ጊዜ አይመከሩም። አደገኛ ችግር ይፈጥራል</p></td>
     </tr>
   </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>1ኛ ደረጃ ማሻሻያ የሚያሻሽለው የ ራሱን ሶፍትዌር ነው እና በ ስርአቱ ላይ ተፅእኖ አይፈጥርም</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>ብዙ ጊዜ ለ ነጠላ መተግበሪያ ማሻሻያ ነው: ለምሳሌ:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>መደመሪያ</p></item>
+        <item><p>የ PDF አንባቢ</p></item>
+        <item><p>የ ጽሁፍ ማረሚያ</p></item>
+        <item><p>የ መገናኛ ማጫወቻ</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>እርስዎ እነዚህን ማሻሻያዎች መፈጸም ይችላሉ ስለ ዝቅ ማድረጊያ ሳይጨነቁ: ዝቅ ማድረጊያ ቢፈጽም ተፅእኖ የሚፈጥረው እርስዎ በሚያሻሽሉት ሶፍትዌሩ ላይ ብቻ ነው: በ መስሪያ ስርአቱ ላይ ችግር አይፈጥርም</p>
 
   </section>
 
   <section id="level2">
     <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>ይን ነባር ደረጃ ነው: ስለዚህ በርካታ ማሻሻያዎች ደረጃ 2 ናቸው</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>እነዚህ ማሻሻያዎች የታወቁ አይደሉም በርካታ ቦታዎች ላይ ተፅእኖ እንደሚፈጥሩ: ወይንም በ ስርአቱ sensitive አካል ላይ: ነገር ግን ማረጋገጫ መስጠት አይቻልም ከ ራሳቸው ሶፍትዌር በስተቀር</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>ባጠቃላይ እርስዎ እነዚህን ማሻሻያዎች መፈጸም ይችላሉ ስለ ዝቅ ማድረጊያ ምንም ሳይጨነቁ</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>አስፈላጊ ዝቅ ማድረጊያ ከ ተፈጠረ ወይንም ዝቅ ማድረጊያ ከ ተገኘ በ ደረጃ 2ኛ ማሻሻያ ውስጥ: ደረጃው ይቀየራል ወደ 3ኛ ወይንም 4ኛ</p>
 
   </section>
 
   <section id="level3">
     <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>እነዚህ 3ኛ ደረጃ ማሻሻያዎች በራሳቸው ላይ ብቻ ሳይሆን በ ሌሎች መተግበሪያዎች ላይ ተፅእኖ ይፈጥራሉ</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>ጥሩ ምሳሌ ለ 3ኛ ደረጃ ማሻሻያ ይህ GTK, DBUS, etc... ዝቅ ማድረጊያነው: እነዚህ ማሻሻያ ውስጥ የ እርስዎን ኮምፒዩተር እንደገና ከ ማስነሳት አያግድም: ነገር ግን በ በርካታ መተግበሪያዎች ላይ ተፅእኖ ይፈጥራል</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>የ ዴስክቶፕ አካባቢ 3ኛ ደረጃ ማሻሻያ: አደገኛ ዝቅ ማድረጊያ ከ ተፈጠረ በ ሲናሞን ውስጥ: እርስዎ መግባት አይችሉም</p>
 
-    <p>Sensitive applications such as Firefox are also level 3. Novice users would be unable to perform common tasks if these applications stopped working.</p>
+    <p>Sensitive መተግበሪያዎች እንደ Firefox ያሉ 3ኛ ደረጃ ማሻሻያ ናቸው: አዲስ ተጠቃሚዎች መደበኛ ስራዎችን መስራት አይችሉም እነዚህ መተግበሪያዎች መስራት ካቆሙ</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>በርካታ የ 3ኛ ደረጃ ማሻሻያዎች አይኖሩም: እንዲገጥሙ እንመክራለን በ ጥንቃቄ እና ለ የብቻ: ማስታወሻ ይውሰዱ እርስዎ ምን እንደፈጸሙ: ሲጨርሱ ስርአቱ ይመርምሩ ሁሉም በ ትክክል እንደሚሰራ</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>አንድ ነገር ከ ተሰበረ እርዳታ ይፈልጉ በ ውይይት መድረኮች ወይንም በ ውይይት ጣቢያዎች ውስጥ: የትኛው ማሻሻያ ችግሩን እንደፈጠረ እና ምን ዝቅ እንደተደረገ መረጃውን ያሰናዱ</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>እርስዎ በ ደፈናው በርካታ ማሻሻያዎችን ካሻሻሉ እና ችግር ቢፈጠር ችግሩን የ ተፈጠረው በ ምን እንደሆን ካላወቁ: እርዳታ ማግኘት አይችሉም: ሁሉም 3ኛ ደረጃ ማሻሻያ እንዲገጥሙ ይመከራሉ ነገር ግን አስፈላጊ ጥንቃቄ ያድርጉ እና የሚያሻሽሉትን ይወቁ</p></note>
 
   </section>
 
   <section id="level4">
     <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>ደረጃ 4ኛ ማሻሻያ ተፅእኖ ይፈጥራሉ በ sensitive የ መስሪያ ስርአት ላይ እንደ</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
+        <item><p>የ ማስነሻ ቅደም ተከተል</p></item>
+        <item><p>የ ማሳያ አስተዳዳሪ (የ መግቢያ መመልከቻ: የ ክፍለ ጊዜ አስተዳዳሪ)</p></item>
+        <item><p>ከረኔል (የ ጠንካራ አክል ድጋፍ)</p></item>
+        <item><p>The drivers (ኔትዎርክ: NVIDIA/AMD)</p></item>
         <item><p>The display (Xorg, mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>እንደ ሌሎች ማሻሻያዎች: ሁሉንም 4ኛ ደረጃ ማሻሻያ እንዲገጥሙ እንመክራለን: በተለይ የ ደህንነት ማሻሻያ ከሆኑ</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>ነገር ግን አደገኛ ዝቅ ማድረጊያ ከ ተፈጠረ በ አንዱ ማሻሻያ በርካታ የ እርስዎ ስርአት ላይ ተፅእኖ ሊፈጥር ይችላል</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>እርስዎ ወደ ኢንተርኔት መገናኘት አይችሉ ይሆናል: ወይንም የ ዴስክቶፕን ማስጀመር አይችሉ ይሆናል: ወይንም የ መስሪያ ስርአቱ ላይጀምር ይችላል</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>በዚህ ምክንያት እርስዎ ሁል ጊዜ መጠንቀቅ አለብዎት በሚፈጽሙ ጊዜ 4ኛ ደረጃ ማሻሻያ (የ ከረኔል ማሻሻያንም ያካትታል) አንድ በ አንድ ይፈጽሙ እና የትኛውን እትም እንደፈጸሙ ማስታወሻ ይውሰዱ</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>አንድ ነገር ከ ተሰበረ እርዳታ ይፈልጉ በ ውይይት መድረኮች ወይንም በ ውይይት ጣቢያዎች ውስጥ: የትኛው ማሻሻያ ችግሩን እንደፈጠረ እና ምን ዝቅ እንደተደረገ መረጃውን ያሰናዱ</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>እርስዎ በ ደፈናው በርካታ ማሻሻያዎችን ካሻሻሉ ችግር ቢፈጠር ችግሩን ማግኘት አይቻልም: እርስዎ እርዳታ ማግኘት አይችሉም: ሁሉም 4ኛ ደረጃ ማሻሻያዎችን እንዲያሻሽሉ እንመክራለን: ነገር ግን በ ጥንቃቄ ይፈጽሙ እና የሚያሻሽሉትን ይወቁ</p></note>
 
   </section>
 
   <section id="level5">
     <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>ደረጃ 5ኛ ማሻሻያ በጣም ጥቂት ነው</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>አንዳንድ ችግር በሚገኝ ጊዜ በ ማሻሻያ ውስጥ ወዲያውኑ በ ተቻለ ፍጥነት ይጠገናል</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>በርካታ መንገዶች አሉ ችግር ወደ ሊነክስ ሚንት ጋር ለማድረስ: እንዲሁም በርካታ ቦታዎች በ ሩቅ ማጠራቀሚያዎች እና በ አካባቢ በ እርስዎ ኮምፒዩተር ውስጥ: በ መደበኛ መንገድ ማሻሻያ ጥቁር ዝርዝር ውስጥ መግባት የለበትም</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>ማሻሻያ የታወቀ ችግር ካለው እና መፍትሄው እየተሰራ ከሆነ ነገር ግን ዝግጁ ካልሆነ: ሊነክስ ሚንት በ ተገለጸው እትም ላይ 5ኛ ደረጃ ማሻሻያ ይታያል (ይህን አንመክርም) ይህ ተጠቃሚዎችን ከ መግጠም ይከለክላል አዲስ እትም በ ማጠራቀሚያ ውስጥ እስከሚወጣ ድረስ</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>5ኛ ደረጃ ማሻሻያ ችግር ይፈጥራሉ: ብዙ ጊዜ አይኖሩም እና ጊዚያዊ ናቸው: በ ነባር አይታዩም እና አይፈጸሙም</p></note>
 
   </section>
 

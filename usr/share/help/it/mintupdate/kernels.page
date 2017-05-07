@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Kernel e gli aggiornamenti del kernel</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Aggiornamenti del kernel</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Il kernel è la parte centrale del sistema operativo. Tra le altre cose, è responsabile del supporto hardware.</p>
 
   <note><p>In Linux Mint gli aggiornamenti del kernel riparano sia problemi di sicurezza che errori (talvolta inseriscono anche nuove funzionalità) ed influiscono su parti critiche del sistema operativo. Tutto ciò rende gli aggiornamenti del kernel importanti dal punto di vista della sicurezza, ma anche soggetti a regressioni che gli utenti principianti potrebbero trovare difficili da sistemare.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Dal punto di vista della sicurezza, è importante applicare gli aggiornamenti del kernel.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Una regressione del kernel potrebbe tuttavia influenzare la capacità di connettersi a Internet, di avviare il vostro ambiente desktop o anche di avviare il sistema operativo.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Per questo motivo è importante essere cauti quando si applicano gli aggiornamenti del kernel e sapere come ripristinarli quando qualcosa va storto.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Possono essere installati più kernel</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Quando si applica un aggiornamento, si sostituisce la vecchia versione del software con la nuova versione.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Le cose sono diverse quando si tratta dei kernel. Quando applichi un "aggiornamento del kernel", in realtà non aggiorni il kernel, ma installi un nuovo kernel accanto a quello esistente.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Ogni volta che si applica un aggiornamento del kernel, si installa un nuovo kernel sul sistema, senza rimuovere i vecchi.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Al momento dell'avvio, il computer seleziona quello più recente.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Identificare il kernel corrente</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Se volete sapere quale kernel è attualmente in uso, aprire un terminale e digitare:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Installazione e rimozione dei kernel</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>È possibile installare e rimuovere kernel da Update Manager.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Scegliere "View" -&gt; "Linux Kernels" nel menu.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Non è possibile rimuovere il kernel che è attualmente in uso. Per rimuoverlo, è necessario riavviare e selezionare un kernel diverso per fare il boot.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Selezionare un kernel</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>È possibile avere più kernel installati, ma è se ne può eseguire solo uno in un certo momento.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Quando si avvia il computer, la prima pagina che si presenta è chiamata il menu di Grub. Questo menu consente di scegliere i sistemi operativi, ma è possibile anche utilizzare per selezionare un kernel.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Per selezionare un kernel, scegliere "Opzioni avanzate" nel menu di Grub Si dovrebbero vedere tutti i kernel attualmente installati. Selezionare quello che si desidera utilizzare e il computer verrà avviato con quello.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Verifica dello stato del DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Il kernel include tutti i driver open source e questi di solito funzionano molto bene. Driver proprietari (NVIDIA, AMD, Broadcom... ecc) non sono inclusi e hanno bisogno di compilare se stessi contro ogni kernel installato. Ciò avviene tramite un meccanismo denominato DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Se un driver proprietario non è correttamente ricompilato con DKMS per uno dei tuo kernel, non funzionerà correttamente con questo kernel.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Dopo l'installazione o rimozione di un kernel, è possibile controllare il tuo status DKMS, per assicurarsi che tutti i driver proprietari sono installati correttamente per ciascuno dei tuoi kernel con il comando seguente:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Nuovo kernel della serie diventano solitamente disponibili prima di driver proprietari sostegno tramite DKMS. Se si utilizza driver proprietari, è consigliabile per bastone per gli aggiornamenti del kernel e non installare kernel da serie che sono più recenti rispetto alla serie dei kernel consigliati.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Ripristino di un aggiornamento del kernel</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Se qualcosa non funziona con l'ultimo kernel installato (o l'ultimo aggiornamento del kernel), riavviare, selezionare il kernel che si utilizza in precedenza, rimuovere il nuovo kernel e riavviare nuovamente.</p>
 
   </section>
 

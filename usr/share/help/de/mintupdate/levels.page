@@ -11,137 +11,137 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>Aktualisierungen sind einer Ebene zugeordnet, welche die Auswirkungen auf das Betriebssystem anzeigt.</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>Aktualisierungsebenen</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>Aktualisierungen sind einer Ebene zugeordnet, welche die Auswirkungen auf das Betriebssystem anzeigt.</p>
 
-    <p>There are 4 levels:</p>
+    <p>Es gibt 4 Ebenen:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
       <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Keine Auswirkung auf das System oder andere Anwendungen.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
       <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Vorgabeebene. Normalerweise geringe Auswirkungen auf das System.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>Groß</p></td>
+      <td><p>Bitte mit Vorsicht anwenden. Hat Auswirkungen auf mehrere Anwendungen.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>Sensibel</p></td>
+      <td><p>Wenden Sie Eines nach dem Anderen an. Auswirkungen auf empfindliche Teile des Systems.</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>Und es gibt auch eine besondere Ebene, welche an Aktualisierungen mit bekannten kritischen Problemen vergeben wird:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>Gefährlich</p></td>
+      <td><p>Sehr selten. Nicht empfohlen. Bekannt dafür, Fehler zu erzeugen.</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Ebene 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>Aktualisierungen der Ebene 1 sind Aktualisierungen die nur das eigene Programm beeinflussen und keine Auswirkungen auf den Rest des Systems haben.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>Es sind in der Regel Aktualisierungen für einzelne Anwendungen. Zum Beispiel:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>Der Taschenrechner</p></item>
+        <item><p>Der PDF-Betrachter</p></item>
+        <item><p>Die Textbearbeitung</p></item>
+        <item><p>Die Medienwiedergabe</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>Sie können diese Aktualisierungen anwenden, ohne sich Sorgen über Regressionen machen zu müssen. Im schlimmsten Fall würde eine Regression nur die Anwendungen, die sie aktualisieren, betreffen und nicht das Betriebssystem selbst.</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Ebene 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>Das ist die Vorgabeebene, so dass die überwiegender Mehrheit der Aktualisierungen aus der Ebene 2 sind.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Diese Aktualisierungen sind nicht bekannt dafür, dass sie sich auf große Bereiche oder empfindliche Teile des Systems auszuwirken, aber es wird auch nicht garantiert, dass sie sich nur auf ihr eigenes Programm auswirken.</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>In den meisten Fällen sollte es Ihnen möglich sein, diese Aktualisierungen ohne Sorge über Regressionen anzuwenden.</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>Wenn ein wesentlicher Rückschritt oder ein möglicher Rückschritt in eine Aktualisierung der Ebene 2 gefunden wurde, wird dessen Ebene auf 3 oder 4 geändert.</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Ebene 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>Aktualisierungen der Ebene 3 sind Aktualisierungen, welche nicht nur auf sich selbst sondern auch auf andere Anwendungen Auswirkungen haben.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Typische Beispiele für Aktualisierungen der Ebene 3 sind GTK, DBUS usw. Eine Regression in diesen Aktualisierungen würde einen reibungslosen Start Ihres Rechners nicht verhindern, aber sie könnte viele Anwendungen beeinflussen.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Arbeitsumgebungen sind ebenfalls Aktualisierungen der Ebene 3. Wenn eine kritische Regression in Cinnamon aufkommt, könnte es sein, dass Sie sich nicht mehr anmelden können.</p>
 
-    <p>Sensitive applications such as Firefox are also level 3. Novice users would be unable to perform common tasks if these applications stopped working.</p>
+    <p>Empfindliche Anwendungen wie Firefox send ebenfalls Ebene 3. Unerfahrenen Benutzern könnte die Ausführung der meisten Aufgaben nicht möglich sein, wenn diese Anwendungen nicht mehr funktionieren.</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>Es gibt nicht viele Aktualisierungen der Ebene 3. Es wird empfohlen, diese mit Vorsicht und getrennt zu verwenden. Merken Sie sich, welche Aktualisierungen Sie anwenden, überprüfen Sie das System danach und vergewissern Sie sich, dass alles reibungslos funktioniert.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Wenn etwas kaputt geht, suchen Sie sich Hilfe in den Foren oder dem Chat-Kanal und sagen sie den Leuten welche Aktualisierung den Rückschritt verursacht hat und was kaputt ist.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Wenn Sie blind hunderte von Aktualisierungen anwenden und es Ihnen nicht möglich ist, die problemverursachende zu finden, wird es unwahrscheinlich, dass Sie Hilfe finden. Alle Aktualisierungen der Ebene 3 werden empfohlen, aber es wird erwartet, dass Sie vorsichtig sind und wissen was Sie aktualisieren.</p></note>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Ebene 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>Ebene-4-Aktualisierungen sind Aktualisierungen, die sensible Teile des Betriebssystems beeinflussen:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Den Startvorgang</p></item>
+        <item><p>Die Bildschirmverwaltung (Anmeldebildschirm, Sitzungsverwaltung)</p></item>
+        <item><p>Den Kernel (Geräteunterstützung)</p></item>
+        <item><p>Die Treiber (Netzwerk, NVIDIA/AMD)</p></item>
+        <item><p>Der Bildschirm (Xorg, mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>Wie andere Aktualisierungen auch, werden alle Aktualisierungen der Ebene 4 empfohlen, besonders dann, wenn diese Sicherheitsaktualisierungen sind.</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>Wenn jedoch eine kritische Regression in einer Ihrer Aktualisierungen vorhanden ist, könnte das einen sensiblen Teil Ihres Systems beeinflussen.</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>Sie könnten keine Verbindung zum Internet haben, keine Möglichkeit haben die Arbeitsumgebung zu starten oder sogar keine Möglichkeit haben das Betriebssystem zu starten.</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>Aus diesem Grund sollten Sie immer vorsichtig sein, wenn Sie Aktualisierungen der Ebene 4 anwenden (einschließlich Kernelaktualisierungen). Wenden Sie diese der Reihe nach an und beachten Sie die Versionen, die Sie anwenden.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Wenn etwas kaputt geht, suchen Sie sich Hilfe in den Foren oder dem Chat-Kanal und sagen sie den Leuten welche Aktualisierung den Rückschritt verursacht hat und was kaputt ist.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Wenn Sie blind hunderte von Aktualisierungen anwenden und es Ihnen nicht möglich ist, die problemverursachende zu finden, wird es unwahrscheinlich, dass Sie Hilfe finden. Alle Alle Aktualisierungen der Ebene 4 werden empfohlen, aber es wird erwartet, dass Sie vorsichtig sind und wissen, was Sie aktualisieren.</p></note>
 
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Ebene 5</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>Ebene-5-Aktualisierungen sind sehr selten.</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>Wird ein kritischer Fehler in einer Aktualisierungen entdeckt, wird dieses normalerweise so schnell wie möglich repariert.</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>Es gibt viele Möglichkeiten für Linux-Mint, Probleme zu lösen, und viele Mechanismen, die sowohl in den Paketquellen als auch lokal in Ihrem Betriebssystem vorhanden sind. Also sollten unter normalen Umständen Aktualisierungen nicht auf der schwarzen Liste landen.</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>Wenn eine Aktualisierung einen kritischen Fehler hatte und an einer Lösung gearbeit wird, aber noch nicht fertig ist, könnte Linux-Mint eine bestimmte Version der Aktualisierung als Ebene 5 markieren (z.B. »nicht empfohlen«). Das verhindert, dass Benutzer es anwenden, bis die neue Version in den Paketquellen eintrifft.</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>Aktualisierungen der Ebene 5 sind dafür bekannt Probleme zu verursachen. Sie sind sehr selten und meistens temporär. Standardmäßig sind sie nicht sichtbar und sollten nicht angewendet werden.</p></note>
 
   </section>
 

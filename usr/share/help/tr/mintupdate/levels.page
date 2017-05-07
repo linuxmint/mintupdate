@@ -11,137 +11,137 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>Güncellemelere işletim sistemindeki etki olasılığını/gücünü gösterir biçimde seviye verilir</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>Güncelleme seviyeleri</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>Güncellemelere işletim sistemindeki etki olasılığını/gücünü gösterir biçimde seviye verilir.</p>
 
-    <p>There are 4 levels:</p>
+    <p>4 seviye vardır:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Düşük</p></td>
+      <td><p>Sistem veya diğer uygulamalar üzerinde etkisi yoktur.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
       <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Varsayılan seviye: Genellikle sistem üstündeki olası etkisi düşüktür.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>Büyük</p></td>
+      <td><p>Uygularken dikkatli olun. Birden fazla uygulamaya etkisi vardır.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>Hassas</p></td>
+      <td><p>Birer birer uygulayınız. Sistemin hassas kısımları üzerindeki etkisi vardır.</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>Kritik sorunlara neden olabileceği bilinen güncellemeler ile ilgili özel bir seviye daha vardır:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>Tehlikeli</p></td>
+      <td><p>Çok nadir. Önerilmeyen. Sorunlar oluşturma ihtimali bilinen.</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Seviye 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>Seviye 1 güncellemeleri, sadece kendi yazılımlarını etkileme olasılığı olan ve sistemin geri kalanında hiçbir etkiye sahip olmayan güncellemelerdir.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>Bunlar genellikle tekil uygulamalar için güncellemelerdir. Örneğin:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>Hesap makinası</p></item>
+        <item><p>PDF okuyucu</p></item>
+        <item><p>Metin düzenleyici</p></item>
+        <item><p>Ortam oynatıcı</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>Bu güncellemeleri resresyonlardan endişe duymadan uygulayabilirsiniz. En kötü senaryoda, olası bir regresyon sadece güncellemiş olduğunuz yazılımı etkiler, işletim sisteminin kendisini etkilemez.</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Seviye 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>Bu varsayılan seviyedir, güncellemelerin büyük çoğunluğu bu nedenle 2. seviyededir.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Bu güncellemelerin geniş bir alanda etkili olduğu veya sistemin hassas parçalarını etkilediği hakkında bilgi bulunmamaktadır, ama kendi yazılımlarını etkilemeyeceğinin de bir garantisi yoktur.</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>Genel olarak, olası regresyonlardan endişe duymadan bu güncellemeleri uygulayabilirsiniz.</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>Eğer 2. seviye güncellemede önemli bir regresyon ya da regresyon potansiyeli tespit edilirse, seviyesi 3 veya 4 olarak değiştirilir.</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Seviye 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>Seviye 3 güncellemeleri yalnızca kendilerini etkilemekle kalmaz, aynı zamanda diğer uygulamalar üzerinde de etkisi olabilen güncellemelerdir.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Seviye 3 güncellemelerine tipik örnek olarak GTK, DBUS, vb. verilebilir. Bu güncellemelerden kaynaklanabilecek bir regresyon, bilgisayarınızın düzgün biçimde önyüklemesini engellemez, ama bir çok uygulamayı etkileyebilir.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Masaüstü ortamları da aynı zamanda seviye 3 güncellemelerindendir. Eğer Cinnamon'da kritik bir regresyon olursa, oturum açamayabilirsiniz.</p>
 
-    <p>Sensitive applications such as Firefox are also level 3. Novice users would be unable to perform common tasks if these applications stopped working.</p>
+    <p>Firefox gibi hassas uygulamalar da seviye 3'tedir. Tecrübesiz kullanıcılar, bu uygulamalar çalışmayı bıraktığında genel işlevleri yerine getiremeyebilir.</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>Seviye 3 güncellemesi çok fazla değildir. Bu tecrit edilmiş bu güncellemeleri dikkatlice uygulamak önerilir. Hangi güncellemeleri uyguladığınızı not edin, sonrasında sistemi kontrol ederek her şeyin düzgün çalıştığından emin olun.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Eğer bir şey kırılırsa; forumlardan ya da sohbet kanalından yardım isteyebilirsiniz ve bu duruma hangi güncellemenin neden olduğu ve neyin kırıldığı hakkında ayrıntılı bilgi veriniz.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Eğer yüzlerce güncelleme körü körüne uygularsanız, yaşayacağınız bir soruna neyin neden olduğunu anlamayabilirsiniz, bu durumda yardım bulmakta zorlanırsınız. Seviye 3 güncellemelerinin tümü önerilir, ancak temkinli olmalısınız ve güncellemeleri neyi güncelleştirdiğinizi bilecek şekilde uygulamalısınız.</p></note>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Seviye 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>Seviye 4 güncllemeleri, işletim sisteminin hassas bölümlerini günceller, örneğin;</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Ön yükleme sırasındakiler</p></item>
+        <item><p>Görüntü yöneticisi (giriş ekranı, oturum yönetimi)</p></item>
+        <item><p>Çekirdek (donanım desteği)</p></item>
+        <item><p>Sürücüler (ağ, NVIDIA/AMD)</p></item>
+        <item><p>Görüntü (Xorg, mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>Diğer güncellemeler gibi, özellikle de güvenlik güncellemeleri olduklarında, 4. seviye güncellemelerinin tümü önerilir.</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>Bununla birlikte, bu güncellemelerden birinde kritik bir regresyon mevcutsa, sisteminizin hassas bir bölümünü etkileyebileceğini gözardı etmeyiniz.</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>Kendinizi internet bağlantısı sağlayamadığınız bir durumda bulabilir, masaüstü ortamını başlatamayabilir ya da işletim sisteminin açılış kabiliyetinin kaybı gibi bir sorunla karşılaşabilirsiniz.</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>Bu sebeplerden dolayı 4. seviye güncellemeleri (çekirdek sürüm güncellemelerini) uygularken daima dikkatli olmalısınız. Onları teker teker uygulayın ve uyguladığınız sürümleri not alın.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Eğer bir şey kırılırsa; forumlardan ya da sohbet kanalından yardım isteyebilirsiniz ve bu duruma hangi güncellemenin neden olduğu ve neyin kırıldığı hakkında ayrıntılı bilgi veriniz.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Eğer yüzlerce güncelleme körü körüne uygularsanız, yaşayacağınız bir soruna neyin neden olduğunu anlamayabilirsiniz, bu durumda yardım bulmakta zorlanırsınız. Seviye 4 güncellemelerinin tümü önerilir, ancak temkinli olmalısınız ve güncellemeleri neyi güncelleştirdiğinizi bilecek şekilde uygulamalısınız.</p></note>
 
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Seviye 5</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>Seviye 5 güncellemeleri son derece nadirdir.</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>Eğer bir güncellemede kritik bir hata bulunursa, genellikle kısa sürede düzeltilir.</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>Linux Mint'in sorunları ele almasının birçok yolu vardır, ve hem depolarda hem de işletim sisteminizin yerelinde bir çok mekanizma vardır. Dolayısıyla normal şartlar altında güncellemelerin doğrudan kara listeye alınması gerekmez.</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>Bir güncellemede kritik bir hata varsa ve bir çözüm üzerinde çalışılmaya başlanmış ancak henüz hazır değilse, Linux Mint güncellemenin belirli bir sürümünü seviye 5 (yani "Önerilmeyen") olarak işaretleyebilir.</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>Seviye 5 sorun oluşturabileceği bilinen güncellemelerdir. Bunlar çok seyrektir ve genellikle geçicidir. Varsayılan olarak görünür değildirler ve uygulanmamaları önerilir.</p></note>
 
   </section>
 

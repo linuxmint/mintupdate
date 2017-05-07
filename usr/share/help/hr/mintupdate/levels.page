@@ -11,137 +11,137 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>Nadopunama su dane razine koje pokazuju koliki utjecaj imaju na operativni sustav</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>Razine nadopuna</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>Nadopunama su dane razine koje pokazuju koliki utjecaj imaju na operativni sustav.</p>
 
-    <p>There are 4 levels:</p>
+    <p>Postoje 4 razine:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Najmanja</p></td>
+      <td><p>Bez utjecaja na sustav ili ostale aplikacije.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
-      <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Normalna</p></td>
+      <td><p>Zadana razina. Uobičajeno ima mali utjecaj na sustav.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>Velika</p></td>
+      <td><p>Primijenite uz oprez. Utjecaj na više aplikacija.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>Osjetljiva</p></td>
+      <td><p>Primjenjujte jednu po jednu. Utjecaj na osjetljive dijelove sustava.</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>A tu je i posebna razina koja je zadana za nadopunu s poznatim kritičnim problemima:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>Opasna</p></td>
+      <td><p>Vrlo rijetko. Nije preporučljivo. Poznato je da uzrokuje probleme.</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Razina 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>Nadopune razine 1 su nadopune koje samo obuhvaćaju vlastiti softver i nemaju utjecaj na ostatak sustava.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>One su uobičajeno nadopune pojedinih aplikacija:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>Kalkulator</p></item>
+        <item><p>PDF čitač</p></item>
+        <item><p>Uređivač teksta</p></item>
+        <item><p>Medijski reproduktor</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>Možete primijeniti te nadopune bez brige o nestabilnosti. U najgorem slučaju nestabilnost će samo zahvatiti softver koji nadograđujete, a ne i sami operativni sustav.</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Razina 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>Ovo je zadana razina, stoga velika većina nadopuna su razine 2.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Ove nadopune su poznate da utječu na široko područje ili osjetljive dijelove sustava, ali ne jamče da samo utječu na vlastiti softver.</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>Općenito, trebali bi moći primijeniti ove nadopune bez zabrinutosti o nestabilnosti.</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>Ako je bitna nestabilnost, ili moguća nestabilnost, pronađena u razini 2 nadopuna, njezina razina biti će promijenjena u 3 ili 4.</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Razina 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>Nadopune razine 3 su nadopune koje ne samo da utječu na same sebe nego imaju utjecaj i na druge aplikacije.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Tipični primjeri nadopuna razine 3 su GTK, DBUS, itd... Nestabilnosti u tim nadopunama neće spriječiti vaše računalo da se pokrene ispravno, ali mogu imati utjecaj na mnogo aplikacija.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Okruženja radne površine su isto tako nadopune razine 3. Ako se kritična nestabilnost dogodi u Cinnamonu, možda se nećete moći prijaviti.</p>
 
-    <p>Sensitive applications such as Firefox are also level 3. Novice users would be unable to perform common tasks if these applications stopped working.</p>
+    <p>Osjetljive aplikacije poput Firefoxa su isto razine 3. Novi korisnici neće moći više izvoditi uobičajene zadatke ako takve aplikacije prestanu raditi.</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>Nema mnogo nadopuna razine 3. Preporučljivo ih je primijeniti uz oprez i izdvojeno. Obratite pozornost koju nadopunu primijenjujete, provjerite sustav naknadno kako bi bili sigurni da sve ispravno radi.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Ako se nešto slomi, potražite pomoć na forumu ili u kanalu razgovora i recite ljudima koja nadopuna uzrokuje nestabilnost i što je slomljeno.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Ako naslijepo primijenite na stotine nadopuna i zatim ne možete točno odrediti problematičnu, malo je vjerojatno da ćete pronaći pomoć. Sve nadopune razine 3 su preporučljive ali je očekivano od vas da budete oprezni i znate što nadopunjujete.</p></note>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Razina 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>Nadopune razine 4 su nadopune koje utječu na osjetljive dijelove operativnog sustava poput:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Redoslijeda pokretanja</p></item>
+        <item><p>Upravitelja zaslona (zaslon prijave, upravljanje sesijom)</p></item>
+        <item><p>Kernel (hardverska podrška)</p></item>
+        <item><p>Upravljački programi (umrežavanje, NVIDIA/AMD)</p></item>
+        <item><p>Zaslon (Xorg, mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>Poput ostalih nadopuna, sve nadopune razine 4 su preporučljive, posebno ako su sigurnosne nadopune.</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>Ipak, ako je kritična nestabilnost prisutna u jednoj od tih nadopuna može utjecati na osjetljive dijelove vašeg sustava.</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>Možete se susresti bez povezivanja s internetom, bez mogućnosti pokretanja okruženja radne površine ili čak bez mogućnosti pokretanja operativnog sustava.</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>Iz tog razloga trebali bi uvijek biti oprezni pri primjeni nadopune razine 4 (uključujući nadopune kernela). Primijenite ih jednu po jednu i obratite pozornost na inačicu koju primjenjujete.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Ako se nešto slomi, potražite pomoć na forumu ili u kanalu razgovora i recite ljudima koja nadopuna uzrokuje nestabilnost i što je slomljeno.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Ako naslijepo primijenite na stotine nadopuna i zatim ne možete točno odrediti problematičnu, malo je vjerojatno da ćete pronaći pomoć. Sve nadopune razine 4 su preporučljive ali je očekivano od vas da budete oprezni i znate što nadopunjujete.</p></note>
 
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Razina 5</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>Nadopune razine 5 su iznimno rijetke.</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>Kada je kritična greška pronađena u nadopuni uobičajeno će biti popravljena čim prije.</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>Postoje mnogi načini za adresiranje Linux Mint problema, i mnogo mehanizama smještenih udaljeno u repozitorijima i lokalno u vašem operativnom sustavu. Stoga u normalnim prilikama nadopune ne treba staviti na popis zabranjenih nadopuna.</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>Ako nadopuna ima kritičnu grešku i rješenje je pronađeno ali još nije spremno, Linux Mint može označiti određenu inačicu nadopune s razinom 5 (npr. "nije preporučljivo"). To će spriječiti korisnike da ih primijene dok nova inačica ne postane dostupna u repozitorijima.</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>Za nadopune razine 5 je poznato da uzrokuju probleme. Oni su vrlo rijetki i privremeni. Nisu vidljive po zadanome i ne bi trebale biti primijenjene.</p></note>
 
   </section>
 

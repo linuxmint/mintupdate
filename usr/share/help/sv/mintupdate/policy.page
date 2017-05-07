@@ -14,53 +14,53 @@
     <desc>Att välja ett hanteringssätt för uppdateringar</desc>
   </info>
 
-  <title>Uppdateringspolicy</title>
+  <title>Uppdateringsprincip</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Uppdateringshanteraren är mycket konfigurerbar. Du kan gå till inställningarna och finjustera vilka nivåer du vill visa och vilka nivåer du vill förvälja. Det är din dator så du kan ställa in det precis som du vill.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Första gången du startar den, kommer den att försöka få en uppfattning om hur du är och ange inställningarna för dig. För att göra det, kommer den att visa dig tre uppdateringsprinciper och be dig välja det du tycker verkar bäst.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Alla uppdateringsprinciper har detta gemensamt:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Av säkerhetsskäl är säkerhetsuppdateringar alltid synliga (oavsett vilken nivå de är).</p></item>
+      <item><p>Av säkerhetsskäl kommer kärnuppdateringar (som är på nivå 4) alltid att visas.</p></item>
+      <item><p>Av stabilitetsskäl är nivå 5 uppdateringar alltid dolda.</p></item>
     </list>
 
     <note><p>När du väljer ett hanteringssätt för uppdateringar, ändras vissa inställningar i Uppdateringshanteraren. Du kan justera dessa inställningar individuellt genom att klicka på Redigera-&gt;Inställningar i Uppdateringshanterarens menyrad.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Nybörjare</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>Den första principen är gjord med nybörjare i åtanke. Den förutsätter att dessa användare är oförmögna att lösa kritiska frågor som påverkar känsliga delar av systemet, och försöker därför minimera risken att drabbas av kritiska regressioner.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Felkorrigeringar är valfria, så denna princip fokuserar på säkra uppdateringar (nivå 1 och 2) med minimal påverkan på operativsystemet. Dessa uppdateringar är synliga och förvalda som standard.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Säkerhet är också viktig men vissa säkerhetsuppdateringar (kärnuppdateringar i synnerhet) påverkar känsliga delar av systemet. Dessa uppdateringar är synliga och nybörjare rekommenderas att markera dem och använda dem med försiktighet, helst med hjälp av antingen en erfaren användare, eller efter att de bekantat sig med forum och chattkanal så att de vet hur man söker hjälp.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Vanliga användare</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Den andra principen är till för den stora majoriteten av människor. Det förutsätts att dessa användare inte är nybörjare på Linux och antingen vet hur man löser vanliga problem, eller vet hur man hittar hjälp.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Denna princip visar alla rekommenderade uppdateringar. Säkerhetsuppdateringar och feljusteringar (nivå 1 och 2) är förvalt som standard.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Användare rekommenderas att välja och tillämpa nivå 3 och nivå 4 uppdateringar med försiktighet och en i gången, samt att söka hjälp om något går fel.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Avancerade användare</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Denna princip är gjord för avancerade användare på datorer där risken för kritiska regressioner är acceptabel. Det förutsätts att dessa användare kan fixa eventuella problem och vill tillämpa alla uppdateringar på en gång.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>I denna princip, är alla rekommenderade uppdateringar synliga och markerade som standard.</p>
 
     </section>
 

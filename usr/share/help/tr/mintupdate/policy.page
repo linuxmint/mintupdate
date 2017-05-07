@@ -16,51 +16,51 @@
 
   <title>Güncelleme ilkesi</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Güncelleme yönetici oldukça yapılandırılabilirdir. Düzenle menüsünden Tercihleri açarak, hangi seviyelerin görünür ve hangi seviyelerin öntanımlı olması ile ilgili istediğiniz biçimde ince ayarlar yapabilirsiniz. Bu sizin bilgisayarınız ve bu şekilde istediğiniz ince ayarları yapabilirsiniz.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Bunu ilk açtığınızda, bu ayarlamaları sizin adınıza yapabilmek için sizi anlamaya çalışacaktır. Bunu yapmak için, size üç güncelleme ilkesi gösterecek ve sizden istediğiniz/tercih ettiğiniz birini seçmenizi isteyecektir.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Tüm ilkeler için ortak noktalar:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Güvenlik nedenleriyle, güvenlik güncellemeleri daima görünürdür (hangi seviyede olursa olsun).</p></item>
+      <item><p>Güvenlik nedenleriyle, çekirdek güncellemeleri (seviye 4.'teki) daima görünürdür.</p></item>
+      <item><p>Kararlılık nedenleriyle, seviye 5 güncellemeleri daima gizlenmiştir.</p></item>
     </list>
 
-    <note><p>Bir güvenlik ilkesi seçtiğinizde, Güncelleme Yöneticisi'ndeki bazı tercihleri değişir. Menü çubuğundaki Düzenle-&gt;Tercihler seçeneğine tıklayıp, bu tercihlere bireysel olarak ince ayar yapabilirsiniz.</p></note>
+    <note><p>Bir güvenlik ilkesi seçtiğinizde, Güncelleme Yöneticisi'ndeki bazı tercihleri değiştirir. Menü çubuğundaki Düzenle-&gt;Tercihler seçeneğine tıklayıp, bu tercihlere bireysel olarak ince ayar yapabilirsiniz.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Acemi kullanıcılar</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>İlk ilke acemi kullanıcılar için düşünülmüştür. Bu ilke kullanıcıların, sisteminin hassas kısımlarını etkileyebilecek kritik sorunlarla uğraşamayacaklarını ve kritik regresyon riskini minimize etmeye çalıştıklarını varsaymaktadır.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Hata düzeltmeleri isteğe bağlıdır, böylece bu güncelleme ilkesi işletim sistemi üzerinde minimum etkileyecek güvenli güncellemelere (seviye 1 ve 2) odaklanır. Bu güncellemeler varsayılan olarak görünürdür ve önceden seçilmiştir.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Güvenlik önemlidir fakat bazı güvenlik güncellemelerinin (ve özellikle de çekirdek güncellemeleri) sistemin hassas kısımlarını etkileme olasığılığı gözönünde bulundurulmalıdır. Bu güncellemeler görünürdür ve tecrübesiz kullanıcıların onları seçmeleri ve dikkatle uygulamaları önerilir, bunlar bir anlamda tecrit edilmiştir ve tecrübeli kullanıcıların yardımıyla ya da forum ve sohbet ortamlarından nasıl destek alınabileceği ile ilgili yeterli bilgiye sahip olduktan sonra uygulanabilir.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Normal kullacılar</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>İkinci ilke kullanıcıların büyük çoğunluğu için yapılmıştır. Bunlar yeni Linux kullanıcı değildir ve genel sorunların nasıl çözüleceğini ya da nerede yardım bulacağını bilirler.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Bu ilke tüm önerilen güncellemeleri gösterir. Güvenlik güncellemeleri ve güvenli hata düzeltmeleri güncellemeleri (seviye 1 ve 2) öntanımlı olarak seçilidir.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Kullanıcıların seviye 3 ve seviye 4 güncellemelerini dikkatle seçip uygulamaları ya da izole edip olası bir sorun durumunda yardım aramaları önerilir.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Deneyimli kullanıcılar</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Bu ilke deneyimli kullanıcılar için uygundur, kritik regresyonları kabul edelirler. Bu ilke kullanıcıların herhangi bir sorunu giderebileceklerini ve tüm güncellemeleri bir kerede uygulamak istediklerini varsayar.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>Bu ilkede, önerilen güncellemelerin tümü görünür ve varsayılan olarak seçilidir.</p>
 
     </section>
 

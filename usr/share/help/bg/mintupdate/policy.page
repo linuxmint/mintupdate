@@ -16,51 +16,51 @@
 
   <title>Правила за актуализиране</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Мениджъра на актуализациите е с много настройки. Можеш да отидеш в настройките и фино да настроиш кои нива искаш да са зададени. Това е твоят компютър и можеш да го настроиш по начина по който искаш.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>При първото стартиране, той ще се опита да разбере кой си и да зададе твоите настройки. За да се случи това, ще ти покаже правилата за актуализиране и ще те попита да избереш това, което най-ти харесва.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Обобщено за всички правила:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Заради сигурността, всички актуализации по сигурността са винаги видими (без значение кое нива са.)</p></item>
+      <item><p>Заради сигурността, актуализациите на ядрото (които са 4-то ниво) са винаги видими.</p></item>
+      <item><p>Заради стабилността, актуализациите от 5-то ниво са винаги скрити.</p></item>
     </list>
 
     <note><p>Когато избирате правила за актуализации, някои от настройките в Мениджъра на актуализациите ще бъдат променени. Може да зададеш индивидуални настройки, като натиснеш на Редакция-&gt;Настройки на лента с менюта.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Нови потребители</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>Първите правила са съобразени с новите потребители. Предполага се че тези потребители не биха могли да работят по критични елементи, засягащи чувствителни части от тяхната система и е направен опит да се минимизира риска да се случат критични регресии.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Отстраняването на грешки е опционално, затова тези правила са насочени към сигурни актуализации (нива 1 и 2), с минимално въздействие на операционната система. Тези актуализации са видими и са избрани по подразбиране.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Сигурността също така е важна, но някои актуализации по сигурността (и конкретно актуализациите по ядрото) засягат чувствителни части от системата. Тези актуализации са видими и се препоръчва на неопитните потребители да ги изберат и приложат с внимание, изолирано, а в идеалния случай и с помощ от опитен потребител, или след като са се запознали как да използват форумите и чат каналите за да могат да потърсят помощ.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Редови потребители</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Вторите правила са създадени за мнозинство от хората. Предполага се че тези потребители не са нови в Линукс и знаят или как да разрешават основни проблеми, или знаят къде да потърсят помощ.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Тези правила показват всички препоръчителни актуализации. Актуализациите по сигурността и актуализациите поправящи бъгове (нива 1 и 2) са предварително избрани.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Препоръчва се на потребителите да избират и прилагат актуализации от нива 3 и 4 с внимание и изолирано, и да потърсят помощ ако нещо се обърка.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Напреднали потребители</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Тези правила са създадени за напреднали потребители, при които риска от критични регресии е приемлив. Предполага се че тези потребители могат да поправят всеки проблем и искат да приложат всички актуализации наведнъж.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>При тези правила, всички препоръчани актуализации са видими и предварително избрани.</p>
 
     </section>
 

@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Von der Befehlszeile akualisieren</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>»mintupdate-tool« benutzen</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Die Aktualisierungsverwaltung stellt ein Befehlszeilenwerkzeug namens »mintupdate-tool« zur Verfügung.</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Wenn Sie erfahren mit Linux sind, können Sie dieses Werkzeug in Ihren Skripts oder Ihre Cron-Jjobs nutzen, um die Installation von Anwendungsaktualisierungen zu automatisieren.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Auflisten der Aktualisierungen</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Sie können den Befehl »list« verwenden, um Aktualisierungen aufzulisten:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>Die Liste kann nach Ebenen mit dem Parameter -l gefiltert werden.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Sie können Sicherheitsaktualisierungen mit -s hinzufügen.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Sie können Kernelaktualisierungen mit -k hinzufügen, oder mit -nk entfernen.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>Zum Beispiel listet der folgende Befehl alle Sicherheitsaktualisierungen auf, sowie Fehlerbehebungsaktualisierungen der Ebene 1 und 2:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Aktualisierungen werden angewendet</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Sie können den Befehl »upgrade« verwenden, um Aktualisierungen unter Benutzung der selben Optionen anzuwenden.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>Zum Beispiel wendet der folgende Befehl alle Sicherheitsaktualisierungen an,sowie Fehlerbehebungsaktualisierungen der Ebene 1 und 2:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Bitte beachten Sie den Parameter -r, welcher hinzugefügt wurde, um den Puffer aufzufrischen.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Für mehr Informationen über das mintupdate-Werkzeug und eine vollständige Liste von Parameter:</p>
 
   <screen>mintupdate-tool -h</screen>
 

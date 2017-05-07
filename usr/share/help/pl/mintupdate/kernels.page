@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Jądra i aktualizacje jądra</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Aktualizacje jądra</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Jądro jest centralną częścią systemu operacyjnego. Odpowiada, między innymi, za obsługę sprzętu.</p>
 
   <note><p>W Linux Mint aktualizacje jądra wprowadzają poprawki zabezpieczeń oraz naprawiają błędy (czasami wprowadzają również nową funkcjonalność), i mają wpływ na krytyczne elementy systemu operacyjnego. To sprawia, że aktualizacje jądra są ważne z punktu widzenia bezpieczeństwa, ale są również skłonne do regresji, które mogą być trudne do usunięcia dla początkujących użytkowników.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Patrząc od strony bezpieczeństwa, ważnym jest by stosować aktualizacje jądra.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Jednak regresja jądra systemu może wpłynąć na możliwość połączenia się z siecią, uruchomienia środowiska graficznego a nawet systemu operacyjnego.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Dlatego też ważne jest by zachować rozwagę przy stosowaniu aktualizacji jądra systemu oraz by widzieć jak te aktualizacje cofnąć gdyby coś poszło nie tak.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Jednocześnie zainstalowanych może być wiele jąder systemu</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Gdy stosujesz aktualizację zastępujesz starą wersję oprogramowania nową.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Inaczej jest z jądrami systemu. Gdy instalujesz "aktualizację jądra" tak naprawdę nie aktualizujesz istniejącego jądra systemu a instalujesz nowe obok niego.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Za każdym razem gdy instalujesz aktualizację jądra systemu, instalujesz nowe jądro systemu nie usuwając przy tym starych.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>W czasie uruchamiania komputer wybiera najnowsze.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Identyfikacja bieżacego jądra systemu</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Jeśli chcesz się dowiedzieć, którego jądra systemu aktualnie używasz, otwórz terminal i wpisz:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Instalacja i usuwanie jąder systemu.</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Możesz instalować i usuwać jądra systemu poprzez Menedżera aktualizacji</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Wybierz z menu "Widok" -&gt; "Jądra Linuksa".</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Nie możesz usunąć jądra systemu, którego akurat używasz. By je usunąć musisz uruchomić komputer ponownie i wybrać przy rozruchu inne jądro.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Wybór jądra systemu</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Możesz mieć zainstalowanych jednocześnie wiele jąder systemu, jednak możesz uruchomić tylko jedno na raz.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Gdy uruchamiasz komputer pierwszym widocznym ekranem jest menu Grub-a. Menu to pozwala Ci na wybór systemu operacyjnego jednak możesz użyć go także do wyboru jądra systemu.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>By wybrać jądro systemu wybierz "Opcje zaawansowane" w menu Grub-a. Powinieneś/Powinnaś zobaczyć wszystkie jądra systemu, które są obecnie zainstalowane. Wybierz to, którego chcesz używać a twój komputer uruchomi się z niego.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Sprawdzanie statusu DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Jądro systemu zawiera wszystkie otwartoźródłowe sterowniki, które zwykle działają bardzo dobrze. Sterowniki włąsnościowe (NVIDIA, AMD, Broadcom...stc) nie są załączone i muszą się wkompilować w każde jądro systemu, które zainstalujesz. Robi się to za pomocą mechanizmu zwanego DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Jeśli sterownik własnościowy nie jest prawidłowo przekompilowany przez DKMS do jednego z Twoich jąder systemu, nie będzie z nim prawidłowo współpracował.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Po instalacji lub usunięciu jądra systemu, by upewnić się, że wszystkie sterowniki własnościowe zostały prawidłowo zainstalowane dla każdego z jąder, możesz sprawdzić status DKMS poniższym poleceniem:</p>
 
-    <screen>dkms status</screen>
+    <screen>status dkms</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Nowe serie jąder systemu są zwykle udostępniane przed tym jak sterowniki własnościowe wspierają je przez DKMS. Jeśli używasz sterowników własnościowych, zaleca się pozostać jedynie przy aktualizacjach jądra i nie instalować jąder systemu serii nowszych niż seria zalecana.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Cofanie aktualizacji jądra systemu</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Jeśli coś nie działa z najnowszym zainstalowanym jądrem systemu (lub najnowszą aktualizacją jądra),  uruchom ponownie komputer, wybierz poprzednio używane jądro systemu, usuń nowe jądro i ponownie uruchom komputer.</p>
 
   </section>
 

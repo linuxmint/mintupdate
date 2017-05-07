@@ -11,137 +11,137 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>업데이트에는 운영 체제에 미치는 영향 정도를 나타내는 레벨을 지정합니다.</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>업데이트 레벨</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>업데이트에는 운영 체제에 미치는 영향 정도를 나타내는 레벨을 지정합니다.</p>
 
-    <p>There are 4 levels:</p>
+    <p>4 개의 레벨이 있습니다:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>적음</p></td>
+      <td><p>시스템이나 기타 애플리케이션에 미치는 영향이 없을 때.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
-      <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>보통</p></td>
+      <td><p>기본 레벨. 시스템에 미치는 영향이 적을 때</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>큼</p></td>
+      <td><p>적용할 때 주의해야 합니다. 여러 애플리케이션에 영향을 끼칩니다.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>높음</p></td>
+      <td><p>하나씩 적용합니다. 시스템의 민감한 부분에 영향을 끼칩니다.</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>알려진 중요한 이슈에 지정되는 특별 레벨도 있습니다:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>위험</p></td>
+      <td><p>매우 드물며. 추천하지 않습니다. 문제를 일으키는 것으로 알려져 있습니다.</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> 레벨 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>레벨 1 업데이트는 자체 소프트웨어에만 영향을 미치며 나머지 시스템에는 영향을 미치지 않습니다.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>단일 애플리케이션 업데이트입니다. 예를 들면:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>계산기</p></item>
+        <item><p>PDF 리더</p></item>
+        <item><p>텍스트 편집기</p></item>
+        <item><p>미디어 플레이어</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>퇴행에 대한 걱정 없이 이러한 업데이트를 적용할 수 있습니다. 최악의 시나리오에서 퇴행은 업그레이드하는 소프트웨어에만 영향을 주며 운영 체제 자체에는 영향을 미치지 않습니다.</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> 레벨 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>이것이 기본 레벨입니다, 그래서 대다수의 업데이트가 레벨 2입니다.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>이 업데이트는 시스템의 많은 부분이나 민감한 부분에 영향을 미치지는 않지만, 소프트웨어 자체에만 영향을 미칠 수는 없습니다.</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>일반적으로, 퇴행에 대한 걱정 없이 이러한 업데이트를 적용할 수 있어야 합니다.</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>중요한 퇴행이거나, 퇴행이 생길 가능성이, 레벨 2 업데이트에서 발견된다면, 등급이 레벨 3이나 4로 변경되게 될 겁니다.</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> 레벨 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>레벨 3 업데이트는 자체에 영향을 줄뿐만 아니라 다른 애플리케이션에도 영향을 미치는 업데이트입니다.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>레벨 3 업데이트의 대표적인 예는 GTK, DBUS, 등등...입니다. 이들 업데이트는 퇴행을 하더라도 컴퓨터는 제대로 부팅될 테지만, 많은 애플리케이션에 영향을 미칠 수 있습니다.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>데스크톱 환경도 함께 레벨 3 업데이트에 해당합니다. 시나몬에 심각한 퇴행이 생기면, 로그인을 못할 수도 있습니다.</p>
 
-    <p>Sensitive applications such as Firefox are also level 3. Novice users would be unable to perform common tasks if these applications stopped working.</p>
+    <p>파이어폭스와 같은 민감한 애플리케이션도 레벨 3입니다. 초보 사용자들은 이러한 애플리케이션들의 작동이 멈추면 일반적인 작업도 수행하지 못합니다.</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>레벨 3 업데이트는 많지 않습니다. 신중하게 그리고 따로 적용하는 것이 좋습니다. 어떤 업데이트를 적용했는지 기록해 두시고, 이후 시스템이 제대로 작동하는지 확인해 보세요.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>뭔가 이상이 생기면, 포럼이나 채팅 채널에 도움을 구하고 어떤 업데이트로 인해 퇴행이 되었고 어떤 이상이 생겼는지 사람들에게 알리세요.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>그냥 수백 개의 업데이트를 적용하게 되면 문제가 있는 업데이트를 짚어낼 수 없게 될지도 모르며, 도움을 얻지 못할 수 있습니다. 모든 레벨 3 업데이트가 권장되지만 신중해야 하며 내가 지금 무엇을 업그레이드하고 있는지는 알아두는 것이 좋습니다.</p></note>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> 레벨 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>레벨 4 업데이트는 다음과 같이 운영 체제의 민감한 부분에 영향을 미치는 업데이트입니다:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>부트 시퀀스</p></item>
+        <item><p>디스플레이 매니저 (로그인 화면, 세션 관리)</p></item>
+        <item><p>커널 (하드웨어 지원)</p></item>
+        <item><p>드라이버 (네트워크 작동, NVIDIA/AMD)</p></item>
+        <item><p>디스플레이 (Xorg, mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>다른 업데이트처럼, 모두 레벨 4 업데이트를 추천하며, 특히 보안 업데이트의 경우 더욱그렇습니다.</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>하지만, 이들 중에 하나라도 심각한 퇴행이 발생하게 되면 시스템의 민감한 부분에 영향을 끼치게 될 겁니다.</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>인터넷에 연결되지 않거나, 데스크톱 환경이 시작되지 않거나 운영 체제 부팅이 되지 않는 경우와 마주하실 수도 있습니다.</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>이런 이유로 레벨 4 업데이트 적용에는 주의를 기울이셔야 합니다 (커널 업데이트를 포함해서). 하나씩 적용하시고 어느 버전을 적용하고 있는지 메모해 두시는 게 좋습니다.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>뭔가 이상이 생기면, 포럼이나 채팅 채널에 도움을 구하고 어떤 업데이트로 인해 퇴행이 되었고 어떤 이상이 생겼는지 사람들에게 알리세요.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>그냥 수백 개의 업데이트를 적용하게 되면 문제가 있는 업데이트를 짚어낼 수 없게 될지도 모르며, 도움을 얻지 못할 수 있습니다. 모든 레벨 4 업데이트가 권장되지만 신중해야 하며 내가 지금 무엇을 업그레이드하고 있는지는 알아두는 것이 좋습니다.</p></note>
 
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> 레벨 5</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>레벨 5 업데이트는 아주 극히 드뭅니다.</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>업데이트에서 심각한 버그가 발견돼도 대개 가능한 한 빨리 수정됩니다.</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>리눅스 민트의 이슈에 접근해서 해결하는 데는, 저장소를 통해 외부에서 접근하거나 운영체제 안에서 직접 접근하는 등의 여러 가지 방법이 있습니다. 그러므로 일반적인 상황에서는 업데이트를 굳이 블랙리스트에 올리지 않으셔도 됩니다.</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>업데이트에 심각한 버그가 있는데 아직 해결책이 작업 중이어서 준비되지 않았다면, 리눅스 민트는 이 업데이트를 특별한 버전의 업데이트인 레벨 5 (즉 "권장되지 않음")로 지정할 수 있습니다. 이렇게 하면 새 버전이 저장소에 등록될 때까지 사용자들이 적용하지 못하도록 하게 됩니다.</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>레벨 5 업데이트에는 문제가 생기는 것으로 알려져 있습니다. 매우 드물며 대개 일시적인 일입니다. 레벨 5는 기본적으로 표시되지 않고 적용되지 않습니다.</p></note>
 
   </section>
 

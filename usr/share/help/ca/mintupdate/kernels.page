@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Nuclis i actualitzacions del nucli</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Actualitzacions del nucli</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>El nucli és la part central del sistema operatiu. Entre d'altres coses, és responsable del suport del maquinari.</p>
 
-  <note><p>A Linux Mint, les actualitzacions del kernel reparen errors i vulnerabilitats (de vegades també introdueixen noves prestacions), actuant sobre parts crítiques del sistema operatiu. Això fa que les actualitzacions del kernel siguin importants des del punt de vista de la seguretat, però també fa que puguin dur a regressions difícils de reparar per als usuaris novells.</p></note>
+  <note><p>A Linux Mint, les actualitzacions del kernel corregeixen errors i vulnerabilitats (de vegades també introdueixen noves funcionalitats), actuant sobre parts crítiques del sistema operatiu. Això fa que les actualitzacions del kernel siguin importants des del punt de vista de la seguretat, però també fa que puguin dur a regressions difícils de reparar per als usuaris novells.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Des del punt de vista de la seguretat, és important aplicar les actualitzacions del nucli.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Una regressió del nucli pot impedir connectar-se a Internet, o arrencar l'entorn d'escriptori, o fins i tot arrencar el sistema operatiu.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Per aquesta raó és important ser cautelós en aplicar actualitzacions del nucli i saber com revertir-les si alguna cosa surt malament.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Es poden instal·lar diversos nuclis</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Quan s'aplica una actualització, se substitueix la versió vella del programari amb una nova versió.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Les coses són diferents amb el nucli. Quan s'aplica una "actualització de nucli", realment s'instal·la un nou nucli al costat del ja existent.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Cada vegada que s'aplica una actualització del nucli, s'instal·la un nou nucli en el sistema, sense eliminar els antics.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>En l'arrencada, l'equip en selecciona el més recent.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Identificar el nucli actual</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Si voleu saber quin nucli s'està usant actualment, obriu un terminal i escriviu:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Instal·lar i eliminar nuclis</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Es poden instal·lar i eliminar nuclis amb l'Administrador d'Actualitzacions.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Seleccioneu "Veure" - "Nuclis de Linux" al menú.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>No es pot esborrar el nucli que està en ús. Per fer-ho, cal reiniciar l'ordinador i seleccionar un nucli diferent per arrencar.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Seleccionar un nucli</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Es poden tenir diversos nuclis instal·lats, però només es pot executar un alhora.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Quan arrenca l'equip, la primera pantalla és el menú grub. Aquest menú permet escollir el sistema operatiu, però també es pot triar el nucli.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Per a seleccionar un nucli, seleccioneu "Opcions avançades" al menú grub. S'haurien de veure tots els nuclis instal·lats. Trieu el que vulgueu usar i l'equip arrencarà amb ell.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Comprovar l'estat DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>El nucli inclou tots els drivers open source i normalment funcionen molt bé. Els drivers propietaris (NVIDIA, AMD, Broadcom ... etc) no s'inclouen i han autocompilar-se en cada nucli que s'instal·la. Això es fa mitjançant un mecanisme anomenat DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Si un driver propietari no es recompila adequadament amb DKMS en algun dels nuclis, no funcionarà correctament amb aquest nucli.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Després d'instal·lar o suprimir un nucli, es pot comprovar l'estat DKMS, per assegurar-se que tots els drivers propietaris estan ben instal·lats a cada nucli, amb la comanda següent:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Les noves sèries del nucli solen estar disponibles abans que els drivers propietaris les donin suport via DKMS. Si utilitzeu drivers propietaris, s'aconsella no instal·lar nuclis de sèries més recents que la sèrie del nucli recomanada.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Revertir una actualització del nucli</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Si alguna cosa no funciona amb l'últim nucli que ha instal·lat (o actualitzat), reinicieu i trieu el nucli que es feia servir anteriorment, esborreu el nou nucli i torneu a reiniciar.</p>
 
   </section>
 

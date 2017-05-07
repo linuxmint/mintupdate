@@ -16,51 +16,51 @@
 
   <title>Regole di aggiornamento</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Il gestore degli aggiornamenti è altamente configurabile. Si può andare nelle preferenze e impostare i livelli da mostrare e quelli da scegliere. Il computer è tuo e quindi lo puoi appostare come vuoi.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>La prima volta che lo lanci, esso cercherà di capire chi sei e di configurare queste impostazioni per te. Per fare ciò, ti mostrerà tre regole di aggiornamento e ti chiederà quale ti piace di più.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Tutte le regole di aggiornamento hanno in comune una cosa:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>Per motivi di sicurezza gli aggiornamenti di protezione, non importa di quale livello, sono sempre visibili.</p></item>
+      <item><p>Per motivi di sicurezza, gli aggiornamenti del kernel, di livello 4, sono sempre visibili.</p></item>
+      <item><p>Per motivi di stabilità, gli aggiornamenti di livello 5 sono sempre nascosti.</p></item>
     </list>
 
-    <note><p>Quando si sceglie una strategia di aggiornamento, alcune preferenze nel Gestore Aggiornamenti cambiano. Si possono cambiare individualmente queste preferenze scegliendo il menu Edit-&gt;Preferenze nella barra del menu.</p></note>
+    <note><p>Quando si sceglie una strategia di aggiornamento, alcune preferenze nel Gestore Aggiornamenti cambiano. Si possono cambiare singolarmente queste preferenze scegliendo il menu Edit-&gt;Preferenze nella barra del menu.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Utenti inesperti</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>La prima strategia è stata concepita per gli utenti inesperti. Si presuppone che questi utenti non sono in grado di risolvere problemi critici che interessano parti sensibili del loro sistema e si cerca di minimizzare il loro rischio di subire regressioni critiche.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Le correzioni di errori sono facoltative, perciò questo criterio si concentra sugli aggiornamenti di sicurezza (livelli 1 e 2) con un impatto minimo sul sistema operativo. Questi aggiornamenti sono visibili e ordinariamente prescelti.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>La sicurezza è anche importante, ma alcuni aggiornamenti di protezione (e in particolare quelli del kernel) riguardano parti sensibili del sistema. Questi aggiornamenti sono visibili e agli utenti inesperti è raccomandato di selezionarli e applicarli con cautela, in isolamento e, magari, con l'aiuto di un utente esperto, o dopo che essi stessi hanno familiarizzato con il forum e il canale di chat così sanno come chiedere aiuto.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Utenti regolari</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Il secondo criterio è fatto per la stragrande maggioranza delle persone. Si presuppone che questi utenti non siano nuovi di Linux e che sappiano come risolvere i problemi comuni o dove trovare aiuto.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Questo strategia mostra tutti gli aggiornamenti consigliati. Gli aggiornamenti di sicurezza e di correzione falle di sicurezza, livelli 1 e 2, sono normalmente prescelti.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Si raccomanda agli utenti di selezionare e applicare gli aggiornamenti di livello 3 e livello 4 con cautela e in isolamento e di chiedere aiuto se qualcosa va storto.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Utenti avanzati</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Questa strategia è fatta per gli utenti avanzati su computer in cui il rischio di regressioni critiche è accettabile. Si presuppone che questi utenti siano in grado di risolvere qualsiasi problema e che desiderino applicare tutti gli aggiornamenti in una sola volta.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>In questo criterio, tutti gli aggiornamenti raccomandati sono visibili e già selezionati per impostazione predefinita.</p>
 
     </section>
 

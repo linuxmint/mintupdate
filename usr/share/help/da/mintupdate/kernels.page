@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Kerner og kerneopdateringer</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Kerneopdateringer</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Kernen er styresystemets centrale del. Den er blandt andet ansvarlig for understøttelse af hardware.</p>
 
   <note><p>I Linux Mint indeholder kerneopdateringer både sikkerheds- og fejlrettelser (og nogle gange endda nye funktioner), og de påvirker kritiske dele af styresystemet. Ud fra et sikkerhedssynspunkt gør det kerneopdateringer vigtige, men der er også risiko for regressioner, som kan være svære at løse for nye brugere.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Fra et sikkerhedsmæssigt synspunkt er det vigtigt at installere kerneopdateringer.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>En regression i kernen kunne dog påvirke din mulighed for at gå på internettet, starte dit skrivebordsmiljø eller endda at boote styresystemet.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Af denne grund er det vigtigt at være påpasselig, når kerneopdateringer installeres og at vide, hvordan man ruller dem tilbage, hvis noget går galt.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Flere kerner kan installeres</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Når du installerer en opdatering, erstatter du den gamle version af programmet med en ny.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Der er anderledes med kerner. Når du foretager en "kerneopdatering", opdaterer du faktisk ikke kernen, du installerer en ny kerne ved siden af den gamle.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Hver gang du foretager en kerneopdatering, installerer du en ny kerne på systemet uden at fjerne den gamle.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Under opstart vælger computeren den nyeste kerne.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Identificér den aktuelle kerne</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Hvis du vil vide, hvilken kerne der aktuelt anvendes, så åbn en terminal og indtast:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Installér og fjern kerner</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Du kan installere og fjerne kerner i Opdateringshåndtering.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Vælg "Vis" -&gt; "Linux-kerner" i menuen.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Du kan ikke fjerne den kerne, der bruges lige nu. For at fjerne den skal du genstarte og vælge en anden kerne, der skal bootes med.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Vælg en kerne</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Du kan have flere kerner installeret, men du kan kun køre en kerne ad gangen.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Når du booter computeren, er det første skærmbillede Grub-menuen. Denne menu lader dig vælge styresystem, men du kan også bruge den til at vælge en kerne.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>For at vælge en kerne skal du vælge "Avancerede indstillinger" i Grub-menuen. Du skulle nu kunne se alle installerede kerner. Vælg den, du vil bruge, og din computer vil boote med den.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Tjek statussen af DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Kernen inkluderer alle open source-driverne, og de plejer at fungere udmærket. Proprietære drivere (NVIDIA, AMD, Broadcom osv.) er ikke inkluderede og skal kompileres for hver kerne, du installerer. Det sker via en mekanisme kaldet DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Hvis en proprietær driver ikke er ordentligt rekompileret med DKMS for en af dine kerner, vil den ikke virke korrekt med den kerne.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Efter at have installeret eller fjernet en kerne kan du tjekke status for DKMS, for at sikre dig at alle proprietære drivere er korrekt installeret for hver af dine kerner, med den følgende kommando:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Nye kerneserier plejer at være tilgængelige før proprietære drivere understøtter dem vis DKMS. Hvis du anvender proprietære drivere, anbefales det at holde sig til kerneopdateringer og ikke installere kerner fra serier, som er nyere end de anbefalede kerners serier.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Tilbagefør en kerneopdatering</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Hvis noget ikke virker med den seneste kerne, du installerede (eller den seneste kerneopdatering), så genstart, vælg kernen du brugte før, fjern den nye kerne og genstart igen.</p>
 
   </section>
 
