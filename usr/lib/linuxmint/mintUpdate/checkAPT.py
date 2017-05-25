@@ -126,23 +126,37 @@ class APTCheck():
                                 pkg = self.cache[pkgname]
                                 if not pkg.is_installed:
                                     self.add_update(pkg, kernel_update=True)
-                    else:
-                        # We're using a series which is more recent than the recommended one, so we should recommend the latest kernel on that series
-                        max_kernel = uname_kernel
-                        for pkg in self.cache:
-                            package_name = pkg.name
-                            if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith("-generic"):
-                                version = package_name.replace("linux-image-", "").replace("-generic", "")
-                                kernel = KernelVersion(version)
-                                if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
-                                    max_kernel = kernel
-                        if max_kernel.numeric_representation != uname_kernel.numeric_representation:
-                            for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
-                                pkgname = pkgname.replace('VERSION', max_kernel.std_version)
-                                if pkgname in self.cache:
-                                    pkg = self.cache[pkgname]
-                                    if not pkg.is_installed:
-                                        self.add_update(pkg, kernel_update=True)
+                        return
+
+                # We're using a series which is more recent than the recommended one, check the HWE kernel first
+                if 'linux-image-generic-hwe-16.04' in self.cache:
+                    recommended_kernel = KernelVersion(self.cache['linux-image-generic-hwe-16.04'].candidate.version)
+                    if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
+                        for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                            pkgname = pkgname.replace('VERSION', recommended_kernel.std_version)
+                            if pkgname in self.cache:
+                                pkg = self.cache[pkgname]
+                                if not pkg.is_installed:
+                                    self.add_update(pkg, kernel_update=True)
+                        return
+
+                # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
+                max_kernel = uname_kernel
+                for pkg in self.cache:
+                    package_name = pkg.name
+                    if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith("-generic"):
+                        version = package_name.replace("linux-image-", "").replace("-generic", "")
+                        kernel = KernelVersion(version)
+                        if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
+                            max_kernel = kernel
+                if max_kernel.numeric_representation != uname_kernel.numeric_representation:
+                    for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                        pkgname = pkgname.replace('VERSION', max_kernel.std_version)
+                        if pkgname in self.cache:
+                            pkg = self.cache[pkgname]
+                            if not pkg.is_installed:
+                                self.add_update(pkg, kernel_update=True)
+
         except Exception as e:
             print(sys.exc_info()[0])
 
