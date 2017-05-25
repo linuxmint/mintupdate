@@ -3,6 +3,8 @@
 import gettext
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
+import html
+
 class Rule():
 
     def __init__(self, name, version, level):
@@ -107,6 +109,10 @@ class Update():
         print(output_string.encode('ascii', 'xmlcharrefreplace'))
 
     def parse(self, input_string):
+        try:
+            input_string = html.unescape(input_string)
+        except:
+            pass
         values = input_string.split("###")
         nothing, level, self.display_name, self.source_name, self.main_package_name, package_names, self.new_version, self.old_version, size, self.type, self.origin, self.short_description, self.description, self.site = values
         self.level = int(level)
