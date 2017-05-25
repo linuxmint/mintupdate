@@ -62,7 +62,6 @@ class APTCheck():
                             self.aliases[alias_package] = alias_object
 
     def load_rules(self):
-        self.level = 2 # Level 2 by default
         self.named_rules = {}
         self.wildcard_rules = {}
         with open("/usr/lib/linuxmint/mintUpdate/rules","r") as rulesFile:
@@ -162,7 +161,12 @@ class APTCheck():
 
     def add_update(self, package, kernel_update=False):
 
-        source_name = package.candidate.source_name
+        if package.name in ['linux-libc-dev']:
+            source_name = package.name
+        elif package.name.startswith("linux-image") or package.name.startswith("linux-headers"):
+            source_name = package.name.replace("-generic", "").replace("-extra", "").replace("-headers", "").replace("-image", "")
+        else:
+            source_name = package.candidate.source_name
 
         # ignore blacklisted packages
         for blacklist in self.settings.get_strv("blacklisted-packages"):
@@ -182,7 +186,7 @@ class APTCheck():
 
                 if source_name in self.named_rules.keys():
                     rule = self.named_rules[source_name]
-                    if (rule.match(update.source_name, update.new_version)):
+                    if (rule.match(source_name, update.new_version)):
                         update.level = rule.level
                 else:
                     for rule_name in self.wildcard_rules.keys():
@@ -215,7 +219,7 @@ class APTCheck():
                 update.display_name = alias.name
                 update.short_description = alias.short_description
                 update.description = alias.description
-            elif update.type == "kernel":
+            elif update.type == "kernel" and source_name not in ['linux-libc-dev']:
                 update.display_name = _("Linux kernel %s") % update.new_version
                 update.short_description = _("The Linux kernel.")
                 update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
@@ -265,6 +269,7 @@ class APTCheck():
                                             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                                                 value = "%s." % value
                                             update.short_description = value
+                                            update.description = ""
                                         except Exception as e:
                                             print(e)
                                             print(sys.exc_info()[0])
@@ -298,7 +303,7 @@ class APTCheck():
                                             # Add missing punctuation
                                             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                                                 value = "%s." % value
-                                            update.description = value
+                                            update.description += description
                                         except Exception as e:
                                             print (e)
                                             print(sys.exc_info()[0])
