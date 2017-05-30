@@ -176,7 +176,7 @@ class APTCheck():
         if source_name in PRIORITY_UPDATES:
             if self.priority_updates_available == False and len(self.updates) > 0:
                 self.updates = {}
-                self.priority_updates_available = True
+            self.priority_updates_available = True
         if (source_name in PRIORITY_UPDATES) or self.priority_updates_available == False:
             if source_name in self.updates:
                 update = self.updates[source_name]
