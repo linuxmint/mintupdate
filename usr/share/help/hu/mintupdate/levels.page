@@ -14,32 +14,32 @@
     <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>Frissítési szintek</title>
 
     <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
 
-    <p>There are 4 levels:</p>
+    <p>4 szint van:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
+      <td><p>Alacsony</p></td>
       <td><p>No impact on the system or other applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
-      <td><p>Normal</p></td>
+      <td><p>Közepes</p></td>
       <td><p>Default level. Usually low impact on the system.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
+      <td><p>Magas</p></td>
       <td><p>Apply with caution. Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>Érzékeny</p></td>
+      <td><p>Egyesével telepíthető. A rendszer érzékeny részeit érinti.</p></td>
     </tr>
     </table>
 
@@ -48,23 +48,23 @@
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>Veszélyes</p></td>
+      <td><p>Nagyon ritke és nem ajánlott. Problémákat okoz.</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> 1. szint</title>
 
     <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
 
     <p>They're usually updates for single applications. For instance:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>Számológép</p></item>
+        <item><p>Dokumentummegjelenítő</p></item>
+        <item><p>Szövegszerkesztő</p></item>
+        <item><p>Médialejátszó</p></item>
       </list>
 
     <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
@@ -72,7 +72,7 @@
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> 2. szint</title>
 
     <p>This is the default level, so the vast majority of updates are level 2.</p>
 
@@ -85,7 +85,7 @@
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> 3. szint</title>
 
     <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
 
@@ -104,7 +104,7 @@
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> 4. szint</title>
 
     <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
 
@@ -131,7 +131,7 @@
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> 5. szint</title>
 
     <p>Level 5 updates are extremely rare.</p>
 

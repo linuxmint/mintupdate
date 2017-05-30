@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Frissítés parancssorból</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>A „mintupdate-tool” használatával</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>A Frissítéskezelő része „mintupdate-tool” nevű parancssoros program.</p>
 
     <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Elérhető frissítések</title>
 
   <p>You can use the "list" command to list updates:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>A lista frissítési szint szerint szűrhető a „-l” paraméter megadásával.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Megjelenítheti a biztonsági frissítéseket a „-s” paraméter megadásával.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Megjelenítheti a kernel frissítéseket a „-k” paraméter megadásával vagy elrejtheti őket a „-nk”  paraméter megadásával.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>Például a következő parancs megjeleníti az összes biztonsági frissítést, valamint az 1-es és 2-es szintű frissítéseket is:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,11 +42,11 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Frissítések telepítése</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Az „upgrade” parancssal, ugyanazon paraméterek megadásával telepítheti a frissítéseket.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>Például a következő parancs telepíti az összes biztonsági frissítést, valamint az 1-es és 2-es szintű frissítéseket is:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 

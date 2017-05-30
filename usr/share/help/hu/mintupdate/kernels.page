@@ -11,10 +11,10 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Kernelek és kernel frissítések</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Kernel frissítések</title>
 
   <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
 
@@ -73,7 +73,7 @@
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>DKMS állapot ellenőrzése</title>
 
     <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
 
@@ -81,14 +81,14 @@
 
     <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
 
-    <screen>dkms status</screen>
+    <screen>DKMS állapot</screen>
 
     <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Kernel frissítés visszaállítása</title>
 
     <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
 

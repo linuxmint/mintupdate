@@ -68,29 +68,29 @@
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Para selecionar o kernel, escolha "opções avançadas" no menu Grub. Poderá ver todos os kernels atualmente instalados. Selecione o que pretende utilizar e o seu computador irá iniciar com este.</p>
 
   </section>
 
   <section id="kernel5">
     <title>Verificar o estado do DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>O kernel inclui todos os controladores de código aberto, e esses geralmente funcionam muito bem. Controladores proprietários (NVIDIA, AMD, Broadcom... outros) não são incluídos e precisam de ser compilados novamente,  a cada novo kernel que instalar. Isso é feito através de um mecanismo chamado DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Se um controlador proprietário não for recompilado devidamente com DKMS para um dos seus kernels, não irá funcionar corretamente com esse kernel.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Após a instalação ou remoção do kernel, pode verificar o estatuto do seu DKMS, para certificar que todos os controladores proprietários foram devidamente instalados para cada um dos kernels com o seguinte comando:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Novas versões de kernel, tornam-se disponíveis, normalmente, antes dos controladores proprietários oferecerem suporte via DKMS. Se estiver a utilizar controladores proprietários, recomendamos manter as atualizações do kernel, e não instalar kernels de versões mais recentes que a versão do kernel recomendada.</p></note>
 
   </section>
 
   <section id="kernel6">
     <title>Reverter uma atualização do kernel</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Se alguma coisa não estiver a funcionar com o último kernel instalado (ou o último kernel atualizado), reinicie, selecione o kernel que estava a utilizar anteriormente, remova o novo kernel e reinicie novamente.</p>
 
   </section>
 
