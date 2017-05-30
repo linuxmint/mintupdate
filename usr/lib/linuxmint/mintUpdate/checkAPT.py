@@ -161,7 +161,7 @@ class APTCheck():
 
     def add_update(self, package, kernel_update=False):
 
-        if package.name in ['linux-libc-dev']:
+        if package.name in ['linux-libc-dev', 'linux-kernel-generic']:
             source_name = package.name
         elif package.name.startswith("linux-image") or package.name.startswith("linux-headers"):
             source_name = package.name.replace("-generic", "").replace("-extra", "").replace("-headers", "").replace("-image", "")
@@ -219,7 +219,7 @@ class APTCheck():
                 update.display_name = alias.name
                 update.short_description = alias.short_description
                 update.description = alias.description
-            elif update.type == "kernel" and source_name not in ['linux-libc-dev']:
+            elif update.type == "kernel" and source_name not in ['linux-libc-dev', 'linux-kernel-generic']:
                 update.display_name = _("Linux kernel %s") % update.new_version
                 update.short_description = _("The Linux kernel.")
                 update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
