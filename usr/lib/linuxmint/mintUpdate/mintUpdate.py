@@ -705,9 +705,9 @@ class RefreshThread(threading.Thread):
                                     pass
 
                             if (self.application.settings.get_boolean("show-descriptions")):
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name + "\n<i><small><span foreground='%s'>%s</span></small></i>" % (insensitive_color, shortdesc))
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name + " (" + update.main_package_name + ")" + "\n<i><small><span foreground='%s'>%s</span></small></i>" % (insensitive_color, shortdesc))
                             else:
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name)
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name + " (" + update.main_package_name + ")")
 
                             theme = Gtk.IconTheme.get_default()
                             pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
