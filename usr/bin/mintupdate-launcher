@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-import os, subprocess
+import os
+import xapp.os
 
-cmdline = subprocess.check_output("cat /proc/cmdline", shell = True).decode("utf-8")
-if ((not "boot=casper" in cmdline) and (not "boot=live" in cmdline)):	
+if ((not xapp.os.is_live_session()) and (not xapp.os.is_guest_session())):
 	os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py")
