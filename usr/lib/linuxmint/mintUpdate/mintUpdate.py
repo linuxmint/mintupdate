@@ -1567,9 +1567,9 @@ class MintUpdate():
     def show_configuration(self, widget=None):
         self.updates_inhibited = True
         policy = "radiobutton_policy_1"
-        if (self.settings.get_boolean("security-updates-are-visible")):
+        if (self.settings.get_boolean("security-updates-are-safe")):
             policy = "radiobutton_policy_2"
-        if (self.settings.get_boolean("level5-is-safe")):
+        if (self.settings.get_boolean("level4-is-safe")):
             policy = "radiobutton_policy_3"
         self.builder.get_object(policy).set_active(True)
         self.stack.set_visible_child_name("configure")
