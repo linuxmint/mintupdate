@@ -57,7 +57,7 @@ def size_to_string(size):
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
         threading.Thread.__init__(self)
-        self.source_package = package_update.source_name
+        self.source_package = package_update.real_source_name
         self.level = package_update.level
         self.version = package_update.new_version
         self.origin = package_update.origin
@@ -665,7 +665,7 @@ class RefreshThread(threading.Thread):
                         return False
 
                     if "###" in line:
-                        update = Update(package=None, input_string=line)
+                        update = Update(package=None, input_string=line, source_name=None)
 
                         level_is_visible = self.application.settings.get_boolean('level%s-is-visible' % str(update.level))
                         level_is_safe = self.application.settings.get_boolean('level%s-is-safe' % str(update.level))

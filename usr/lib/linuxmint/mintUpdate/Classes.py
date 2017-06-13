@@ -29,7 +29,7 @@ class Rule():
 
 class Update():
 
-    def __init__(self, package=None, input_string=None):
+    def __init__(self, package=None, input_string=None, source_name=None):
         self.package_names = []
         if package is not None:
             self.package_names.append(package.name)
@@ -41,7 +41,11 @@ class Update():
             else:
                 self.old_version = package.installed.version
             self.size = package.candidate.size
-            self.source_name = package.candidate.source_name
+            self.real_source_name = package.candidate.source_name
+            if source_name is not None:
+                self.source_name = source_name
+            else:
+                self.source_name = self.real_source_name
             self.display_name = self.source_name
             self.short_description = package.candidate.raw_description
             self.description = package.candidate.description
@@ -105,7 +109,7 @@ class Update():
             self.main_package_name  = pkg.name
 
     def serialize(self):
-        output_string = u"###%d###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (self.level, self.display_name, self.source_name, self.main_package_name, ", ".join(self.package_names), self.new_version, self.old_version, self.size, self.type, self.origin, self.short_description, self.description, self.site)
+        output_string = u"###%d###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (self.level, self.display_name, self.source_name, self.real_source_name, self.main_package_name, ", ".join(self.package_names), self.new_version, self.old_version, self.size, self.type, self.origin, self.short_description, self.description, self.site)
         print(output_string.encode('ascii', 'xmlcharrefreplace'))
 
     def parse(self, input_string):
@@ -114,7 +118,7 @@ class Update():
         except:
             pass
         values = input_string.split("###")
-        nothing, level, self.display_name, self.source_name, self.main_package_name, package_names, self.new_version, self.old_version, size, self.type, self.origin, self.short_description, self.description, self.site = values
+        nothing, level, self.display_name, self.source_name, self.real_source_name, self.main_package_name, package_names, self.new_version, self.old_version, size, self.type, self.origin, self.short_description, self.description, self.site = values
         self.level = int(level)
         self.size = int(size)
         for package_name in package_names.split(", "):

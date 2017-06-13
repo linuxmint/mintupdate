@@ -182,7 +182,7 @@ class APTCheck():
                 update = self.updates[source_name]
                 update.add_package(package)
             else:
-                update = Update(package)
+                update = Update(package, source_name=source_name)
 
                 if source_name in self.named_rules.keys():
                     rule = self.named_rules[source_name]
