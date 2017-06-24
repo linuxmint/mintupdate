@@ -1170,7 +1170,7 @@ class MintUpdate():
             item.set_use_stock(True)
             item.set_label(_("Clear"))
             item.connect("activate", self.clear)
-            key, mod = Gtk.accelerator_parse("<Control>C")
+            key, mod = Gtk.accelerator_parse("<Control><Shift>A")
             item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             editSubmenu.append(item)
 
