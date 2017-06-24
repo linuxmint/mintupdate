@@ -67,6 +67,9 @@ class Update():
                     if origin.origin == "Debian" and '-Security' in origin.label:
                         self.type = "security"
                         break
+                    if source_name in ["firefox", "thunderbird"]:
+                        self.type = "security"
+                        break
                     if origin.origin == "linuxmint":
                         if origin.component == "romeo":
                             self.type = "unstable"
