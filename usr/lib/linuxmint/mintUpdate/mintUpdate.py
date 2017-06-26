@@ -987,8 +987,6 @@ class MintUpdate():
 
         try:
             self.window.set_title(_("Update Manager"))
-            self.window.set_default_size(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
-            self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
             vbox = self.builder.get_object("vbox_main")
             self.window.set_icon_name("mintupdate")
@@ -1130,8 +1128,6 @@ class MintUpdate():
             self.builder.get_object("label_policy3_3").set_markup("%s\n%s" % (_("Always select all updates."), _("If a regression breaks something, I'll fix it.")))
 
             self.builder.get_object("label_policy_hint").set_markup(_("Security and kernel updates are always visible and updates with known issues (very rare) are always hidden. You can change this and fine-tune your policy in the preferences."))
-
-            self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
@@ -1386,6 +1382,9 @@ class MintUpdate():
                 refresh.start()
 
             self.builder.get_object("notebook_details").set_current_page(0)
+
+            self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
+            self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
             auto_refresh = AutomaticRefreshThread(self)
             auto_refresh.start()
