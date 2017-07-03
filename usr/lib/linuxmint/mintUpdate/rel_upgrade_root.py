@@ -89,13 +89,6 @@ returnCode = comnd.wait()
 #--------------------
 
 try:
-    if os.path.exists("/etc/grub.d/10_linux"):
-        if os.path.exists("/etc/linuxmint/info"):
-            mint_grub_title = subprocess.getoutput("grep GRUB_TITLE /etc/linuxmint/info | awk -F = '{print $2}'")
-        else:
-            mint_grub_title = "Linux Mint"
-        os.system("sed -i -e 's@OS=\"${GRUB_DISTRIBUTOR}\"@OS=\"%s\"@g' /etc/grub.d/10_linux" % mint_grub_title)
-        os.system("sed -i -e 's@OS=\"Linux Mint .*@OS=\"%s\"@g' /etc/grub.d/10_linux" % mint_grub_title)
-        subprocess.call("update-grub")
+    subprocess.call("update-grub")
 except Exception as detail:
     syslog.syslog("Couldn't update grub: %s" % detail)
