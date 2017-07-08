@@ -168,11 +168,6 @@ class APTCheck():
         else:
             source_name = package.candidate.source_name
 
-        # ignore blacklisted packages
-        for blacklist in self.settings.get_strv("blacklisted-packages"):
-            if fnmatch.fnmatch(source_name, blacklist):
-                return
-
         if source_name in PRIORITY_UPDATES:
             if self.priority_updates_available == False and len(self.updates) > 0:
                 self.updates = {}
