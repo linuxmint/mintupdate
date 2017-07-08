@@ -4,6 +4,7 @@ import os
 import sys
 import gi
 import tempfile
+import fnmatch
 import threading
 import time
 import gettext
@@ -519,6 +520,15 @@ class RefreshThread(threading.Thread):
         threading.Thread.__init__(self)
         self.root_mode = root_mode
         self.application = application
+        self.blacklist = self.application.settings.get_strv("blacklisted-packages")
+
+    def is_blacklisted(self, update):
+        # ignore blacklisted packages
+        for blacklist_item in self.blacklist:
+            if fnmatch.fnmatch(update.source_name, blacklist_item):
+                return True
+
+        return False
 
     def check_policy(self):
         # Check the presence of the Mint layer
@@ -636,7 +646,7 @@ class RefreshThread(threading.Thread):
 
             # Look at the updates one by one
             num_visible = 0
-            num_checked = 0
+            num_safe = 0
             download_size = 0
 
             if (len(lines) == None):
@@ -667,6 +677,9 @@ class RefreshThread(threading.Thread):
                     if "###" in line:
                         update = Update(package=None, input_string=line, source_name=None)
 
+                        if self.is_blacklisted(update):
+                            continue
+
                         level_is_visible = self.application.settings.get_boolean('level%s-is-visible' % str(update.level))
                         level_is_safe = self.application.settings.get_boolean('level%s-is-safe' % str(update.level))
 
@@ -684,7 +697,7 @@ class RefreshThread(threading.Thread):
                             iter = model.insert_before(None, None)
                             if safe:
                                 model.set_value(iter, UPDATE_CHECKED, "true")
-                                num_checked = num_checked + 1
+                                num_safe = num_safe + 1
                                 download_size = download_size + update.size
                             else:
                                 model.set_value(iter, UPDATE_CHECKED, "false")
@@ -741,26 +754,18 @@ class RefreshThread(threading.Thread):
                             num_visible = num_visible + 1
 
                 Gdk.threads_enter()
-                if (num_visible == 0):
-                    self.application.stack.set_visible_child_name("status_updated")
+                if (num_safe > 0):
+                    if (num_safe == 1):
+                        self.statusString = _("1 recommended update available (%(size)s)") % {'size':size_to_string(download_size)}
+                    else:
+                        self.statusString = _("%(recommended)d recommended updates available (%(size)s)") % {'recommended':num_safe, 'size':size_to_string(download_size)}
+                    self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
+                    self.application.logger.write("Found " + str(num_safe) + " recommended software updates")
+                else:
+                    if num_visible == 0:
+                        self.application.stack.set_visible_child_name("status_updated")
                     self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
                     self.application.logger.write("System is up to date")
-                else:
-                    if (num_checked == 0):
-                        self.statusString = _("No updates selected")
-                    elif (num_checked == 1):
-                        self.statusString = _("%(selected)d update selected (%(size)s)") % {'selected':num_checked, 'size':size_to_string(download_size)}
-                    elif (num_checked > 1):
-                        self.statusString = _("%(selected)d updates selected (%(size)s)") % {'selected':num_checked, 'size':size_to_string(download_size)}
-
-                    self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
-                    self.application.logger.write("Found " + str(num_visible) + " software updates")
-
-                    if (num_visible == 1):
-                        systrayString = _("%d update available") % num_visible
-                    elif (num_visible > 1):
-                        systrayString = _("%d updates available") % num_visible
-                    self.application.statusIcon.set_tooltip_text(systrayString)
 
                 Gdk.threads_leave()
 
