@@ -15,7 +15,7 @@ if __name__ == "__main__":
     settings = Gio.Settings("com.linuxmint.updates")
 
     parser = argparse.ArgumentParser(prog="mintupdate-tool")
-    parser.add_argument("command", help="a command")
+    parser.add_argument("command", help="command to run (possible commands are: list, upgrade)")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-k", "--kernel", action="store_true", help="ignore settings and include all kernel updates")
