@@ -422,13 +422,7 @@ class InstallThread(threading.Thread):
                     Gdk.threads_leave()
                     self.application.logger.write("Ready to launch synaptic")
                     cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
-                            "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid()]
-                    cmd.append("-o")
-                    cmd.append("Synaptic::closeZvt=true")
-                    cmd.append("--progress-str")
-                    cmd.append("\"" + _("Please wait, this can take some time") + "\"")
-                    cmd.append("--finish-str")
-                    cmd.append("\"" + _("Update is complete") + "\"")
+                            "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
                     f = tempfile.NamedTemporaryFile()
 
                     for pkg in packages:
