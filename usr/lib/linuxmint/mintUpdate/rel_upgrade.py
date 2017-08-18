@@ -171,15 +171,8 @@ class Assistant:
 
 
     def install_pkgs(self, widget, event, packages):
-        cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % self.assistant.get_window().get_xid()]
-        cmd.append("-o")
-        cmd.append("Synaptic::closeZvt=true")
-        cmd.append("--progress-str")
-        cmd.append("\"" + _("Please wait, this can take some time") + "\"")
-        cmd.append("--finish-str")
-        cmd.append("\"" + _("The package was installed") + "\"")
+        cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % self.assistant.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
         f = tempfile.NamedTemporaryFile()
-
         for pkg in packages:
             pkg_line = "%s\tinstall\n" % pkg
             f.write(pkg_line.encode("utf-8"))

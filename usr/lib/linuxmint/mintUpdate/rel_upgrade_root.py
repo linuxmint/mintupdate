@@ -52,13 +52,7 @@ cache.open(None)
 cache.upgrade(dist_upgrade)
 changes = cache.get_changes()
 
-cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id]
-cmd.append("-o")
-cmd.append("Synaptic::closeZvt=true")
-cmd.append("--progress-str")
-cmd.append("\"" + _("Please wait, this can take some time") + "\"")
-cmd.append("--finish-str")
-cmd.append("\"" + _("Update is complete") + "\"")
+cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id, "-o", "Synaptic::closeZvt=true"]
 f = tempfile.NamedTemporaryFile()
 
 for pkg in changes:
