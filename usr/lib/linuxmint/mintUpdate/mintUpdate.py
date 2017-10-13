@@ -340,10 +340,7 @@ class InstallThread(threading.Thread):
                                 if len(removals) > 0:
                                     # Removals
                                     label = Gtk.Label()
-                                    if len(removals) == 1:
-                                        label.set_text(_("The following package will be removed:"))
-                                    else:
-                                        label.set_text(_("The following %d packages will be removed:") % len(removals))
+                                    label.set_text(_("The following packages will be removed:"))
                                     label.set_alignment(0, 0.5)
                                     label.set_padding(20, 0)
                                     scrolledWindow = Gtk.ScrolledWindow()
@@ -372,10 +369,7 @@ class InstallThread(threading.Thread):
                                 if len(installations) > 0:
                                     # Installations
                                     label = Gtk.Label()
-                                    if len(installations) == 1:
-                                        label.set_text(_("The following package will be installed:"))
-                                    else:
-                                        label.set_text(_("The following %d packages will be installed:") % len(installations))
+                                    label.set_text(_("The following packages will be installed:"))
                                     label.set_alignment(0, 0.5)
                                     label.set_padding(20, 0)
                                     scrolledWindow = Gtk.ScrolledWindow()
@@ -997,10 +991,7 @@ class MintUpdate():
             self.window.add_accel_group(accel_group)
 
             self.buffer = self.builder.get_object("textview_description").get_buffer()
-            context = self.builder.get_object("textview_description").get_style_context()
-            insensitive_color = context.get_color(Gtk.StateFlags.INSENSITIVE)
-            insensitive_color = "#{0:02x}{1:02x}{2:02x}".format(int(insensitive_color.red  * 255), int(insensitive_color.green * 255), int(insensitive_color.blue * 255)) 
-            self.buffer.create_tag("dimmed", scale=0.9, foreground="%s" % insensitive_color, style=Pango.Style.ITALIC)
+            self.buffer.create_tag("smaller", scale=0.9, style=Pango.Style.ITALIC)
 
             # Configure page
             configure_page = self.builder.get_object("configure_page")
@@ -1659,12 +1650,9 @@ class MintUpdate():
             self.buffer.insert(self.buffer.get_end_iter(), line)
             self.buffer.insert(self.buffer.get_end_iter(), "\n")
 
-        if (len(package_update.package_names) > 1):
-            dimmed_description = "\n%s %s" % (_("This update contains %d packages: ") % len(package_update.package_names), " ".join(sorted(package_update.package_names)))
-            self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
-        elif (package_update.package_names[0] != package_update.display_name):
-            dimmed_description = "\n%s %s" % (_("This update contains 1 package: "), package_update.package_names[0])
-            self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), dimmed_description, "dimmed")
+        if (len(package_update.package_names) > 1 or package_update.package_names[0] != package_update.display_name):
+            smaller_description = "\n%s %s" % (_("Packages included in this update:"), " ".join(sorted(package_update.package_names)))
+            self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), smaller_description, "smaller")
 
     def treeview_right_clicked(self, widget, event):
         if event.button == 3:
