@@ -736,18 +736,14 @@ class RefreshThread(threading.Thread):
                 else:
                     if (num_checked == 0):
                         self.statusString = _("No updates selected")
-                    elif (num_checked == 1):
-                        self.statusString = _("%(selected)d update selected (%(size)s)") % {'selected':num_checked, 'size':size_to_string(download_size)}
-                    elif (num_checked > 1):
-                        self.statusString = _("%(selected)d updates selected (%(size)s)") % {'selected':num_checked, 'size':size_to_string(download_size)}
+                    elif (num_checked >= 1):
+                        self.statusString = gettext.ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
 
                     self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
                     self.application.logger.write("Found " + str(num_visible) + " software updates")
 
-                    if (num_visible == 1):
-                        systrayString = _("%d update available") % num_visible
-                    elif (num_visible > 1):
-                        systrayString = _("%d updates available") % num_visible
+                    if (num_visible >= 1):
+                        systrayString = gettext.ngettext("%d update available", "%d updates available", num_visible) % num_visible
                     self.application.statusIcon.set_tooltip_text(systrayString)
 
                 Gdk.threads_leave()
@@ -804,7 +800,7 @@ class RefreshThread(threading.Thread):
                                 mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
                                 mirror_age = (mint_date - mirror_date).days
                                 if (mirror_age > 2):
-                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("The last update on %(mirror)s was %(days)d days ago") % {'mirror': mirror_url, 'days':(now - mirror_date).days})
+                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), gettext.ngettext("The last update on %(mirror)s was %(days)d day ago", "The last update on %(mirror)s was %(days)d days ago", (now - mirror_date).days) % {'mirror': mirror_url, 'days':(now - mirror_date).days})
                                     infobar_message_type = Gtk.MessageType.WARNING
                     if infobar_message is not None:
                         infobar = Gtk.InfoBar()
@@ -1495,10 +1491,8 @@ class MintUpdate():
             iter = model.iter_next(iter)
         if num_selected == 0:
             self.set_status_message(_("No updates selected"))
-        elif num_selected == 1:
-            self.set_status_message(_("%(selected)d update selected (%(size)s)") % {'selected':num_selected, 'size':size_to_string(download_size)})
         else:
-            self.set_status_message(_("%(selected)d updates selected (%(size)s)") % {'selected':num_selected, 'size':size_to_string(download_size)})
+            self.set_status_message(gettext.ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
 
     def force_refresh(self, widget):
         refresh = RefreshThread(self, root_mode=True)
@@ -1607,10 +1601,8 @@ class MintUpdate():
             iter = model.iter_next(iter)
         if num_selected == 0:
             self.set_status_message(_("No updates selected"))
-        elif num_selected == 1:
-            self.set_status_message(_("%(selected)d update selected (%(size)s)") % {'selected':num_selected, 'size':size_to_string(download_size)})
         else:
-            self.set_status_message(_("%(selected)d updates selected (%(size)s)") % {'selected':num_selected, 'size':size_to_string(download_size)})
+            self.set_status_message(gettext.ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
 
     def display_selected_package(self, selection):
         try:
