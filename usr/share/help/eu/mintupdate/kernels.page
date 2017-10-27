@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Nukleoak eta nukleoaren eguneraketak</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Nukleoaren eguneraketak</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Nukleoa sistema eragilearen oso zati garrantzitsua da. Beste gauzen artean, hardware euskarriaren ardura du.</p>
 
   <note><p>Linux Mint-en nukleoaren eguneraketek segurtasun adabakiak eta erroreen konponketak izaten dituzte (eta batzuetan baita ezaugarri berriak ere) eta sistema eragilearen osagai kritikoei eragiten diete. Horren ondorioz nukleoaren eguneraketak garrantzitsuak dira segurtasunaren ikuspuntutik, baina erabiltzaile hasiberrientzat konpontzen zailak izan daitezkeen erregresioak izateko joera dute.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Segurtasun ikuspuntutik garrantzitsua da nukleoaren eguneraketak aplikatzea.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Nukleoaren erregresio batek eragina izan internetera konektatu, mahaigain ingurunea hasieratu edo sistema eragilea abiarazteko gaitasunean.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Horregatik, garrantzitsua da nukleoaren eguneraketak aplikatzean kontuz ibiltzea eta zerbait gaizki ateratzen bada nola leheneratu jakitea.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Hainbat nukleo instalatu daitezke</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Eguneraketa bat aplikatzen duzunean softwarearen bertsio zaharra berriarekin ordezkatzen duzu.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Nukleoen eguneraketak desberdinak dira. "Nukleoaren eguneraketa" bat aplikatzen duzunean, ez duzu benetan nukleoa eguneratzen, nukleo berria zaharraren ondoan instalatzen duzu.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Nukleoaren eguneraketa bat aplikatzen duzun bakoitzean nukleo berri bat instalatzen duzu sisteman, zaharrak kendu gabe.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Abioan ordenagailuak nukleo berriena hautatzen du.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Uneko nukleoa identifikatzea</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Une honetan erabiltzen ari zaren nukleoa zein den jakiteko, ireki terminala eta idatzi:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Nukleoak instalatu eta kentzea</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Eguneraketa kudeatzailea erabiliz nukleoak instalatu eta kendu ditzakezu.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Hautatu "Ikusi" -&gt; "Linux nukleoak" menuan.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Ezin duzu unean erabiltzen ari zaren nukleoa kendu. Kentzeko, berrabiarazi eta nukleo desberdin bat hautatu behar duzu.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Nukleo bat hautatzea</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Hainbat nukleo eduki ditzakezu instalatuta, baina aldiko bakarra exekutatzen da.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Ordenagailua abiarazten duzunean agertzen den lehen pantaila Grub menua da. Menu honek sistema eragilea hautatzeko aukera ematen dizu, baina nukleoa aukeratzeko ere erabil dezakezu.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Nukleo bat hautatzeko, aukeratu "Aukera aurreratuak" Grub menuan. Instalatutako nukleoen zerrenda agertuko zaizu. Hautatu erabili nahi duzuna eta ordenagailuak hori abiaraziko du.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>DKMS egoera egiaztatzen</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Nukleoak kode irekiko kontrolatzaile guztiak dauzka eta oso ondo funtzionatu ohi dute. Jabedun kontrolatzaileak (NVIDIA, AMD, Broadcom...) ez ditu ekartzen eta instalatzen duzun nukleo bakoitzarentzat konpilatu behar dira. DKMS izeneko mekanismo baten bidez egiten da hau.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Jabedun kontrolatzaile bat ez bada DKMS erabiliz zure nukleoetako batentzat birkonpilatzen, ez du ondo funtzionatuko nukleo horrekin.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Nukleo bat instalatu edo kendu ondoren, zure DKMS egoera egiaztatu dezakezu, jabedun kontrolatzaile guztiak nukleo guztientzat ondo instalatuta daudela ziurtatzeko. Horretarako erabili komando hau:</p>
 
-    <screen>dkms status</screen>
+    <screen>dkms egoera</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Nukleoaren serie berriak jabedun kontrolatzaileek DKMS bidez euskarria eskaini baino lehen egon ohi dira erabilgarri. Jabedun kontrolatzaileak erabiltzen ari bazara, gomendatutako nukleoaren seriea baino berriagoak ez instalatzea gomendatzen da.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Nukleoaren eguneraketa leheneratzea</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Instalatu duzun azken nukleoarekin (edo nukleoaren eguneraketa berrienarekin) zerbaitek ez badu funtzionatzen, berrabiarazi, hautatu aurretik erabiltzen ari zinen nukleoa, kendu nukleo berria eta berriz berrabiarazi.</p>
 
   </section>
 

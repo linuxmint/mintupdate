@@ -16,51 +16,51 @@
 
   <title>Zásady aktualizace</title>
 
-    <p>The update manager is highly configurable. You can go in the preferences and fine-tune which levels you want to show and which levels you want to preselect. This is your computer and so you can tune it the way you want.</p>
+    <p>Manažer aktualizací je velmi škálovatelný. Můžete si v preferencích zvolit k vaší libosti kterou úroveň chcete ukázat a kterou chcete předvybrat. Toto je váš počítač a můžete si jej vylepšovat jak je vám libo.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Při prvním spuštění se to bude snažit rozumět tomu, kdo jste, a nastavit tyto nastavení právě pro vás. K tomu, aby se tak mohlo stát, se vám zobrazí tři aktualizační strategie a vy si budete moci zvolit nejlepší z nich.</p>
 
-    <p>All policies have this in common:</p>
+    <p>Všechny strategie mají toto společné:</p>
 
     <list>
-      <item><p>For security reasons, security updates are always visible (no matter what level they are).</p></item>
-      <item><p>For security reasons, kernel updates (which are level 4) are always visible.</p></item>
-      <item><p>For stability reasons, level 5 updates are always hidden.</p></item>
+      <item><p>S ohledem na bezpečnost jsou bezpečnostní aktualizace vždy viditelné (bez ohledu na jejich úroveň).</p></item>
+      <item><p>S ohledem na bezpečnost jsou aktualizace jádra (úroveň 4) vždy viditelné.</p></item>
+      <item><p>S ohledem na stabilitu je úroveň 5 u aktualizací vždy skryta.</p></item>
     </list>
 
     <note><p>Když zvolíte novou politiku aktualizací, ve Správci aktualizací se změní některá nastavení. Preference můžete vyladit jednotlivě kliknutím na Úpravy-&gt;Předvolby v menu.</p></note>
 
     <section id="policy1">
 
-      <title>Novice users</title>
+      <title>Začátečníci</title>
 
-      <p>The first policy is made for novice users in mind. It assumes these users are unable to work around critical issues affecting sensitive parts of their system and tries to minimize their risk to suffer critical regressions.</p>
+      <p>První strategie je dělaná pro uživatele začátečníky. Předpokládá se, že tito uživatelé nejsou schopni pracovat s kritickými problémy souvisejícími s citlivými částmi jejich systému a snaží se minimalizovat riziko kritických regresí.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>Opravy chyb nejsou povinné, tudíž se tato strategie zaměřuje na bezpečnostní aktualizace (úroveň 1 a 2) s minimálním dopadem na operační systém. Tyto aktualizace jsou ve výchozím nastavení viditelné a předvolené.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>Bezpečnost je také důležitá, ale některé bezpečnostní aktualizace (především aktualizace jádra) ovlivní citlivé části systému. Tyto aktualizace jsou viditelné a začínajícím uživatelům je doporučováno vybírat je a aplikovat s rozvahou, izolovaně a ideálně pak za pomoci zkušeného uživatele nebo poté, co se seznámili s fórem či chatovacím kanálem a vědí, jak vyhledat pomoc.</p>
 
     </section>
 
     <section id="policy2">
 
-      <title>Regular users</title>
+      <title>Běžní uživatelé</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>Druhá strategie je dělána pro naprostou většinu lidí. Předpokládá, že uživatelé nejsou začátečníky v Linuxu a také že vědí jak řešit problémy případně hledat pomoc.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Tato strategie zobrazuje všechny doporučené aktualizace. Bezpečnostní aktualizace a bezpečné aktualizace opravující chyby (úroveň 1 a 2) jsou předvoleny ve výchozím nastavení.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>Doporučujeme uživatelům, aby vybírali a instalovali aktualizace úrovně 3 a úrovně 4 opatrně a izolovaně a hledali pomoc, pokud se něco pokazí.</p>
 
     </section>
 
     <section id="policy3">
 
-      <title>Advanced users</title>
+      <title>Pokročilí uživatelé</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Tato strategie je dělána pro pokročilé uživatele na počítačích, kde je přijatelné riziko kritické regrese. Předpokládá, že tito uživatelé jsou schopni opravit jakoukoli věc a chtějí instalovat všechny aktualizace najednou.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>V této strategii jsou všechny doporučené aktualizace viditelné a ve výchozím nastavení zvoleny.</p>
 
     </section>
 

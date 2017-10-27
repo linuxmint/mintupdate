@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Aktualizace z příkazové řádky</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>Používání mintupdate-tool</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Manažer aktualizací poskytuje nástroj příkazového řádku zvaný "mintupdate-tool".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Pokud máte zkušenosti s Linuxem můžete používat tento nástroj ve vašich skriptech či cron úlohách k automatizaci instalace softwarových aktualizací.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Seznam aktualizací</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Pomocí příkazu "list" zobrazíte seznam všech aktualizací:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>Seznam může být filtrován dle úrovní pomocí argumentu -l.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Můžete přidat bezpečnostní aktualizace pomocí -s.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Můžete přidat aktualizace jádra pomocí -k, nebo je odstranit pomocí -nk.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>Například následující příkaz zobrazí seznam všech bezpečnostních aktualizací stejně jako aktualizací chyb úrovně 1 a 2:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Použití aktualizací</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Se stejnými volbami můžete také použít příkaz "upgrade" k provedení aktualizací.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>Například následující příkaz nainstaluje všechny bezpečnostní aktualizace stejně jako  jako aktualizace chyb úrovně 1 a 2:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Poznamenejme argument -r přidaný za účelem aktualizace cache.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Pro více informací o mintupdate-tool a kompletním seznamu argumentů napište:</p>
 
   <screen>mintupdate-tool -h</screen>
 

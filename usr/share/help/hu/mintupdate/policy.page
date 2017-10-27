@@ -11,14 +11,14 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Válassza ki a frissítési módszert</desc>
+    <desc>Válassza ki a frissítési házirendet</desc>
   </info>
 
-  <title>Frissítési módszer</title>
+  <title>Frissítési házirend</title>
 
     <p>A Frissítéskezelő nagyon testreszabható. A beállítások között részletesen beállíthatja, hogy milyen szintű javításokat kíván megjeleníteni és milyeneket előre kiválasztani.</p>
 
-    <p>The first time you launch it, it will try to understand who you are and set these settings for you. To do so, it will show you three update policies and ask you to choose the one you like best.</p>
+    <p>Ez a program első indítása, így testre kell szabnia a frissítési eljárást. A következő három frissítési házirend közül válassza ki az Ön számára legmegfelelőbbet.</p>
 
     <p>Az összes házirend közös beállítása:</p>
 
@@ -28,7 +28,7 @@
       <item><p>A stabilitás miatt az 5. szintű frissítések mindig láthatatlanok.</p></item>
     </list>
 
-    <note><p>Amikor frissítési módszert választ a Frissítéskezelőben néhány beállítás megváltozik. Ezeket a beállításokat testreszabhatja a Szerkesztés menü → Beállítások menüeleménél.</p></note>
+    <note><p>Amikor frissítési házirendet választ a Frissítéskezelőben néhány beállítás megváltozik. Ezeket a beállításokat testreszabhatja a Szerkesztés menüben a Beállítások menüpontban.</p></note>
 
     <section id="policy1">
 
@@ -36,9 +36,9 @@
 
       <p>Az első házirend a kezdő felhasználók számára készült. Ezek a felhasználók nem tudják kijavítani a rendszer érzékeny részeit érintő kritikus problémákat. Ez a beállítás megpróbálja minimalizálni a kritikus visszafejlődési hibák esélyét.</p>
 
-      <p>Bug fixes are optional, so this policy focuses on safe updates (level 1 and 2) with minimal impact on the operating system. These updates are visible and preselected by default.</p>
+      <p>A hibajavítások telepítése nem kötelező, így ez a házirend a biztonságos (1. és 2. szintű) frissítéseket ajánlja, amelyek csak minimális hatással vannak az operációs rendszerre. Ezek a frissítések láthatóak és előre kiválasztásra kerülnek.</p>
 
-      <p>Security is also important but some security updates (and kernel updates in particular) affect sensitive parts of the system. These updates are visible and novice users are recommended to select them and apply them with caution, in isolation and ideally either with the help of an experienced user, or after they familiarized themselves with the forums and chat channel so they know how to seek help.</p>
+      <p>A biztonság fontos, de néhány biztonsági frissítés (különösen a kernel frissítések) hatással lehetnek az operációs rendszer érzékeny részeire. Ezek a frissítések láthatóak a kezdő felhasználók számára. Természetesen ajánlott őket kiválasztani, valamint körültekintően, egyesével telepíteni egy tapasztalt felhasználó segítségével. Vagy a megfelelő tapasztalatok birtokában saját kezűleg is telepíthetők, és szükség esetén a fórumokon és csevegőszobákban kérhető segítség.</p>
 
     </section>
 
@@ -46,11 +46,11 @@
 
       <title>Általános felhasználó</title>
 
-      <p>The second policy is made for the vast majority of people. It assumes these users aren't new to Linux and either know how to solve common problems, or they know where to find help.</p>
+      <p>A második frissítési házirend ajánlott a legtöbb felhasználó számára. Ez a beállítás azt feltételezi, hogy Ön már gyakorlott Linux felhasználó, így meg tud oldani általános problémákat, és azt is tudja, hogy honnan kérjen segítséget.</p>
 
-      <p>This policy shows all recommended updates. Security updates and safe bug-fix updates (level 1 and 2) are preselected by default.</p>
+      <p>Ez a frissítési házirend megjeleníti az összes ajánlott frissítést. A biztonsági hibajavítások és a hibajavítások (1. és 2. szint) előre kiválasztásra kerülnek.</p>
 
-      <p>Users are recommended to select and apply level 3 and level 4 updates with caution and in isolation and to seek help if something goes wrong.</p>
+      <p>A felhasználók számára ajánlott, hogy körültekintően és egyesével telepítsék a 3. és 4. szintű frissítéseket, és probléma esetén kérjenek segítséget.</p>
 
     </section>
 
@@ -58,9 +58,9 @@
 
       <title>Haladó felhasználó</title>
 
-      <p>This policy is made for advanced users on computers where the risk of critical regressions is acceptable. It assumes these users are able to fix any issue and want to apply all updates all at once.</p>
+      <p>Ez a frissítési házirend a tapasztalt felhasználóknak készült, akik számára a kritikus szoftver-visszafejlődési hibák elfogadhatók. Feltételezi, hogy a felhasználó bármilyen fajta hibát el tud hárítani számítógépén és az összes frissítést egyszerre kívánja telepíteni.</p>
 
-      <p>In this policy, all recommended updates are visible and selected by default.</p>
+      <p>Ebben a frissítési házirendben, minden ajánlott frissítés látható és előre lesznek választva.</p>
 
     </section>
 

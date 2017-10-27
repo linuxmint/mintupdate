@@ -11,12 +11,12 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>A frissítések megadott frissítési szintje jelzi, hogy az egyes frissítéseknek milyen hatásai vannak az operációs rendszerre.</desc>
   </info>
 
   <title>Frissítési szintek</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>A megadott frissítési szintek jelzik a frissítések operációs rendszerre gyakorolt hatásait.</p>
 
     <p>4 szint van:</p>
 
@@ -24,17 +24,17 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
       <td><p>Alacsony</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Nincs hatása az operációs rendszerre és a többi programra.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
       <td><p>Közepes</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Alapértelmezett szint. Általában kicsi hatással van az operációs rendszerre.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Magas</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>Körültekintően telepítse. Számos programot érint.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
@@ -43,22 +43,22 @@
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>Továbbá van egy különleges frissítési szint, amelyet a kritikus frissítések kapnak meg:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
       <td><p>Veszélyes</p></td>
-      <td><p>Nagyon ritke és nem ajánlott. Problémákat okoz.</p></td>
+      <td><p>Nagyon ritka és nem ajánlott. Problémákat okoz.</p></td>
     </tr>
   </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> 1. szint</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>1. szintű frissítések csak a megadott szoftver működését befolyásolja, nincs hatása a rendszer többi részére.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>Ezek általában egy program frissítését tartalmazza. Például:</p>
 
     <list>
         <item><p>Számológép</p></item>
@@ -67,79 +67,79 @@
         <item><p>Médialejátszó</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>Bátran telepítheti ezeket a frissítéseket és nem kell aggódnia a visszafejlődési hibák miatt. Legrosszabb esetben szoftver visszafejlődési hibák jelentkezhetnek a frissített szoftvereknél, amely nem érinti magát az operációs rendszert.</p>
 
   </section>
 
   <section id="level2">
     <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> 2. szint</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>Ez az alapértelmezett szint. A frissítések nagy része 2. szintű frissítés.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Ezeknek a frissítéseknek az operációs rendszerre vagy a rendszer más érzékeny részeire gyakorolt hatása nem nagy, de nem garantált, hogy csak a frissített szoftvert érintik.</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>Általában telepítheti ezeket a frissítéseket és nem kell aggódnia a visszafejlődési hibák miatt.</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>Amennyiben egy fontos vagy egy lehetséges visszafejlődési hibát fedeznek fel a 2. szintű frissítések átminősítésre kerülnek 3. vagy 4. szintű frissítéssé.</p>
 
   </section>
 
   <section id="level3">
     <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> 3. szint</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>A 3. szintű frissítések nem csak a frissített szoftvert érintik, hanem hatással vannak más programokra.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Tipikus példája a 3. szintű frissítéseknek a GTK, a DBUS, stb. A visszafejlődési hibák ezekben a frissítésekben, nem teszik lehetetlenné a számítógép elindulását, de számos programra lehetnek hatással.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>A asztali környezetek is a 3. szintű frissítések közé tartoznak. Amennyiben egy visszafejlődési hiba jelenik meg a Cinnamon környezetben lehet, hogy nem lesz képes bejelentkezni a munkamenetbe.</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>Nincsen sok 3. szintű frissítés. Ajánlatos körültekintően telepíteni ezeket a frissítéseket. Jegyezze fel, hogy mely csomagokat frissítette és ellenőrizze a rendszer működőképességét, majd győződjön meg róla, hogy minden jól működik.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Ha valami elromlik, kérhet segítséget a fórumokon vagy a csevegőszobákban., Meg fogja tudni mondani, hogy melyik frissítés okozott visszafejlődési hibát, illetve mi romlott el.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Ha vakon telepít többszáz frissítést, akkor nem fogja tudni kinyomozni, hogy melyik frissítés okozza a problémát, és valószínű, hogy nem fog tudni segítséget kapni. Az összes 3. szintű frissítések telepítése ajánlott, de legyen körültekintő a frissítéskor és jegyezze fel, hogy milyen csomagokat frissít.</p></note>
 
   </section>
 
   <section id="level4">
     <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> 4. szint</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>4. szintű frissítések az operációs rendszer érzékeny részeit érinti, például:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Indítási folyamat</p></item>
+        <item><p>Kijelzőkezelő (bejelentkező képernyő, munkamenet-kezelés)</p></item>
+        <item><p>Kernel (hardvertámogatás)</p></item>
+        <item><p>Illesztőprogramok (hálózat, NVIDIA/AMD)</p></item>
+        <item><p>Megjelenítés (Xorg, Mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>Mint minden frissítés, az összes 4. szintű frissítés is ajánlott különösen, ha azok biztonsági frissítések.</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>Amennyiben egy kritikus visszafejlődési hiba van ezekben a frissítésekben, az érintheti az operációs rendszer érzékeny részeit.</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>Az is lehet, hogy működő internet-kapcsolat nélkül marad, esetleg nem tudja majd elindítani az asztali környezetét, vagy akár az operációs rendszer sem indul el.</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>Ebből az okból, mindig körültekintően telepítse a 4. szintű frissítéseket (ide értve a kernel frissítéseket is). Telepítse őket egyesével és jegyezze le a telepített csomag verziószámát.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Ha valami elromlik, kérhet segítséget a fórumokon vagy a csevegőszobákban., Meg fogja tudni mondani, hogy melyik frissítés okozott visszafejlődési hibát, illetve mi romlott el.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Ha Ön egy menetben többszáz frissítést telepít, akkor nem fogja tudni megmondani, hogy melyik okozta a problémát, és így segítséget sem fog kapni. Minden 4. szintű frissítést ajánlott telepíteni, de legyen körültekintő a frissítés során, és jegyezze fel a frissített csomag nevét és verziószámát.</p></note>
 
   </section>
 
   <section id="level5">
     <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> 5. szint</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>Az 5. szintű frissítések nagyon ritkák.</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>Amikor egy kritikus hiba van a frissítésben, általában azonnal javítják.</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>Számos módon javítható egy hiba a Linux Mint-ben. Van néhány megoldás, hogy a problémákat orvosolják távol, a csomagtarolókban, vagy helyben az operációs rendszerben. Ezért normál körülmények között egyetlen csomagot sem kell tiltó listára tenni.</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>Ha egy frissítés kritikus hibát tartalmaz, és a megoldáson már dolgoznak, de még nem készültek el vele, akkor a Linux Mint egyes frissítéseket 5. szintű frissítésnek (nem ajánlott frissítésnek) jelölhet. Ez megóvhatja a felhasználókat attól, hogy a hibás verziót telepítsék, addig amíg a javított verzió elérhetővé válik a csomagtárolókban.</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>Az 5. szintű frissítések biztosan problémákat okozhatnak. Ilyenek frissítések nagyon ritkán, és csak rövid ideig vannak. Az alapértelmezett beállítások szerint nem látszanak és nem ajánlott a telepítésük.</p></note>
 
   </section>
 

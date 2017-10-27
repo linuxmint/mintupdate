@@ -11,135 +11,135 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updates are given a level indicating how much of an impact they have on the operating system</desc>
+    <desc>Eguneraketei maila bat ematen zaie, sistema eragilean duten eraginaren arabera</desc>
   </info>
 
   <title>Eguneraketa mailak</title>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>Eguneraketei maila bat ematen zaie, sistema eragilean duten eraginaren arabera.</p>
 
     <p>4 maila daude:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Oso txikia</p></td>
+      <td><p>Eraginik ez sisteman edo beste aplikazioetan.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
-      <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Normala</p></td>
+      <td><p>Maila lehenetsia. Normalean eragin txikia sisteman.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Apply with caution. Impact on multiple applications.</p></td>
+      <td><p>Handia</p></td>
+      <td><p>Kontuz aplikatu. Eragina hainbat aplikaziotan.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Apply one by one. Impact on sensitive parts of the system.</p></td>
+      <td><p>Sentikorra</p></td>
+      <td><p>Banan-bana aplikatu. Sistemaren zati sentikorretan eragina.</p></td>
     </tr>
     </table>
 
-    <p>And there's also a special level which is given to updates with known critical issues:</p>
+    <p>Eta maila berezi bat ere badago, arazo kritiko ezagunak dituzten eguneraketentzat:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Dangerous</p></td>
-      <td><p>Very rare. Not recommended. Known to create issues.</p></td>
+      <td><p>Arriskutsua</p></td>
+      <td><p>Oso arraroa. Ez da gomendatzen. Arazoak ematen ditu.</p></td>
     </tr>
   </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> 1 maila</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>1 mailako eguneraketek beren helburuko softwareari bakarrik eragiten diote eta ez daukate eraginik sistemaren gainerako zatietan.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>Aplikazio bakarrarentzako eguneraketak izan ohi dira. Adibidez:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>Kalkulagailua</p></item>
+        <item><p>PDF irakurlea</p></item>
+        <item><p>Testu-editorea</p></item>
+        <item><p>Multimedia erreproduzitzailea</p></item>
       </list>
 
-    <p>You can apply these updates without worrying about regressions. In the worst case scenario a regression would only affect the software you're upgrading, not the operating system itself.</p>
+    <p>Erregresioen beldurrik gabe aplika ditzakezu eguneraketa hauek. Kasurik okerrenean erregresioak eguneratzen ari zaren softwarean izango luke eragina, ez sistema eragilean.</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> 2 maila</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>Hau da maila lehenetsia. Eguneraketa gehienak 2 mailakoak dira.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Eguneraketa hauek ez diote ustez sistemaren zati handi edo sentikorrei eragiten, baina ezin da ziurtatu gainerako softwareari eragingo ez dionik.</p>
 
-    <p>In general, you should be able to apply these updates without worrying about regressions.</p>
+    <p>Orokorrean, eguneraketa hauek erregresioen beldur izan gabe aplikatu ditzakezu.</p>
 
-    <p>If an important regression, or potential for regression, was found in a level 2 update, its level would be changed to 3 or 4.</p>
+    <p>Erregresio garrantzitsu bat edo erregresio potentzial bat aurkituko balitz 2 mailako eguneraketa batean, 3 edo 4 mailara pasako litzateke.</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> 3 maila</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>3 mailako eguneraketak beste aplikazioetan eragina daukaten eguneraketak dira.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>3 mailako eguneraketen adibide tipikoak GTK, DBUS... dira. Eguneraketa hauetako erregresio batek ez luke ordenagailua behar bezala abiaraztea galaraziko baina aplikazio askotan eragina izan dezake.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Mahaigain inguruneak ere 3 mailako eguneraketak dira. Cinnamon-en erregresio kritikoak gertatuko balira, posible litzateke saioa hasi ezinik geratzea.</p>
 
-    <p>There aren't many level 3 updates. It is recommended to apply them with caution and in isolation. Take note of what updates you are applying, check the system afterwards to make sure everything is working fine.</p>
+    <p>Ez daude 3 mailako eguneraketa asko. Kontuz eta banan-bana aplikatzea gomendatzen da. Kontutan izan zein eguneraketa aplikatzen ari zaren eta aplikatu ondoren egiaztatu sistemak ondo funtzionatzen duela.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Zerbait puskatzen bada, bilatu laguntza foroetan eta txat kanalean eta jakinarazi jendeari zein eguneraketak eragin duen erregresioa eta zer puskatu duen.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 3 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Itsu-itsuan ehunka eguneraketa aplikatzen badituzu eta arazoak eman dituena identifikatzeko gauza ez bazara, zaila izango da laguntza eskuratzea. 3 mailako eguneraketa guztiak gomendatuak dira baina kontuz aplikatuko dituzula eta zer eguneratzen ari zaren badakizula suposatzen da.</p></note>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> 4 maila</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>4 mailako eguneraketak sistema eragilearen zati sentikorrei eragiten dieten eguneraketak dira. Adibidez hauei eragiten dietenak:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Abioko sekuentzia</p></item>
+        <item><p>Bistaratze-kudeatzailea (saio hasierako pantaila, saio-kudeatzailea)</p></item>
+        <item><p>Nukleoa (hardware euskarria)</p></item>
+        <item><p>Kontrolatzaileak (sarea, NVIDIA/AMD)</p></item>
+        <item><p>Bistaratzea (Xorg, mesa)</p></item>
     </list>
 
-    <p>Like other updates, all level 4 updates are recommended, especially if they are security updates.</p>
+    <p>Beste eguneraketak bezala, 4 mailako eguneraketak ere aplikatzea gomendatzen da, bereziki segurtasun eguneraketak badira.</p>
 
-    <p>However, if a critical regression was present in one of these updates it could impact a sensitive part of your system.</p>
+    <p>Hala ere, eguneraketa hauetako batean erregresio kritiko bat balego, sistemaren zati kritiko batean eragina izan dezake.</p>
 
-    <p>You could find yourself without a connection to the Internet, without the ability to start the desktop environment or even without the ability to boot the operating system.</p>
+    <p>Interneteko konexiorik gabe, mahaigain ingurunea hasieratu edo sistema eragilea abiarazi ezinik gelditu zaitezke.</p>
 
-    <p>For this reason you should always be careful when applying level 4 updates (including kernel updates). Apply them one by one and take note of the versions you're applying.</p>
+    <p>Arrazoi hauengatik, kontu handiz aplikatu behar zenituzke 4 mailako eguneraketak (nukleoaren eguneraketak barne). Banan-bana aplikatu eta aplikatzen ari zaren bertsioen oharrak hartu.</p>
 
-    <p>If something breaks, seek help on the forums or the chat channel and tell people which update caused the regression and what is broken.</p>
+    <p>Zerbait puskatzen bada, bilatu laguntza foroetan eta txat kanalean eta jakinarazi jendeari zein eguneraketak eragin duen erregresioa eta zer puskatu duen.</p>
 
-    <note><p>If you blindly apply hundreds of updates and you're unable to pinpoint the problematic one, you're unlikely to find help. All level 4 updates are recommended but you are expected to be cautious and to know what you are upgrading.</p></note>
+    <note><p>Itsu-itsuan ehunka eguneraketa aplikatzen badituzu eta arazoak eman dituena identifikatzeko gauza ez bazara, zaila izango da laguntza eskuratzea. 4 mailako eguneraketa guztiak gomendatuak dira baina kontuz aplikatuko dituzula eta zer eguneratzen ari zaren badakizula suposatzen da.</p></note>
 
   </section>
 
   <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
+    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> 5 maila</title>
 
-    <p>Level 5 updates are extremely rare.</p>
+    <p>5 mailako eguneraketak arraroak dira.</p>
 
-    <p>When a critical bug is found in an update it is usually fixed as soon as possible.</p>
+    <p>Eguneraketa batean errore kritiko bat aurkitzen denean ahal bezain azkar konpondu ohi da.</p>
 
-    <p>There are many ways for Linux Mint to address issues, and many mechanisms in place both remotely in the repositories and locally within your operating system. So in normal circumstances updates shouldn't need to be blacklisted.</p>
+    <p>Linux Mint-ek arazoei aurre egiteko modu asko ditu eta mekanismo asko daude urrutiko gordailuetan eta zure sistema eragilean. Baldintza normaletan ez dago eguneraketak zerrenda beltzean jarri beharrik.</p>
 
-    <p>If an update had a critical bug and a solution was being worked on but wasn't ready yet, Linux Mint could mark a specific version of the update as level 5 (i.e. "not recommended"). This would prevent users from applying it until the new version hits the repositories.</p>
+    <p>Eguneraketa batek errore kritiko bat balu eta soluzioa oraindik prest ez balego, Linux Mint-ek eguneraketaren bertsio zehatz bat 5 mailako bezala markatuko luke, hau da, "ez gomendatu" bezala. Honek bertsio berria gordailuetan egon arte erabiltzaileek eguneraketa hori aplikatzea eragotziko luke.</p>
 
-    <note><p>Level 5 updates are known to cause issues. They are very rare and usually temporary. They are not visible by default and they should not be applied.</p></note>
+    <note><p>5 mailako eguneraketek arazo ezagunak dituzte. Oso arraroak dira eta normalean aldi baterakoak. Modu lehenetsian ez daude ikusgai eta ez dira aplikatu behar.</p></note>
 
   </section>
 
