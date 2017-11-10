@@ -226,7 +226,7 @@ class KernelWindow():
 
         builder.get_object("title_warning").set_markup("<span font_weight='bold' size='x-large'>%s</span>" % _("Warning!"))
         builder.get_object("sub_title_warning").set_markup("<big><b>%s</b></big>" % _("Proceed with caution"))
-        builder.get_object("label_warning").set_markup(_("The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer. Only install or remove kernels if you are experienced with kernels, drivers, DKMS modules and you know how to recover a non-booting computer."))
+        builder.get_object("label_warning").set_markup(_("The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer."))
         builder.get_object("label_more_info_1").set_markup("%s" % _("Before installing or removing kernels, please make sure to read the help section, to make sure you know how to select kernels, how to revert updates and how to check your DKMS status."))
 
         # Setup the main kernel page
