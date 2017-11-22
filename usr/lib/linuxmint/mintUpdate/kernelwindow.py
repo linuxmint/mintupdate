@@ -30,16 +30,7 @@ class InstallKernelThread(threading.Thread):
 
     def run(self):
         cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
-                "--non-interactive", "--parent-window-id", "%s" % self.window.get_window().get_xid()]
-        cmd.append("-o")
-        cmd.append("Synaptic::closeZvt=true")
-        cmd.append("--progress-str")
-        cmd.append("\"" + _("Please wait, this can take some time") + "\"")
-        cmd.append("--finish-str")
-        if self.remove:
-            cmd.append("\"" + _("The %s kernel was removed") % self.version + "\"")
-        else:
-            cmd.append("\"" + _("The %s kernel was installed") % self.version + "\"")
+                "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
         f = tempfile.NamedTemporaryFile()
 
         for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-generic' % self.version, 'linux-image-%s-generic' % self.version, 'linux-image-extra-%s-generic' % self.version]:
