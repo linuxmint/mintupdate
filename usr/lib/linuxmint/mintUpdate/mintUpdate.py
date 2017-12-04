@@ -729,8 +729,9 @@ class RefreshThread(threading.Thread):
                             num_visible = num_visible + 1
 
                 Gdk.threads_enter()
-                if (num_visible == 0):
-                    self.application.stack.set_visible_child_name("status_updated")
+                if (num_visible == 0) or (num_checked == 0):
+                    if (num_visible == 0):
+                        self.application.stack.set_visible_child_name("status_updated")
                     self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
                     self.application.logger.write("System is up to date")
                 else:
