@@ -44,15 +44,18 @@ gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 (UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(14)
 
+GIGABYTE = 1024 ** 3
+MEGABYTE = 1024 ** 2
+KILOBYTE = 1024
+
 def size_to_string(size):
-    strSize = str(size) + _("B")
-    if (size >= 1024):
-        strSize = str(size // 1024) + _("KB")
-    if (size >= (1024 * 1024)):
-        strSize = str(size // (1024 * 1024)) + _("MB")
-    if (size >= (1024 * 1024 * 1024)):
-        strSize = str(size // (1024 * 1024 * 1024)) + _("GB")
-    return strSize
+    if (size >= GIGABYTE):
+        return str(size // GIGABYTE) + _("GB")
+    if (size >= (MEGABYTE)):
+        return str(size // MEGABYTE) + _("MB")
+    if (size >= KILOBYTE):
+        return str(size // KILOBYTE) + _("KB")
+    return str(size) + _("B")
 
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
