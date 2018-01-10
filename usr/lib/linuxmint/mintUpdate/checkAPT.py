@@ -96,12 +96,15 @@ try:
                         elif origin.component == "backport":
                             update_type = "backport"
                             break
+                        elif pkg.name == "linux-kernel-generic":
+                            update_type = "security"
+                            break
                         else:
-                            update_type = "linuxmint"                
-                    
+                            update_type = "linuxmint"
+
                 resultString = u"UPDATE###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (package, newVersion, oldVersion, size, sourcePackage, update_type, update_origin, short_description, description)
                 print resultString.encode('ascii', 'xmlcharrefreplace')
-    
+
 except Exception, detail:
     print "CHECK_APT_ERROR---EOL---"
     print detail
