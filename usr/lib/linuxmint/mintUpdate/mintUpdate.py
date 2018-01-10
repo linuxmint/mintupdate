@@ -1383,7 +1383,7 @@ def read_configuration():
         prefs["level3_safe"] = True
         prefs["level4_safe"] = False
         prefs["level5_safe"] = False
-        prefs["security_visible"] = False
+        prefs["security_visible"] = True
         prefs["security_safe"] = False
 
     #Read columns config

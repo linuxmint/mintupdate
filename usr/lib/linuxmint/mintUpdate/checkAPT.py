@@ -96,6 +96,9 @@ try:
                         elif origin.component == "backport":
                             update_type = "backport"
                             break
+                        elif pkg.name == "linux-kernel-generic":
+                            update_type = "security"
+                            break
                         else:
                             update_type = "linuxmint"
 
