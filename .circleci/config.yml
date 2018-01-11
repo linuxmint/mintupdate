@@ -13,7 +13,7 @@ jobs:
           command: date
       - run:
           name: Print current working directory
-          command: cwd
+          command: pwd
       - run:
           name: Update environment
           command: apt-get update
