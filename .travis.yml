@@ -5,7 +5,7 @@ services:
   - docker
 
 script:
-  - wget -O- http://travis.debian.net/script.sh | sh -
+  - dpkg-buildpackage
 
 if:
   tag IS blank
