@@ -19,7 +19,7 @@ jobs:
           command: apt-get update
       - run:
           name: Update environment
-          command: apt-get install --yes --force-yes dpkg-dev
+          command: apt-get install --yes --force-yes dpkg-dev debhelper python3 dh-python
       - run:
           name: Build project
           command: dpkg-buildpackage
