@@ -1,6 +1,17 @@
-version: 2
+version: 2.0
+
 jobs:
-  build:
+
+  "mint-17":
+    docker:
+      - image: linuxmintd/linuxmint-rosa
+    steps:
+      - checkout
+      - run:
+          name: Build project
+          command: dpkg-buildpackage
+
+  "mint-18":
     docker:
       - image: linuxmintd/linuxmint-sylvia
     steps:
@@ -9,3 +20,9 @@ jobs:
           name: Build project
           command: dpkg-buildpackage
 
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "mint-17"
+      - "mint-18"
