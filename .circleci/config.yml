@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
+      - run:
+          name: Print the Current Time
+          command: date
+      - run:
+          name: Print current working directory
+          command: cwd
+      - run:
+          name: Update environment
+          command: apt-get update
+      - run:
+          name: Update environment
+          command: apt-get install dpkg-dev
+      - run:
+          name: Build project
+          command: dpkg-buildpackage
+
