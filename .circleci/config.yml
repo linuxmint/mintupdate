@@ -2,24 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: ubuntu:trusty
+      - image: linuxmintd:linuxmint-sylvia
     steps:
       - checkout
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-      - run:
-          name: Print the Current Time
-          command: date
-      - run:
-          name: Print current working directory
-          command: pwd
-      - run:
-          name: Update environment
-          command: apt-get update
-      - run:
-          name: Update environment
-          command: apt-get install --yes --force-yes dpkg-dev debhelper python python3 dh-python
       - run:
           name: Build project
           command: dpkg-buildpackage
