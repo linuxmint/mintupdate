@@ -28,7 +28,7 @@ jobs:
             unzip ghr_v0.5.4_linux_amd64.zip;
             TAG=`git rev-parse --abbrev-ref HEAD`.$CIRCLE_JOB
             ./ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -replace $TAG /packages;
-            ./ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -recreate -b "Latest unstable packages - Linux Mint 18" $TAG /packages;
+            ./ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -recreate -b "Latest unstable packages" $TAG /packages;
 
 workflows:
   version: 2
