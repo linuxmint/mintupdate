@@ -22,7 +22,7 @@ jobs:
 
       - run:
           name: Deploy to Github
-          commands: |
+          command: |
             wget https://github.com/tcnksm/ghr/releases/download/v0.5.4/ghr_v0.5.4_linux_amd64.zip;
             unzip ghr_v0.5.4_linux_amd64.zip;
               ./ghr -draft -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -b "blah" -replace $CIRCLE_TAG /packages;
