@@ -1,0 +1,37 @@
+version: 2.0
+
+
+
+jobs:
+
+  "mint-18":
+    docker:
+      - image: linuxmintd/linuxmint-sylvia
+    steps:
+      - checkout
+
+      - run:
+          name: Build project
+          command: mint-build
+
+      - run:
+          name: Prepare Packages
+          command: |
+            mkdir /packages;
+            mv /root/*.deb /packages/;
+
+      - run:
+          name: Deploy to Github
+          branch: master
+          command: |
+            wget https://github.com/tcnksm/ghr/releases/download/v0.5.4/ghr_v0.5.4_linux_amd64.zip;
+            unzip ghr_v0.5.4_linux_amd64.zip;
+            TAG=`git rev-parse --abbrev-ref HEAD`.$CIRCLE_JOB
+            ./ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -replace $TAG /packages;
+            ./ghr -t $GITHUB_TOKEN -u $CIRCLE_PROJECT_USERNAME -r $CIRCLE_PROJECT_REPONAME -recreate -b "Latest unstable packages" $TAG /packages;
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "mint-18"
