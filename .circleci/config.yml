@@ -5,30 +5,35 @@ version: 2.0
 jobs:
 
   "mint-18":
+
     docker:
       - image: linuxmintd/linuxmint-sylvia
-    steps:
+
+    build:
       - checkout
 
       - run:
-          name: Build project
-          command: mint-build
+        name: Build project
+        command: mint-build
 
       - run:
-          name: Prepare Packages
-          command: |
-            mkdir /packages;
-            mv /root/*.deb /packages/;
+        name: Prepare Packages
+        command: |
+          mkdir /packages;
+          mv /root/*.deb /packages/;
 
-      - dependencies:
-          pre:
-            - go get github.com/tcnksm/ghr
+    dependencies:
+      pre:
+        - go get github.com/tcnksm/ghr
 
-      - deploy:
-          release:
-            branch: master
-            commands:
-              - ghr --username tcnksm-sample --token $GITHUB_TOKEN --replace --prerelease --debug pre-release /packages/
+    deploy:
+      requires:
+        build
+
+      release:
+        branch: master
+        commands:
+          - ghr --username tcnksm-sample --token $GITHUB_TOKEN --replace --prerelease --debug pre-release /packages/
 
 workflows:
   version: 2
