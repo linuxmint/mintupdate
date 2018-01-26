@@ -465,7 +465,7 @@ class InstallThread(threading.Thread):
 
                             command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
                             os.system(command)
-                        
+
                         # Refresh
                         Gdk.threads_enter()
                         self.application.set_status(_("Checking for updates"), _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
