@@ -66,14 +66,12 @@ def proxy_url_from_settings(scheme, gsettings):
         username = gsettings["http.authentication-user"]
         pwd = gsettings["http.authentication-password"]
 
-    proxy_url = ""
+    proxy_url = "%s:%d" % (host,port)
     if username is not None:
         if pwd is not None:
-            proxy_url = "%s:%s@%s:%d" % (username,pwd,host,port)
+            proxy_url = "%s:%s@%s" % (username,pwd,proxy_url)
         else:
-            proxy_url = "%s@%s:%d" % (username,host,port)
-    else:
-        proxy_url =  "%s:%d" % (host,port)
+            proxy_url = "%s@%s" % (username,proxy_url)
 
     if protocol is not None:
         proxy_url = "%s://%s" % (protocol, proxy_url)
