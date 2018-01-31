@@ -106,17 +106,13 @@ def get_proxy_settings():
         relative_key = (path + "." + key)[base_len:]
         gsettings[relative_key] = parsed_value
     mode = gsettings["mode"]
-    if mode == "none":
-        settings = {}
-    elif mode == "manual":
-        settings = {}
+    settings = {}
+    if mode == "manual":
         for scheme in ["http", "https"]:
             scheme_settings = proxy_url_from_settings(scheme, gsettings)
             if scheme_settings is not None:
                 settings[scheme] = scheme_settings
-    else:
-        # If mode is automatic the PAC javascript should be interpreted
-        # on each request. That is out of scope so it's ignored for now
-        settings = {}
+    # If mode is automatic the PAC javascript should be interpreted
+    # on each request. That is out of scope so it's ignored for now
 
     return settings
