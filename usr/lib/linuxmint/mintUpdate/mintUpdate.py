@@ -448,24 +448,24 @@ class InstallThread(threading.Thread):
                         else:
                             self.application.logger.write("Install failed")
 
-                    if update_successful and self.application.settings.get_boolean("hide-window-after-update"):
-                        Gdk.threads_enter()
-                        self.application.app_hidden = True
-                        self.application.window.hide()
-                        Gdk.threads_leave()
-
-                    if "mintupdate" in packages or "mint-upgrade-info" in packages:
-                        # Restart
-                        try:
-                            self.application.logger.write("Mintupdate was updated, restarting it...")
-                            self.application.logger.close()
-                        except:
-                            pass #cause we might have closed it already
-
-                        command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
-                        os.system(command)
-
                     if update_successful:
+                        if self.application.settings.get_boolean("hide-window-after-update"):
+                            Gdk.threads_enter()
+                            self.application.app_hidden = True
+                            self.application.window.hide()
+                            Gdk.threads_leave()
+
+                        if "mintupdate" in packages or "mint-upgrade-info" in packages:
+                            # Restart
+                            try:
+                                self.application.logger.write("Mintupdate was updated, restarting it...")
+                                self.application.logger.close()
+                            except:
+                                pass #cause we might have closed it already
+
+                            command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
+                            os.system(command)
+
                         # Refresh
                         Gdk.threads_enter()
                         self.application.set_status(_("Checking for updates"), _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
