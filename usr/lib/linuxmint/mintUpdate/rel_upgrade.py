@@ -253,17 +253,17 @@ class Assistant:
 
         if new_codename == self.rel_target_codename:
             image_result = "success"
-            message_text = "Your operating system was successfully upgraded. Please reboot your computer for all changes to take effect."
+            message_text = _("Your operating system was successfully upgraded. Please reboot your computer for all changes to take effect.")
         else:
             image_result = "failure"
-            message_text = "The upgrade did not succeed. Make sure you are connected to the Internet and try to upgrade again."
+            message_text = _("The upgrade did not succeed. Make sure you are connected to the Internet and try to upgrade again.")
 
         vbox_content = Gtk.HBox()
         image = Gtk.Image.new_from_file('/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s.png' % image_result)
         vbox_content.pack_start(image, False, False, 0)
         label = Gtk.Label()
         label.set_line_wrap(True)
-        label.set_markup(_(message_text))
+        label.set_markup(message_text)
         vbox_content.pack_start(label, False, False, 6)
         self.vbox_summary.pack_start(vbox_content, False, False, 6)
 
