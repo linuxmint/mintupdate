@@ -28,9 +28,7 @@ from gi.repository import AppIndicator3 as AppIndicator
 from Classes import Update
 
 try:
-    numMintUpdate = subprocess.check_output("ps -A | grep mintUpdate | wc -l", shell = True)
-    if (numMintUpdate != "0"):
-        os.system("killall mintUpdate")
+    os.system("killall -q mintUpdate")
 except Exception as e:
     print (e)
     print(sys.exc_info()[0])
