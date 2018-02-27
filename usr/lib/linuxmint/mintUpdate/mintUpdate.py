@@ -1127,6 +1127,8 @@ class MintUpdate():
             closeMenuItem.set_image(Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU))
             closeMenuItem.set_label(_("Close"))
             closeMenuItem.connect("activate", self.hide_main_window)
+            key, mod = Gtk.accelerator_parse("<Control>W")
+            closeMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             fileSubmenu.append(closeMenuItem)
 
             editMenu = Gtk.MenuItem.new_with_mnemonic(_("_Edit"))
