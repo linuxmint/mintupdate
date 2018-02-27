@@ -11,21 +11,17 @@ class Rule():
         self.name = name
         self.version = version
         self.level = level
-        self.is_wildcard = False
-        if self.name.startswith("*"):
+        self.is_wildcard = self.name.startswith("*")
+        if self.is_wildcard:
             self.name = self.name.replace("*", "")
-            self.is_wildcard = True
 
     def match(self, pkg_name, pkg_version):
-        matches = False
         if (self.version == "*" or self.version == pkg_version):
             if self.is_wildcard:
-                if (pkg_name.find(self.name) > -1):
-                    matches = True
+                return self.name in pkg_name
             else:
-                if (pkg_name == self.name):
-                    matches = True
-        return matches
+                return pkg_name == self.name
+        return False
 
 class Update():
 
