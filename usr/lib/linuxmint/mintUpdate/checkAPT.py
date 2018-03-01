@@ -82,17 +82,12 @@ class APTCheck():
 
     def refresh_cache(self):
         if os.getuid() == 0 :
-            use_synaptic = False
-            if (len(sys.argv) > 1):
-                if sys.argv[1] == "--use-synaptic":
-                    use_synaptic = True
-
-            if use_synaptic:
+            if "--use-synaptic" in sys.argv:
                 window_id = int(sys.argv[2])
-                from subprocess import Popen, PIPE
+                from subprocess import Popen
                 cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive", "--parent-window-id", "%d" % window_id]
                 comnd = Popen(' '.join(cmd), shell=True)
-                returnCode = comnd.wait()
+                comnd.wait()
             else:
                 self.cache.update()
 
@@ -156,7 +151,7 @@ class APTCheck():
                             if not pkg.is_installed:
                                 self.add_update(pkg, kernel_update=True)
 
-        except Exception as e:
+        except Exception:
             print(sys.exc_info()[0])
 
     def add_update(self, package, kernel_update=False):
