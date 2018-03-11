@@ -81,31 +81,30 @@ class Update():
     def add_package(self, pkg):
         self.package_names.append(pkg.name)
         self.size += pkg.candidate.size
-        overwrite_main_package = False
         if self.main_package_name is None or pkg.name == self.source_name:
-            overwrite_main_package = True
-        else:
-            if self.main_package_name == self.source_name:
-                overwrite_main_package = False
-            else:
-                # Overwrite dev, dbg, common, arch packages
-                for suffix in ["-dev", "-dbg", "-common", "-core", "-data", "-doc", ":i386", ":amd64"]:
-                    if (self.main_package_name.endswith(suffix) and not pkg.name.endswith(suffix)):
-                        overwrite_main_package = True
-                        break
-                # Overwrite lib packages
-                for prefix in ["lib", "gir1.2"]:
-                    if (self.main_package_name.startswith(prefix) and not pkg.name.startswith(prefix)):
-                        overwrite_main_package = True
-                        break
-                for keyword in ["-locale-", "-l10n-", "-help-"]:
-                    if (keyword in self.main_package_name) and (keyword not in pkg.name):
-                        overwrite_main_package = True
-                        break
-        if overwrite_main_package:
-            self.description = pkg.candidate.description
-            self.short_description = pkg.candidate.raw_description
-            self.main_package_name  = pkg.name
+            self.overwrite_main_package(pkg)
+            return
+
+        if self.main_package_name != self.source_name:
+            # Overwrite dev, dbg, common, arch packages
+            for suffix in ["-dev", "-dbg", "-common", "-core", "-data", "-doc", ":i386", ":amd64"]:
+                if (self.main_package_name.endswith(suffix) and not pkg.name.endswith(suffix)):
+                    self.overwrite_main_package(pkg)
+                    return
+            # Overwrite lib packages
+            for prefix in ["lib", "gir1.2"]:
+                if (self.main_package_name.startswith(prefix) and not pkg.name.startswith(prefix)):
+                    self.overwrite_main_package(pkg)
+                    return
+            for keyword in ["-locale-", "-l10n-", "-help-"]:
+                if (keyword in self.main_package_name) and (keyword not in pkg.name):
+                    self.overwrite_main_package(pkg)
+                    return
+
+    def overwrite_main_package(self, pkg):
+        self.description = pkg.candidate.description
+        self.short_description = pkg.candidate.raw_description
+        self.main_package_name  = pkg.name
 
     def serialize(self):
         output_string = u"###%d###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (self.level, self.display_name, self.source_name, self.real_source_name, self.main_package_name, ", ".join(self.package_names), self.new_version, self.old_version, self.size, self.type, self.origin, self.short_description, self.description, self.site)
