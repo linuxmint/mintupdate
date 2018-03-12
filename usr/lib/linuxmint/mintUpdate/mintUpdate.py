@@ -1142,7 +1142,7 @@ class MintUpdate():
             prefsMenuItem.set_label(_("Preferences"))
             prefsMenuItem.connect("activate", self.open_preferences)
             editSubmenu.append(prefsMenuItem)
-            if os.path.exists("/usr/bin/software-sources") or os.path.exists("/usr/bin/software-properties-gtk") or os.path.exists("/usr/bin/software-properties-kde"):
+            if os.path.exists("/usr/bin/mintsources"):
                 sourcesMenuItem = Gtk.ImageMenuItem()
                 sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("software-properties", Gtk.IconSize.MENU))
                 sourcesMenuItem.set_label(_("Software sources"))
@@ -1815,12 +1815,8 @@ class MintUpdate():
         dlg.show()
 
     def open_repositories(self, widget):
-        if os.path.exists("/usr/bin/software-sources"):
-            os.system("/usr/bin/software-sources &")
-        elif os.path.exists("/usr/bin/software-properties-gtk"):
-            os.system("/usr/bin/software-properties-gtk &")
-        elif os.path.exists("/usr/bin/software-properties-kde"):
-            os.system("/usr/bin/software-properties-kde &")
+        if os.path.exists("/usr/bin/mintsources"):
+            os.system("pkexec /usr/bin/mintsources")
 
 ######### PREFERENCES SCREEN #########
 
