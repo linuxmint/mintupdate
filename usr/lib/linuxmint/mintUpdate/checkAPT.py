@@ -292,7 +292,7 @@ class APTCheck():
                                                         newline = True
                                                     else:
                                                         if (newline):
-                                                            value = "%s%s" % (value, dline.capitalize())
+                                                            value = "%s%s" % (value, self.capitalize(dline))
                                                         else:
                                                             value = "%s %s" % (value, dline)
                                                         newline = False
@@ -326,11 +326,17 @@ class APTCheck():
                 update.short_description = update.short_description.split("\n")[0]
             if update.short_description.endswith("."):
                 update.short_description = update.short_description[:-1]
-            update.short_description = update.short_description.capitalize()
+            update.short_description = self.capitalize(update.short_description)
             if "& " in update.short_description:
                 update.short_description = update.short_description.replace('&', '&amp;')
             if "& " in update.description:
                 update.description = update.description.replace('&', '&amp;')
+
+    def capitalize(self, string):
+        if len(string) > 1:
+            return (string[0].upper() + string[1:])
+        else:
+            return (string)
 
 if __name__ == "__main__":
     try:
