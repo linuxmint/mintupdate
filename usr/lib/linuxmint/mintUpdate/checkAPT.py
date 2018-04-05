@@ -163,7 +163,7 @@ class APTCheck():
         else:
             source_name = package.candidate.source_name
 
-        # ignore blacklisted packages
+        # ignore packages blacklisted by the user
         for blacklist in self.settings.get_strv("blacklisted-packages"):
             if fnmatch.fnmatch(source_name, blacklist):
                 return
@@ -190,7 +190,8 @@ class APTCheck():
                             update.level = rule.level
                             break
 
-                self.updates[source_name] = update
+                if update.level < 5:
+                    self.updates[source_name] = update
             if kernel_update:
                 update.type = "kernel"
 
