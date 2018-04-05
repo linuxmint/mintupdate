@@ -990,17 +990,18 @@ class MintUpdate():
             self.buffer = self.builder.get_object("textview_description").get_buffer()
             self.buffer.create_tag("smaller", scale=0.9, style=Pango.Style.ITALIC)
 
-            # Configure page
-            configure_page = self.builder.get_object("configure_page")
-            self.stack.add_named(configure_page, "configure")
-            self.builder.get_object("button_configure_finish").connect("clicked", self.on_configure_finished)
-            self.builder.get_object("button_configure_finish").set_label(_("OK"))
-            self.builder.get_object("button_configure_help").connect("clicked", self.on_configure_help)
-            self.builder.get_object("button_configure_help").set_label(_("Help"))
+            # Welcome page
+            welcome_page = self.builder.get_object("welcome_page")
+            self.stack.add_named(welcome_page, "welcome")
+            self.builder.get_object("button_welcome_finish").connect("clicked", self.on_welcome_page_finished)
+            self.builder.get_object("button_welcome_finish").set_label(_("OK"))
+            self.builder.get_object("button_welcome_help").connect("clicked", self.show_help)
+            self.builder.get_object("button_welcome_help").set_label(_("Help"))
 
             # Updates page
             updates_page = self.builder.get_object("updates_page")
             self.stack.add_named(updates_page, "updates_available")
+            self.stack.set_visible_child_name("updates_available")
 
             # the treeview
             cr = Gtk.CellRendererToggle()
@@ -1104,25 +1105,6 @@ class MintUpdate():
             self.builder.get_object("image_success_status").set_pixel_size(96)
             self.builder.get_object("image_error_status").set_pixel_size(96)
 
-            #l10n for update policy page
-            self.builder.get_object("label_welcome1").set_markup("<span size='large'><b>%s</b></span>" % _("Welcome to the Update Manager"))
-            self.builder.get_object("label_welcome2").set_markup("%s" % _("This tool provides your operating system with software and security updates."))
-            self.builder.get_object("label_welcome3").set_markup("%s" % _("Please choose an update policy."))
-
-            self.builder.get_object("label_policy1_1").set_markup("<b>%s</b>" % _("Just keep my computer safe"))
-            self.builder.get_object("label_policy1_2").set_markup("<i>%s</i>" % _("Recommended for novice users."))
-            self.builder.get_object("label_policy1_3").set_markup("%s\n%s" % (_("Select updates which do not impact important parts of the operating systems."), _("Show security and kernel updates so I can review them and apply them with caution.")))
-
-            self.builder.get_object("label_policy2_1").set_markup("<b>%s</b>" % _("Let me review sensitive updates"))
-            self.builder.get_object("label_policy2_2").set_markup("<i>%s</i>" % _("Recommended for most users."))
-            self.builder.get_object("label_policy2_3").set_markup("%s\n%s" % (_("Select security updates and updates which do not impact important parts of the operating systems."), _("Show kernel updates and sensitive updates so I can review them and apply them with caution.")))
-
-            self.builder.get_object("label_policy3_1").set_markup("<b>%s</b>" % _("Always update everything"))
-            self.builder.get_object("label_policy3_2").set_markup("<i>%s</i>" % _("Recommended for experienced users."))
-            self.builder.get_object("label_policy3_3").set_markup("%s\n%s" % (_("Always select all updates."), _("If a regression breaks something, I'll fix it.")))
-
-            self.builder.get_object("label_policy_hint").set_markup(_("Security and kernel updates are always visible and updates with known issues (very rare) are always hidden. You can change this and fine-tune your policy in the preferences."))
-
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
             fileMenu.set_submenu(fileSubmenu)
@@ -1150,8 +1132,8 @@ class MintUpdate():
                 editSubmenu.append(sourcesMenuItem)
             configMenuItem = Gtk.ImageMenuItem()
             configMenuItem.set_image(Gtk.Image.new_from_icon_name("security-medium", Gtk.IconSize.MENU))
-            configMenuItem.set_label(_("Update policy"))
-            configMenuItem.connect("activate", self.show_configuration)
+            configMenuItem.set_label(_("Welcome screen"))
+            configMenuItem.connect("activate", self.show_welcome_page)
             editSubmenu.append(configMenuItem)
 
             editSubmenu.append(Gtk.SeparatorMenuItem())
@@ -1367,8 +1349,8 @@ class MintUpdate():
             self.stack.add_named(status_error_page, "status_error")
 
             self.stack.show_all()
-            if self.settings.get_boolean("show-policy-configuration"):
-                self.show_configuration()
+            if self.settings.get_boolean("show-welcome-page"):
+                self.show_welcome_page()
             else:
                 self.stack.set_visible_child_name("updates_available")
                 refresh = RefreshThread(self)
@@ -1506,67 +1488,43 @@ class MintUpdate():
         install = InstallThread(self)
         install.start()
 
-######### CONFIGURE PAGE FUNCTIONS #######
+######### WELCOME PAGE FUNCTIONS #######
 
-    def on_configure_finished(self, button):
-        self.settings.set_boolean("show-policy-configuration", False)
+    def on_welcome_page_finished(self, button):
+        self.settings.set_boolean("show-welcome-page", False)
 
-        if (self.builder.get_object("radiobutton_policy_1").get_active()):
-            self.settings.set_boolean("level3-is-visible", False)
-            self.settings.set_boolean("level4-is-visible", False)
-            self.settings.set_boolean("level3-is-safe", False)
-            self.settings.set_boolean("level4-is-safe", False)
-            self.settings.set_boolean("security-updates-are-safe", False)
-            self.settings.set_boolean("kernel-updates-are-safe", False)
-        elif (self.builder.get_object("radiobutton_policy_2").get_active()):
-            self.settings.set_boolean("level3-is-visible", True)
-            self.settings.set_boolean("level4-is-visible", True)
-            self.settings.set_boolean("level3-is-safe", False)
-            self.settings.set_boolean("level4-is-safe", False)
-            self.settings.set_boolean("security-updates-are-safe", True)
-            self.settings.set_boolean("kernel-updates-are-safe", False)
-        elif (self.builder.get_object("radiobutton_policy_3").get_active()):
-            self.settings.set_boolean("level3-is-visible", True)
-            self.settings.set_boolean("level4-is-visible", True)
-            self.settings.set_boolean("level3-is-safe", True)
-            self.settings.set_boolean("level4-is-safe", True)
-            self.settings.set_boolean("security-updates-are-safe", True)
-            self.settings.set_boolean("kernel-updates-are-safe", True)
-
-        # Common to all policies
+        # Set default configuration
         self.settings.set_boolean("level1-is-visible", True)
         self.settings.set_boolean("level2-is-visible", True)
+        self.settings.set_boolean("level3-is-visible", True)
+        self.settings.set_boolean("level4-is-visible", True)
+
         self.settings.set_boolean("level1-is-safe", True)
         self.settings.set_boolean("level2-is-safe", True)
+        self.settings.set_boolean("level3-is-safe", True)
+        self.settings.set_boolean("level4-is-safe", True)
+
         self.settings.set_boolean("security-updates-are-visible", True)
         self.settings.set_boolean("kernel-updates-are-visible", True)
+        self.settings.set_boolean("security-updates-are-safe", True)
+        self.settings.set_boolean("kernel-updates-are-safe", True)
 
-        self.builder.get_object("toolbar1").set_visible(True)
         self.builder.get_object("toolbar1").set_sensitive(True)
-        self.builder.get_object("menubar1").set_visible(True)
         self.builder.get_object("menubar1").set_sensitive(True)
         self.updates_inhibited = False
         refresh = RefreshThread(self)
         refresh.start()
 
-    def on_configure_help(self, button):
+    def show_help(self, button):
         os.system("yelp help:mintupdate/index &")
 
-    def show_configuration(self, widget=None):
+    def show_welcome_page(self, widget=None):
         self.updates_inhibited = True
-        policy = "radiobutton_policy_1"
-        if (self.settings.get_boolean("security-updates-are-safe")):
-            policy = "radiobutton_policy_2"
-        if (self.settings.get_boolean("level4-is-safe")):
-            policy = "radiobutton_policy_3"
-        self.builder.get_object(policy).set_active(True)
-        self.stack.set_visible_child_name("configure")
-        self.set_status(_("Please choose an update policy."), _("Please choose an update policy."), "mintupdate-updates-available", True)
+        self.stack.set_visible_child_name("welcome")
+        self.set_status(_("Welcome to the Update Manager"), _("Welcome to the Update Manager"), "mintupdate-updates-available", True)
         self.set_status_message("")
         self.builder.get_object("toolbar1").set_sensitive(False)
-        self.builder.get_object("toolbar1").set_visible(False)
         self.builder.get_object("menubar1").set_sensitive(False)
-        self.builder.get_object("menubar1").set_visible(False)
 
 ######### TREEVIEW/SELECTION FUNCTIONS #######
 
