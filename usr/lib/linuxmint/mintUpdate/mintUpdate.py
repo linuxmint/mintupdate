@@ -8,6 +8,7 @@ import threading
 import time
 import gettext
 import io
+import json
 import tarfile
 import urllib.request
 import proxygsettings
@@ -761,62 +762,72 @@ class RefreshThread(threading.Thread):
             self.application.window.set_sensitive(True)
             self.application.builder.get_object("paned1").set_position(vpaned_position)
 
-            try:
-                sources_path = "/etc/apt/sources.list.d/official-package-repositories.list"
-                if os.path.exists("/usr/bin/mintsources") and os.path.exists(sources_path):
-                    mirror_url = None
-                    infobar_message = None
-                    infobar_message_type = Gtk.MessageType.QUESTION
-                    codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
-                    with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
-                        for line in sources_file:
-                            line = line.strip()
-                            if line.startswith("deb ") and "%s main upstream import" % codename in line:
-                                mirror_url = line.split()[1]
-                                if mirror_url.endswith("/"):
-                                    mirror_url = mirror_url[:-1]
-                                break
-                    if mirror_url is None:
-                        # Unable to find the Mint mirror being used..
-                        pass
-                    elif mirror_url == "http://packages.linuxmint.com":
-                        if not self.application.settings.get_boolean("default-repo-is-ok"):
-                            infobar_message = "%s\n<small>%s</small>" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com"))
-                    elif not self.application.app_hidden:
-                        # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
-                        mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                        mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
-                        if mirror_timestamp is None:
-                            if mint_timestamp is None:
-                                # Both default repo and mirror are unreachable, assume there's no Internet connection
-                                pass
-                            else:
-                                infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is unreachable") % mirror_url)
-                                infobar_message_type = Gtk.MessageType.WARNING
-                        elif mint_timestamp is not None:
-                            mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
-                            now = datetime.datetime.now()
-                            mint_age = (now - mint_date).days
-                            if (mint_age > 2):
-                                mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
-                                mirror_age = (mint_date - mirror_date).days
-                                if (mirror_age > 2):
-                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), ngettext("The last update on %(mirror)s was %(days)d day ago", "The last update on %(mirror)s was %(days)d days ago", (now - mirror_date).days) % {'mirror': mirror_url, 'days':(now - mirror_date).days})
+            infobar_message = None
+            infobar_message_type = Gtk.MessageType.QUESTION
+            infobar_callback = self._on_infobar_mintsources_response
+
+
+            if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
+            	infobar_message = "%s\n<small>%s</small>" % (_("Please set up System Snapshots"), _("If something breaks, snapshots will allow you to restore your system to the previous working condition."))
+            	infobar_message_type = Gtk.MessageType.WARNING
+            	infobar_callback = self._on_infobar_timeshift_response
+            else:
+                try:
+                    if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
+                        mirror_url = None
+                        
+                        codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
+                        with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
+                            for line in sources_file:
+                                line = line.strip()
+                                if line.startswith("deb ") and "%s main upstream import" % codename in line:
+                                    mirror_url = line.split()[1]
+                                    if mirror_url.endswith("/"):
+                                        mirror_url = mirror_url[:-1]
+                                    break
+                        if mirror_url is None:
+                            # Unable to find the Mint mirror being used..
+                            pass
+                        elif mirror_url == "http://packages.linuxmint.com":
+                            if not self.application.settings.get_boolean("default-repo-is-ok"):
+                                infobar_message = "%s\n<small>%s</small>" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com."))
+                        elif not self.application.app_hidden:
+                            # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
+                            mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
+                            mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
+                            if mirror_timestamp is None:
+                                if mint_timestamp is None:
+                                    # Both default repo and mirror are unreachable, assume there's no Internet connection
+                                    pass
+                                else:
+                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is unreachable.") % mirror_url)
                                     infobar_message_type = Gtk.MessageType.WARNING
-                    if infobar_message is not None:
-                        infobar = Gtk.InfoBar()
-                        infobar.set_message_type(infobar_message_type)
-                        info_label = Gtk.Label()
-                        info_label.set_markup(infobar_message)
-                        infobar.get_content_area().pack_start(info_label,False, False,0)
-                        infobar.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK)
-                        infobar.connect("response", self._on_infobar_response)
-                        self.application.builder.get_object("hbox_infobar").pack_start(infobar, True, True,0)
-                        infobar.show_all()
-            except Exception as e:
-                print(sys.exc_info()[0])
-                # best effort, just print out the error
-                print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
+                            elif mint_timestamp is not None:
+                                mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
+                                now = datetime.datetime.now()
+                                mint_age = (now - mint_date).days
+                                if (mint_age > 2):
+                                    mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
+                                    mirror_age = (mint_date - mirror_date).days
+                                    if (mirror_age > 2):
+                                        infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), ngettext("The last update on %(mirror)s was %(days)d day ago.", "The last update on %(mirror)s was %(days)d days ago.", (now - mirror_date).days) % {'mirror': mirror_url, 'days':(now - mirror_date).days})
+                                        infobar_message_type = Gtk.MessageType.WARNING
+                except Exception as e:
+                    print(sys.exc_info()[0])
+                    # best effort, just print out the error
+                    print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
+
+            if infobar_message is not None:
+                infobar = Gtk.InfoBar()
+                infobar.set_message_type(infobar_message_type)
+                info_label = Gtk.Label()
+                info_label.set_markup(infobar_message)
+                info_label.set_line_wrap(True)
+                infobar.get_content_area().pack_start(info_label,False, False,0)
+                infobar.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK)
+                infobar.connect("response", infobar_callback)
+                self.application.builder.get_object("hbox_infobar").pack_start(infobar, True, True,0)
+                infobar.show_all()
 
             Gdk.threads_leave()
 
@@ -832,9 +843,13 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
-    def _on_infobar_response(self, infobar, response_id):
+    def _on_infobar_mintsources_response(self, infobar, response_id):
         infobar.destroy()
         subprocess.Popen(["mintsources"])
+
+    def _on_infobar_timeshift_response(self, infobar, response_id):
+        infobar.destroy()
+        subprocess.Popen(["pkexec", "timeshift-gtk"])
 
     def get_url_last_modified(self, url):
         try:
@@ -876,6 +891,16 @@ class RefreshThread(threading.Thread):
         if (foundSomething):
             changes = self.checkDependencies(changes, cache)
         return changes
+
+    def checkTimeshiftConfiguration(self):
+        if os.path.exists("/etc/timeshift.json"):
+            try:
+                data = json.load(open("/etc/timeshift.json"))
+                if data['backup_device_uuid'] is not None and data['backup_device_uuid'] != "":
+                    return True
+            except Exception as e:
+                print("Error while checking Timeshift configuration: ", e)
+        return False
 
 class Logger():
 
@@ -1825,6 +1850,7 @@ class MintUpdate():
         builder.get_object("checkbutton_hide_window_after_update").set_label(_("Hide the update manager after applying updates"))
         builder.get_object("checkbutton_hide_systray").set_label(_("Only show a tray icon when updates are available or in case of errors"))
         builder.get_object("checkbutton_default_repo_is_ok").set_label(_("Don't suggest to switch to a local mirror"))
+        builder.get_object("checkbutton_warning_timeshift").set_label(_("Show a warning if system snapshots are not set up"))
         builder.get_object("checkbutton_security_visible").set_label(_("Always show security updates"))
         builder.get_object("checkbutton_security_safe").set_label(_("Always select security updates"))
         builder.get_object("checkbutton_kernel_visible").set_label(_("Always show kernel updates"))
@@ -1851,6 +1877,7 @@ class MintUpdate():
         builder.get_object("checkbutton_hide_window_after_update").set_active(self.settings.get_boolean("hide-window-after-update"))
         builder.get_object("checkbutton_hide_systray").set_active(self.settings.get_boolean("hide-systray"))
         builder.get_object("checkbutton_default_repo_is_ok").set_active(self.settings.get_boolean("default-repo-is-ok"))
+        builder.get_object("checkbutton_warning_timeshift").set_active(self.settings.get_boolean("warn-about-timeshift"))
 
         builder.get_object("refresh_days").set_range(0, 365)
         builder.get_object("refresh_days").set_increments(1, 10)
@@ -1900,6 +1927,7 @@ class MintUpdate():
         self.settings.set_boolean('hide-window-after-update', builder.get_object("checkbutton_hide_window_after_update").get_active())
         self.settings.set_boolean('hide-systray', builder.get_object("checkbutton_hide_systray").get_active())
         self.settings.set_boolean('default-repo-is-ok', builder.get_object("checkbutton_default_repo_is_ok").get_active())
+        self.settings.set_boolean('warn-about-timeshift', builder.get_object("checkbutton_warning_timeshift").get_active())
         self.settings.set_boolean('level1-is-visible', builder.get_object("visible1").get_active())
         self.settings.set_boolean('level2-is-visible', builder.get_object("visible2").get_active())
         self.settings.set_boolean('level3-is-visible', builder.get_object("visible3").get_active())
