@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-06 16:27+0200\n"
+"POT-Creation-Date: 2018-04-06 16:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -440,7 +440,6 @@ msgid "Large"
 msgstr ""
 
 #: usr/share/help/C/mintupdate/levels.page:39(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:13
 msgid "Apply with caution. Impact on multiple applications."
 msgstr ""
 
@@ -450,7 +449,6 @@ msgid "Sensitive"
 msgstr ""
 
 #: usr/share/help/C/mintupdate/levels.page:44(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:14
 msgid "Apply one by one. Impact on sensitive parts of the system."
 msgstr ""
 
@@ -1563,65 +1561,94 @@ msgstr ""
 msgid "Visible"
 msgstr ""
 
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:13
+msgid "Impact on multiple applications."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:14
+msgid "Impact on sensitive parts of the system."
+msgstr ""
+
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:15
+msgid ""
+"It is recommended to set up system snapshots and to apply all available "
+"updates. Only hide levels when troubleshooting or trying to identify a "
+"regression. Check the help section for more information."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:16
+msgid "Interface"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:17
+msgid "Hide the update manager after applying updates"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:18
+msgid "Only show a tray icon when updates are available or in case of errors"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:19
+msgid "Show a warning if system snapshots are not set up"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:20
+msgid "Don't suggest to switch to a local mirror"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:21
+msgid "Updates"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:22
+msgid ""
+"It is recommended to show and apply all available updates. Only disable the "
+"options below when troubleshooting."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:23
 msgid ""
 "Include updates which require the installation of new packages or the "
 "removal of installed packages"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:16
-msgid "Hide the update manager after applying updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:17
-msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:18
-msgid "Show a warning if system snapshots are not set up"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:19
-msgid "Don't suggest to switch to a local mirror"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:20
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:24
 msgid "Always show security updates"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:21
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:25
 msgid "Always select security updates"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:22
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:26
 msgid "Always show kernel updates"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:23
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:27
 msgid "Always select kernel updates"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:24
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:28
 msgid "First, refresh the list of updates after:"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:25
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:29
 msgid "Then, refresh the list of updates every:"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:26
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:30
 msgid "days"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:27
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:31
 msgid "hours"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:28
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:32
 msgid "minutes"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:29
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:33
 msgid ""
 "Note: The list only gets refreshed while the update manager window is closed "
 "(system tray mode)."
