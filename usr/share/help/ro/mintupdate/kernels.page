@@ -11,23 +11,23 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Nuclee și actualizări nuclee</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Actualizări nuclee</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Nucleul este partea centrală a sistemului de operare. Printre altele, este responsabil pentru suportul hardware.</p>
 
   <note><p>În Linux Mint, actualizările de kernel aduc atât îmbunătățiri de securitate, cât și remedieri de erori (și, de asemenea, caracteristici noi), astfel că au impact asupra părților esențiale ale sistemului de operare. De aceea, actualizările de kernel sunt importante din punctul de vedere al securității, dar sunt și dispuse la regresii care pot fi dificil de remediat de utilizatorii începători.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Din punct de vedere al securității, este important să aplicați actualizări de nucleu.</p>
 
   <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
 
   <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Multiple nuclee pot fi instalate</title>
 
     <p>When you apply an update, you replace the old version of the software with the new version.</p>
 
@@ -35,62 +35,62 @@
 
     <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>La momentul pornirii, computerul selectează cel mai recent.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Identificarea nucleului curent</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Dacă doriți să știți care kernel utilizați în prezent, deschideți un terminal și tastați:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Instalări și eliminări de nuclee</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Puteți instala și elimina nuclee din Administratorul actualizări.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Selectați "Vedere" -&gt; "Nuclee Linux" din meniu.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Nu puteți elimina nucleul pe care îl utilizați în prezent. Pentru al elimina, trebuie să reporniți și să selectați un alt nucleu pentru a porni.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Selectare nucleu</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Puteți avea nuclee multiple instalate, dar puteți rula doar un singur nucleu la un moment dat.</p>
 
     <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Pentru a selecta un nucleu, alegeți "Opțiuni avansate" din meniul Grub. Ar trebui să vedeți toate nucleele instalate în prezent. Selectați pe cel pe care doriți să-l utilizați și computerul dvs. va porni cu acesta.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Verificarea stării DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Nucleul include toate driverele surse deschise și acestea funcționează, de obicei, foarte bine. Noile drivere (NVIDIA, AMD, Broadcom ... etc) nu sunt incluse și trebuie să se compileze împreună cu fiecare nucleu pe care îl instalați. Aceasta se face printr-un mecanism numit DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Dacă un driver proprietar nu este corect recompilat cu DKMS pentru unul dintre nucleele dvs., acesta nu va funcționa corect cu acest nucleu.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>După instalarea sau eliminarea unui nucleu, puteți verifica starea DKMS, pentru a vă asigura că toate driverele de tip proprietar sunt instalate corespunzător pentru fiecare dintre nucleele dvs. cu următoarea comandă:</p>
 
-    <screen>dkms status</screen>
+    <screen>stare dkms</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Noile nuclee devin de obicei disponibile înainte ca driverele proprietare să le susțină prin intermediul DKMS. Dacă utilizați drivere de tip proprietar, se recomandă să rămâneți la actualizările nucleu și să nu instalați nuclee din seriile care sunt mai noi decât seria nucleelor recomandate.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Revenirea la o actualizare a nucleului</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Dacă ceva nu funcționează cu ultimul nucleu pe care l-ați instalat (sau cea mai recentă actualizare de nucleu), reporniți, selectați nucleul pe care îl utilizați anterior, eliminați noul nucleu și reporniți din nou.</p>
 
   </section>
 

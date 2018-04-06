@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Al actualisationes es date un nivello indicante quante impacto illos ha sur le systema operative</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Nivellos de actualisation</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Al actualisationes es date un grado indicante quanto impacto illos ha sur le systema operative.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Large</p></td>
-      <td><p>Applicar con prudentia. Impacto sur plure applicationes.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensibile</p></td>
-      <td><p>Applicar un per un. Impacto sur partes sensibile del systema.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>E il ha alsi un nivello special que es date pro actualisationes con note problemas critic:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Periculose</p></td>
-      <td><p>Multo rar. Non recommendate. Note per crear problemas.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
@@ -67,7 +63,7 @@
         <item><p>Le reproductor de medios</p></item>
       </list>
 
-    <p>Tu pote applicar iste actualisationes sin anxietate circa le regressiones. In le scenario del pejor caso un regression pote solmente afficer le software que tu es actualisante, non le systema operative ipse.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Iste es le nivello de base, assi le vaste generalitate de actualisationes es de nivello 2.</p>
 
     <p>Iste actualisationes non es note per haber impacto sur grande areas o partes sensibile del systema, ma il non es garantite que illos affice solmente lor proprie software.</p>
-
-    <p>In general, tu debe esser capace a applicar iste actualisationes sin anxietate circa regressiones.</p>
-
-    <p>Si un regression importante, o un potential pro regression, esseva trovate in un actualisation de nivello 2, su nivello pote esser cambiate a 3 o 4.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Typic exemplos de actualisationes de nivello 3 es: GTK, DBUS, etc... Un regression in iste actualisationes non deberea impedir a tu computator de se initiar debitemente, ma illo poterea influentiar multe applicationes.</p>
 
     <p>Le ambientes de scriptorio es alsi actualisationes de nivello 3. Si un regression critic occurre in Cinnamon, tu pote esser incapace a aperir tu session.</p>
-
-    <p>Il non ha multe actualisationes de nivello 3. Il es recommendate de applicar los per prudentia e in insulamento. Prende nota de qual actualisationes tu es applicante, controla le systema postea pro render te certe que toto es ben functionante.</p>
-
-    <p>Si alco es corrupte, demanda adjuta sur le forums o sur le canal de chat e narra al personas re qual actualisation causava le regression e lo que es corrupte.</p>
-
-    <note><p>Si tu applica cecamente centenas de actualisationes e tu es incapace a localisar illo que es problematic, il es inverisimile que tu trova adjuta. Tote le actualisationes de nivello 3 es recommendate ma tu es requirite a esser caute e a saper lo que tu es actualisante.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Le video (Xorg, mesa)</p></item>
     </list>
 
-    <p>Como altere actualisationes, tote le actualisationes de nivello 4 es recommendate, in modo special si illos es actualisationes de securitate.</p>
-
-    <p>Comocunque, si un regression critic esseva presente in un de iste actualisationes illo poterea haber un impacto sur un parte sensibile de tu systema.</p>
-
-    <p>Tu poterea trovar te ipse sin un connexion a Internet, sin le capacitate de facer le boot del ambiente de scriptorio o mesmo sin le capacitate a re-initiar le systema operative.</p>
-
-    <p>Pro iste motivo tu debe sempre esser attente durante le application del actualisationes de nivello 4 (includente le actualisationes del kernel).</p>
-
-    <p>Si alco es corrupte, demanda adjuta sur le forums o sur le canal de chat e narra al personas re qual actualisation causava le regression e lo que es corrupte.</p>
-
-    <note><p>Si tu applica cecamente centenas de actualisationes e tu es incapace a localisar illo que es problematic, il es inverisimile que tu trova adjuta. Tote le actualisationes de nivello 4 es recommendate ma tu es requirite a esser caute e a saper lo que tu es actualisante.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
-
-    <p>Le actualisationes de nivello 5 es extrememente rar.</p>
-
-    <p>Quando, in un actualisation, on trova un defecto critic, illo es usualmente fixate assi tosto que possibile.</p>
-
-    <p>Il ha multe manieras pro Linux Mint pro adressar problemas, e multe mechanismos in loco, sia remotemente in le repositorios que localmente in tu systema operative. Assi in circumstantias normal non debe esser necessari inserer le actualisationes in le lista nigre.</p>
-
-    <p>Si un actualisation ha un defecto critic e un resolution esseva in travalio, ma illo non esseva ancora preste, Linux Mint poterea marcar le specific version del actualisation como nivello 5 (id es "non recommendate"). Isto pote prevenir le usatores ab le application de illo usque le nove version attinge le repositorios.</p>
-
-    <note><p>Le actualisationes de nivello 5 es note pro causar problemas. Illos es multo rar e usualmente temporanee. Illos ordinarimente non es visibile e non debe esser applicate.</p></note>
-
-  </section>
-
 
 </page>

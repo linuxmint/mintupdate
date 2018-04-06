@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Bijgewerkte pakketten krijgen een niveau-aanduiding, die aangeeft hoeveel invloed ze hebben op het besturingssysteem</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Niveaus van bijgewerkte pakketten</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Bijgewerkte pakketten krijgen een niveau-aanduiding, die aangeeft hoeveel invloed ze hebben op het besturingssysteem.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Groot</p></td>
-      <td><p>Wees enigszins voorzichtig met installeren. Invloed op meerdere toepassingen.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Gevoelig</p></td>
-      <td><p>Installeer deze pakketten één voor één. Invloed op belangrijke delen van het systeem.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>En er is ook nog een speciaal niveau voor bijgewerkte pakketten met bekende kritieke problemen:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Gevaarlijk</p></td>
-      <td><p>Zeer zeldzaam. Niet aanbevolen. Bekend problematisch.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Niveau 1</title>
@@ -67,7 +63,7 @@
         <item><p>De mediaspeler</p></item>
       </list>
 
-    <p>U kunt deze bijgewerkte pakketten installeren zonder u zorgen te hoeven maken over regressies. In het ergste geval zou een regressie alleen de programmatuur kunnen beïnvloeden die u aan het bijwerken bent, en niet het besturingssysteem zelf.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Dit is het standaardniveau, dus de overgrote meerderheid van de bijgewerkte pakketten zijn niveau 2.</p>
 
     <p>Deze bijgewerkte pakketten beïnvloeden geen grote of gevoelige onderdelen van het systeem, maar ze zouden wel meer kunnen beïnvloeden dan alleen hun eigen programmatuur.</p>
-
-    <p>Over het algemeen kunt u deze bijgewerkte pakketten installeren zonder u zorgen te hoeven maken over regressies.</p>
-
-    <p>Indien er een belangrijke regressie, of de mogelijkheid van zo'n regressie, aangetroffen zou worden in een bijgewerkt pakket van niveau 2, dan zou zijn niveau worden gewijzigd in 3 of 4.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Typische voorbeelden van bijgewerkte pakketten van niveau 3 zijn GTK, DBUS enzovoorts. Een regressie in deze bijgewerkte pakketten zou de opstartbaarheid van uw computer niet kunnen beïnvloeden, maar wel vele toepassingen.</p>
 
     <p>Bijgewerkte pakketten voor werkomgevingen zijn eveneens niveau 3. Indien er een kritieke regressie zou optreden in Cinnamon, dan zou u wel eens niet in staat kunnen zijn om uzelf aan te melden.</p>
-
-    <p>Er zijn niet veel bijgewerkte pakketten van niveau 3. Het wordt sterk aangeraden om ze te installeren, maar wel met enige voorzichtigheid en één voor één. Let erop welke bijgewerkte pakketten u installeert en kijk nadien het systeem na om te zien of alles nog goed werkt.</p>
-
-    <p>Als er iets kapot gaat, kunt u hulp zoeken op het forum of op het IRC-kanaal. Daar kunt u vertellen welk bijgewerkt pakket de regressie heeft veroorzaakt en wat er precies kapot is.</p>
-
-    <note><p>Als u blindelings honderden bijgewerkte pakketten installeert en dus niet in staat bent om nadien een problematisch pakket aan te wijzen, dan zult u moeilijk hulp kunnen vinden. Alle bijgewerkte pakketten van niveau 3 worden sterk aangeraden, maar u dient wel voorzichtig te zijn en te weten welke pakketten u installeert.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>De schermweergave (Xorg, mesa)</p></item>
     </list>
 
-    <p>Net zoals andere bijgewerkte pakketten, worden alle bijgewerkte pakketten van niveau 4 aangeraden. In het bijzonder als het veiligheidsreparaties betreft.</p>
-
-    <p>Echter, indien er een kritieke regressie zou zitten in een van deze bijgewerkte pakketten, dan zou dit een belangrijk onderdeel van uw systeem kunnen beïnvloeden.</p>
-
-    <p>U zoudt zonder internetverbinding kunnen komen te zitten, of zonder de mogelijkheid om uw werkomgeving te starten. Of zelfs zonder de mogelijkheid om uw hele besturingssysteem op te starten.</p>
-
-    <p>Om deze reden kunt u beter altijd voorzichtig zijn met het installeren van bijgewerkte pakketten van niveau 4 (inclusief bijgewerkte systeemkernen). Installeer hen één voor één en let op de versies die u installeert.</p>
-
-    <p>Als er iets kapot gaat, kunt u hulp zoeken op het forum of op het IRC-kanaal. Daar kunt u vertellen welk bijgewerkt pakket de regressie heeft veroorzaakt en wat er precies kapot is.</p>
-
-    <note><p>Als u blindelings honderden bijgewerkte pakketten installeert en dus niet in staat bent om nadien een eventueel problematisch pakket aan te wijzen, zult u waarschijnlijk geen hulp kunnen vinden. Alle bijgewerkte pakketten van niveau 4 worden aangeraden, maar u wordt wel verondersteld om voorzichtig te zijn en te weten wat u bijwerkt.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Niveau 5</title>
-
-    <p>Bijgewerkte pakketten van niveau 5 zijn uitzonderlijk zeldzaam.</p>
-
-    <p>Wanneer er een kritieke fout wordt aangetroffen in een bijgewerkt pakket, wordt het doorgaans zo snel mogelijk hersteld.</p>
-
-    <p>Er zijn vele manieren voor Linux Mint om problemen aan te pakken, en er zijn daar veel mechanismen voor aanwezig, zowel in uw besturingssysteem als in de pakketbronnen. Dus onder normale omstandigheden hoeven bijgewerkte pakketten niet op de zwarte lijst te worden gezet.</p>
-
-    <p>Indien er een kritieke fout zou worden gevonden in een bijgewerkt pakket en indien men nog niet gereed zou zijn met de oplossing, dan zou Linux Mint een bepaalde versie van een bijgewerkt pakket kunnen markeren als niveau 5 (d.i. 'niet aanbevolen'). Dit zou gebruikers ervan moeten weerhouden om het te installeren voordat de nieuwe herstelde versie in de pakketbronnen belandt.</p>
-
-    <note><p>Bijgewerkte pakketten van niveau 5 hebben bekende problemen. Ze zijn zeer zeldzaam en gewoonlijk slechts tijdelijk. Ze zijn standaard niet zichtbaar en zouden beslist niet moeten worden geïnstalleerd.</p></note>
-
-  </section>
-
 
 </page>

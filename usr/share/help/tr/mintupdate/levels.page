@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Güncellemelere işletim sistemindeki etki olasılığını/gücünü gösterir biçimde seviye verilir</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Güncelleme seviyeleri</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Güncellemelere işletim sistemindeki etki olasılığını/gücünü gösterir biçimde seviye verilir.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Büyük</p></td>
-      <td><p>Uygularken dikkatli olun. Birden fazla uygulamaya etkisi vardır.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Hassas</p></td>
-      <td><p>Birer birer uygulayınız. Sistemin hassas kısımları üzerindeki etkisi vardır.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>Kritik sorunlara neden olabileceği bilinen güncellemeler ile ilgili özel bir seviye daha vardır:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Tehlikeli</p></td>
-      <td><p>Çok nadir. Önerilmeyen. Sorunlar oluşturma ihtimali bilinen.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Seviye 1</title>
@@ -67,7 +63,7 @@
         <item><p>Ortam oynatıcı</p></item>
       </list>
 
-    <p>Bu güncellemeleri resresyonlardan endişe duymadan uygulayabilirsiniz. En kötü senaryoda, olası bir regresyon sadece güncellemiş olduğunuz yazılımı etkiler, işletim sisteminin kendisini etkilemez.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Bu varsayılan seviyedir, güncellemelerin büyük çoğunluğu bu nedenle 2. seviyededir.</p>
 
     <p>Bu güncellemelerin geniş bir alanda etkili olduğu veya sistemin hassas parçalarını etkilediği hakkında bilgi bulunmamaktadır, ama kendi yazılımlarını etkilemeyeceğinin de bir garantisi yoktur.</p>
-
-    <p>Genel olarak, olası regresyonlardan endişe duymadan bu güncellemeleri uygulayabilirsiniz.</p>
-
-    <p>Eğer 2. seviye güncellemede önemli bir regresyon ya da regresyon potansiyeli tespit edilirse, seviyesi 3 veya 4 olarak değiştirilir.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Seviye 3 güncellemelerine tipik örnek olarak GTK, DBUS, vb. verilebilir. Bu güncellemelerden kaynaklanabilecek bir regresyon, bilgisayarınızın düzgün biçimde önyüklemesini engellemez, ama bir çok uygulamayı etkileyebilir.</p>
 
     <p>Masaüstü ortamları da aynı zamanda seviye 3 güncellemelerindendir. Eğer Cinnamon'da kritik bir regresyon olursa, oturum açamayabilirsiniz.</p>
-
-    <p>Seviye 3 güncellemesi çok fazla değildir. Bu tecrit edilmiş bu güncellemeleri dikkatlice uygulamak önerilir. Hangi güncellemeleri uyguladığınızı not edin, sonrasında sistemi kontrol ederek her şeyin düzgün çalıştığından emin olun.</p>
-
-    <p>Eğer bir şey kırılırsa; forumlardan ya da sohbet kanalından yardım isteyebilirsiniz ve bu duruma hangi güncellemenin neden olduğu ve neyin kırıldığı hakkında ayrıntılı bilgi veriniz.</p>
-
-    <note><p>Eğer yüzlerce güncelleme körü körüne uygularsanız, yaşayacağınız bir soruna neyin neden olduğunu anlamayabilirsiniz, bu durumda yardım bulmakta zorlanırsınız. Seviye 3 güncellemelerinin tümü önerilir, ancak temkinli olmalısınız ve güncellemeleri neyi güncelleştirdiğinizi bilecek şekilde uygulamalısınız.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Görüntü (Xorg, mesa)</p></item>
     </list>
 
-    <p>Diğer güncellemeler gibi, özellikle de güvenlik güncellemeleri olduklarında, 4. seviye güncellemelerinin tümü önerilir.</p>
-
-    <p>Bununla birlikte, bu güncellemelerden birinde kritik bir regresyon mevcutsa, sisteminizin hassas bir bölümünü etkileyebileceğini gözardı etmeyiniz.</p>
-
-    <p>Kendinizi internet bağlantısı sağlayamadığınız bir durumda bulabilir, masaüstü ortamını başlatamayabilir ya da işletim sisteminin açılış kabiliyetinin kaybı gibi bir sorunla karşılaşabilirsiniz.</p>
-
-    <p>Bu sebeplerden dolayı 4. seviye güncellemeleri (çekirdek sürüm güncellemelerini) uygularken daima dikkatli olmalısınız. Onları teker teker uygulayın ve uyguladığınız sürümleri not alın.</p>
-
-    <p>Eğer bir şey kırılırsa; forumlardan ya da sohbet kanalından yardım isteyebilirsiniz ve bu duruma hangi güncellemenin neden olduğu ve neyin kırıldığı hakkında ayrıntılı bilgi veriniz.</p>
-
-    <note><p>Eğer yüzlerce güncelleme körü körüne uygularsanız, yaşayacağınız bir soruna neyin neden olduğunu anlamayabilirsiniz, bu durumda yardım bulmakta zorlanırsınız. Seviye 4 güncellemelerinin tümü önerilir, ancak temkinli olmalısınız ve güncellemeleri neyi güncelleştirdiğinizi bilecek şekilde uygulamalısınız.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Seviye 5</title>
-
-    <p>Seviye 5 güncellemeleri son derece nadirdir.</p>
-
-    <p>Eğer bir güncellemede kritik bir hata bulunursa, genellikle kısa sürede düzeltilir.</p>
-
-    <p>Linux Mint'in sorunları ele almasının birçok yolu vardır, ve hem depolarda hem de işletim sisteminizin yerelinde bir çok mekanizma vardır. Dolayısıyla normal şartlar altında güncellemelerin doğrudan kara listeye alınması gerekmez.</p>
-
-    <p>Bir güncellemede kritik bir hata varsa ve bir çözüm üzerinde çalışılmaya başlanmış ancak henüz hazır değilse, Linux Mint güncellemenin belirli bir sürümünü seviye 5 (yani "Önerilmeyen") olarak işaretleyebilir.</p>
-
-    <note><p>Seviye 5 sorun oluşturabileceği bilinen güncellemelerdir. Bunlar çok seyrektir ve genellikle geçicidir. Varsayılan olarak görünür değildirler ve uygulanmamaları önerilir.</p></note>
-
-  </section>
-
 
 </page>

@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Nadopunama su dane razine koje pokazuju koliki utjecaj imaju na operativni sustav</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Razine nadopuna</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Nadopunama su dane razine koje pokazuju koliki utjecaj imaju na operativni sustav.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Velika</p></td>
-      <td><p>Primijenite uz oprez. Utjecaj na više aplikacija.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Osjetljiva</p></td>
-      <td><p>Primjenjujte jednu po jednu. Utjecaj na osjetljive dijelove sustava.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>A tu je i posebna razina koja je zadana za nadopunu s poznatim kritičnim problemima:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Opasna</p></td>
-      <td><p>Vrlo rijetko. Nije preporučljivo. Poznato je da uzrokuje probleme.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Razina 1</title>
@@ -67,7 +63,7 @@
         <item><p>Medijski reproduktor</p></item>
       </list>
 
-    <p>Možete primijeniti te nadopune bez brige o nestabilnosti. U najgorem slučaju nestabilnost će samo zahvatiti softver koji nadograđujete, a ne i sami operativni sustav.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Ovo je zadana razina, stoga velika većina nadopuna su razine 2.</p>
 
     <p>Ove nadopune su poznate da utječu na široko područje ili osjetljive dijelove sustava, ali ne jamče da samo utječu na vlastiti softver.</p>
-
-    <p>Općenito, trebali bi moći primijeniti ove nadopune bez zabrinutosti o nestabilnosti.</p>
-
-    <p>Ako je bitna nestabilnost, ili moguća nestabilnost, pronađena u razini 2 nadopuna, njezina razina biti će promijenjena u 3 ili 4.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Tipični primjeri nadopuna razine 3 su GTK, DBUS, itd... Nestabilnosti u tim nadopunama neće spriječiti vaše računalo da se pokrene ispravno, ali mogu imati utjecaj na mnogo aplikacija.</p>
 
     <p>Okruženja radne površine su isto tako nadopune razine 3. Ako se kritična nestabilnost dogodi u Cinnamonu, možda se nećete moći prijaviti.</p>
-
-    <p>Nema mnogo nadopuna razine 3. Preporučljivo ih je primijeniti uz oprez i izdvojeno. Obratite pozornost koju nadopunu primijenjujete, provjerite sustav naknadno kako bi bili sigurni da sve ispravno radi.</p>
-
-    <p>Ako se nešto slomi, potražite pomoć na forumu ili u kanalu razgovora i recite ljudima koja nadopuna uzrokuje nestabilnost i što je slomljeno.</p>
-
-    <note><p>Ako naslijepo primijenite na stotine nadopuna i zatim ne možete točno odrediti problematičnu, malo je vjerojatno da ćete pronaći pomoć. Sve nadopune razine 3 su preporučljive ali je očekivano od vas da budete oprezni i znate što nadopunjujete.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Zaslon (Xorg, mesa)</p></item>
     </list>
 
-    <p>Poput ostalih nadopuna, sve nadopune razine 4 su preporučljive, posebno ako su sigurnosne nadopune.</p>
-
-    <p>Ipak, ako je kritična nestabilnost prisutna u jednoj od tih nadopuna može utjecati na osjetljive dijelove vašeg sustava.</p>
-
-    <p>Možete se susresti bez povezivanja s internetom, bez mogućnosti pokretanja okruženja radne površine ili čak bez mogućnosti pokretanja operativnog sustava.</p>
-
-    <p>Iz tog razloga trebali bi uvijek biti oprezni pri primjeni nadopune razine 4 (uključujući nadopune kernela). Primijenite ih jednu po jednu i obratite pozornost na inačicu koju primjenjujete.</p>
-
-    <p>Ako se nešto slomi, potražite pomoć na forumu ili u kanalu razgovora i recite ljudima koja nadopuna uzrokuje nestabilnost i što je slomljeno.</p>
-
-    <note><p>Ako naslijepo primijenite na stotine nadopuna i zatim ne možete točno odrediti problematičnu, malo je vjerojatno da ćete pronaći pomoć. Sve nadopune razine 4 su preporučljive ali je očekivano od vas da budete oprezni i znate što nadopunjujete.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Razina 5</title>
-
-    <p>Nadopune razine 5 su iznimno rijetke.</p>
-
-    <p>Kada je kritična greška pronađena u nadopuni uobičajeno će biti popravljena čim prije.</p>
-
-    <p>Postoje mnogi načini za adresiranje Linux Mint problema, i mnogo mehanizama smještenih udaljeno u repozitorijima i lokalno u vašem operativnom sustavu. Stoga u normalnim prilikama nadopune ne treba staviti na popis zabranjenih nadopuna.</p>
-
-    <p>Ako nadopuna ima kritičnu grešku i rješenje je pronađeno ali još nije spremno, Linux Mint može označiti određenu inačicu nadopune s razinom 5 (npr. "nije preporučljivo"). To će spriječiti korisnike da ih primijene dok nova inačica ne postane dostupna u repozitorijima.</p>
-
-    <note><p>Za nadopune razine 5 je poznato da uzrokuju probleme. Oni su vrlo rijetki i privremeni. Nisu vidljive po zadanome i ne bi trebale biti primijenjene.</p></note>
-
-  </section>
-
 
 </page>

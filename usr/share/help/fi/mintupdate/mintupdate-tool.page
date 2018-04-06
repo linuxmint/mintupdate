@@ -14,27 +14,27 @@
     <desc>Päivittäminen komentoriviltä</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>Käyttäen mintupdate-tool'ia</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Päivitysten hallinta tarjoaa komentorivityökalun, jota kutsutaan nimellä "mintupdate-tool".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Jos olet kokenut Linuxin parissa, voit käyttää tätä työkalua skripteissäsi tai cron–töissä automatisoidaksesi ohjelmistopäivitykset.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Listataan päivityksiä</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Voit käyttää "list" komentoa listataksesi päivitykset:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>Lista voidaan suodattaa tasoittain -l valinnalla.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Voit lisätä tietoturvapäivitykset -s valinnalla.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Voit lisätä ytimen päivitykset käyttäen -k valintaa tai poistaa ne -nk valinnalla.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>Esimerkiksi, seuraava komento listaa kaikki tietoturvapäivitykset, kuten myös tasojen 1 ja 2 virheenkorjauspäivitykset:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Toteutetaan päivityksiä</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Voit käyttää "upgrade" komentoa toteuttaaksesi päivitykset käyttäen samoja asetuksia.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>Esimerkiksi, seuraava komento toteuttaa kaikki tietoturvapäivitykset, sekä tasojen 1 ja 2 virheenkorjauspäivitykset:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Huomaa -r valinta, joka lisättiin välimuistin virkistykseen.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Saadaksesi lisätietoa mintupdate-tool'ista ja täydellisen listan argumenteista, kirjoita:</p>
 
   <screen>mintupdate-tool -h</screen>
 

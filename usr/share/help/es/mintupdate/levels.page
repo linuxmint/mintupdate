@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>El nivel de las actualizaciones indica qué impacto tienen en el sistema operativo</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Niveles de actualización</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>El nivel de las actualizaciones indica qué impacto tienen en el sistema operativo</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Grande</p></td>
-      <td><p>Aplicar con cuidado. Impacto en múltiples aplicaciones.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensible</p></td>
-      <td><p>Aplicar de una en una. Impacto en partes sensibles del sistema.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>También existe un nivel especial para las actualizaciones con problemas críticos conocidos:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Peligroso</p></td>
-      <td><p>Muy poco frecuente. No recomendado. Se sabe que causa problemas.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Nivel 1</title>
@@ -67,7 +63,7 @@
         <item><p>El reproductor multimedia</p></item>
       </list>
 
-    <p>Puede aplicar esas actualizaciones sin temer a las regresiones. En el peor de los casos, una regresión sólo afectará al programa que está actualizando, nunca al sistema operativo.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>El nivel por defecto. La mayoría de las actualizaciones son de nivel 2.</p>
 
     <p>Estas actualizaciones no afectan a grandes áreas o a partes sensibles del sistema, pero no se garantiza que solo afecten a su propio software.</p>
-
-    <p>En general, usted puede aplicar estas actualizaciones sin temer que haya regresiones.</p>
-
-    <p>Si  en una actualización de nivel 2 se encontrara una regresión importante o posibilidad de que la haya, se cambiaría a nivel 3 o 4.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Ejemplos típicos de nivel 3 son las de GTK, DBUS, etc. ... Una regresión en estas actualizaciones no hará que el equipo no arranque, pero puede afectar a muchas aplicaciones.</p>
 
     <p>Las actualizaciones de entornos de escritorio también son de nivel 3. Si ocurre una regresión crítica en Cinnamon, podría ser imposible iniciar sesión.</p>
-
-    <p>No hay muchas actualizaciones de nivel 3. Se recomienda aplicarlas con precaución y aisladamente. Tome nota de qué actualizaciones va a aplicar, y compruebe el sistema después para asegurarse de que todo funciona bien.</p>
-
-    <p>Si algo se estropea, busque ayuda en los fórums o el chat, e indique qué actualización ha causado la regresión, y qué ha dejado de funcionar.</p>
-
-    <note><p>Si aplica ciegamente cientos de actualizaciones y después no puede localizar cuál está dando problemas, será difícil obtener ayuda. Todas las actualizaciones de nivel 3 son recomendables, pero debe ser precavido y saber qué está actualizando.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>La pantalla (Xorg, mesa)</p></item>
     </list>
 
-    <p>Como otras, todas las actualizaciones de nivel 4 son recomendables, especialmente si son de seguridad.</p>
-
-    <p>Sin embargo, si hubiera una regresión crítica en una de esas actualizaciones, podría afectar a una parte sensible del sistema.</p>
-
-    <p>Usted podría verse sin conexión a Internet, sin poder arrancar el entorno de escritorio, o incluso sin poder arrancar el sistema operativo.</p>
-
-    <p>Por este motivo, debe tener cuidado al aplicar actualizaciones de nivel 4 (incluyendo las del kernel). Aplíquelas una por una y tome nota de las versiones que aplica.</p>
-
-    <p>Si algo se estropea, busque ayuda en los fórums o el chat, e indique qué actualización ha causado la regresión, y qué ha dejado de funcionar.</p>
-
-    <note><p>Si usted aplica a ciegas cientos de actualizaciones y no es capaz de averiguar cuál genera el problema, será difícil encontrar ayuda. Todas las actualizaciones de nivel 4 son recomendables, pero debe ser cauteloso y saber qué está actualizando.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Nivel 5</title>
-
-    <p>Las actualizaciones de nivel 5 son extremadamente infrecuentes.</p>
-
-    <p>Cuando se encuentra un error crítico en una actualización, normalmente se corrige lo antes posible.</p>
-
-    <p>Linux Mint tiene muchas maneras de solucionar problemas, y muchos mecanismos tanto remotamente en los repositorios como localmente en el sistema operativo. Así que en circunstancias normales, no es necesario poner actualizaciones en la lista negra.</p>
-
-    <p>Si una actualización tiene un error crítico y se está trabajando todavía en su solución, Linux Mint puede marcar una versión específica de la actualización como nivel 5 ("no recomendada"). Esto evitará que los usuarios la apliquen hasta que llegue la nueva versión a los repositorios.</p>
-
-    <note><p>Las actualizaciones de nivel 5 se sabe que causan problemas. Son excepcionales y normalmente temporales. No son visibles por defecto, y no deberían aplicarse.</p></note>
-
-  </section>
-
 
 </page>

@@ -11,12 +11,18 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>El nivell de les actualitzacions indica quin impacte tenen en el sistema operatiu</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Nivells d'actualització</title>
 
-    <p>El nivell de les actualitzacions indica quin impacte tenen en el sistema operatiu</p>
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
+
+    <p>El nivell de les actualitzacions indica quin impacte tenen en el sistema operatiu.</p>
 
     <p>Hi ha 4 nivells:</p>
 
@@ -24,7 +30,7 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
       <td><p>Mínim</p></td>
-      <td><p>Sense impacte en el sistema ni en d'altres aplicacions.</p></td>
+      <td><p>Sense impacte en el sistema ni en altres aplicacions.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Gran</p></td>
-      <td><p>Aplicar amb cura. Impacte en múltiples aplicacions.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensible</p></td>
-      <td><p>Aplicar d'una en una. Impacte en parts sensibles del sistema.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>També hi ha un nivell especial per a les actualitzacions amb problemes crítics coneguts:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Perillós</p></td>
-      <td><p>Molt poc freqüent. No recomanat. Se sap que causa problemes.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Nivell 1</title>
@@ -67,7 +63,7 @@
         <item><p>El reproductor multimèdia</p></item>
       </list>
 
-    <p>Podeu aplicar aquestes actualitzacions sense témer les regressions. En el pitjor dels casos, una regressió només afectarà al programa que esteu actualitzant, mai al sistema operatiu.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -78,70 +74,32 @@
 
     <p>Aquestes actualitzacions no afecten grans àrees o a parts sensibles del sistema, però no es garanteix que només afectin el seu propi programari.</p>
 
-    <p>En general, podeu aplicar aquestes actualitzacions sense témer que hi hagi regressions.</p>
-
-    <p>Si en una actualització de nivell 2 es trobés una regressió important o possibilitat que n'hi hagi, es canviaria a nivell 3 o 4.</p>
-
   </section>
 
   <section id="level3">
     <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Nivell 3</title>
 
-    <p>Les actualitzacions de nivell 3 no només afecten l'aplicació actualitzada, sinó també a d'altres aplicacions.</p>
+    <p>Les actualitzacions de nivell 3 no només afecten l'aplicació actualitzada, sinó també en altres aplicacions.</p>
 
-    <p>Exemples típics de nivell 3 són les de GTK, DBUS, etc. ... Una regressió en aquestes actualitzacions no farà que l'equip no arrenqui, però pot afectar moltes aplicacions.</p>
+    <p>Exemples típics d'actualitzacions nivell 3 són les actualitzacions de GTK, DBUS, etc. ... Una regressió en aquestes actualitzacions no farà que no arrenqui el vostre ordinador, però pot afectar moltes aplicacions.</p>
 
     <p>Les actualitzacions d'entorns d'escriptori també són de nivell 3. Si ocorre una regressió crítica en Cinnamon, podria ser impossible iniciar sessió.</p>
-
-    <p>No hi ha moltes actualitzacions de nivell 3. Es recomana aplicar-les amb precaució i aïlladament. Prengueu nota de quina actualitzacions aneu a aplicar, i comproveu el sistema després per assegurar-vos que tot funciona bé.</p>
-
-    <p>Si alguna cosa s'espatlla, busqueu ajuda en els fòrums o el xat, i indiqueu quina actualització ha causat la regressió, i què ha deixat de funcionar.</p>
-
-    <note><p>Si apliqueu cegament centenars d'actualitzacions i després no podeu localitzar quina està donant problemes, serà difícil obtenir ajuda. Totes les actualitzacions de nivell 3 són recomanables, però cal ser previngut i saber què s'està actualitzant.</p></note>
 
   </section>
 
   <section id="level4">
     <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Nivell 4</title>
 
-    <p>Les actualitzacions de nivell 4 afecten a parts sensibles del sistema operatiu, com:</p>
+    <p>Les actualitzacions de nivell 4 afecten les parts sensibles del sistema operatiu, com ara:</p>
 
     <list>
         <item><p>La seqüència d'arrencada</p></item>
         <item><p>El gestor de pantalla (pantalla d'inici de sessió, gestió de sessions)</p></item>
-        <item><p>El nucli (suport de maquinari)</p></item>
-        <item><p>Els drivers (xarxes, NVIDIA / AMD)</p></item>
+        <item><p>El kernel (suport de maquinari)</p></item>
+        <item><p>Els controladors (xarxes, NVIDIA / AMD)</p></item>
         <item><p>La pantalla (Xorg, mesa)</p></item>
     </list>
 
-    <p>Com d'altres, totes les actualitzacions de nivell 4 són recomanables, especialment si són de seguretat.</p>
-
-    <p>No obstant això, si hi hagués una regressió crítica en una d'aquestes actualitzacions, podria afectar una part sensible del sistema.</p>
-
-    <p>Us podríeu veure sense connexió a Internet, sense poder arrencar l'entorn d'escriptori, o fins i tot sense poder arrencar el sistema operatiu.</p>
-
-    <p>Per aquest motiu, heu de tenir cura en aplicar actualitzacions de nivell 4 (incloent-hi les del nucli). Apliqueu-les una per una i prengueu nota de les versions que apliqueu.</p>
-
-    <p>Si alguna cosa s'espatlla, busqueu ajuda en els fòrums o el xat, i indiqueu quina actualització ha causat la regressió, i què ha deixat de funcionar.</p>
-
-    <note><p>Si apliqueu a cegues centenars d'actualitzacions i no sou capaç d'esbrinar quina genera el problema, serà difícil trobar ajuda. Totes les actualitzacions de nivell 4 són recomanables, però cal ser cautelós i saber què s'està actualitzant.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Nivell 5</title>
-
-    <p>Les actualitzacions de nivell 5 són extremadament infreqüents.</p>
-
-    <p>Quan es troba un error crític en una actualització, normalment es corregeix al més aviat possible.</p>
-
-    <p>Linux Mint té moltes maneres de solucionar problemes, i molts mecanismes tant remotament en els repositoris com localment en el sistema operatiu. Així que en circumstàncies normals, no cal posar actualitzacions a la llista negra.</p>
-
-    <p>Si una actualització té un error crític i s'està treballant encara en la seva solució, Linux Mint pot marcar una revisió de l'actualització com nivell 5 ( "no recomanada"). Això evitarà que els usuaris la apliquin fins que arribi la nova versió als repositoris.</p>
-
-    <note><p>Les actualitzacions de nivell 5 se sap que causen problemes. Són excepcionals i normalment temporals. No són visibles per defecte, i no s'haurien d'aplicar.</p></note>
-
-  </section>
-
 
 </page>

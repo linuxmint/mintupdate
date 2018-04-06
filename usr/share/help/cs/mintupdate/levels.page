@@ -11,14 +11,20 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Aktualizace mají přidělenou úroveň indikující jak moc velký dopad mají na operační systém.</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
-  <title>Úroveň aktualizací</title>
+  <title>Stupně aktualizací</title>
 
-    <p>Aktualizace mají přidělenou úroveň indikující jak moc velký dopad mají na operační systém.</p>
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
 
-    <p>Existují 4 úrovně.</p>
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
+
+    <p>Jednotlivým aktualizacím je přidělen stupeň, který značí jak velký dopad mají na operační systém.</p>
+
+    <p>Jsou 4 stupně:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
@@ -29,119 +35,71 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
       <td><p>Normální</p></td>
-      <td><p>Výchozí úroveň. Obvykle malý dopad na systém.</p></td>
+      <td><p>Výchozí stupeň. Obvykle malý dopad na systém.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Vysoký</p></td>
-      <td><p>Používejte s rozvahou. Má dopad na mnoho aplikací.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Kritický</p></td>
-      <td><p>Aplikujte jednu po druhé. Má dopad na citlivé části systému.</p></td>
+      <td><p>Kritické</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>A je zde i speciální úroveň, která je určena aktualizacím se známými kritickými problémy:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Nebezpečný</p></td>
-      <td><p>Velmi vzácný. Není doporučováno. Známo pro kritické problémy.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Úroveň 1</title>
 
-    <p>Úroveň 1 aktualizací jsou aktualizace, které ovlivňují pouze jejich vlastní software a nemají žádný dopad na zbytek systému.</p>
+    <p>Aktualizace stupně 1 jsou takové, které ovlivňují pouze software, kterého se bezprostředně týkají a nemají žádný dopad na zbytek systému.</p>
 
     <p>Jsou to obvykle aktualizace pro jednotlivé aplikace. Například:</p>
 
     <list>
-        <item><p>Kalkulátor</p></item>
-        <item><p>Prohlížeč PDF</p></item>
+        <item><p>Kalkulačka</p></item>
+        <item><p>Prohlížeč PDF souborů</p></item>
         <item><p>Textový editor</p></item>
         <item><p>Přehrávač médií</p></item>
       </list>
 
-    <p>Tyto aktualizace můžete instalovat bez obav z regresí. V nejhorším možném případě se regrese objeví pouze u softwaru, který aktualizujete, ale nikoli u operačního systému samotného.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
   <section id="level2">
     <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Úroveň 2</title>
 
-    <p>Toto je výchozí úroveň, proto je naprostá většina aktualizací na úrovni 2.</p>
+    <p>Toto je výchozí stupeň, proto naprostá většina aktualizací spadá do stupně 2.</p>
 
-    <p>Tyto aktualizace nejsou známé jako ty, co mají dopad na větší oblasti citlivých částí systému, ale není u nich zaručeno, že budou ovlivňovat pouze software, pro který jsou určeny.</p>
-
-    <p>Obecně byste měli být schopni instalovat tyto aplikace bez obav z regresí.</p>
-
-    <p>Pokud bude nějaká významná regrese, nebo potenciální regrese, nalezena v aktualizaci úrovně 2, její úroveň bude pozměněna na úroveň 3 nebo 4.</p>
+    <p>U těchto aktualizací se nepředpokládá dopad na více oblastí nebo na kritické části systému, ale není zaručeno, že ovlivní pouze software, kterého se týkají.</p>
 
   </section>
 
   <section id="level3">
     <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Úroveň 3</title>
 
-    <p>Aktualizace úrovně 3 jsou takové, která neovlivňují pouze vlastní software, ale mají též dopad na ostatní aplikace.</p>
+    <p>Aktualizace stupně 3 jsou takové, která neovlivňují pouze software, kterého se bezprostředně týkají, ale mají dopad také na ostatní aplikace.</p>
 
-    <p>Typickou ukázkou aktualizací úrovně 3 jsou aktualizace GTK, DBUS a jiné... Regrese u těchto aktualizací nezastaví váš počítač při spouštění, ale mají dopad na mnoho aplikací.</p>
+    <p>Typickým příkladem aktualizací stupně 3 jsou ty součástí GTK, DBUS, atp. Regrese u těchto aktualizací nezpůsobí, že by počítač nedokončil spouštění, ale mají dopad na mnoho aplikací.</p>
 
-    <p>Aktualizace desktopového prostředí jsou také úrovně 3. Pokud se objeví kritická regrese v Cinnamonu, nemusíte se například úspěšně přihlásit.</p>
-
-    <p>Není mnoho aktualizací na úrovni 3. Doporučuje se aplikovat je vědomě a každou zvlášť. Udělejte si poznámku, kterou aktualizaci instalujete, poté pro jistotu zkontrolujte systém jestli v něm vše funguje správně.</p>
-
-    <p>Pokud se něco pokazí, hledejte pomoc na fórech nebo na chatovacích kanálech a řekněte lidem, která aktualizace způsobila regrese a co se pokazilo.</p>
-
-    <note><p>Pokud slepě nainstalujete stovky aktualizací, nebudete schopni detekovat problematickou aktualizaci a těžko najdete pomoc. Všechny aktualizace úrovně 3 jsou doporučovány, ale očekává se obezřetnost a znalost toho, co aktualizujete.</p></note>
+    <p>Aktualizace desktopového prostředí jsou také stupeň 3. Pokud se totiž v prostředí Cinnamon objeví kritická regrese, nemusí být možné se přihlásit do systému.</p>
 
   </section>
 
   <section id="level4">
     <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Úroveň 4</title>
 
-    <p>Aktualizace úrovně 4 jsou aktualizace, které ovlivňují citlivé části operačního systému, jako například:</p>
+    <p>Aktualizace stupně 4 jsou takové, které ovlivňují kritické části operačního systému, jako například:</p>
 
     <list>
-        <item><p>Bootovací sekvenci</p></item>
-        <item><p>Display manager (přihlašovací obrazovku, správu sezení)</p></item>
-        <item><p>Jádro (podporu hardwaru)</p></item>
+        <item><p>Proces spouštění systému</p></item>
+        <item><p>Správce sezení (přihlašovací obrazovku, správu sezení)</p></item>
+        <item><p>Jádro (podpora hardware)</p></item>
         <item><p>Ovladače (síťové, NVIDIA/AMD)</p></item>
-        <item><p>Display (Xorg, mesa)</p></item>
+        <item><p>Zobrazování (Xorg, mesa)</p></item>
     </list>
 
-    <p>Stejně jako ostatní aktualizace jsou všechny aktualizace úrovně 4 doporučeny, zejména pokud se jedná o bezpečnostní aktualizace.</p>
-
-    <p>Nicméně, pokud se objeví kritická regrese v jedné takovéto aktualizaci, může to mít dopad na citlivé části operačního systému.</p>
-
-    <p>Můžete si sami zkusit vyhledávat bez připojení k internetu, bez možnosti spuštění desktopového prostředí či bez možnosti spustit operační systém.</p>
-
-    <p>Právě kvůli těmto věcem byste vždy měli být obezřetní při instalaci aktualizací úrovně 4 (včetně aktualizací jádra). Instalovat je jednu po druhé a poznamenat si verzi, kterou instalujete.</p>
-
-    <p>Pokud se něco pokazí, hledejte pomoc na fórech nebo na chatovacích kanálech a řekněte lidem, která aktualizace způsobila regrese a co se pokazilo.</p>
-
-    <note><p>Pokud slepě nainstalujete stovky aktualizací, nebudete schopni detekovat problematickou aktualizaci a těžko najdete pomoc. Všechny aktualizace úrovně 4 jsou doporučovány, ale očekává se obezřetnost a znalost toho, co aktualizujete.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Úroveň 5</title>
-
-    <p>Aktualizace úrovně 5 jsou extrémně vzácné.</p>
-
-    <p>Pokud se najde kritická chyba v aktualizaci je obvykle opravena co nejdříve je to možné.</p>
-
-    <p>Existuje mnoho způsobů, jak Linux Mint řeší problémy a mnoho mechanismů na místě jak vzdáleně v úložištích, tak i místně v rámci vašeho operačního systému. Za normálních okolností by tudíž nemělo být třeba zařazovat aktualizace na černou listinu.</p>
-
-    <p>Pokud by aktualizace měla kritickou chybu a na řešení se pracuje, ale ještě není připraveno, může Linux Mint označit konkrétní verzi aktualizace úrovní 5 (tedy "Nedoporučeno"). To aby uživatelům zabránil v její instalaci, dokud se nová verze nedostane do úložišť.</p>
-
-    <note><p>Je známo, že aktualizace úrovně 5 způsobují problémy. Jsou velmi vzácné a zpravidla dočasné. Ve výchozím nastavení nejsou viditelné a neměly by být použity.</p></note>
-
-  </section>
-
 
 </page>

@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>A frissítések megadott frissítési szintje jelzi, hogy az egyes frissítéseknek milyen hatásai vannak az operációs rendszerre.</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Frissítési szintek</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>A megadott frissítési szintek jelzik a frissítések operációs rendszerre gyakorolt hatásait.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Magas</p></td>
-      <td><p>Körültekintően telepítse. Számos programot érint.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Érzékeny</p></td>
-      <td><p>Egyesével telepíthető. A rendszer érzékeny részeit érinti.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>Továbbá van egy különleges frissítési szint, amelyet a kritikus frissítések kapnak meg:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Veszélyes</p></td>
-      <td><p>Nagyon ritka és nem ajánlott. Problémákat okoz.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> 1. szint</title>
@@ -67,7 +63,7 @@
         <item><p>Médialejátszó</p></item>
       </list>
 
-    <p>Bátran telepítheti ezeket a frissítéseket és nem kell aggódnia a visszafejlődési hibák miatt. Legrosszabb esetben szoftver visszafejlődési hibák jelentkezhetnek a frissített szoftvereknél, amely nem érinti magát az operációs rendszert.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Ez az alapértelmezett szint. A frissítések nagy része 2. szintű frissítés.</p>
 
     <p>Ezeknek a frissítéseknek az operációs rendszerre vagy a rendszer más érzékeny részeire gyakorolt hatása nem nagy, de nem garantált, hogy csak a frissített szoftvert érintik.</p>
-
-    <p>Általában telepítheti ezeket a frissítéseket és nem kell aggódnia a visszafejlődési hibák miatt.</p>
-
-    <p>Amennyiben egy fontos vagy egy lehetséges visszafejlődési hibát fedeznek fel a 2. szintű frissítések átminősítésre kerülnek 3. vagy 4. szintű frissítéssé.</p>
 
   </section>
 
@@ -93,12 +85,6 @@
 
     <p>A asztali környezetek is a 3. szintű frissítések közé tartoznak. Amennyiben egy visszafejlődési hiba jelenik meg a Cinnamon környezetben lehet, hogy nem lesz képes bejelentkezni a munkamenetbe.</p>
 
-    <p>Nincsen sok 3. szintű frissítés. Ajánlatos körültekintően telepíteni ezeket a frissítéseket. Jegyezze fel, hogy mely csomagokat frissítette és ellenőrizze a rendszer működőképességét, majd győződjön meg róla, hogy minden jól működik.</p>
-
-    <p>Ha valami elromlik, kérhet segítséget a fórumokon vagy a csevegőszobákban., Meg fogja tudni mondani, hogy melyik frissítés okozott visszafejlődési hibát, illetve mi romlott el.</p>
-
-    <note><p>Ha vakon telepít többszáz frissítést, akkor nem fogja tudni kinyomozni, hogy melyik frissítés okozza a problémát, és valószínű, hogy nem fog tudni segítséget kapni. Az összes 3. szintű frissítések telepítése ajánlott, de legyen körültekintő a frissítéskor és jegyezze fel, hogy milyen csomagokat frissít.</p></note>
-
   </section>
 
   <section id="level4">
@@ -107,41 +93,13 @@
     <p>4. szintű frissítések az operációs rendszer érzékeny részeit érinti, például:</p>
 
     <list>
-        <item><p>Indítási folyamat</p></item>
+        <item><p>Rendszerindítási folyamat</p></item>
         <item><p>Kijelzőkezelő (bejelentkező képernyő, munkamenet-kezelés)</p></item>
         <item><p>Kernel (hardvertámogatás)</p></item>
         <item><p>Illesztőprogramok (hálózat, NVIDIA/AMD)</p></item>
         <item><p>Megjelenítés (Xorg, Mesa)</p></item>
     </list>
 
-    <p>Mint minden frissítés, az összes 4. szintű frissítés is ajánlott különösen, ha azok biztonsági frissítések.</p>
-
-    <p>Amennyiben egy kritikus visszafejlődési hiba van ezekben a frissítésekben, az érintheti az operációs rendszer érzékeny részeit.</p>
-
-    <p>Az is lehet, hogy működő internet-kapcsolat nélkül marad, esetleg nem tudja majd elindítani az asztali környezetét, vagy akár az operációs rendszer sem indul el.</p>
-
-    <p>Ebből az okból, mindig körültekintően telepítse a 4. szintű frissítéseket (ide értve a kernel frissítéseket is). Telepítse őket egyesével és jegyezze le a telepített csomag verziószámát.</p>
-
-    <p>Ha valami elromlik, kérhet segítséget a fórumokon vagy a csevegőszobákban., Meg fogja tudni mondani, hogy melyik frissítés okozott visszafejlődési hibát, illetve mi romlott el.</p>
-
-    <note><p>Ha Ön egy menetben többszáz frissítést telepít, akkor nem fogja tudni megmondani, hogy melyik okozta a problémát, és így segítséget sem fog kapni. Minden 4. szintű frissítést ajánlott telepíteni, de legyen körültekintő a frissítés során, és jegyezze fel a frissített csomag nevét és verziószámát.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> 5. szint</title>
-
-    <p>Az 5. szintű frissítések nagyon ritkák.</p>
-
-    <p>Amikor egy kritikus hiba van a frissítésben, általában azonnal javítják.</p>
-
-    <p>Számos módon javítható egy hiba a Linux Mint-ben. Van néhány megoldás, hogy a problémákat orvosolják távol, a csomagtarolókban, vagy helyben az operációs rendszerben. Ezért normál körülmények között egyetlen csomagot sem kell tiltó listára tenni.</p>
-
-    <p>Ha egy frissítés kritikus hibát tartalmaz, és a megoldáson már dolgoznak, de még nem készültek el vele, akkor a Linux Mint egyes frissítéseket 5. szintű frissítésnek (nem ajánlott frissítésnek) jelölhet. Ez megóvhatja a felhasználókat attól, hogy a hibás verziót telepítsék, addig amíg a javított verzió elérhetővé válik a csomagtárolókban.</p>
-
-    <note><p>Az 5. szintű frissítések biztosan problémákat okozhatnak. Ilyenek frissítések nagyon ritkán, és csak rövid ideig vannak. Az alapértelmezett beállítások szerint nem látszanak és nem ajánlott a telepítésük.</p></note>
-
-  </section>
-
 
 </page>

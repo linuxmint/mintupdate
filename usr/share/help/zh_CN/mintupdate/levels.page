@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>每个更新都有一个等级来说明其对操作系统的影响程度</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>更新等级</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>每个更新都有一个等级来说明其对操作系统的影响程度。</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>较大</p></td>
-      <td><p>请谨慎应用。对多个应用会造成影响。</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>敏感</p></td>
-      <td><p>请逐个应用。对系统敏感部位会造成影响。</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>此外还有一个特殊的等级，包括那些已知带有严重问题的更新。</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>危险</p></td>
-      <td><p>极其罕见。不推荐。已知会造成问题。</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> 等级1</title>
@@ -67,7 +63,7 @@
         <item><p>媒体播放器</p></item>
       </list>
 
-    <p>您可以应用这些更新而不必担心回退。在最坏的情况下，回退只会影响您所更新的软件，而不会影响操作系统本身。</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>这是默认的级别，因此绝大多数更新属于等级2。</p>
 
     <p>这些更新未发现会造成大范围的影响，或者影响系统的敏感部位。不过也不保证它们只会影响自己的软件。</p>
-
-    <p>通常，您可以应用这些更新而不必担心回退。</p>
-
-    <p>如果在等级2中发现了重大的回退或者发现了潜在的回退，它的级别会被调整到等级3或等级4。</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>等级3的典型示例是GTK、DBUS等。这些更新中的回退不会影响计算机的正常启动，但它可能对许多程序造成影响。</p>
 
     <p>桌面环境也属于等级3的更新。如果Cinnamon发生了严重的回退，您可能无法登录用户。</p>
-
-    <p>等级3的更新并不多。建议您小心地单独应用这些更新。记录您应用了哪些更新，并在更新之后检查系统以确保一切运行正常。</p>
-
-    <p>如果某个程序崩溃，请到论坛或聊天室寻求帮助，并告诉大家是哪个更新引起了回退以及哪个程序发生了崩溃。</p>
-
-    <note><p>如果您盲目地应用了上百项更新并且不清楚哪一项是有问题的，您可能无法得到帮助。所有等级3的更新都是推荐应用的，但您应该对此保持谨慎并且清楚您升级了什么。</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>显示(Xorg，mesa)</p></item>
     </list>
 
-    <p>与其他更新一样，推荐应用所有等级4的更新，尤其是安全更新。</p>
-
-    <p>但是，如果这些更新中出现了一个严重的回退，它可能会影响到您的系统的敏感部位。</p>
-
-    <p>您可能会连不上网，无法启动桌面环境或甚至是操作系统本身。</p>
-
-    <p>所以您应该总是谨慎对待等级4的更新（包括内核更新），单个地处理它们并记录每次更新的版本。</p>
-
-    <p>如果某个程序崩溃，请到论坛或聊天室寻求帮助，并告诉大家是哪个更新引起了回退以及哪个程序发生了崩溃。</p>
-
-    <note><p>如果您盲目地进行大量更新，出现问题后您将无法准确定位错误位置，进而无法采取任何有效措施。我们推荐应用所有等级4的更新，但您必须十分谨慎地对待这些更新并清楚地知道每一次更新的内容。</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> 等级 5</title>
-
-    <p>等级5的更新极其罕见。</p>
-
-    <p>如果发现某个更新包含严重错误，一般会很快被修复。</p>
-
-    <p>Linux Mint可以通过很多方法来定位问题，并且在远端库和本地都有很多机制来寻找问题。所以在正常情况下，您不需要把更新列入黑名单。</p>
-
-    <p>如果一个更新有严重的错误，而且没有尚未得到解决，Linux Mint 会将此更新的特定版本标记为等级5（即“不推荐”），以避免用户应用此更新，直到已修复错误的新版本到达软件库。</p>
-
-    <note><p>等级5的更新已知会造成问题。它们十分罕见，而且一般时暂时的。这些更新默认不可见，建议不要应用。</p></note>
-
-  </section>
-
 
 </page>
