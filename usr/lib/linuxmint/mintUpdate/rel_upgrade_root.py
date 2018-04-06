@@ -3,7 +3,7 @@
 import os, sys, apt, tempfile, gettext
 import subprocess
 
-gettext.install("mintupdate", "/usr/share/linuxmint/locale")
+gettext.install("mintupdate", "/usr/share/locale")
 
 if os.getuid() != 0:
     print("Run this code as root!")

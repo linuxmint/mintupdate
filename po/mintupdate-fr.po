@@ -1,0 +1,2253 @@
+# French translation for linuxmint
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the linuxmint package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: linuxmint\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2017-11-22 12:09+0000\n"
+"PO-Revision-Date: 2017-11-10 17:04+0000\n"
+"Last-Translator: Clement Lefebvre <root@linuxmint.com>\n"
+"Language-Team: French <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Launchpad-Export-Date: 2018-01-06 14:17+0000\n"
+"X-Generator: Launchpad (build 18521)\n"
+
+#: usr/share/help/C/mintupdate/updates.page:10(name)
+#: usr/share/help/C/mintupdate/regressions.page:10(name)
+#: usr/share/help/C/mintupdate/policy.page:10(name)
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:10(name)
+#: usr/share/help/C/mintupdate/levels.page:10(name)
+#: usr/share/help/C/mintupdate/kernels.page:10(name)
+#: usr/share/help/C/mintupdate/index.page:9(name)
+msgid "Linux Mint"
+msgstr "Linux Mint"
+
+#: usr/share/help/C/mintupdate/updates.page:11(email)
+#: usr/share/help/C/mintupdate/regressions.page:11(email)
+#: usr/share/help/C/mintupdate/policy.page:11(email)
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:11(email)
+#: usr/share/help/C/mintupdate/levels.page:11(email)
+#: usr/share/help/C/mintupdate/kernels.page:11(email)
+#: usr/share/help/C/mintupdate/index.page:10(email)
+msgid "root@linuxmint.com"
+msgstr "root@linuxmint.com"
+
+#: usr/share/help/C/mintupdate/updates.page:16(desc)
+msgid "There are different types of updates"
+msgstr "Il y a différents types de mises à jour"
+
+#: usr/share/help/C/mintupdate/updates.page:19(title)
+msgid "The different types of updates"
+msgstr "Les différents types de mises à jour"
+
+#: usr/share/help/C/mintupdate/updates.page:21(p)
+msgid "There are different types of updates:"
+msgstr "Il y a différents types de mise à jour :"
+
+#: usr/share/help/C/mintupdate/updates.page:24(p)
+msgid ""
+"'Software updates' are updates which fix bugs (or also sometimes which bring "
+"new features)."
+msgstr ""
+"Les \"mises à jour logicielles\" sont des mises à jour qui corrigent des "
+"bogues (qui peuvent également apporter de nouvelles fonctions)."
+
+#: usr/share/help/C/mintupdate/updates.page:25(p)
+msgid "'Security updates' are updates which patch vulnerabilities."
+msgstr ""
+"Les \"mises à jour de sécurité\" sont des mises à jour qui corrigent les "
+"vulnérabilités."
+
+#: usr/share/help/C/mintupdate/updates.page:26(p)
+msgid "'Kernel updates' represent the installation of a newer kernel."
+msgstr ""
+"Les \"mises à jour du noyau\" représentent l'installation d'un noyau plus "
+"récent."
+
+#: usr/share/help/C/mintupdate/updates.page:29(p)
+msgid ""
+"Security is very important but also very technical. Vulnerabilities don't "
+"always affect your computer and can be quite difficult to understand. Most "
+"people don't understand them at all and their personal computers are rarely "
+"at risk. That said, a security breach can have dire consequences, so it is "
+"always recommended to take them seriously."
+msgstr ""
+"La sécurité est très importante mais aussi très technique. Les "
+"vulnérabilités n'affectent pas toujours votre ordinateur et peuvent être "
+"vraiment difficiles à comprendre. La plupart des gens ne les comprennent pas "
+"du tout et leurs ordinateurs personnels sont rarement à risque. Cela dit, "
+"une brèche de sécurité peut avoir des conséquences terribles, aussi il est "
+"toujours recommandé de les prendre au sérieux."
+
+#: usr/share/help/C/mintupdate/updates.page:31(p)
+msgid ""
+"By default, security updates are always visible, no matter what policy you "
+"chose and what level they are."
+msgstr ""
+"Par défaut, les mises à jour de sécurité sont toujours visibles, peu importe "
+"la politique que vous choisissez et leur niveau."
+
+#: usr/share/help/C/mintupdate/updates.page:33(p)
+msgid ""
+"Software updates aren't as important. They bring bug fixes or improvements "
+"which are not related to security. As such they're less urgent and can even "
+"be considered optional."
+msgstr ""
+"Les mises à jour logicielles ne sont pas aussi importantes. Elles apportent "
+"des corrections de bogues ou des améliorations qui ne sont pas en rapport "
+"avec la sécurité. Elles sont moins urgentes et peuvent même être considérées "
+"comme optionnelles."
+
+#: usr/share/help/C/mintupdate/updates.page:35(p)
+#: usr/share/help/C/mintupdate/kernels.page:23(p)
+msgid ""
+"In Linux Mint, kernel updates bring both security patches and bug fixes (and "
+"sometimes even new features), and they impact critical parts of the "
+"operating system. This makes kernel updates important from a security point "
+"of view, but also prone to regressions which can be hard to fix for novice "
+"users."
+msgstr ""
+"Dans Linux Mint, les mises à jour du noyau apportent à la fois des "
+"correctifs de sécurité et de bogues (et parfois aussi de nouvelles "
+"fonctions),  et concernent des parties critiques du système d'exploitation. "
+"Ce qui rend les mises à jour du noyau importantes d'un point de vue de la "
+"sécurité, mais elles peuvent aussi entraîner des régressions difficiles à "
+"corriger pour les utilisateurs novices."
+
+#: usr/share/help/C/mintupdate/regressions.page:16(desc)
+msgid "When an update breaks something, it's called a \"regression\"."
+msgstr ""
+"Lorsqu’une mise à jour détériore quelque chose, c'est une « régression »."
+
+#: usr/share/help/C/mintupdate/regressions.page:19(title)
+msgid "Software regressions"
+msgstr "Régressions logicielles"
+
+#: usr/share/help/C/mintupdate/regressions.page:21(p)
+msgid ""
+"Updates keep your computer safe, eliminate bugs and even sometimes add new "
+"features to your operating system."
+msgstr ""
+"Les mises à jour concourent à sécuriser votre ordinateur, éliminent des "
+"bogues et ajoutent parfois de nouvelles fonctionnalités à votre système "
+"d'exploitation."
+
+#: usr/share/help/C/mintupdate/regressions.page:23(p)
+msgid ""
+"Unfortunately they also sometimes introduce new issues called 'regressions'."
+msgstr ""
+"Malheureusement elles introduisent aussi parfois de nouveaux problèmes "
+"appelés \"régressions\"."
+
+#: usr/share/help/C/mintupdate/regressions.page:25(p)
+msgid ""
+"Regressions are very common in the software industry. They're inherent to "
+"software development. Code changes can cause regressions. No matter how "
+"skilled developers are, they can't always predict every possible situation "
+"or test on every possible hardware specification."
+msgstr ""
+"Les régressions sont très fréquentes dans l'industrie logicielle. Elles sont "
+"inhérentes au développement logiciel. Les modifications de code peuvent "
+"causer des régressions. Peu importe le talent des développeurs, ils ne "
+"peuvent pas toujours prévoir toutes les situations possibles ou tester "
+"toutes les spécifications matérielles possibles."
+
+#: usr/share/help/C/mintupdate/regressions.page:27(p)
+msgid ""
+"When a regression happens, it breaks something which worked well before."
+msgstr ""
+"Quand une régression se produit, elle casse quelque chose qui fonctionnait "
+"bien avant."
+
+#: usr/share/help/C/mintupdate/regressions.page:29(p)
+msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
+msgstr "Parfois cela n'a pas d'importance, parfois cela en a beaucoup."
+
+#: usr/share/help/C/mintupdate/regressions.page:31(p)
+msgid ""
+"It depends on what part of the operating system is affected and whether or "
+"not you're able to work around it or to fix it."
+msgstr ""
+"Cela dépend de la partie du système d'exploitation qui est touchée et si "
+"vous êtes capable de faire avec ou de la réparer."
+
+#: usr/share/help/C/mintupdate/regressions.page:33(p)
+msgid ""
+"Say, the PDF reader is no longer able to print. Well, it's annoying... but "
+"it's not as problematic as if your network connection stopped working or if "
+"you were suddenly unable to boot the computer or to login."
+msgstr ""
+"Imaginons que le lecteur PDF ne soit plus capable d'imprimer. C'est "
+"ennuyeux... mais ce n'est pas aussi problématique que si votre connexion "
+"réseau ne fonctionnait plus ou si vous ne pouviez soudainement plus démarrer "
+"votre ordinateur ou vous identifier."
+
+#: usr/share/help/C/mintupdate/regressions.page:35(p)
+msgid ""
+"In the latter case, it can be very problematic if you're not experienced "
+"with Linux and you don't know how to troubleshoot."
+msgstr ""
+"Ce dernier cas peut être très problématique si vous n'avez pas d'expérience "
+"avec Linux et vous ne savez pas  résoudre les problèmes."
+
+#: usr/share/help/C/mintupdate/policy.page:16(desc)
+msgid "Choosing an update policy"
+msgstr "Choix d'une politique de mise à jour"
+
+#: usr/share/help/C/mintupdate/policy.page:19(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1148
+msgid "Update policy"
+msgstr "Politique de mises à jour"
+
+#: usr/share/help/C/mintupdate/policy.page:21(p)
+msgid ""
+"The update manager is highly configurable. You can go in the preferences and "
+"fine-tune which levels you want to show and which levels you want to "
+"preselect. This is your computer and so you can tune it the way you want."
+msgstr ""
+"Le gestionnaire des mises à jour est hautement configurable. Vous pouvez "
+"aller dans les préférences et régler avec précision les niveaux que vous "
+"voulez afficher et les niveaux que vous voulez présélectionner. C'est votre "
+"ordinateur et vous pouvez le mettre au point comme vous voulez."
+
+#: usr/share/help/C/mintupdate/policy.page:23(p)
+msgid ""
+"The first time you launch it, it will try to understand who you are and set "
+"these settings for you. To do so, it will show you three update policies and "
+"ask you to choose the one you like best."
+msgstr ""
+"La première fois que vous le lancez, il tentera de comprendre qui vous êtes "
+"et de définir ces réglages pour vous. Pour ce faire, il affichera trois "
+"politiques de mises à jour et vous demandera de choisir celle que vous aimez "
+"le plus."
+
+#: usr/share/help/C/mintupdate/policy.page:25(p)
+msgid "All policies have this in common:"
+msgstr "Toutes les politiques ont ceci en commun :"
+
+#: usr/share/help/C/mintupdate/policy.page:28(p)
+msgid ""
+"For security reasons, security updates are always visible (no matter what "
+"level they are)."
+msgstr ""
+"Pour des raisons de sécurité, les mises à jour de sécurité sont toujours "
+"visibles (peu importe leur niveau)."
+
+#: usr/share/help/C/mintupdate/policy.page:29(p)
+msgid ""
+"For security reasons, kernel updates (which are level 4) are always visible."
+msgstr ""
+"Pour des raisons de sécurité, les mises à jour du noyau (qui sont de niveau "
+"4) sont toujours visibles."
+
+#: usr/share/help/C/mintupdate/policy.page:30(p)
+msgid "For stability reasons, level 5 updates are always hidden."
+msgstr ""
+"Pour des raisons de stabilité, les mises à jour de niveau 5 sont toujours "
+"cachées."
+
+#: usr/share/help/C/mintupdate/policy.page:33(p)
+msgid ""
+"When you choose an update policy, some of the preferences are changed in the "
+"Update Manager. You can tune these preferences individually by clicking on "
+"the Edit-&gt;Preferences menu in the menubar."
+msgstr ""
+"Lorsque vous choisissez une politique de mise à jour, certaines des "
+"préférences sont modifiées dans le Gestionnaire de mises à jour. Vous pouvez "
+"adapter ces préférences individuellement en cliquant sur le menu "
+"\"Édition\"; \"Préférences\" dans la barre de menus."
+
+#: usr/share/help/C/mintupdate/policy.page:37(title)
+msgid "Novice users"
+msgstr "Utilisateurs débutants"
+
+#: usr/share/help/C/mintupdate/policy.page:39(p)
+msgid ""
+"The first policy is made for novice users in mind. It assumes these users "
+"are unable to work around critical issues affecting sensitive parts of their "
+"system and tries to minimize their risk to suffer critical regressions."
+msgstr ""
+"Cette première politique est conçue pour les utilisateurs débutants. Elle "
+"suppose que ces utilisateurs ne sont pas capables de contourner les "
+"problèmes critiques affectant des parties sensibles de leur système et "
+"essaie de minimiser leur risque de souffrir de régressions critiques."
+
+#: usr/share/help/C/mintupdate/policy.page:41(p)
+msgid ""
+"Bug fixes are optional, so this policy focuses on safe updates (level 1 and "
+"2) with minimal impact on the operating system. These updates are visible "
+"and preselected by default."
+msgstr ""
+"Les corrections de bogues sont optionnelles, aussi cette politique se "
+"focalise sur les mises à jour sûres (niveau 1 et 2) avec un impact minimal "
+"sur le système d'exploitation. Ces mises à jour sont visibles et "
+"présélectionnées par défaut."
+
+#: usr/share/help/C/mintupdate/policy.page:43(p)
+msgid ""
+"Security is also important but some security updates (and kernel updates in "
+"particular) affect sensitive parts of the system. These updates are visible "
+"and novice users are recommended to select them and apply them with caution, "
+"in isolation and ideally either with the help of an experienced user, or "
+"after they familiarized themselves with the forums and chat channel so they "
+"know how to seek help."
+msgstr ""
+"La sécurité est aussi importante mais certaines mises à jour de sécurité (et "
+"les mises à jours du noyau en particulier) affectent des parties sensibles "
+"du système. Ces mises à jour sont visibles et il est conseillé aux "
+"utilisateurs débutants de les sélectionner et de les appliquer avec "
+"précaution, séparément et idéalement avec l'aide d'un utilisateur "
+"expérimenté, ou après qu'ils se sont familiarisés avec les forums et le "
+"canal de chat de sorte qu'ils sachent comment chercher de l'aide."
+
+#: usr/share/help/C/mintupdate/policy.page:49(title)
+msgid "Regular users"
+msgstr "Utilisateurs réguliers"
+
+#: usr/share/help/C/mintupdate/policy.page:51(p)
+msgid ""
+"The second policy is made for the vast majority of people. It assumes these "
+"users aren't new to Linux and either know how to solve common problems, or "
+"they know where to find help."
+msgstr ""
+"La seconde politique est conçue pour la grande majorité des gens. Elle "
+"suppose que ces utilisateurs ne sont pas novices sous Linux et soit ils "
+"savent résoudre les problèmes communs soit ils savent où chercher de l'aide."
+
+#: usr/share/help/C/mintupdate/policy.page:53(p)
+msgid ""
+"This policy shows all recommended updates. Security updates and safe bug-fix "
+"updates (level 1 and 2) are preselected by default."
+msgstr ""
+"Cette politique affiche toutes les mises à jour recommandées. Les miss à "
+"jour de sécurité et les corrections sûres de bogues (niveau 1 et 2) sont "
+"présélectionnées par défaut."
+
+#: usr/share/help/C/mintupdate/policy.page:55(p)
+msgid ""
+"Users are recommended to select and apply level 3 and level 4 updates with "
+"caution and in isolation and to seek help if something goes wrong."
+msgstr ""
+"Les utilisateurs sont invités à sélectionner et appliquer les mises à jour "
+"de niveau 3 et 4 avec précaution et de façon isolée et de chercher de l'aide "
+"si quelque chose ne va pas."
+
+#: usr/share/help/C/mintupdate/policy.page:61(title)
+msgid "Advanced users"
+msgstr "Utilisateurs avancés"
+
+#: usr/share/help/C/mintupdate/policy.page:63(p)
+msgid ""
+"This policy is made for advanced users on computers where the risk of "
+"critical regressions is acceptable. It assumes these users are able to fix "
+"any issue and want to apply all updates all at once."
+msgstr ""
+"Cette politique est conçue pour les utilisateurs avancés sur les ordinateurs "
+"où le risque de régressions critiques est acceptable. Elle suppose que ces "
+"utilisateurs sont capables de résoudre tous les problèmes et veulent "
+"appliquer toutes les mises à jour en même temps."
+
+#: usr/share/help/C/mintupdate/policy.page:65(p)
+msgid ""
+"In this policy, all recommended updates are visible and selected by default."
+msgstr ""
+"Dans cette politique, toutes les mises à jour sont visibles et sélectionnées "
+"par défaut."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:16(desc)
+msgid "Updating from the command line"
+msgstr "Mise à jour depuis le ligne de commande"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:19(title)
+msgid "Using mintupdate-tool"
+msgstr "Utiliser mintupdate-tool"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:21(p)
+msgid ""
+"The Update Manager provides a command line utility called \"mintupdate-"
+"tool\"."
+msgstr ""
+"Le gestionnaire de mises à jour offre un utilitaire en ligne de commande "
+"appelé \"mintupdate-tool\"."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:23(p)
+msgid ""
+"If you are experienced with Linux, you can use this tool in your scripts or "
+"your cron jobs to automate the installation of software updates."
+msgstr ""
+"Si vous êtes un linuxien expérimenté, vous pouvez utiliser cet outil dans "
+"vos scripts ou vos tâches cron pour automatiser l'installation des mises à "
+"jour logicielles."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:27(title)
+msgid "Listing updates"
+msgstr "Lister les mises à jour"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:29(p)
+msgid "You can use the \"list\" command to list updates:"
+msgstr ""
+"Vous pouvez utiliser la commande \"list\" pour lister les mises à jour :"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:31(screen)
+#, no-wrap
+msgid "mintupdate-tool list"
+msgstr "mintupdate-tool list"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:33(p)
+msgid "The list can be filtered by levels with the -l argument."
+msgstr "La liste peut être filtrée par niveau avec l'argument -l."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:35(p)
+msgid "You can add security updates with -s."
+msgstr "Vous pouvez ajouter les mises à jour de sécutité avec -s."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:37(p)
+msgid "You can add kernel updates with -k, or remove them with -nk."
+msgstr ""
+"Vous pouvez ajouter les mises à jour du noyau avec -k, ou les supprimer avec "
+"-nk."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:39(p)
+msgid ""
+"For instance, the following command lists all security updates, as well as "
+"level 1 and 2 bug fixes update:"
+msgstr ""
+"Par exemple, la commande suivante liste toutes les mises à jour de sécurité, "
+"ainsi que les corrections de bogues de niveau 1 et 2."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:41(screen)
+#, no-wrap
+msgid "mintupdate-tool list -l12 -s -nk"
+msgstr "mintupdate-tool list -l12 -s -nk"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:47(title)
+#: usr/share/help/C/mintupdate/index.page:35(title)
+msgid "Applying updates"
+msgstr "Appliquer les mises à jour"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:49(p)
+msgid ""
+"You can use the \"upgrade\" command to apply updates, using the same options."
+msgstr ""
+"Vous pouvez utiliser la commande \"upgrade\" pour appliquer les mises à "
+"jour, en utilisant les mêmes options."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:51(p)
+msgid ""
+"For instance, the following command applies all security updates as well as "
+"level 1 and 2 bug fix updates:"
+msgstr ""
+"Par exemple la commande suivante applique toutes les mises à jour de "
+"sécurité ainsi que les corrections de bogues de niveau 1 et 2."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:53(screen)
+#, no-wrap
+msgid "sudo mintupdate-tool upgrade -r -l12 -s -nk"
+msgstr "sudo mintupdate-tool upgrade -r -l12 -s -nk"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:55(p)
+msgid "Note the -r argument, which was added to refresh the cache."
+msgstr "Notez l'argument -r, qui peut être ajouté pour actualiser le cache."
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:57(p)
+msgid ""
+"For more information on mintupdate-tool and a complete list of arguments, "
+"type:"
+msgstr ""
+"Pour plus d'informations sur mintupdate-tool et une liste complète des "
+"arguments, tapez :"
+
+#: usr/share/help/C/mintupdate/mintupdate-tool.page:59(screen)
+#, no-wrap
+msgid "mintupdate-tool -h"
+msgstr "mintupdate-tool -h"
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: usr/share/help/C/mintupdate/levels.page:27(None)
+#: usr/share/help/C/mintupdate/levels.page:59(None)
+msgid ""
+"@@image: 'figures/mintupdate-level1.svg'; "
+"md5=4721d1b8ee24af8a530de2567ed1221c"
+msgstr ""
+"@@image: 'figures/mintupdate-level1.svg'; "
+"md5=4721d1b8ee24af8a530de2567ed1221c"
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: usr/share/help/C/mintupdate/levels.page:32(None)
+#: usr/share/help/C/mintupdate/levels.page:77(None)
+msgid ""
+"@@image: 'figures/mintupdate-level2.svg'; "
+"md5=3166f49269a73d52075b41dfde52ac87"
+msgstr ""
+"@@image: 'figures/mintupdate-level2.svg'; "
+"md5=3166f49269a73d52075b41dfde52ac87"
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: usr/share/help/C/mintupdate/levels.page:37(None)
+#: usr/share/help/C/mintupdate/levels.page:90(None)
+msgid ""
+"@@image: 'figures/mintupdate-level3.svg'; "
+"md5=7f94f299af95a42e73759eb4676e2319"
+msgstr ""
+"@@image: 'figures/mintupdate-level3.svg'; "
+"md5=7f94f299af95a42e73759eb4676e2319"
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: usr/share/help/C/mintupdate/levels.page:42(None)
+#: usr/share/help/C/mintupdate/levels.page:107(None)
+msgid ""
+"@@image: 'figures/mintupdate-level4.svg'; "
+"md5=9e9eb80679d932ccce1db26618475908"
+msgstr ""
+"@@image: 'figures/mintupdate-level4.svg'; "
+"md5=9e9eb80679d932ccce1db26618475908"
+
+#. When image changes, this message will be marked fuzzy or untranslated for you.
+#. It doesn't matter what you translate it to: it's not used at all.
+#: usr/share/help/C/mintupdate/levels.page:52(None)
+#: usr/share/help/C/mintupdate/levels.page:134(None)
+msgid ""
+"@@image: 'figures/mintupdate-level5.svg'; "
+"md5=4834415cfe932a91c86b82e6124ccfb0"
+msgstr ""
+"@@image: 'figures/mintupdate-level5.svg'; "
+"md5=4834415cfe932a91c86b82e6124ccfb0"
+
+#: usr/share/help/C/mintupdate/levels.page:16(desc)
+msgid ""
+"Updates are given a level indicating how much of an impact they have on the "
+"operating system"
+msgstr ""
+"On attribue aux mises à jour un niveau selon leur impact sur le système "
+"d'exploitation"
+
+#: usr/share/help/C/mintupdate/levels.page:19(title)
+msgid "Update levels"
+msgstr "Niveaux de mises à jour"
+
+#: usr/share/help/C/mintupdate/levels.page:21(p)
+msgid ""
+"Updates are given a level indicating how much of an impact they have on the "
+"operating system."
+msgstr ""
+"On attribue aux mises à jour un niveau selon leur impact sur le système "
+"d'exploitation."
+
+#: usr/share/help/C/mintupdate/levels.page:23(p)
+msgid "There are 4 levels:"
+msgstr "Il y a 4 niveaux :"
+
+#: usr/share/help/C/mintupdate/levels.page:28(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1854
+msgid "Minimal"
+msgstr "Minimal"
+
+#: usr/share/help/C/mintupdate/levels.page:29(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1860
+msgid "No impact on the system or other applications."
+msgstr "Aucun impact sur le système ou sur d'autres programmes."
+
+#: usr/share/help/C/mintupdate/levels.page:33(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1855
+msgid "Normal"
+msgstr "Normal"
+
+#: usr/share/help/C/mintupdate/levels.page:34(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1861
+msgid "Default level. Usually low impact on the system."
+msgstr "Niveau par défaut. Habituellement faible impact sur le système."
+
+#: usr/share/help/C/mintupdate/levels.page:38(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1856
+msgid "Large"
+msgstr "Grand"
+
+#: usr/share/help/C/mintupdate/levels.page:39(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
+msgid "Apply with caution. Impact on multiple applications."
+msgstr "Appliquer avec prudence. Impact sur de multiples applications."
+
+#: usr/share/help/C/mintupdate/levels.page:43(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1857
+msgid "Sensitive"
+msgstr "Sensible"
+
+#: usr/share/help/C/mintupdate/levels.page:44(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1863
+msgid "Apply one by one. Impact on sensitive parts of the system."
+msgstr "Appliquer une à une. Impact sur des parties sensibles du système."
+
+#: usr/share/help/C/mintupdate/levels.page:48(p)
+msgid ""
+"And there's also a special level which is given to updates with known "
+"critical issues:"
+msgstr ""
+"Et il y a un niveau spécial qui est attribué aux mises à jour présentant des "
+"problèmes critiques connus :"
+
+#: usr/share/help/C/mintupdate/levels.page:53(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1858
+msgid "Dangerous"
+msgstr "Dangereux"
+
+#: usr/share/help/C/mintupdate/levels.page:54(p)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1864
+msgid "Very rare. Not recommended. Known to create issues."
+msgstr "Très rare. Non recommandé. Connu pour créer des problèmes."
+
+#: usr/share/help/C/mintupdate/levels.page:59(title)
+msgid ""
+"<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
+"Level 1"
+msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
+"Level 1"
+
+#: usr/share/help/C/mintupdate/levels.page:61(p)
+msgid ""
+"Level 1 updates are updates which only affect their own software and have no "
+"impact on the rest of the system."
+msgstr ""
+"Les mises à jour de niveau 1 sont des mises à jour qui affectent uniquement "
+"leur propre logiciel et n'ont pas d'impact sur le reste du système."
+
+#: usr/share/help/C/mintupdate/levels.page:63(p)
+msgid "They're usually updates for single applications. For instance:"
+msgstr ""
+"Ce sont habituellement des mises à jour pour des applications individuelles. "
+"Par exemple :"
+
+#: usr/share/help/C/mintupdate/levels.page:66(p)
+msgid "The calculator"
+msgstr "La calculatrice"
+
+#: usr/share/help/C/mintupdate/levels.page:67(p)
+msgid "The PDF reader"
+msgstr "Le lecteur PDF"
+
+#: usr/share/help/C/mintupdate/levels.page:68(p)
+msgid "The text editor"
+msgstr "L'éditeur de texte"
+
+#: usr/share/help/C/mintupdate/levels.page:69(p)
+msgid "The media player"
+msgstr "Le lecteur multimédia"
+
+#: usr/share/help/C/mintupdate/levels.page:72(p)
+msgid ""
+"You can apply these updates without worrying about regressions. In the worst "
+"case scenario a regression would only affect the software you're upgrading, "
+"not the operating system itself."
+msgstr ""
+"Vous pouvez appliquer ces mises à jour sans vous soucier des régressions. "
+"Dans le pire des cas une régression affecterait seulement le logiciel que "
+"vous avez mis à jour, pas le système d'exploitation lui-même."
+
+#: usr/share/help/C/mintupdate/levels.page:77(title)
+msgid ""
+"<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
+"Level 2"
+msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
+"Level 2"
+
+#: usr/share/help/C/mintupdate/levels.page:79(p)
+msgid ""
+"This is the default level, so the vast majority of updates are level 2."
+msgstr ""
+"C'est le niveau par défaut, ainsi la grande majorité des mises à jour sont "
+"de niveau 2."
+
+#: usr/share/help/C/mintupdate/levels.page:81(p)
+msgid ""
+"These updates aren't known to impact large areas or sensitive parts of the "
+"system, but they're not guaranteed to only affect their own software either."
+msgstr ""
+"Ces mises à jour ne sont pas connues pour impacter de larges zones ou des "
+"parties sensibles du système, mais il n'est pas garanti non plus qu'elles "
+"affectent seulement leur propre logiciel."
+
+#: usr/share/help/C/mintupdate/levels.page:83(p)
+msgid ""
+"In general, you should be able to apply these updates without worrying about "
+"regressions."
+msgstr ""
+"En général, vous devriez être capable d'appliquer ces mises à jour sans vous "
+"soucier des régressions."
+
+#: usr/share/help/C/mintupdate/levels.page:85(p)
+msgid ""
+"If an important regression, or potential for regression, was found in a "
+"level 2 update, its level would be changed to 3 or 4."
+msgstr ""
+"Si une régression importante, ou une possibilité de régression, a été "
+"trouvée dans une mise à jour de niveau 2, son niveau sera modifié en 3 ou 4."
+
+#: usr/share/help/C/mintupdate/levels.page:90(title)
+msgid ""
+"<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
+"Level 3"
+msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
+"Level 3"
+
+#: usr/share/help/C/mintupdate/levels.page:92(p)
+msgid ""
+"Level 3 updates are updates which not only affect themselves but also have "
+"an impact on other applications."
+msgstr ""
+"Les mises à jour de niveau 3 sont des mises à jour qui n'affectent pas "
+"seulement elles-mêmes mais ont aussi un impact sur d'autres applications."
+
+#: usr/share/help/C/mintupdate/levels.page:94(p)
+msgid ""
+"Typical examples of level 3 updates are GTK, DBUS, etc... A regression in "
+"these updates wouldn't stop your computer from booting properly, but it "
+"could impact many applications."
+msgstr ""
+"Des exemples typiques de niveau 3 sont GTK, DBUS, etc... Une régression dans "
+"ces mises à jour n'empêcherait pas votre ordinateur de démarrer "
+"correctement, mais elle pourrait impacter de nombreuses applications."
+
+#: usr/share/help/C/mintupdate/levels.page:96(p)
+msgid ""
+"Desktop environments are also level 3 updates. If a critical regression "
+"happens in Cinnamon, you might be unable to log in."
+msgstr ""
+"Les environnements de bureau sont aussi des mises à jour de niveau 3. Si une "
+"régression critique se produit dans Cinnamon, il se peut vous soyez "
+"incapable de loguer."
+
+#: usr/share/help/C/mintupdate/levels.page:98(p)
+msgid ""
+"There aren't many level 3 updates. It is recommended to apply them with "
+"caution and in isolation. Take note of what updates you are applying, check "
+"the system afterwards to make sure everything is working fine."
+msgstr ""
+"Il n'y a pas beaucoup de mises à jour de niveau 3. Il est recommandé de les "
+"appliquer avec précaution et isolément. Soyez attentif aux mises à jour que "
+"vous appliquez, vérifiez le système après pour vous assurer que tout marche "
+"bien."
+
+#: usr/share/help/C/mintupdate/levels.page:100(p)
+#: usr/share/help/C/mintupdate/levels.page:127(p)
+msgid ""
+"If something breaks, seek help on the forums or the chat channel and tell "
+"people which update caused the regression and what is broken."
+msgstr ""
+"Si quelque chose casse, cherchez de l'aide sur les forums ou le canal de "
+"chat et dites aux gens quelle mise à jour a causé la régression et ce qui a "
+"été cassé."
+
+#: usr/share/help/C/mintupdate/levels.page:102(p)
+msgid ""
+"If you blindly apply hundreds of updates and you're unable to pinpoint the "
+"problematic one, you're unlikely to find help. All level 3 updates are "
+"recommended but you are expected to be cautious and to know what you are "
+"upgrading."
+msgstr ""
+"Si vous appliquez à l'aveugle des centaines de mises à jour et que vous "
+"n'êtes pas capable d'identifier celle qui pose problème, il est peu probable "
+"que vous trouverez de l'aide. Toutes les mises à jour de niveau 3 sont "
+"recommandées mais vous êtes sensé être prudent et savoir ce que vous mettez "
+"à jour."
+
+#: usr/share/help/C/mintupdate/levels.page:107(title)
+msgid ""
+"<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
+"Level 4"
+msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
+"Level 4"
+
+#: usr/share/help/C/mintupdate/levels.page:109(p)
+msgid ""
+"Level 4 updates are updates which affect sensitive parts of the operating "
+"system such as:"
+msgstr ""
+"Les mises à jour de niveau 4 sont des mises à jour qui affectent des parties "
+"sensibles du système d'exploitation telles que :"
+
+#: usr/share/help/C/mintupdate/levels.page:112(p)
+msgid "The boot sequence"
+msgstr "La séquence de boot"
+
+#: usr/share/help/C/mintupdate/levels.page:113(p)
+msgid "The display manager (login screen, session management)"
+msgstr "Le gestionnaire d'affichage (écran de login, gestion de session)"
+
+#: usr/share/help/C/mintupdate/levels.page:114(p)
+msgid "The kernel (hardware support)"
+msgstr "Le noyau (prise en charge du matériel)"
+
+#: usr/share/help/C/mintupdate/levels.page:115(p)
+msgid "The drivers (networking, NVIDIA/AMD)"
+msgstr "Les pilotes (réseau, NVIDIA/AMD)"
+
+#: usr/share/help/C/mintupdate/levels.page:116(p)
+msgid "The display (Xorg, mesa)"
+msgstr "L'affichage (Xorg, mesa)"
+
+#: usr/share/help/C/mintupdate/levels.page:119(p)
+msgid ""
+"Like other updates, all level 4 updates are recommended, especially if they "
+"are security updates."
+msgstr ""
+"Comme les autres mises à jour, toutes les mises à jour de niveau 4 sont "
+"recommandées, spécialement si ce sont des mises à jour de sécurité."
+
+#: usr/share/help/C/mintupdate/levels.page:121(p)
+msgid ""
+"However, if a critical regression was present in one of these updates it "
+"could impact a sensitive part of your system."
+msgstr ""
+"Cependant, si une régression critique était présent dans une de ces mises à "
+"jour elle pourrait impacter une partie sensible de votre système."
+
+#: usr/share/help/C/mintupdate/levels.page:123(p)
+msgid ""
+"You could find yourself without a connection to the Internet, without the "
+"ability to start the desktop environment or even without the ability to boot "
+"the operating system."
+msgstr ""
+"Vous pourriez vous retrouver sans connexion à Internet, sans la possibilité "
+"de démarrer l'environnement de bureau ou même sans la possibilité de "
+"démarrer le système d'exploitation."
+
+#: usr/share/help/C/mintupdate/levels.page:125(p)
+msgid ""
+"For this reason you should always be careful when applying level 4 updates "
+"(including kernel updates). Apply them one by one and take note of the "
+"versions you're applying."
+msgstr ""
+"Pour cette raison, vous devriez toujours être prudent dans l'application des "
+"mises à jour de niveau 4 (y compris les mises à jour du noyau). Appliquez-"
+"les une à une et prenez note des versions que vous appliquez."
+
+#: usr/share/help/C/mintupdate/levels.page:129(p)
+msgid ""
+"If you blindly apply hundreds of updates and you're unable to pinpoint the "
+"problematic one, you're unlikely to find help. All level 4 updates are "
+"recommended but you are expected to be cautious and to know what you are "
+"upgrading."
+msgstr ""
+"Si vous appliquez à l'aveugle des centaines de mises à jour et que vous êtes "
+"incapable de mettre le doigt sur celle qui pose problème, vous êtes de "
+"trouver de l'aide. Toutes les mises à jour de niveau 4 sont recommandées "
+"mais vous devriez être prudent et savoir ce que vous mettez à jour."
+
+#: usr/share/help/C/mintupdate/levels.page:134(title)
+msgid ""
+"<media type=\"image\" src=\"figures/mintupdate-level5.svg\" height=\"40\"/> "
+"Level 5"
+msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level5.svg\" height=\"40\"/> "
+"Level 5"
+
+#: usr/share/help/C/mintupdate/levels.page:136(p)
+msgid "Level 5 updates are extremely rare."
+msgstr "Les mises à jour de niveau 5 sont extrêmement rares."
+
+#: usr/share/help/C/mintupdate/levels.page:138(p)
+msgid ""
+"When a critical bug is found in an update it is usually fixed as soon as "
+"possible."
+msgstr ""
+"Quand un bogue critique est trouvé dans une mise à jour, il est "
+"habituellement corrigé dès que possible."
+
+#: usr/share/help/C/mintupdate/levels.page:140(p)
+msgid ""
+"There are many ways for Linux Mint to address issues, and many mechanisms in "
+"place both remotely in the repositories and locally within your operating "
+"system. So in normal circumstances updates shouldn't need to be blacklisted."
+msgstr ""
+"Il y a de nombreuses manières pour Linux Mint de répondre aux problèmes, et "
+"de nombreux mécanismes en place à la fois en ligne dans les dépôts et "
+"localement dans votre système d'exploitation. Ainsi dans des circonstances "
+"normales il ne devrait être nécessaire de blacklister les mises à jour."
+
+#: usr/share/help/C/mintupdate/levels.page:142(p)
+msgid ""
+"If an update had a critical bug and a solution was being worked on but "
+"wasn't ready yet, Linux Mint could mark a specific version of the update as "
+"level 5 (i.e. \"not recommended\"). This would prevent users from applying "
+"it until the new version hits the repositories."
+msgstr ""
+"Si une mise à jour avait un bogue critique et qu'une solution était en cours "
+"mais pas encore disponible, Linux Mint pourrait marquer une version "
+"spécifique de la mise à jour comme étant de niveau 5 (càd \"non "
+"recommandée\"). Ceci devrait empêcher les utilisateurs de l'appliquer "
+"jusqu'à ce qu'une nouvelle version arrive dans les dépôts."
+
+#: usr/share/help/C/mintupdate/levels.page:144(p)
+msgid ""
+"Level 5 updates are known to cause issues. They are very rare and usually "
+"temporary. They are not visible by default and they should not be applied."
+msgstr ""
+"Les mises à jour de niveau 5 sont connues pour causer des problèmes. Elles "
+"sont très rares et habituellement temporaires. Elles ne sont pas visibles "
+"par défaut et elles ne devraient pas être appliquées."
+
+#: usr/share/help/C/mintupdate/kernels.page:16(desc)
+msgid "Kernels and kernel updates"
+msgstr "Noyaux et mises à jour du noyau"
+
+#: usr/share/help/C/mintupdate/kernels.page:19(title)
+#: usr/share/help/C/mintupdate/index.page:41(title)
+msgid "Kernel updates"
+msgstr "Mises à jour du noyau"
+
+#: usr/share/help/C/mintupdate/kernels.page:21(p)
+msgid ""
+"The kernel is the central part of the operating system. Among other things, "
+"it is responsible for hardware support."
+msgstr ""
+"Le noyau est la partie centrale du système d'exploitation. Entre autres, il "
+"est responsable de la prise en charge du matériel."
+
+#: usr/share/help/C/mintupdate/kernels.page:25(p)
+msgid ""
+"From a security point of view, it is important to apply kernel updates."
+msgstr ""
+"D'un point de vue sécurité, il est important d'appliquer les mises à jour du "
+"noyau."
+
+#: usr/share/help/C/mintupdate/kernels.page:27(p)
+msgid ""
+"A kernel regression could however affect your ability to connect to the "
+"Internet, to start your desktop environment or even to boot the operating "
+"system."
+msgstr ""
+"Une régression du noyau pourrait cependant affecter votre capacité à vous "
+"connecter à Internet, à démarrer votre environnement de bureau ou même à "
+"démarrer le système d'exploitation."
+
+#: usr/share/help/C/mintupdate/kernels.page:29(p)
+msgid ""
+"For this reason it is important to be cautious when applying kernel updates "
+"and to know how to revert them when something goes wrong."
+msgstr ""
+"Pour cette raison, il est important d'être prudent dans l'application des "
+"mises à jour du noyau et de savoir comment revenir en arrière quand quelque "
+"chose va de travers."
+
+#: usr/share/help/C/mintupdate/kernels.page:32(title)
+msgid "Multiple kernels can be installed"
+msgstr "Plusieurs noyaux peuvent être installés"
+
+#: usr/share/help/C/mintupdate/kernels.page:34(p)
+msgid ""
+"When you apply an update, you replace the old version of the software with "
+"the new version."
+msgstr ""
+"Quand vous appliquez une mise à jour, vous remplacez l'ancienne version du "
+"logiciel avec la nouvelle version."
+
+#: usr/share/help/C/mintupdate/kernels.page:36(p)
+msgid ""
+"Things are different when it comes to kernels. When you apply a \"kernel "
+"update\", you don't actually update the kernel, you install a new kernel "
+"alongside the existing one."
+msgstr ""
+"Les choses sont différentes quand il s'agit des noyaux. Quand vous appliquez "
+"une \"mise à jour du noyau\", en fait vous ne mettez pas à jour le noyau, "
+"vous installez un nouveau noyau à côté de celui existant."
+
+#: usr/share/help/C/mintupdate/kernels.page:38(p)
+msgid ""
+"Every time you apply a kernel update, you install a new kernel on the "
+"system, without removing the old ones."
+msgstr ""
+"À chaque fois que vous appliquez une mise à jour du noyau, vous installez un "
+"nouveau noyau sur le système, sans supprimer les anciens."
+
+#: usr/share/help/C/mintupdate/kernels.page:40(p)
+msgid "At boot time, the computer selects the most recent one."
+msgstr "Au démarrage, l'ordinateur sélectionne le plus récent."
+
+#: usr/share/help/C/mintupdate/kernels.page:45(title)
+msgid "Identifying the current kernel"
+msgstr "Identifier le noyau actuel"
+
+#: usr/share/help/C/mintupdate/kernels.page:47(p)
+msgid ""
+"If you want to know which kernel you are currently using, open a terminal "
+"and type:"
+msgstr ""
+"Si vous voulez savoir quel noyau est en cours d'utilisation , ouvrez un "
+"terminal et tapez :"
+
+#: usr/share/help/C/mintupdate/kernels.page:49(screen)
+#, no-wrap
+msgid "uname -a"
+msgstr "uname -a"
+
+#: usr/share/help/C/mintupdate/kernels.page:54(title)
+msgid "Installing and removing kernels"
+msgstr "Installer et supprimer des noyaux"
+
+#: usr/share/help/C/mintupdate/kernels.page:56(p)
+msgid "You can install and remove kernels from the Update Manager."
+msgstr ""
+"Vous pouvez installer et supprimer des noyaux depuis le gestionnaire de mise "
+"à jour."
+
+#: usr/share/help/C/mintupdate/kernels.page:58(p)
+msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
+msgstr "Sélectionnez \"Affichage\" -&gt; \"Noyaux Linux\" dans le menu."
+
+#: usr/share/help/C/mintupdate/kernels.page:60(p)
+msgid ""
+"You cannot remove the kernel you are currently using. To remove it, you need "
+"to reboot and select a different kernel to boot with."
+msgstr ""
+"Vous pouvez supprimer le noyau en cours d'utilisation. Pour ce faire, vous "
+"devez redémarrer et sélectionner un noyau différent sur lequel démarrer."
+
+#: usr/share/help/C/mintupdate/kernels.page:65(title)
+msgid "Selecting a kernel"
+msgstr "Sélection d'un noyau"
+
+#: usr/share/help/C/mintupdate/kernels.page:67(p)
+msgid ""
+"You can have multiple kernels installed, but you can only run one kernel at "
+"a time."
+msgstr ""
+"Vous pouvez avoir plusieurs noyaux installés, mais vous ne pouvez lancer "
+"qu'un noyau à la fois."
+
+#: usr/share/help/C/mintupdate/kernels.page:69(p)
+msgid ""
+"When you boot the computer, the very first screen is called the Grub menu. "
+"This menu allows you to choose operating systems but you can also use it to "
+"select a kernel."
+msgstr ""
+"Quand vous démarrez l'ordinateur, le tout premier écran est appelé le menu "
+"Grub. Ce menu vous permet de choisir les systèmes d'exploitation mais vous "
+"pouvez aussi l'utiliser pour sélectionner un noyau."
+
+#: usr/share/help/C/mintupdate/kernels.page:71(p)
+msgid ""
+"If you only have one operating system installed, your boot sequence might "
+"skip the Grub menu. To force the Grub menu to show, boot the computer and "
+"keep pressing the left <key>Shift</key> key."
+msgstr ""
+"Si vous n'avez qu'un seul système d'exploitation d'installé, il se peut que "
+"votre séquence de démarrage saute le menu Grub. Pour forcer le menu à "
+"s'afficher, démarrez l'ordinateur et gardez appuyé la touche <key>Maj</key> "
+"gauche."
+
+#: usr/share/help/C/mintupdate/kernels.page:73(p)
+msgid ""
+"To select a kernel, choose \"Advanced options\" in the Grub menu. You should "
+"see all the kernels currently installed. Select the one you want to use and "
+"your computer will boot with that one."
+msgstr ""
+"Pour sélectionner un noyau, choisissez  \"Advanced options\" dans le menu "
+"Grub. Vous devriez voir tous les noyaux actuellement installés. Sélectionnez "
+"celui que vous voulez utiliser et votre ordinateur va démarrer avec celui-là."
+
+#: usr/share/help/C/mintupdate/kernels.page:78(title)
+msgid "Checking the DKMS status"
+msgstr "Vérifier le status de DKMS"
+
+#: usr/share/help/C/mintupdate/kernels.page:80(p)
+msgid ""
+"The kernel includes all open source drivers and these usually work very "
+"well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and "
+"they need to compile themselves against every kernel you install. This is "
+"done via a mechanism called DKMS."
+msgstr ""
+"Le noyau comprend tous les pilotes open source et ceux-ci fonctionnent "
+"habituellement très bien. Les pilotes propriétaires (NVIDIA, AMD, "
+"Broadcom...) ne sont pas inclus et ils doivent se compiler eux-mêmes contre "
+"chaque noyau que vous installez. Ceci est fait via un mécanisme appelé DKMS."
+
+#: usr/share/help/C/mintupdate/kernels.page:82(p)
+msgid ""
+"If a proprietary driver isn't properly recompiled with DKMS for one of your "
+"kernels, it will not function correctly with that kernel."
+msgstr ""
+"Si un pilote propriétaire n'est pas correctement recompilé avec DKMS pour un "
+"de vos noyaux, il ne fonctionnera pas correctement avec ce noyau."
+
+#: usr/share/help/C/mintupdate/kernels.page:84(p)
+msgid ""
+"After installing or removing a kernel, you can check your DKMS status, to "
+"make sure all proprietary drivers are properly installed for each of your "
+"kernels with the following command:"
+msgstr ""
+"Après l'installation ou la suppression d'un noyau, vous pouvez vérifier le "
+"status de votre DKMS, pour vous assurer que tous les pilotes propriétaires "
+"sont correctement installés pour chacun de vos noyaux avec la commande "
+"suivante :"
+
+#: usr/share/help/C/mintupdate/kernels.page:86(screen)
+#, no-wrap
+msgid "dkms status"
+msgstr "dkms status"
+
+#: usr/share/help/C/mintupdate/kernels.page:88(p)
+msgid ""
+"New kernel series usually become available before proprietary drivers "
+"support them via DKMS. If you are using proprietary drivers, it is "
+"recommended to stick to kernel updates and not to install kernels from "
+"series which are newer than the series of the recommended kernels."
+msgstr ""
+"Les nouvelles séries de noyau sont habituellement disponibles avant que les "
+"pilotes propriétaires les prennent en charge via DKMS. Si vous utilisez des "
+"pilotes propriétaires, il est recommandé de se tenir aux mises à jour du "
+"noyau et de ne pas installer des noyaux des séries qui sont plus récentes "
+"que les séries des noyaux recommandés."
+
+#: usr/share/help/C/mintupdate/kernels.page:93(title)
+msgid "Reverting a kernel update"
+msgstr "Inverser une mise à jour du noyau"
+
+#: usr/share/help/C/mintupdate/kernels.page:95(p)
+msgid ""
+"If something doesn't work with the latest kernel you installed (or the "
+"latest kernel update), reboot, select the kernel you were previously using, "
+"remove the new kernel and reboot again."
+msgstr ""
+"Si quelque chose ne fonctionne pas avec le dernier noyau que vous avez "
+"installé (ou la dernière mise à jour du noyau), redémarrez, sélectionnez le "
+"noyau que vous utilisiez précédemment, supprimez le nouveau noyau et "
+"redémarrez une nouvelle fois."
+
+#: usr/share/help/C/mintupdate/index.page:18(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:919
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:923
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:981
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1703
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1782
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1784
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1828 generate_desktop_files:26
+msgid "Update Manager"
+msgstr "Gestionnaire de mises à jour"
+
+#: usr/share/help/C/mintupdate/index.page:20(p)
+msgid ""
+"The Update Manager provides your operating system with software and security "
+"updates."
+msgstr ""
+"Le Gestionnaire de mises à jour offre à votre système d'exploitation des "
+"mises à jour logicielles et de sécurité."
+
+#: usr/share/help/C/mintupdate/index.page:22(p)
+msgid ""
+"Updates are important because they keep your computer safe, eliminate bugs "
+"and can even add new features to your operating system."
+msgstr ""
+"Les mises à jour sont importantes parce qu'elles protègent votre ordinateur, "
+"éliminent les bogues et peuvent même ajouter de nouvelles fonctions à votre "
+"système d'exploitation."
+
+#: usr/share/help/C/mintupdate/index.page:24(p)
+msgid ""
+"Unfortunately they also sometimes introduce new issues called 'regressions', "
+"which can break things which worked well before."
+msgstr ""
+"Malheureusement elles introduisent aussi parfois de nouveaux problèmes "
+"appelés \"régressions\", qui peuvent casser des choses qui fonctionnaient "
+"bien avant."
+
+#: usr/share/help/C/mintupdate/index.page:26(p)
+msgid ""
+"It is recommended to apply security updates but also to understand how "
+"updates can affect your computer, so you can review them, apply them with "
+"caution and be prepared in case something goes wrong."
+msgstr ""
+"Il est recommandé d'appliquer les mise à jour de sécurité mais aussi de "
+"comprendre la manière dont les mises à jour affectent votre ordinateur, "
+"ainsi vous pouvez les réviser, les appliquer avec précaution et être préparé "
+"dans le cas où quelque chose va de travers."
+
+#: usr/share/help/C/mintupdate/index.page:29(title)
+msgid "Core concepts"
+msgstr "Concepts fondamentaux"
+
+#: usr/share/help/C/mintupdate/index.page:31(p)
+msgid "This section explains the core concepts related to software updates."
+msgstr ""
+"Cette section explique les concepts fondamentaux concernant les mises à jour "
+"logicielles."
+
+#: usr/share/help/C/mintupdate/index.page:37(p)
+msgid "This section explains update levels, policies."
+msgstr "Cette section explique les niveaux de mise à jour, les politiques."
+
+#: usr/share/help/C/mintupdate/index.page:43(p)
+msgid "This section explains kernel updates."
+msgstr "Cette section explique les mises à jour du noyau."
+
+#: usr/share/help/C/mintupdate/index.page:47(title)
+msgid "Advanced techniques"
+msgstr "Techniques avancées"
+
+#: usr/share/help/C/mintupdate/index.page:49(p)
+msgid "This section explains advanced techniques."
+msgstr "Cette section explique les techniques avancées."
+
+#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
+#: usr/share/help/C/mintupdate/index.page:0(None)
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Arcanis666 https://launchpad.net/~arcanis666\n"
+"  Clement Lefebvre https://launchpad.net/~clementlefebvre\n"
+"  Dupo https://launchpad.net/~dupop35\n"
+"  Fabien Z https://launchpad.net/~z-fabien-7\n"
+"  Fabrice Salaün https://launchpad.net/~fabrice-salaun\n"
+"  Fr-coord https://launchpad.net/~fr-coor\n"
+"  Havok Novak https://launchpad.net/~havok-novak-deactivatedaccount\n"
+"  Julien Loctaux https://launchpad.net/~l.c.g.f.\n"
+"  M_Ordinateur https://launchpad.net/~m-ordinateur\n"
+"  Marc https://launchpad.net/~machbosebcn\n"
+"  Maxime7101 https://launchpad.net/~maxime-d-71-01\n"
+"  Patrick Fiquet https://launchpad.net/~patrick-fiquet\n"
+"  Phan Hoang https://launchpad.net/~phahoatho\n"
+"  Steven Lamoriniere https://launchpad.net/~steven-lamoriniere\n"
+"  Tubuntu https://launchpad.net/~t-ubuntu\n"
+"  Urien Desterres https://launchpad.net/~urien-desterres\n"
+"  Vincent Theron https://launchpad.net/~vincmason\n"
+"  Yassine Bouhadi https://launchpad.net/~skiloo\n"
+"  guwrt https://launchpad.net/~royguertin\n"
+"  ludonet https://launchpad.net/~ludonet13\n"
+"  madden https://launchpad.net/~linux-madfix\n"
+"  ndnd59 https://launchpad.net/~ndmines\n"
+"  rogue-spectre https://launchpad.net/~rogue-spectre\n"
+"  tomtom https://launchpad.net/~tomazy49"
+
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:223
+#, python-format
+msgid "Linux kernel %s"
+msgstr "Noyau Linux %s"
+
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:224
+msgid "The Linux kernel."
+msgstr "Le noyau Linux."
+
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:225
+msgid ""
+"The Linux Kernel is responsible for hardware and drivers support. Note that "
+"this update will not remove your existing kernel. You will still be able to "
+"boot with the current kernel by choosing the advanced options in your boot "
+"menu. Please be cautious though.. kernel regressions can affect your ability "
+"to connect to the Internet or to log in graphically. DKMS modules are "
+"compiled for the most recent kernels installed on your computer. If you are "
+"using proprietary drivers and you want to use an older kernel, you will need "
+"to remove the new one first."
+msgstr ""
+"Le noyau Linux est responsable du support du matériel et des pilotes. Notez "
+"que cette mise à jour ne supprimera pas votre noyau existant. Vous serez "
+"toujours en mesure de démarrer avec le noyau actuel en choisissant les "
+"options avancées dans votre menu de démarrage. Soyez prudent cependant. Les "
+"régressions du noyau peuvent affecter votre capacité à vous connecter à "
+"l'internet ou à se connecter graphiquement. Les modules DKMS sont compilés "
+"pour les noyaux les plus récents installés sur votre ordinateur. Si vous "
+"utilisez des pilotes propriétaires et que vous souhaitez utiliser un noyau "
+"plus ancien, vous devez d'abord supprimer le nouveau."
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:154
+msgid "Remove"
+msgstr "Retirer"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:157
+msgid "This kernel cannot be removed because it is currently in use."
+msgstr "Ce noyau ne peut pas être supprimé car il est actuellement utilisé."
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1180
+msgid "Install"
+msgstr "Installer"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:164
+msgid "This kernel is not installable."
+msgstr "Ce noyau n'est pas installable."
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:178
+#, python-format
+msgid "Are you sure you want to remove the %s kernel?"
+msgstr "Êtes-vous sûr de vouloir retirer le noyau %s ?"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:180
+#, python-format
+msgid "Are you sure you want to install the %s kernel?"
+msgstr "Êtes-vous sûr de vouloir installer le noyau %s ?"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:198
+msgid "Kernels"
+msgstr "Noyaux"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:214
+msgid "Continue"
+msgstr "Continuer"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:216
+msgid "Do not show this message again"
+msgstr "Ne plus afficher ce message"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:218
+msgid "Warning!"
+msgstr "Attention !"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:219
+msgid "Proceed with caution"
+msgstr "Agissez avec précaution"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:220
+msgid ""
+"The Linux kernel is a critical part of the system. Regressions can lead to "
+"lack of networking, lack of sound, lack of graphical environment or even the "
+"inability to boot the computer."
+msgstr ""
+"Le noyau Linux est une partie critique du système. Les régressions peuvent "
+"entraîner une perte de réseau, de son, de l'environnement graphique et même "
+"l'impossibilité de démarrer l'ordinateur."
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:221
+msgid ""
+"Before installing or removing kernels, please make sure to read the help "
+"section, to make sure you know how to select kernels, how to revert updates "
+"and how to check your DKMS status."
+msgstr ""
+"Avant d'installer ou de supprimer des noyaux, veuillez lire la section "
+"d'aide, pour vous assurer de connaître la manière de sélectionner les "
+"noyaux, d'inverser les mises à jour et de vérifier le statut de votre DKMS."
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:233
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
+msgid "Close"
+msgstr "Fermer"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:250
+msgid "Active"
+msgstr "Actif"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:252
+msgid "Installed"
+msgstr "Installé"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:287
+msgid "You are currently using the following kernel:"
+msgstr "Vous utilisez actuellement le noyau suivant :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:48
+msgid "B"
+msgstr "o"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:50
+msgid "KB"
+msgstr "ko"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:52
+msgid "MB"
+msgstr "Mo"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:54
+msgid "GB"
+msgstr "Go"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:157
+msgid "Downloading changelog..."
+msgstr "Téléchargement de la liste des modifications..."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:170
+msgid "No changelog available"
+msgstr "Aucun journal des modifications n'est disponible"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:334
+msgid "This upgrade will trigger additional changes"
+msgstr "Cette mise à jour implique des modifications supplémentaires"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:343
+msgid "The following packages will be removed:"
+msgstr "Les paquets suivants seront supprimés :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:372
+msgid "The following packages will be installed:"
+msgstr "Les paquets suivants seront installés :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:415
+msgid "Installing updates"
+msgstr "Installation des mises à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:468
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:553
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:964
+msgid "Checking for updates"
+msgstr "Recherche des mises à jour disponibles"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:476
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:498
+msgid "Could not install the security updates"
+msgstr "Impossible d'installer les mises à jour de sécurité"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:545
+msgid "Starting refresh..."
+msgstr "Actualisation..."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:576
+msgid "Another application is using APT"
+msgstr "Une autre application utilise APT"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:585
+msgid "Finding the list of updates..."
+msgstr "Recherche de la liste de mises à jour en cours..."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:599
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+msgid "Your APT cache is corrupted."
+msgstr "Votre cache APT est corrompu."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:600
+msgid ""
+"Do not install or update anything, it could break your operating system!"
+msgstr ""
+"N'installez aucun logiciel ou mise à jour, cela pourrait endommager votre "
+"système d'exploitation !"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
+msgid "Switch to a different Linux Mint mirror to solve this situation."
+msgstr ""
+"Utilisez un autre miroir de dépôt Linux Mint pour résoudre ce problème."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+msgid "Please switch to another Linux Mint mirror"
+msgstr "Veuillez utiliser un autre miroir de dépôt Linux Mint"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:612
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:827
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1098
+msgid "Could not refresh the list of updates"
+msgstr "Impossible d'actualiser la liste des mises à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1097
+msgid "Your system is up to date"
+msgstr "Votre système est à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:707
+msgid "Kernel update"
+msgstr "Mise à jour du noyau"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:709
+msgid "Security update"
+msgstr "Mise à jour de sécurité"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:711
+msgid ""
+"Software backport. Be careful when upgrading. New versions of software can "
+"introduce regressions."
+msgstr ""
+"Logiciel rétroporté. Soyez prudent pour la mise à niveau. Les nouvelles "
+"versions de logiciel peuvent introduire des régressions."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:713
+msgid ""
+"Unstable software. Only apply this update to help developers beta-test new "
+"software."
+msgstr ""
+"Logiciel instable. Appliquer seulement cette mise à jour afin d'aider les "
+"développeurs à bêta-tester le nouveau logiciel."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
+msgid "Software update"
+msgstr "Mise à jour logicielle"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:738
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1442
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1493
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1603
+msgid "No updates selected"
+msgstr "Aucune mise à jour sélectionnée"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:740
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1495
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1605
+#, python-format
+msgid "%(selected)d update selected (%(size)s)"
+msgid_plural "%(selected)d updates selected (%(size)s)"
+msgstr[0] "%(selected)d mise à jour sélectionnée (%(size)s)"
+msgstr[1] "%(selected)d mises à jour sélectionnées (%(size)s)"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
+#, python-format
+msgid "%d update available"
+msgid_plural "%d updates available"
+msgstr[0] "%d mise à jour disponible"
+msgstr[1] "%d mises à jour disponibles"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+msgid "Do you want to switch to a local mirror?"
+msgstr "Souhaitez-vous utiliser un miroir de dépôt local ?"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+msgid "Local mirrors are usually faster than packages.linuxmint.com"
+msgstr ""
+"Les dépôts locaux sont souvent plus rapides que packages.linuxmint.com"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:803
+msgid "Please switch to another mirror"
+msgstr "Veuillez changer de dépôt"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
+#, python-format
+msgid "%s is unreachable"
+msgstr "%s est inatteignable"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:803
+#, python-format
+msgid "The last update on %(mirror)s was %(days)d day ago"
+msgid_plural "The last update on %(mirror)s was %(days)d days ago"
+msgstr[0] ""
+"La dernière mise à jour sur %(mirror)s a eu lieu il y a %(days)d jour"
+msgstr[1] ""
+"La dernière mise à jour sur %(mirror)s a eu lieu il y a %(days)d jours"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:928
+msgid "Exit"
+msgstr "Quitter"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:996
+msgid "OK"
+msgstr "Valider"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:998
+msgid "Help"
+msgstr "Aide"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1007
+msgid "Upgrade"
+msgstr "Mettre à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1012
+msgid "Name"
+msgstr "Nom"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1016
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1275
+msgid "Level"
+msgstr "Niveau"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1020
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1731
+msgid "Old version"
+msgstr "Ancienne version"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1024
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1293
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1734
+msgid "New version"
+msgstr "Nouvelle version"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1028
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1299
+msgid "Size"
+msgstr "Taille"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1032
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1269
+msgid "Type"
+msgstr "Type"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1036
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1305
+msgid "Origin"
+msgstr "Origine"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1090
+msgid "Install Updates"
+msgstr "Installer les mises à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1091
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
+msgid "Refresh"
+msgstr "Actualiser"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1092
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1164
+msgid "Select All"
+msgstr "Tout sélectionner"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1093
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+msgid "Clear"
+msgstr "Effacer"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1094
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1850
+msgid "Description"
+msgstr "Description"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1095
+msgid "Changelog"
+msgstr "Journal des modifications"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
+msgid "Welcome to the Update Manager"
+msgstr "Bienvenue dans le Gestionnaire de mises à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
+msgid ""
+"This tool provides your operating system with software and security updates."
+msgstr ""
+"Cet outil fournit à votre système d'exploitation des mises à jour "
+"logicielles et de sécurité."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
+msgid "Please choose an update policy."
+msgstr "Veuillez choisir une politique de mise à jour."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1107
+msgid "Just keep my computer safe"
+msgstr "Simplement protéger mon ordinateur."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1108
+msgid "Recommended for novice users."
+msgstr "Recommandé pour les utilisateurs débutants."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
+msgid ""
+"Select updates which do not impact important parts of the operating systems."
+msgstr ""
+"Sélectionner les mises à jour qui n'impactent pas des parties importantes "
+"des systèmes d'exploitation."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
+msgid ""
+"Show security and kernel updates so I can review them and apply them with "
+"caution."
+msgstr ""
+"Montrer les mises à jour de sécurité et celles du noyau pour que je puisse "
+"les réviser et les appliquer avec précaution."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
+msgid "Let me review sensitive updates"
+msgstr "Me laisser réviser les mises à jour sensibles."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1112
+msgid "Recommended for most users."
+msgstr "Recommandé pour la plupart des utilisateurs."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1113
+msgid ""
+"Select security updates and updates which do not impact important parts of "
+"the operating systems."
+msgstr ""
+"Sélectionner les mises à jour de sécurité et les mises à jour qui "
+"n'impactent pas des parties importantes des systèmes d'exploitation."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1113
+msgid ""
+"Show kernel updates and sensitive updates so I can review them and apply "
+"them with caution."
+msgstr ""
+"Montrer les mises à jour du noyau et les mises à jour sensibles, ainsi je "
+"peux les réviser et les appliquer avec précaution."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1115
+msgid "Always update everything"
+msgstr "Toujours tout mettre à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1116
+msgid "Recommended for experienced users."
+msgstr "Recommandé pour les utilisateurs confirmés."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+msgid "Always select all updates."
+msgstr "Toujours sélectionner toutes les mises à jour."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+msgid "If a regression breaks something, I'll fix it."
+msgstr "Si une régression casse quelque chose, je le corrigerai."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
+msgid ""
+"Security and kernel updates are always visible and updates with known issues "
+"(very rare) are always hidden. You can change this and fine-tune your policy "
+"in the preferences."
+msgstr ""
+"Les mises à jour de sécurité et celles du noyau sont toujours visibles et "
+"les mises à jour avec des problèmes connus (très rares) sont toujours "
+"cachées. Vous pouvez changer cela et régler précisément votre politique dans "
+"les préférences."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
+msgid "_File"
+msgstr "_Fichier"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1131
+msgid "_Edit"
+msgstr "É_dition"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1828
+msgid "Preferences"
+msgstr "Préférences"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1143
+msgid "Software sources"
+msgstr "Sources de logiciels"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
+msgid "Select level 1 updates"
+msgstr "Sélectionner les mises à jour de niveau 1"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1194
+msgid "Select level 2 updates"
+msgstr "Sélectionner les mises à jour de niveau 2"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
+msgid "Select level 3 updates"
+msgstr "Sélectionner les mises à jour de niveau 3"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1206
+msgid "Select level 4 updates"
+msgstr "Sélectionner les mises à jour de niveau 4"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1212
+msgid "Select security updates"
+msgstr "Sélectionner les mises à jour de sécurité"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
+msgid "Select kernel updates"
+msgstr "Sélectionner les mises à jour du noyau"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1244
+#, python-format
+msgid "Upgrade to %s"
+msgstr "Mettre à jour vers %s"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1248
+msgid "_View"
+msgstr "_Vue"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1253
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
+msgid "History of updates"
+msgstr "Historique des mises à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
+msgid "Linux kernels"
+msgstr "Noyaux Linux"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1703
+msgid "Information"
+msgstr "Information"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
+msgid "Visible columns"
+msgstr "Colonnes visibles"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728
+msgid "Package"
+msgstr "Paquet"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1313
+msgid "Show descriptions"
+msgstr "Afficher les descriptions"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1329
+msgid "_Help"
+msgstr "_Aide"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1335
+msgid "Contents"
+msgstr "Sommaire"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1342
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1782
+msgid "About"
+msgstr "À propos"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1646
+msgid "Packages included in this update:"
+msgstr "Paquets inclus dans cette mise à jour :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
+msgid "Ignore updates for this package"
+msgstr "Ignorer les mises à jour pour ce paquet"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1706
+msgid "Process ID:"
+msgstr "Identifiant de processus (ID) :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1707
+msgid "Log file:"
+msgstr "Fichier de log :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1725
+msgid "Date"
+msgstr "Date"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1843
+msgid "Options"
+msgstr "Options"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1844
+msgid "Levels"
+msgstr "Niveaux"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+msgid "Auto-refresh"
+msgstr "Actualisation automatique"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1846
+msgid "Blacklist"
+msgstr "Liste noire"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1849
+msgid "Impact level"
+msgstr "Niveau d'impact"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1851
+msgid "Selected"
+msgstr "Sélectionné"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
+msgid "Visible"
+msgstr "Visible"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1866
+msgid "First, refresh the list of updates after:"
+msgstr "D'abord, actualiser la liste des mises à jour après :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1867
+msgid "Then, refresh the list of updates every:"
+msgstr "Ensuite, actualiser la liste des mises toutes les :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1868
+msgid ""
+"Note: The list only gets refreshed while the update manager window is closed "
+"(system tray mode)."
+msgstr ""
+"Note : la liste n'est actualisée que si la fenêtre du gestionnaire de mises "
+"à jour est fermée (mode barre des tâches)."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
+msgid ""
+"Include updates which require the installation of new packages or the "
+"removal of installed packages"
+msgstr ""
+"Inclure les mises à jour qui nécessitent l'installation de nouveaux paquets "
+"ou la suppression de paquets installés"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1871
+msgid "Hide the update manager after applying updates"
+msgstr ""
+"Fermer la fenêtre du gestionnaire après l'application des mises à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
+msgid "Only show a tray icon when updates are available or in case of errors"
+msgstr ""
+"Ne montrer une icône dans la barre des tâches qu'en cas d'erreurs ou de "
+"mises à jour disponibles"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1873
+msgid "Don't suggest to switch to a local mirror"
+msgstr "Ne pas suggérer l'utilisation de dépôts locaux"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1874
+msgid "Always show security updates"
+msgstr "Toujours montrer les mises à jour de sécurité"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1875
+msgid "Always select security updates"
+msgstr "Toujours sélectionner les mises à jour de sécurité"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1876
+msgid "Always show kernel updates"
+msgstr "Toujours afficher les mises à jour du noyau"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
+msgid "Always select kernel updates"
+msgstr "Toujours sélectionner les mises à jour du noyau"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
+msgid "minutes"
+msgstr "minutes"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
+msgid "hours"
+msgstr "heures"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
+msgid "days"
+msgstr "jours"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
+msgid "Cancel"
+msgstr "Annuler"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1882
+msgid "Apply"
+msgstr "Appliquer"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1923
+msgid "Ignored updates"
+msgstr "Mises à jour ignorées"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1986
+msgid "Please specify the name of the update to ignore:"
+msgstr "Veuillez préciser le nom de la mise à jour à ignorer :"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
+msgid "Ignore an update"
+msgstr "Ignorer une mise à jour"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1991
+msgid "Name:"
+msgstr "Nom :"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:21
+msgid "System Upgrade"
+msgstr "Mise à jour du système"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:33
+msgid "Introduction"
+msgstr "Introduction"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:37
+msgid ""
+"Your system is missing critical components. A package corresponding to your "
+"edition of Linux Mint should provide the virtual package 'mint-info' and the "
+"file /etc/linuxmint/info."
+msgstr ""
+"Il manque des composants critiques essentiels à votre système. Un paquet "
+"correspondant à votre édition de Linux Mint devrait fournir le paquet "
+"virtuel 'mint-info' et le fichier /etc/linuxmint/info."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:50
+msgid "No upgrades were found."
+msgstr "Aucune mise à jour n'a été trouvée."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:59
+msgid "A new version of Linux Mint is available!"
+msgstr "Une nouvelle version de Linux Mint est disponible !"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:69
+#, python-format
+msgid "An upgrade was found but it is not available yet for the %s edition."
+msgstr ""
+"Une mise à jour a été trouvée mais elle n'est pas encore disponible pour "
+"l'édition %s."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:78
+msgid "Release notes"
+msgstr "Notes de version"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:85
+msgid ""
+"Please read the release notes before upgrading. They explain all the known "
+"issues, workarounds and solutions associated with the new version."
+msgstr ""
+"Veuillez lire les notes de version avant de procéder à la mise à jour. Elles "
+"expliquent les problèmes connus liés à la nouvelle version ainsi que leurs "
+"solutions."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:89
+#, python-format
+msgid "Release notes for %s"
+msgstr "Notes de version pour %s"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:92
+msgid "Click on the link to open the release notes."
+msgstr "Cliquez sur le lien pour ouvrir les notes de version."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:100
+msgid "New features"
+msgstr "Nouveautés"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:107
+msgid "Please look at the new features introduced in the new version."
+msgstr ""
+"Veuillez examiner les nouveautés introduites dans la nouvelle version."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:111
+#, python-format
+msgid "New features in %s"
+msgstr "Nouveautés dans %s"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:114
+msgid "Click on the link to browse the new features."
+msgstr "Cliquez sur le lien pour ouvrir la page des nouveautés."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:122
+msgid "Requirements"
+msgstr "Pré-requis"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:132
+#, python-format
+msgid "The package %s needs to be installed before upgrading."
+msgstr "Le paquet %s doit être installé avant la mise à jour."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:136
+#, python-format
+msgid "Install %s"
+msgstr "Installer %s"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:141
+msgid "Click on the button to install the missing package."
+msgstr "Cliquez sur le bouton pour installer le paquet manquant."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:155
+msgid ""
+"New releases provide bug fixes and new features but they also sometimes "
+"introduce new issues. Upgrading always represents a risk. Your data is safe "
+"but new issues can potentially affect your operating system."
+msgstr ""
+"Les nouvelles versions fournissent des corrections de bogues et de nouvelles "
+"fonctionnalités mais elles peuvent aussi parfois introduire des problèmes "
+"nouveaux. Une mise à jour représente toujours un risque. Vos données sont en "
+"sécurité mais d'éventuels problèmes nouveaux peuvent affecter votre système "
+"d'exploitation."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:159
+#, python-format
+msgid "I understand the risk. I want to upgrade to %s."
+msgstr "Je comprends les risques et je veux mettre à jour vers %s."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:169
+msgid "Summary"
+msgstr "Résumé"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:260
+msgid ""
+"Your operating system was successfully upgraded. Please reboot your computer "
+"for all changes to take effect."
+msgstr ""
+"Votre système d'exploitation a été mis à jour avec succès. Veuillez "
+"redémarrer l'ordinateur pour que tous les changements soient appliqués."
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:269
+msgid ""
+"The upgrade did not succeed. Make sure you are connected to the Internet and "
+"try to upgrade again."
+msgstr ""
+"La mise à jour a échoué. Veuillez vous assurer que vous êtes bien connecté à "
+"Internet et recommencez la mise à jour."
+
+#: generate_desktop_files:27
+msgid "Show and install available updates"
+msgstr "Afficher et installer les mises à jour disponibles"
+
+#: usr/bin/mint-release-upgrade-root:16
+msgid "Please enter your password to perform the upgrade"
+msgstr "Veuillez saisir votre mot de passe pour effectuer la mise à jour"
+
+#~ msgid "Update is complete"
+#~ msgstr "La mise à jour est terminée"
+
+#~ msgid "Linux Mint or Romeo"
+#~ msgstr "Linux Mint ou Romeo"
+
+#~ msgid "Yes"
+#~ msgstr "Oui"
+
+#~ msgid "Ubuntu or 3rd party"
+#~ msgstr "Ubuntu ou tierce partie"
+
+#~ msgid "No"
+#~ msgstr "Non"
+
+#~ msgid "Icon"
+#~ msgstr "Icône"
+
+#~ msgid "Icons"
+#~ msgstr "Icônes"
+
+#~ msgid "Updates available"
+#~ msgstr "Mises à jour disponibles"
+
+#~ msgid "System up-to-date"
+#~ msgstr "Système à jour"
+
+#~ msgid "Busy"
+#~ msgstr "Occupé"
+
+#~ msgid "New Icon"
+#~ msgstr "Nouvelle icône"
+
+#~ msgid "Error"
+#~ msgstr "Erreur"
+
+#~ msgid "Port:"
+#~ msgstr "Port :"
+
+#~ msgid "Log file"
+#~ msgstr "Fichier de log"
+
+#~ msgid "Could not connect to the Internet"
+#~ msgstr "Impossible de se connecter à Internet"
+
+#~ msgid ""
+#~ "Certified packages. Tested through Romeo or directly maintained by Linux "
+#~ "Mint."
+#~ msgstr ""
+#~ "Paquets certifiés. Testés par Romeo ou maintenus directement par Linux Mint."
+
+#~ msgid "Recommended packages. Tested and approved by Linux Mint."
+#~ msgstr "Paquets recommandés. Testés et approuvés par Linux Mint."
+
+#~ msgid "FTP Proxy:"
+#~ msgstr "Proxy FTP:"
+
+#~ msgid "Gopher Proxy:"
+#~ msgstr "Proxy Gopher:"
+
+#~ msgid "Use the same proxy for all protocols"
+#~ msgstr "Utiliser le même proxy pour tous les protocoles"
+
+#~ msgid "Ignored packages"
+#~ msgstr "Paquets ignorés"
+
+#~ msgid "Ignore a package"
+#~ msgstr "Ignorer un paquet"
+
+#~ msgid "All available upgrades for this package will be ignored."
+#~ msgstr "Toutes les mises à jours disponibles pour ce paquet seront ignorées."
+
+#~ msgid "Software Updates"
+#~ msgstr "Mises à jour des logiciels"
+
+#~ msgid "Downloading safety level rules..."
+#~ msgstr "Téléchargement des règles de sécurité..."
+
+#~ msgid "Could not download safety rules"
+#~ msgstr "Impossible de télécharger les règles de sécurité..."
+
+#~ msgid "Status"
+#~ msgstr "Statut"
+
+#~ msgid "Proxy"
+#~ msgstr "Proxy"
+
+#~ msgid "Manual proxy configuration"
+#~ msgstr "Configuration manuelle du proxy"
+
+#~ msgid "Please enter your password to start mintUpdate"
+#~ msgstr "Veuillez entrer votre mot de passe pour démarrer mintUpdate"
+
+#~ msgid "Warnings"
+#~ msgstr "Avertissements"
+
+#~ msgid "Please wait, this can take some time"
+#~ msgstr "Veuillez patienter, cela peut prendre un certain temps"
+
+#~ msgid "Checking the connection to the Internet..."
+#~ msgstr "Vérification de la connection à Internet..."
+
+#~ msgid ""
+#~ "Note: The dist-upgrade option, in addition to performing the function of "
+#~ "upgrade, also intelligently handles changing dependencies with new versions "
+#~ "of packages. Without this option, only the latest versions of any out-of-"
+#~ "date packages on your system are installed. Packages that are not yet "
+#~ "installed don't get installed automatically and newer versions of packages "
+#~ "which dependencies require such installations are simply ignored."
+#~ msgstr ""
+#~ "Note: L'option de mise à niveau de la distribution, en plus de la fonction "
+#~ "de mise à niveau, gère aussi intelligemment l'évolution des dépendances avec "
+#~ "les nouvelles versions des paquets. Sans cette option, seules les dernières "
+#~ "versions de tous les paquets \"périmés\" de votre système sont installées. "
+#~ "Les paquets qui ne sont pas encore installés ne le sont pas automatiquement, "
+#~ "et les nouvelles versions des dépendances des paquets qui nécessitent de "
+#~ "telles installations sont tout simplement ignorées."
+
+#~ msgid "HTTP Proxy:"
+#~ msgstr "Proxy HTTP:"
+
+#~ msgid "Satisfy changing dependencies using dist-upgrade?"
+#~ msgstr ""
+#~ "Satisfaire les dépendances en utilisant la mise à niveau de la distribution ?"
+
+#~ msgid ""
+#~ "Note: The list only gets refreshed while the mintUpdate window is closed "
+#~ "(system tray mode)."
+#~ msgstr ""
+#~ "Note: La liste n'est rafraîchie que lorsque la fenêtre mintUpdate est fermée "
+#~ "(en mode system tray)"
+
+#~ msgid "Extra Info"
+#~ msgstr "Info Complémentaire"
+
+#, python-format
+#~ msgid "%d recommended updates available"
+#~ msgstr "%d mises à jour recommandées disponibles"
+
+#, python-format
+#~ msgid "%(recommended)d recommended updates available, %(ignored)d ignored"
+#~ msgstr ""
+#~ "%(recommended)d mises à jour recommandées disponibles, %(ignored)d ignorées"
+
+#~ msgid "Could not refresh the list of packages"
+#~ msgstr "Impossible d'actualiser la liste des paquets"
+
+#~ msgid "Tested?"
+#~ msgstr "Testé ?"
+
+#~ msgid "Auto-Refresh"
+#~ msgstr "Rafraichissement automatique"
+
+#~ msgid "Safe?"
+#~ msgstr "Sûr ?"
+
+#~ msgid "Safe packages. Not tested but believed to be safe."
+#~ msgstr "Paquets surs. Non testés mais considérés comme surs."
+
+#~ msgid ""
+#~ "Unsafe packages. Could potentially affect the stability of the system."
+#~ msgstr ""
+#~ "Paquets non surs. Ceux-ci peuvent potentiellement affecter la stabilité du "
+#~ "système."
+
+#~ msgid ""
+#~ "Dangerous packages. Known to affect the stability of the systems depending "
+#~ "on certain specs or hardware."
+#~ msgstr ""
+#~ "Paquets dangereux. Connus pour affecter la stabilité des systèmes dépendant "
+#~ "sur certaines spécifications ou matériels."
+
+#~ msgid "Refresh the list of updates every:"
+#~ msgstr "Rafraichir la liste des mises à jour tous les :"
+
+#~ msgid "Visible?"
+#~ msgstr "Visible ?"
+
+#~ msgid "Update Method"
+#~ msgstr "Méthode de mise à jour"
+
+#~ msgid "Internet check (domain name or IP address):"
+#~ msgstr "Vérification internet (nom de domaine ou adresse IP) :"
+
+#~ msgid "Startup delay (in seconds):"
+#~ msgstr "Démarrage (en secondes) :"
+
+#~ msgid "Permissions:"
+#~ msgstr "Permissions :"
+
+#~ msgid "Package name:"
+#~ msgstr "Nom du paquet :"
+
+#~ msgid "Please enter a package name:"
+#~ msgstr "Veuillez entrer un nom de paquet :"

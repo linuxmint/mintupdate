@@ -37,7 +37,7 @@ except Exception as e:
 setproctitle.setproctitle("mintUpdate")
 
 # i18n
-gettext.install("mintupdate", "/usr/share/linuxmint/locale", names="ngettext")
+gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
 
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
 
@@ -996,6 +996,7 @@ class MintUpdate():
         #Set the Glade file
         gladefile = "/usr/share/linuxmint/mintupdate/main.ui"
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("mintupdate")
         self.builder.add_from_file(gladefile)
         self.statusbar = self.builder.get_object("statusbar")
         self.context_id = self.statusbar.get_context_id("mintUpdate")
