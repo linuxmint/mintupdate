@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Aktualisierungen sind einer Ebene zugeordnet, welche die Auswirkungen auf das Betriebssystem anzeigt.</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Aktualisierungsebenen</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Aktualisierungen sind einer Ebene zugeordnet, welche die Auswirkungen auf das Betriebssystem anzeigt.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Groß</p></td>
-      <td><p>Mit Vorsicht anwenden. Auswirkungen auf mehrere Anwendungen.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensibel</p></td>
-      <td><p>Eines nach dem anderen anwenden. Auswirkungen auf empfindliche Teile des Systems.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>Und es gibt auch eine besondere Ebene, welche an Aktualisierungen mit bekannten kritischen Problemen vergeben wird:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Gefährlich</p></td>
-      <td><p>Sehr selten. Nicht empfohlen. Bekannt dafür, Fehler zu erzeugen.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Ebene 1</title>
@@ -67,7 +63,7 @@
         <item><p>Die Medienwiedergabe</p></item>
       </list>
 
-    <p>Sie können diese Aktualisierungen anwenden, ohne sich Sorgen über Regressionen machen zu müssen. Im schlimmsten Fall würde eine Regression nur die Anwendungen, die sie aktualisieren, betreffen und nicht das Betriebssystem selbst.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -76,11 +72,7 @@
 
     <p>Das ist die Vorgabeebene, so dass die überwiegender Mehrheit der Aktualisierungen aus der Ebene 2 sind.</p>
 
-    <p>Diese Aktualisierungen sind nicht bekannt dafür, dass sie sich auf große Bereiche oder empfindliche Teile des Systems auszuwirken, aber es wird auch nicht garantiert, dass sie sich nur auf ihr eigenes Programm auswirken.</p>
-
-    <p>Im Allgemeinen sollten es Ihnen möglich sein, diese Aktualisierungen anzuwenden, ohne sich um Regressionen sorgen zu müssen.</p>
-
-    <p>Wenn eine wesentliche Regression oder die Möglichkeit für eine Regression in einer Aktualisierung der Ebene 2 gefunden wurde, wird dessen Ebene auf 3 oder 4 geändert.</p>
+    <p>Diese Aktualisierungen sind nicht dafür bekannt, sich auf große Bereiche oder empfindliche Teile des Systems auszuwirken, aber es wird auch nicht garantiert, dass sie sich nur auf ihre eigene Anwendung auswirken.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Typische Beispiele für Aktualisierungen der Ebene 3 sind GTK, DBUS usw. Eine Regression in diesen Aktualisierungen würde einen reibungslosen Start Ihres Rechners nicht verhindern, aber sie könnte viele Anwendungen beeinflussen.</p>
 
     <p>Arbeitsumgebungen sind ebenfalls Aktualisierungen der Ebene 3. Wenn eine kritische Regression in Cinnamon aufkommt, könnte es sein, dass Sie sich nicht mehr anmelden können.</p>
-
-    <p>Es gibt nicht viele Aktualisierungen der Ebene 3. Es wird empfohlen, diese mit Vorsicht und getrennt zu verwenden. Merken Sie sich, welche Aktualisierungen Sie anwenden, überprüfen Sie das System danach und vergewissern Sie sich, dass alles reibungslos funktioniert.</p>
-
-    <p>Wenn etwas kaputt geht, suchen Sie sich Hilfe in den Foren oder dem Chat-Kanal und sagen Sie den Leuten welche Aktualisierung die Regression verursacht hat und was kaputt ist.</p>
-
-    <note><p>Wenn Sie blind hunderte von Aktualisierungen anwenden und es Ihnen nicht möglich ist, die problemverursachende zu finden, wird es unwahrscheinlich, dass Sie Hilfe finden. Alle Aktualisierungen der Ebene 3 werden empfohlen, aber es wird erwartet, dass Sie vorsichtig sind und wissen was Sie aktualisieren.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Der Bildschirm (Xorg, mesa)</p></item>
     </list>
 
-    <p>Wie andere Aktualisierungen auch, werden alle Aktualisierungen der Ebene 4 empfohlen, besonders dann, wenn diese Sicherheitsaktualisierungen sind.</p>
-
-    <p>Wenn jedoch eine kritische Regression in einer Ihrer Aktualisierungen vorhanden ist, könnte das einen sensiblen Teil Ihres Systems beeinflussen.</p>
-
-    <p>Sie könnten keine Verbindung zum Internet haben, keine Möglichkeit haben die Arbeitsumgebung zu starten oder sogar keine Möglichkeit haben das Betriebssystem zu starten.</p>
-
-    <p>Aus diesem Grund sollten Sie immer vorsichtig sein, wenn Sie Aktualisierungen der Ebene 4 anwenden (einschließlich Kernelaktualisierungen). Wenden Sie diese der Reihe nach an und beachten Sie die Versionen, die Sie anwenden.</p>
-
-    <p>Wenn etwas kaputt geht, suchen Sie sich Hilfe in den Foren oder dem Chat-Kanal und sagen Sie den Leuten welche Aktualisierung die Regression verursacht hat und was kaputt ist.</p>
-
-    <note><p>Wenn Sie blind hunderte von Aktualisierungen anwenden und es Ihnen nicht möglich ist, die problemverursachende zu finden, wird es unwahrscheinlich, dass Sie Hilfe finden. Alle Alle Aktualisierungen der Ebene 4 werden empfohlen, aber es wird erwartet, dass Sie vorsichtig sind und wissen, was Sie aktualisieren.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Ebene 5</title>
-
-    <p>Ebene-5-Aktualisierungen sind sehr selten.</p>
-
-    <p>Wird ein kritischer Fehler in einer Aktualisierungen entdeckt, wird dieses normalerweise so schnell wie möglich repariert.</p>
-
-    <p>Es gibt viele Möglichkeiten für Linux-Mint, Probleme zu lösen, und viele Mechanismen, die sowohl in den Paketquellen als auch lokal in Ihrem Betriebssystem vorhanden sind. Also sollten unter normalen Umständen Aktualisierungen nicht auf der schwarzen Liste landen.</p>
-
-    <p>Wenn eine Aktualisierung einen kritischen Fehler hatte und an einer Lösung gearbeit wird, aber noch nicht fertig ist, könnte Linux-Mint eine bestimmte Version der Aktualisierung als Ebene 5 markieren (z.B. »nicht empfohlen«). Das verhindert, dass Benutzer es anwenden, bis die neue Version in den Paketquellen eintrifft.</p>
-
-    <note><p>Aktualisierungen der Ebene 5 sind dafür bekannt Probleme zu verursachen. Sie sind sehr selten und meistens temporär. Standardmäßig sind sie nicht sichtbar und sollten nicht angewendet werden.</p></note>
-
-  </section>
-
 
 </page>

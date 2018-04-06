@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Opdateringer tildeles et niveau alt efter, hvor stor en påvirkning de har på styresystemet</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Opdateringsniveauer</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Opdateringer tildeles et niveau alt efter, hvor stor en påvirkning de har på styresystemet.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Stor</p></td>
-      <td><p>Installér med forsigtighed. Påvirkning af mange programmer.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Følsom</p></td>
-      <td><p>Installér enkeltvis. Påvirkning af systemets følsomme dele.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>Og der er også et særligt niveau til opdateringer, der vides at have kritiske problemer:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Farlig</p></td>
-      <td><p>Meget sjælden. Ikke anbefalet. Vides at skabe problemer.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Niveau 1</title>
@@ -67,7 +63,7 @@
         <item><p>Medieafspilleren</p></item>
       </list>
 
-    <p>Du kan installere disse opdateringer uden at være bekymret for regressioner. I det værste tilfælde vil en regression kun påvirke programmet, du opdaterer, og ikke selve styresystemet.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Dette er standardniveauet, så det store flertal af opdateringer er niveau 2.</p>
 
     <p>Disse opdateringer er ikke kendt for at påvirke store områder eller følsomme dele af systemet, men på den anden side garanteres det heller ikke, at de kun påvirker deres egne programmer.</p>
-
-    <p>Generelt skulle du kunne installere disse opdateringer uden at være bekymret for regressioner.</p>
-
-    <p>Hvis der blev fundet en vigtig regression, eller muligheden for en, i en opdatering på niveau 2, ville niveauet blive ændret til 3 eller 4.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Typiske eksempler på opdateringer på niveau 3 er GTK, DBUS osv. En regression i disse opdateringer ville ikke gøre, at din computer ikke kan boote ordentligt, men den kunne påvirke mange programmer.</p>
 
     <p>Skrivebordsmiljøer er også opdateringer på niveau 3. Hvis der opstår en kritisk regression i Cinnamon, kan du muligvis ikke logge ind.</p>
-
-    <p>Der er ikke mange opdateringer på niveau 3. Det anbefales at installere dem med forsigtighed og enkeltvis. Notér dig, hvilke opdateringer du installerer, og tjek systemet bag efter for at sikre dig, at alt virker fint.</p>
-
-    <p>Hvis noget ikke virker, så søg hjælp i foraene eller chatkanalen og fortæl folk, hvilken opdatering der medførte regressionen, og hvad der ikke virker.</p>
-
-    <note><p>Hvis du har installeret hundredvis af opdateringer, og du ikke kan udpege den problematiske opdatering, er det svært at hjælpe. Alle opdateringer på niveau 3 er anbefalede, men du forventes at udvise forsigtighed og at vide, hvad du opdaterer.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Skærmen (Xorg, mesa)</p></item>
     </list>
 
-    <p>Ligesom andre opdateringer anbefales alle opdateringer på niveau 4, især hvis det er sikkerhedsopdateringer.</p>
-
-    <p>Hvis var en kritisk regression i en af disse opdateringer, kunne det påvirke en følsom del af dit system.</p>
-
-    <p>Du kunne opleve ikke at have forbindelse til internettet, uden mulighed for at starte skrivebordsmiljøet eller uden mulighed for at boote styresystemet.</p>
-
-    <p>Af denne grund skal du altid være forsigtig, når du installerer opdateringer på niveau 4 (inkl. kerneopdateringer). Installér dem enkeltvis og notér, hvilken version du installerer.</p>
-
-    <p>Hvis noget ikke virker, så søg hjælp i foraene eller chatkanalen og fortæl folk, hvilken opdatering der medførte regressionen, og hvad der ikke virker.</p>
-
-    <note><p>Hvis du har installeret hundredvis af opdateringer, og du ikke kan udpege den problematiske opdatering, er det svært at hjælpe. Alle opdateringer på niveau 4 er anbefalede, men du forventes at udvise forsigtighed og at vide, hvad du opdaterer.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Niveau 5</title>
-
-    <p>Opdateringer på niveau 5 er ekstremt sjældne.</p>
-
-    <p>Når en kritisk fejl i en opdatering opdages, rettes den sædvanligvis så hurtigt som muligt.</p>
-
-    <p>Der er mange måder, hvorpå Linux Mint kan håndtere problemer, og mange mekanismer både fjernt i pakkearkiverne og lokalt i dit styresystem. Så under normale omstændigheder er det ikke nødvendigt at sortliste opdateringer.</p>
-
-    <p>Hvis en opdatering havde en kritisk fejl, og der blev arbejdet på en løsning, som endnu ikke var færdig, så kunne Linux Mint markere en specifik version af opdateringen som niveau 5 (dvs. "ikke anbefalet"). Dette ville forhindre brugerne i at installere opdateringen, indtil den nye version er klar i pakkearkiverne.</p>
-
-    <note><p>Opdateringer på niveau 5 vides at skabe problemer. De er sjældne og sædvanligvis midlertidige. De er som standard ikke synlige og bør ikke installeres.</p></note>
-
-  </section>
-
 
 </page>

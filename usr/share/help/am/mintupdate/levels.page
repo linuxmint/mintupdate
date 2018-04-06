@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>ማሻሻያዎች ደረጃ ይሰጣቸዋል በ እርስዎ የ መስሪያ ስርአት ላይ ለሚፈጽሙት ተፅእኖ</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>የ ማሻሻያ ደረጃዎች</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>ማሻሻያዎች ደረጃ ይሰጣቸዋል በ እርስዎ የ መስሪያ ስርአት ላይ ለሚፈጽሙት ተፅእኖ</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>ትልቅ</p></td>
-      <td><p>በ ጥንቃቄ ይፈጽሙ: ይህ በ በርካታ መተግበሪያዎች ላይ ተፅእኖ ይፈጥራል</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensitive</p></td>
-      <td><p>አንድ በ አንድ መፈጸሚያ: ይህ በ sensitive አካሎች ላይ ተፅእኖ ይፈጥራል በ ስርአቱ ውስጥ</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>እንዲሁም የ ተለየ ደረጃ ማሻሻያ አለ የ ታወቀውን አደገኛ ችግር ማሻሻያ</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>አደገኛ</p></td>
-      <td><p>አንዳንድ ጊዜ አይመከሩም። አደገኛ ችግር ይፈጥራል</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
@@ -67,7 +63,7 @@
         <item><p>የ መገናኛ ማጫወቻ</p></item>
       </list>
 
-    <p>እርስዎ እነዚህን ማሻሻያዎች መፈጸም ይችላሉ ስለ ዝቅ ማድረጊያ ሳይጨነቁ: ዝቅ ማድረጊያ ቢፈጽም ተፅእኖ የሚፈጥረው እርስዎ በሚያሻሽሉት ሶፍትዌሩ ላይ ብቻ ነው: በ መስሪያ ስርአቱ ላይ ችግር አይፈጥርም</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>ይን ነባር ደረጃ ነው: ስለዚህ በርካታ ማሻሻያዎች ደረጃ 2 ናቸው</p>
 
     <p>እነዚህ ማሻሻያዎች የታወቁ አይደሉም በርካታ ቦታዎች ላይ ተፅእኖ እንደሚፈጥሩ: ወይንም በ ስርአቱ sensitive አካል ላይ: ነገር ግን ማረጋገጫ መስጠት አይቻልም ከ ራሳቸው ሶፍትዌር በስተቀር</p>
-
-    <p>ባጠቃላይ እርስዎ እነዚህን ማሻሻያዎች መፈጸም ይችላሉ ስለ ዝቅ ማድረጊያ ምንም ሳይጨነቁ</p>
-
-    <p>አስፈላጊ ዝቅ ማድረጊያ ከ ተፈጠረ ወይንም ዝቅ ማድረጊያ ከ ተገኘ በ ደረጃ 2ኛ ማሻሻያ ውስጥ: ደረጃው ይቀየራል ወደ 3ኛ ወይንም 4ኛ</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>ጥሩ ምሳሌ ለ 3ኛ ደረጃ ማሻሻያ ይህ GTK, DBUS, etc... ዝቅ ማድረጊያነው: እነዚህ ማሻሻያ ውስጥ የ እርስዎን ኮምፒዩተር እንደገና ከ ማስነሳት አያግድም: ነገር ግን በ በርካታ መተግበሪያዎች ላይ ተፅእኖ ይፈጥራል</p>
 
     <p>የ ዴስክቶፕ አካባቢ 3ኛ ደረጃ ማሻሻያ: አደገኛ ዝቅ ማድረጊያ ከ ተፈጠረ በ ሲናሞን ውስጥ: እርስዎ መግባት አይችሉም</p>
-
-    <p>በርካታ የ 3ኛ ደረጃ ማሻሻያዎች አይኖሩም: እንዲገጥሙ እንመክራለን በ ጥንቃቄ እና ለ የብቻ: ማስታወሻ ይውሰዱ እርስዎ ምን እንደፈጸሙ: ሲጨርሱ ስርአቱ ይመርምሩ ሁሉም በ ትክክል እንደሚሰራ</p>
-
-    <p>አንድ ነገር ከ ተሰበረ እርዳታ ይፈልጉ በ ውይይት መድረኮች ወይንም በ ውይይት ጣቢያዎች ውስጥ: የትኛው ማሻሻያ ችግሩን እንደፈጠረ እና ምን ዝቅ እንደተደረገ መረጃውን ያሰናዱ</p>
-
-    <note><p>እርስዎ በ ደፈናው በርካታ ማሻሻያዎችን ካሻሻሉ እና ችግር ቢፈጠር ችግሩን የ ተፈጠረው በ ምን እንደሆን ካላወቁ: እርዳታ ማግኘት አይችሉም: ሁሉም 3ኛ ደረጃ ማሻሻያ እንዲገጥሙ ይመከራሉ ነገር ግን አስፈላጊ ጥንቃቄ ያድርጉ እና የሚያሻሽሉትን ይወቁ</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>The display (Xorg, mesa)</p></item>
     </list>
 
-    <p>እንደ ሌሎች ማሻሻያዎች: ሁሉንም 4ኛ ደረጃ ማሻሻያ እንዲገጥሙ እንመክራለን: በተለይ የ ደህንነት ማሻሻያ ከሆኑ</p>
-
-    <p>ነገር ግን አደገኛ ዝቅ ማድረጊያ ከ ተፈጠረ በ አንዱ ማሻሻያ በርካታ የ እርስዎ ስርአት ላይ ተፅእኖ ሊፈጥር ይችላል</p>
-
-    <p>እርስዎ ወደ ኢንተርኔት መገናኘት አይችሉ ይሆናል: ወይንም የ ዴስክቶፕን ማስጀመር አይችሉ ይሆናል: ወይንም የ መስሪያ ስርአቱ ላይጀምር ይችላል</p>
-
-    <p>በዚህ ምክንያት እርስዎ ሁል ጊዜ መጠንቀቅ አለብዎት በሚፈጽሙ ጊዜ 4ኛ ደረጃ ማሻሻያ (የ ከረኔል ማሻሻያንም ያካትታል) አንድ በ አንድ ይፈጽሙ እና የትኛውን እትም እንደፈጸሙ ማስታወሻ ይውሰዱ</p>
-
-    <p>አንድ ነገር ከ ተሰበረ እርዳታ ይፈልጉ በ ውይይት መድረኮች ወይንም በ ውይይት ጣቢያዎች ውስጥ: የትኛው ማሻሻያ ችግሩን እንደፈጠረ እና ምን ዝቅ እንደተደረገ መረጃውን ያሰናዱ</p>
-
-    <note><p>እርስዎ በ ደፈናው በርካታ ማሻሻያዎችን ካሻሻሉ ችግር ቢፈጠር ችግሩን ማግኘት አይቻልም: እርስዎ እርዳታ ማግኘት አይችሉም: ሁሉም 4ኛ ደረጃ ማሻሻያዎችን እንዲያሻሽሉ እንመክራለን: ነገር ግን በ ጥንቃቄ ይፈጽሙ እና የሚያሻሽሉትን ይወቁ</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
-
-    <p>ደረጃ 5ኛ ማሻሻያ በጣም ጥቂት ነው</p>
-
-    <p>አንዳንድ ችግር በሚገኝ ጊዜ በ ማሻሻያ ውስጥ ወዲያውኑ በ ተቻለ ፍጥነት ይጠገናል</p>
-
-    <p>በርካታ መንገዶች አሉ ችግር ወደ ሊነክስ ሚንት ጋር ለማድረስ: እንዲሁም በርካታ ቦታዎች በ ሩቅ ማጠራቀሚያዎች እና በ አካባቢ በ እርስዎ ኮምፒዩተር ውስጥ: በ መደበኛ መንገድ ማሻሻያ ጥቁር ዝርዝር ውስጥ መግባት የለበትም</p>
-
-    <p>ማሻሻያ የታወቀ ችግር ካለው እና መፍትሄው እየተሰራ ከሆነ ነገር ግን ዝግጁ ካልሆነ: ሊነክስ ሚንት በ ተገለጸው እትም ላይ 5ኛ ደረጃ ማሻሻያ ይታያል (ይህን አንመክርም) ይህ ተጠቃሚዎችን ከ መግጠም ይከለክላል አዲስ እትም በ ማጠራቀሚያ ውስጥ እስከሚወጣ ድረስ</p>
-
-    <note><p>5ኛ ደረጃ ማሻሻያ ችግር ይፈጥራሉ: ብዙ ጊዜ አይኖሩም እና ጊዚያዊ ናቸው: በ ነባር አይታዩም እና አይፈጸሙም</p></note>
-
-  </section>
-
 
 </page>

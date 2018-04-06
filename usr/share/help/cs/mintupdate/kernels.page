@@ -16,31 +16,31 @@
 
   <title>Aktualizace jádra</title>
 
-  <p>Jádro je centrální část operačního systému. Kromě jiného je zodpovědné také za hardwarovou podporu.</p>
+  <p>Jádro je ústřední část operačního systému. Kromě jiného je odpovědné také za podporu hardware.</p>
 
-  <note><p>Aktualizace jádra v Linux Mintu přináší jak bezpečnostní záplaty, tak opravy chyb (a někdy dokonce i nové funkce), mají ale vliv na  kritické části operačního systému. Aktualizace jádra je sice důležitá z bezpečnostního hlediska, zároveň ale může znamenat regresi, která je problematicky řešitelná začínajícími uživateli.</p></note>
+  <note><p>Aktualizace jádra přinášejí jak opravy zabezpečení, tak chyb (a někdy dokonce i nové funkce), mají ale vliv na  kritické části operačního systému. Aktualizace jádra jsou sice důležité z bezpečnostního hlediska, zároveň ale mohou být náchylná na regrese, které mohou být pro začínající uživatele obtížně řešitelné.</p></note>
 
   <p>Z bezpečnostního hlediska je důležité instalovat aktualizace jádra.</p>
 
-  <p>Regrese na úrovni jádra se však mohou ovlivnit možnost připojit se k internetu, spustit desktopové prostředí či spustit rovnou celý operační systém.</p>
+  <p>Regrese na úrovni jádra však mohou ovlivnit možnost připojit se k Internetu, spustit desktopové prostředí nebo vůbec operační systém jako takový.</p>
 
-  <p>Kvůli těmto důvodům je důležité být ve střehu při aktualizaci jádra a vědět, jak aktualizace odstranit ve chvíli, kdy se něco pokazí.</p>
+  <p>Proto je důležité být při aktualizacích jádra ve střehu a vědět, jak vzít instalací aktualizací zpět, pokud se něco pokazí.</p>
 
   <section id="kernel1">
-    <title>Nainstalováno můžete mít i více jader</title>
+    <title>Nainstalováno může být i více verzí jádra vedle sebe</title>
 
-    <p>Pokud nainstalujete aktualizaci, nahradíte starší verzi softwaru jeho novější verzí.</p>
+    <p>Nainstalováním aktualizace nahradíte starší verzi softwaru tou novější.</p>
 
-    <p>Věci se trochu mění při aktualizacích jádra. Pokud aktualizaci jádra nainstalujete, neaktualizujete současné jádro, ale nainstalujete nové jádro vedle toho stávajícího.</p>
+    <p>Jinak je tomu u jádra operačního systému. Při instalaci aktualizace jádra se nepřepíše to stávající, ale je nainstalováno nové jádro vedle toho stávajícího.</p>
 
-    <p>Pokaždé, když aktualizujete jádro, instalujete nové jádro do systému aniž by se původní jádra odstranila.</p>
+    <p>Pokaždé, když aktualizujete jádro, instaluje se do systému nové jádro, ovšem ta stávající zůstávájí.</p>
 
-    <p>Při načítání systému zvolí počítač nejaktuálnější verzi.</p>
+    <p>Při načítání systému zvolí počítač nejnovější verzi.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifikace aktuálního jádra</title>
+    <title>Identifikace stávajícího jádra</title>
 
     <p>Pokud chcete vědět, jakou verzi jádra aktuálně využíváte, spusťte terminál a napište:</p>
 
@@ -49,48 +49,48 @@
   </section>
 
   <section id="kernel3">
-    <title>Instalování a odinstalování jader</title>
+    <title>Instalování a odebírání jader</title>
 
-    <p>Jádra můžete instalovat i odinstalovávat ve správci aktualizací.</p>
+    <p>Jádra je možné instalovat a odinstalovávat ve Správě aktualizací.</p>
 
-    <p>Vyberte "Zobrazit" -&gt; "Linuxová jádra" v menu.</p>
+    <p>Z nabídky vyberte „Zobrazit“ -&gt; „Linuxová jádra“.</p>
 
-    <note><p>Nemůžete odstranit jádro, které máte aktuálně spuštěné. Pokud jej chcete odstranit, musíte restartovat počítač a načíst jiné jádro.</p></note>
+    <note><p>Není možné odstranit jádro, které je aktuálně spuštěné. Pokud ho chcete odstranit, je třeba restartovat počítač a načíst jiné jádro.</p></note>
 
   </section>
 
   <section id="kernel4">
     <title>Výběr jádra</title>
 
-    <p>Můžete mít nainstalováno více jader, ale používat můžete v danou chvíli pouze jedno z nich.</p>
+    <p>Je možné mít nainstalováno více jader, ale spuštěné může být vždy jen jedno z nich.</p>
 
-    <p>Pokud zapnete počítač, první obrazovka, kterou uvidíte, se nazývá Grub menu. Toto menu umožňuje výběr operačního systému, ale také výběr mezi různými jádry.</p>
+    <p>Když zapnete počítač, jednou z prvních obrazovek kterou uvidíte je nabídka zavaděče Grub. Z ní je možné vybírat operační systémy, ale také různá jádra konkrétního systému.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>Pro výběr jádra zvolte možnost "Pokročilé volby" v Grub menu. Měli byste vidět všechna nainstalovaná jádra v systému. Vyberte poté to, které si přejete načíst.</p>
+    <p>Jádro vyberete v nabídce „Pokročilé volby“ (Advanced options) zavaděče Grub. Měla by tam být uvedená všechna v systému nainstalovaná jádra. Vyberte z nich to, se kterým si přejete nastartovat počítač.</p>
 
   </section>
 
   <section id="kernel5">
     <title>Kontrola stavu DKMS</title>
 
-    <p>Jádro obsahuje všechny open source ovladače a ty většinou fungují skvěle. Proprietární ovladače (NVIDIA, AMD, Broadcom...) nejsou zařazeny a musí být kompilovány pokaždé, když instalujete nové jádro. Tato věc se dělá přes mechanizmus zvaný DKMS.</p>
+    <p>Jádro obsahuje všechny open source ovladače a ty většinou fungují velmi dobře. Proprietární ovladače (NVIDIA, AMD, Broadcom, atd.) v něm obsažené nejsou a je proto třeba je při instalaci nového jádra pokaždé znovu zkompilovat. Děje se tak pomocí mechanizmu nazvaného DKMS.</p>
 
-    <p>Pokud proprietární ovladače nejsou řádně rekompilovány s DKMS pro jedno z vašich jader, nebudou fungovat korektně na tomto jádru.</p>
+    <p>Pokud proprietární ovladače nejsou řádně rekompilovány s DKMS pro jedno z nainstalovaných jader, nebudou na tomto jádru správně fungovat.</p>
 
     <p>Po instalaci nebo odstranění jádra si můžete zkontrolovat stav DKMS, abyste měli jistotu, že všechny proprietární ovladače jsou řádně nainstalovány pro každé jádro ve vašem systému. Lze to provést příkazem:</p>
 
-    <screen>dkms status</screen>
+    <screen>stav dkms</screen>
 
-    <note><p>Nové série jádra bývají většinou k dispozici dříve než jsou podporovány proprietárními ovladači přes DKMS. Pokud používáte proprietární ovladače, příliš se nedoporučuje provádět aktualizace jádra, především se nedoporučuje instalovat novější série jádra než jsou ty, které jsou doporučovány dodavatelem ovladače.</p></note>
+    <note><p>Nové série jádra bývají většinou k dispozici dříve než jsou podporované proprietárními ovladači přes DKMS. Pokud tedy používáte proprietární ovladače, příliš se nedoporučuje provádět aktualizace jádra a  především se nedoporučuje instalovat novější série jádra než jsou ty, které jsou doporučovány dodavatelem ovladače.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Obnovení aktualizace jádra</title>
+    <title>Vrácení do stavu před aktualizací jádra</title>
 
-    <p>Pokud vám něco nepracuje s nejnovější verzí jádra, kterou jste nainstalovali (například pomocí instalace aktualizace jádra), restartujte počítač a vyberte jádro, které jste používali předtím, poté odstraňte novější jádro a znovu restartujte počítač.</p>
+    <p>Pokud vám něco nefunguje s nejnovější verzí jádra, kterou jste nainstalovali (například pomocí instalace aktualizace jádra), restartujte počítač a vyberte jádro, které jste používali předtím, poté odstraňte novější jádro a znovu restartujte počítač.</p>
 
   </section>
 

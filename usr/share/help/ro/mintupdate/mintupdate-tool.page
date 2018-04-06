@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Actualizările din linia de comandă</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>Folosirea uneltei mintupdate</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Administratorul de actualizări oferă o utilitate pentru linia de comandă numită "mintupdate-tool".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Dacă ești un utilizator experimentat de Linux poți folosi această unealtă în script-urile tale ori job-urile cron pentru a automatiza procesul de instalare a actualizărilor de programe.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Listarea actualizărilor</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Poți folosi comanda "list" pentru a lista actualizările:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>Listei i se pot aplica filtre pe criterii cu ajutorul argumentului -l.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Poți adăuga actualizările de siguranță cu -s.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Poți adăuga actualizările de kernel cu -k, sau le poți îndepărta cu -nk.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>De exemplu următoarea comandă listează toate actualizările de siguranță, dar și actualizările de reparare a bug-urilor de nivel 1 și 2:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Se aplică actualizările</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Puteți folosi comanda "upgrade" pentru a aplica actualizările, folosind aceleași opțiuni.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>De exemplu, următoarea comandă aplică atât actualizările de siguranță cât și actualizările de depanare de nivel 1 și 2.</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Observați argumentul -r, care a fost adăugat pentru a împrospăta cache-ul.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Pentru mai multe informații despre mintupdate și o listă completă a argumentelor, scrieți:</p>
 
   <screen>mintupdate-tool -h</screen>
 

@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Aktualizace z příkazové řádky</desc>
+    <desc>Aktualizování z příkazového řádku</desc>
   </info>
 
-  <title>Používání mintupdate-tool</title>
+  <title>Používání nástroje mintupdate-tool</title>
 
-    <p>Manažer aktualizací poskytuje nástroj příkazového řádku zvaný "mintupdate-tool".</p>
+    <p>Správa aktualizací poskytuje nástroj pro příkazový řádek nazvaný „mintupdate-tool“.</p>
 
-    <p>Pokud máte zkušenosti s Linuxem můžete používat tento nástroj ve vašich skriptech či cron úlohách k automatizaci instalace softwarových aktualizací.</p>
+    <p>Pokud máte zkušenosti s Linuxem můžete používat tento nástroj ve svých skriptech či naplánovaných (cron) úlohách k automatizaci instalace softwarových aktualizací.</p>
 
   <section id="tool1">
 
-  <title>Seznam aktualizací</title>
+  <title>Vypsání seznamu aktualizací</title>
 
-  <p>Pomocí příkazu "list" zobrazíte seznam všech aktualizací:</p>
+  <p>Aktualizace si můžete vypsat dílčím příkazem „list“:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>Seznam může být filtrován dle úrovní pomocí argumentu -l.</p>
+  <p>Seznam je možné filtrovat dle stupňů dopadu na systém a to pomocí argumentu -l.</p>
 
-  <p>Můžete přidat bezpečnostní aktualizace pomocí -s.</p>
+  <p>Bezpečnostní aktualizace je možné přidat pomocí přepínače -s.</p>
 
-  <p>Můžete přidat aktualizace jádra pomocí -k, nebo je odstranit pomocí -nk.</p>
+  <p>Aktualizace jádra je možné přidat pomocí přepínače -k, nebo opačně s -nk.</p>
 
-  <p>Například následující příkaz zobrazí seznam všech bezpečnostních aktualizací stejně jako aktualizací chyb úrovně 1 a 2:</p>
+  <p>Například následující příkaz zobrazí seznam všech bezpečnostních aktualizací a aktualizací opravujících chyby stupňů 1 a 2:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -44,15 +44,15 @@
 
   <title>Použití aktualizací</title>
 
-  <p>Se stejnými volbami můžete také použít příkaz "upgrade" k provedení aktualizací.</p>
+  <p>Následně za použití stejných voleb můžete aktualizace nainstalovat pomocí dílčího příkazu „upgrade“.</p>
 
-  <p>Například následující příkaz nainstaluje všechny bezpečnostní aktualizace stejně jako  jako aktualizace chyb úrovně 1 a 2:</p>
+  <p>Například následující příkaz nainstaluje všechny bezpečnostní aktualizace a aktualizace opravující chyby stupňů 1 a 2:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Poznamenejme argument -r přidaný za účelem aktualizace cache.</p>
+  <p>Všimněte si argumentu -r přidaného za účelem aktualizace obsahu mezipaměti.</p>
 
-  <p>Pro více informací o mintupdate-tool a kompletním seznamu argumentů napište:</p>
+  <p>Více informací o nástroji mintupdate-tool a kompletním seznam argumentů příkazového řádku získáte zadáním:</p>
 
   <screen>mintupdate-tool -h</screen>
 

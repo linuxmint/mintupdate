@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Agli aggiornamenti è dato un livello che indica quant'è l'impatto che hanno sul sistema operativo</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Livelli di aggiornamento</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Agli aggiornamenti è dato un livello che indica quant'è l'impatto che hanno sul sistema operativo.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Grande</p></td>
-      <td><p>Applicare con cautela. Impatto su più applicazioni.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensibile</p></td>
-      <td><p>Applicare uno alla volta. Impatto sulle parti sensibili del sistema.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>E c'è anche un livello speciale che viene dato agli aggiornamenti con problemi critici già noti:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Pericoloso</p></td>
-      <td><p>Molto raro. Non è raccomandato. Noto per creare problemi.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
@@ -67,7 +63,7 @@
         <item><p>Il lettore multimediale</p></item>
       </list>
 
-    <p>È possibile applicare questi aggiornamenti senza doversi preoccupare di regressioni. Nel peggiore dei casi una regressione interesserebbe solo il software che si sta aggiornando, non il sistema operativo stesso.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -76,11 +72,7 @@
 
     <p>Questo è il livello predefinito, quindi la stragrande parte degli aggiornamenti è di livello 2.</p>
 
-    <p>Questi aggiornamenti non sono conosciuti per urtare grandi aree o parti sensibili del sistema, ma non sono neppure garantite riguardare solo il relativo software.</p>
-
-    <p>In generale, si dovrebbe essere in grado di applicare questi aggiornamenti senza doversi preoccupare di regressioni.</p>
-
-    <p>Se una regressione importante o una potenziale regressione, è stata trovata in un aggiornamento di livello 2, il suo livello verrà modificato a 3 o 4.</p>
+    <p>Questi aggiornamenti non sono conosciuti per coinvolgere grandi aree o parti sensibili del sistema, ma non è neppure garantito che riguardino solo il relativo software.</p>
 
   </section>
 
@@ -91,13 +83,7 @@
 
     <p>Tipici esempi di aggiornamenti di livello 3 sono GTK, DBUS, ecc... Una regressione in questi aggiornamenti non dovrebbe impedire al computer di avviarsi correttamente, ma potrebbe avere un impatto su molte applicazioni.</p>
 
-    <p>Gli aggiornamenti degli ambienti desktop sono anche gli di livello 3. In caso di una regressione critica in Cinnamon, potrebbe essere impossibile accedere al desktop.</p>
-
-    <p>Non ci sono molti aggiornamenti di livello 3. Si consiglia di applicarli con cautela e in isolamento. Prendere nota di quali aggiornamenti si applicano, controllare il sistema in seguito per assicurarsi che tutto funzioni bene.</p>
-
-    <p>Se qualcosa si corrompe, chiedere aiuto sul forum o nel canale di chat e dire quale aggiornamento ha causato la regressione e ciò che è corrotto.</p>
-
-    <note><p>Se si applicano alla cieca centinaia di aggiornamenti e non si riesce ad individuare quello problematico, è improbabile trovare aiuto. Tutti gli aggiornamenti di livello 3 sono raccomandati, ma si consiglia di essere prudenti e di sapere ciò che si sta aggiornando.</p></note>
+    <p>Gli aggiornamenti degli ambienti desktop sono anche di livello 3. In caso di una regressione critica in Cinnamon, potrebbe essere impossibile accedere al desktop.</p>
 
   </section>
 
@@ -108,40 +94,12 @@
 
     <list>
         <item><p>La sequenza di avvio</p></item>
-        <item><p>Il gestore della schermo (schermata di login, gestione della sessione)</p></item>
+        <item><p>Il gestore dello schermo (schermata di login, gestione della sessione)</p></item>
         <item><p>Il kernel (supporto hardware)</p></item>
         <item><p>I driver (networking, NVIDIA/AMD)</p></item>
         <item><p>Il display (Xorg, mesa)</p></item>
     </list>
 
-    <p>Come gli altri aggiornamenti, tutti gli aggiornamenti di livello 4 sono raccomandati, soprattutto se sono aggiornamenti di sicurezza.</p>
-
-    <p>Tuttavia, se una regressione critica si presenta in uno di questi aggiornamenti potrebbe interessare una parte sensibile del vostro sistema.</p>
-
-    <p>Potresti ritrovarti senza una connessione a Internet, senza la possibilità di avviare l'ambiente desktop o anche senza la capacità di avviare il sistema operativo.</p>
-
-    <p>Per questo motivo si dovrebbe sempre essere attenti quando si applicano gli aggiornamenti di livello 4 (compresi gli aggiornamenti del kernel). Applicarli singolarmente e prendere nota delle versioni che si stanno applicando.</p>
-
-    <p>Se qualcosa si corrompe, chiedere aiuto sul forum o nel canale di chat e dire quale aggiornamento ha causato la regressione e ciò che è corrotto.</p>
-
-    <note><p>Se si applicano alla cieca centinaia di aggiornamenti e non si riesce ad individuare quello problematico, è improbabile trovare aiuto. Tutti gli aggiornamenti di livello 4 sono raccomandati, ma ci si aspetta che siate prudenti e sappiate ciò che state aggiornando.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
-
-    <p>Gli aggiornamenti di livello 5 sono estremamente rari.</p>
-
-    <p>Quando viene trovato un bug critico in un aggiornamento è solitamente risolto appena possibile.</p>
-
-    <p>Ci sono molti modi per Linux Mint per risolvere i problemi e molti meccanismi in atto sia in modalità remota nei repositori, che localmente all'interno del tuo sistema operativo. Quindi in circostanze normali non dovrebbe essere necessario mettere aggiornamenti nella lista nera.</p>
-
-    <p>Se un aggiornamento ha avuto un bug critico e stanno lavorando su una soluzione, ma non è ancora pronta, Linux Mint potrebbe provvisoriamente segnare la versione specifica dell'aggiornamento come livello 5 (vale a dire "non consigliato"). Ciò impedirebbe agli utenti di applicarlo fino a quando la nuova versione non giunge ai repositori.</p>
-
-    <note><p>Gli aggiornamenti di livello 5 sono noti per causare problemi. Essi sono molto rari e di solito temporanei. Non sono visibili per impostazione predefinita e non dovrebbero essere applicati.</p></note>
-
-  </section>
-
 
 </page>

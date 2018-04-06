@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Jadro a aktualizácie jadra</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Aktualizácie jadra</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Jadro je centrálna časť každého operačného systému. Mimo ostatné je zodpovedné za prácu s hadrvérom a jeho podporu.</p>
 
   <note><p>V Linuxe Mint prinášajú aktualizácie jadra opravy bezpečnosti, aj opravy chýb a niekedy aj nové funkcie a majú vplyv na kritické časti systému. Preto sú aktualizácie jadra dôležité z pohľadu bezpečnosti, ale tiež môžu viesť k problémom ťažko riešiteľným neskúsenými používateľmi.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Z bezpečnostného hľadiska je dôležité aplikovať aktualizácie jadra.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Regresia v jadre však môže ovlyvniť vašu schopnosť pripojiť sa k sieti Internet, prihlásiť sa do grafického prostredia alebo naštartovať systém.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Pre tento dôvod je dôležité byť opatrný ak aplikujete aktualizácie jadra systému a vedieť ako ich vrátiť naspäť ak sa niečo pokazí.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Nainštalovaných môže byť viacero jadier</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Ak aplikujete aktualizáciu, nahrádzate starú verziu softvéru novou verziou.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Veci sú trochu inak pri jadrách. Ak aplikujete aktualizáciu jadra, neaktualizujete jadro, inštalujete úplne novú verziu jadra vedľa súčasnej verzie.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Vždy, keď aktualizujete jadro, nainštalujete nové bez odstránenia starých.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Pri štarte počítača, systém automaticky zvolí  najnovšie jadro.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Identifikovanie momentálneho jadra</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Ak chcete vediet, aké jadro momentálne používate, otvorte terminál a napíšte:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Inštalovanie a odstraňovanie jadier</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Jadrá môžete inštalovať a odstraňovať z aktualizátora softvéru</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Zvoľte "Zobraziť" -&gt; "Linuxové jadrá" v ponuke.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Jadro, ktoré momentálne používate nemôžete odstrániť. Na jeho odstránenie musíte naštartovať systém s inou verziou jadra.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Zvolenie jadra</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Môžete mať nainštalovaných viacero jadier, no spustené môže byť v jednu chvíľu len jedno.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Ak naštartujete počítač, úplne prvá obrazovka (po UEFI/BIOS) sa nazýva GRUB menu. Toto menu vám dovoľuje nielen zvoliť operačný systém, ktorý sa má spustiť, no ale aj zvolenie jadra.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Na zvolenie jadra vstúpte do možnosti "Advanced options" v zavádzači GRUB. Uvidíte všetky nainštalované jadrá. Zvoľte si jadro, ktoré chcete použiť a systém s ním naštartuje.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Kontrolujem stav DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Jadro zahŕňa všetky ovládače s otvoreným zdrojovým kódom - tieto fungujú väčšinov veľmi dobre. Proprietárne (uzatvorené) ovládače (NVIDIA, AMD, Broadcom, atd...) nie sú priložené k jadru a musia sa skompilovať samé oproti každému jadru ktoré nainštalujete. Toto spravuje mechanizmus nazývaný DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Ak sa proprietárny ovládač neskompiluje správne s DKMS na dané jadro, nebude s ním fungovať.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Po nainštalovaní alebo odstránení jadra môžete skontrolovať stav DKMS aby ste sa usistili, že sú všetky proprietárne ovládače nainštalované na každé jadro. Kontrolu prevediete príkazom:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Nová séria jadra je väčšinov dostupná predtým, než dokážu proprietárne ovládače podporovať dané jadro cez DKMS. Ak používate proprietárne ovládače, odporúča sa držať sa aktualizácií jadra a neinštalovať jadrá z novšej série než série z odporúčaných ovládačov.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Vrátenie aktualizácie jadra</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Ak sa niečo pokazilo a niečo nefunguje správne s najnovším jadrom, ktoré ste nainštalovali (alebo aktualizáciou jadra), reštartujte počítač, zvoľte jadro, ktoré ste používali ako predchádzajúce, odstráňte nové jadro a reštartujte počítač znova.</p>
 
   </section>
 

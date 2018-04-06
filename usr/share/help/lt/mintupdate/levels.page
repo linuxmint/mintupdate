@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Atnaujinimams yra suteikiamas lygis pagal tai, kokį poveikį jie daro operacinei sistemai</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Atnaujinimų lygiai</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Atnaujinimams yra suteikiamas lygis, nurodantis kokį poveikį jie daro operacinei sistemai.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Didelis</p></td>
-      <td><p>Taikykite apdairiai. Paveikia daugelį programų.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Jautrus</p></td>
-      <td><p>Taikykite po vieną. Paveikia jautrias sistemos dalis.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>Taip pat yra specialus lygis, kuris yra suteikiamas atnaujinimams su žinomomis kritinėmis problemomis:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Pavojingas</p></td>
-      <td><p>Labai retas. Nerekomenduojamas. Žinoma, kad gali sukelti problemų.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Lygis 1</title>
@@ -67,7 +63,7 @@
         <item><p>Medijos grotuvas</p></item>
       </list>
 
-    <p>Jūs galite taikyti šiuos atnaujinimus, nesibaimindami jokių regresijų. Blogiausiu atveju, regresija paveiks tik atnaujinamą programinę įrangą, o ne pačią operacinę sistemą.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Tai yra numatytasis lygis, taigi, dauguma atnaujinimų yra 2 lygio.</p>
 
     <p>Yra žinoma, kad šie atnaujinimai nepaveiks dideles jūsų sistemos sritis ar jautrias jos dalis, tačiau taip pat nėra garantuojama, kad atnaujinimai paveiks tik jų pačių programinę įrangą.</p>
-
-    <p>Dažniausiai, jūs galite taikyti šiuos atnaujinimus, nesibaimindami regresijų.</p>
-
-    <p>Jeigu 2 lygio atnaujinime bus rasta svarbi ar potenciali regresija, tuomet jo lygis bus pakeistas į 3 ar 4 lygį.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Tipiniai 3 lygio atnaujinimų pavyzdžiai yra GTK, DBUS ir t.t. ... Tokiuose atnaujinimuose esanti regresija neužkirs kelio jūsų kompiuteriui tinkamai pasileisti, tačiau paveiks daug programų.</p>
 
     <p>Darbalaukio aplinkos taip pat yra 3 lygio atnaujinimai. Jei kritinė regresija atsiras Cinnamon pakete, tuomet gali būti, kad negalėsite prisijungti.</p>
-
-    <p>3 lygio atnaujinimų nėra daug. Juos yra rekomenduojama taikyti apdairiai ir izoliuotoje aplinkoje. Pasižymėkite kokius atnaujinimus taikote, o po to, patikrinkite sistemą ar viskas veikia taip kaip turėtų veikti.</p>
-
-    <p>Jei kažkas susigadina, ieškokite pagalbos forumuose ar pokalbių kanale ir papasakokite žmonėms, kuris atnaujinimas sukėlė regresija ir kas neveikia.</p>
-
-    <note><p>Jeigu jūs aklai taikote šimtus atnaujinimų ir negalite tiksliai nurodyti probleminį atnaujinimą, tuomet jums, greičiausiai, nepavyks rasti pagalbos. Visi 3 lygio atnaujinimai yra rekomenduojami, tačiau yra tikimasi, kad jūs būsite apdairūs ir žinosite ką atnaujinate.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Atvaizdavimas (Xorg, mesa)</p></item>
     </list>
 
-    <p>Kaip ir kiti atnaujinimai, visi 4 lygio atnaujinimai yra rekomenduojami, ypač jeigu tai yra saugumo atnaujinimai.</p>
-
-    <p>Kita vertus, jei viename iš tokių atnaujinimų yra regresija, tuomet ji gali paveikti jautrią jūsų sistemos dalį.</p>
-
-    <p>Jūs galite atsidurti situacijoje be interneto ryšio, be galimybės paleisti darbalaukio aplinką arba netgi be galimybės paleisti operacinę sistemą.</p>
-
-    <p>Dėl šios priežasties, visada taikydami 4 lygio atnaujinimus (įskaitant branduolio atnaujinimus) turite būti atsargūs. Taikykite juos po vieną ir pasižymėkite kokias versijas taikote.</p>
-
-    <p>Jei kažkas susigadina, ieškokite pagalbos forumuose ar pokalbių kanale ir papasakokite žmonėms, kuris atnaujinimas sukėlė regresija ir kas neveikia.</p>
-
-    <note><p>Jeigu jūs aklai taikote šimtus atnaujinimų ir negalite tiksliai nurodyti probleminį atnaujinimą, tuomet jums, greičiausiai, nepavyks rasti pagalbos. Visi 4 lygio atnaujinimai yra rekomenduojami, tačiau yra tikimasi, kad jūs būsite apdairūs ir žinosite ką atnaujinate.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Lygis 5</title>
-
-    <p>5 lygio atnaujinimai yra labai reti.</p>
-
-    <p>Kai atnaujinime yra randama kritinė klaida, dažniausiai, ji yra pataisoma kaip įmanoma greičiau.</p>
-
-    <p>Yra daug būdų kaip Linux Mint gali adresuoti klaidas ir daugybė mechanizmų tiek nuotoliniu būdu saugyklose, tiek vietiniu būdu jūsų operacinėje sistemoje. Taigi, normaliomis sąlygomis, atnaujinimai neturėtų būti įtraukiami į juodąjį sąrašą.</p>
-
-    <p>Jeigu atnaujinime yra kritinė klaida ir yra kuriamas jos pataisymas, tačiau jis dar nėra paruoštas, tuomet Linux Mint gali pažymėti tam tikrą atnaujinimo versiją kaip 5 lygio atnaujinimą (t. y. "nerekomenduojamas"). Tai neleis naudotojams taikyti šio atnaujinimo tol, kol saugykloje neatsiras nauja versija.</p>
-
-    <note><p>Yra žinoma, kad 5 lygio atnaujinimai sukelia problemas. Šie atnaujinimai yra labai reti ir, dažniausiai, laikini. Pagal numatymą, jie nėra matomi ir neturėtų būti taikomi.</p></note>
-
-  </section>
-
 
 </page>

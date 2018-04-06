@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Uppfærslur af skipanalínu</desc>
   </info>
 
-  <title>Using mintupdate-tool</title>
+  <title>Notkun á mintupdate-verkfærinu</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-tool".</p>
+    <p>Uppfærslustjórinn kemur með skipanalínutóli sem kallast  "mintupdate-tool".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Ef þú hefur nokkra reynslu af Linux, geturðu notað þetta tól í skriftum eða cron-verkum til að útbúa sjálfvirkar uppfærslur á hugbúnaði.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Upptalning á uppfærslum</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Þú getur notað "list" skipunina til að telja upp uppfærslur:</p>
 
   <screen>mintupdate-tool list</screen>
 
-  <p>The list can be filtered by levels with the -l argument.</p>
+  <p>Hægt er að sía listann eftir stigum með -l viðfanginu.</p>
 
-  <p>You can add security updates with -s.</p>
+  <p>Þú getur bætt við öryggisuppfærslum með -s.</p>
 
-  <p>You can add kernel updates with -k, or remove them with -nk.</p>
+  <p>Þú getur bætt við kjarnauppfærslum með -k, eða fjarlægt þær með -nk.</p>
 
-  <p>For instance, the following command lists all security updates, as well as level 1 and 2 bug fixes update:</p>
+  <p>Sem dæmi; eftirfarandi skipun telur upp allar öryggisuppfærslur ásamt villuleiðréttingum á stigi 1 og 2:</p>
 
   <screen>mintupdate-tool list -l12 -s -nk</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Að setja inn uppfærslur</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Þú getur notað "upgrade" skipunina til að setja inn uppfærslur, með sömu valkostum.</p>
 
-  <p>For instance, the following command applies all security updates as well as level 1 and 2 bug fix updates:</p>
+  <p>Sem dæmi; eftirfarandi skipun setur inn allar öryggisuppfærslur ásamt villuleiðréttingum á stigi 1 og 2:</p>
 
   <screen>sudo mintupdate-tool upgrade -r -l12 -s -nk</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Taktu eftir -r viðfanginu sem sett var inn til þess að endurnýja skyndiminnið.</p>
 
-  <p>For more information on mintupdate-tool and a complete list of arguments, type:</p>
+  <p>Til að fá frekari upplýsingar um mintupdate-tool og lista yfir öll viðföng þess, sláðu inn:</p>
 
   <screen>mintupdate-tool -h</screen>
 

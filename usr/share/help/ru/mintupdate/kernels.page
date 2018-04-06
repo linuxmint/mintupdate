@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Ядра и обновления ядра</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Обновление ядра</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Ядро - это центральная часть операционной системы. Среди прочего, оно отвечает за поддержку аппаратного обеспечения.</p>
 
-  <note><p>Обновления ядра в Linux Mint приводит к установке патчей в системе безопасности и устранению неисправностей (в некоторых случаях и новые возможности), а также воздействуют на важные части операционной системы. С точки зрения безопасности обновление ядра это важный процесс, однако обновления ядра может иметь нежелательный эффект, который будет трудно устранить неопытном пользователям.</p></note>
+  <note><p>Обновления ядра в Linux Mint содержат патчи безопасности и исправления ошибок (в некоторых случаях и новые возможности), а также влияют на важные части операционной системы. С точки зрения безопасности обновление ядра важны, однако они могут привести к нежелательным последствиям, которые будет трудно устранить неопытным пользователям.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>С точки зрения безопасности, важно устанавливать обновления ядра.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Однако регрессия ядра может повлиять на вашу способность подключения к Интернету, запуска среды рабочего стола или даже для загрузки операционной системы.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>В связи с этим, важно быть осторожным при применении обновлений ядра и знать, как отменить их, если что-то пойдет не так.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Могут быть установлены несколько ядер</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>При установке обновления, вы заменяете старую версию программного обеспечения на новую.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Все меняется, когда дело доходит до ядра. При установке «обновление ядра», вы на самом деле не обновляете ядро, а устанавливаете новое ядро ​​вместе с существующим.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Каждый раз, когда вы устанавливаете обновления ядра, в системе устанавливается новое ядро без удаления старых.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Во время загрузки компьютер выбирает последнее установленное ядро.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Определение текущего ядра</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Если вы хотите знать, какое ядро сейчас используется, откройте терминал и введите:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Установка и удаление ядер</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Вы можете устанавливать и удалять ядра из Менеджера обновлений.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Выберите "Вид" -&gt; "Обновление ядра Linux" в меню.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Вы не можете удалить ядро, которое сейчас используется. Чтобы удалить его, нужно перезагрузить компьютер и выбрать другое ядро для загрузки.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Выбор ядра</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Можно установить несколько ядер, но загрузиться и работать может только одно ядро.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>При загрузке компьютера, самый первый экран называется меню Grub. Это меню позволяет выбрать операционную систему, но вы также можете использовать его, чтобы выбрать ядро.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Чтобы выбрать ядро, выберете "Дополнительные параметры" в меню Grub. Вы увидите все установленные ядра. Выберите то, которое вы хотите использовать, и ваш компьютер будет загружаться с ним.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Проверка статуса DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Ядро включает в себя все драйверы с открытым исходным кодом, и они, как правило, работают очень хорошо. Проприетарные драйверы (NVIDIA, AMD, Broadcom...и т.д.) не включены и их нужно скомпилировать самостоятельно для каждого ядра, которое вы устанавливаете. Это делается с помощью механизма, называемого DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Если для одного из ядер проприетарный драйвер перекомпилирован не правильно с применением DKMS, то он не будет правильно работать с этим ядром.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>После установки или удаления ядра, вы можете проверить свой DKMS статус, чтобы убедиться, что все проприетарные драйверы правильно установлены для каждого ядра, с помощью следующей команды:</p>
 
-    <screen>dkms status</screen>
+    <screen>статус dkms</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Новые серии ядер, как правило, становятся доступными прежде чем проприетарные драйверы поддерживают их через DKMS. Если вы используете проприетарные драйверы, рекомендуется придерживаться обновлений ядра и не устанавливать ядра из серии, которая новее, чем серия рекомендуемого ядра.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Отмена обновления ядра</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Если что-то не работает с последней установленной версией ядра (или обновления ядра), выполните перезагрузку, выберите ядро, которое вы использовали ранее, удалите новое ядро и перезагрузите компьютер.</p>
 
   </section>
 

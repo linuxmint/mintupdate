@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Uppdateringar förses med en nivåsiffra som visar hur stor påverkan de kan ha på systemet</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Uppdaterings nivåer</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Uppdateringar förses med en nivåsiffra som visar hur stor påverkan de kan ha på systemet.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Stor</p></td>
-      <td><p>Tillämpas med försiktighet. Påverkar ett flertal program.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Känslig</p></td>
-      <td><p>Tillämpas en och en. Påverkar känsliga delar av systemet.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>Det finns också en speciell nivå som tilldelas uppdateringar med kända kritiska problem:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Farlig</p></td>
-      <td><p>Mycket sällsynta. Rekommenderas inte. Kända för att orsaka problem.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Nivå 1</title>
@@ -67,7 +63,7 @@
         <item><p>Mediaspelaren</p></item>
       </list>
 
-    <p>Du kan tillämpa dessa uppdateringar utan oro för regressioner. I värsta fall kan en regression påverka programmet du uppgraderar, men inte själva operativsystemet.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Detta är standardnivån, så majoriteten av uppdateringar är på nivå 2.</p>
 
     <p>Dessa uppdateringar är inte kända för att påverka stora områden eller känsliga delar av systemet, men det finns heller inga garantier för att de bara påverkar det egna programmet.</p>
-
-    <p>Generellt, bör du kunna tillämpa dessa uppdateringar utan oro för regressioner.</p>
-
-    <p>Om en viktig regression, eller potentiell regression, hittas i en nivå 2-uppdatering, kommer nivån att höjas till 3 eller 4.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Typiska exempel på nivå 3-uppdateringar är GTK, DBUS, etc... En regression i dessa uppdateringar skulle inte hindra din dator från att starta ordentligt, men kan inverka på många andra program.</p>
 
     <p>Skrivbordsmiljöer är nivå 3-uppdateringar. Om en kritisk regression inträffar i Cinnamon, kan du få problem att logga in.</p>
-
-    <p>Det finns inte många nivå 3-uppdateringar. Det rekommenderas att man tillämpar dem med försiktighet och isolerat. Notera vilka uppdateringar du tillämpar och kontrollera systemet efteråt, för att säkerställa att allt fungerar som det skall.</p>
-
-    <p>Om något går sönder, kan du söka hjälp på forum eller chattkanalen och berätta för folk vilken uppdatering som orsakat problem och vad som är trasigt.</p>
-
-    <note><p>Om du blint tillämpar hundratals uppdateringar utan att kunna peka ut vilken som är problematisk, lär du inte hitta någon hjälp. Alla nivå 3-uppdateringar är rekommenderade, men du förväntas vara försiktig och veta vad det är du uppgraderar.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Skärm (Xorg, mesa)</p></item>
     </list>
 
-    <p>Liksom andra uppdateringar är alla nivå 4-uppdateringar rekommenderade, särskilt säkerhetsuppdateringar.</p>
-
-    <p>Om en kritisk regression finns i en av dessa uppdateringar, kan det dock påverka en känslig del av ditt system.</p>
-
-    <p>Du kan bli sittande utan internetuppkoppling, utan möjlighet att starta skrivbordsmiljön eller till och med utan att kunna starta operativsystemet.</p>
-
-    <p>Av detta skäl bör du alltid vara försiktig när du tillämpar nivå 4-uppdateringar (inklusive kärnuppdateringar). Tillämpa dem en och en, och notera vilken version det är du tänker tillämpa.</p>
-
-    <p>Om något går sönder, kan du söka hjälp på forum eller chattkanalen och berätta för folk vilken uppdatering som orsakat problem och vad som är trasigt.</p>
-
-    <note><p>Om du blint tillämpar hundratals uppdateringar utan att kunna peka ut vilken som är problematisk, lär du inte hitta någon hjälp. Alla nivå 4-uppdateringar är rekommenderade, men du förväntas vara försiktig och veta vad det är du uppgraderar.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Nivå 5</title>
-
-    <p>Uppdateringar på nivå 5 är extremt ovanliga.</p>
-
-    <p>När ett kritiskt fel hittas i en uppdatering, rättas den vanligen till så snabbt som möjligt.</p>
-
-    <p>Det finns många sätt för Linux Mint att lösa problem och många mekanismer på plats, både på distans i förråden och lokalt i ditt operativsystem. Så under normala omständigheter borde inga uppdateringar behöva svartlistas.</p>
-
-    <p>Om en uppdatering hade ett kritiskt fel och en lösning var under upparbetning men ännu inte färdigställd, kunde Linux Mint markera en specifik version av uppdateringen som nivå 5 (dvs "rekommenderas inte"). Detta skulle förhindra användare från att tillämpa den tills den nya versionen når förrådet.</p>
-
-    <note><p>Uppdateringar på nivå 5, är kända för att kunna orsaka problem. De är mycket sällsynta och oftast tillfälliga. De visas inte som standard och de bör inte tillämpas.</p></note>
-
-  </section>
-
 
 </page>

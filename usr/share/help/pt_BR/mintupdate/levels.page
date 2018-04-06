@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>As atualizações recebem um nível que indica a quantidade de impacto que têm no sistema operacional</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Níveis de atualização</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>As atualizações recebem um nível que indica a quantidade de impacto que têm no sistema operacional.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Grande</p></td>
-      <td><p>Apĺique com atenção. Impacto em múltiplas aplicações.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensível</p></td>
-      <td><p>Aplique uma a uma. Impacto em partes sensíveis do sistema.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>E existe também um nível especial que é dado a atualizações com problemas críticos conhecidos.</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Perigoso</p></td>
-      <td><p>Muito raro. Não recomendado. Conhecido por criar problemas.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Nível 1</title>
@@ -67,7 +63,7 @@
         <item><p>O tocador de mídia</p></item>
       </list>
 
-    <p>Você pode aplicar essas atualizações sem preocupações quanto a regressões. No pior cenário, uma regressão afetaria apenas o software que você está atualizando, e não o próprio sistema operacional.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Este é o nível padrão, então a grande maioria das atualizações são nível 2.</p>
 
     <p>Essas atualizações não afetam grande áreas ou partes sensíveis do sistema, mas elas não garantem afetar somente seu próprio software.</p>
-
-    <p>Em geral, você deveria estar apto a aplicar estas atualizações sem preocupações sobre regressões.</p>
-
-    <p>if uma importante regressaão, ou potencial regressão, for encontrada em uma atualização nível 2, este nível deverá ser mudado para 3 ou 4.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Exemplo típico de atualizações de nível 3 são GTK, DBUS, outros... Uma regressão nessas atualização poderá  não parar seu computador de inicializar corretamente, mas irá impactar em muitas aplicações.</p>
 
     <p>Ambientes desktop também são atualização nível 3. Se uma regressão crítica acontecer no Cinnamon, você poderá não conseguir iniciar uma seção.</p>
-
-    <p>Não há muitas atualizações de nível 3. Elas são recomendadas para aplicar com atenção e isoladamente. Tome nota de qual atualização está aplicando, cheque o sistema depois para certificar-se de que tudo está funcionando bem.</p>
-
-    <p>Se alguma coisa quebrar, procure ajuda nos fóruns ou no canal de bate-papo e informe as pessoas que a atualização causou um retrocesso e o que está quebrado.</p>
-
-    <note><p>Se você aplicar cegamente centenas de atualizações e você não conseguir localizar o ponto problemático, é improvável que você encontre ajuda. Todas as atualizações de nível 3 são recomendadas, mas você deve ser cauteloso e saber o que você está atualizando.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>A tela (Xorg, mesa)</p></item>
     </list>
 
-    <p>Como outras atualizações, todas as atualizações nível 4 são recomendadas, especificamente se estas são atualização de segurança.</p>
-
-    <p>Entretanto, se uma regressão crítica está presente em uma dessas atualizações ela poderá impactar partes sensíveis do seu sistema.</p>
-
-    <p>Você poderia encontrar-se sem uma conexão com a internet, sem a habilidade para iniciar o ambiente de trabalho ou mesmo sem habilidade para iniciar o sistema operacional.</p>
-
-    <p>Por esta razão você deverá sempre ser cuidadoso quando aplicar atualizações nível 4 (incluindo atualizações de kernel). Aplique então uma a uma e tome nota das versões que você está aplicando.</p>
-
-    <p>Se alguma coisa quebrar, procure ajuda nos fóruns ou no canal de bate-papo e informe as pessoas que a atualização causou um retrocesso e o que está quebrado.</p>
-
-    <note><p>Se você aplicar cegamente centenas de atualizações e você não conseguir localizar o problemático, é improvável que você encontre ajuda. Todas as atualizações de nível 4 são recomendadas, mas você deve ser cauteloso e saber o que você está atualizando.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Nível 5</title>
-
-    <p>Atualizações de nível 5 são extremamente raras.</p>
-
-    <p>Quando um bug crítico é encontrado em uma atualização está é geralmente corrigida tão breve quanto possível.</p>
-
-    <p>Existem muitas formas do Linux Mint resolver problemas, e muitos mecanismos instalados remotamente nos repositórios e localmente em seu sistema operacional. Portanto, em circunstâncias normais, as atualizações não precisam ser colocadas na lista negra.</p>
-
-    <p>Se uma atualização tivesse um bug crítico e uma solução estava sendo trabalhada, mas ainda não estava pronta, o Linux Mint poderia marcar uma versão específica da atualização como nível 5 (ou seja, "não recomendado"). Isso impediria os usuários de aplicá-lo até que a nova versão chegue os repositórios.</p>
-
-    <note><p>Atualizações nível 5 são conhecidas por causarem problemas. Elas são muito raras e geralmente temporária. Elas não são visíveis por padrão e não serão aplicadas.</p></note>
-
-  </section>
-
 
 </page>

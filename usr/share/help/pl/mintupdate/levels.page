@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Aktualizacjom przypisano poziomy ukazujące jak duży mają wpływ na system operacyjny.</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Poziomy aktualizacji</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Aktualizacjom przypisano poziomy pokazujące jak duży wpływ mają one na system operacyjny</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Duży</p></td>
-      <td><p>Stosować ostrożnie. Mają wpływ na wiele programów.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Wrażliwy</p></td>
-      <td><p>Stosować pojedynczo. Mają wpływ na wrażliwe części systemu.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>Istnieje również specjalny poziom nadawany aktualizacjom znanym z powodowania poważnych problemów:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Niebezpieczny</p></td>
-      <td><p>Bardzo rzadkie. Nie polecane. Sprawiają problemy.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
@@ -67,7 +63,7 @@
         <item><p>Odtwarzacza multimediów</p></item>
       </list>
 
-    <p>Możesz stosować te aktualizacje nie martwiąc się o regresje. W najgorszym wypadku regresja dotyczyła będzie tylko aktualizowanego oprogramowania, nie systemu operacyjnego.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>To poziom domyślny, tak więc znaczna większość aktualizacji jest poziomu 2.</p>
 
     <p>Aktualizacje te nie wpływają na duże obszary wrażliwych części systemu, jednak nie ma też gwarancji, że ich działanie ogranicza się jedynie do aktualizowanego oprogramowania.</p>
-
-    <p>Najogólniej rzecz ujmując powinieneś móc je stosować nie przejmując się regresjami.</p>
-
-    <p>Jeśli w aktualizacji poziomu 2 została odnaleziona poważna regresja lub potencjalna regresja, wtedy jej poziom zostaje zmieniony na 3 lub 4.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>Typowym przykładem aktualizacji 3 poziomu są  GTK, DBUS, itp... Regresja w którejś z tych aktualizacji nie sprawiłaby, że nie można byłoby uruchomić komputera, jednak mogłaby mieć wpływ na wiele programów.</p>
 
     <p>Środowiska graficzne także należą do aktualizacji poziomu 3. Jeśli regresja krytyczna zdarzyłaby się w Cinnamonie można byłoby nie być w stanie się zalogować.</p>
-
-    <p>Nie ma zbyt wielu aktualizacji poziomu 3. Zaleca się by stosowanie ich ostrożnie i pojedynczo. Zwróć uwagę które z aktualizacji stosujesz, sprawdź potem system by upewnić się, że wszystko działa jak trzeba.</p>
-
-    <p>Jeśli coś się zepsuje szukaj pomocy na forum lub czacie i przekaż innym, która aktualizacja spowodowała regresję i co się zepsuło</p>
-
-    <note><p>Jeśli na oślep instalujesz setki aktualizacji i nie jesteś w stanie wskazać tej, która sprawia problemy,  masz mniejsze szanse na otrzymanie pomocy. Wszystkie aktualizacje poziomu 3 są zalecane jednak oczekuje się od Ciebie, że zachowasz rozwagę i wiesz co aktualizujesz.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Interfejs graficzny (Xorg, mesa)</p></item>
     </list>
 
-    <p>Tak jak i inne, aktualizacje poziomu 4 są zalecane, zwłaszcza jeśli są to aktualizacje bezpieczeństwa</p>
-
-    <p>Jednak jeśli w jednej z tych aktualizacji wystąpi krytyczna regresja może ona wpłynąć na wrażliwą część Twojego systemu.</p>
-
-    <p>Może się okazać, że nie masz połączenia z internetem, nie możesz uruchomić środowiska graficznego a nawet uruchomić systemu operacyjnego.</p>
-
-    <p>Z tego powodu przy stosowaniu aktualizacji poziomu 4(włączając w to aktualizacje jądra) należy zawsze zachować ostrożność. Należy używać ich pojedynczo i zwracać uwagę na to jakie wersje stosujesz.</p>
-
-    <p>Jeśli coś się zepsuje szukaj pomocy na forum lub czacie i przekaż innym, która aktualizacja spowodowała regresję i co się zepsuło</p>
-
-    <note><p>Jeśli na oślep instalujesz setki aktualizacji i nie jesteś w stanie wskazać tej, która sprawia problemy, masz mniejsze szanse na otrzymanie pomocy. Wszystkie aktualizacje poziomu 4 są zalecane jednak oczekuje się od Ciebie, że zachowasz rozwagę i wiesz co aktualizujesz.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> Level 5</title>
-
-    <p>Aktualizacje poziomu 5 są niezwykle rzadkie.</p>
-
-    <p>Po znalezieniu krytycznego błędu w aktualizacji, zwykle jest on naprawiany tak szybko jak to możliwe.</p>
-
-    <p>Istnieje wiele sposobów jakimi Linux Mint radzi sobie z błędami  i wiele mechanizmów radzenia sobie z nimi w Twoim systemie operacyjnym zarówno zdalnie w repozytoriach jak też lokalnie.</p>
-
-    <p>Jeśli aktualizacja posiadała błąd krytyczny a nad rozwiązaniem pracowano lecz jeszcze go nie ukończono, Linux Mint może w takim wypadku oznaczyć konkretną wersję aktualizacji jako poziom 5 ( czyli "nie polecana"). Ma to na celu zapobieżenie instalacji przed wysłaniem nowej wersji aktualizacji do repozytoriów.</p>
-
-    <note><p>Aktualizacje poziomu 5 znane są z powodowania problemów. Zwykle są one rzadkie i tymczasowe. Domyślnie nie są one widoczne i nie powinny być stosowane.</p></note>
-
-  </section>
-
 
 </page>

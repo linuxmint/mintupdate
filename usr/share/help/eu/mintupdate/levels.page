@@ -11,10 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Eguneraketei maila bat ematen zaie, sistema eragilean duten eraginaren arabera</desc>
+    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
   </info>
 
   <title>Eguneraketa mailak</title>
+
+    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+
+    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+
+    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
     <p>Eguneraketei maila bat ematen zaie, sistema eragilean duten eraginaren arabera.</p>
 
@@ -34,24 +40,14 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Handia</p></td>
-      <td><p>Kontuz aplikatu. Eragina hainbat aplikaziotan.</p></td>
+      <td><p>Impact on multiple applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sentikorra</p></td>
-      <td><p>Banan-bana aplikatu. Sistemaren zati sentikorretan eragina.</p></td>
+      <td><p>Impact on sensitive parts of the system.</p></td>
     </tr>
     </table>
-
-    <p>Eta maila berezi bat ere badago, arazo kritiko ezagunak dituzten eguneraketentzat:</p>
-
-    <table shade="all" frame="all" rules="rows cols">
-    <tr>
-      <td><media type="image" src="figures/mintupdate-level5.svg" height="40"/></td>
-      <td><p>Arriskutsua</p></td>
-      <td><p>Oso arraroa. Ez da gomendatzen. Arazoak ematen ditu.</p></td>
-    </tr>
-  </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> 1 maila</title>
@@ -67,7 +63,7 @@
         <item><p>Multimedia erreproduzitzailea</p></item>
       </list>
 
-    <p>Erregresioen beldurrik gabe aplika ditzakezu eguneraketa hauek. Kasurik okerrenean erregresioak eguneratzen ari zaren softwarean izango luke eragina, ez sistema eragilean.</p>
+    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
 
   </section>
 
@@ -77,10 +73,6 @@
     <p>Hau da maila lehenetsia. Eguneraketa gehienak 2 mailakoak dira.</p>
 
     <p>Eguneraketa hauek ez diote ustez sistemaren zati handi edo sentikorrei eragiten, baina ezin da ziurtatu gainerako softwareari eragingo ez dionik.</p>
-
-    <p>Orokorrean, eguneraketa hauek erregresioen beldur izan gabe aplikatu ditzakezu.</p>
-
-    <p>Erregresio garrantzitsu bat edo erregresio potentzial bat aurkituko balitz 2 mailako eguneraketa batean, 3 edo 4 mailara pasako litzateke.</p>
 
   </section>
 
@@ -92,12 +84,6 @@
     <p>3 mailako eguneraketen adibide tipikoak GTK, DBUS... dira. Eguneraketa hauetako erregresio batek ez luke ordenagailua behar bezala abiaraztea galaraziko baina aplikazio askotan eragina izan dezake.</p>
 
     <p>Mahaigain inguruneak ere 3 mailako eguneraketak dira. Cinnamon-en erregresio kritikoak gertatuko balira, posible litzateke saioa hasi ezinik geratzea.</p>
-
-    <p>Ez daude 3 mailako eguneraketa asko. Kontuz eta banan-bana aplikatzea gomendatzen da. Kontutan izan zein eguneraketa aplikatzen ari zaren eta aplikatu ondoren egiaztatu sistemak ondo funtzionatzen duela.</p>
-
-    <p>Zerbait puskatzen bada, bilatu laguntza foroetan eta txat kanalean eta jakinarazi jendeari zein eguneraketak eragin duen erregresioa eta zer puskatu duen.</p>
-
-    <note><p>Itsu-itsuan ehunka eguneraketa aplikatzen badituzu eta arazoak eman dituena identifikatzeko gauza ez bazara, zaila izango da laguntza eskuratzea. 3 mailako eguneraketa guztiak gomendatuak dira baina kontuz aplikatuko dituzula eta zer eguneratzen ari zaren badakizula suposatzen da.</p></note>
 
   </section>
 
@@ -114,34 +100,6 @@
         <item><p>Bistaratzea (Xorg, mesa)</p></item>
     </list>
 
-    <p>Beste eguneraketak bezala, 4 mailako eguneraketak ere aplikatzea gomendatzen da, bereziki segurtasun eguneraketak badira.</p>
-
-    <p>Hala ere, eguneraketa hauetako batean erregresio kritiko bat balego, sistemaren zati kritiko batean eragina izan dezake.</p>
-
-    <p>Interneteko konexiorik gabe, mahaigain ingurunea hasieratu edo sistema eragilea abiarazi ezinik gelditu zaitezke.</p>
-
-    <p>Arrazoi hauengatik, kontu handiz aplikatu behar zenituzke 4 mailako eguneraketak (nukleoaren eguneraketak barne). Banan-bana aplikatu eta aplikatzen ari zaren bertsioen oharrak hartu.</p>
-
-    <p>Zerbait puskatzen bada, bilatu laguntza foroetan eta txat kanalean eta jakinarazi jendeari zein eguneraketak eragin duen erregresioa eta zer puskatu duen.</p>
-
-    <note><p>Itsu-itsuan ehunka eguneraketa aplikatzen badituzu eta arazoak eman dituena identifikatzeko gauza ez bazara, zaila izango da laguntza eskuratzea. 4 mailako eguneraketa guztiak gomendatuak dira baina kontuz aplikatuko dituzula eta zer eguneratzen ari zaren badakizula suposatzen da.</p></note>
-
   </section>
-
-  <section id="level5">
-    <title><media type="image" src="figures/mintupdate-level5.svg" height="40"/> 5 maila</title>
-
-    <p>5 mailako eguneraketak arraroak dira.</p>
-
-    <p>Eguneraketa batean errore kritiko bat aurkitzen denean ahal bezain azkar konpondu ohi da.</p>
-
-    <p>Linux Mint-ek arazoei aurre egiteko modu asko ditu eta mekanismo asko daude urrutiko gordailuetan eta zure sistema eragilean. Baldintza normaletan ez dago eguneraketak zerrenda beltzean jarri beharrik.</p>
-
-    <p>Eguneraketa batek errore kritiko bat balu eta soluzioa oraindik prest ez balego, Linux Mint-ek eguneraketaren bertsio zehatz bat 5 mailako bezala markatuko luke, hau da, "ez gomendatu" bezala. Honek bertsio berria gordailuetan egon arte erabiltzaileek eguneraketa hori aplikatzea eragotziko luke.</p>
-
-    <note><p>5 mailako eguneraketek arazo ezagunak dituzte. Oso arraroak dira eta normalean aldi baterakoak. Modu lehenetsian ez daude ikusgai eta ez dira aplikatu behar.</p></note>
-
-  </section>
-
 
 </page>
