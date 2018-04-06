@@ -1149,14 +1149,20 @@ class MintUpdate():
             prefsMenuItem.set_label(_("Preferences"))
             prefsMenuItem.connect("activate", self.open_preferences)
             editSubmenu.append(prefsMenuItem)
+            if os.path.exists("/usr/bin/timeshift-gtk"):
+                sourcesMenuItem = Gtk.ImageMenuItem()
+                sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU))
+                sourcesMenuItem.set_label(_("System snapshots"))
+                sourcesMenuItem.connect("activate", self.open_timeshift)
+                editSubmenu.append(sourcesMenuItem)
             if os.path.exists("/usr/bin/mintsources"):
                 sourcesMenuItem = Gtk.ImageMenuItem()
-                sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("software-properties", Gtk.IconSize.MENU))
+                sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("system-software-install-symbolic", Gtk.IconSize.MENU))
                 sourcesMenuItem.set_label(_("Software sources"))
                 sourcesMenuItem.connect("activate", self.open_repositories)
                 editSubmenu.append(sourcesMenuItem)
             configMenuItem = Gtk.ImageMenuItem()
-            configMenuItem.set_image(Gtk.Image.new_from_icon_name("security-medium", Gtk.IconSize.MENU))
+            configMenuItem.set_image(Gtk.Image.new_from_icon_name("security-high-symbolic", Gtk.IconSize.MENU))
             configMenuItem.set_label(_("Welcome screen"))
             configMenuItem.connect("activate", self.show_welcome_page)
             editSubmenu.append(configMenuItem)
@@ -1188,7 +1194,7 @@ class MintUpdate():
             editSubmenu.append(item)
 
             item = Gtk.ImageMenuItem()
-            item.set_image(Gtk.Image.new_from_icon_name("system-software-install-symbolic", Gtk.IconSize.MENU))
+            item.set_image(Gtk.Image.new_from_icon_name("mail-replied-symbolic", Gtk.IconSize.MENU))
             item.set_label(_("Install"))
             item.connect("activate", self.install)
             key, mod = Gtk.accelerator_parse("<Control>I")
@@ -1340,14 +1346,13 @@ class MintUpdate():
             helpMenu = Gtk.MenuItem.new_with_mnemonic(_("_Help"))
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
-            if os.path.exists("/usr/share/help/C/linuxmint"):
-                helpMenuItem = Gtk.ImageMenuItem()
-                helpMenuItem.set_image(Gtk.Image.new_from_icon_name("help-contents-symbolic", Gtk.IconSize.MENU))
-                helpMenuItem.set_label(_("Contents"))
-                helpMenuItem.connect("activate", self.open_help)
-                key, mod = Gtk.accelerator_parse("F1")
-                helpMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-                helpSubmenu.append(helpMenuItem)
+            helpMenuItem = Gtk.ImageMenuItem()
+            helpMenuItem.set_image(Gtk.Image.new_from_icon_name("help-contents-symbolic", Gtk.IconSize.MENU))
+            helpMenuItem.set_label(_("Contents"))
+            helpMenuItem.connect("activate", self.open_help)
+            key, mod = Gtk.accelerator_parse("F1")
+            helpMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            helpSubmenu.append(helpMenuItem)
             aboutMenuItem = Gtk.ImageMenuItem()
             aboutMenuItem.set_image(Gtk.Image.new_from_icon_name("help-about-symbolic", Gtk.IconSize.MENU))
             aboutMenuItem.set_label(_("About"))
@@ -1796,8 +1801,10 @@ class MintUpdate():
         dlg.show()
 
     def open_repositories(self, widget):
-        if os.path.exists("/usr/bin/mintsources"):
-            os.system("pkexec /usr/bin/mintsources")
+        subprocess.Popen(["pkexec", "mintsources"])
+
+    def open_timeshift(self, widget):
+        subprocess.Popen(["pkexec", "timeshift-gtk"])
 
 ######### PREFERENCES SCREEN #########
 
