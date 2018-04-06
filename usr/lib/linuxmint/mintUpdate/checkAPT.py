@@ -16,7 +16,7 @@ from gi.repository import Gio
 
 from Classes import Update, Alias, Rule
 
-gettext.install("mintupdate", "/usr/share/linuxmint/locale")
+gettext.install("mintupdate", "/usr/share/locale")
 
 class KernelVersion():
 

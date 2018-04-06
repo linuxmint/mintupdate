@@ -10,7 +10,7 @@ from subprocess import Popen, PIPE
 import os, apt, time
 import configparser
 
-gettext.install("mintupdate", "/usr/share/linuxmint/locale")
+gettext.install("mintupdate", "/usr/share/locale")
 
 class Assistant:
 

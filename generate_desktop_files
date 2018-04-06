@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 DOMAIN = "mintupdate"
-PATH = "/usr/share/linuxmint/locale"
+PATH = "/usr/share/locale"
 
 import os, gettext, sys
 sys.path.append('/usr/lib/linuxmint/common')
@@ -42,7 +42,7 @@ additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate-kde.de
 
 locales = []
 cur_dir = os.getcwd()
-os.chdir("/usr/share/linuxmint/locale")
+os.chdir("/usr/share/locale")
 lines = subprocess.getoutput("find */LC_MESSAGES/mintupdate.mo")
 for line in lines.split("\n"):
     line = line.strip().split("/")[0]
@@ -51,7 +51,7 @@ os.chdir(cur_dir)
 
 for locale in locales:
     os.system("mkdir -p usr/share/help/%s/mintupdate/" % locale)
-    os.system("msgunfmt /usr/share/linuxmint/locale/%s/LC_MESSAGES/mintupdate.mo > /tmp/%s.po" % (locale, locale))
+    os.system("msgunfmt /usr/share/locale/%s/LC_MESSAGES/mintupdate.mo > /tmp/%s.po" % (locale, locale))
     for page in ["index", "kernels", "levels", "mintupdate-tool", "policy", "regressions", "updates"]:
     	os.system("xml2po -p /tmp/%(locale)s.po -o usr/share/help/%(locale)s/mintupdate/%(page)s.page usr/share/help/C/mintupdate/%(page)s.page" % {'locale': locale, 'page':page})
     os.system("cp usr/share/help/C/mintupdate/legal.xml usr/share/help/%s/mintupdate/" % locale)

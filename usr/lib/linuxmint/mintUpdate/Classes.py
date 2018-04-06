@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import gettext
-gettext.install("mintupdate", "/usr/share/linuxmint/locale")
+gettext.install("mintupdate", "/usr/share/locale")
 
 import html
 
