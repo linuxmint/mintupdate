@@ -1531,6 +1531,7 @@ class MintUpdate():
 
     def on_welcome_page_finished(self, button):
         self.settings.set_boolean("show-welcome-page", False)
+        self.settings.set_boolean("show-level-column", False)
 
         # Set default configuration
         self.settings.set_boolean("level1-is-visible", True)
