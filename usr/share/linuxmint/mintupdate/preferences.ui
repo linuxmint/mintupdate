@@ -141,7 +141,6 @@
     <property name="can_focus">False</property>
     <property name="hexpand">False</property>
     <property name="vexpand">False</property>
-    <property name="title" translatable="yes">mintUpdate</property>
     <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="default_width">750</property>
@@ -252,7 +251,7 @@
         </child>
       </object>
     </child>
-    <child type="titlebar">
+    <child>
       <placeholder/>
     </child>
   </object>
@@ -282,8 +281,10 @@
                   <object class="GtkLabel" id="label39">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Impact Level&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Impact level</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -307,8 +308,10 @@
                   <object class="GtkLabel" id="label41">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Select&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Selected</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="left_attach">3</property>
@@ -319,8 +322,10 @@
                   <object class="GtkLabel" id="label42">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Show&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label" translatable="yes">Visible</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -540,6 +545,9 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Description</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="left_attach">4</property>
@@ -550,7 +558,7 @@
                   <object class="GtkLabel" id="label_impact_1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Safe</property>
+                    <property name="label" translatable="yes">No impact on the system or other applications.</property>
                     <property name="xalign">0</property>
                   </object>
                   <packing>
@@ -562,7 +570,7 @@
                   <object class="GtkLabel" id="label_impact_2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Should be safe</property>
+                    <property name="label" translatable="yes">Default level. Usually low impact on the system.</property>
                     <property name="use_markup">True</property>
                     <property name="xalign">0</property>
                   </object>
@@ -575,7 +583,7 @@
                   <object class="GtkLabel" id="label_impact_3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Apply with caution</property>
+                    <property name="label" translatable="yes">Apply with caution. Impact on multiple applications.</property>
                     <property name="use_markup">True</property>
                     <property name="xalign">0</property>
                   </object>
@@ -588,7 +596,7 @@
                   <object class="GtkLabel" id="label_impact_4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Apply one by one and with caution</property>
+                    <property name="label" translatable="yes">Apply one by one. Impact on sensitive parts of the system.</property>
                     <property name="use_markup">True</property>
                     <property name="xalign">0</property>
                   </object>
@@ -634,7 +642,7 @@
             <property name="spacing">3</property>
             <child>
               <object class="GtkCheckButton" id="checkbutton_dist_upgrade">
-                <property name="label" translatable="yes">include dist-upgrade packages?</property>
+                <property name="label" translatable="yes">Include updates which require the installation of new packages or the removal of installed packages</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -649,7 +657,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_hide_window_after_update">
-                <property name="label" translatable="yes">hide window</property>
+                <property name="label" translatable="yes">Hide the update manager after applying updates</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -664,7 +672,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_hide_systray">
-                <property name="label" translatable="yes">hide systray</property>
+                <property name="label" translatable="yes">Only show a tray icon when updates are available or in case of errors</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -679,7 +687,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_warning_timeshift">
-                <property name="label" translatable="yes">warn for timeshift</property>
+                <property name="label" translatable="yes">Show a warning if system snapshots are not set up</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -694,7 +702,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_default_repo_is_ok">
-                <property name="label" translatable="yes">warn for default repo</property>
+                <property name="label" translatable="yes">Don't suggest to switch to a local mirror</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -709,7 +717,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_security_visible">
-                <property name="label" translatable="yes">security visible</property>
+                <property name="label" translatable="yes">Always show security updates</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -724,7 +732,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_security_safe">
-                <property name="label" translatable="yes">security safe</property>
+                <property name="label" translatable="yes">Always select security updates</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -739,7 +747,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_kernel_visible">
-                <property name="label" translatable="yes">kernel visible</property>
+                <property name="label" translatable="yes">Always show kernel updates</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -754,7 +762,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_kernel_safe">
-                <property name="label" translatable="yes">kernel safe</property>
+                <property name="label" translatable="yes">Always select kernel updates</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -800,7 +808,7 @@
               <object class="GtkLabel" id="label_refresh">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">label</property>
+                <property name="label" translatable="yes">First, refresh the list of updates after:</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
@@ -812,7 +820,7 @@
               <object class="GtkLabel" id="label_autorefresh">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">label</property>
+                <property name="label" translatable="yes">Then, refresh the list of updates every:</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
@@ -939,8 +947,10 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="label" translatable="yes">&lt;i&gt;Note: The list only gets refreshed while the mintUpdate window is closed (system tray mode).&lt;/i&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Note: The list only gets refreshed while the update manager window is closed (system tray mode).</property>
+                <attributes>
+                  <attribute name="style" value="italic"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>

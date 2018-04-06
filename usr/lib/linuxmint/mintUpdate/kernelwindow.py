@@ -193,6 +193,7 @@ class KernelWindow():
         self.application = application
         gladefile = "/usr/share/linuxmint/mintupdate/kernels.ui"
         builder = Gtk.Builder()
+        builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         self.window = builder.get_object("window1")
         self.window.set_title(_("Kernels"))
@@ -211,14 +212,7 @@ class KernelWindow():
         self.main_stack.add_named(info_box, "info_box")
         builder.get_object("button_continue").connect("clicked", self.on_continue_clicked, main_box)
         builder.get_object("button_help").connect("clicked", self.show_help)
-        builder.get_object("button_continue").set_label(_("Continue"))
         hide_info_checkbox = builder.get_object("checkbutton1").connect("toggled", self.on_info_checkbox_toggled)
-        builder.get_object("checkbutton1").set_label(_("Do not show this message again"))
-
-        builder.get_object("title_warning").set_markup("<span font_weight='bold' size='x-large'>%s</span>" % _("Warning!"))
-        builder.get_object("sub_title_warning").set_markup("<big><b>%s</b></big>" % _("Proceed with caution"))
-        builder.get_object("label_warning").set_markup(_("The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer."))
-        builder.get_object("label_more_info_1").set_markup("%s" % _("Before installing or removing kernels, please make sure to read the help section, to make sure you know how to select kernels, how to revert updates and how to check your DKMS status."))
 
         # Setup the main kernel page
         stack = Gtk.Stack()
@@ -230,7 +224,6 @@ class KernelWindow():
         kernel_stack_box.pack_start(stack, True, True, 0)
 
         builder.get_object("button_close").connect("clicked", self.hide_window)
-        builder.get_object("button_close").set_label(_("Close"))
 
         kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py | sort -r | grep \"###\"", shell = True).decode("utf-8")
         kernels = kernels.split("\n")
