@@ -107,32 +107,19 @@ class APTCheck():
         # Kernel updates
         try:
             if self.settings.get_boolean("kernel-updates-are-visible"):
+
                 # Get the uname version
                 uname_kernel = KernelVersion(platform.release())
 
-                # Get the recommended version
-                if 'linux-image-generic' in self.cache:
-                    recommended_kernel = KernelVersion(self.cache['linux-image-generic'].candidate.version)
-                    if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
-                        for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
-                            pkgname = pkgname.replace('VERSION', recommended_kernel.std_version)
-                            if pkgname in self.cache:
-                                pkg = self.cache[pkgname]
-                                if not pkg.is_installed:
-                                    self.add_update(pkg, kernel_update=True)
-                        return
-
-                # We're using a series which is more recent than the recommended one, check the HWE kernel first
-                if 'linux-image-generic-hwe-16.04' in self.cache:
-                    recommended_kernel = KernelVersion(self.cache['linux-image-generic-hwe-16.04'].candidate.version)
-                    if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
-                        for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
-                            pkgname = pkgname.replace('VERSION', recommended_kernel.std_version)
-                            if pkgname in self.cache:
-                                pkg = self.cache[pkgname]
-                                if not pkg.is_installed:
-                                    self.add_update(pkg, kernel_update=True)
-                        return
+                # Check metas first
+                for meta_name in ['linux-generic', 'linux-generic-hwe-16.04']:
+                    if meta_name in self.cache:
+                        meta = self.cache[meta_name]
+                        if not meta.is_installed:
+                            recommended_kernel = KernelVersion(meta.candidate.version)
+                            if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
+                                self.add_update(meta, kernel_update=True)
+                                return
 
                 # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
                 max_kernel = uname_kernel
