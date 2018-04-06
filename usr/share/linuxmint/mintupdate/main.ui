@@ -15,7 +15,6 @@
   </object>
   <object class="GtkWindow" id="main_window">
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">mintUpdate</property>
     <property name="window_position">center</property>
     <child>
       <object class="GtkBox" id="box1">
@@ -60,7 +59,7 @@
                   <object class="GtkToolButton" id="tool_select_all">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Select all</property>
+                    <property name="label" translatable="yes">Select All</property>
                     <property name="icon_name">edit-select-all-symbolic</property>
                   </object>
                   <packing>
@@ -105,7 +104,7 @@
                   <object class="GtkToolButton" id="tool_apply">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Apply updates</property>
+                    <property name="label" translatable="yes">Install Updates</property>
                     <property name="use_underline">True</property>
                     <property name="icon_name">mail-replied-symbolic</property>
                   </object>
@@ -174,7 +173,7 @@
         </child>
       </object>
     </child>
-    <child type="titlebar">
+    <child>
       <placeholder/>
     </child>
   </object>
@@ -227,7 +226,10 @@
                   <object class="GtkLabel" id="label_error">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Error</property>
+                    <property name="label" translatable="yes">Could not refresh the list of updates</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -239,7 +241,6 @@
                   <object class="GtkLabel" id="label_error_details">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">A long label to test how the word wrapping works if you end up with a long error message</property>
                     <property name="wrap">True</property>
                   </object>
                   <packing>
@@ -313,6 +314,9 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Your system is up to date</property>
+            <attributes>
+              <attribute name="weight" value="bold"/>
+            </attributes>
           </object>
           <packing>
             <property name="expand">False</property>

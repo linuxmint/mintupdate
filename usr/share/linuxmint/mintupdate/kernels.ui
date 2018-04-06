@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.22.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkBox" id="intro_box">
@@ -64,8 +64,7 @@
                       <object class="GtkLabel" id="sub_title_warning">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Proceed with caution&lt;/b&gt;&lt;/big&gt;</property>
-                        <property name="use_markup">True</property>
+                        <property name="label" translatable="yes">Proceed with caution</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -91,7 +90,7 @@
                       <object class="GtkLabel" id="label_warning">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">The Linux kernel is responsible for hardware support. Using the wrong kernel can lead to lack of networking, lack of sound, lack of graphical  environment or even the inability to boot the computer. Only install or remove kernels if you're experienced with Linux kernels, drivers, dkms and you know how to recover a non-booting computer.</property>
+                        <property name="label" translatable="yes">The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer.</property>
                         <property name="use_markup">True</property>
                         <property name="wrap">True</property>
                         <property name="xalign">0</property>
@@ -106,7 +105,7 @@
                       <object class="GtkLabel" id="label_more_info_1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Bug fixes and hardware improvements are welcome if/when you need them, for instance if a particular device on your computer isn't working as expected and the newer kernel addresses that.</property>
+                        <property name="label" translatable="yes">Before installing or removing kernels, please make sure to read the help section, to make sure you know how to select kernels, how to revert updates and how to check your DKMS status.</property>
                         <property name="wrap">True</property>
                         <property name="xalign">0</property>
                       </object>
@@ -236,7 +235,6 @@
         <property name="can_focus">False</property>
         <property name="margin_top">6</property>
         <property name="margin_bottom">6</property>
-        <property name="label" translatable="yes">&lt;b&gt;Kernel 3.13.0-37-generic currently loaded&lt;/b&gt;</property>
         <property name="use_markup">True</property>
       </object>
       <packing>
@@ -332,6 +330,9 @@
     <property name="default_width">800</property>
     <property name="default_height">500</property>
     <child>
+      <placeholder/>
+    </child>
+    <child type="titlebar">
       <placeholder/>
     </child>
   </object>

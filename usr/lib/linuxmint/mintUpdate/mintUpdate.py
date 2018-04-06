@@ -1023,9 +1023,7 @@ class MintUpdate():
             welcome_page = self.builder.get_object("welcome_page")
             self.stack.add_named(welcome_page, "welcome")
             self.builder.get_object("button_welcome_finish").connect("clicked", self.on_welcome_page_finished)
-            self.builder.get_object("button_welcome_finish").set_label(_("OK"))
             self.builder.get_object("button_welcome_help").connect("clicked", self.show_help)
-            self.builder.get_object("button_welcome_help").set_label(_("Help"))
 
             # Updates page
             updates_page = self.builder.get_object("updates_page")
@@ -1121,16 +1119,6 @@ class MintUpdate():
                 self.statusIcon.connect('activate', self.on_statusicon_clicked)
                 self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
 
-            # Set text for all visible widgets (because of i18n)
-            self.builder.get_object("tool_apply").set_label(_("Install Updates"))
-            self.builder.get_object("tool_refresh").set_label(_("Refresh"))
-            self.builder.get_object("tool_select_all").set_label(_("Select All"))
-            self.builder.get_object("tool_clear").set_label(_("Clear"))
-            self.builder.get_object("label9").set_text(_("Description"))
-            self.builder.get_object("label8").set_text(_("Changelog"))
-
-            self.builder.get_object("label_success").set_markup("<b>" + _("Your system is up to date") + "</b>")
-            self.builder.get_object("label_error").set_markup("<b>" + _("Could not refresh the list of updates") + "</b>")
             self.builder.get_object("image_success_status").set_pixel_size(96)
             self.builder.get_object("image_error_status").set_pixel_size(96)
 
@@ -1699,13 +1687,12 @@ class MintUpdate():
     def open_information(self, widget):
         gladefile = "/usr/share/linuxmint/mintupdate/information.ui"
         builder = Gtk.Builder()
+        builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         window = builder.get_object("main_window")
-        window.set_title(_("Information") + " - " + _("Update Manager"))
+        window.set_title(_("Information"))
         window.set_icon_name("mintupdate")
         builder.get_object("close_button").connect("clicked", self.hide_window, window)
-        builder.get_object("label4").set_text(_("Process ID:"))
-        builder.get_object("label5").set_text(_("Log file:"))
         builder.get_object("processid_label").set_text(str(os.getpid()))
         builder.get_object("log_filename").set_text(str(self.logger.log.name))
         txtbuffer = Gtk.TextBuffer()
@@ -1717,10 +1704,11 @@ class MintUpdate():
     def open_history(self, widget):
         gladefile = "/usr/share/linuxmint/mintupdate/history.ui"
         builder = Gtk.Builder()
+        builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         window = builder.get_object("main_window")
         window.set_icon_name("mintupdate")
-        window.set_title(_("History of updates") + " - " + _("Update Manager"))
+        window.set_title(_("History of updates"))
 
         treeview = builder.get_object("treeview_history")
         column1 = Gtk.TreeViewColumn(_("Date"), Gtk.CellRendererText(), text=1)
@@ -1780,7 +1768,7 @@ class MintUpdate():
 
     def open_about(self, widget):
         dlg = Gtk.AboutDialog()
-        dlg.set_title(_("About") + " - " + _("Update Manager"))
+        dlg.set_title(_("About"))
         dlg.set_program_name("mintUpdate")
         dlg.set_comments(_("Update Manager"))
         try:
@@ -1822,9 +1810,10 @@ class MintUpdate():
     def open_preferences(self, widget):
         gladefile = "/usr/share/linuxmint/mintupdate/preferences.ui"
         builder = Gtk.Builder()
+        builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         window = builder.get_object("main_window")
-        window.set_title(_("Preferences") + " - " + _("Update Manager"))
+        window.set_title(_("Preferences"))
         window.set_icon_name("mintupdate")
 
         switch_container = builder.get_object("switch_container")
@@ -1843,41 +1832,6 @@ class MintUpdate():
         stack.add_titled(builder.get_object("page_levels"), "page_levels", _("Levels"))
         stack.add_titled(builder.get_object("page_refresh"), "page_refresh", _("Auto-refresh"))
         stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
-
-        #l10n
-        builder.get_object("label39").set_markup("<b>" + _("Impact level") + "</b>")
-        builder.get_object("label_recommandation").set_markup("<b>" + _("Description") + "</b>")
-        builder.get_object("label41").set_markup("<b>" + _("Selected") + "</b>")
-        builder.get_object("label42").set_markup("<b>" + _("Visible") + "</b>")
-
-        builder.get_object("label_level_1").set_text(_("Minimal"))
-        builder.get_object("label_level_2").set_text(_("Normal"))
-        builder.get_object("label_level_3").set_text(_("Large"))
-        builder.get_object("label_level_4").set_text(_("Sensitive"))
-
-        builder.get_object("label_impact_1").set_text(_("No impact on the system or other applications."))
-        builder.get_object("label_impact_2").set_text(_("Default level. Usually low impact on the system."))
-        builder.get_object("label_impact_3").set_text(_("Apply with caution. Impact on multiple applications."))
-        builder.get_object("label_impact_4").set_text(_("Apply one by one. Impact on sensitive parts of the system."))
-
-        builder.get_object("label_refresh").set_text(_("First, refresh the list of updates after:"))
-        builder.get_object("label_autorefresh").set_text(_("Then, refresh the list of updates every:"))
-        builder.get_object("label82").set_text("<i>" + _("Note: The list only gets refreshed while the update manager window is closed (system tray mode).") + "</i>")
-        builder.get_object("label82").set_use_markup(True)
-        builder.get_object("checkbutton_dist_upgrade").set_label(_("Include updates which require the installation of new packages or the removal of installed packages"))
-        builder.get_object("checkbutton_hide_window_after_update").set_label(_("Hide the update manager after applying updates"))
-        builder.get_object("checkbutton_hide_systray").set_label(_("Only show a tray icon when updates are available or in case of errors"))
-        builder.get_object("checkbutton_default_repo_is_ok").set_label(_("Don't suggest to switch to a local mirror"))
-        builder.get_object("checkbutton_warning_timeshift").set_label(_("Show a warning if system snapshots are not set up"))
-        builder.get_object("checkbutton_security_visible").set_label(_("Always show security updates"))
-        builder.get_object("checkbutton_security_safe").set_label(_("Always select security updates"))
-        builder.get_object("checkbutton_kernel_visible").set_label(_("Always show kernel updates"))
-        builder.get_object("checkbutton_kernel_safe").set_label(_("Always select kernel updates"))
-        builder.get_object("label_minutes").set_text(_("minutes"))
-        builder.get_object("label_hours").set_text(_("hours"))
-        builder.get_object("label_days").set_text(_("days"))
-        builder.get_object("pref_button_cancel").set_label(_("Cancel"))
-        builder.get_object("pref_button_apply").set_label(_("Apply"))
 
         builder.get_object("visible1").set_active(self.settings.get_boolean("level1-is-visible"))
         builder.get_object("visible2").set_active(self.settings.get_boolean("level2-is-visible"))
