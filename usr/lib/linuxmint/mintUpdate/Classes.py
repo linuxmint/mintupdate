@@ -5,6 +5,8 @@ gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
 import html
 
+kernel_type = 'lowlatency'  # generic or lowlatency
+
 class Rule():
 
     def __init__(self, name, version, level):

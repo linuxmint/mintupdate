@@ -25,7 +25,7 @@ gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
 from gi.repository import AppIndicator3 as AppIndicator
 
-from Classes import Update
+from Classes import Update, kernel_type
 
 try:
     os.system("killall -q mintUpdate")
@@ -2011,7 +2011,7 @@ class MintUpdate():
 ###### KERNEL FEATURES #####################################
 
     def open_kernels(self, widget):
-        kernel_window = KernelWindow(self)
+        kernel_window = KernelWindow(self, kernel_type)
 
 if __name__ == "__main__":
     MintUpdate()

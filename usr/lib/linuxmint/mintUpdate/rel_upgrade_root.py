@@ -2,6 +2,7 @@
 
 import os, sys, apt, tempfile, gettext
 import subprocess
+from Classes import kernel_type
 
 gettext.install("mintupdate", "/usr/share/linuxmint/locale")
 
@@ -69,7 +70,7 @@ for pkg in changes:
                 update_type = "package"
                 for origin in pkg.candidate.origins:
                     if origin.origin == "linuxmint":
-                        if origin.component != "romeo" and package != "linux-kernel-generic":
+                        if origin.component != "romeo" and package != "linux-kernel-" + kernel_type:
                             pkg_line = "%s\tinstall\n" % package
                             f.write(pkg_line.encode("utf-8"))
 
