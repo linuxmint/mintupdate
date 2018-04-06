@@ -561,7 +561,10 @@ class RefreshThread(threading.Thread):
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
-            model.set_sort_column_id( UPDATE_SORT_STR, Gtk.SortType.ASCENDING )
+            if self.application.settings.get_boolean("show-level-column"):
+                model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+            else:
+                model.set_sort_column_id(UPDATE_DISPLAY_NAME, Gtk.SortType.ASCENDING)
 
             # Check to see if no other APT process is running
             if self.root_mode:
@@ -1441,8 +1444,14 @@ class MintUpdate():
         self.app_hidden = True
 
     def setVisibleColumn(self, checkmenuitem, column, key):
-        self.settings.set_boolean(key, checkmenuitem.get_active())
-        column.set_visible(checkmenuitem.get_active())
+        state = checkmenuitem.get_active()
+        self.settings.set_boolean(key, state)
+        column.set_visible(state)
+        if key == "show-level-column":
+            if state:
+                self.treeview.get_model().set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+            else:
+                self.treeview.get_model().set_sort_column_id(UPDATE_DISPLAY_NAME, Gtk.SortType.ASCENDING)
 
     def setVisibleDescriptions(self, checkmenuitem):
         self.settings.set_boolean("show-descriptions", checkmenuitem.get_active())
