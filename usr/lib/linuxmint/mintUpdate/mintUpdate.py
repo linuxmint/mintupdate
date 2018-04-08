@@ -778,7 +778,7 @@ class RefreshThread(threading.Thread):
                 try:
                     if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
                         mirror_url = None
-                        
+
                         codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
                         with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
                             for line in sources_file:
@@ -1153,83 +1153,6 @@ class MintUpdate():
                 sourcesMenuItem.set_label(_("Software sources"))
                 sourcesMenuItem.connect("activate", self.open_repositories)
                 editSubmenu.append(sourcesMenuItem)
-            configMenuItem = Gtk.ImageMenuItem()
-            configMenuItem.set_image(Gtk.Image.new_from_icon_name("security-high-symbolic", Gtk.IconSize.MENU))
-            configMenuItem.set_label(_("Welcome screen"))
-            configMenuItem.connect("activate", self.show_welcome_page)
-            editSubmenu.append(configMenuItem)
-
-            editSubmenu.append(Gtk.SeparatorMenuItem())
-
-            item = Gtk.ImageMenuItem()
-            item.set_image(Gtk.Image.new_from_icon_name("edit-clear-all-symbolic", Gtk.IconSize.MENU))
-            item.set_label(_("Clear"))
-            item.connect("activate", self.clear)
-            key, mod = Gtk.accelerator_parse("<Control><Shift>A")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            item = Gtk.ImageMenuItem()
-            item.set_image(Gtk.Image.new_from_icon_name("edit-select-all-symbolic", Gtk.IconSize.MENU))
-            item.set_label(_("Select All"))
-            item.connect("activate", self.select_all)
-            key, mod = Gtk.accelerator_parse("<Control>A")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            item = Gtk.ImageMenuItem()
-            item.set_image(Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU))
-            item.set_label(_("Refresh"))
-            item.connect("activate", self.force_refresh)
-            key, mod = Gtk.accelerator_parse("<Control>R")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            item = Gtk.ImageMenuItem()
-            item.set_image(Gtk.Image.new_from_icon_name("mail-replied-symbolic", Gtk.IconSize.MENU))
-            item.set_label(_("Install"))
-            item.connect("activate", self.install)
-            key, mod = Gtk.accelerator_parse("<Control>I")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            editSubmenu.append(Gtk.SeparatorMenuItem())
-
-            item = Gtk.MenuItem(_("Select level 1 updates"))
-            item.connect("activate", self.select_level1)
-            key, mod = Gtk.accelerator_parse("<Control>1")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            item = Gtk.MenuItem(_("Select level 2 updates"))
-            item.connect("activate", self.select_level2)
-            key, mod = Gtk.accelerator_parse("<Control>2")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            item = Gtk.MenuItem(_("Select level 3 updates"))
-            item.connect("activate", self.select_level3)
-            key, mod = Gtk.accelerator_parse("<Control>3")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            item = Gtk.MenuItem(_("Select level 4 updates"))
-            item.connect("activate", self.select_level4)
-            key, mod = Gtk.accelerator_parse("<Control>4")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            item = Gtk.MenuItem(_("Select security updates"))
-            item.connect("activate", self.select_security_updates)
-            key, mod = Gtk.accelerator_parse("<Control>S")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
-
-            item = Gtk.MenuItem(_("Select kernel updates"))
-            item.connect("activate", self.select_kernel_updates)
-            key, mod = Gtk.accelerator_parse("<Control>K")
-            item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            editSubmenu.append(item)
 
             rel_edition = 'unknown'
             rel_codename = 'unknown'
@@ -1338,6 +1261,17 @@ class MintUpdate():
             helpMenu = Gtk.MenuItem.new_with_mnemonic(_("_Help"))
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
+
+            helpMenuItem = Gtk.ImageMenuItem()
+            helpMenuItem.set_image(Gtk.Image.new_from_icon_name("security-high-symbolic", Gtk.IconSize.MENU))
+            helpMenuItem.set_label(_("Welcome screen"))
+            helpMenuItem.connect("activate", self.show_welcome_page)
+            helpSubmenu.append(helpMenuItem)
+            shortcutsMenuItem = Gtk.ImageMenuItem()
+            shortcutsMenuItem.set_label(_("Keyboard Shortcuts"))
+            shortcutsMenuItem.set_image(Gtk.Image.new_from_icon_name("preferences-desktop-keyboard-shortcuts-symbolic", Gtk.IconSize.MENU))
+            shortcutsMenuItem.connect("activate", self.open_shortcuts)
+            helpSubmenu.append(shortcutsMenuItem)
             helpMenuItem = Gtk.ImageMenuItem()
             helpMenuItem.set_image(Gtk.Image.new_from_icon_name("help-contents-symbolic", Gtk.IconSize.MENU))
             helpMenuItem.set_label(_("Contents"))
@@ -1350,9 +1284,6 @@ class MintUpdate():
             aboutMenuItem.set_label(_("About"))
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
-            shortcutsMenuItem = Gtk.MenuItem.new_with_label(_("Keyboard Shortcuts"))
-            shortcutsMenuItem.connect("activate", self.open_shortcuts)
-            helpSubmenu.append(shortcutsMenuItem)
 
             self.builder.get_object("menubar1").append(fileMenu)
             self.builder.get_object("menubar1").append(editMenu)
@@ -1811,6 +1742,7 @@ class MintUpdate():
     def open_shortcuts(self, widget):
         gladefile = "/usr/share/linuxmint/mintupdate/shortcuts.ui"
         builder = Gtk.Builder()
+        builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         window = builder.get_object("shortcuts")
         window.connect("destroy", Gtk.Widget.destroyed, window)

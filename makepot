@@ -4,6 +4,7 @@ intltool-extract --type=gettext/glade usr/share/linuxmint/mintupdate/information
 intltool-extract --type=gettext/glade usr/share/linuxmint/mintupdate/kernels.ui
 intltool-extract --type=gettext/glade usr/share/linuxmint/mintupdate/main.ui
 intltool-extract --type=gettext/glade usr/share/linuxmint/mintupdate/preferences.ui
+intltool-extract --type=gettext/glade usr/share/linuxmint/mintupdate/shortcuts.ui
 xml2po -o mintupdate.pot -m mallard usr/share/help/C/mintupdate/*.page
 xgettext --language=Python --keyword=_ --keyword=N_ --output=mintupdate.pot --join-existing usr/lib/linuxmint/mintUpdate/*.py generate_desktop_files usr/bin/mintupdate-tool usr/bin/mint-release-upgrade usr/bin/mint-release-upgrade-root usr/lib/linuxmint/mintUpdate/aliases usr/share/linuxmint/mintupdate/*.ui.h
 rm -f usr/share/linuxmint/mintupdate/*.ui.h

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-06 17:55+0200\n"
+"POT-Creation-Date: 2018-04-08 14:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -677,7 +677,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:948
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:952
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1011
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1773 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1776 generate_desktop_files:26
 msgid "Update Manager"
 msgstr ""
 
@@ -739,16 +739,16 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:219
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:206
 #, python-format
 msgid "Linux kernel %s"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:220
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:207
 msgid "The Linux kernel."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:221
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:208
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -924,15 +924,15 @@ msgid "Software update"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:743
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1456
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1507
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1592
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1459
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1510
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1595
 msgid "No updates selected"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:745
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1509
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1594
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1512
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1597
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
@@ -1000,13 +1000,13 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1049
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1296
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1720
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1723
 msgid "Old version"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1053
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1302
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1723
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1726
 msgid "New version"
 msgstr ""
 
@@ -1028,18 +1028,19 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1097
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1182
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1102
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1270
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1696
 msgid "Information"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1107
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1141
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1816
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1832
 msgid "Preferences"
 msgstr ""
 
@@ -1055,6 +1056,7 @@ msgstr ""
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:7
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr ""
 
@@ -1081,26 +1083,32 @@ msgid "Select All"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1198
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select level 1 updates"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1204
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select level 2 updates"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1210
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:10
 msgid "Select level 3 updates"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1216
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:11
 msgid "Select level 4 updates"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1222
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:12
 msgid "Select security updates"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1228
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:13
 msgid "Select kernel updates"
 msgstr ""
 
@@ -1114,7 +1122,7 @@ msgid "_View"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1262
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1711
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1714
 msgid "History of updates"
 msgstr ""
 
@@ -1127,7 +1135,7 @@ msgid "Visible columns"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1290
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1717
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1720
 msgid "Package"
 msgstr ""
 
@@ -1144,56 +1152,60 @@ msgid "Contents"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1771
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1774
 msgid "About"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1353
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1556
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Welcome to the Update Manager"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1635
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "Packages included in this update:"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1644
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
 msgid "Ignore updates for this package"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1714
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1717
 msgid "Date"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1831
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1847
 msgid "Options"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1848
 msgid "Levels"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1833
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1849
 msgid "Auto-refresh"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1834
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1850
 msgid "Blacklist"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1874
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1890
 msgid "Ignored updates"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1936
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1952
 msgid "Please specify the name of the update to ignore:"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1937
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1953
 msgid "Ignore an update"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1941
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1957
 msgid "Name:"
 msgstr ""
 
@@ -1512,4 +1524,24 @@ msgstr ""
 msgid ""
 "Note: The list only gets refreshed while the update manager window is closed "
 "(system tray mode)."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
+msgid "Window"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:4
+msgid "Install updates"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
+msgid "Selection"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear selection"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
+msgid "Select all"
 msgstr ""
