@@ -1346,6 +1346,9 @@ class MintUpdate():
             aboutMenuItem.set_label(_("About"))
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
+            shortcutsMenuItem = Gtk.MenuItem.new_with_label(_("Keyboard Shortcuts"))
+            shortcutsMenuItem.connect("activate", self.open_shortcuts)
+            helpSubmenu.append(shortcutsMenuItem)
 
             self.builder.get_object("menubar1").append(fileMenu)
             self.builder.get_object("menubar1").append(editMenu)
@@ -1773,7 +1776,7 @@ class MintUpdate():
         del model
         builder.get_object("button_close").connect("clicked", self.hide_window, window)
 
-######### HELP/ABOUT/SOURCES SCREEN #########
+######### HELP/ABOUT/SHORTCUTS/SOURCES SCREEN #########
 
     def open_help(self, widget):
         os.system("yelp help:mintupdate/index &")
@@ -1817,6 +1820,19 @@ class MintUpdate():
     def open_repositories(self, widget):
         if os.path.exists("/usr/bin/mintsources"):
             os.system("pkexec /usr/bin/mintsources")
+
+    def open_shortcuts(self, widget):
+        gladefile = "/usr/share/linuxmint/mintupdate/shortcuts.ui"
+        builder = Gtk.Builder()
+        builder.add_from_file(gladefile)
+        window = builder.get_object("shortcuts")
+        window.connect("destroy", Gtk.Widget.destroyed, window)
+
+        if self.window != window.get_transient_for():
+            window.set_transient_for(self.window);
+
+        window.show_all()
+        window.present()
 
 ######### PREFERENCES SCREEN #########
 
