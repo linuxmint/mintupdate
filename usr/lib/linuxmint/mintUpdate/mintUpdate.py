@@ -1702,6 +1702,7 @@ class MintUpdate():
 
     def open_about(self, widget):
         dlg = Gtk.AboutDialog()
+        dlg.set_transient_for(self.window)
         dlg.set_title(_("About"))
         dlg.set_program_name("mintUpdate")
         dlg.set_comments(_("Update Manager"))
@@ -1748,7 +1749,7 @@ class MintUpdate():
         window.connect("destroy", Gtk.Widget.destroyed, window)
 
         if self.window != window.get_transient_for():
-            window.set_transient_for(self.window);
+            window.set_transient_for(self.window)
 
         window.show_all()
         window.present()
