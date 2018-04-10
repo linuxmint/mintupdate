@@ -534,9 +534,6 @@ class RefreshThread(threading.Thread):
         for child in self.application.builder.get_object("hbox_infobar").get_children():
             child.destroy()
 
-        context = self.application.builder.get_object("textview_description").get_style_context()
-        insensitive_color = context.get_color(Gtk.StateFlags.INSENSITIVE)
-        insensitive_color = "#{0:02x}{1:02x}{2:02x}".format(int(insensitive_color.red  * 255), int(insensitive_color.green * 255), int(insensitive_color.blue * 255))
         Gdk.threads_leave()
         try:
             if (self.root_mode):
@@ -607,7 +604,7 @@ class RefreshThread(threading.Thread):
                     infobar = Gtk.InfoBar()
                     infobar.set_message_type(Gtk.MessageType.ERROR)
                     info_label = Gtk.Label()
-                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
+                    infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
                     info_label.set_markup(infobar_message)
                     infobar.get_content_area().pack_start(info_label,False, False,0)
                     infobar.add_button(Gtk.STOCK_OK, Gtk.ResponseType.OK)
@@ -698,9 +695,9 @@ class RefreshThread(threading.Thread):
                                     pass
 
                             if (self.application.settings.get_boolean("show-descriptions")):
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name + "\n<i><small><span foreground='%s'>%s</span></small></i>" % (insensitive_color, shortdesc))
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name) + "\n%s" % (shortdesc))
                             else:
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, update.display_name)
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name))
 
                             theme = Gtk.IconTheme.get_default()
                             pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
@@ -771,7 +768,7 @@ class RefreshThread(threading.Thread):
 
 
             if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
-            	infobar_message = "%s\n<small>%s</small>" % (_("Please set up System Snapshots"), _("If something breaks, snapshots will allow you to restore your system to the previous working condition."))
+            	infobar_message = "<b>%s</b>\n%s" % (_("Please set up System Snapshots"), _("If something breaks, snapshots will allow you to restore your system to the previous working condition."))
             	infobar_message_type = Gtk.MessageType.WARNING
             	infobar_callback = self._on_infobar_timeshift_response
             else:
@@ -793,7 +790,7 @@ class RefreshThread(threading.Thread):
                             pass
                         elif mirror_url == "http://packages.linuxmint.com":
                             if not self.application.settings.get_boolean("default-repo-is-ok"):
-                                infobar_message = "%s\n<small>%s</small>" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com."))
+                                infobar_message = "<b>%s</b>\n%s" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com."))
                         elif not self.application.app_hidden:
                             # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
                             mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
@@ -803,7 +800,7 @@ class RefreshThread(threading.Thread):
                                     # Both default repo and mirror are unreachable, assume there's no Internet connection
                                     pass
                                 else:
-                                    infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), _("%s is unreachable.") % mirror_url)
+                                    infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another mirror"), _("%s is unreachable.") % mirror_url)
                                     infobar_message_type = Gtk.MessageType.WARNING
                             elif mint_timestamp is not None:
                                 mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
@@ -813,7 +810,7 @@ class RefreshThread(threading.Thread):
                                     mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
                                     mirror_age = (mint_date - mirror_date).days
                                     if (mirror_age > 2):
-                                        infobar_message = "%s\n<small>%s</small>" % (_("Please switch to another mirror"), ngettext("The last update on %(mirror)s was %(days)d day ago.", "The last update on %(mirror)s was %(days)d days ago.", (now - mirror_date).days) % {'mirror': mirror_url, 'days':(now - mirror_date).days})
+                                        infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another mirror"), ngettext("The last update on %(mirror)s was %(days)d day ago.", "The last update on %(mirror)s was %(days)d days ago.", (now - mirror_date).days) % {'mirror': mirror_url, 'days':(now - mirror_date).days})
                                         infobar_message_type = Gtk.MessageType.WARNING
                 except Exception as e:
                     print(sys.exc_info()[0])
