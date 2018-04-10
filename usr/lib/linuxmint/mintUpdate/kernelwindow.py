@@ -211,7 +211,7 @@ class KernelWindow():
         kernel_stack_box = builder.get_object("box1")
         main_box = builder.get_object("main_vbox")
         info_box = builder.get_object("intro_box")
-        current_label = builder.get_object("label6")
+        builder.get_object("label6").set_markup("<b>%s %s</b>" % (_("You are currently using the following kernel:"), subprocess.getoutput("uname -r")))
         
         if kernel_type == 'generic':
             self.window.set_title(_("Kernels"))
@@ -298,8 +298,7 @@ class KernelWindow():
 
             for kernel in kernel_list:
                 (version, pkg_version, page_label, label, installed, used, title, installable) = kernel
-                if used:
-                    current_label.set_markup("<b>%s %s</b>" % (_("You are currently using the following kernel:"), kernel[3]))
+
                 if page_label == page:
                     row = KernelRow(version, pkg_version, kernel_type, label, installed, used, title, installable, self.window, self.application)
                     list_box.add(row)
