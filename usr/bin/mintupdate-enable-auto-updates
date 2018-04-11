@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+
+import os
+import sys
+
+if not os.getuid() == 0:
+    print ("This command needs to be run as root or with sudo.")
+    sys.exit(1)
+
+if not os.path.exists("/etc/cron.daily/mintupdate"):
+    os.system("cp /usr/share/linuxmint/mintupdate/cron_job.default /etc/cron.daily/mintupdate")
+    print("Cron job /etc/cron.daily/mintupdate created.")
+
+if not os.path.exists("/etc/mintupdate.blacklist"):
+    os.system("cp /usr/share/linuxmint/mintupdate/blacklist.default /etc/mintupdate.blacklist")
+    print("Blacklist /etc/mintupdate.blacklist created.")
+

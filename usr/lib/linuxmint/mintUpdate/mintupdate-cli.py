@@ -33,10 +33,12 @@ if __name__ == "__main__":
         check.find_changes()
 
         blacklisted = []
-        if os.path.exists("/etc/mintupdate-cli.blacklist"):
-            with open("/etc/mintupdate-cli.blacklist") as blacklist_file:
+        if os.path.exists("/etc/mintupdate.blacklist"):
+            with open("/etc/mintupdate.blacklist") as blacklist_file:
                 for line in blacklist_file:
                     line = line.strip()
+                    if line.startswith("#"):
+                        continue
                     blacklisted.append(line)
 
         updates = []

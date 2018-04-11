@@ -47,6 +47,8 @@ GIGABYTE = 1024 ** 3
 MEGABYTE = 1024 ** 2
 KILOBYTE = 1024
 
+CRON_JOB = "/etc/cron.daily/mintupdate"
+
 def size_to_string(size):
     if (size >= GIGABYTE):
         return str(size // GIGABYTE) + _("GB")
@@ -1781,6 +1783,7 @@ class MintUpdate():
         stack.add_titled(builder.get_object("page_levels"), "page_levels", _("Levels"))
         stack.add_titled(builder.get_object("page_refresh"), "page_refresh", _("Auto-refresh"))
         stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
+        stack.add_titled(builder.get_object("page_auto"), "page_auto", _("Auto-upgrade"))
 
         builder.get_object("visible1").set_active(self.settings.get_boolean("level1-is-visible"))
         builder.get_object("visible2").set_active(self.settings.get_boolean("level2-is-visible"))
@@ -1799,6 +1802,7 @@ class MintUpdate():
         builder.get_object("checkbutton_hide_systray").set_active(self.settings.get_boolean("hide-systray"))
         builder.get_object("checkbutton_default_repo_is_ok").set_active(self.settings.get_boolean("default-repo-is-ok"))
         builder.get_object("checkbutton_warning_timeshift").set_active(self.settings.get_boolean("warn-about-timeshift"))
+        builder.get_object("auto_updates_checkbox").set_active(os.path.exists(CRON_JOB))
 
         builder.get_object("refresh_days").set_range(0, 365)
         builder.get_object("refresh_days").set_increments(1, 10)
@@ -1877,6 +1881,15 @@ class MintUpdate():
             iter = model.iter_next(iter)
             blacklist.append(pkg)
         self.settings.set_strv("blacklisted-packages", blacklist)
+
+        # auto updates
+        if builder.get_object("auto_updates_checkbox").get_active() and not os.path.exists(CRON_JOB):
+            # enable auto-updates
+            subprocess.call(["pkexec", "mintupdate-enable-auto-updates"])
+        elif not (builder.get_object("auto_updates_checkbox").get_active()) and os.path.exists(CRON_JOB):
+            # disable auto-updates
+            subprocess.call(["pkexec", "mintupdate-disable-auto-updates"])
+
         builder.get_object("main_window").hide()
         self.refresh()
 
