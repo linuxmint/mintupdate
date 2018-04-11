@@ -12,23 +12,21 @@ from gi.repository import Gio
 
 if __name__ == "__main__":
 
-    settings = Gio.Settings("com.linuxmint.updates")
-
     parser = argparse.ArgumentParser(prog="mintupdate-tool")
     parser.add_argument("command", help="command to run (possible commands are: list, upgrade)")
 
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("-k", "--kernel", action="store_true", help="ignore settings and include all kernel updates")
-    group.add_argument("-nk", "--no-kernel", action="store_true", help="ignore settings and exclude all kernel updates")
+    group.add_argument("-k", "--kernel", action="store_true", help="include all kernel updates")
+    group.add_argument("-nk", "--no-kernel", action="store_true", help="exclude all kernel updates")
 
-    parser.add_argument("-s", "--security", action="store_true", help="ignore settings and include all security updates")
+    parser.add_argument("-s", "--security", action="store_true", help="include all security updates")
     parser.add_argument("-r", "--refresh-cache", action="store_true", help="refresh the APT cache")
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
     parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions")
     parser.add_argument("--install-recommends", action="store_true", help="install recommended packages (use with caution)")
 
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("-l", "--levels", help="ignore settings and restrict to this list of levels")
+    group.add_argument("-l", "--levels", help="restrict to this list of levels (for troubleshooting")
 
     args = parser.parse_args()
     try:
@@ -37,12 +35,12 @@ if __name__ == "__main__":
             check.refresh_cache()
         check.find_changes()
 
-        include_kernel = settings.get_boolean("kernel-updates-are-safe")
-        include_security = settings.get_boolean("security-updates-are-safe")
+        include_kernel = True
+        include_security = True
 
         include_level = {}
-        for level in ["1", "2", "3", "4", "5"]:
-            include_level[level] = settings.get_boolean("level%s-is-safe" % level)
+        for level in ["1", "2", "3", "4"]:
+            include_level[level] = True
             if args.levels is not None:
                 if level in args.levels:
                     include_level[level] = True
