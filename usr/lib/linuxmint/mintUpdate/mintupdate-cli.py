@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
+import os
 import subprocess
 import sys
 import traceback
@@ -8,25 +9,21 @@ import traceback
 from Classes import Update
 from checkAPT import APTCheck
 
-from gi.repository import Gio
-
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(prog="mintupdate-tool")
+    parser = argparse.ArgumentParser(prog="mintupdate-cli")
     parser.add_argument("command", help="command to run (possible commands are: list, upgrade)")
 
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("-k", "--kernel", action="store_true", help="include all kernel updates")
-    group.add_argument("-nk", "--no-kernel", action="store_true", help="exclude all kernel updates")
+    group.add_argument("-k", "--only-kernel", action="store_true", help="only include kernel updates")
+    group.add_argument("-s", "--only-security", action="store_true", help="only include security updates")
+    group.add_argument("-l", "--only-levels", help="only include certain levels (only use for troubleshooting, list of level numbers, comma-separated)")
 
-    parser.add_argument("-s", "--security", action="store_true", help="include all security updates")
+    parser.add_argument("-i", "--ignore", help="list of updates to ignore (comma-separated). Note: You can also blacklist updates by adding their name to /etc/mintupdate-cli.blacklist.")
     parser.add_argument("-r", "--refresh-cache", action="store_true", help="refresh the APT cache")
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
     parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions")
     parser.add_argument("--install-recommends", action="store_true", help="install recommended packages (use with caution)")
-
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument("-l", "--levels", help="restrict to this list of levels (for troubleshooting")
 
     args = parser.parse_args()
     try:
@@ -35,49 +32,36 @@ if __name__ == "__main__":
             check.refresh_cache()
         check.find_changes()
 
-        include_kernel = True
-        include_security = True
+        blacklisted = []
+        if os.path.exists("/etc/mintupdate-cli.blacklist"):
+            with open("/etc/mintupdate-cli.blacklist") as blacklist_file:
+                for line in blacklist_file:
+                    line = line.strip()
+                    blacklisted.append(line)
 
-        include_level = {}
-        for level in ["1", "2", "3", "4"]:
-            include_level[level] = True
-            if args.levels is not None:
-                if level in args.levels:
-                    include_level[level] = True
-                else:
-                    include_level[level] = False
-
-        if args.kernel:
-            include_kernel = True
-        elif args.no_kernel:
-            include_kernel = False
-
-        if args.security:
-            include_security = True
+        updates = []
+        for source_name in sorted(check.updates.keys()):
+            update = check.updates[source_name]
+            if args.only_kernel and update.type != "kernel":
+                continue
+            elif args.only_security and update.type != "security":
+                continue
+            elif args.only_levels is not None and str(update.level) not in args.only_levels:
+                continue
+            elif args.ignore is not None and update.source_name in args.ignore.split(","):
+                continue
+            elif update.source_name in blacklisted:
+                continue
+            else:
+                updates.append(update)
 
         if args.command == "list":
-            for source_name in sorted(check.updates.keys()):
-                update = check.updates[source_name]
-                if include_kernel and update.type == "kernel":
-                    print ("%s %-15s %-45s %s" % (update.level, update.type, source_name, update.new_version))
-                elif include_security and update.type == "security":
-                    print ("%s %-15s %-45s %s" % (update.level, update.type, source_name, update.new_version))
-                else:
-                    level = str(update.level)
-                    if include_level[level]:
-                        print ("%s %-15s %-45s %s" % (update.level, update.type, source_name, update.new_version))
+            for update in updates:
+                print ("%s %-15s %-45s %s" % (update.level, update.type, update.source_name, update.new_version))
         elif args.command == "upgrade":
             packages = []
-            for source_name in sorted(check.updates.keys()):
-                update = check.updates[source_name]
-                if include_kernel and update.type == "kernel":
-                    packages += update.package_names
-                elif include_security and update.type == "security":
-                    packages += update.package_names
-                else:
-                    level = str(update.level)
-                    if include_level[level]:
-                        packages += update.package_names
+            for update in updates:
+                packages += update.package_names
             arguments = ["apt-get", "install"]
             if args.dry_run:
                 arguments.append("-s")
@@ -86,7 +70,6 @@ if __name__ == "__main__":
             if args.install_recommends:
                 arguments.append("--install-recommends")
             subprocess.call(arguments + packages)
-
     except Exception as error:
         traceback.print_exc()
         sys.exit(1)
