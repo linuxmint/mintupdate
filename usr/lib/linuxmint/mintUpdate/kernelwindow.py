@@ -9,6 +9,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GdkX11', '3.0') # Needed to get xid
 from gi.repository import Gtk, Gdk, GdkX11
+from Classes import KernelType
 
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 
@@ -27,18 +28,27 @@ class InstallKernelThread(threading.Thread):
         self.window = window
         self.remove = remove
         self.application = application
+        self.kernel_type = KernelType().kernel_type
 
     def run(self):
         cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
                 "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
         f = tempfile.NamedTemporaryFile()
 
-        for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-generic' % self.version, 'linux-image-%s-generic' % self.version, 'linux-image-extra-%s-generic' % self.version]:
-            if self.remove:
-                pkg_line = "%s\tpurge\n" % pkg
-            else:
-                pkg_line = "%s\tinstall\n" % pkg
-            f.write(pkg_line.encode("utf-8"))
+        if self.kernel_type == 'generic':
+            for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-%s' % (self.version, self.kernel_type), 'linux-image-%s-%s' % (self.version, self.kernel_type), 'linux-image-extra-%s-%s' % (self.version, self.kernel_type)]:
+                if self.remove:
+                    pkg_line = "%s\tpurge\n" % pkg
+                else:
+                    pkg_line = "%s\tinstall\n" % pkg
+                f.write(pkg_line.encode("utf-8"))
+        elif self.kernel_type == 'lowlatency':
+            for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-%s' % (self.version, self.kernel_type), 'linux-image-%s-%s' % (self.version, self.kernel_type)]:
+                if self.remove:
+                    pkg_line = "%s\tpurge\n" % pkg
+                else:
+                    pkg_line = "%s\tinstall\n" % pkg
+                f.write(pkg_line.encode("utf-8"))
         cmd.append("--set-selections-file")
         cmd.append("%s" % f.name)
         f.flush()
@@ -196,13 +206,19 @@ class KernelWindow():
         builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         self.window = builder.get_object("window1")
-        self.window.set_title(_("Kernels"))
         listbox_series = builder.get_object("listbox_series")
         scrolled_series = builder.get_object("box7")
         kernel_stack_box = builder.get_object("box1")
         main_box = builder.get_object("main_vbox")
         info_box = builder.get_object("intro_box")
         current_label = builder.get_object("label6")
+        self.kernel_type = KernelType().kernel_type
+        builder.get_object("label6").set_markup("<b>%s %s</b>" % (_("You are currently using the following kernel:"), subprocess.getoutput("uname -r")))
+
+        if self.kernel_type == 'generic':
+            self.window.set_title(_("Kernels"))
+        elif self.kernel_type == 'lowlatency':
+            self.window.set_title(_("Kernels (lowlatency)"))
 
         self.main_stack = Gtk.Stack()
         self.main_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
@@ -276,8 +292,6 @@ class KernelWindow():
 
             for kernel in kernel_list:
                 (version, pkg_version, page_label, label, installed, used, title, installable) = kernel
-                if used:
-                    current_label.set_markup("<b>%s %s</b>" % (_("You are currently using the following kernel:"), kernel[3]))
                 if page_label == page:
                     row = KernelRow(version, pkg_version, label, installed, used, title, installable, self.window, self.application)
                     list_box.add(row)

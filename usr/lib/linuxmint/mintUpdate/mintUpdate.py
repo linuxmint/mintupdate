@@ -26,7 +26,7 @@ gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
 from gi.repository import AppIndicator3 as AppIndicator
 
-from Classes import Update
+from Classes import Update, KernelType
 
 try:
     os.system("killall -q mintUpdate")
@@ -1470,6 +1470,7 @@ class MintUpdate():
         self.settings.set_boolean("kernel-updates-are-visible", True)
         self.settings.set_boolean("security-updates-are-safe", True)
         self.settings.set_boolean("kernel-updates-are-safe", True)
+        self.settings.set_boolean("kernel-lowlatency-are-active", False)
 
         self.builder.get_object("toolbar1").set_sensitive(True)
         self.builder.get_object("menubar1").set_sensitive(True)
@@ -1794,6 +1795,7 @@ class MintUpdate():
         builder.get_object("checkbutton_security_safe").set_active(self.settings.get_boolean("security-updates-are-safe"))
         builder.get_object("checkbutton_kernel_visible").set_active(self.settings.get_boolean("kernel-updates-are-visible"))
         builder.get_object("checkbutton_kernel_safe").set_active(self.settings.get_boolean("kernel-updates-are-safe"))
+        builder.get_object("checkbutton_kernel_lowlatency").set_active(self.settings.get_boolean("kernel-lowlatency-are-active"))
         builder.get_object("checkbutton_dist_upgrade").set_active(self.settings.get_boolean("dist-upgrade"))
         builder.get_object("checkbutton_hide_window_after_update").set_active(self.settings.get_boolean("hide-window-after-update"))
         builder.get_object("checkbutton_hide_systray").set_active(self.settings.get_boolean("hide-systray"))
@@ -1862,6 +1864,7 @@ class MintUpdate():
         self.settings.set_boolean('security-updates-are-safe', builder.get_object("checkbutton_security_safe").get_active())
         self.settings.set_boolean('kernel-updates-are-visible', builder.get_object("checkbutton_kernel_visible").get_active())
         self.settings.set_boolean('kernel-updates-are-safe', builder.get_object("checkbutton_kernel_safe").get_active())
+        self.settings.set_boolean('kernel-lowlatency-are-active', builder.get_object("checkbutton_kernel_lowlatency").get_active())
         self.settings.set_int('refresh-days', int(builder.get_object("refresh_days").get_value()))
         self.settings.set_int('refresh-hours', int(builder.get_object("refresh_hours").get_value()))
         self.settings.set_int('refresh-minutes', int(builder.get_object("refresh_minutes").get_value()))
