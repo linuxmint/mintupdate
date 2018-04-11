@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="mintupdate-cli">
+
+  <info>
+    <link type="guide" xref="index#advanced"/>
+
+    <credit type="author">
+      <name>Linux Mint</name>
+      <email>root@linuxmint.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc>Bijwerken via een terminalopdracht</desc>
+  </info>
+
+  <title>Using mintupdate-cli</title>
+
+    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+
+    <p>Als u veel ervaring heeft met Linux, dan kunt u dit gereedschapje gebruiken in uw scripts of cron-taken, om het installeren van bijgewerkte programmatuur te automatiseren.</p>
+
+  <section id="tool1">
+
+  <title>Bijgewerkte pakketten weergeven in een lijst</title>
+
+  <p>U kunt de opdracht 'list' gebruiken om bijgewerkte pakketten weer te geven in een lijst:</p>
+
+  <screen>mintupdate-cli list</screen>
+
+  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+
+  <p>You can use -s to only show the security updates.</p>
+
+  <p>You can use -k to only show the kernel updates.</p>
+
+  <p>For instance, the following command lists all security updates:</p>
+
+  <screen>mintupdate-cli list -s</screen>
+
+  </section>
+
+  <section id="tool1">
+
+  <title>Bijgewerkte pakketten installeren</title>
+
+  <p>U kunt de opdracht 'upgrade' gebruiken om bijgewerkte pakketten te installeren, met gebruikmaking van dezelfde parameters.</p>
+
+  <p>For instance, the following command applies kernel updates:</p>
+
+  <screen>sudo mintupdate-cli upgrade -r -k</screen>
+
+  <p>Let op de parameter -r, die is toegevoegd om de tijdelijke opslag te verversen.</p>
+
+  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+
+  <screen>mintupdate-cli -h</screen>
+
+  </section>
+
+</page>

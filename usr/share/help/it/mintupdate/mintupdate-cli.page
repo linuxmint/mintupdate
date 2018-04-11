@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="mintupdate-cli">
+
+  <info>
+    <link type="guide" xref="index#advanced"/>
+
+    <credit type="author">
+      <name>Linux Mint</name>
+      <email>root@linuxmint.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc>Aggiornamento dalla riga di comando</desc>
+  </info>
+
+  <title>Using mintupdate-cli</title>
+
+    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+
+    <p>Se siete esperti di Linux, si può utilizzare questo strumento negli script o nei processi di cron per automatizzare l'installazione degli aggiornamenti del software.</p>
+
+  <section id="tool1">
+
+  <title>Elenco aggiornamenti</title>
+
+  <p>Si può utilizzare il comando "list" per elencare gli aggiornamenti:</p>
+
+  <screen>mintupdate-cli list</screen>
+
+  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+
+  <p>You can use -s to only show the security updates.</p>
+
+  <p>You can use -k to only show the kernel updates.</p>
+
+  <p>For instance, the following command lists all security updates:</p>
+
+  <screen>mintupdate-cli list -s</screen>
+
+  </section>
+
+  <section id="tool1">
+
+  <title>Applicazione degli aggiornamenti</title>
+
+  <p>È possibile utilizzare il comando "upgrade" per applicare gli aggiornamenti, utilizzando le stesse opzioni.</p>
+
+  <p>For instance, the following command applies kernel updates:</p>
+
+  <screen>sudo mintupdate-cli upgrade -r -k</screen>
+
+  <p>Nota l'argomento - r, che è stato aggiunto per aggiornare la memoria tampone.</p>
+
+  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+
+  <screen>mintupdate-cli -h</screen>
+
+  </section>
+
+</page>

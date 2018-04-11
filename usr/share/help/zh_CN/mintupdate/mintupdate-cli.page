@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="mintupdate-cli">
+
+  <info>
+    <link type="guide" xref="index#advanced"/>
+
+    <credit type="author">
+      <name>Linux Mint</name>
+      <email>root@linuxmint.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc>从命令行更新</desc>
+  </info>
+
+  <title>Using mintupdate-cli</title>
+
+    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+
+    <p>如果您熟悉 Linux，您可以在您的脚本或者 cron 任务中使用这一工具来自动安装软件更新。</p>
+
+  <section id="tool1">
+
+  <title>列出更新</title>
+
+  <p>您可以用 list 命令来列出更新：</p>
+
+  <screen>mintupdate-cli list</screen>
+
+  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+
+  <p>You can use -s to only show the security updates.</p>
+
+  <p>You can use -k to only show the kernel updates.</p>
+
+  <p>For instance, the following command lists all security updates:</p>
+
+  <screen>mintupdate-cli list -s</screen>
+
+  </section>
+
+  <section id="tool1">
+
+  <title>应用更新</title>
+
+  <p>您可以用“upgrade”命令来应用更新。它的选项与“list”相同。</p>
+
+  <p>For instance, the following command applies kernel updates:</p>
+
+  <screen>sudo mintupdate-cli upgrade -r -k</screen>
+
+  <p>注意这里添加了 -r 参数，用来刷新缓存。</p>
+
+  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+
+  <screen>mintupdate-cli -h</screen>
+
+  </section>
+
+</page>

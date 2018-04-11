@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page xmlns="http://projectmallard.org/1.0/" xmlns:its="http://www.w3.org/2005/11/its" type="topic" style="task" id="mintupdate-cli">
+
+  <info>
+    <link type="guide" xref="index#advanced"/>
+
+    <credit type="author">
+      <name>Linux Mint</name>
+      <email>root@linuxmint.com</email>
+    </credit>
+
+    <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
+
+    <desc>Atnaujinimas iš komandų eilutės</desc>
+  </info>
+
+  <title>Using mintupdate-cli</title>
+
+    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+
+    <p>Jeigu esate patyręs Linux naudotojas, galite naudoti šį įrankį savo scenarijuose ar savo cron užduotyse, kad automatizuotumėte programinės įrangos atnaujinimų diegimą.</p>
+
+  <section id="tool1">
+
+  <title>Atnaujinimų išvardijimas</title>
+
+  <p>Norėdami išvardyti atnaujinimus, galite naudoti "list" komandą:</p>
+
+  <screen>mintupdate-cli list</screen>
+
+  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+
+  <p>You can use -s to only show the security updates.</p>
+
+  <p>You can use -k to only show the kernel updates.</p>
+
+  <p>For instance, the following command lists all security updates:</p>
+
+  <screen>mintupdate-cli list -s</screen>
+
+  </section>
+
+  <section id="tool1">
+
+  <title>Atnaujinimų taikymas</title>
+
+  <p>Norėdami taikyti atnaujinimus, galite naudoti komandą "upgrade", naudojant tuos pačius parametrus.</p>
+
+  <p>For instance, the following command applies kernel updates:</p>
+
+  <screen>sudo mintupdate-cli upgrade -r -k</screen>
+
+  <p>Pastebėkite -r argumentą, kuris buvo pridėtas tam, kad iš naujo būtų įkeltas podėlis.</p>
+
+  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+
+  <screen>mintupdate-cli -h</screen>
+
+  </section>
+
+</page>
