@@ -331,6 +331,9 @@ if __name__ == "__main__":
         check.apply_aliases()
         check.clean_descriptions()
         check.serialize_updates()
+        if os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
+            import subprocess
+            subprocess.run(['/usr/bin/mintinstall-update-pkgcache'], timeout=60)
     except Exception as error:
         print("CHECK_APT_ERROR---EOL---")
         print(sys.exc_info()[0])
