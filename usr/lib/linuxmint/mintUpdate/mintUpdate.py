@@ -41,7 +41,7 @@ gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
 
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
 
-(UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(14)
+(UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_SORT_STR_WITH_LEVEL, UPDATE_OBJ) = range(15)
 
 GIGABYTE = 1024 ** 3
 MEGABYTE = 1024 ** 2
@@ -351,10 +351,10 @@ class InstallThread(threading.Thread):
                                     scrolledWindow.set_shadow_type(Gtk.ShadowType.IN)
                                     scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
                                     treeview = Gtk.TreeView()
-                                    column1 = Gtk.TreeViewColumn("", Gtk.CellRendererText(), text=0)
-                                    column1.set_sort_column_id(0)
-                                    column1.set_resizable(True)
-                                    treeview.append_column(column1)
+                                    column = Gtk.TreeViewColumn("", Gtk.CellRendererText(), text=0)
+                                    column.set_sort_column_id(0)
+                                    column.set_resizable(True)
+                                    treeview.append_column(column)
                                     treeview.set_headers_clickable(False)
                                     treeview.set_reorderable(False)
                                     treeview.set_headers_visible(False)
@@ -380,10 +380,10 @@ class InstallThread(threading.Thread):
                                     scrolledWindow.set_shadow_type(Gtk.ShadowType.IN)
                                     scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
                                     treeview = Gtk.TreeView()
-                                    column1 = Gtk.TreeViewColumn("", Gtk.CellRendererText(), text=0)
-                                    column1.set_sort_column_id(0)
-                                    column1.set_resizable(True)
-                                    treeview.append_column(column1)
+                                    column = Gtk.TreeViewColumn("", Gtk.CellRendererText(), text=0)
+                                    column.set_sort_column_id(0)
+                                    column.set_resizable(True)
+                                    treeview.append_column(column)
                                     treeview.set_headers_clickable(False)
                                     treeview.set_reorderable(False)
                                     treeview.set_headers_visible(False)
@@ -556,14 +556,14 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
-            model = Gtk.TreeStore(str, str, GdkPixbuf.Pixbuf, str, str, str, str, int, str, str, str, str, str, object)
+            model = Gtk.TreeStore(str, str, GdkPixbuf.Pixbuf, str, str, str, str, int, str, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR,
-            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
+            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_SORT_STR_WITH_LEVEL, UPDATE_OBJ
 
             if self.application.settings.get_boolean("show-level-column"):
-                model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+                model.set_sort_column_id(UPDATE_SORT_STR_WITH_LEVEL, Gtk.SortType.ASCENDING)
             else:
-                model.set_sort_column_id(UPDATE_DISPLAY_NAME, Gtk.SortType.ASCENDING)
+                model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
 
             # Check to see if no other APT process is running
             if self.root_mode:
@@ -711,18 +711,26 @@ class RefreshThread(threading.Thread):
                             pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
 
                             origin = update.origin
-                            origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ")
+                            origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
 
+                            type_sort_key = 0 # Used to sort by type
                             if update.type == "kernel":
                                 tooltip = _("Kernel update")
+                                type_sort_key = 2
                             elif update.type == "security":
                                 tooltip = _("Security update")
-                            elif update.type == "backport":
-                                tooltip = _("Software backport. Be careful when upgrading. New versions of software can introduce regressions.")
+                                type_sort_key = 1
                             elif update.type == "unstable":
                                 tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
+                                type_sort_key = 5
                             else:
-                                tooltip = _("Software update")
+                                if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
+                                    tooltip = _("Software update")
+                                    type_sort_key = 3
+                                else:
+                                    update.type = "3rd-party"
+                                    tooltip = "%s\n%s" % (_("3rd-party update"), origin)
+                                    type_sort_key = 4
 
                             model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
                             model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
@@ -731,10 +739,11 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, UPDATE_LEVEL_STR, str(update.level))
                             model.set_value(iter, UPDATE_SIZE, update.size)
                             model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-                            model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s" % update.type)
+                            model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % update.type)
                             model.set_value(iter, UPDATE_TYPE, update.type)
                             model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                            model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(update.level), update.display_name))
+                            model.set_value(iter, UPDATE_SORT_STR, "%d%s" % (type_sort_key, update.display_name))
+                            model.set_value(iter, UPDATE_SORT_STR_WITH_LEVEL, "%d%s%s" % (type_sort_key, str(update.level), update.display_name))
                             model.set_value(iter, UPDATE_OBJ, update)
                             num_visible = num_visible + 1
 
@@ -1044,49 +1053,49 @@ class MintUpdate():
             # the treeview
             cr = Gtk.CellRendererToggle()
             cr.connect("toggled", self.toggled)
-            column1 = Gtk.TreeViewColumn(_("Upgrade"), cr)
-            column1.set_cell_data_func(cr, self.celldatafunction_checkbox)
-            column1.set_sort_column_id(UPDATE_CHECKED)
-            column1.set_resizable(True)
+            column_upgrade = Gtk.TreeViewColumn(_("Upgrade"), cr)
+            column_upgrade.set_cell_data_func(cr, self.celldatafunction_checkbox)
+            column_upgrade.set_sort_column_id(UPDATE_CHECKED)
+            column_upgrade.set_resizable(True)
 
-            column2 = Gtk.TreeViewColumn(_("Name"), Gtk.CellRendererText(), markup=UPDATE_DISPLAY_NAME)
-            column2.set_sort_column_id(UPDATE_DISPLAY_NAME)
-            column2.set_resizable(True)
+            column_name = Gtk.TreeViewColumn(_("Name"), Gtk.CellRendererText(), markup=UPDATE_DISPLAY_NAME)
+            column_name.set_sort_column_id(UPDATE_DISPLAY_NAME)
+            column_name.set_resizable(True)
 
-            column3 = Gtk.TreeViewColumn(_("Level"), Gtk.CellRendererPixbuf(), pixbuf=UPDATE_LEVEL_PIX)
-            column3.set_sort_column_id(UPDATE_LEVEL_STR)
-            column3.set_resizable(True)
+            column_level = Gtk.TreeViewColumn(_("Level"), Gtk.CellRendererPixbuf(), pixbuf=UPDATE_LEVEL_PIX)
+            column_level.set_sort_column_id(UPDATE_LEVEL_STR)
+            column_level.set_resizable(True)
 
-            column4 = Gtk.TreeViewColumn(_("Old version"), Gtk.CellRendererText(), text=UPDATE_OLD_VERSION)
-            column4.set_sort_column_id(UPDATE_OLD_VERSION)
-            column4.set_resizable(True)
+            column_old_version = Gtk.TreeViewColumn(_("Old version"), Gtk.CellRendererText(), text=UPDATE_OLD_VERSION)
+            column_old_version.set_sort_column_id(UPDATE_OLD_VERSION)
+            column_old_version.set_resizable(True)
 
-            column5 = Gtk.TreeViewColumn(_("New version"), Gtk.CellRendererText(), text=UPDATE_NEW_VERSION)
-            column5.set_sort_column_id(UPDATE_NEW_VERSION)
-            column5.set_resizable(True)
+            column_new_version = Gtk.TreeViewColumn(_("New version"), Gtk.CellRendererText(), text=UPDATE_NEW_VERSION)
+            column_new_version.set_sort_column_id(UPDATE_NEW_VERSION)
+            column_new_version.set_resizable(True)
 
-            column6 = Gtk.TreeViewColumn(_("Size"), Gtk.CellRendererText(), text=UPDATE_SIZE_STR)
-            column6.set_sort_column_id(UPDATE_SIZE)
-            column6.set_resizable(True)
+            column_size = Gtk.TreeViewColumn(_("Size"), Gtk.CellRendererText(), text=UPDATE_SIZE_STR)
+            column_size.set_sort_column_id(UPDATE_SIZE)
+            column_size.set_resizable(True)
 
-            column7 = Gtk.TreeViewColumn(_("Type"), Gtk.CellRendererPixbuf(), icon_name=UPDATE_TYPE_PIX)
-            column7.set_sort_column_id(UPDATE_TYPE)
-            column7.set_resizable(True)
+            column_type = Gtk.TreeViewColumn(_("Type"), Gtk.CellRendererPixbuf(), icon_name=UPDATE_TYPE_PIX)
+            column_type.set_sort_column_id(UPDATE_TYPE)
+            column_type.set_resizable(True)
 
-            column8 = Gtk.TreeViewColumn(_("Origin"), Gtk.CellRendererText(), text=UPDATE_SOURCE)
-            column8.set_sort_column_id(UPDATE_SOURCE)
-            column8.set_resizable(True)
+            column_origin = Gtk.TreeViewColumn(_("Origin"), Gtk.CellRendererText(), text=UPDATE_SOURCE)
+            column_origin.set_sort_column_id(UPDATE_SOURCE)
+            column_origin.set_resizable(True)
 
             self.treeview.set_tooltip_column(UPDATE_TOOLTIP)
 
-            self.treeview.append_column(column7)
-            self.treeview.append_column(column3)
-            self.treeview.append_column(column1)
-            self.treeview.append_column(column2)
-            self.treeview.append_column(column4)
-            self.treeview.append_column(column5)
-            self.treeview.append_column(column8)
-            self.treeview.append_column(column6)
+            self.treeview.append_column(column_type)
+            self.treeview.append_column(column_level)
+            self.treeview.append_column(column_upgrade)
+            self.treeview.append_column(column_name)
+            self.treeview.append_column(column_old_version)
+            self.treeview.append_column(column_new_version)
+            self.treeview.append_column(column_origin)
+            self.treeview.append_column(column_size)
 
             self.treeview.set_headers_clickable(True)
             self.treeview.set_reorderable(False)
@@ -1211,44 +1220,44 @@ class MintUpdate():
 
             typeColumnMenuItem = Gtk.CheckMenuItem(_("Type"))
             typeColumnMenuItem.set_active(self.settings.get_boolean("show-type-column"))
-            column7.set_visible(self.settings.get_boolean("show-type-column"))
-            typeColumnMenuItem.connect("toggled", self.setVisibleColumn, column7, "show-type-column")
+            column_type.set_visible(self.settings.get_boolean("show-type-column"))
+            typeColumnMenuItem.connect("toggled", self.setVisibleColumn, column_type, "show-type-column")
             visibleColumnsMenu.append(typeColumnMenuItem)
 
             levelColumnMenuItem = Gtk.CheckMenuItem(_("Level"))
             levelColumnMenuItem.set_active(self.settings.get_boolean("show-level-column"))
-            column3.set_visible(self.settings.get_boolean("show-level-column"))
-            levelColumnMenuItem.connect("toggled", self.setVisibleColumn, column3, "show-level-column")
+            column_level.set_visible(self.settings.get_boolean("show-level-column"))
+            levelColumnMenuItem.connect("toggled", self.setVisibleColumn, column_level, "show-level-column")
             visibleColumnsMenu.append(levelColumnMenuItem)
 
             packageColumnMenuItem = Gtk.CheckMenuItem(_("Package"))
             packageColumnMenuItem.set_active(self.settings.get_boolean("show-package-column"))
-            column2.set_visible(self.settings.get_boolean("show-package-column"))
-            packageColumnMenuItem.connect("toggled", self.setVisibleColumn, column2, "show-package-column")
+            column_name.set_visible(self.settings.get_boolean("show-package-column"))
+            packageColumnMenuItem.connect("toggled", self.setVisibleColumn, column_name, "show-package-column")
             visibleColumnsMenu.append(packageColumnMenuItem)
 
             oldVersionColumnMenuItem = Gtk.CheckMenuItem(_("Old version"))
             oldVersionColumnMenuItem.set_active(self.settings.get_boolean("show-old-version-column"))
-            column4.set_visible(self.settings.get_boolean("show-old-version-column"))
-            oldVersionColumnMenuItem.connect("toggled", self.setVisibleColumn, column4, "show-old-version-column")
+            column_old_version.set_visible(self.settings.get_boolean("show-old-version-column"))
+            oldVersionColumnMenuItem.connect("toggled", self.setVisibleColumn, column_old_version, "show-old-version-column")
             visibleColumnsMenu.append(oldVersionColumnMenuItem)
 
             newVersionColumnMenuItem = Gtk.CheckMenuItem(_("New version"))
             newVersionColumnMenuItem.set_active(self.settings.get_boolean("show-new-version-column"))
-            column5.set_visible(self.settings.get_boolean("show-new-version-column"))
-            newVersionColumnMenuItem.connect("toggled", self.setVisibleColumn, column5, "show-new-version-column")
+            column_new_version.set_visible(self.settings.get_boolean("show-new-version-column"))
+            newVersionColumnMenuItem.connect("toggled", self.setVisibleColumn, column_new_version, "show-new-version-column")
             visibleColumnsMenu.append(newVersionColumnMenuItem)
 
             sizeColumnMenuItem = Gtk.CheckMenuItem(_("Size"))
             sizeColumnMenuItem.set_active(self.settings.get_boolean("show-size-column"))
-            column6.set_visible(self.settings.get_boolean("show-size-column"))
-            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column6, "show-size-column")
+            column_size.set_visible(self.settings.get_boolean("show-size-column"))
+            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column_size, "show-size-column")
             visibleColumnsMenu.append(sizeColumnMenuItem)
 
             sizeColumnMenuItem = Gtk.CheckMenuItem(_("Origin"))
             sizeColumnMenuItem.set_active(self.settings.get_boolean("show-origin-column"))
-            column8.set_visible(self.settings.get_boolean("show-origin-column"))
-            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column8, "show-origin-column")
+            column_origin.set_visible(self.settings.get_boolean("show-origin-column"))
+            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column_origin, "show-origin-column")
             visibleColumnsMenu.append(sizeColumnMenuItem)
 
             viewSubmenu.append(visibleColumnsMenuItem)
@@ -1383,9 +1392,9 @@ class MintUpdate():
         column.set_visible(state)
         if key == "show-level-column":
             if state:
-                self.treeview.get_model().set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+                self.treeview.get_model().set_sort_column_id(UPDATE_SORT_STR_WITH_LEVEL, Gtk.SortType.ASCENDING)
             else:
-                self.treeview.get_model().set_sort_column_id(UPDATE_DISPLAY_NAME, Gtk.SortType.ASCENDING)
+                self.treeview.get_model().set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
 
     def setVisibleDescriptions(self, checkmenuitem):
         self.settings.set_boolean("show-descriptions", checkmenuitem.get_active())
@@ -1656,22 +1665,22 @@ class MintUpdate():
         window.set_title(_("History of updates"))
 
         treeview = builder.get_object("treeview_history")
-        column1 = Gtk.TreeViewColumn(_("Date"), Gtk.CellRendererText(), text=1)
-        column1.set_sort_column_id(1)
-        column1.set_resizable(True)
-        column2 = Gtk.TreeViewColumn(_("Package"), Gtk.CellRendererText(), text=0)
-        column2.set_sort_column_id(0)
-        column2.set_resizable(True)
-        column3 = Gtk.TreeViewColumn(_("Old version"), Gtk.CellRendererText(), text=2)
-        column3.set_sort_column_id(2)
-        column3.set_resizable(True)
-        column4 = Gtk.TreeViewColumn(_("New version"), Gtk.CellRendererText(), text=3)
-        column4.set_sort_column_id(3)
-        column4.set_resizable(True)
-        treeview.append_column(column1)
-        treeview.append_column(column2)
-        treeview.append_column(column3)
-        treeview.append_column(column4)
+        column_date = Gtk.TreeViewColumn(_("Date"), Gtk.CellRendererText(), text=1)
+        column_date.set_sort_column_id(1)
+        column_date.set_resizable(True)
+        column_package = Gtk.TreeViewColumn(_("Package"), Gtk.CellRendererText(), text=0)
+        column_package.set_sort_column_id(0)
+        column_package.set_resizable(True)
+        column_old_version = Gtk.TreeViewColumn(_("Old version"), Gtk.CellRendererText(), text=2)
+        column_old_version.set_sort_column_id(2)
+        column_old_versionn3.set_resizable(True)
+        column_new_version = Gtk.TreeViewColumn(_("New version"), Gtk.CellRendererText(), text=3)
+        column_new_version.set_sort_column_id(3)
+        column_new_version.set_resizable(True)
+        treeview.append_column(column_date)
+        treeview.append_column(column_package)
+        treeview.append_column(column_old_version)
+        treeview.append_column(column_new_version)
         treeview.set_headers_clickable(True)
         treeview.set_reorderable(False)
         treeview.set_search_column(0)
@@ -1833,10 +1842,10 @@ class MintUpdate():
         builder.get_object("autorefresh_minutes").set_value(self.settings.get_int("autorefresh-minutes"))
 
         treeview_blacklist = builder.get_object("treeview_blacklist")
-        column1 = Gtk.TreeViewColumn(_("Ignored updates"), Gtk.CellRendererText(), text=0)
-        column1.set_sort_column_id(0)
-        column1.set_resizable(True)
-        treeview_blacklist.append_column(column1)
+        column = Gtk.TreeViewColumn(_("Ignored updates"), Gtk.CellRendererText(), text=0)
+        column.set_sort_column_id(0)
+        column.set_resizable(True)
+        treeview_blacklist.append_column(column)
         treeview_blacklist.set_headers_clickable(True)
         treeview_blacklist.set_reorderable(False)
         treeview_blacklist.show()
