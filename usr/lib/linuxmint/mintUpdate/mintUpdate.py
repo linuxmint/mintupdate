@@ -605,6 +605,9 @@ class RefreshThread(threading.Thread):
                     label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
                     infobar = Gtk.InfoBar()
                     infobar.set_message_type(Gtk.MessageType.ERROR)
+                    img = Gtk.Image.new_from_icon_name("dialog-error-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
+                    infobar.get_content_area().pack_start(img,False, False,0)
+                    img.show()
                     info_label = Gtk.Label()
                     infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
                     info_label.set_markup(infobar_message)
@@ -766,13 +769,14 @@ class RefreshThread(threading.Thread):
 
             infobar_message = None
             infobar_message_type = Gtk.MessageType.QUESTION
+            infobar_icon_type = "dialog-information-symbolic"
             infobar_callback = self._on_infobar_mintsources_response
 
-
             if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
-            	infobar_message = "<b>%s</b>\n%s" % (_("Please set up System Snapshots"), _("If something breaks, snapshots will allow you to restore your system to the previous working condition."))
-            	infobar_message_type = Gtk.MessageType.WARNING
-            	infobar_callback = self._on_infobar_timeshift_response
+                infobar_message = "<b>%s</b>\n%s" % (_("Please set up System Snapshots"), _("If something breaks, snapshots will allow you to restore your system to the previous working condition."))
+                infobar_message_type = Gtk.MessageType.WARNING
+                infobar_icon_type = "dialog-warning-symbolic"
+                infobar_callback = self._on_infobar_timeshift_response
             else:
                 try:
                     if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
@@ -804,6 +808,7 @@ class RefreshThread(threading.Thread):
                                 else:
                                     infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another mirror"), _("%s is unreachable.") % mirror_url)
                                     infobar_message_type = Gtk.MessageType.WARNING
+                                    infobar_icon_type = "dialog-warning-symbolic"
                             elif mint_timestamp is not None:
                                 mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
                                 now = datetime.datetime.now()
@@ -814,6 +819,7 @@ class RefreshThread(threading.Thread):
                                     if (mirror_age > 2):
                                         infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another mirror"), ngettext("The last update on %(mirror)s was %(days)d day ago.", "The last update on %(mirror)s was %(days)d days ago.", (now - mirror_date).days) % {'mirror': mirror_url, 'days':(now - mirror_date).days})
                                         infobar_message_type = Gtk.MessageType.WARNING
+                                        infobar_icon_type = "dialog-warning-symbolic"
                 except Exception as e:
                     print(sys.exc_info()[0])
                     # best effort, just print out the error
@@ -822,6 +828,9 @@ class RefreshThread(threading.Thread):
             if infobar_message is not None:
                 infobar = Gtk.InfoBar()
                 infobar.set_message_type(infobar_message_type)
+                img = Gtk.Image.new_from_icon_name(infobar_icon_type, Gtk.IconSize.LARGE_TOOLBAR)
+                infobar.get_content_area().pack_start(img,False, False,0)
+                img.show()
                 info_label = Gtk.Label()
                 info_label.set_markup(infobar_message)
                 info_label.set_line_wrap(True)
