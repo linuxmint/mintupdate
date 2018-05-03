@@ -595,7 +595,11 @@ class RefreshThread(threading.Thread):
                 refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s 2>/dev/null" % self.application.window.get_window().get_xid()
             if self.root_mode:
                 refresh_command = "sudo %s" % refresh_command
-            output =  subprocess.check_output(refresh_command, shell = True).decode("utf-8")
+
+            try:
+                output =  subprocess.check_output(refresh_command, shell = True).decode("utf-8")
+            except Exception as refresh_exception:
+                output = refresh_exception.output.decode("utf-8")
 
             if len(output) > 0 and not "CHECK_APT_ERROR" in output:
                 if not self.check_policy():
@@ -640,25 +644,24 @@ class RefreshThread(threading.Thread):
                 self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
                 self.application.logger.write("System is up to date")
                 Gdk.threads_leave()
+            elif ("CHECK_APT_ERROR" in output):
+                try:
+                    error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
+                except:
+                    error_msg = ""
+                Gdk.threads_enter()
+                self.application.set_status(_("Could not refresh the list of updates"), "%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg), "mintupdate-error", True)
+                self.application.logger.write("Error in checkAPT.py, could not refresh the list of updates")
+                self.application.stack.set_visible_child_name("status_error")
+                self.application.builder.get_object("label_error_details").set_text(error_msg)
+                self.application.builder.get_object("label_error_details").show()
+                if (not self.application.app_hidden):
+                    self.application.window.get_window().set_cursor(None)
+                self.application.window.set_sensitive(True)
+                Gdk.threads_leave()
+                return False
             else:
                 for line in lines:
-                    if line.startswith("CHECK_APT_ERROR"):
-                        try:
-                            error_msg = lines[1].replace("E:", "\n")
-                        except:
-                            error_msg = ""
-                        Gdk.threads_enter()
-                        self.application.set_status(_("Could not refresh the list of updates"), "%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg), "mintupdate-error", True)
-                        self.application.logger.write("Error in checkAPT.py, could not refresh the list of updates")
-                        self.application.stack.set_visible_child_name("status_error")
-                        self.application.builder.get_object("label_error_details").set_markup("<b>%s</b>" % error_msg)
-                        self.application.builder.get_object("label_error_details").show()
-                        if (not self.application.app_hidden):
-                            self.application.window.get_window().set_cursor(None)
-                        self.application.window.set_sensitive(True)
-                        Gdk.threads_leave()
-                        return False
-
                     if "###" in line:
                         update = Update(package=None, input_string=line, source_name=None)
 

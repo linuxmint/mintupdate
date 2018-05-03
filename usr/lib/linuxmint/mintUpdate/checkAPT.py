@@ -334,6 +334,6 @@ if __name__ == "__main__":
     except Exception as error:
         print("CHECK_APT_ERROR---EOL---")
         print(sys.exc_info()[0])
-        print(error)
+        print("Error: %s" % error)
         traceback.print_exc()
         sys.exit(1)
