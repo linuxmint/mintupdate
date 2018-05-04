@@ -4,19 +4,20 @@ import os
 import subprocess
 import apt
 import sys
+from Classes import KernelType
 
 try:
-    current_version = subprocess.check_output("uname -r", shell = True).decode("utf-8").replace("-generic", "").strip()
+    current_version = subprocess.check_output("uname -r", shell = True).decode("utf-8").replace("-" + KernelType().kernel_type, "").strip()
 
     cache = apt.Cache()
 
     recommended_kernel = None
-    if 'linux-kernel-generic' in cache:
-        recommended_kernel = cache['linux-kernel-generic'].candidate.version
+    if 'linux-kernel-' + KernelType().kernel_type in cache:
+        recommended_kernel = cache['linux-kernel-' + KernelType().kernel_type].candidate.version
     recommended_image = None
-    if 'linux-image-generic' in cache:
+    if 'linux-image-' + KernelType().kernel_type in cache:
         try:
-            recommended_image = cache['linux-image-generic'].candidate.version
+            recommended_image = cache['linux-image-' + KernelType().kernel_type].candidate.version
             versions = recommended_image.split(".")
             recommended_image = "%s.%s.%s-%s" % (versions[0], versions[1], versions[2], versions[3])
         except:
@@ -30,8 +31,8 @@ try:
         installable = 0
         pkg_version = ""
         package = pkg.name
-        if (package.startswith("linux-image-3") or package.startswith("linux-image-4")) and package.endswith("-generic"):
-            version = package.replace("linux-image-", "").replace("-generic", "")
+        if (package.startswith("linux-image-3") or package.startswith("linux-image-4")) and package.endswith("-" + KernelType().kernel_type):
+            version = package.replace("linux-image-", "").replace("-" + KernelType().kernel_type, "")
             if pkg.is_installed:
                 installed = 1
                 pkg_version = pkg.installed.version

@@ -4,6 +4,19 @@ import gettext
 gettext.install("mintupdate", "/usr/share/locale")
 
 import html
+from gi.repository import Gio
+
+class KernelType():
+
+    def __init__(self):
+        self.kernel_lowlatency_selected = Gio.Settings("com.linuxmint.updates").get_boolean("kernel-lowlatency-are-active")
+
+        if self.kernel_lowlatency_selected is True:
+            self.kernel_type = 'lowlatency'
+        else:
+            self.kernel_type = 'generic'
+
+# kernel_type = KernelType().kernel_type
 
 class Rule():
 

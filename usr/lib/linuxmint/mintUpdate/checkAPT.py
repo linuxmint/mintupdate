@@ -14,7 +14,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule
+from Classes import Update, Alias, Rule, KernelType
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -47,6 +47,14 @@ class APTCheck():
         self.cache = apt.Cache()
         self.priority_updates_available = False
         self.load_rules()
+        self.kernel_type = KernelType().kernel_type
+        self.get_kernel_pkgs()
+
+    def get_kernel_pkgs(self):
+        if self.kernel_type == 'generic':
+            self.kernel_pkgs = 'linux-headers-VERSION', 'linux-headers-VERSION-%s' % self.kernel_type, 'linux-image-VERSION-%s' % self.kernel_type, 'linux-image-extra-VERSION-%s' % self.kernel_type
+        elif self.kernel_type == 'lowlatency':
+            self.kernel_pkgs = 'linux-headers-VERSION', 'linux-headers-VERSION-%s' % self.kernel_type, 'linux-image-VERSION-%s' % self.kernel_type
 
     def load_aliases(self):
         self.aliases = {}
@@ -112,7 +120,7 @@ class APTCheck():
                 uname_kernel = KernelVersion(platform.release())
 
                 # Check metas first
-                for meta_name in ['linux-generic', 'linux-generic-hwe-16.04']:
+                for meta_name in ['linux-' + self.kernel_type, 'linux-' + self.kernel_type + '-hwe-16.04']:
                     if meta_name in self.cache:
                         meta = self.cache[meta_name]
                         if not meta.is_installed:
@@ -125,13 +133,13 @@ class APTCheck():
                 max_kernel = uname_kernel
                 for pkg in self.cache:
                     package_name = pkg.name
-                    if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith("-generic"):
-                        version = package_name.replace("linux-image-", "").replace("-generic", "")
+                    if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith("-" + self.kernel_type):
+                        version = package_name.replace("linux-image-", "").replace("-" + self.kernel_type)
                         kernel = KernelVersion(version)
                         if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                             max_kernel = kernel
                 if max_kernel.numeric_representation != uname_kernel.numeric_representation:
-                    for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                    for pkgname in [self.kernel_pkgs]:
                         pkgname = pkgname.replace('VERSION', max_kernel.std_version)
                         if pkgname in self.cache:
                             pkg = self.cache[pkgname]
@@ -143,10 +151,10 @@ class APTCheck():
 
     def add_update(self, package, kernel_update=False):
 
-        if package.name in ['linux-libc-dev', 'linux-kernel-generic']:
+        if package.name in ['linux-libc-dev', 'linux-kernel-' + self.kernel_type]:
             source_name = package.name
         elif package.name.startswith("linux-image") or package.name.startswith("linux-headers"):
-            source_name = package.name.replace("-generic", "").replace("-extra", "").replace("-headers", "").replace("-image", "")
+            source_name = package.name.replace("-" + self.kernel_type, "").replace("-extra", "").replace("-headers", "").replace("-image", "")
         else:
             source_name = package.candidate.source_name
 
@@ -202,7 +210,7 @@ class APTCheck():
                 update.display_name = alias.name
                 update.short_description = alias.short_description
                 update.description = alias.description
-            elif update.type == "kernel" and source_name not in ['linux-libc-dev', 'linux-kernel-generic']:
+            elif update.type == "kernel" and source_name not in ['linux-libc-dev', 'linux-kernel-' + self.kernel_type]:
                 update.display_name = _("Linux kernel %s") % update.new_version
                 update.short_description = _("The Linux kernel.")
                 update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
