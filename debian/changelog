@@ -1,3 +1,97 @@
+mintupdate (5.3.3) tara; urgency=medium
+
+  [ Stephen Collins ]
+  * Use the correct icon in the autostart desktop file (#295)
+
+  [ Mikhail Bodrov ]
+  * Optimize size_to_string (#291)
+
+  [ Periklis ]
+  * Updating update managers error message to be more clear (#289)
+
+  [ Mikhail Bodrov ]
+  * Remove needless check for proxy mode (#313)
+  * Simplify concat proxy_url (#312)
+
+  [ Vincent Vermeulen ]
+  * Update mintUpdate.py (#307)
+
+  [ Mikhail Bodrov ]
+  * Reuse code in rel_upgrade. (#315)
+  * Simplify rule class (#316)
+
+  [ dafanasiev ]
+  * fix: end process mintupdate-launcher after run mintUpdate (#317)
+  * fix: kill all mintUpdate processes while start (#318)
+
+  [ Vincent Vermeulen ]
+  * Add Ctrl+W as shortcut to the Close menu item (#324)
+
+  [ Mikhail Bodrov ]
+  * Simplify check for use-synaptic (#321)
+
+  [ JosephMcc ]
+  * ui: Change most of the menu icons to symbolics (#326)
+
+  [ Clement Lefebvre ]
+  * Use pkexec to launch mintsources
+
+  [ Mikhail Bodrov ]
+  * Optimize add package (#328)
+
+  [ NikoKrause ]
+  * fix ngettext (#329)
+  * Fix capitalize for short description (#330)
+
+  [ JosephMcc ]
+  * mintupdate.ui: Properly enable wide separators (#333)
+  * ui: Use new GtkTextView settings to provide top and bottom margins (#334)
+
+  [ Clement Lefebvre ]
+  * Remove level 5 from UI/configuration
+  * Replace update policies with a welcome screen.
+  * Show a warning if Timeshift snapshots are not set up
+  * Menus: Add timeshift, help contents and switch to symbolic icons
+  * Sort updates alphabetically when levels are not visible
+  * Hide level column by default
+  * Take ownership of mintupdate translations
+  * l10n: Parse/set msgids directly in UI files
+  * Preferences: Add clear recommendations about applying all updates
+  * Update help section
+  * Kernels: Rely on meta pkgs instead of kernel packages
+
+  [ JosephMcc ]
+  * Add a shortcuts window (#340)
+
+  [ Clement Lefebvre ]
+  * Fix shortcut windows l10n and fine-tune menu items
+
+  [ JosephMcc ]
+  * UI: Remove all uses of GtkStock (#342)
+  * Prefs: Left align some label headers (#343)
+  * Set the transient for property on the about dialog (#344)
+
+  [ Clement Lefebvre ]
+  * Deprecate mintupdate-tool, rename it into mintupdate-cli
+  * mintupdate-cli: Use defaults rather than settings
+  * mintupdate-cli: Install all updates by default
+  * mintupdate-cli: Update Help
+  * Add support for automatic updates
+  * Automatic updates: Improve logging in cron job
+
+  [ JosephMcc ]
+  * UI: Don't use small, italic text in the or custom colors in the updates list (#345)
+
+  [ Clement Lefebvre ]
+  * l10n: Update pot file
+  * Add status icons to infobars
+  * Fix error handling
+  * Improve type classification
+  * Update symbolic type icons
+  * l10n: Update files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 07 May 2018 13:29:44 +0100
+
 mintupdate (5.3.2) sylvia; urgency=medium
 
   [ monsta ]
