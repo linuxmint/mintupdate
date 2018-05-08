@@ -1,3 +1,23 @@
+mintupdate (5.3.4) tara; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Fix typo
+  * Fix not showing the right update name when the short description contains '&'
+
+  [ monsta ]
+  * kernel window: support new linux-modules-* packages (#352)
+
+  [ Michael Webster ]
+  * checkAPT: generate a new mintinstall cache after updating our apt (#350)
+
+  [ Clement Lefebvre ]
+  * Kernel window: Fix installing/removing kernels for new/old naming conventions
+  * Kernel window: Remove obsolete code
+  * CheckAPT: Improve/Fix kernel updates
+  * Add support for lowlatency kernels
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 08 May 2018 18:22:46 +0100
+
 mintupdate (5.3.3) tara; urgency=medium
 
   [ Stephen Collins ]
