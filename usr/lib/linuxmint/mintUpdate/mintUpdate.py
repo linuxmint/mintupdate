@@ -1673,7 +1673,7 @@ class MintUpdate():
         column_package.set_resizable(True)
         column_old_version = Gtk.TreeViewColumn(_("Old version"), Gtk.CellRendererText(), text=2)
         column_old_version.set_sort_column_id(2)
-        column_old_versionn3.set_resizable(True)
+        column_old_version.set_resizable(True)
         column_new_version = Gtk.TreeViewColumn(_("New version"), Gtk.CellRendererText(), text=3)
         column_new_version.set_sort_column_id(3)
         column_new_version.set_resizable(True)
