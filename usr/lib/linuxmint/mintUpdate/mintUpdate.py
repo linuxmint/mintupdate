@@ -703,6 +703,8 @@ class RefreshThread(threading.Thread):
                                     pass
 
                             if (self.application.settings.get_boolean("show-descriptions")):
+                                # Pango doesn't like & signs, we need to escape them before using the content as markup
+                                shortdesc = shortdesc.replace("& ", "&amp; ")
                                 model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name) + "\n%s" % (shortdesc))
                             else:
                                 model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name))
