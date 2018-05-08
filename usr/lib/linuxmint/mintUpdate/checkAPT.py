@@ -40,6 +40,9 @@ class KernelVersion():
 # nothing else is listed.
 PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
 
+KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
+KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
+
 class APTCheck():
 
     def __init__(self):
@@ -111,14 +114,26 @@ class APTCheck():
                 # Get the uname version
                 uname_kernel = KernelVersion(platform.release())
 
-                # Check metas first
-                for meta_name in ['linux-generic', 'linux-generic-hwe-16.04']:
+                # Check if any meta is installed..
+                meta_names = ['linux-generic', 'linux-generic-hwe-16.04']
+                meta_installed = False
+                for meta_name in meta_names:
                     if meta_name in self.cache:
                         meta = self.cache[meta_name]
-                        if not meta.is_installed:
+                        if meta.is_installed:
+                            meta_installed = True
+                            break
+
+                # If no meta is installed, try to recommend one
+                if not meta_installed:
+                    for meta_name in meta_names:
+                        if meta_name in self.cache:
+                            meta = self.cache[meta_name]
                             recommended_kernel = KernelVersion(meta.candidate.version)
                             if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
+                                # This meta version is >= to the uname version, add it as an update
                                 self.add_update(meta, kernel_update=True)
+                                # Return because we only want to add one meta, and we don't want to recommend latest kernels in the series
                                 return
 
                 # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
@@ -131,7 +146,7 @@ class APTCheck():
                         if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                             max_kernel = kernel
                 if max_kernel.numeric_representation != uname_kernel.numeric_representation:
-                    for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                    for pkgname in KERNEL_PKG_NAMES:
                         pkgname = pkgname.replace('VERSION', max_kernel.std_version)
                         if pkgname in self.cache:
                             pkg = self.cache[pkgname]
