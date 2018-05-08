@@ -14,7 +14,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule
+from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, META_NAMES
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -39,9 +39,6 @@ class KernelVersion():
 # If a new version of these packages is available,
 # nothing else is listed.
 PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
-
-KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
-KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
 
 class APTCheck():
 
@@ -115,9 +112,8 @@ class APTCheck():
                 uname_kernel = KernelVersion(platform.release())
 
                 # Check if any meta is installed..
-                meta_names = ['linux-generic', 'linux-generic-hwe-16.04']
                 meta_installed = False
-                for meta_name in meta_names:
+                for meta_name in META_NAMES:
                     if meta_name in self.cache:
                         meta = self.cache[meta_name]
                         if meta.is_installed:
@@ -126,7 +122,7 @@ class APTCheck():
 
                 # If no meta is installed, try to recommend one
                 if not meta_installed:
-                    for meta_name in meta_names:
+                    for meta_name in META_NAMES:
                         if meta_name in self.cache:
                             meta = self.cache[meta_name]
                             recommended_kernel = KernelVersion(meta.candidate.version)
@@ -138,10 +134,13 @@ class APTCheck():
 
                 # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
                 max_kernel = uname_kernel
+                kernel_type = "-generic"
+                if self.settings.get_boolean("use-lowlatency-kernels"):
+                    kernel_type = "-lowlatency"
                 for pkg in self.cache:
                     package_name = pkg.name
-                    if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith("-generic"):
-                        version = package_name.replace("linux-image-", "").replace("-generic", "")
+                    if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith(kernel_type):
+                        version = package_name.replace("linux-image-", "").replace("-generic", "").replace("-lowlatency", "")
                         kernel = KernelVersion(version)
                         if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                             max_kernel = kernel
@@ -161,7 +160,7 @@ class APTCheck():
         if package.name in ['linux-libc-dev', 'linux-kernel-generic']:
             source_name = package.name
         elif package.name.startswith("linux-image") or package.name.startswith("linux-headers"):
-            source_name = package.name.replace("-generic", "").replace("-extra", "").replace("-headers", "").replace("-image", "")
+            source_name = package.name.replace("-generic", "").replace("-lowlatency", "").replace("-extra", "").replace("-headers", "").replace("-image", "")
         else:
             source_name = package.candidate.source_name
 

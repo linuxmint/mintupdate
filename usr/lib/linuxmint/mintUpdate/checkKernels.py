@@ -5,9 +5,15 @@ import subprocess
 import apt
 import sys
 
+from gi.repository import Gio
+
 try:
     current_version = subprocess.check_output("uname -r", shell = True).decode("utf-8").replace("-generic", "").strip()
 
+    settings = Gio.Settings("com.linuxmint.updates")
+    kernel_type = "-generic"
+    if settings.get_boolean("use-lowlatency-kernels"):
+        kernel_type = "-lowlatency"
     cache = apt.Cache()
     for pkg in cache:
         installed = 0
@@ -15,8 +21,8 @@ try:
         installable = 0
         pkg_version = ""
         package = pkg.name
-        if (package.startswith("linux-image-3") or package.startswith("linux-image-4")) and package.endswith("-generic"):
-            version = package.replace("linux-image-", "").replace("-generic", "")
+        if (package.startswith("linux-image-3") or package.startswith("linux-image-4")) and package.endswith(kernel_type):
+            version = package.replace("linux-image-", "").replace("-generic", "").replace("-lowlatency", "")
             if pkg.is_installed:
                 installed = 1
                 pkg_version = pkg.installed.version

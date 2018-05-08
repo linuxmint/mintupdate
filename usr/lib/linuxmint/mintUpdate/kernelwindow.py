@@ -10,15 +10,13 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('GdkX11', '3.0') # Needed to get xid
 from gi.repository import Gtk, Gdk, GdkX11
 
+from Classes import KERNEL_PKG_NAMES
+
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 
 # Using these two as hack to get around the lack of gtk_box_set_center_widget in 3.10
 VERSION_GROUP = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
 INFO_GROUP = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
-
-# Kernel package names
-KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
-KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
 
 def list_header_func(row, before, user_data):
     if before and not row.get_header():
