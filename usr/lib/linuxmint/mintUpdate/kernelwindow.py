@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+import apt
 import subprocess
 import os
 import re
@@ -15,6 +15,10 @@ KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 # Using these two as hack to get around the lack of gtk_box_set_center_widget in 3.10
 VERSION_GROUP = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
 INFO_GROUP = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
+
+# Kernel package names
+KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
+KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
 
 def list_header_func(row, before, user_data):
     if before and not row.get_header():
@@ -32,13 +36,19 @@ class InstallKernelThread(threading.Thread):
         cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
                 "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
         f = tempfile.NamedTemporaryFile()
+        cache = apt.Cache()
+        for name in KERNEL_PKG_NAMES:
+            name = name.replace("VERSION", self.version)
+            if name in cache:
+                pkg = cache[name]
+                if self.remove:
+                    if pkg.is_installed:
+                        pkg_line = "%s\tpurge\n" % name
+                        f.write(pkg_line.encode("utf-8"))
+                else:
+                    pkg_line = "%s\tinstall\n" % name
+                    f.write(pkg_line.encode("utf-8"))
 
-        for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-generic' % self.version, 'linux-image-%s-generic' % self.version, 'linux-modules-%s-generic' % self.version, 'linux-modules-extra-%s-generic' % self.version]:
-            if self.remove:
-                pkg_line = "%s\tpurge\n" % pkg
-            else:
-                pkg_line = "%s\tinstall\n" % pkg
-            f.write(pkg_line.encode("utf-8"))
         cmd.append("--set-selections-file")
         cmd.append("%s" % f.name)
         f.flush()
