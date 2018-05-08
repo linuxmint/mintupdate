@@ -40,6 +40,9 @@ class KernelVersion():
 # nothing else is listed.
 PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
 
+KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
+KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
+
 class APTCheck():
 
     def __init__(self):
@@ -119,7 +122,7 @@ class APTCheck():
                 if 'linux-image-generic' in self.cache:
                     recommended_kernel = KernelVersion(self.cache['linux-image-generic'].candidate.version)
                     if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
-                        for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                        for pkgname in KERNEL_PKG_NAMES:
                             pkgname = pkgname.replace('VERSION', recommended_kernel.std_version)
                             if pkgname in self.cache:
                                 pkg = self.cache[pkgname]
@@ -131,7 +134,7 @@ class APTCheck():
                 if 'linux-image-generic-hwe-16.04' in self.cache:
                     recommended_kernel = KernelVersion(self.cache['linux-image-generic-hwe-16.04'].candidate.version)
                     if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
-                        for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                        for pkgname in KERNEL_PKG_NAMES:
                             pkgname = pkgname.replace('VERSION', recommended_kernel.std_version)
                             if pkgname in self.cache:
                                 pkg = self.cache[pkgname]
@@ -149,7 +152,7 @@ class APTCheck():
                         if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                             max_kernel = kernel
                 if max_kernel.numeric_representation != uname_kernel.numeric_representation:
-                    for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                    for pkgname in KERNEL_PKG_NAMES:
                         pkgname = pkgname.replace('VERSION', max_kernel.std_version)
                         if pkgname in self.cache:
                             pkg = self.cache[pkgname]
