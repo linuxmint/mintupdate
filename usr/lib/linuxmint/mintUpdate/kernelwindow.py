@@ -33,7 +33,7 @@ class InstallKernelThread(threading.Thread):
                 "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
         f = tempfile.NamedTemporaryFile()
 
-        for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-generic' % self.version, 'linux-image-%s-generic' % self.version, 'linux-image-extra-%s-generic' % self.version]:
+        for pkg in ['linux-headers-%s' % self.version, 'linux-headers-%s-generic' % self.version, 'linux-image-%s-generic' % self.version, 'linux-modules-%s-generic' % self.version, 'linux-modules-extra-%s-generic' % self.version]:
             if self.remove:
                 pkg_line = "%s\tpurge\n" % pkg
             else:
