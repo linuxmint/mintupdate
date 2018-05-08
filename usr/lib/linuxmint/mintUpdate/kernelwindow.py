@@ -241,11 +241,11 @@ class KernelWindow():
         pages_needed = []
         for kernel in kernels:
             values = kernel.split('###')
-            if len(values) == 9:
+            if len(values) == 7:
                 status = values[0]
                 if status != "KERNEL":
                     continue
-                (status, version_id, version, pkg_version, installed, used, recommended_stability, recommended_security, installable) = values
+                (status, version_id, version, pkg_version, installed, used, installable) = values
                 installed = (installed == "1")
                 used = (used == "1")
                 title = ""
@@ -253,17 +253,6 @@ class KernelWindow():
                     title = _("Active")
                 elif installed:
                     title = _("Installed")
-                recommend = None
-                # if recommended_security == "1":
-                #     recommend = _("Recommended for security")
-                # elif recommended_stability == "1":
-                #     recommend = _("Recommended for stability")
-
-                if recommend is not None:
-                    if title == "":
-                        title = recommend
-                    else:
-                        title = "%s - %s" % (recommend, title)
 
                 installable = (installable == "1")
                 label = version
