@@ -159,8 +159,10 @@ class APTCheck():
 
         if package.name in ['linux-libc-dev', 'linux-kernel-generic']:
             source_name = package.name
-        elif package.name.startswith("linux-image") or package.name.startswith("linux-headers"):
-            source_name = package.name.replace("-generic", "").replace("-lowlatency", "").replace("-extra", "").replace("-headers", "").replace("-image", "")
+        elif package.candidate.source_name in ['linux', 'linux-meta', 'linux-hwe', 'linux-hwe-edge']:
+            source_name = "linux-%s" % package.candidate.version
+        elif package.name.startswith("linux-image") or package.name.startswith("linux-headers") or package.name.startswith("linux-modules") or package.name.startswith("linux-tools"):
+            source_name = "linux-%s" % package.candidate.version
         else:
             source_name = package.candidate.source_name
 
