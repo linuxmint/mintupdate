@@ -12,6 +12,9 @@ from aptdaemon import client
 from aptdaemon.errors import NotAuthorizedError, TransactionFailed
 from aptdaemon.gtk3widgets import AptErrorDialog, AptProgressDialog
 
+KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
+KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
+
 try:
     cache = apt.Cache()
 
@@ -82,7 +85,7 @@ try:
             versions = cache['linux-image-generic'].candidate.version.split(".")
             if len(versions) > 3:
                 version = "%s.%s.%s-%s" % (versions[0], versions[1], versions[2], versions[3])
-                for pkgname in ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-image-extra-VERSION-generic']:
+                for pkgname in KERNEL_PKG_NAMES:
                     pkgname = pkgname.replace('VERSION', version)
                     if pkgname in cache:
                         pkg = cache[pkgname]
