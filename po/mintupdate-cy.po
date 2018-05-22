@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-11-22 12:09+0000\n"
-"PO-Revision-Date: 2016-12-12 16:24+0000\n"
+"POT-Creation-Date: 2018-05-07 13:28+0100\n"
+"PO-Revision-Date: 2018-05-08 10:10+0000\n"
 "Last-Translator: Rhoslyn Prys <rprys@yahoo.com>\n"
 "Language-Team: Welsh <cy@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : (n != 8 && n != 11) ? "
 "2 : 3;\n"
-"X-Launchpad-Export-Date: 2018-01-06 14:17+0000\n"
-"X-Generator: Launchpad (build 18521)\n"
+"X-Launchpad-Export-Date: 2018-05-22 09:17+0000\n"
+"X-Generator: Launchpad (build 18658)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
+#: usr/share/help/C/mintupdate/snapshots.page:10(name)
 #: usr/share/help/C/mintupdate/regressions.page:10(name)
-#: usr/share/help/C/mintupdate/policy.page:10(name)
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:10(name)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:10(name)
 #: usr/share/help/C/mintupdate/levels.page:10(name)
 #: usr/share/help/C/mintupdate/kernels.page:10(name)
 #: usr/share/help/C/mintupdate/index.page:9(name)
@@ -30,9 +30,9 @@ msgid "Linux Mint"
 msgstr "Linux Mint"
 
 #: usr/share/help/C/mintupdate/updates.page:11(email)
+#: usr/share/help/C/mintupdate/snapshots.page:11(email)
 #: usr/share/help/C/mintupdate/regressions.page:11(email)
-#: usr/share/help/C/mintupdate/policy.page:11(email)
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:11(email)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:11(email)
 #: usr/share/help/C/mintupdate/levels.page:11(email)
 #: usr/share/help/C/mintupdate/kernels.page:11(email)
 #: usr/share/help/C/mintupdate/index.page:10(email)
@@ -41,11 +41,11 @@ msgstr "root@linuxmint.com"
 
 #: usr/share/help/C/mintupdate/updates.page:16(desc)
 msgid "There are different types of updates"
-msgstr ""
+msgstr "Mae yna wahanol fathau o ddiweddariadau"
 
 #: usr/share/help/C/mintupdate/updates.page:19(title)
 msgid "The different types of updates"
-msgstr ""
+msgstr "Y gwahanol fathau o ddiweddariadau"
 
 #: usr/share/help/C/mintupdate/updates.page:21(p)
 msgid "There are different types of updates:"
@@ -76,21 +76,21 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
+"Mae diogelwch yn bwysig iawn ond yn dechnegol tu hwnt. Nid yw gwendidau bob "
+"tro'n effeithio ar eich cyfrifiadur ac maen nhw'n gallu bod yn anodd eu "
+"deall. Nid yw'r rhan fwyaf o bobl yn eu deall ac nid yw eu cyfrifiadur "
+"personol mewn perygl. Er hynny, gall gwendid diogelwch achosi canlyniadau "
+"difrifol iawn, felly rydym yn argymell eich bod yn eu cymryd o ddifrif."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
-"By default, security updates are always visible, no matter what policy you "
-"chose and what level they are."
+"Software updates aren't as important. They bring bug fixes or improvements "
+"which are not related to security."
 msgstr ""
+"Nid yw diweddariadau meddalwedd mor bwysig. Mae nhw'n cyflwyno gwelliannau "
+"sydd ddim yn berthnasol i ddiogelwch."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
-msgid ""
-"Software updates aren't as important. They bring bug fixes or improvements "
-"which are not related to security. As such they're less urgent and can even "
-"be considered optional."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/updates.page:35(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
 msgid ""
 "In Linux Mint, kernel updates bring both security patches and bug fixes (and "
@@ -105,24 +105,79 @@ msgstr ""
 "diweddariadau cnewyll yn bwysig o safbwynt diogelwch, ond hefyd yn dueddol i "
 "ddiraddiadau a all fod yn anodd i gywiro defnyddiwr newydd."
 
+#: usr/share/help/C/mintupdate/snapshots.page:16(desc)
+msgid ""
+"When faced with a serious regression, restore the latest system snapshot."
+msgstr ""
+"Pan yn wynebu atchweliad difrifol, adferwch y ciplun system diweddaraf."
+
+#: usr/share/help/C/mintupdate/snapshots.page:19(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/share/linuxmint/mintupdate/main.ui.h:15
+msgid "System snapshots"
+msgstr "Cipluniau System"
+
+#: usr/share/help/C/mintupdate/snapshots.page:21(p)
+msgid ""
+"Timeshift, the system snapshot utility, is available in all versions of "
+"Linux Mint."
+msgstr ""
+"Mae Timeshift, y gwasanaeth ciplun system, ar gael ar gyfer pob fersiwn o "
+"Linux Mint."
+
+#: usr/share/help/C/mintupdate/snapshots.page:23(p)
+msgid ""
+"It can be used to create snapshots manually but also to automate system "
+"snapshots."
+msgstr ""
+"Mae modd ei ddefnyddio i greu cipluniau â llaw ac hefyd i awtomeiddio "
+"cipluniau systemau."
+
+#: usr/share/help/C/mintupdate/snapshots.page:25(p)
+msgid "Linux Mint recommends the automation of daily and boot snapshots."
+msgstr "Mae Linux Mint yn argymell awtomeiddio cipluniau dyddiol a chychwyn."
+
+#: usr/share/help/C/mintupdate/snapshots.page:27(p)
+msgid ""
+"If an update, a mistake, a bug or a malicious program breaks something on "
+"your computer, you can restore the operating system from any snapshot, thus "
+"cancelling the problem as if it never happened."
+msgstr ""
+"Os yw diweddariad, camgymeriad, gwall neu raglen faleisus yn torri rhywbeth "
+"ar eich cyfrifiadur, gallwch adfer y system weithredu o unrhyw giplun, "
+"felly'n diddymu'r anhawster os bydd yn digwydd byth"
+
+#: usr/share/help/C/mintupdate/snapshots.page:29(p)
+msgid ""
+"System snapshots only cover the operating system itself. They do not include "
+"or affect your personal data."
+msgstr ""
+"Mae cipluniau o'r system mond yn cynnwys y system weithredu ei hun. Nid yw'n "
+"cynnwys nac yn effeithio ar eich data personol."
+
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
 msgstr ""
+"Pan fydd diweddariad yn torri rhywbeth, mae'n cael ei alw'n \"atchweliad\"."
 
 #: usr/share/help/C/mintupdate/regressions.page:19(title)
 msgid "Software regressions"
-msgstr ""
+msgstr "Atchweliadau meddalwedd"
 
 #: usr/share/help/C/mintupdate/regressions.page:21(p)
 msgid ""
 "Updates keep your computer safe, eliminate bugs and even sometimes add new "
 "features to your operating system."
 msgstr ""
+"Mae diweddariadau'n cadw eich cyfrifiadur yn ddiogel, lleihau gwallau ac "
+"weithiau'n cynnig nodweddion newydd i'ch system weithredu."
 
 #: usr/share/help/C/mintupdate/regressions.page:23(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions'."
 msgstr ""
+"Yn anffodus, mae nhw hefyd yn gallu cyflwyno anawsterau newydd, sef, "
+"\"atchweliadau\""
 
 #: usr/share/help/C/mintupdate/regressions.page:25(p)
 msgid ""
@@ -131,21 +186,29 @@ msgid ""
 "skilled developers are, they can't always predict every possible situation "
 "or test on every possible hardware specification."
 msgstr ""
+"Mae atchweliadau'n gyffredin iawn yn y diwydiant meddalwedd. Maen nhw'n rhan "
+"o ddatblygu meddalwedd. Mae newidiadau cod yn creu atchweliadau. Does dim "
+"gwahaniaeth pa mor ddawnus yw datblygwyr, nid oes modd iddyn nhw ragweld pob "
+"sefyllfa bosib neu brawf ar bob manylyn caledwedd posib."
 
 #: usr/share/help/C/mintupdate/regressions.page:27(p)
 msgid ""
 "When a regression happens, it breaks something which worked well before."
 msgstr ""
+"Pan mae atchweliad yn digwydd, mae'n torri rhywbeth sydd wedi gweithio'n dda "
+"o'r blaen."
 
 #: usr/share/help/C/mintupdate/regressions.page:29(p)
 msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
-msgstr ""
+msgstr "Weithiau does dim gwahaniaeth, ond weithiau mae'n bwysig iawn."
 
 #: usr/share/help/C/mintupdate/regressions.page:31(p)
 msgid ""
 "It depends on what part of the operating system is affected and whether or "
 "not you're able to work around it or to fix it."
 msgstr ""
+"Mae'n dibynnu ar ba ran o'r system sy'n cael ei effeithio ac a ydych yn "
+"gallu gweithio o'i amgylch neu ei drwsio."
 
 #: usr/share/help/C/mintupdate/regressions.page:33(p)
 msgid ""
@@ -153,582 +216,417 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
+"Er enghraifft, nid yw'r dangosydd PDF yn gallu argraffu. Wel, mae hynny'n "
+"boen... ond nid yw mor broblemus a phetai eich cysylltiadau rhwydwaith yn "
+"peidio a gweithio neu nad oedd modd i chi gychwyn neu fewngofnodi i'ch "
+"cyfrifiadur."
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
 "In the latter case, it can be very problematic if you're not experienced "
 "with Linux and you don't know how to troubleshoot."
 msgstr ""
+"Yn yr achos diwethaf, gall fod yn broblemus iawn os nad oes gennych fawr o "
+"brofiad o Linux  a ddim yn gwybod sut i ddatrys problemau."
 
-#: usr/share/help/C/mintupdate/policy.page:16(desc)
-msgid "Choosing an update policy"
-msgstr "Dewis polisi diweddaru"
-
-#: usr/share/help/C/mintupdate/policy.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1148
-msgid "Update policy"
-msgstr "Polisi diweddaru"
-
-#: usr/share/help/C/mintupdate/policy.page:21(p)
-msgid ""
-"The update manager is highly configurable. You can go in the preferences and "
-"fine-tune which levels you want to show and which levels you want to "
-"preselect. This is your computer and so you can tune it the way you want."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:23(p)
-msgid ""
-"The first time you launch it, it will try to understand who you are and set "
-"these settings for you. To do so, it will show you three update policies and "
-"ask you to choose the one you like best."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:25(p)
-msgid "All policies have this in common:"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:28(p)
-msgid ""
-"For security reasons, security updates are always visible (no matter what "
-"level they are)."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:29(p)
-msgid ""
-"For security reasons, kernel updates (which are level 4) are always visible."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:30(p)
-msgid "For stability reasons, level 5 updates are always hidden."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:33(p)
-msgid ""
-"When you choose an update policy, some of the preferences are changed in the "
-"Update Manager. You can tune these preferences individually by clicking on "
-"the Edit-&gt;Preferences menu in the menubar."
-msgstr ""
-"Wrth ddewis polisi diweddaru, bydd rhai o'r dewisiadau yn cael ei newid yn y "
-"Rheolwr Diweddaru. Gallwch gywirio'r dewisiadau hyn yn unigol wrth glicio ar "
-"y ddewislen Golygu-&gt;Dewisiadau yn y bar dewis."
-
-#: usr/share/help/C/mintupdate/policy.page:37(title)
-msgid "Novice users"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:39(p)
-msgid ""
-"The first policy is made for novice users in mind. It assumes these users "
-"are unable to work around critical issues affecting sensitive parts of their "
-"system and tries to minimize their risk to suffer critical regressions."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:41(p)
-msgid ""
-"Bug fixes are optional, so this policy focuses on safe updates (level 1 and "
-"2) with minimal impact on the operating system. These updates are visible "
-"and preselected by default."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:43(p)
-msgid ""
-"Security is also important but some security updates (and kernel updates in "
-"particular) affect sensitive parts of the system. These updates are visible "
-"and novice users are recommended to select them and apply them with caution, "
-"in isolation and ideally either with the help of an experienced user, or "
-"after they familiarized themselves with the forums and chat channel so they "
-"know how to seek help."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:49(title)
-msgid "Regular users"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:51(p)
-msgid ""
-"The second policy is made for the vast majority of people. It assumes these "
-"users aren't new to Linux and either know how to solve common problems, or "
-"they know where to find help."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:53(p)
-msgid ""
-"This policy shows all recommended updates. Security updates and safe bug-fix "
-"updates (level 1 and 2) are preselected by default."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:55(p)
-msgid ""
-"Users are recommended to select and apply level 3 and level 4 updates with "
-"caution and in isolation and to seek help if something goes wrong."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:61(title)
-msgid "Advanced users"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:63(p)
-msgid ""
-"This policy is made for advanced users on computers where the risk of "
-"critical regressions is acceptable. It assumes these users are able to fix "
-"any issue and want to apply all updates all at once."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/policy.page:65(p)
-msgid ""
-"In this policy, all recommended updates are visible and selected by default."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:16(desc)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
-msgstr ""
+msgstr "Diweddaru o'r llinell orchymyn"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:19(title)
-msgid "Using mintupdate-tool"
-msgstr ""
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
+msgid "Using mintupdate-cli"
+msgstr "Defnyddio intupdate-cli"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:21(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
-"The Update Manager provides a command line utility called \"mintupdate-"
-"tool\"."
+"The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
+"Mae'r Rheolwr Diweddaru yn darparu gwasanaeth llinell orchymyn o'r enw "
+"\"mintupdate-cli\"."
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:23(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
 "If you are experienced with Linux, you can use this tool in your scripts or "
 "your cron jobs to automate the installation of software updates."
 msgstr ""
+"Os ydych yn brofiadol gyda Linux, gallwch ddefnyddio'r teclyn yma yn eich "
+"sgriptiau neu dasgau cron i awtomeiddio gosod diweddariadau meddalwedd."
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:27(title)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
-msgstr ""
+msgstr "Rhestru'r diweddariadau"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:29(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
-msgstr ""
+msgstr "Gallwch ddefnyddio'r orchymyn \"list\" i restru diweddariadau:"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:31(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
-msgid "mintupdate-tool list"
-msgstr ""
+msgid "mintupdate-cli list"
+msgstr "mintupdate-cli list"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:33(p)
-msgid "The list can be filtered by levels with the -l argument."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:35(p)
-msgid "You can add security updates with -s."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:37(p)
-msgid "You can add kernel updates with -k, or remove them with -nk."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:39(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid ""
-"For instance, the following command lists all security updates, as well as "
-"level 1 and 2 bug fixes update:"
+"You can use -l to only show updates for certain levels (when "
+"troubleshooting)."
 msgstr ""
+"Gallwch ddefnyddio -l i ddim ond dangos diweddariadau ar gyfer lefelau "
+"penodol (wrth ddatrys problemau)"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:41(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
+msgid "You can use -s to only show the security updates."
+msgstr "Gallwch ddefnyddio -s i ddim ond dangos y diweddariadau diogelwch."
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
+msgid "You can use -k to only show the kernel updates."
+msgstr "Gallwch ddefnyddio -k i ddim ond dangos diweddariadau'r cnewyllyn."
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
+msgid "For instance, the following command lists all security updates:"
+msgstr ""
+"Er enghraifft, mae'r rhestr canlynol yn dangos pob gorchmyn diogelwch."
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
 #, no-wrap
-msgid "mintupdate-tool list -l12 -s -nk"
-msgstr ""
+msgid "mintupdate-cli list -s"
+msgstr "mintupdate-cli list -s"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:47(title)
-#: usr/share/help/C/mintupdate/index.page:35(title)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
 msgid "Applying updates"
-msgstr ""
+msgstr "Gosod diweddariadau"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:49(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr ""
+"Gallwch ddefnyddio'r gorchymyn \"upgrade\" i osod diweddariadau, gan "
+"ddefnyddio'r un dewisiadau."
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:51(p)
-msgid ""
-"For instance, the following command applies all security updates as well as "
-"level 1 and 2 bug fix updates:"
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
+msgid "For instance, the following command applies kernel updates:"
 msgstr ""
+"Er enghraifft, mae'r gorchymyn canlynol yn perthyn i ddiweddariadau "
+"cnewyllyn:"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:53(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
 #, no-wrap
-msgid "sudo mintupdate-tool upgrade -r -l12 -s -nk"
-msgstr ""
+msgid "sudo mintupdate-cli upgrade -r -k"
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:55(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid "Note the -r argument, which was added to refresh the cache."
 msgstr ""
+"Sylwch ar yr ymresymiad -r, sydd wedi ei ychwanegu i adnewyddu'r storfa."
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:57(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:57(p)
 msgid ""
-"For more information on mintupdate-tool and a complete list of arguments, "
+"For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"Am ragor o fanylion am mintupdate-cli a'r rhestr llawn o ymresymiadau, "
+"teipiwch:"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:59(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
-msgid "mintupdate-tool -h"
-msgstr ""
+msgid "mintupdate-cli -h"
+msgstr "mintupdate-cli -h"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:27(None)
-#: usr/share/help/C/mintupdate/levels.page:59(None)
+#: usr/share/help/C/mintupdate/levels.page:33(None)
+#: usr/share/help/C/mintupdate/levels.page:55(None)
 msgid ""
 "@@image: 'figures/mintupdate-level1.svg'; "
 "md5=4721d1b8ee24af8a530de2567ed1221c"
 msgstr ""
+"@@image: 'figures/mintupdate-level1.svg'; "
+"md5=4721d1b8ee24af8a530de2567ed1221c"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:32(None)
-#: usr/share/help/C/mintupdate/levels.page:77(None)
+#: usr/share/help/C/mintupdate/levels.page:38(None)
+#: usr/share/help/C/mintupdate/levels.page:73(None)
 msgid ""
 "@@image: 'figures/mintupdate-level2.svg'; "
 "md5=3166f49269a73d52075b41dfde52ac87"
 msgstr ""
+"@@image: 'figures/mintupdate-level2.svg'; "
+"md5=3166f49269a73d52075b41dfde52ac87"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:37(None)
-#: usr/share/help/C/mintupdate/levels.page:90(None)
+#: usr/share/help/C/mintupdate/levels.page:43(None)
+#: usr/share/help/C/mintupdate/levels.page:82(None)
 msgid ""
 "@@image: 'figures/mintupdate-level3.svg'; "
 "md5=7f94f299af95a42e73759eb4676e2319"
 msgstr ""
+"@@image: 'figures/mintupdate-level3.svg'; "
+"md5=7f94f299af95a42e73759eb4676e2319"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:42(None)
-#: usr/share/help/C/mintupdate/levels.page:107(None)
+#: usr/share/help/C/mintupdate/levels.page:48(None)
+#: usr/share/help/C/mintupdate/levels.page:93(None)
 msgid ""
 "@@image: 'figures/mintupdate-level4.svg'; "
 "md5=9e9eb80679d932ccce1db26618475908"
 msgstr ""
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:52(None)
-#: usr/share/help/C/mintupdate/levels.page:134(None)
-msgid ""
-"@@image: 'figures/mintupdate-level5.svg'; "
-"md5=4834415cfe932a91c86b82e6124ccfb0"
-msgstr ""
+"@@image: 'figures/mintupdate-level4.svg'; "
+"md5=9e9eb80679d932ccce1db26618475908"
 
 #: usr/share/help/C/mintupdate/levels.page:16(desc)
 msgid ""
-"Updates are given a level indicating how much of an impact they have on the "
-"operating system"
+"Use update levels when troubleshooting, to identify which update is "
+"responsible for a regression."
 msgstr ""
+"Defnyddiwch lefelau diweddaru wrth ddatrys problemau, i adnabod pa "
+"ddiweddariad sy'n gyfrifol am atchweliad."
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
-msgstr ""
+msgstr "Lefelau diweddaru"
 
 #: usr/share/help/C/mintupdate/levels.page:21(p)
+msgid ""
+"Critical regressions happen very rarely. When they do, restore your system "
+"with the latest system snapshot and tell the Linux Mint development team "
+"about the regression."
+msgstr ""
+"Mae atchweliadau critigol yn brin iawn. Pan mae nhw'n digwydd, adferwch eich "
+"system gyda'r ciplun system diweddaraf a dweud wrth Dîm Datblygu Linux Mint "
+"am yr atchweliad."
+
+#: usr/share/help/C/mintupdate/levels.page:23(p)
+msgid ""
+"The Linux Mint team will want to know which update is responsible for the "
+"regression."
+msgstr ""
+"Bydd tîm Linux Mint eisiau gwybod p ddiweddariad sy'n gyfrifol am yr "
+"atchweliad."
+
+#: usr/share/help/C/mintupdate/levels.page:25(p)
+msgid ""
+"If you are faced with a long list of updates and you're not sure where to "
+"look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
+msgstr ""
+"Os ydych yn wynebu rhestr hir o atchweliadau a ddim yn siŵr lle i edrych, "
+"cliciwch ar \"Gweld\"-&gt;\"Colofnau Gweladwy\"-&gt;\"Lefelau\""
+
+#: usr/share/help/C/mintupdate/levels.page:27(p)
 msgid ""
 "Updates are given a level indicating how much of an impact they have on the "
 "operating system."
 msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:23(p)
-msgid "There are 4 levels:"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:28(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1854
-msgid "Minimal"
-msgstr ""
+"Mae'r diweddariadau'n cael eu dynodi i lefel o'u dylanwad ar y system "
+"weithredu."
 
 #: usr/share/help/C/mintupdate/levels.page:29(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1860
-msgid "No impact on the system or other applications."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:33(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1855
-msgid "Normal"
-msgstr ""
+msgid "There are 4 levels:"
+msgstr "Mae yna 4 lefle:"
 
 #: usr/share/help/C/mintupdate/levels.page:34(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1861
-msgid "Default level. Usually low impact on the system."
-msgstr ""
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:10
+msgid "Minimal"
+msgstr "Lleiaf"
 
-#: usr/share/help/C/mintupdate/levels.page:38(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1856
-msgid "Large"
-msgstr ""
+#: usr/share/help/C/mintupdate/levels.page:35(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:15
+msgid "No impact on the system or other applications."
+msgstr "Dim effaith ar y system na rhaglenni eraill."
 
 #: usr/share/help/C/mintupdate/levels.page:39(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
-msgid "Apply with caution. Impact on multiple applications."
-msgstr ""
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:11
+msgid "Normal"
+msgstr "Arferol"
 
-#: usr/share/help/C/mintupdate/levels.page:43(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1857
-msgid "Sensitive"
-msgstr ""
+#: usr/share/help/C/mintupdate/levels.page:40(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:16
+msgid "Default level. Usually low impact on the system."
+msgstr "Lefle ragosodedig. Fel rheol, ychydig o effaith ar y system."
 
 #: usr/share/help/C/mintupdate/levels.page:44(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1863
-msgid "Apply one by one. Impact on sensitive parts of the system."
-msgstr ""
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:12
+msgid "Large"
+msgstr "Mawr"
 
-#: usr/share/help/C/mintupdate/levels.page:48(p)
-msgid ""
-"And there's also a special level which is given to updates with known "
-"critical issues:"
-msgstr ""
+#: usr/share/help/C/mintupdate/levels.page:45(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:17
+msgid "Impact on multiple applications."
+msgstr "Effaith ar raglenni lluosog"
 
-#: usr/share/help/C/mintupdate/levels.page:53(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1858
-msgid "Dangerous"
-msgstr ""
+#: usr/share/help/C/mintupdate/levels.page:49(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:13
+msgid "Sensitive"
+msgstr "Sensitif"
 
-#: usr/share/help/C/mintupdate/levels.page:54(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1864
-msgid "Very rare. Not recommended. Known to create issues."
-msgstr ""
+#: usr/share/help/C/mintupdate/levels.page:50(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:18
+msgid "Impact on sensitive parts of the system."
+msgstr "Effaith ar ranau sensitif o'r system"
 
-#: usr/share/help/C/mintupdate/levels.page:59(title)
+#: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
 "Level 1"
 msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
+"Level 1"
 
-#: usr/share/help/C/mintupdate/levels.page:61(p)
+#: usr/share/help/C/mintupdate/levels.page:57(p)
 msgid ""
 "Level 1 updates are updates which only affect their own software and have no "
 "impact on the rest of the system."
 msgstr ""
+"Mae diweddiadau Lefel 1 yn effeithio ar eu meddalwedd eu hunain yn unig, heb "
+"effeithio r weddill y system."
 
-#: usr/share/help/C/mintupdate/levels.page:63(p)
+#: usr/share/help/C/mintupdate/levels.page:59(p)
 msgid "They're usually updates for single applications. For instance:"
 msgstr ""
+"Mae nhw fel arfer yn ddiweddariadau ar gyfer rhaglenni unigol. Er enghraifft:"
 
-#: usr/share/help/C/mintupdate/levels.page:66(p)
+#: usr/share/help/C/mintupdate/levels.page:62(p)
 msgid "The calculator"
-msgstr ""
+msgstr "Y cyfrifiannell"
 
-#: usr/share/help/C/mintupdate/levels.page:67(p)
+#: usr/share/help/C/mintupdate/levels.page:63(p)
 msgid "The PDF reader"
-msgstr ""
+msgstr "Y dangosydd PDF"
+
+#: usr/share/help/C/mintupdate/levels.page:64(p)
+msgid "The text editor"
+msgstr "Y golygydd testun"
+
+#: usr/share/help/C/mintupdate/levels.page:65(p)
+msgid "The media player"
+msgstr "Y chwaraewr cyfrwng"
 
 #: usr/share/help/C/mintupdate/levels.page:68(p)
-msgid "The text editor"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:69(p)
-msgid "The media player"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:72(p)
 msgid ""
-"You can apply these updates without worrying about regressions. In the worst "
-"case scenario a regression would only affect the software you're upgrading, "
-"not the operating system itself."
+"Regressions in these updates usually only affect the software they're "
+"updating, not the operating system itself."
 msgstr ""
+"Mae atchweliadau ar y diweddariadau hyn yn eeffeithio ar y diweddariadau "
+"meddalwedd mae nhw'n eu heffeithio, fel rheol., nid y system weithredu ei "
+"hun."
 
-#: usr/share/help/C/mintupdate/levels.page:77(title)
+#: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
 "Level 2"
 msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
+"Level 2"
 
-#: usr/share/help/C/mintupdate/levels.page:79(p)
+#: usr/share/help/C/mintupdate/levels.page:75(p)
 msgid ""
 "This is the default level, so the vast majority of updates are level 2."
 msgstr ""
+"Dyma'r lefel ragosodedig, mae'r rhan fwyaf o ddiweddariadau yn rhai lefel 2"
 
-#: usr/share/help/C/mintupdate/levels.page:81(p)
+#: usr/share/help/C/mintupdate/levels.page:77(p)
 msgid ""
 "These updates aren't known to impact large areas or sensitive parts of the "
 "system, but they're not guaranteed to only affect their own software either."
 msgstr ""
+"Nid yw'n hysbys i'r diweddariadau hyn effeithio ar ddarnau helaeth na "
+"sensitif o'r system, ond does dim gwarant na fyddant yn effeithio ar eu "
+"meddalwedd eu hunain yn unig."
 
-#: usr/share/help/C/mintupdate/levels.page:83(p)
-msgid ""
-"In general, you should be able to apply these updates without worrying about "
-"regressions."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:85(p)
-msgid ""
-"If an important regression, or potential for regression, was found in a "
-"level 2 update, its level would be changed to 3 or 4."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:90(title)
+#: usr/share/help/C/mintupdate/levels.page:82(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
 "Level 3"
 msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
+"Level 3"
 
-#: usr/share/help/C/mintupdate/levels.page:92(p)
+#: usr/share/help/C/mintupdate/levels.page:84(p)
 msgid ""
 "Level 3 updates are updates which not only affect themselves but also have "
 "an impact on other applications."
 msgstr ""
+"Mae diweddariadau Lefel 3 yn ddiweddariadau sydd nid yn unig yn effeithio "
+"arnyn nhw eu hunain ond hefyd yn effeithio ar raglenni eraill."
 
-#: usr/share/help/C/mintupdate/levels.page:94(p)
+#: usr/share/help/C/mintupdate/levels.page:86(p)
 msgid ""
 "Typical examples of level 3 updates are GTK, DBUS, etc... A regression in "
 "these updates wouldn't stop your computer from booting properly, but it "
 "could impact many applications."
 msgstr ""
+"Enghreifftiau arferol o ddiweddariadau lefel 3 yw GTK, DBUS, ac ati...  "
+"Fyddai atchweliad o'r diweddariadau hyn ddim yn rhwystro eich cyfrifiadur "
+"rhag cychwyn yn iawn, ond gallai effeithio ar nifer fawr o raglenni."
 
-#: usr/share/help/C/mintupdate/levels.page:96(p)
+#: usr/share/help/C/mintupdate/levels.page:88(p)
 msgid ""
 "Desktop environments are also level 3 updates. If a critical regression "
 "happens in Cinnamon, you might be unable to log in."
 msgstr ""
+"Mae amgylcheddau bwrdd gwaith hefyd yn ddiweddariadau lefel 3. Os fydd "
+"atchweliad critigol yn digwydd yn Cinnamon, bosib na fyddai modd i chi "
+"fewngofnodi."
 
-#: usr/share/help/C/mintupdate/levels.page:98(p)
-msgid ""
-"There aren't many level 3 updates. It is recommended to apply them with "
-"caution and in isolation. Take note of what updates you are applying, check "
-"the system afterwards to make sure everything is working fine."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:100(p)
-#: usr/share/help/C/mintupdate/levels.page:127(p)
-msgid ""
-"If something breaks, seek help on the forums or the chat channel and tell "
-"people which update caused the regression and what is broken."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:102(p)
-msgid ""
-"If you blindly apply hundreds of updates and you're unable to pinpoint the "
-"problematic one, you're unlikely to find help. All level 3 updates are "
-"recommended but you are expected to be cautious and to know what you are "
-"upgrading."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:107(title)
+#: usr/share/help/C/mintupdate/levels.page:93(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
 "Level 4"
 msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
+"Level 4"
 
-#: usr/share/help/C/mintupdate/levels.page:109(p)
+#: usr/share/help/C/mintupdate/levels.page:95(p)
 msgid ""
 "Level 4 updates are updates which affect sensitive parts of the operating "
 "system such as:"
 msgstr ""
+"Mae diweddariadau Lefel 4 yn effeithio ar ddarnau sensitif o'r system "
+"weithredu, megis:"
 
-#: usr/share/help/C/mintupdate/levels.page:112(p)
+#: usr/share/help/C/mintupdate/levels.page:98(p)
 msgid "The boot sequence"
-msgstr ""
+msgstr "Y dilyniant cychwyn"
 
-#: usr/share/help/C/mintupdate/levels.page:113(p)
+#: usr/share/help/C/mintupdate/levels.page:99(p)
 msgid "The display manager (login screen, session management)"
-msgstr ""
+msgstr "Y rheolwr dangos (sgin mewngofnodi, rheolaeth sesiwn)"
 
-#: usr/share/help/C/mintupdate/levels.page:114(p)
+#: usr/share/help/C/mintupdate/levels.page:100(p)
 msgid "The kernel (hardware support)"
-msgstr ""
+msgstr "Y cnewyllyn (cefnogaeth caledwedd)"
 
-#: usr/share/help/C/mintupdate/levels.page:115(p)
+#: usr/share/help/C/mintupdate/levels.page:101(p)
 msgid "The drivers (networking, NVIDIA/AMD)"
-msgstr ""
+msgstr "Y gyrrwyr (rhwydweithio,  NVIDIA/AMD)"
 
-#: usr/share/help/C/mintupdate/levels.page:116(p)
+#: usr/share/help/C/mintupdate/levels.page:102(p)
 msgid "The display (Xorg, mesa)"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:119(p)
-msgid ""
-"Like other updates, all level 4 updates are recommended, especially if they "
-"are security updates."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:121(p)
-msgid ""
-"However, if a critical regression was present in one of these updates it "
-"could impact a sensitive part of your system."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:123(p)
-msgid ""
-"You could find yourself without a connection to the Internet, without the "
-"ability to start the desktop environment or even without the ability to boot "
-"the operating system."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:125(p)
-msgid ""
-"For this reason you should always be careful when applying level 4 updates "
-"(including kernel updates). Apply them one by one and take note of the "
-"versions you're applying."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:129(p)
-msgid ""
-"If you blindly apply hundreds of updates and you're unable to pinpoint the "
-"problematic one, you're unlikely to find help. All level 4 updates are "
-"recommended but you are expected to be cautious and to know what you are "
-"upgrading."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:134(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level5.svg\" height=\"40\"/> "
-"Level 5"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:136(p)
-msgid "Level 5 updates are extremely rare."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:138(p)
-msgid ""
-"When a critical bug is found in an update it is usually fixed as soon as "
-"possible."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:140(p)
-msgid ""
-"There are many ways for Linux Mint to address issues, and many mechanisms in "
-"place both remotely in the repositories and locally within your operating "
-"system. So in normal circumstances updates shouldn't need to be blacklisted."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:142(p)
-msgid ""
-"If an update had a critical bug and a solution was being worked on but "
-"wasn't ready yet, Linux Mint could mark a specific version of the update as "
-"level 5 (i.e. \"not recommended\"). This would prevent users from applying "
-"it until the new version hits the repositories."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:144(p)
-msgid ""
-"Level 5 updates are known to cause issues. They are very rare and usually "
-"temporary. They are not visible by default and they should not be applied."
-msgstr ""
+msgstr "Y dangos (Xorg, mesa)"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr ""
+msgstr "Cnewyll a diweddariadau i'r cnewyllyn"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
 msgid "Kernel updates"
-msgstr ""
+msgstr "Diweddariadau i'r cnewyllyn"
 
 #: usr/share/help/C/mintupdate/kernels.page:21(p)
 msgid ""
 "The kernel is the central part of the operating system. Among other things, "
 "it is responsible for hardware support."
 msgstr ""
+"Mae'r cnewyllyn yn rhan ganolog o'r system weithredu. Ymhlith pethau eraill, "
+"mae'n gyfrifol am gefnogi caledwedd."
 
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
 msgstr ""
+"O safbwynt diogelwch, mae yn bwysig i osod diweddariadau i'r cnewyllyn."
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -736,22 +634,29 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
+"Er hynny, gall atchweliad cnewyllyn effeithio ar eich gallu i gysylltu á'r "
+"Rhyngrwyd, cychwyn eich amgylchedd bwrdd gwaith a hyd yn oed cychwyn eich "
+"system weithredu."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
 msgstr ""
+"Am y rheswm yma mae'n bwysig i fod yn ofalus wrth osod diweddariadau i'r "
+"cnewyllyn ac i wybod sut mae mynd nôl os fydd rhywbeth yn mynd o'i le."
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
-msgstr ""
+msgstr "Mae modd gosod cnewyll lluosog"
 
 #: usr/share/help/C/mintupdate/kernels.page:34(p)
 msgid ""
 "When you apply an update, you replace the old version of the software with "
 "the new version."
 msgstr ""
+"Pan fyddwch yn gosod diweddariad, rydych yn gosod fersiwn newydd yn lle'r "
+"hen un."
 
 #: usr/share/help/C/mintupdate/kernels.page:36(p)
 msgid ""
@@ -759,59 +664,70 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
+"Mae'n wahanol wrth osod cnewyll. Pan fyddwch yn gosod \"diweddariad "
+"cnewyllyn\", fyddwch chi ddim yn ei ddiweddaru ond yn gosod un arall ochr yn "
+"ochr á'r hen un."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
 "Every time you apply a kernel update, you install a new kernel on the "
 "system, without removing the old ones."
 msgstr ""
+"Bob tro fyddwch chi'n diweddaru cnewyllyn, rydych yn gosod cnewyllyn newydd "
+"ar y system, ond heb dynnu'r hen un."
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
-msgstr ""
+msgstr "Wrth gychwyn, mae'r system yn dewis y diweddaraf"
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
-msgstr ""
+msgstr "Adnabod y cnewyllyn cyfredol"
 
 #: usr/share/help/C/mintupdate/kernels.page:47(p)
 msgid ""
 "If you want to know which kernel you are currently using, open a terminal "
 "and type:"
 msgstr ""
+"Os hoffech chi wybod pa gnewyllyn rydych yn ei ddefnyddio, agorwch derfynell "
+"a theipio:"
 
 #: usr/share/help/C/mintupdate/kernels.page:49(screen)
 #, no-wrap
 msgid "uname -a"
-msgstr ""
+msgstr "uname -a"
 
 #: usr/share/help/C/mintupdate/kernels.page:54(title)
 msgid "Installing and removing kernels"
-msgstr ""
+msgstr "Gosod a thynnu cnewyll"
 
 #: usr/share/help/C/mintupdate/kernels.page:56(p)
 msgid "You can install and remove kernels from the Update Manager."
-msgstr ""
+msgstr "Gallwch sod a thynnu cnewyll drwy'r Rheolwr Diweddaru"
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr ""
+msgstr "Dewiswch \"Golwg -&gt; \"Linux Kernels\" yn y ddewislen."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
 "You cannot remove the kernel you are currently using. To remove it, you need "
 "to reboot and select a different kernel to boot with."
 msgstr ""
+"Nid oes modd tynnu'r cnewyllyn rydych yn ei ddefnyddio ar hyn o bryd. I'w "
+"dynnu, bydd rhaid ailgychwyn a dewis cnewyllyn gwahanol i gychwyn ohono."
 
 #: usr/share/help/C/mintupdate/kernels.page:65(title)
 msgid "Selecting a kernel"
-msgstr ""
+msgstr "Dewis cnewyllyn"
 
 #: usr/share/help/C/mintupdate/kernels.page:67(p)
 msgid ""
 "You can have multiple kernels installed, but you can only run one kernel at "
 "a time."
 msgstr ""
+"Mae modd i chi gael amryw o gnewyll wedi eu gosod ond dim ond rhedeg un ar y "
+"tro."
 
 #: usr/share/help/C/mintupdate/kernels.page:69(p)
 msgid ""
@@ -819,6 +735,9 @@ msgid ""
 "This menu allows you to choose operating systems but you can also use it to "
 "select a kernel."
 msgstr ""
+"Pan fyddwch yn cychwyn y cyfrifiadur, mae'r sgrin cyntaf yn cael ei alw'n "
+"ddewislen Grub. Mae'r dewislen yn caniatáu i chi ddewis system weithredu ond "
+"gallwch ei ddefnyddio i ddewis cnewyllyn."
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -826,6 +745,9 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
+"Os mai dim ond un system weithredu sydd wedi ei osod, gall eich trefn "
+"gychwyn hepgor dewislen Grub. I orfodi dangos Grub, cychwynnwch y "
+"cyfrifiadur a chadw i bwyso bysell chwith <key>Shift</key>."
 
 #: usr/share/help/C/mintupdate/kernels.page:73(p)
 msgid ""
@@ -833,10 +755,13 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
+"I ddewis cnewyllyn, dewiswch \"Advanced options\" yn newislen Grub. Dylech "
+"weld yr holl gnewyll sydd wedi eu gosod. Dewiswch yr un rydych am ei "
+"ddefnyddio a bydd eich cyfrifiadur yn cychwyn hwnnw."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
-msgstr ""
+msgstr "Gwirio statws DKMS"
 
 #: usr/share/help/C/mintupdate/kernels.page:80(p)
 msgid ""
@@ -845,12 +770,18 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
+"Mae'r cnewyllyn yn cynnwys pob gyrrwr cod agored ac mae rheini fel arfer yn "
+"gweithio'n dda. Nid yw gyrwyr masnachol (NVIDIA, AMD, Broadcom...ac ati) yn "
+"cael eu cynnwys a rhaid iddyn nhw gael eu crynhoi ar gyfer pob cnewyllyn "
+"rydych yn eu gosod. Mae hyn yn cael ei wneud  drwy beirianwaith DKMS."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
+"Os nad yw gyrrwr masnachol yn cael ei grynhoi'n iawn gan DKMS ar gyfer un "
+"o'ch cnewyll, ni fydd yn gweithio'n iawn gyda'r cnewyllyn hwnnw."
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -858,11 +789,14 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
+"Ar ôl gosod neu dynnu cnewyllyn, gallwch wirio eich statws DKMS, i wneud yn "
+"siŵr fod yr holl yrwyr masnachol wedi eu gosod yn iawn ar gyfer pob un o'ch "
+"cnewyll, gyda'r gorchymyn canlynol:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
 msgid "dkms status"
-msgstr ""
+msgstr "dkms status"
 
 #: usr/share/help/C/mintupdate/kernels.page:88(p)
 msgid ""
@@ -871,10 +805,15 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
+"Mae cyfresi cnewyllyn fel arfer yn dod ar gael cyn bod y gyrwyr masnachol yn "
+"eu cefnogi drwy'r DKMS. Os ydych yn defnyddio gyrwyr masnachol, rydym yn "
+"argymell eich bod yn cadw at ddiweddariadau cnewyllyn a pheidio â gosod "
+"cnewyll o gyfresi sy'n fwy diweddar na'r gyfres cnewyll sy'n cael eu "
+"hargymell."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
-msgstr ""
+msgstr "Dychwelyd diweddariad cnewyllyn i un blaenorol"
 
 #: usr/share/help/C/mintupdate/kernels.page:95(p)
 msgid ""
@@ -882,16 +821,15 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
+"Os nad yw rhywbeth yn gweithio gyda'r cnewyllyn diweddaraf rydych wedi ei "
+"osod (neu'r diweddariad cnewyllyn diweddaraf), dewiswch y cnewyllyn roeddech "
+"yn ei ddefnyddio ynghynt, tynnwch y cnewyllyn newydd ac ailgychwyn eto."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:919
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:923
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:981
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1703
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1782
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1784
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1828 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:968
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1031
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728 generate_desktop_files:26
 msgid "Update Manager"
 msgstr "Rheolwr Diweddaru"
 
@@ -900,51 +838,64 @@ msgid ""
 "The Update Manager provides your operating system with software and security "
 "updates."
 msgstr ""
-"Mae'r Rheolydd Diweddaru yn darparu eich system gweithredu gyda meddalwedd a "
-"diweddariadau diogelwch."
+"Mae'r Rheolwr Meddalwedd yn darparu diweddariadau meddalwedd a diogelwch "
+"i'ch system weithredu."
 
 #: usr/share/help/C/mintupdate/index.page:22(p)
 msgid ""
 "Updates are important because they keep your computer safe, eliminate bugs "
 "and can even add new features to your operating system."
 msgstr ""
+"Mae diweddariadau'n bwysig am eu bod yn cadw eich cyfrifiadur yn ddiogel, "
+"dileu gwallau ac weithiau'n cynnig nodweddion newydd i'ch system weithredu."
 
 #: usr/share/help/C/mintupdate/index.page:24(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
 msgstr ""
+"Yn anffodus, mae nhw'n gallu cyflwyno anawsterau newydd o'r enw "
+"\"atchweliadau\" sy'n gallu torri pethau oedd arfer gweithio'n iawn."
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
-"It is recommended to apply security updates but also to understand how "
-"updates can affect your computer, so you can review them, apply them with "
-"caution and be prepared in case something goes wrong."
+"To keep your computer safe and in good working condition, it is recommended "
+"to apply all available updates and to set up system snapshots, so that you "
+"can restore your system in case something goes wrong."
 msgstr ""
+"I gadw'r cyfrifiadur yn ddiogel ac mewn cyflwr gweithio da, mae'n cael ei "
+"argymell i osod y diweddariadau sydd ar gael a gosod cipluniau o systemau, "
+"fel bod modd i chi adfer eich system rhag ofn i rywbeth fynd o'i le."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
-msgstr ""
+msgstr "Cysyniadau craidd"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
 msgstr ""
+"Mae'r adran hon yn esbonio'r cysyniadau craidd dy'n perthyn i ddiweddariadau "
+"craidd."
+
+#: usr/share/help/C/mintupdate/index.page:35(title)
+msgid "Troubleshooting"
+msgstr "Datrys problemau"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
-msgid "This section explains update levels, policies."
-msgstr ""
+msgid "This section explains update levels."
+msgstr "Mae'r adran hon yn esbonio lefleau diweddariadau."
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
-msgstr ""
+msgstr "Mae'r adran hon yn esbonio diweddaru cnewyll"
 
 #: usr/share/help/C/mintupdate/index.page:47(title)
 msgid "Advanced techniques"
-msgstr ""
+msgstr "Technegau uwch"
 
 #: usr/share/help/C/mintupdate/index.page:49(p)
 msgid "This section explains advanced techniques."
-msgstr ""
+msgstr "Mae'r adran hon yn esbonio technegau uwch"
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: usr/share/help/C/mintupdate/index.page:0(None)
@@ -957,16 +908,16 @@ msgstr ""
 "  Owen Llywelyn https://launchpad.net/~owen-llywelyn\n"
 "  Rhoslyn Prys https://launchpad.net/~rprys"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:223
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:206
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Cnewyllyn Linux %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:224
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:207
 msgid "The Linux kernel."
 msgstr "Cnewyllyn Linux"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:225
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:208
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -996,7 +947,6 @@ msgstr ""
 "Nid oes modd tynnu'r cnewyllyn, mae'n cael ei ddefnyddio ar hyn o bryd."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1180
 msgid "Install"
 msgstr "Gosod"
 
@@ -1014,168 +964,134 @@ msgstr "Ydych chi'n siŵr eich bod am dynnu cnewyllun %s?"
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "Ydych chi'n siŵr eich bod am osod cnewyllyn %s?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:198
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:199
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "Kernels"
-msgstr ""
+msgstr "Cnewyll"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:214
-msgid "Continue"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:216
-msgid "Do not show this message again"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:218
-msgid "Warning!"
-msgstr "Rhybudd!"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:219
-msgid "Proceed with caution"
-msgstr "Ewch ymlaen yn ofalus"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:220
-msgid ""
-"The Linux kernel is a critical part of the system. Regressions can lead to "
-"lack of networking, lack of sound, lack of graphical environment or even the "
-"inability to boot the computer."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:221
-msgid ""
-"Before installing or removing kernels, please make sure to read the help "
-"section, to make sure you know how to select kernels, how to revert updates "
-"and how to check your DKMS status."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:233
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
-msgid "Close"
-msgstr "Cau"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:250
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
 msgid "Active"
 msgstr "Gweithredol"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:252
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
 msgid "Installed"
 msgstr "Wedi'i osod"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:287
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:280
 msgid "You are currently using the following kernel:"
 msgstr "Ar hyn o bryd 'rydych yn defnyddio'r cnewyllyn canlynol:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:48
-msgid "B"
-msgstr "B"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:50
-msgid "KB"
-msgstr "CB"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:52
-msgid "MB"
-msgstr "MB"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:54
 msgid "GB"
 msgstr "GB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:157
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:56
+msgid "MB"
+msgstr "MB"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
+msgid "KB"
+msgstr "CB"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:59
+msgid "B"
+msgstr "B"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:161
 msgid "Downloading changelog..."
 msgstr "Cofnod newid llwytho i lawr..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:170
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:174
 msgid "No changelog available"
 msgstr "Dim cofnod newid ar gael..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:334
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:338
 msgid "This upgrade will trigger additional changes"
 msgstr "Bydd y diweddariad yn achosi newidiadau pellach"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:343
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
 msgid "The following packages will be removed:"
-msgstr ""
+msgstr "Bydd y pecynnau canlynol yn cael eu tynnu:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:372
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:376
 msgid "The following packages will be installed:"
-msgstr ""
+msgstr "Bydd y pecynnau canlynol yn cael eu gosod:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:415
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:419
 msgid "Installing updates"
 msgstr "Gosod diweddariadau"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:468
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:553
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:964
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
 msgid "Checking for updates"
 msgstr "Gwirio am ddiweddariad"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:476
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:498
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:502
 msgid "Could not install the security updates"
 msgstr "Methu gosod yr diweddariadau diogelwch"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:545
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:546
 msgid "Starting refresh..."
 msgstr "Cychwyn adnewyddu..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:576
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:580
 msgid "Another application is using APT"
 msgstr "Mae rhaglen arall yn defnyddio APT"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:585
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:589
 msgid "Finding the list of updates..."
 msgstr "Canfod y rhestr diweddaru..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:599
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:607
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Your APT cache is corrupted."
 msgstr "Mae eich storfa APT yn llwgr."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:600
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:608
 msgid ""
 "Do not install or update anything, it could break your operating system!"
 msgstr "Peidiwch osod neu ddiweddaru dim, gall dorri eich system weithredu!"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
-msgid "Switch to a different Linux Mint mirror to solve this situation."
-msgstr "Newidiwch i ddrych Linux Mint gwahanol er mwyn datrys y broblem hon."
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:609
+msgid ""
+"To switch to a different Linux Mint mirror and solve this problem, click OK."
+msgstr ""
+"I newid i ddrych Linux Mint arall a datrys y broblem yma, cliciwch Iawn."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
 msgstr "Newidiwch i ddrych Linux Mint arall"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:612
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:827
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1098
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:850
+#: usr/share/linuxmint/mintupdate/main.ui.h:19
+msgid "OK"
+msgstr "Iawn"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:862
+#: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
 msgstr "Methu adnewyddu'r rhestr o ddiweddariadau"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:633
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1097
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:753
+#: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "Your system is up to date"
 msgstr "Mae eich system yn gyfredol"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:707
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:718
 msgid "Kernel update"
 msgstr "Diweddariad cnewyllyn"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:709
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:721
 msgid "Security update"
 msgstr "Diweddariad diogelwch"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:711
-msgid ""
-"Software backport. Be careful when upgrading. New versions of software can "
-"introduce regressions."
-msgstr ""
-"Ôl ddiweddaru meddalwedd. Byddwch ofalus werth ddiweddaru. Gall fersiynau "
-"newydd o feddalwedd gyflwyno gwendidau newydd."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:713
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:724
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1183,441 +1099,268 @@ msgstr ""
 "Meddalwedd ansad. Gosodwch hwn dim ond i gynorthwyo'r datblygwyr i beta "
 "brofi meddalwedd newydd."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
 msgid "Software update"
 msgstr "Diweddariad meddalwedd"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:738
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1442
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1493
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1603
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
+msgid "3rd-party update"
+msgstr "Diweddariad trydydd parti"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 msgid "No updates selected"
 msgstr "Heb ddewis diweddariad"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:740
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1495
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1463
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(selected)d diweddariad wedi eu dewis (%(size)s)"
+msgstr[1] "%(selected)d diweddariad wedi ei ddewis (%(size)s)"
+msgstr[2] "%(selected)d diweddariad wedi eu dewis (%(size)s)"
+msgstr[3] "%(selected)d diweddariad wedi eu dewis (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d diweddariadau ar gael"
+msgstr[1] "%d diweddariad ar gael"
+msgstr[2] "%d ddiweddariad ar gael"
+msgstr[3] "%d diweddariad ar gael"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+msgid "Please set up System Snapshots"
+msgstr "Gosod Cipluniau System"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+msgid ""
+"If something breaks, snapshots will allow you to restore your system to the "
+"previous working condition."
+msgstr ""
+"Os fydd rhywbeth yn torri, bydd cipluniau yn caniatáu i chi adfer eich "
+"system i'w gyflwr gweithio diwethaf."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Do you want to switch to a local mirror?"
 msgstr "Hoffech chi newid i ddrych lleol?"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
-msgid "Local mirrors are usually faster than packages.linuxmint.com"
-msgstr "Mae drychau lleol fel arfer yn gynt na packages.linuxmint.com"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+msgid "Local mirrors are usually faster than packages.linuxmint.com."
+msgstr "Mae drychau lleol fela arfer yn gynt na packages.linuxmint.com."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 msgid "Please switch to another mirror"
 msgstr "Newidiwch i ddrych arall"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #, python-format
-msgid "%s is unreachable"
-msgstr ""
+msgid "%s is unreachable."
+msgstr "Nid oes modd cyrraedd %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 #, python-format
-msgid "The last update on %(mirror)s was %(days)d day ago"
-msgid_plural "The last update on %(mirror)s was %(days)d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgid "The last update on %(mirror)s was %(days)d day ago."
+msgid_plural "The last update on %(mirror)s was %(days)d days ago."
+msgstr[0] "Bu diweddariad diwethaf ar %(mirror)s %(days)d diwrnod yn ôl."
+msgstr[1] "Bu diweddariad diwethaf ar %(mirror)s %(days)d diwrnod yn ôl."
+msgstr[2] "Bu diweddariad diwethaf ar %(mirror)s %(days)d diwrnod yn ôl."
+msgstr[3] "Bu diweddariad diwethaf ar %(mirror)s %(days)d diwrnod yn ôl."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:928
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
 msgid "Exit"
 msgstr "Gadael"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:996
-msgid "OK"
-msgstr "Iawn"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:998
-msgid "Help"
-msgstr "Cymorth"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1007
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
 msgid "Upgrade"
 msgstr "Diweddaru"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1012
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1061
 msgid "Name"
-msgstr ""
+msgstr "Enw"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1016
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1275
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1065
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
 msgid "Level"
 msgstr "Lefel"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1020
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1731
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1069
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Old version"
 msgstr "Hen Fersiwn"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1024
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1293
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1734
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1073
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1245
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
 msgid "New version"
 msgstr "Fersiwn Newydd"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1028
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1299
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1251
 msgid "Size"
 msgstr "Maint"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1032
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1269
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1081
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
 msgid "Type"
 msgstr "Math"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1036
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1305
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
 msgid "Origin"
 msgstr "Tarddiad"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1090
-msgid "Install Updates"
-msgstr "Gosod Diweddariad"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1091
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+#: usr/share/linuxmint/mintupdate/main.ui.h:3
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "Adnewyddu"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1092
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1164
-msgid "Select All"
-msgstr "Dewis Popeth"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
+msgid "Information"
+msgstr "Manylion"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1093
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
-msgid "Clear"
-msgstr "Clirio"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1094
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1850
-msgid "Description"
-msgstr "Disgrifiad"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1095
-msgid "Changelog"
-msgstr "Cofnod newid"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
-msgid "Welcome to the Update Manager"
-msgstr "Croeso i'r Rheolydd Diweddaru"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
-msgid ""
-"This tool provides your operating system with software and security updates."
-msgstr ""
-"Mae'r offeryn hwn yn darparu eich system gweithredu â meddalwedd a "
-"diweddariadau diogelwch."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
-msgid "Please choose an update policy."
-msgstr "Dewiswch bolisi diweddaru."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1107
-msgid "Just keep my computer safe"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1108
-msgid "Recommended for novice users."
-msgstr "Ar gyfer defnyddwyr dibrofiad"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
-msgid ""
-"Select updates which do not impact important parts of the operating systems."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
-msgid ""
-"Show security and kernel updates so I can review them and apply them with "
-"caution."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
-msgid "Let me review sensitive updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1112
-msgid "Recommended for most users."
-msgstr "Yn argymelledig i'r rhan mwyaf o ddefnyddwyr."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1113
-msgid ""
-"Select security updates and updates which do not impact important parts of "
-"the operating systems."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1113
-msgid ""
-"Show kernel updates and sensitive updates so I can review them and apply "
-"them with caution."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1115
-msgid "Always update everything"
-msgstr "Diweddaru popeth bob tro"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1116
-msgid "Recommended for experienced users."
-msgstr "Yn argymelledig i ddefnyddwyr uwch."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
-msgid "Always select all updates."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
-msgid "If a regression breaks something, I'll fix it."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
-msgid ""
-"Security and kernel updates are always visible and updates with known issues "
-"(very rare) are always hidden. You can change this and fine-tune your policy "
-"in the preferences."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
-msgid "_File"
-msgstr "_Ffeil"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1131
-msgid "_Edit"
-msgstr "_Golygu"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1828
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1785
 msgid "Preferences"
 msgstr "Dewisiadau"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1143
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
+msgid "Quit"
+msgstr "Gadael"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
+msgid "_File"
+msgstr "_Ffeil"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1150
+#: usr/share/linuxmint/mintupdate/history.ui.h:1
+#: usr/share/linuxmint/mintupdate/information.ui.h:3
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
+msgid "Close"
+msgstr "Cau"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+msgid "_Edit"
+msgstr "_Golygu"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1173
 msgid "Software sources"
 msgstr "Ffynonellau meddalwedd"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
-msgid "Select level 1 updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1194
-msgid "Select level 2 updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
-msgid "Select level 3 updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1206
-msgid "Select level 4 updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1212
-msgid "Select security updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
-msgid "Select kernel updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1244
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Diweddaru i %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1248
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
 msgid "_View"
 msgstr "_Golwg"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1253
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1665
 msgid "History of updates"
 msgstr "Hanes diweddaru"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
 msgid "Linux kernels"
 msgstr "Cnewyll Linux"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1703
-msgid "Information"
-msgstr "Gwybodaeth"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1217
 msgid "Visible columns"
 msgstr "Colofnau gweladwy"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1671
 msgid "Package"
 msgstr "Pecyn"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1313
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
 msgid "Show descriptions"
 msgstr "Dangos disgrifiad"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
 msgid "_Help"
 msgstr "_Cymorth"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1335
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+msgid "Welcome screen"
+msgstr "Sgrin Croeso"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+msgid "Keyboard Shortcuts"
+msgstr "Llwybrau byr y Bysellfwrdd"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
 msgid "Contents"
 msgstr "Cynnwys"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1342
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1782
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1726
 msgid "About"
 msgstr "Ynghylch"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1646
-msgid "Packages included in this update:"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1507
+#: usr/share/linuxmint/mintupdate/main.ui.h:9
+msgid "Welcome to the Update Manager"
+msgstr "Croeso i'r Rheolydd Diweddaru"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
+msgid "Packages included in this update:"
+msgstr "Pecynnau sy'n gynnwysiedig yn y diweddariad hwn:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1598
 msgid "Ignore updates for this package"
 msgstr "Anwybyddu diweddariadau'r pecyn"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1706
-msgid "Process ID:"
-msgstr "ID Proses:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1707
-msgid "Log file:"
-msgstr "Ffeil cofnod:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1725
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1668
 msgid "Date"
 msgstr "Dyddiad"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1843
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1800
 msgid "Options"
 msgstr "Dewisiadau"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1844
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1801
 msgid "Levels"
 msgstr "Lefelau"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1802
 msgid "Auto-refresh"
-msgstr "Diweddaru-awtomatig"
+msgstr "Awto Ddiweddaru"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1846
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
 msgid "Blacklist"
-msgstr ""
+msgstr "Rhestr y gwaharddedig"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1849
-msgid "Impact level"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
+msgid "Auto-upgrade"
+msgstr "Awto Diweddaru"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1851
-msgid "Selected"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
-msgid "Visible"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1866
-msgid "First, refresh the list of updates after:"
-msgstr "Yn gyntaf, adnewyddwch y rhestr o ddiweddariadau ar ôl:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1867
-msgid "Then, refresh the list of updates every:"
-msgstr "Yna, adnewyddwch y rhestr o ddiweddariadau bob:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1868
-msgid ""
-"Note: The list only gets refreshed while the update manager window is closed "
-"(system tray mode)."
-msgstr ""
-"Sylw: Bydd y rhestr yn cael ei adnewyddu pan fydd ffenestr y rheolwr "
-"diweddaru ar gau (modd cilfach system)"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
-msgid ""
-"Include updates which require the installation of new packages or the "
-"removal of installed packages"
-msgstr ""
-"Cynnwys diweddariadau sy'n gofyn am osod pecynnau newydd neu dynnu pecynnau "
-"sydd wedi eu gosod."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1871
-msgid "Hide the update manager after applying updates"
-msgstr "Cuddio'r rheolwr dewisiadau ar ôl gosod y diweddariadau"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
-msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr ""
-"Dangos dim ond eicon cilfach pan mae diweddariadau ar gael neu pan fydd "
-"gwallau"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1873
-msgid "Don't suggest to switch to a local mirror"
-msgstr "Peidio awgrymu newid i ddrych lleol"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1874
-msgid "Always show security updates"
-msgstr "Dangos diweddariadau diogelwch bob tro"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1875
-msgid "Always select security updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1876
-msgid "Always show kernel updates"
-msgstr "Dangos diweddariadau cnewyllyn pob tro"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
-msgid "Always select kernel updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
-msgid "minutes"
-msgstr "munud"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
-msgid "hours"
-msgstr "awr"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
-msgid "days"
-msgstr "diwrnod"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
-msgid "Cancel"
-msgstr "Diddymu"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1882
-msgid "Apply"
-msgstr "Gosod"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1923
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
 msgid "Ignored updates"
 msgstr "Diweddariadau wedi eu hanwybyddu"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1986
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1916
 msgid "Please specify the name of the update to ignore:"
 msgstr "Enwch y diweddariad i'w anwybyddu"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1917
 msgid "Ignore an update"
 msgstr "Anwybyddu diweddariad"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1991
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1921
 msgid "Name:"
 msgstr "Enw:"
 
@@ -1730,7 +1473,7 @@ msgstr "Rwyn deall y peryglon. Rwyf am ddiweddaru i %s."
 msgid "Summary"
 msgstr "Crynodeb"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:260
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:256
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
@@ -1738,7 +1481,7 @@ msgstr ""
 "Mae eich system weithredu wedi ei ddiweddaru'n llwyddiannus. Ailgychwynnwch "
 "eich cyfrifiadur i'r newidiadau ddod i rym."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:269
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:259
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
@@ -1753,6 +1496,302 @@ msgstr "Dangos a gosod diweddariadau sydd ar gael"
 #: usr/bin/mint-release-upgrade-root:16
 msgid "Please enter your password to perform the upgrade"
 msgstr "Rhowch eich cyfrinair i gyflawni'r diweddariad."
+
+#: usr/share/linuxmint/mintupdate/information.ui.h:1
+msgid "Log file:"
+msgstr "Ffeil cofnod:"
+
+#: usr/share/linuxmint/mintupdate/information.ui.h:2
+msgid "Process ID:"
+msgstr "ID Proses:"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:1
+msgid "Warning!"
+msgstr "Rhybudd!"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:2
+msgid "Proceed with caution"
+msgstr "Byddwch ofalus o hyn ymlaen"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:3
+msgid ""
+"The Linux kernel is a critical part of the system. Regressions can lead to "
+"lack of networking, lack of sound, lack of graphical environment or even the "
+"inability to boot the computer."
+msgstr ""
+"Mae'r cnewyllyn Linux yn rhan hanfodol o'r system. Gall atchweliadau arwain "
+"at ddiffyg rhwydweithio, sain, amgylchedd graffigol neu'r anallu i gychwyn y "
+"cyfrifiadur."
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:4
+msgid ""
+"Before installing or removing kernels, please make sure to read the help "
+"section, to make sure you know how to select kernels, how to revert updates "
+"and how to check your DKMS status."
+msgstr ""
+"Cyn gosod neu dynnu cnewyllyn, gwnewch yn siŵr eich bod wedi darllen yr "
+"adran cymorth, gwybod sut i osod cnewyllyn, sut i symud nôl a sut i wirio "
+"eich statws DKMS."
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:5
+msgid "Do not show this message again"
+msgstr "Peidiwch â dangos y neges yma eto"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
+#: usr/share/linuxmint/mintupdate/main.ui.h:18
+msgid "Help"
+msgstr "Cymorth"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
+msgid "Continue"
+msgstr "Parhau"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Clirio"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:2
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
+msgid "Select All"
+msgstr "Dewis Popeth"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:4
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:4
+msgid "Install Updates"
+msgstr "Gosod Diweddariad"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:7
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:14
+msgid "Description"
+msgstr "Disgrifiad"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:8
+msgid "Changelog"
+msgstr "Cofnod newid"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:10
+msgid ""
+"This tool provides your operating system with software and security updates."
+msgstr ""
+"Mae'r teclyn hwn yn darparu diweddariadau diogelwch a meddalwedd i'ch system "
+"weithredu."
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "Diweddariadau diogelwch"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:12
+msgid ""
+"Apply security updates to patch vulnerabilities and keep your computer safe."
+msgstr ""
+"Gosod diweddariadau diogelwch i gywiro gwendidau a chadw eich cyfrifiadur yn "
+"ddiogel."
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:13
+msgid "Software updates"
+msgstr "Diweddariadau meddalwedd"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:14
+msgid "Apply software updates to fix bugs in your computer."
+msgstr "Gosod diweddariadau meddalwedd i drwsio gwallau yn eich cyfrifiadur."
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:16
+msgid ""
+"Set up system snapshots to protect yourself from mistakes and regressions. "
+"If anything breaks simply restore the last snapshot."
+msgstr ""
+"Gosod ciplun system i ddiogelu eich hun yn erbyn camgymeriadau ac "
+"atchweliadau. Os bydd rhywbeth yn torri mae'n hawdd adfer y ciplun diwethaf."
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:17
+msgid ""
+"Linux Mint recommends to set up automated system snapshots and to apply all "
+"available updates. This way, your computer is always secure and you can go "
+"back in time and recover from any potential regression."
+msgstr ""
+"Mae Linux Mint yn argymell gosod cipluniau system awtomatig a gosod yr holl "
+"ddiweddariadau sydd ar gael. Fel hyn, bydd eich cyfrifiadur yn ddiogel a "
+"bydd modd i chi fynd yn ôl mewn amser ac adfer rhag unrhyw atchweliad"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:1
+msgid "Apply"
+msgstr "Gosod"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid "Cancel"
+msgstr "Diddymu"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:3
+msgid ""
+"Make sure your system snapshots are properly configured before using this "
+"option."
+msgstr ""
+"Gwnewch yn siŵr fod eich cipluniau system wedi eu ffurfweddu'n gywir cyn "
+"defnyddio'r dewis hwn."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:4
+msgid ""
+"When this option is enabled, all updates are applied automatically on a "
+"daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
+msgstr ""
+"Pan mae'r dewis yma wedi ei alluogi, bydd pob diweddariad yn cael ei osod yn "
+"awtomatig ar sail dyddiol, fel gwraidd, drwy dasg cron  "
+"(/etc/cron.daily/mintupdate)."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:5
+msgid ""
+"You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
+"/etc/mintupdate.blacklist to blacklist some of them."
+msgstr ""
+"Gallwch olygu /etc/cron.daily/mintupdate i wneud mân newidiadau i'r "
+"diweddariadau awtomatig a /etc/mintupdate.blacklist i neilltu rhag rhai "
+"ohonynt."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:6
+msgid "Apply updates automatically"
+msgstr "Gosod diweddariadau'n awtomatig"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:7
+msgid "Impact level"
+msgstr "Lefel effaith"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:8
+msgid "Selected"
+msgstr "Dewiswyd"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:9
+msgid "Visible"
+msgstr "Gweladwy"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:19
+msgid ""
+"It is recommended to set up system snapshots and to apply all available "
+"updates. Only hide levels when troubleshooting or trying to identify a "
+"regression. Check the help section for more information."
+msgstr ""
+"Mae'n cael ei argymell eich bod yn gosod ciplun system a gosod pob "
+"diweddariad sydd ar gael. Cuddiwch lefelau dim ond pan yn datrys problemau "
+"neu geisio adnabod atchweliad. Darllenwch yr adran cymorth am ragor o "
+"wybodaeth."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:20
+msgid "Interface"
+msgstr "Rhyngwyneb"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:21
+msgid "Hide the update manager after applying updates"
+msgstr "Cuddio'r rheolwr dewisiadau ar ôl gosod y diweddariadau"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:22
+msgid "Only show a tray icon when updates are available or in case of errors"
+msgstr ""
+"Dangos dim ond eicon cilfach pan mae diweddariadau ar gael neu pan fydd "
+"gwallau"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:23
+msgid "Show a warning if system snapshots are not set up"
+msgstr "Dangos rhybudd os na fydd ciplun system yn ei le."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:24
+msgid "Don't suggest to switch to a local mirror"
+msgstr "Peidio awgrymu newid i ddrych lleol"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:25
+msgid "Updates"
+msgstr "Diweddariadau"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:26
+msgid ""
+"It is recommended to show and apply all available updates. Only disable the "
+"options below when troubleshooting."
+msgstr ""
+"Mae'n cael ei argymell i ddangos a gosod pob diweddariad sydd ar gael. Dim "
+"ond analluogi'r dewis isod pan yn datrys problemau."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:27
+msgid ""
+"Include updates which require the installation of new packages or the "
+"removal of installed packages"
+msgstr ""
+"Cynnwys diweddariadau sy'n gofyn am osod pecynnau newydd neu dynnu pecynnau "
+"sydd wedi eu gosod."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:28
+msgid "Always show security updates"
+msgstr "Dangos diweddariadau diogelwch bob tro"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:29
+msgid "Always select security updates"
+msgstr "Dewis diweddariadau diogelwch bob tro"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:30
+msgid "Always show kernel updates"
+msgstr "Dangos diweddariadau cnewyllyn pob tro"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:31
+msgid "Always select kernel updates"
+msgstr "Dewis diweddariadau cnewyll bob tro"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:32
+msgid "First, refresh the list of updates after:"
+msgstr "Yn gyntaf, adnewyddu'r rhestr o ddiweddariadau ar ôl:"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:33
+msgid "Then, refresh the list of updates every:"
+msgstr "Yna, adnewyddu'r rhestr o ddiweddariadau bob:"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:34
+msgid "days"
+msgstr "diwrnod"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:35
+msgid "hours"
+msgstr "awr"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:36
+msgid "minutes"
+msgstr "munud"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:37
+msgid ""
+"Note: The list only gets refreshed while the update manager window is closed "
+"(system tray mode)."
+msgstr ""
+"Sylw: Bydd y rhestr yn cael ei hadnewyddu pan fydd ffenestr y rheolwr "
+"diweddaru ar gau (modd cilfach system)"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
+msgid "Window"
+msgstr "Ffenestr"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
+msgid "Selection"
+msgstr "Dewis"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
+msgid "Select level 1 updates"
+msgstr "Dewis diweddariadau lefel 1"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
+msgid "Select level 2 updates"
+msgstr "Dewis diweddariadau lefel 2"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:10
+msgid "Select level 3 updates"
+msgstr "Dewis diweddariadau lefel 3"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:11
+msgid "Select level 4 updates"
+msgstr "Dewis diweddariadau lefel 4"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:12
+msgid "Select security updates"
+msgstr "Dewis diweddariadau diogelwch"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:13
+msgid "Select kernel updates"
+msgstr "Dewis diweddariadau i'r cnewyllun"
 
 #~ msgid "Linux Mint or Romeo"
 #~ msgstr "Linux Mint neu Romeo"

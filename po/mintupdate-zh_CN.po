@@ -7,21 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-11-22 12:09+0000\n"
-"PO-Revision-Date: 2017-12-01 05:47+0000\n"
-"Last-Translator: AlephAlpha <alephalpha911@gmail.com>\n"
+"POT-Creation-Date: 2018-05-07 13:28+0100\n"
+"PO-Revision-Date: 2018-05-21 15:37+0000\n"
+"Last-Translator: xfcegyc <Unknown>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2018-01-06 14:17+0000\n"
-"X-Generator: Launchpad (build 18521)\n"
+"X-Launchpad-Export-Date: 2018-05-22 09:17+0000\n"
+"X-Generator: Launchpad (build 18658)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
+#: usr/share/help/C/mintupdate/snapshots.page:10(name)
 #: usr/share/help/C/mintupdate/regressions.page:10(name)
-#: usr/share/help/C/mintupdate/policy.page:10(name)
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:10(name)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:10(name)
 #: usr/share/help/C/mintupdate/levels.page:10(name)
 #: usr/share/help/C/mintupdate/kernels.page:10(name)
 #: usr/share/help/C/mintupdate/index.page:9(name)
@@ -29,9 +29,9 @@ msgid "Linux Mint"
 msgstr "Linux Mint"
 
 #: usr/share/help/C/mintupdate/updates.page:11(email)
+#: usr/share/help/C/mintupdate/snapshots.page:11(email)
 #: usr/share/help/C/mintupdate/regressions.page:11(email)
-#: usr/share/help/C/mintupdate/policy.page:11(email)
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:11(email)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:11(email)
 #: usr/share/help/C/mintupdate/levels.page:11(email)
 #: usr/share/help/C/mintupdate/kernels.page:11(email)
 #: usr/share/help/C/mintupdate/index.page:10(email)
@@ -77,18 +77,11 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
-"By default, security updates are always visible, no matter what policy you "
-"chose and what level they are."
-msgstr "无论您选择哪种更新策略和等级设置，在默认情况下安全更新总是可见的。"
+"Software updates aren't as important. They bring bug fixes or improvements "
+"which are not related to security."
+msgstr "软件更新并不是同等重要的。他们带来的问题修复和提升与安全无关。"
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
-msgid ""
-"Software updates aren't as important. They bring bug fixes or improvements "
-"which are not related to security. As such they're less urgent and can even "
-"be considered optional."
-msgstr "软件更新没有安全更新重要。它主要提供错误修复和功能改进，与安全性无关。因此，您可以将其作为可选设置。"
-
-#: usr/share/help/C/mintupdate/updates.page:35(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
 msgid ""
 "In Linux Mint, kernel updates bring both security patches and bug fixes (and "
@@ -100,6 +93,46 @@ msgstr ""
 "在Linux "
 "Mint中，内核更新可以同时提供安全补丁和错误修复（有时也会包含一些新特性），而且这会影响到系统的关键部分。因此，从安全的角度来看，内核更新至关重要，但它"
 "同时也容易引发新用户难以修复的功能回退问题。"
+
+#: usr/share/help/C/mintupdate/snapshots.page:16(desc)
+msgid ""
+"When faced with a serious regression, restore the latest system snapshot."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:19(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/share/linuxmint/mintupdate/main.ui.h:15
+msgid "System snapshots"
+msgstr "系统快照"
+
+#: usr/share/help/C/mintupdate/snapshots.page:21(p)
+msgid ""
+"Timeshift, the system snapshot utility, is available in all versions of "
+"Linux Mint."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:23(p)
+msgid ""
+"It can be used to create snapshots manually but also to automate system "
+"snapshots."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:25(p)
+msgid "Linux Mint recommends the automation of daily and boot snapshots."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:27(p)
+msgid ""
+"If an update, a mistake, a bug or a malicious program breaks something on "
+"your computer, you can restore the operating system from any snapshot, thus "
+"cancelling the problem as if it never happened."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:29(p)
+msgid ""
+"System snapshots only cover the operating system itself. They do not include "
+"or affect your personal data."
+msgstr "系统快照仅仅覆盖操作系统本身。他们并不包括或者影响你的个人数据。"
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
@@ -158,220 +191,98 @@ msgid ""
 "with Linux and you don't know how to troubleshoot."
 msgstr "在后一种情况下，如果您对 Linux 并不熟悉，而且不知道如何检测故障，它就是一个非常严重的问题。"
 
-#: usr/share/help/C/mintupdate/policy.page:16(desc)
-msgid "Choosing an update policy"
-msgstr "选择一个更新策略"
-
-#: usr/share/help/C/mintupdate/policy.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1148
-msgid "Update policy"
-msgstr "更新策略"
-
-#: usr/share/help/C/mintupdate/policy.page:21(p)
-msgid ""
-"The update manager is highly configurable. You can go in the preferences and "
-"fine-tune which levels you want to show and which levels you want to "
-"preselect. This is your computer and so you can tune it the way you want."
-msgstr "这个更新管理器是高度可配置的。您可以在首选项当中对您想要显示和预选的等级进行微调。这是您的计算机，因此您可以以您想要的方式来调整它。"
-
-#: usr/share/help/C/mintupdate/policy.page:23(p)
-msgid ""
-"The first time you launch it, it will try to understand who you are and set "
-"these settings for you. To do so, it will show you three update policies and "
-"ask you to choose the one you like best."
-msgstr "在您第一次启动时，它会试图了解您对 Linux 的熟悉程度，并据此为您作出设定。为此它会显示三个更新策略，让您选择其中最喜欢的一个。"
-
-#: usr/share/help/C/mintupdate/policy.page:25(p)
-msgid "All policies have this in common:"
-msgstr "以下是这些策略所共有的："
-
-#: usr/share/help/C/mintupdate/policy.page:28(p)
-msgid ""
-"For security reasons, security updates are always visible (no matter what "
-"level they are)."
-msgstr "出于安全的理由，安全更新（不管是哪个等级）总是可见的。"
-
-#: usr/share/help/C/mintupdate/policy.page:29(p)
-msgid ""
-"For security reasons, kernel updates (which are level 4) are always visible."
-msgstr "出于安全的理由，内核更新（属于等级 4）总是可见的。"
-
-#: usr/share/help/C/mintupdate/policy.page:30(p)
-msgid "For stability reasons, level 5 updates are always hidden."
-msgstr "出于稳定性的理由，等级5的更新总是隐藏的。"
-
-#: usr/share/help/C/mintupdate/policy.page:33(p)
-msgid ""
-"When you choose an update policy, some of the preferences are changed in the "
-"Update Manager. You can tune these preferences individually by clicking on "
-"the Edit-&gt;Preferences menu in the menubar."
-msgstr "当您选择了更新策略以后，更新管理器的某些配置将会改变。您可以通过点击菜单栏中的“编辑-&gt;首选项”菜单来单独调整这些配置。"
-
-#: usr/share/help/C/mintupdate/policy.page:37(title)
-msgid "Novice users"
-msgstr "新手用户"
-
-#: usr/share/help/C/mintupdate/policy.page:39(p)
-msgid ""
-"The first policy is made for novice users in mind. It assumes these users "
-"are unable to work around critical issues affecting sensitive parts of their "
-"system and tries to minimize their risk to suffer critical regressions."
-msgstr "第一种策略是为新手用户准备的。它假设用户没有能力解决影响到系统敏感部位的严重问题，因此会尽量减少他们遭遇严重回退的风险。"
-
-#: usr/share/help/C/mintupdate/policy.page:41(p)
-msgid ""
-"Bug fixes are optional, so this policy focuses on safe updates (level 1 and "
-"2) with minimal impact on the operating system. These updates are visible "
-"and preselected by default."
-msgstr "错误修复是非强制的，因此这一策略会集中于对操作系统的影响最小的无害的更新（等级1和等级2）。这些更新是可见且默认选取的。"
-
-#: usr/share/help/C/mintupdate/policy.page:43(p)
-msgid ""
-"Security is also important but some security updates (and kernel updates in "
-"particular) affect sensitive parts of the system. These updates are visible "
-"and novice users are recommended to select them and apply them with caution, "
-"in isolation and ideally either with the help of an experienced user, or "
-"after they familiarized themselves with the forums and chat channel so they "
-"know how to seek help."
-msgstr ""
-"安全同样重要，但一些安全更新（尤其是内核更新）会影响到系统的敏感部位。这些更新是可见的，建议新手用户谨慎并单独地选取和应用它们，理想情况下应该在有经验的用"
-"户的帮助下进行，或者在熟悉论坛与聊天频道的使用、知道如何寻求帮助之后再进行操作。"
-
-#: usr/share/help/C/mintupdate/policy.page:49(title)
-msgid "Regular users"
-msgstr "一般用户"
-
-#: usr/share/help/C/mintupdate/policy.page:51(p)
-msgid ""
-"The second policy is made for the vast majority of people. It assumes these "
-"users aren't new to Linux and either know how to solve common problems, or "
-"they know where to find help."
-msgstr "第二种策略是为大多数用户准备的。它假设用户并非 Linux 新手，知道如何解决常见的问题，或者知道如何寻求帮助。"
-
-#: usr/share/help/C/mintupdate/policy.page:53(p)
-msgid ""
-"This policy shows all recommended updates. Security updates and safe bug-fix "
-"updates (level 1 and 2) are preselected by default."
-msgstr "这一策略会显示所有推荐的更新，并默认选取安全更新和无害的错误修复更新（等级1和等级2）。"
-
-#: usr/share/help/C/mintupdate/policy.page:55(p)
-msgid ""
-"Users are recommended to select and apply level 3 and level 4 updates with "
-"caution and in isolation and to seek help if something goes wrong."
-msgstr "建议用户谨慎并单独地选取和应用等级3和等级4的更新，在出错时积极寻求帮助。"
-
-#: usr/share/help/C/mintupdate/policy.page:61(title)
-msgid "Advanced users"
-msgstr "高级用户"
-
-#: usr/share/help/C/mintupdate/policy.page:63(p)
-msgid ""
-"This policy is made for advanced users on computers where the risk of "
-"critical regressions is acceptable. It assumes these users are able to fix "
-"any issue and want to apply all updates all at once."
-msgstr "这一策略是为高级用户准备的，用于可以承受严重回退的风险的计算机。它假设这些用户能够处理任何问题，并且希望立刻应用所有更新。"
-
-#: usr/share/help/C/mintupdate/policy.page:65(p)
-msgid ""
-"In this policy, all recommended updates are visible and selected by default."
-msgstr "在这一策略中，所有推荐的更新都是可见并且默认选取的。"
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:16(desc)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
 msgstr "从命令行更新"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:19(title)
-msgid "Using mintupdate-tool"
-msgstr "使用 mintupdate-tool"
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
+msgid "Using mintupdate-cli"
+msgstr ""
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:21(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
-"The Update Manager provides a command line utility called \"mintupdate-"
-"tool\"."
-msgstr "更新管理器提供了一个称为“mintupdate-tool”的命令行工具"
+"The Update Manager provides a command line utility called \"mintupdate-cli\"."
+msgstr "软件更新器提供了一个名为“mintupdate-cli”的命令行实用程序。"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:23(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
 "If you are experienced with Linux, you can use this tool in your scripts or "
 "your cron jobs to automate the installation of software updates."
 msgstr "如果您熟悉 Linux，您可以在您的脚本或者 cron 任务中使用这一工具来自动安装软件更新。"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:27(title)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
 msgstr "列出更新"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:29(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
 msgstr "您可以用 list 命令来列出更新："
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:31(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
-msgid "mintupdate-tool list"
-msgstr "mintupdate-tool list"
+msgid "mintupdate-cli list"
+msgstr "mintupdate-cli list"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:33(p)
-msgid "The list can be filtered by levels with the -l argument."
-msgstr "您可以通过 -l 参数来从列表中选取出特定等级的更新。"
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:35(p)
-msgid "You can add security updates with -s."
-msgstr "您可以通过 -s 来添加安全更新。"
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:37(p)
-msgid "You can add kernel updates with -k, or remove them with -nk."
-msgstr "您可以通过 -k 来添加内核更新，或者通过 -nk 来去除内核更新。"
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:39(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid ""
-"For instance, the following command lists all security updates, as well as "
-"level 1 and 2 bug fixes update:"
-msgstr "比如说，以下的命令会列出所有的安全更新，以及等级1和等级2的错误修复更新："
+"You can use -l to only show updates for certain levels (when "
+"troubleshooting)."
+msgstr "您可以使用-l只显示某些级别的更新(当故障排除时)。"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:41(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
+msgid "You can use -s to only show the security updates."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
+msgid "You can use -k to only show the kernel updates."
+msgstr "你可以使用-k只显示内核更新。"
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
+msgid "For instance, the following command lists all security updates:"
+msgstr "例如，以下命令会列出所有安全更新："
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
 #, no-wrap
-msgid "mintupdate-tool list -l12 -s -nk"
-msgstr "mintupdate-tool list -l12 -s -nk"
+msgid "mintupdate-cli list -s"
+msgstr "mintupdate-cli list -s"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:47(title)
-#: usr/share/help/C/mintupdate/index.page:35(title)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
 msgid "Applying updates"
 msgstr "应用更新"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:49(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr "您可以用“upgrade”命令来应用更新。它的选项与“list”相同。"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:51(p)
-msgid ""
-"For instance, the following command applies all security updates as well as "
-"level 1 and 2 bug fix updates:"
-msgstr "比如说，以下的命令会应用所有的安全更新，以及等级1和等级2的错误修复更新："
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
+msgid "For instance, the following command applies kernel updates:"
+msgstr "例如，下面的命令应用内核更新："
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:53(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
 #, no-wrap
-msgid "sudo mintupdate-tool upgrade -r -l12 -s -nk"
-msgstr "sudo mintupdate-tool upgrade -r -l12 -s -nk"
+msgid "sudo mintupdate-cli upgrade -r -k"
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:55(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid "Note the -r argument, which was added to refresh the cache."
 msgstr "注意这里添加了 -r 参数，用来刷新缓存。"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:57(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:57(p)
 msgid ""
-"For more information on mintupdate-tool and a complete list of arguments, "
+"For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
-msgstr "想获取关于 mintupdate-tool 的更多信息和完整的参数列表，请输入："
+msgstr ""
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:59(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
-msgid "mintupdate-tool -h"
-msgstr "mintupdate-tool -h"
+msgid "mintupdate-cli -h"
+msgstr "mintupdate-cli -h"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:27(None)
-#: usr/share/help/C/mintupdate/levels.page:59(None)
+#: usr/share/help/C/mintupdate/levels.page:33(None)
+#: usr/share/help/C/mintupdate/levels.page:55(None)
 msgid ""
 "@@image: 'figures/mintupdate-level1.svg'; "
 "md5=4721d1b8ee24af8a530de2567ed1221c"
@@ -381,8 +292,8 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:32(None)
-#: usr/share/help/C/mintupdate/levels.page:77(None)
+#: usr/share/help/C/mintupdate/levels.page:38(None)
+#: usr/share/help/C/mintupdate/levels.page:73(None)
 msgid ""
 "@@image: 'figures/mintupdate-level2.svg'; "
 "md5=3166f49269a73d52075b41dfde52ac87"
@@ -392,8 +303,8 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:37(None)
-#: usr/share/help/C/mintupdate/levels.page:90(None)
+#: usr/share/help/C/mintupdate/levels.page:43(None)
+#: usr/share/help/C/mintupdate/levels.page:82(None)
 msgid ""
 "@@image: 'figures/mintupdate-level3.svg'; "
 "md5=7f94f299af95a42e73759eb4676e2319"
@@ -403,31 +314,20 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:42(None)
-#: usr/share/help/C/mintupdate/levels.page:107(None)
+#: usr/share/help/C/mintupdate/levels.page:48(None)
+#: usr/share/help/C/mintupdate/levels.page:93(None)
 msgid ""
 "@@image: 'figures/mintupdate-level4.svg'; "
 "md5=9e9eb80679d932ccce1db26618475908"
 msgstr ""
 "@@image: 'figures/mintupdate-level4.svg'; "
 "md5=9e9eb80679d932ccce1db26618475908"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:52(None)
-#: usr/share/help/C/mintupdate/levels.page:134(None)
-msgid ""
-"@@image: 'figures/mintupdate-level5.svg'; "
-"md5=4834415cfe932a91c86b82e6124ccfb0"
-msgstr ""
-"@@image: 'figures/mintupdate-level5.svg'; "
-"md5=4834415cfe932a91c86b82e6124ccfb0"
 
 #: usr/share/help/C/mintupdate/levels.page:16(desc)
 msgid ""
-"Updates are given a level indicating how much of an impact they have on the "
-"operating system"
-msgstr "每个更新都有一个等级来说明其对操作系统的影响程度"
+"Use update levels when troubleshooting, to identify which update is "
+"responsible for a regression."
+msgstr ""
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
@@ -435,71 +335,74 @@ msgstr "更新等级"
 
 #: usr/share/help/C/mintupdate/levels.page:21(p)
 msgid ""
+"Critical regressions happen very rarely. When they do, restore your system "
+"with the latest system snapshot and tell the Linux Mint development team "
+"about the regression."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/levels.page:23(p)
+msgid ""
+"The Linux Mint team will want to know which update is responsible for the "
+"regression."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/levels.page:25(p)
+msgid ""
+"If you are faced with a long list of updates and you're not sure where to "
+"look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/levels.page:27(p)
+msgid ""
 "Updates are given a level indicating how much of an impact they have on the "
 "operating system."
 msgstr "每个更新都有一个等级来说明其对操作系统的影响程度。"
 
-#: usr/share/help/C/mintupdate/levels.page:23(p)
+#: usr/share/help/C/mintupdate/levels.page:29(p)
 msgid "There are 4 levels:"
 msgstr "总共有四个等级："
 
-#: usr/share/help/C/mintupdate/levels.page:28(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1854
+#: usr/share/help/C/mintupdate/levels.page:34(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:10
 msgid "Minimal"
 msgstr "极小"
 
-#: usr/share/help/C/mintupdate/levels.page:29(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1860
+#: usr/share/help/C/mintupdate/levels.page:35(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:15
 msgid "No impact on the system or other applications."
 msgstr "对系统和其它应用没有影响"
 
-#: usr/share/help/C/mintupdate/levels.page:33(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1855
+#: usr/share/help/C/mintupdate/levels.page:39(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:11
 msgid "Normal"
 msgstr "正常"
 
-#: usr/share/help/C/mintupdate/levels.page:34(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1861
+#: usr/share/help/C/mintupdate/levels.page:40(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:16
 msgid "Default level. Usually low impact on the system."
 msgstr "默认的等级。通常对系统的影响很小。"
 
-#: usr/share/help/C/mintupdate/levels.page:38(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1856
+#: usr/share/help/C/mintupdate/levels.page:44(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:12
 msgid "Large"
 msgstr "较大"
 
-#: usr/share/help/C/mintupdate/levels.page:39(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
-msgid "Apply with caution. Impact on multiple applications."
-msgstr "请谨慎应用。对多个应用会造成影响。"
+#: usr/share/help/C/mintupdate/levels.page:45(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:17
+msgid "Impact on multiple applications."
+msgstr ""
 
-#: usr/share/help/C/mintupdate/levels.page:43(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1857
+#: usr/share/help/C/mintupdate/levels.page:49(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:13
 msgid "Sensitive"
 msgstr "敏感"
 
-#: usr/share/help/C/mintupdate/levels.page:44(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1863
-msgid "Apply one by one. Impact on sensitive parts of the system."
-msgstr "请逐个应用。对系统敏感部位会造成影响。"
+#: usr/share/help/C/mintupdate/levels.page:50(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:18
+msgid "Impact on sensitive parts of the system."
+msgstr ""
 
-#: usr/share/help/C/mintupdate/levels.page:48(p)
-msgid ""
-"And there's also a special level which is given to updates with known "
-"critical issues:"
-msgstr "此外还有一个特殊的等级，包括那些已知带有严重问题的更新。"
-
-#: usr/share/help/C/mintupdate/levels.page:53(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1858
-msgid "Dangerous"
-msgstr "危险"
-
-#: usr/share/help/C/mintupdate/levels.page:54(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1864
-msgid "Very rare. Not recommended. Known to create issues."
-msgstr "极其罕见。不推荐。已知会造成问题。"
-
-#: usr/share/help/C/mintupdate/levels.page:59(title)
+#: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
 "Level 1"
@@ -507,40 +410,39 @@ msgstr ""
 "<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
 "等级1"
 
-#: usr/share/help/C/mintupdate/levels.page:61(p)
+#: usr/share/help/C/mintupdate/levels.page:57(p)
 msgid ""
 "Level 1 updates are updates which only affect their own software and have no "
 "impact on the rest of the system."
 msgstr "等级1的更新只会影响它们自己的软件，对系统的其它部分没有影响。"
 
-#: usr/share/help/C/mintupdate/levels.page:63(p)
+#: usr/share/help/C/mintupdate/levels.page:59(p)
 msgid "They're usually updates for single applications. For instance:"
 msgstr "它们通常是单个应用程序的更新。例如："
 
-#: usr/share/help/C/mintupdate/levels.page:66(p)
+#: usr/share/help/C/mintupdate/levels.page:62(p)
 msgid "The calculator"
 msgstr "计算器"
 
-#: usr/share/help/C/mintupdate/levels.page:67(p)
+#: usr/share/help/C/mintupdate/levels.page:63(p)
 msgid "The PDF reader"
 msgstr "PDF 阅读器"
 
-#: usr/share/help/C/mintupdate/levels.page:68(p)
+#: usr/share/help/C/mintupdate/levels.page:64(p)
 msgid "The text editor"
 msgstr "文本编辑器"
 
-#: usr/share/help/C/mintupdate/levels.page:69(p)
+#: usr/share/help/C/mintupdate/levels.page:65(p)
 msgid "The media player"
 msgstr "媒体播放器"
 
-#: usr/share/help/C/mintupdate/levels.page:72(p)
+#: usr/share/help/C/mintupdate/levels.page:68(p)
 msgid ""
-"You can apply these updates without worrying about regressions. In the worst "
-"case scenario a regression would only affect the software you're upgrading, "
-"not the operating system itself."
-msgstr "您可以应用这些更新而不必担心回退。在最坏的情况下，回退只会影响您所更新的软件，而不会影响操作系统本身。"
+"Regressions in these updates usually only affect the software they're "
+"updating, not the operating system itself."
+msgstr ""
 
-#: usr/share/help/C/mintupdate/levels.page:77(title)
+#: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
 "Level 2"
@@ -548,30 +450,18 @@ msgstr ""
 "<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
 "等级 2"
 
-#: usr/share/help/C/mintupdate/levels.page:79(p)
+#: usr/share/help/C/mintupdate/levels.page:75(p)
 msgid ""
 "This is the default level, so the vast majority of updates are level 2."
 msgstr "这是默认的级别，因此绝大多数更新属于等级2。"
 
-#: usr/share/help/C/mintupdate/levels.page:81(p)
+#: usr/share/help/C/mintupdate/levels.page:77(p)
 msgid ""
 "These updates aren't known to impact large areas or sensitive parts of the "
 "system, but they're not guaranteed to only affect their own software either."
 msgstr "这些更新未发现会造成大范围的影响，或者影响系统的敏感部位。不过也不保证它们只会影响自己的软件。"
 
-#: usr/share/help/C/mintupdate/levels.page:83(p)
-msgid ""
-"In general, you should be able to apply these updates without worrying about "
-"regressions."
-msgstr "通常，您可以应用这些更新而不必担心回退。"
-
-#: usr/share/help/C/mintupdate/levels.page:85(p)
-msgid ""
-"If an important regression, or potential for regression, was found in a "
-"level 2 update, its level would be changed to 3 or 4."
-msgstr "如果在等级2中发现了重大的回退或者发现了潜在的回退，它的级别会被调整到等级3或等级4。"
-
-#: usr/share/help/C/mintupdate/levels.page:90(title)
+#: usr/share/help/C/mintupdate/levels.page:82(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
 "Level 3"
@@ -579,49 +469,26 @@ msgstr ""
 "<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
 "等级 3"
 
-#: usr/share/help/C/mintupdate/levels.page:92(p)
+#: usr/share/help/C/mintupdate/levels.page:84(p)
 msgid ""
 "Level 3 updates are updates which not only affect themselves but also have "
 "an impact on other applications."
 msgstr "等级3的更新不仅会影响其本身，还会对其它的应用造成影响。"
 
-#: usr/share/help/C/mintupdate/levels.page:94(p)
+#: usr/share/help/C/mintupdate/levels.page:86(p)
 msgid ""
 "Typical examples of level 3 updates are GTK, DBUS, etc... A regression in "
 "these updates wouldn't stop your computer from booting properly, but it "
 "could impact many applications."
 msgstr "等级3的典型示例是GTK、DBUS等。这些更新中的回退不会影响计算机的正常启动，但它可能对许多程序造成影响。"
 
-#: usr/share/help/C/mintupdate/levels.page:96(p)
+#: usr/share/help/C/mintupdate/levels.page:88(p)
 msgid ""
 "Desktop environments are also level 3 updates. If a critical regression "
 "happens in Cinnamon, you might be unable to log in."
 msgstr "桌面环境也属于等级3的更新。如果Cinnamon发生了严重的回退，您可能无法登录用户。"
 
-#: usr/share/help/C/mintupdate/levels.page:98(p)
-msgid ""
-"There aren't many level 3 updates. It is recommended to apply them with "
-"caution and in isolation. Take note of what updates you are applying, check "
-"the system afterwards to make sure everything is working fine."
-msgstr "等级3的更新并不多。建议您小心地单独应用这些更新。记录您应用了哪些更新，并在更新之后检查系统以确保一切运行正常。"
-
-#: usr/share/help/C/mintupdate/levels.page:100(p)
-#: usr/share/help/C/mintupdate/levels.page:127(p)
-msgid ""
-"If something breaks, seek help on the forums or the chat channel and tell "
-"people which update caused the regression and what is broken."
-msgstr "如果某个程序崩溃，请到论坛或聊天室寻求帮助，并告诉大家是哪个更新引起了回退以及哪个程序发生了崩溃。"
-
-#: usr/share/help/C/mintupdate/levels.page:102(p)
-msgid ""
-"If you blindly apply hundreds of updates and you're unable to pinpoint the "
-"problematic one, you're unlikely to find help. All level 3 updates are "
-"recommended but you are expected to be cautious and to know what you are "
-"upgrading."
-msgstr ""
-"如果您盲目地应用了上百项更新并且不清楚哪一项是有问题的，您可能无法得到帮助。所有等级3的更新都是推荐应用的，但您应该对此保持谨慎并且清楚您升级了什么。"
-
-#: usr/share/help/C/mintupdate/levels.page:107(title)
+#: usr/share/help/C/mintupdate/levels.page:93(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
 "Level 4"
@@ -629,108 +496,31 @@ msgstr ""
 "<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
 "等级 4"
 
-#: usr/share/help/C/mintupdate/levels.page:109(p)
+#: usr/share/help/C/mintupdate/levels.page:95(p)
 msgid ""
 "Level 4 updates are updates which affect sensitive parts of the operating "
 "system such as:"
 msgstr "等级4的更新是对操作系统的敏感部分进行的更新，例如："
 
-#: usr/share/help/C/mintupdate/levels.page:112(p)
+#: usr/share/help/C/mintupdate/levels.page:98(p)
 msgid "The boot sequence"
 msgstr "启动顺序"
 
-#: usr/share/help/C/mintupdate/levels.page:113(p)
+#: usr/share/help/C/mintupdate/levels.page:99(p)
 msgid "The display manager (login screen, session management)"
 msgstr "显示管理器(登录屏幕，会话管理器)"
 
-#: usr/share/help/C/mintupdate/levels.page:114(p)
+#: usr/share/help/C/mintupdate/levels.page:100(p)
 msgid "The kernel (hardware support)"
 msgstr "内核(硬件支持)"
 
-#: usr/share/help/C/mintupdate/levels.page:115(p)
+#: usr/share/help/C/mintupdate/levels.page:101(p)
 msgid "The drivers (networking, NVIDIA/AMD)"
 msgstr "驱动(网络，NVIDIA/AMD)"
 
-#: usr/share/help/C/mintupdate/levels.page:116(p)
+#: usr/share/help/C/mintupdate/levels.page:102(p)
 msgid "The display (Xorg, mesa)"
 msgstr "显示(Xorg，mesa)"
-
-#: usr/share/help/C/mintupdate/levels.page:119(p)
-msgid ""
-"Like other updates, all level 4 updates are recommended, especially if they "
-"are security updates."
-msgstr "与其他更新一样，推荐应用所有等级4的更新，尤其是安全更新。"
-
-#: usr/share/help/C/mintupdate/levels.page:121(p)
-msgid ""
-"However, if a critical regression was present in one of these updates it "
-"could impact a sensitive part of your system."
-msgstr "但是，如果这些更新中出现了一个严重的回退，它可能会影响到您的系统的敏感部位。"
-
-#: usr/share/help/C/mintupdate/levels.page:123(p)
-msgid ""
-"You could find yourself without a connection to the Internet, without the "
-"ability to start the desktop environment or even without the ability to boot "
-"the operating system."
-msgstr "您可能会连不上网，无法启动桌面环境或甚至是操作系统本身。"
-
-#: usr/share/help/C/mintupdate/levels.page:125(p)
-msgid ""
-"For this reason you should always be careful when applying level 4 updates "
-"(including kernel updates). Apply them one by one and take note of the "
-"versions you're applying."
-msgstr "所以您应该总是谨慎对待等级4的更新（包括内核更新），单个地处理它们并记录每次更新的版本。"
-
-#: usr/share/help/C/mintupdate/levels.page:129(p)
-msgid ""
-"If you blindly apply hundreds of updates and you're unable to pinpoint the "
-"problematic one, you're unlikely to find help. All level 4 updates are "
-"recommended but you are expected to be cautious and to know what you are "
-"upgrading."
-msgstr ""
-"如果您盲目地进行大量更新，出现问题后您将无法准确定位错误位置，进而无法采取任何有效措施。我们推荐应用所有等级4的更新，但您必须十分谨慎地对待这些更新并清楚"
-"地知道每一次更新的内容。"
-
-#: usr/share/help/C/mintupdate/levels.page:134(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level5.svg\" height=\"40\"/> "
-"Level 5"
-msgstr ""
-"<media type=\"image\" src=\"figures/mintupdate-level5.svg\" height=\"40\"/> "
-"等级 5"
-
-#: usr/share/help/C/mintupdate/levels.page:136(p)
-msgid "Level 5 updates are extremely rare."
-msgstr "等级5的更新极其罕见。"
-
-#: usr/share/help/C/mintupdate/levels.page:138(p)
-msgid ""
-"When a critical bug is found in an update it is usually fixed as soon as "
-"possible."
-msgstr "如果发现某个更新包含严重错误，一般会很快被修复。"
-
-#: usr/share/help/C/mintupdate/levels.page:140(p)
-msgid ""
-"There are many ways for Linux Mint to address issues, and many mechanisms in "
-"place both remotely in the repositories and locally within your operating "
-"system. So in normal circumstances updates shouldn't need to be blacklisted."
-msgstr "Linux Mint可以通过很多方法来定位问题，并且在远端库和本地都有很多机制来寻找问题。所以在正常情况下，您不需要把更新列入黑名单。"
-
-#: usr/share/help/C/mintupdate/levels.page:142(p)
-msgid ""
-"If an update had a critical bug and a solution was being worked on but "
-"wasn't ready yet, Linux Mint could mark a specific version of the update as "
-"level 5 (i.e. \"not recommended\"). This would prevent users from applying "
-"it until the new version hits the repositories."
-msgstr ""
-"如果一个更新有严重的错误，而且没有尚未得到解决，Linux Mint "
-"会将此更新的特定版本标记为等级5（即“不推荐”），以避免用户应用此更新，直到已修复错误的新版本到达软件库。"
-
-#: usr/share/help/C/mintupdate/levels.page:144(p)
-msgid ""
-"Level 5 updates are known to cause issues. They are very rare and usually "
-"temporary. They are not visible by default and they should not be applied."
-msgstr "等级5的更新已知会造成问题。它们十分罕见，而且一般时暂时的。这些更新默认不可见，建议不要应用。"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
@@ -910,14 +700,10 @@ msgid ""
 msgstr "如果您安装的最新版内核(或是最新版内核更新)导致某些软件不能正常工作，请重启并选择您之前使用的内核，移除新内核并再次重启。"
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:919
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:923
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:981
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1703
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1782
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1784
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1828 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:968
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1031
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728 generate_desktop_files:26
 msgid "Update Manager"
 msgstr "更新管理器"
 
@@ -941,11 +727,10 @@ msgstr "不幸的是，有时它们会导致一种叫做“回退”的新问题
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
-"It is recommended to apply security updates but also to understand how "
-"updates can affect your computer, so you can review them, apply them with "
-"caution and be prepared in case something goes wrong."
+"To keep your computer safe and in good working condition, it is recommended "
+"to apply all available updates and to set up system snapshots, so that you "
+"can restore your system in case something goes wrong."
 msgstr ""
-"我们建议部署安全更新，但是同时也需要您了解更新将会怎样影响你的计算机，在此之后，你可以评估他们，谨慎的部署更新，并且对可能发生的错误做好准备。"
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -955,9 +740,13 @@ msgstr "核心概念"
 msgid "This section explains the core concepts related to software updates."
 msgstr "此部分阐述软件更新的核心概念。"
 
+#: usr/share/help/C/mintupdate/index.page:35(title)
+msgid "Troubleshooting"
+msgstr "疑难解答"
+
 #: usr/share/help/C/mintupdate/index.page:37(p)
-msgid "This section explains update levels, policies."
-msgstr "此部分阐述更新等级和更新策略。"
+msgid "This section explains update levels."
+msgstr ""
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
@@ -980,27 +769,29 @@ msgstr ""
 "  Careone https://launchpad.net/~zzbusagain\n"
 "  Eleanor Chen https://launchpad.net/~chenyueg\n"
 "  Kouga https://launchpad.net/~ncwhale\n"
+"  Luo Yufan https://launchpad.net/~njlyf2011\n"
 "  Ray Chien https://launchpad.net/~genrover\n"
 "  Wylmer Wang https://launchpad.net/~wantinghard\n"
 "  Yuanhai Tan https://launchpad.net/~edwintan\n"
 "  highwind https://launchpad.net/~highwindmx\n"
 "  peaceman https://launchpad.net/~zengchang1985\n"
 "  stevobm https://launchpad.net/~stevobm\n"
+"  xfcegyc https://launchpad.net/~xfcegyc\n"
 "  山龙岗 https://launchpad.net/~shanlg\n"
 "  张琦 https://launchpad.net/~hsrzq\n"
 "  张秋雨 https://launchpad.net/~vdergow\n"
 "  行走不回头 https://launchpad.net/~307827021-q"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:223
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:206
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Linux 内核 %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:224
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:207
 msgid "The Linux kernel."
 msgstr "Linux 内核。"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:225
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:208
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -1023,7 +814,6 @@ msgid "This kernel cannot be removed because it is currently in use."
 msgstr "此内核正在使用中，无法移除。"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1180
 msgid "Install"
 msgstr "安装"
 
@@ -1041,595 +831,390 @@ msgstr "您是否确定要删除内核 %s ？"
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "您是否确定要安装内核 %s ？"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:198
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:199
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "Kernels"
 msgstr "内核"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:214
-msgid "Continue"
-msgstr "下一步"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:216
-msgid "Do not show this message again"
-msgstr "以后不再显示此消息"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:218
-msgid "Warning!"
-msgstr "警告！"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:219
-msgid "Proceed with caution"
-msgstr "请小心"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:220
-msgid ""
-"The Linux kernel is a critical part of the system. Regressions can lead to "
-"lack of networking, lack of sound, lack of graphical environment or even the "
-"inability to boot the computer."
-msgstr "Linux 内核是系统的关键部分。回退可能导致网络、声音与图像环境的缺失，甚至可能会让计算机无法启动。"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:221
-msgid ""
-"Before installing or removing kernels, please make sure to read the help "
-"section, to make sure you know how to select kernels, how to revert updates "
-"and how to check your DKMS status."
-msgstr "在安装或移除内核之前，请确保阅读帮助部分，确保你知道如何选择内核、如何回滚升级以及如何检查DKMS 状态。"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:233
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
-msgid "Close"
-msgstr "关闭"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:250
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
 msgid "Active"
 msgstr "活动"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:252
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
 msgid "Installed"
 msgstr "已安装"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:287
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:280
 msgid "You are currently using the following kernel:"
 msgstr "您正在使用以下内核："
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:48
-msgid "B"
-msgstr "B"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:50
-msgid "KB"
-msgstr "KB"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:52
-msgid "MB"
-msgstr "MB"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:54
 msgid "GB"
 msgstr "GB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:157
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:56
+msgid "MB"
+msgstr "MB"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
+msgid "KB"
+msgstr "KB"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:59
+msgid "B"
+msgstr "B"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:161
 msgid "Downloading changelog..."
 msgstr "正在下载更新日志..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:170
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:174
 msgid "No changelog available"
 msgstr "无更新日志"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:334
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:338
 msgid "This upgrade will trigger additional changes"
 msgstr "此更新将触发其他的更改"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:343
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
 msgid "The following packages will be removed:"
 msgstr "下列软件包将被移除："
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:372
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:376
 msgid "The following packages will be installed:"
 msgstr "下列软件包将被安装："
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:415
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:419
 msgid "Installing updates"
 msgstr "正在安装更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:468
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:553
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:964
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
 msgid "Checking for updates"
 msgstr "正在检查更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:476
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:498
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:502
 msgid "Could not install the security updates"
 msgstr "无法安装安全更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:545
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:546
 msgid "Starting refresh..."
 msgstr "开始刷新..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:576
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:580
 msgid "Another application is using APT"
 msgstr "另一个程序正在使用 APT"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:585
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:589
 msgid "Finding the list of updates..."
 msgstr "正在查找更新列表..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:599
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:607
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Your APT cache is corrupted."
 msgstr "您的 APT 缓存已经损坏。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:600
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:608
 msgid ""
 "Do not install or update anything, it could break your operating system!"
 msgstr "请不要安装或升级任何东西，它会破坏您的操作系统！"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
-msgid "Switch to a different Linux Mint mirror to solve this situation."
-msgstr "切换到另一个 Linux Mint 镜像以解决问题。"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:609
+msgid ""
+"To switch to a different Linux Mint mirror and solve this problem, click OK."
+msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
 msgstr "请切换到另一个 Linux Mint 镜像"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:612
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:827
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1098
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:850
+#: usr/share/linuxmint/mintupdate/main.ui.h:19
+msgid "OK"
+msgstr "确定"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:862
+#: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
 msgstr "无法刷新更新列表"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:633
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1097
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:753
+#: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "Your system is up to date"
 msgstr "您的系统已经安装了所有的更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:707
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:718
 msgid "Kernel update"
 msgstr "内核更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:709
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:721
 msgid "Security update"
 msgstr "安全更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:711
-msgid ""
-"Software backport. Be careful when upgrading. New versions of software can "
-"introduce regressions."
-msgstr "软件反向移植。请谨慎升级，新版本的软件可能引起功能回退。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:713
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:724
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
 msgstr "不稳定软件，应用此更新以协助开发者进行Beta测试。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
 msgid "Software update"
 msgstr "软件更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:738
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1442
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1493
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1603
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
+msgid "3rd-party update"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 msgid "No updates selected"
 msgstr "没有选择任何更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:740
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1495
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1463
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
 msgstr[0] "已选中 %(selected)d 项更新 (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
 msgstr[0] "%d 项更新可用"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+msgid "Please set up System Snapshots"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+msgid ""
+"If something breaks, snapshots will allow you to restore your system to the "
+"previous working condition."
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Do you want to switch to a local mirror?"
 msgstr "您是否要切换到一个本地的镜像？"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
-msgid "Local mirrors are usually faster than packages.linuxmint.com"
-msgstr "本地的镜像通常比 packages.linuxmint.com 更快"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+msgid "Local mirrors are usually faster than packages.linuxmint.com."
+msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 msgid "Please switch to another mirror"
 msgstr "请切换到另一个镜像"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #, python-format
-msgid "%s is unreachable"
-msgstr "%s 不可达"
+msgid "%s is unreachable."
+msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 #, python-format
-msgid "The last update on %(mirror)s was %(days)d day ago"
-msgid_plural "The last update on %(mirror)s was %(days)d days ago"
-msgstr[0] "%(mirror)s 上最新的更新在 %(days)d 天之前"
+msgid "The last update on %(mirror)s was %(days)d day ago."
+msgid_plural "The last update on %(mirror)s was %(days)d days ago."
+msgstr[0] ""
+msgstr[1] ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:928
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
 msgid "Exit"
 msgstr "退出"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:996
-msgid "OK"
-msgstr "确定"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:998
-msgid "Help"
-msgstr "帮助"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1007
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
 msgid "Upgrade"
 msgstr "升级"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1012
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1061
 msgid "Name"
 msgstr "名称"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1016
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1275
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1065
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
 msgid "Level"
 msgstr "级别"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1020
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1731
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1069
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Old version"
 msgstr "旧版本"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1024
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1293
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1734
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1073
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1245
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
 msgid "New version"
 msgstr "新版本"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1028
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1299
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1251
 msgid "Size"
 msgstr "大小"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1032
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1269
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1081
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
 msgid "Type"
 msgstr "类型"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1036
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1305
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
 msgid "Origin"
 msgstr "来源"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1090
-msgid "Install Updates"
-msgstr "安装更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1091
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+#: usr/share/linuxmint/mintupdate/main.ui.h:3
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "刷新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1092
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1164
-msgid "Select All"
-msgstr "选择全部"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
+msgid "Information"
+msgstr "信息"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1093
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
-msgid "Clear"
-msgstr "清除"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1094
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1850
-msgid "Description"
-msgstr "简述"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1095
-msgid "Changelog"
-msgstr "变更日志"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
-msgid "Welcome to the Update Manager"
-msgstr "欢迎使用更新管理器"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
-msgid ""
-"This tool provides your operating system with software and security updates."
-msgstr "此工具为您提供软件和安全更新。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
-msgid "Please choose an update policy."
-msgstr "请选择更新策略。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1107
-msgid "Just keep my computer safe"
-msgstr "只要让我的电脑保持安全就行"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1108
-msgid "Recommended for novice users."
-msgstr "新手用户推荐。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
-msgid ""
-"Select updates which do not impact important parts of the operating systems."
-msgstr "选择不会影响操作系统重要部分的更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
-msgid ""
-"Show security and kernel updates so I can review them and apply them with "
-"caution."
-msgstr "显示安全和内核更新，让我可以检查和谨慎应用"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
-msgid "Let me review sensitive updates"
-msgstr "让我检查敏感的更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1112
-msgid "Recommended for most users."
-msgstr "推荐给大多数用户。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1113
-msgid ""
-"Select security updates and updates which do not impact important parts of "
-"the operating systems."
-msgstr "选择不会影响操作系统重要部分的安全更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1113
-msgid ""
-"Show kernel updates and sensitive updates so I can review them and apply "
-"them with caution."
-msgstr "显示内核更新和敏感的更新，让我可以检查和谨慎应用"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1115
-msgid "Always update everything"
-msgstr "总是全部更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1116
-msgid "Recommended for experienced users."
-msgstr "推荐有经验的用户选用。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
-msgid "Always select all updates."
-msgstr "总是选择所有更新。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
-msgid "If a regression breaks something, I'll fix it."
-msgstr "我会修复回退造成的破坏。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
-msgid ""
-"Security and kernel updates are always visible and updates with known issues "
-"(very rare) are always hidden. You can change this and fine-tune your policy "
-"in the preferences."
-msgstr "安全更新和内核更新总是可见的，有已知问题的更新（极其罕见）总是隐藏的。您可以在此首选项中调整您的更新策略。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
-msgid "_File"
-msgstr "文件(_F)"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1131
-msgid "_Edit"
-msgstr "编辑(_E)"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1828
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1785
 msgid "Preferences"
 msgstr "首选项"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1143
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
+msgid "Quit"
+msgstr "退出"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
+msgid "_File"
+msgstr "文件(_F)"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1150
+#: usr/share/linuxmint/mintupdate/history.ui.h:1
+#: usr/share/linuxmint/mintupdate/information.ui.h:3
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
+msgid "Close"
+msgstr "关闭"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+msgid "_Edit"
+msgstr "编辑(_E)"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1173
 msgid "Software sources"
 msgstr "软件源"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
-msgid "Select level 1 updates"
-msgstr "选择等级1的更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1194
-msgid "Select level 2 updates"
-msgstr "选择等级2的更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
-msgid "Select level 3 updates"
-msgstr "选择等级3的更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1206
-msgid "Select level 4 updates"
-msgstr "选择等级4的更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1212
-msgid "Select security updates"
-msgstr "选择安全更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
-msgid "Select kernel updates"
-msgstr "选择内核更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1244
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
 #, python-format
 msgid "Upgrade to %s"
 msgstr "升级到 %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1248
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
 msgid "_View"
 msgstr "查看(_V)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1253
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1665
 msgid "History of updates"
 msgstr "更新的历史记录"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
 msgid "Linux kernels"
 msgstr "Linux内核"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1703
-msgid "Information"
-msgstr "信息"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1217
 msgid "Visible columns"
 msgstr "可见栏"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1671
 msgid "Package"
 msgstr "软件包"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1313
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
 msgid "Show descriptions"
 msgstr "显示描述"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1335
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+msgid "Welcome screen"
+msgstr "欢迎屏幕"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+msgid "Keyboard Shortcuts"
+msgstr "快捷键"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
 msgid "Contents"
 msgstr "内容"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1342
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1782
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1726
 msgid "About"
 msgstr "关于"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1646
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1507
+#: usr/share/linuxmint/mintupdate/main.ui.h:9
+msgid "Welcome to the Update Manager"
+msgstr "欢迎使用更新管理器"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
 msgid "Packages included in this update:"
 msgstr "此更新中的软件包："
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1598
 msgid "Ignore updates for this package"
 msgstr "忽略此软件包的更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1706
-msgid "Process ID:"
-msgstr "进程 ID："
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1707
-msgid "Log file:"
-msgstr "日志文件："
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1725
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1668
 msgid "Date"
 msgstr "日期"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1843
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1800
 msgid "Options"
 msgstr "选项"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1844
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1801
 msgid "Levels"
 msgstr "级别"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1802
 msgid "Auto-refresh"
 msgstr "自动刷新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1846
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
 msgid "Blacklist"
 msgstr "黑名单"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1849
-msgid "Impact level"
-msgstr "影响等级"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
+msgid "Auto-upgrade"
+msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1851
-msgid "Selected"
-msgstr "已选中"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
-msgid "Visible"
-msgstr "可见"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1866
-msgid "First, refresh the list of updates after:"
-msgstr "刷新更新列表的推延时间："
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1867
-msgid "Then, refresh the list of updates every:"
-msgstr "刷新更新列表的时间间隔："
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1868
-msgid ""
-"Note: The list only gets refreshed while the update manager window is closed "
-"(system tray mode)."
-msgstr "注：只有在更新管理器窗口关闭(系统托盘方式)时该列表才会更新。"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
-msgid ""
-"Include updates which require the installation of new packages or the "
-"removal of installed packages"
-msgstr "包含需要安装新的包或卸载现有的包的更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1871
-msgid "Hide the update manager after applying updates"
-msgstr "应用升级后隐藏升级管理器"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
-msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr "仅在有可用更新或出现错误时显示托盘图标"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1873
-msgid "Don't suggest to switch to a local mirror"
-msgstr "不建议切换到本地的镜像"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1874
-msgid "Always show security updates"
-msgstr "总是显示安全更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1875
-msgid "Always select security updates"
-msgstr "总是选择安全更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1876
-msgid "Always show kernel updates"
-msgstr "总是显示内核更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
-msgid "Always select kernel updates"
-msgstr "总是选择内核更新"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
-msgid "minutes"
-msgstr "分钟"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
-msgid "hours"
-msgstr "小时"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
-msgid "days"
-msgstr "天"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
-msgid "Cancel"
-msgstr "取消"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1882
-msgid "Apply"
-msgstr "应用"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1923
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
 msgid "Ignored updates"
 msgstr "忽略更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1986
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1916
 msgid "Please specify the name of the update to ignore:"
 msgstr "请指定忽略更新的名字："
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1917
 msgid "Ignore an update"
 msgstr "忽略一项更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1991
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1921
 msgid "Name:"
 msgstr "名称："
 
@@ -1733,13 +1318,13 @@ msgstr "我已了解风险，我想升级到 %s。"
 msgid "Summary"
 msgstr "摘要"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:260
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:256
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
 msgstr "您的操作系统已升级，请重启以应用更新。"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:269
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:259
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
@@ -1752,6 +1337,267 @@ msgstr "显示并安装可用更新"
 #: usr/bin/mint-release-upgrade-root:16
 msgid "Please enter your password to perform the upgrade"
 msgstr "请输入您的密码以进行升级"
+
+#: usr/share/linuxmint/mintupdate/information.ui.h:1
+msgid "Log file:"
+msgstr "日志文件："
+
+#: usr/share/linuxmint/mintupdate/information.ui.h:2
+msgid "Process ID:"
+msgstr "进程 ID："
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:1
+msgid "Warning!"
+msgstr "警告！"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:2
+msgid "Proceed with caution"
+msgstr "请小心"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:3
+msgid ""
+"The Linux kernel is a critical part of the system. Regressions can lead to "
+"lack of networking, lack of sound, lack of graphical environment or even the "
+"inability to boot the computer."
+msgstr "Linux 内核是系统的关键部分。回退可能导致网络、声音与图像环境的缺失，甚至可能会让计算机无法启动。"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:4
+msgid ""
+"Before installing or removing kernels, please make sure to read the help "
+"section, to make sure you know how to select kernels, how to revert updates "
+"and how to check your DKMS status."
+msgstr "在安装或移除内核之前，请确保阅读帮助部分，确保你知道如何选择内核、如何回滚升级以及如何检查DKMS 状态。"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:5
+msgid "Do not show this message again"
+msgstr "以后不再显示此消息"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
+#: usr/share/linuxmint/mintupdate/main.ui.h:18
+msgid "Help"
+msgstr "帮助"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
+msgid "Continue"
+msgstr "下一步"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "清除"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:2
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
+msgid "Select All"
+msgstr "选择全部"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:4
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:4
+msgid "Install Updates"
+msgstr "安装更新"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:7
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:14
+msgid "Description"
+msgstr "简述"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:8
+msgid "Changelog"
+msgstr "变更日志"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:10
+msgid ""
+"This tool provides your operating system with software and security updates."
+msgstr "此工具为您提供软件和安全更新。"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "安全更新"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:12
+msgid ""
+"Apply security updates to patch vulnerabilities and keep your computer safe."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:13
+msgid "Software updates"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:14
+msgid "Apply software updates to fix bugs in your computer."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:16
+msgid ""
+"Set up system snapshots to protect yourself from mistakes and regressions. "
+"If anything breaks simply restore the last snapshot."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:17
+msgid ""
+"Linux Mint recommends to set up automated system snapshots and to apply all "
+"available updates. This way, your computer is always secure and you can go "
+"back in time and recover from any potential regression."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:1
+msgid "Apply"
+msgstr "应用"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid "Cancel"
+msgstr "取消"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:3
+msgid ""
+"Make sure your system snapshots are properly configured before using this "
+"option."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:4
+msgid ""
+"When this option is enabled, all updates are applied automatically on a "
+"daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:5
+msgid ""
+"You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
+"/etc/mintupdate.blacklist to blacklist some of them."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:6
+msgid "Apply updates automatically"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:7
+msgid "Impact level"
+msgstr "影响等级"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:8
+msgid "Selected"
+msgstr "已选中"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:9
+msgid "Visible"
+msgstr "可见"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:19
+msgid ""
+"It is recommended to set up system snapshots and to apply all available "
+"updates. Only hide levels when troubleshooting or trying to identify a "
+"regression. Check the help section for more information."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:20
+msgid "Interface"
+msgstr "界面"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:21
+msgid "Hide the update manager after applying updates"
+msgstr "应用升级后隐藏升级管理器"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:22
+msgid "Only show a tray icon when updates are available or in case of errors"
+msgstr "仅在有可用更新或出现错误时显示托盘图标"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:23
+msgid "Show a warning if system snapshots are not set up"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:24
+msgid "Don't suggest to switch to a local mirror"
+msgstr "不建议切换到本地的镜像"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:25
+msgid "Updates"
+msgstr "更新"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:26
+msgid ""
+"It is recommended to show and apply all available updates. Only disable the "
+"options below when troubleshooting."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:27
+msgid ""
+"Include updates which require the installation of new packages or the "
+"removal of installed packages"
+msgstr "包含需要安装新的包或卸载现有的包的更新"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:28
+msgid "Always show security updates"
+msgstr "总是显示安全更新"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:29
+msgid "Always select security updates"
+msgstr "总是选择安全更新"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:30
+msgid "Always show kernel updates"
+msgstr "总是显示内核更新"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:31
+msgid "Always select kernel updates"
+msgstr "总是选择内核更新"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:32
+msgid "First, refresh the list of updates after:"
+msgstr "刷新更新列表的推延时间："
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:33
+msgid "Then, refresh the list of updates every:"
+msgstr "刷新更新列表的时间间隔："
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:34
+msgid "days"
+msgstr "天"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:35
+msgid "hours"
+msgstr "小时"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:36
+msgid "minutes"
+msgstr "分钟"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:37
+msgid ""
+"Note: The list only gets refreshed while the update manager window is closed "
+"(system tray mode)."
+msgstr "注：只有在更新管理器窗口关闭(系统托盘方式)时该列表才会更新。"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
+msgid "Window"
+msgstr "窗口"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
+msgid "Selection"
+msgstr "选择"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
+msgid "Select level 1 updates"
+msgstr "选择等级1的更新"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
+msgid "Select level 2 updates"
+msgstr "选择等级2的更新"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:10
+msgid "Select level 3 updates"
+msgstr "选择等级3的更新"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:11
+msgid "Select level 4 updates"
+msgstr "选择等级4的更新"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:12
+msgid "Select security updates"
+msgstr "选择安全更新"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:13
+msgid "Select kernel updates"
+msgstr "选择内核更新"
 
 #~ msgid "Please wait, this can take some time"
 #~ msgstr "请稍候，这将花费一些时间"

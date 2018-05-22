@@ -7,21 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-11-22 12:09+0000\n"
-"PO-Revision-Date: 2017-11-14 23:10+0000\n"
+"POT-Creation-Date: 2018-05-07 13:28+0100\n"
+"PO-Revision-Date: 2018-05-20 19:25+0000\n"
 "Last-Translator: samson <Unknown>\n"
 "Language-Team: Amharic <am@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2018-01-06 14:17+0000\n"
-"X-Generator: Launchpad (build 18521)\n"
+"X-Launchpad-Export-Date: 2018-05-22 09:17+0000\n"
+"X-Generator: Launchpad (build 18658)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
+#: usr/share/help/C/mintupdate/snapshots.page:10(name)
 #: usr/share/help/C/mintupdate/regressions.page:10(name)
-#: usr/share/help/C/mintupdate/policy.page:10(name)
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:10(name)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:10(name)
 #: usr/share/help/C/mintupdate/levels.page:10(name)
 #: usr/share/help/C/mintupdate/kernels.page:10(name)
 #: usr/share/help/C/mintupdate/index.page:9(name)
@@ -29,9 +29,9 @@ msgid "Linux Mint"
 msgstr "ሊነክስ ሚንት"
 
 #: usr/share/help/C/mintupdate/updates.page:11(email)
+#: usr/share/help/C/mintupdate/snapshots.page:11(email)
 #: usr/share/help/C/mintupdate/regressions.page:11(email)
-#: usr/share/help/C/mintupdate/policy.page:11(email)
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:11(email)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:11(email)
 #: usr/share/help/C/mintupdate/levels.page:11(email)
 #: usr/share/help/C/mintupdate/kernels.page:11(email)
 #: usr/share/help/C/mintupdate/index.page:10(email)
@@ -78,20 +78,11 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
-"By default, security updates are always visible, no matter what policy you "
-"chose and what level they are."
-msgstr "በ ነባር የ ደህንነት ማሻሻያ ሁል ጊዜ ይታያል: እርስዎ ምንም አይነት አሰራር ቢመርጡ እና ደረጃ ላይ ቢሆን"
+"Software updates aren't as important. They bring bug fixes or improvements "
+"which are not related to security."
+msgstr ""
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
-msgid ""
-"Software updates aren't as important. They bring bug fixes or improvements "
-"which are not related to security. As such they're less urgent and can even "
-"be considered optional."
-msgstr ""
-"የ ሶፍትዌር ማሻሻያ በጣም አስፈላጊ አይደለም: የ ችግር መጠገኛ ይዘው ይቀርባሉ: ከ ደህንነት ጋር ያልተዛመደ: ቤጣም "
-"አስፈላጊ አይደለም እና እንደ ምርጫ መተው ይቻላል"
-
-#: usr/share/help/C/mintupdate/updates.page:35(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
 msgid ""
 "In Linux Mint, kernel updates bring both security patches and bug fixes (and "
@@ -103,6 +94,46 @@ msgstr ""
 "በ ሊነክስ ሚንት ውስጥ: ከረኔል ማሻሻል የሚጠቅመው ለ ደህንነት እና ችግሮችን ለ መጠገን ነው: (አንዳንድ ጊዜ አዲስ "
 "ገጽታዎችን ያመጣል) እና በ ተለይ በ መስሪያ ስርአቱ ላይ ከፍተኛ ጥቅም አላቸው: ስለዚህ ከረኔል ማሻሽል በጣም አስፈላጊ "
 "ነው: ከ ደህንነት አንጻር ሲታይ: አንዳንድ ጊዜ አለመረጋጋትን ሊፈጥር ይችላል በ ተለይ ለ አዲስ ተጠቃሚዎች"
+
+#: usr/share/help/C/mintupdate/snapshots.page:16(desc)
+msgid ""
+"When faced with a serious regression, restore the latest system snapshot."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:19(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/share/linuxmint/mintupdate/main.ui.h:15
+msgid "System snapshots"
+msgstr "ስርአት ፎቶ ማንሻ"
+
+#: usr/share/help/C/mintupdate/snapshots.page:21(p)
+msgid ""
+"Timeshift, the system snapshot utility, is available in all versions of "
+"Linux Mint."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:23(p)
+msgid ""
+"It can be used to create snapshots manually but also to automate system "
+"snapshots."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:25(p)
+msgid "Linux Mint recommends the automation of daily and boot snapshots."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:27(p)
+msgid ""
+"If an update, a mistake, a bug or a malicious program breaks something on "
+"your computer, you can restore the operating system from any snapshot, thus "
+"cancelling the problem as if it never happened."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/snapshots.page:29(p)
+msgid ""
+"System snapshots only cover the operating system itself. They do not include "
+"or affect your personal data."
+msgstr ""
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
@@ -169,162 +200,20 @@ msgid ""
 msgstr ""
 "የ ኋለኛው ጉዳይ በጣም አስቸጋሪ ሊሆን ይችላል: እርስዎ በርካት ልምድ ከሌለዎት እና ችግሩን ፈልገው ማግኘት ካልቻሉ"
 
-#: usr/share/help/C/mintupdate/policy.page:16(desc)
-msgid "Choosing an update policy"
-msgstr "ይምረጡ የ ማሻሻያ አሰራር"
-
-#: usr/share/help/C/mintupdate/policy.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1148
-msgid "Update policy"
-msgstr "የ ማሻሻያ አሰራር"
-
-#: usr/share/help/C/mintupdate/policy.page:21(p)
-msgid ""
-"The update manager is highly configurable. You can go in the preferences and "
-"fine-tune which levels you want to show and which levels you want to "
-"preselect. This is your computer and so you can tune it the way you want."
-msgstr ""
-"የ ማሻሻያ አስተዳዳሪ በ ቀላሉ ማሰናዳት ይቻላል: እርስዎ ወደ ምርጫ በ መሄድ በ ቀላሉ-ማስተካከል ይችላሉ የሚታየውን "
-"ደረጃ እና መጠበቂያውን: እርስዎ በፈለጉ ጊዜ መቀያየር ይችላሉ"
-
-#: usr/share/help/C/mintupdate/policy.page:23(p)
-msgid ""
-"The first time you launch it, it will try to understand who you are and set "
-"these settings for you. To do so, it will show you three update policies and "
-"ask you to choose the one you like best."
-msgstr ""
-"እርስዎ መጀመሪያ ሲያስጀምሩ: እርስዎ ማን እንደሆኑ ለ መረዳታ ይሞክራል እና ለ እርስዎ ማሰናጃ ያሰናዳል: ይህን "
-"ለማድረግ ለ እርስዎ ሶስት አይነት ማሻሻያ ይታያል እና እርስዎ እንዲመርጡ ይጠይቃል"
-
-#: usr/share/help/C/mintupdate/policy.page:25(p)
-msgid "All policies have this in common:"
-msgstr "ሁሉም አሰራሮች ይህ በ ጋራ አላቸው:"
-
-#: usr/share/help/C/mintupdate/policy.page:28(p)
-msgid ""
-"For security reasons, security updates are always visible (no matter what "
-"level they are)."
-msgstr "ለ ደህንነት ሲባል የ ደህንነት ማሻሻያ ሁል ጊዜ ይታያል (ምንም አይነት ደረጃ ላይ ቢሆን)"
-
-#: usr/share/help/C/mintupdate/policy.page:29(p)
-msgid ""
-"For security reasons, kernel updates (which are level 4) are always visible."
-msgstr "ለ ደህንነት ምክንያት ሲባል: የ ከረኔል ማሻሻያ (4ኛ ደረጃ ነው) ሁልጊዜ ይታያል"
-
-#: usr/share/help/C/mintupdate/policy.page:30(p)
-msgid "For stability reasons, level 5 updates are always hidden."
-msgstr "ለ ደህንነት ሲባል 5ኛ ደረጃ ማሻሻያ ሁል ጊዜ ይደበቃል"
-
-#: usr/share/help/C/mintupdate/policy.page:33(p)
-msgid ""
-"When you choose an update policy, some of the preferences are changed in the "
-"Update Manager. You can tune these preferences individually by clicking on "
-"the Edit-&gt;Preferences menu in the menubar."
-msgstr ""
-"እርስዎ የ ማሻሻያ አሰራር ሲመርጡ: አንዳንድ ምርጫዎች ይቀየራሉ: በ ማሻሻያ አስተዳዳሪ: እርስዎ ይህን ምርጫ ማስተካከል "
-"ይችላሉ በ መምረጥ  Edit-&gt; ምርጫዎች ዝርዝር ውስጥ ከ ዝርዝር መደርደሪያ ውስጥ"
-
-#: usr/share/help/C/mintupdate/policy.page:37(title)
-msgid "Novice users"
-msgstr "አዲስ ተጠቃሚዎች"
-
-#: usr/share/help/C/mintupdate/policy.page:39(p)
-msgid ""
-"The first policy is made for novice users in mind. It assumes these users "
-"are unable to work around critical issues affecting sensitive parts of their "
-"system and tries to minimize their risk to suffer critical regressions."
-msgstr ""
-"የ መጀመሪያው አሰራር የ ተዘጋጀው አዲስ ተጠቃሚዎችን በማሰብ ነው: እነዚህ ተጠቃሚዎች አደገኛ ችግር ቢፈጠር "
-"sensitive የሆነ ለ ስርአቱ መፍትሄውን እንደማያውቁ በማሰብ ነው: እና ሀላፊነቱን ለ መቀነስ ነው ከ ከፍተኛ ዝቅ "
-"ማድረጊያ ሁኔታ ውስጥ"
-
-#: usr/share/help/C/mintupdate/policy.page:41(p)
-msgid ""
-"Bug fixes are optional, so this policy focuses on safe updates (level 1 and "
-"2) with minimal impact on the operating system. These updates are visible "
-"and preselected by default."
-msgstr ""
-"ችግር መጠገን በ ምርጫ ነው: ይህ አሰራር የሚያተኩረው በ አስተማማኝ ማሻሻያዎች ላይ ነው: (1ኛ እና 2ኛ ደረጃ) በ "
-"አነስተኛ ተፅእኖ በ መስሪያ ስርአቱ ላይ: እነዚህ ማሻሻያዎች ይታያሉ እና በ ቅድሚያ በ ነባር የ ተመረጡ ናቸው"
-
-#: usr/share/help/C/mintupdate/policy.page:43(p)
-msgid ""
-"Security is also important but some security updates (and kernel updates in "
-"particular) affect sensitive parts of the system. These updates are visible "
-"and novice users are recommended to select them and apply them with caution, "
-"in isolation and ideally either with the help of an experienced user, or "
-"after they familiarized themselves with the forums and chat channel so they "
-"know how to seek help."
-msgstr ""
-"ደህንነት በጣም አስፈላጊ ነው ነገር ግን አንዳንድ የ ደህንነት ማሻሻያ (እና ከረኔሎች ባጠቃላይ) በጣም sensitive "
-"የሆነውን የ መስሪያ ስርአት ላይ ተፅእኖ ይፈጥራሉ: እነዚህ ማሻሻያዎች ይታያሉ: አዲስ ተጠቃሚዎች በ ጥንቃቄ በ መምረጥ "
-"እንዲፈጽሙ እናሳስባለን: በ መለየት እና ብዙ ልምድ ባላቸው ተጠቃሚዎች በ መረዳት: ወይንም በ ውይይት መደረክ ውስጥ "
-"ጥያቄ እንዴት እንደሚጠይቁ እራሳቸውን ካለማመዱ በኋላ"
-
-#: usr/share/help/C/mintupdate/policy.page:49(title)
-msgid "Regular users"
-msgstr "መደበኛ ተጠቃሚዎች"
-
-#: usr/share/help/C/mintupdate/policy.page:51(p)
-msgid ""
-"The second policy is made for the vast majority of people. It assumes these "
-"users aren't new to Linux and either know how to solve common problems, or "
-"they know where to find help."
-msgstr ""
-"የ ሁለተኛው አሰራር የ ተሰራው ለ በርካታ ተጠቃሚዎች እንዲስማማ ተደርጎ ነው: እነዚህ ተጠቃሚዎች ለ ሊነክስ አዲስ "
-"እንዳልሆኑ ተገምቶ ነው: እና መደበኛ ስህተቶችን ማረም እንደሚችሉ ተገምቶ ነው: ወይንም እርዳታ ከየት እንደሚያገኙ "
-"ያውቃሉ በሚል ግምት ነው"
-
-#: usr/share/help/C/mintupdate/policy.page:53(p)
-msgid ""
-"This policy shows all recommended updates. Security updates and safe bug-fix "
-"updates (level 1 and 2) are preselected by default."
-msgstr ""
-"ይህ አሰራር የሚያሳየው የሚመከሩትን ማሻሻያ ነው: የ ደህንነት ማሻሻያ እና በ ጥንቃቄ ችግር-መጠገንን ነው በ ማሻሻያ "
-"(1ኛ እና 2ኛ ደረጃ) በ ነባር በ ቅድሚያ ተመርጠዋል"
-
-#: usr/share/help/C/mintupdate/policy.page:55(p)
-msgid ""
-"Users are recommended to select and apply level 3 and level 4 updates with "
-"caution and in isolation and to seek help if something goes wrong."
-msgstr ""
-"ተጠቃሚዎችን የምንመክረው እንዲመርጡ እና እንዲፈጽሙ ነው 3ኛ እና 4ኛ ደረጃ ማሻሻያዎችን በ ጥንቃቄ እና በ መለየት እና "
-"ችግር ቢፈጠር እርዳታ እንዲፈልጉ ነው"
-
-#: usr/share/help/C/mintupdate/policy.page:61(title)
-msgid "Advanced users"
-msgstr "የረቀቁ ተጠቃሚዎች"
-
-#: usr/share/help/C/mintupdate/policy.page:63(p)
-msgid ""
-"This policy is made for advanced users on computers where the risk of "
-"critical regressions is acceptable. It assumes these users are able to fix "
-"any issue and want to apply all updates all at once."
-msgstr ""
-"ይህ አሰራር የ ተፈጠረው በርካታ ልምድ ላላቸው ተጠቃሚዎች ነው: አደገኛ ዝቅ ማድረጊያ ቢፈጠርም እንኳን: እነዚህ "
-"ተጠቃሚዎች ይህን ችግር ይፋታሉ በሚል ግምት ነው: ሰላዚህ ሁሉንም ማሻሻያዎች ገጥመው ችግር ቢያጋጥም ችግሩን ፈልገው "
-"ያስተካክላሉ"
-
-#: usr/share/help/C/mintupdate/policy.page:65(p)
-msgid ""
-"In this policy, all recommended updates are visible and selected by default."
-msgstr "በዚህ አሰራር የሚመከሩት ሁሉም ማሻሻያ ይታያሉ እና በ ነባር ይመረጣሉ"
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:16(desc)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
 msgstr "ከ ትእዛዝ መስመር ላይ ማሻሻያ"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:19(title)
-msgid "Using mintupdate-tool"
-msgstr "የ ሚንት ማሻሻያ-መሳሪያ በ መጠቀም"
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
+msgid "Using mintupdate-cli"
+msgstr "የ ሊነክስ ሚንት ማሻሻያ-cli አጠቃቀም"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:21(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
-"The Update Manager provides a command line utility called \"mintupdate-"
-"tool\"."
-msgstr "የ ማሻሻያ አስተዳዳሪ የሚያቀርበው የ ትእዛዝ መስመር \"የ ሚንት ማሻሻያ-መሳሪያ\" ይባላል"
+"The Update Manager provides a command line utility called \"mintupdate-cli\"."
+msgstr ""
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:23(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
 "If you are experienced with Linux, you can use this tool in your scripts or "
 "your cron jobs to automate the installation of software updates."
@@ -332,85 +221,79 @@ msgstr ""
 "እርስዎ ብዙ ልምድ ካለዎት ሊነክስን በ መጠቀም: ይህን መአሪያ መጠቀም ይችላሉ በ እርስዎ cron ጽሁፍ ውስጥ ራሱ በራሱ "
 "እንዲገጥም የ ሶፍትዌር ማሻሻያዎችን"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:27(title)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
 msgstr "የ ማሻሻያ ዝርዝር"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:29(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
 msgstr "እርስዎ መጠቀም ይችላሉ \"ዝርዝር\" ትእዛዝ ከ ዝርዝር ማሻሻያ ውስጥ:"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:31(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
-msgid "mintupdate-tool list"
-msgstr "የ ሚንት ማሻሻያ-መሳሪያ ዝርዝር"
+msgid "mintupdate-cli list"
+msgstr "የ ሊነክስ ሚንት ማሻሻያ-cli ዝርዝር"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:33(p)
-msgid "The list can be filtered by levels with the -l argument."
-msgstr "ይህን ዝርዝር ማጣራት ይቻላል በ ደረጃዎች በ -l ክርክር."
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:35(p)
-msgid "You can add security updates with -s."
-msgstr "እርስዎ የ ደህንነት ማሻሻያ መጨመር ይችላሉ በ -s."
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:37(p)
-msgid "You can add kernel updates with -k, or remove them with -nk."
-msgstr "እርስዎ የ ከረኔል ማሻሻያ መጨመር ይችላሉ በ -k, ወይንም ማስወገድ በ -nk."
-
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:39(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid ""
-"For instance, the following command lists all security updates, as well as "
-"level 1 and 2 bug fixes update:"
+"You can use -l to only show updates for certain levels (when "
+"troubleshooting)."
 msgstr ""
-"ለምሳሌ: የሚቀጥለው ትእዛዝ ዝርዝር የ ደህንነት ማሻሻያ: እንዲሁም ደረጃ 1 እና 2 ችግር መጠገኛ ማሻሻያ ይይዛል"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:41(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
+msgid "You can use -s to only show the security updates."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
+msgid "You can use -k to only show the kernel updates."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
+msgid "For instance, the following command lists all security updates:"
+msgstr ""
+
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
 #, no-wrap
-msgid "mintupdate-tool list -l12 -s -nk"
-msgstr "የ ሚንት ማሻሻያ-መሳሪያ ዝርዝር -l12 -s -nk"
+msgid "mintupdate-cli list -s"
+msgstr "የ ሊነክስ ሚንት ማሻሻያ-cli ዝርዝር -s"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:47(title)
-#: usr/share/help/C/mintupdate/index.page:35(title)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
 msgid "Applying updates"
 msgstr "ማሻሻያ መፈጸሚያ"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:49(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr "እርስዎ መጠቀም ይችላሉ የ \"ማሻሻያ\" ትእዛዝ ማሻሻያ ለ መፈጸም: ተመሳሳይ ምርጫ በ መጠቀም"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:51(p)
-msgid ""
-"For instance, the following command applies all security updates as well as "
-"level 1 and 2 bug fix updates:"
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
+msgid "For instance, the following command applies kernel updates:"
 msgstr ""
-"ለምሳሌ: የሚቀጥለው ትእዛዝ የሚፈጽመው ሁሉንም የ ደህንነት ማሻሻያ እንዲሁም ደረጃ 1 እና 2 ችግር መፍቻ ማሻያዎችን "
-"ነው:"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:53(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
 #, no-wrap
-msgid "sudo mintupdate-tool upgrade -r -l12 -s -nk"
-msgstr "sudo የ ሚንት ማሻሻያ-መሳሪያ ማሻሻያ -r -l12 -s -nk"
+msgid "sudo mintupdate-cli upgrade -r -k"
+msgstr ""
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:55(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid "Note the -r argument, which was added to refresh the cache."
 msgstr "ማስታወሻ የ -r ክርክር የ ተጨመረው cache ለ ማነቃቃት ነው"
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:57(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:57(p)
 msgid ""
-"For more information on mintupdate-tool and a complete list of arguments, "
+"For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
-msgstr "በ በለጠ ለ መረዳት ስለ ሚንት ማሻሻያ-መሳሪያ እና ለ ሙሉ ዝርዝር ክርክር አይነት:"
+msgstr ""
 
-#: usr/share/help/C/mintupdate/mintupdate-tool.page:59(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
-msgid "mintupdate-tool -h"
-msgstr "የ ሚንት ማሻሻያ-መሳሪያ -h"
+msgid "mintupdate-cli -h"
+msgstr "የ ሊነክስ ሚንት ማሻሻያ-cli -h"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:27(None)
-#: usr/share/help/C/mintupdate/levels.page:59(None)
+#: usr/share/help/C/mintupdate/levels.page:33(None)
+#: usr/share/help/C/mintupdate/levels.page:55(None)
 msgid ""
 "@@image: 'figures/mintupdate-level1.svg'; "
 "md5=4721d1b8ee24af8a530de2567ed1221c"
@@ -420,8 +303,8 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:32(None)
-#: usr/share/help/C/mintupdate/levels.page:77(None)
+#: usr/share/help/C/mintupdate/levels.page:38(None)
+#: usr/share/help/C/mintupdate/levels.page:73(None)
 msgid ""
 "@@image: 'figures/mintupdate-level2.svg'; "
 "md5=3166f49269a73d52075b41dfde52ac87"
@@ -431,8 +314,8 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:37(None)
-#: usr/share/help/C/mintupdate/levels.page:90(None)
+#: usr/share/help/C/mintupdate/levels.page:43(None)
+#: usr/share/help/C/mintupdate/levels.page:82(None)
 msgid ""
 "@@image: 'figures/mintupdate-level3.svg'; "
 "md5=7f94f299af95a42e73759eb4676e2319"
@@ -442,31 +325,20 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:42(None)
-#: usr/share/help/C/mintupdate/levels.page:107(None)
+#: usr/share/help/C/mintupdate/levels.page:48(None)
+#: usr/share/help/C/mintupdate/levels.page:93(None)
 msgid ""
 "@@image: 'figures/mintupdate-level4.svg'; "
 "md5=9e9eb80679d932ccce1db26618475908"
 msgstr ""
 "@@image: 'figures/mintupdate-level4.svg'; "
 "md5=9e9eb80679d932ccce1db26618475908"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:52(None)
-#: usr/share/help/C/mintupdate/levels.page:134(None)
-msgid ""
-"@@image: 'figures/mintupdate-level5.svg'; "
-"md5=4834415cfe932a91c86b82e6124ccfb0"
-msgstr ""
-"@@image: 'figures/mintupdate-level5.svg'; "
-"md5=4834415cfe932a91c86b82e6124ccfb0"
 
 #: usr/share/help/C/mintupdate/levels.page:16(desc)
 msgid ""
-"Updates are given a level indicating how much of an impact they have on the "
-"operating system"
-msgstr "ማሻሻያዎች ደረጃ ይሰጣቸዋል በ እርስዎ የ መስሪያ ስርአት ላይ ለሚፈጽሙት ተፅእኖ"
+"Use update levels when troubleshooting, to identify which update is "
+"responsible for a regression."
+msgstr ""
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
@@ -474,71 +346,74 @@ msgstr "የ ማሻሻያ ደረጃዎች"
 
 #: usr/share/help/C/mintupdate/levels.page:21(p)
 msgid ""
+"Critical regressions happen very rarely. When they do, restore your system "
+"with the latest system snapshot and tell the Linux Mint development team "
+"about the regression."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/levels.page:23(p)
+msgid ""
+"The Linux Mint team will want to know which update is responsible for the "
+"regression."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/levels.page:25(p)
+msgid ""
+"If you are faced with a long list of updates and you're not sure where to "
+"look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
+msgstr ""
+
+#: usr/share/help/C/mintupdate/levels.page:27(p)
+msgid ""
 "Updates are given a level indicating how much of an impact they have on the "
 "operating system."
 msgstr "ማሻሻያዎች ደረጃ ይሰጣቸዋል በ እርስዎ የ መስሪያ ስርአት ላይ ለሚፈጽሙት ተፅእኖ"
 
-#: usr/share/help/C/mintupdate/levels.page:23(p)
+#: usr/share/help/C/mintupdate/levels.page:29(p)
 msgid "There are 4 levels:"
 msgstr "እነዚህ 4 ደረጃዎች አሉ:"
 
-#: usr/share/help/C/mintupdate/levels.page:28(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1854
+#: usr/share/help/C/mintupdate/levels.page:34(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:10
 msgid "Minimal"
 msgstr "አነስተኛ"
 
-#: usr/share/help/C/mintupdate/levels.page:29(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1860
+#: usr/share/help/C/mintupdate/levels.page:35(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:15
 msgid "No impact on the system or other applications."
 msgstr "በ ስርአቱ ወይንም በ ሌሎች መተግበሪያ ላይ ተፅእኖ አይፈጥርም"
 
-#: usr/share/help/C/mintupdate/levels.page:33(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1855
+#: usr/share/help/C/mintupdate/levels.page:39(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:11
 msgid "Normal"
 msgstr "መደበኛ"
 
-#: usr/share/help/C/mintupdate/levels.page:34(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1861
+#: usr/share/help/C/mintupdate/levels.page:40(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:16
 msgid "Default level. Usually low impact on the system."
 msgstr "ነባር ደረጃ ብዙ ጊዜ ተፅእኖው በ ስርአቱ ላይ በጣም አነስተኛ ነው"
 
-#: usr/share/help/C/mintupdate/levels.page:38(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1856
+#: usr/share/help/C/mintupdate/levels.page:44(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:12
 msgid "Large"
 msgstr "ትልቅ"
 
-#: usr/share/help/C/mintupdate/levels.page:39(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
-msgid "Apply with caution. Impact on multiple applications."
-msgstr "በ ጥንቃቄ ይፈጽሙ: ይህ በ በርካታ መተግበሪያዎች ላይ ተፅእኖ ይፈጥራል"
+#: usr/share/help/C/mintupdate/levels.page:45(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:17
+msgid "Impact on multiple applications."
+msgstr ""
 
-#: usr/share/help/C/mintupdate/levels.page:43(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1857
+#: usr/share/help/C/mintupdate/levels.page:49(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:13
 msgid "Sensitive"
 msgstr "Sensitive"
 
-#: usr/share/help/C/mintupdate/levels.page:44(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1863
-msgid "Apply one by one. Impact on sensitive parts of the system."
-msgstr "አንድ በ አንድ መፈጸሚያ: ይህ በ sensitive አካሎች ላይ ተፅእኖ ይፈጥራል በ ስርአቱ ውስጥ"
+#: usr/share/help/C/mintupdate/levels.page:50(p)
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:18
+msgid "Impact on sensitive parts of the system."
+msgstr ""
 
-#: usr/share/help/C/mintupdate/levels.page:48(p)
-msgid ""
-"And there's also a special level which is given to updates with known "
-"critical issues:"
-msgstr "እንዲሁም የ ተለየ ደረጃ ማሻሻያ አለ የ ታወቀውን አደገኛ ችግር ማሻሻያ"
-
-#: usr/share/help/C/mintupdate/levels.page:53(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1858
-msgid "Dangerous"
-msgstr "አደገኛ"
-
-#: usr/share/help/C/mintupdate/levels.page:54(p)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1864
-msgid "Very rare. Not recommended. Known to create issues."
-msgstr "አንዳንድ ጊዜ አይመከሩም። አደገኛ ችግር ይፈጥራል"
-
-#: usr/share/help/C/mintupdate/levels.page:59(title)
+#: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
 "Level 1"
@@ -546,42 +421,39 @@ msgstr ""
 "<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
 "Level 1"
 
-#: usr/share/help/C/mintupdate/levels.page:61(p)
+#: usr/share/help/C/mintupdate/levels.page:57(p)
 msgid ""
 "Level 1 updates are updates which only affect their own software and have no "
 "impact on the rest of the system."
 msgstr "1ኛ ደረጃ ማሻሻያ የሚያሻሽለው የ ራሱን ሶፍትዌር ነው እና በ ስርአቱ ላይ ተፅእኖ አይፈጥርም"
 
-#: usr/share/help/C/mintupdate/levels.page:63(p)
+#: usr/share/help/C/mintupdate/levels.page:59(p)
 msgid "They're usually updates for single applications. For instance:"
 msgstr "ብዙ ጊዜ ለ ነጠላ መተግበሪያ ማሻሻያ ነው: ለምሳሌ:"
 
-#: usr/share/help/C/mintupdate/levels.page:66(p)
+#: usr/share/help/C/mintupdate/levels.page:62(p)
 msgid "The calculator"
 msgstr "መደመሪያ"
 
-#: usr/share/help/C/mintupdate/levels.page:67(p)
+#: usr/share/help/C/mintupdate/levels.page:63(p)
 msgid "The PDF reader"
 msgstr "የ PDF አንባቢ"
 
-#: usr/share/help/C/mintupdate/levels.page:68(p)
+#: usr/share/help/C/mintupdate/levels.page:64(p)
 msgid "The text editor"
 msgstr "የ ጽሁፍ ማረሚያ"
 
-#: usr/share/help/C/mintupdate/levels.page:69(p)
+#: usr/share/help/C/mintupdate/levels.page:65(p)
 msgid "The media player"
 msgstr "የ መገናኛ ማጫወቻ"
 
-#: usr/share/help/C/mintupdate/levels.page:72(p)
+#: usr/share/help/C/mintupdate/levels.page:68(p)
 msgid ""
-"You can apply these updates without worrying about regressions. In the worst "
-"case scenario a regression would only affect the software you're upgrading, "
-"not the operating system itself."
+"Regressions in these updates usually only affect the software they're "
+"updating, not the operating system itself."
 msgstr ""
-"እርስዎ እነዚህን ማሻሻያዎች መፈጸም ይችላሉ ስለ ዝቅ ማድረጊያ ሳይጨነቁ: ዝቅ ማድረጊያ ቢፈጽም ተፅእኖ የሚፈጥረው "
-"እርስዎ በሚያሻሽሉት ሶፍትዌሩ ላይ ብቻ ነው: በ መስሪያ ስርአቱ ላይ ችግር አይፈጥርም"
 
-#: usr/share/help/C/mintupdate/levels.page:77(title)
+#: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
 "Level 2"
@@ -589,12 +461,12 @@ msgstr ""
 "<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
 "Level 2"
 
-#: usr/share/help/C/mintupdate/levels.page:79(p)
+#: usr/share/help/C/mintupdate/levels.page:75(p)
 msgid ""
 "This is the default level, so the vast majority of updates are level 2."
 msgstr "ይን ነባር ደረጃ ነው: ስለዚህ በርካታ ማሻሻያዎች ደረጃ 2 ናቸው"
 
-#: usr/share/help/C/mintupdate/levels.page:81(p)
+#: usr/share/help/C/mintupdate/levels.page:77(p)
 msgid ""
 "These updates aren't known to impact large areas or sensitive parts of the "
 "system, but they're not guaranteed to only affect their own software either."
@@ -602,21 +474,7 @@ msgstr ""
 "እነዚህ ማሻሻያዎች የታወቁ አይደሉም በርካታ ቦታዎች ላይ ተፅእኖ እንደሚፈጥሩ: ወይንም በ ስርአቱ sensitive አካል "
 "ላይ: ነገር ግን ማረጋገጫ መስጠት አይቻልም ከ ራሳቸው ሶፍትዌር በስተቀር"
 
-#: usr/share/help/C/mintupdate/levels.page:83(p)
-msgid ""
-"In general, you should be able to apply these updates without worrying about "
-"regressions."
-msgstr "ባጠቃላይ እርስዎ እነዚህን ማሻሻያዎች መፈጸም ይችላሉ ስለ ዝቅ ማድረጊያ ምንም ሳይጨነቁ"
-
-#: usr/share/help/C/mintupdate/levels.page:85(p)
-msgid ""
-"If an important regression, or potential for regression, was found in a "
-"level 2 update, its level would be changed to 3 or 4."
-msgstr ""
-"አስፈላጊ ዝቅ ማድረጊያ ከ ተፈጠረ ወይንም ዝቅ ማድረጊያ ከ ተገኘ በ ደረጃ 2ኛ ማሻሻያ ውስጥ: ደረጃው ይቀየራል ወደ "
-"3ኛ ወይንም 4ኛ"
-
-#: usr/share/help/C/mintupdate/levels.page:90(title)
+#: usr/share/help/C/mintupdate/levels.page:82(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
 "Level 3"
@@ -624,13 +482,13 @@ msgstr ""
 "<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
 "Level 3"
 
-#: usr/share/help/C/mintupdate/levels.page:92(p)
+#: usr/share/help/C/mintupdate/levels.page:84(p)
 msgid ""
 "Level 3 updates are updates which not only affect themselves but also have "
 "an impact on other applications."
 msgstr "እነዚህ 3ኛ ደረጃ ማሻሻያዎች በራሳቸው ላይ ብቻ ሳይሆን በ ሌሎች መተግበሪያዎች ላይ ተፅእኖ ይፈጥራሉ"
 
-#: usr/share/help/C/mintupdate/levels.page:94(p)
+#: usr/share/help/C/mintupdate/levels.page:86(p)
 msgid ""
 "Typical examples of level 3 updates are GTK, DBUS, etc... A regression in "
 "these updates wouldn't stop your computer from booting properly, but it "
@@ -639,43 +497,14 @@ msgstr ""
 "ጥሩ ምሳሌ ለ 3ኛ ደረጃ ማሻሻያ ይህ GTK, DBUS, etc... ዝቅ ማድረጊያነው: እነዚህ ማሻሻያ ውስጥ የ እርስዎን "
 "ኮምፒዩተር እንደገና ከ ማስነሳት አያግድም: ነገር ግን በ በርካታ መተግበሪያዎች ላይ ተፅእኖ ይፈጥራል"
 
-#: usr/share/help/C/mintupdate/levels.page:96(p)
+#: usr/share/help/C/mintupdate/levels.page:88(p)
 msgid ""
 "Desktop environments are also level 3 updates. If a critical regression "
 "happens in Cinnamon, you might be unable to log in."
 msgstr ""
 "የ ዴስክቶፕ አካባቢ 3ኛ ደረጃ ማሻሻያ: አደገኛ ዝቅ ማድረጊያ ከ ተፈጠረ በ ሲናሞን ውስጥ: እርስዎ መግባት አይችሉም"
 
-#: usr/share/help/C/mintupdate/levels.page:98(p)
-msgid ""
-"There aren't many level 3 updates. It is recommended to apply them with "
-"caution and in isolation. Take note of what updates you are applying, check "
-"the system afterwards to make sure everything is working fine."
-msgstr ""
-"በርካታ የ 3ኛ ደረጃ ማሻሻያዎች አይኖሩም: እንዲገጥሙ እንመክራለን በ ጥንቃቄ እና ለ የብቻ: ማስታወሻ ይውሰዱ እርስዎ "
-"ምን እንደፈጸሙ: ሲጨርሱ ስርአቱ ይመርምሩ ሁሉም በ ትክክል እንደሚሰራ"
-
-#: usr/share/help/C/mintupdate/levels.page:100(p)
-#: usr/share/help/C/mintupdate/levels.page:127(p)
-msgid ""
-"If something breaks, seek help on the forums or the chat channel and tell "
-"people which update caused the regression and what is broken."
-msgstr ""
-"አንድ ነገር ከ ተሰበረ እርዳታ ይፈልጉ በ ውይይት መድረኮች ወይንም በ ውይይት ጣቢያዎች ውስጥ: የትኛው ማሻሻያ ችግሩን "
-"እንደፈጠረ እና ምን ዝቅ እንደተደረገ መረጃውን ያሰናዱ"
-
-#: usr/share/help/C/mintupdate/levels.page:102(p)
-msgid ""
-"If you blindly apply hundreds of updates and you're unable to pinpoint the "
-"problematic one, you're unlikely to find help. All level 3 updates are "
-"recommended but you are expected to be cautious and to know what you are "
-"upgrading."
-msgstr ""
-"እርስዎ በ ደፈናው በርካታ ማሻሻያዎችን ካሻሻሉ እና ችግር ቢፈጠር ችግሩን የ ተፈጠረው በ ምን እንደሆን ካላወቁ: እርዳታ "
-"ማግኘት አይችሉም: ሁሉም 3ኛ ደረጃ ማሻሻያ እንዲገጥሙ ይመከራሉ ነገር ግን አስፈላጊ ጥንቃቄ ያድርጉ እና የሚያሻሽሉትን "
-"ይወቁ"
-
-#: usr/share/help/C/mintupdate/levels.page:107(title)
+#: usr/share/help/C/mintupdate/levels.page:93(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
 "Level 4"
@@ -683,118 +512,31 @@ msgstr ""
 "<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
 "Level 4"
 
-#: usr/share/help/C/mintupdate/levels.page:109(p)
+#: usr/share/help/C/mintupdate/levels.page:95(p)
 msgid ""
 "Level 4 updates are updates which affect sensitive parts of the operating "
 "system such as:"
 msgstr "ደረጃ 4ኛ ማሻሻያ ተፅእኖ ይፈጥራሉ በ sensitive የ መስሪያ ስርአት ላይ እንደ"
 
-#: usr/share/help/C/mintupdate/levels.page:112(p)
+#: usr/share/help/C/mintupdate/levels.page:98(p)
 msgid "The boot sequence"
 msgstr "የ ማስነሻ ቅደም ተከተል"
 
-#: usr/share/help/C/mintupdate/levels.page:113(p)
+#: usr/share/help/C/mintupdate/levels.page:99(p)
 msgid "The display manager (login screen, session management)"
 msgstr "የ ማሳያ አስተዳዳሪ (የ መግቢያ መመልከቻ: የ ክፍለ ጊዜ አስተዳዳሪ)"
 
-#: usr/share/help/C/mintupdate/levels.page:114(p)
+#: usr/share/help/C/mintupdate/levels.page:100(p)
 msgid "The kernel (hardware support)"
 msgstr "ከረኔል (የ ጠንካራ አክል ድጋፍ)"
 
-#: usr/share/help/C/mintupdate/levels.page:115(p)
+#: usr/share/help/C/mintupdate/levels.page:101(p)
 msgid "The drivers (networking, NVIDIA/AMD)"
 msgstr "The drivers (ኔትዎርክ: NVIDIA/AMD)"
 
-#: usr/share/help/C/mintupdate/levels.page:116(p)
+#: usr/share/help/C/mintupdate/levels.page:102(p)
 msgid "The display (Xorg, mesa)"
 msgstr "The display (Xorg, mesa)"
-
-#: usr/share/help/C/mintupdate/levels.page:119(p)
-msgid ""
-"Like other updates, all level 4 updates are recommended, especially if they "
-"are security updates."
-msgstr ""
-"እንደ ሌሎች ማሻሻያዎች: ሁሉንም 4ኛ ደረጃ ማሻሻያ እንዲገጥሙ እንመክራለን: በተለይ የ ደህንነት ማሻሻያ ከሆኑ"
-
-#: usr/share/help/C/mintupdate/levels.page:121(p)
-msgid ""
-"However, if a critical regression was present in one of these updates it "
-"could impact a sensitive part of your system."
-msgstr ""
-"ነገር ግን አደገኛ ዝቅ ማድረጊያ ከ ተፈጠረ በ አንዱ ማሻሻያ በርካታ የ እርስዎ ስርአት ላይ ተፅእኖ ሊፈጥር ይችላል"
-
-#: usr/share/help/C/mintupdate/levels.page:123(p)
-msgid ""
-"You could find yourself without a connection to the Internet, without the "
-"ability to start the desktop environment or even without the ability to boot "
-"the operating system."
-msgstr ""
-"እርስዎ ወደ ኢንተርኔት መገናኘት አይችሉ ይሆናል: ወይንም የ ዴስክቶፕን ማስጀመር አይችሉ ይሆናል: ወይንም የ መስሪያ "
-"ስርአቱ ላይጀምር ይችላል"
-
-#: usr/share/help/C/mintupdate/levels.page:125(p)
-msgid ""
-"For this reason you should always be careful when applying level 4 updates "
-"(including kernel updates). Apply them one by one and take note of the "
-"versions you're applying."
-msgstr ""
-"በዚህ ምክንያት እርስዎ ሁል ጊዜ መጠንቀቅ አለብዎት በሚፈጽሙ ጊዜ 4ኛ ደረጃ ማሻሻያ (የ ከረኔል ማሻሻያንም ያካትታል) "
-"አንድ በ አንድ ይፈጽሙ እና የትኛውን እትም እንደፈጸሙ ማስታወሻ ይውሰዱ"
-
-#: usr/share/help/C/mintupdate/levels.page:129(p)
-msgid ""
-"If you blindly apply hundreds of updates and you're unable to pinpoint the "
-"problematic one, you're unlikely to find help. All level 4 updates are "
-"recommended but you are expected to be cautious and to know what you are "
-"upgrading."
-msgstr ""
-"እርስዎ በ ደፈናው በርካታ ማሻሻያዎችን ካሻሻሉ ችግር ቢፈጠር ችግሩን ማግኘት አይቻልም: እርስዎ እርዳታ ማግኘት "
-"አይችሉም: ሁሉም 4ኛ ደረጃ ማሻሻያዎችን እንዲያሻሽሉ እንመክራለን: ነገር ግን በ ጥንቃቄ ይፈጽሙ እና የሚያሻሽሉትን ይወቁ"
-
-#: usr/share/help/C/mintupdate/levels.page:134(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level5.svg\" height=\"40\"/> "
-"Level 5"
-msgstr ""
-"<media type=\"image\" src=\"figures/mintupdate-level5.svg\" height=\"40\"/> "
-"Level 5"
-
-#: usr/share/help/C/mintupdate/levels.page:136(p)
-msgid "Level 5 updates are extremely rare."
-msgstr "ደረጃ 5ኛ ማሻሻያ በጣም ጥቂት ነው"
-
-#: usr/share/help/C/mintupdate/levels.page:138(p)
-msgid ""
-"When a critical bug is found in an update it is usually fixed as soon as "
-"possible."
-msgstr "አንዳንድ ችግር በሚገኝ ጊዜ በ ማሻሻያ ውስጥ ወዲያውኑ በ ተቻለ ፍጥነት ይጠገናል"
-
-#: usr/share/help/C/mintupdate/levels.page:140(p)
-msgid ""
-"There are many ways for Linux Mint to address issues, and many mechanisms in "
-"place both remotely in the repositories and locally within your operating "
-"system. So in normal circumstances updates shouldn't need to be blacklisted."
-msgstr ""
-"በርካታ መንገዶች አሉ ችግር ወደ ሊነክስ ሚንት ጋር ለማድረስ: እንዲሁም በርካታ ቦታዎች በ ሩቅ ማጠራቀሚያዎች እና በ "
-"አካባቢ በ እርስዎ ኮምፒዩተር ውስጥ: በ መደበኛ መንገድ ማሻሻያ ጥቁር ዝርዝር ውስጥ መግባት የለበትም"
-
-#: usr/share/help/C/mintupdate/levels.page:142(p)
-msgid ""
-"If an update had a critical bug and a solution was being worked on but "
-"wasn't ready yet, Linux Mint could mark a specific version of the update as "
-"level 5 (i.e. \"not recommended\"). This would prevent users from applying "
-"it until the new version hits the repositories."
-msgstr ""
-"ማሻሻያ የታወቀ ችግር ካለው እና መፍትሄው እየተሰራ ከሆነ ነገር ግን ዝግጁ ካልሆነ: ሊነክስ ሚንት በ ተገለጸው እትም "
-"ላይ 5ኛ ደረጃ ማሻሻያ ይታያል (ይህን አንመክርም) ይህ ተጠቃሚዎችን ከ መግጠም ይከለክላል አዲስ እትም በ ማጠራቀሚያ "
-"ውስጥ እስከሚወጣ ድረስ"
-
-#: usr/share/help/C/mintupdate/levels.page:144(p)
-msgid ""
-"Level 5 updates are known to cause issues. They are very rare and usually "
-"temporary. They are not visible by default and they should not be applied."
-msgstr ""
-"5ኛ ደረጃ ማሻሻያ ችግር ይፈጥራሉ: ብዙ ጊዜ አይኖሩም እና ጊዚያዊ ናቸው: በ ነባር አይታዩም እና አይፈጸሙም"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
@@ -998,14 +740,10 @@ msgstr ""
 "እንደገና ያስነሱ"
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:919
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:923
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:981
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1703
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1782
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1784
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1828 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:968
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1031
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728 generate_desktop_files:26
 msgid "Update Manager"
 msgstr "የማሻሻያ አስተዳዳሪ"
 
@@ -1033,13 +771,10 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
-"It is recommended to apply security updates but also to understand how "
-"updates can affect your computer, so you can review them, apply them with "
-"caution and be prepared in case something goes wrong."
+"To keep your computer safe and in good working condition, it is recommended "
+"to apply all available updates and to set up system snapshots, so that you "
+"can restore your system in case something goes wrong."
 msgstr ""
-"እርስዎ የ ደህንነት ማሻሻያ እንዲፈጽሙ ይመከራሉ: እንዲሁም ማሻሻያ እንዴት በ እርስዎ ኮምፒዩተር ላይ ተፅእኖ "
-"እንደሚፈጥር ይወቁ: ስለዚህ እርስዎ መመርመር ይችላሉ: በ ጥንቃቄ ማሻሻያ ይፈጽሙ: እና ዝግጁ ይሁኑ በ ድንገት ችግር "
-"ቢፈጠር"
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -1049,9 +784,13 @@ msgstr "ዋናው ሀሳብ"
 msgid "This section explains the core concepts related to software updates."
 msgstr "ይህ ክፍል የሚያስረዳው ዋናውን የ ተዛመደ የ ሶፍትዌር ማሻሻያ ነው"
 
+#: usr/share/help/C/mintupdate/index.page:35(title)
+msgid "Troubleshooting"
+msgstr "ችግሩን መፈለጊያ"
+
 #: usr/share/help/C/mintupdate/index.page:37(p)
-msgid "This section explains update levels, policies."
-msgstr "ይህ ክፍል የሚያስረዳው የ ማሻሻያ ደረጃ አሰራር ነው"
+msgid "This section explains update levels."
+msgstr "ይህ ክፍል የሚገልጸው የ ማሻሻያ ደረጃ ነው"
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
@@ -1072,16 +811,16 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  samson https://launchpad.net/~sambelet"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:223
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:206
 #, python-format
 msgid "Linux kernel %s"
 msgstr "ሊነክስ ከረኔል %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:224
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:207
 msgid "The Linux kernel."
 msgstr "የ ሊነክስ ከረኔል"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:225
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:208
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -1108,7 +847,6 @@ msgid "This kernel cannot be removed because it is currently in use."
 msgstr "ይህን kernel ማስወገድ አይችሉም ምክንያቱም እሁን እየተጠቀሙበት ነው"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1180
 msgid "Install"
 msgstr "መግጠሚያ"
 
@@ -1126,606 +864,393 @@ msgstr "በ እርግጥ ይህን %s kernel ማስወገድ ይፈልጋሉ?"
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "በ እርግጥ ይህን %s kernelመግጠም ይፈልጋሉ?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:198
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:199
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "Kernels"
 msgstr "ከረኔልስ"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:214
-msgid "Continue"
-msgstr "ይቀጥሉ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:216
-msgid "Do not show this message again"
-msgstr "ይህን መልእክት በድጋሚ አታሳይ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:218
-msgid "Warning!"
-msgstr "ማስጠንቀቅያ!"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:219
-msgid "Proceed with caution"
-msgstr "በ ጥንቃቄ ይቀጥሉ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:220
-msgid ""
-"The Linux kernel is a critical part of the system. Regressions can lead to "
-"lack of networking, lack of sound, lack of graphical environment or even the "
-"inability to boot the computer."
-msgstr ""
-"የ ሊነክስ ከረኔል የ ስርአቱ በጣም አስፈላጊ አካል ነው: ዝቅ ማድረግ ሊያሰናክል ይችላል የ ኔትዎርክ: ድምፅ ያለመኖር: "
-"የ ንድፍ አካባቢ ወይንም ኮምፒዩተሩን እንዳይነሳ ሊያደርግ ይችላል"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:221
-msgid ""
-"Before installing or removing kernels, please make sure to read the help "
-"section, to make sure you know how to select kernels, how to revert updates "
-"and how to check your DKMS status."
-msgstr ""
-"እርስዎ ከረኔል ከ መግጠም ወይንም ከ ማስወገድዎት በፊት: እባክዎን እርግጠኛ ይሁኑ የ እርዳታ ክፍል ማንበብዎትን: "
-"ከረኔል እንዴት እንደሚመርጡ: እንዴት እንደ ነበር እንደሚመልሱ እና የ DKMS ሁኔታ እንዴት እንደሚመረምሩ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:233
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
-msgid "Close"
-msgstr "መዝጊያ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:250
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
 msgid "Active"
 msgstr "ንቁ"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:252
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
 msgid "Installed"
 msgstr "ተገጥሟል"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:287
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:280
 msgid "You are currently using the following kernel:"
 msgstr "እርስዎ አሁን እየተጠቀሙ ያሉት የሚቀጥለውን ከረኔል ነው:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:48
-msgid "B"
-msgstr "ቢ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:50
-msgid "KB"
-msgstr "ኪሎ ቢት"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:52
-msgid "MB"
-msgstr "ሜጋ ቢት"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:54
 msgid "GB"
 msgstr "ጌጋ ቢት"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:157
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:56
+msgid "MB"
+msgstr "ሜጋ ቢት"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
+msgid "KB"
+msgstr "ኪሎ ቢት"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:59
+msgid "B"
+msgstr "ቢ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:161
 msgid "Downloading changelog..."
 msgstr "የተቀየረ መግቢያን በማውረድ ላይ..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:170
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:174
 msgid "No changelog available"
 msgstr "የተቀየረ መግቢያ የለም"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:334
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:338
 msgid "This upgrade will trigger additional changes"
 msgstr "ይህ ማሻሻያ ተጨማሪ ለውጦችን ያስነሳል"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:343
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
 msgid "The following packages will be removed:"
 msgstr "የሚቀጥለው ጥቅል ይወገዳል"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:372
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:376
 msgid "The following packages will be installed:"
 msgstr "የሚቀጥለው ጥቅል ይገጠማል"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:415
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:419
 msgid "Installing updates"
 msgstr "ማሻሻያዎችን በመግጠም ላይ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:468
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:553
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:964
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
 msgid "Checking for updates"
 msgstr "ማሻሻያዎችን በመፈለግ ላይ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:476
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:498
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:502
 msgid "Could not install the security updates"
 msgstr "የደህንነት ማሻሻያዎችን መግጠም አልተቻለም"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:545
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:546
 msgid "Starting refresh..."
 msgstr "ማነቃቂያዎችን በማስጀመር ላይ..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:576
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:580
 msgid "Another application is using APT"
 msgstr "ኤፒትን ሌላ መተገበሪያ እየተጠቀመበት ነው"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:585
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:589
 msgid "Finding the list of updates..."
 msgstr "በፍለጋ ላይ ዝርዝር ማሻሻያዎችን"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:599
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:607
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Your APT cache is corrupted."
 msgstr "የ እርስዎ APT ማጠራቀሚያ የ ተበላሸ ነው"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:600
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:608
 msgid ""
 "Do not install or update anything, it could break your operating system!"
 msgstr "አይግጠሙ ወይንም ምንም አያሻሽሉ: የ እርስዎን የ መስሪያ ስርአት ያበላሸዋል"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
-msgid "Switch to a different Linux Mint mirror to solve this situation."
-msgstr "ወደ ሌላ የ ሊነክስ ሚንት ማንፃባረቂያ ይቀይሩ ችግሩን ለ መፍታት"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:609
+msgid ""
+"To switch to a different Linux Mint mirror and solve this problem, click OK."
+msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
 msgstr "እባክዎን ወደ ሌላ የ ሊነክስ ሚንት ማንፃባረቂያ ይቀይሩ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:612
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:827
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1098
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:850
+#: usr/share/linuxmint/mintupdate/main.ui.h:19
+msgid "OK"
+msgstr "እሺ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:862
+#: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
 msgstr "የ ማሻሻያ ዝርዝሮችን ማነቃቃት አልተቻለም"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:633
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1097
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:753
+#: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "Your system is up to date"
 msgstr "ስርአቱ ዘመናዊ ነው"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:707
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:718
 msgid "Kernel update"
 msgstr "ከረኔል ማሻሻያ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:709
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:721
 msgid "Security update"
 msgstr "የደህንነት ማሻሻያ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:711
-msgid ""
-"Software backport. Be careful when upgrading. New versions of software can "
-"introduce regressions."
-msgstr "የ ሶፍትዌር backport. በሚያሻሽሉ ጊዜ ይጠንቀቁ: አዲስ እትም ሶፍትዌር አለ መረጋጋት ሊፈጥር ይችላል"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:713
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:724
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
 msgstr ""
 "ያልተረጋጋ ሶፍትዌር: ይህን ማሻሻያ የሚገጥሙት አበልጻጊዎችን ለ መርዳት ነው ለ beta-test አዲስ ሶፍትዌር"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
 msgid "Software update"
 msgstr "የ ሶፍትዌር ማሻሻያ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:738
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1442
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1493
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1603
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
+msgid "3rd-party update"
+msgstr "የ 3ኛ አካል ማሻሻያ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 msgid "No updates selected"
 msgstr "ምንም ማሻሻያ አልተመረጠም"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:740
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1495
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1463
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
 msgstr[0] "%(selected)d ማሻሻያ ተመርጧል (%(size)s)"
 msgstr[1] "%(selected)d ማሻሻያዎች ተመርጠዋል (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
 msgstr[0] "%d ማሻሻያ ዝግጁ ነው"
 msgstr[1] "%d ማሻሻያዎች ዝግጁ ናቸው"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+msgid "Please set up System Snapshots"
+msgstr "እባክዎን የ ስርአት መመልከቻ ፎቶ ያሰናዱ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+msgid ""
+"If something breaks, snapshots will allow you to restore your system to the "
+"previous working condition."
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Do you want to switch to a local mirror?"
 msgstr "ወደ ወደ ሌላ የ ሊነክስ ሚንት ማንፃባረቂያ ይቀይሩ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
-msgid "Local mirrors are usually faster than packages.linuxmint.com"
-msgstr "የ አካባቢ ሊነክስ ሚንት ማንፃባረቂያ ፈጣን ነው ከ ጥቅሎች.linuxmint.com"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+msgid "Local mirrors are usually faster than packages.linuxmint.com."
+msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 msgid "Please switch to another mirror"
 msgstr "እባክዎን ወደ ሌላ አንጸባራቂ ይቀይሩ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #, python-format
-msgid "%s is unreachable"
+msgid "%s is unreachable."
 msgstr "%s መድረስ አልተቻለም"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 #, python-format
-msgid "The last update on %(mirror)s was %(days)d day ago"
-msgid_plural "The last update on %(mirror)s was %(days)d days ago"
-msgstr[0] "የ መጨረሻው ማሻሻያ %(mirror)s ከ %(days)d ቀን በፊት ነበር"
-msgstr[1] "የ መጨረሻው ማሻሻያ %(mirror)s ከ %(days)d ቀኖች በፊት ነበር ago"
+msgid "The last update on %(mirror)s was %(days)d day ago."
+msgid_plural "The last update on %(mirror)s was %(days)d days ago."
+msgstr[0] "የ መጨረሻው ማሻሻያ ከ %(mirror)s ነበር %(days)d ቀን በፊት"
+msgstr[1] "የ መጨረሻው ማሻሻያ ከ %(mirror)s ነበር %(days)d ቀኖች በፊት"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:928
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
 msgid "Exit"
 msgstr "መውጫ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:996
-msgid "OK"
-msgstr "እሺ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:998
-msgid "Help"
-msgstr "እርዳታ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1007
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
 msgid "Upgrade"
 msgstr "ማሻሻያ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1012
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1061
 msgid "Name"
 msgstr "ስም"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1016
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1275
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1065
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
 msgid "Level"
 msgstr "ደረጃ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1020
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1731
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1069
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Old version"
 msgstr "አሮጌው እትም"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1024
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1293
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1734
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1073
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1245
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
 msgid "New version"
 msgstr "አዲሱ እትም"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1028
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1299
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1251
 msgid "Size"
 msgstr "መጠን"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1032
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1269
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1081
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
 msgid "Type"
 msgstr "አይነት"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1036
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1305
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
 msgid "Origin"
 msgstr "መነሻ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1090
-msgid "Install Updates"
-msgstr "ማሻሻያውን መግጠሚያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1091
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+#: usr/share/linuxmint/mintupdate/main.ui.h:3
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "ማነቃቂያ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1092
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1164
-msgid "Select All"
-msgstr "ሁሉንም መምረጫ"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
+msgid "Information"
+msgstr "መረጃ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1093
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
-msgid "Clear"
-msgstr "ማስወገጃ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1094
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1850
-msgid "Description"
-msgstr "መግለጫ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1095
-msgid "Changelog"
-msgstr "የተቀየረ መግቢያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
-msgid "Welcome to the Update Manager"
-msgstr "እንኳን ደህና መጡ ወደ ማሻሻያ አስተዳዳሪ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
-msgid ""
-"This tool provides your operating system with software and security updates."
-msgstr "ይህ መሳሪያ የሚያቀርበው ለ እርስዎ የ መስሪያ ስርአት ሶፍትዌር እና የ ደህንነት ማሻሻያ ነው"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
-msgid "Please choose an update policy."
-msgstr "እባክዎን የ ማሻሻያ አሰራር ይምረጡ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1107
-msgid "Just keep my computer safe"
-msgstr "የ እኔን ኮምፒዩተር በ ደህንነት መጠበቂያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1108
-msgid "Recommended for novice users."
-msgstr "ለ አዲስ ተጠቃሚዎች የምንመክረው"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
-msgid ""
-"Select updates which do not impact important parts of the operating systems."
-msgstr "በ መስሪያ ስርአቱ ላይ ብዙ ተፅእኖ የማይፈጥር ማሻሻያዎች ይምረጡ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
-msgid ""
-"Show security and kernel updates so I can review them and apply them with "
-"caution."
-msgstr "የ ደህንነት እና የ ከረኔል ማሻሻያ ማሳያ: ሰለዚህ እርስዎ በ ጥንቃቄ መምረጥ ይችላሉ መግጠም የሚፈልጉትን"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
-msgid "Let me review sensitive updates"
-msgstr "እኔ መመርመር እፈልጋለሁ sensitive ማሻሻያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1112
-msgid "Recommended for most users."
-msgstr "ከ በርካታ ተጠቃሚዎች የምንመክረው"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1113
-msgid ""
-"Select security updates and updates which do not impact important parts of "
-"the operating systems."
-msgstr "ይምረጡ የ ደህንነት ማሻሻያ እና ማሻሻያዎችን አስፈላጊ በሆነው የ መስሪያ ስርአቱ ላይ ተፅእኖ የማይፈጥረውን"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1113
-msgid ""
-"Show kernel updates and sensitive updates so I can review them and apply "
-"them with caution."
-msgstr "የ ከረኔል ማሻሻያ ማሳያ እና sensitive ማሻሻያ ስለዚህ እርስዎ መመርምር እንዲችሉ መፈጸም የሚፈልጉትን"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1115
-msgid "Always update everything"
-msgstr "ሁል ጊዜ ሁሉንም ነገር ማሻሻያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1116
-msgid "Recommended for experienced users."
-msgstr "ልምድ ላላቸው ተጠቃሚዎች የምንመክረው"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
-msgid "Always select all updates."
-msgstr "ሁል ጊዜ ሁሉንም ማሻሻያ መምረጫ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
-msgid "If a regression breaks something, I'll fix it."
-msgstr "ዝቅ ማድረጊያ እቃ ከ ሰበረ እኔ እጠግነዋለሁ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
-msgid ""
-"Security and kernel updates are always visible and updates with known issues "
-"(very rare) are always hidden. You can change this and fine-tune your policy "
-"in the preferences."
-msgstr ""
-"የ ደህንነት እና የ ከረኔል ማሻሻያ ሁል ጊዜ ይታያል እና ማሻሻያ ከ ታወቀ ችግር ጋር (ብዙ ጊዜ አይሆንም) ሁል ጊዜ "
-"ይደበቃል: እርስዎ ይህን መቀየር ይችላሉ እና በጣም-ማስተካከል የ እርስዎን አሰራር እና አፈጻጸም"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
-msgid "_File"
-msgstr "_ፋይል"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1131
-msgid "_Edit"
-msgstr "_ማረሚያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1828
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1785
 msgid "Preferences"
 msgstr "ምርጫዎች"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1143
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
+msgid "Quit"
+msgstr "ማጥፊያ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
+msgid "_File"
+msgstr "_ፋይል"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1150
+#: usr/share/linuxmint/mintupdate/history.ui.h:1
+#: usr/share/linuxmint/mintupdate/information.ui.h:3
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
+msgid "Close"
+msgstr "መዝጊያ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+msgid "_Edit"
+msgstr "_ማረሚያ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1173
 msgid "Software sources"
 msgstr "የሶፍትዌር ምንጮች"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
-msgid "Select level 1 updates"
-msgstr "ይምረጡ ደረጃ 1 ማሻሻያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1194
-msgid "Select level 2 updates"
-msgstr "ይምረጡ ደረጃ 2 ማሻሻያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
-msgid "Select level 3 updates"
-msgstr "ይምረጡ ደረጃ 3 ማሻሻያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1206
-msgid "Select level 4 updates"
-msgstr "ይምረጡ ደረጃ 4 ማሻሻያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1212
-msgid "Select security updates"
-msgstr "የ ደህንነት ማሻሻያ ይምረጡ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
-msgid "Select kernel updates"
-msgstr "የ ከረኔል ማሻሻያ ይምረጡ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1244
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
 #, python-format
 msgid "Upgrade to %s"
 msgstr "ማሻሻያ ወደ %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1248
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
 msgid "_View"
 msgstr "_መመልከቻ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1253
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1665
 msgid "History of updates"
 msgstr "የማሻሻያ ታሪክ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
 msgid "Linux kernels"
 msgstr "ሊነክስ kernels"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1703
-msgid "Information"
-msgstr "መረጃ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1217
 msgid "Visible columns"
 msgstr "የሚታይ አምድ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1671
 msgid "Package"
 msgstr "ጥቅል"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1313
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
 msgid "Show descriptions"
 msgstr "መግለጫዎች ማሳያ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
 msgid "_Help"
 msgstr "_እርዳታ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1335
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+msgid "Welcome screen"
+msgstr "እንኳን ደህና መጡ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+msgid "Keyboard Shortcuts"
+msgstr "የ ፊደል ገበታ አቋራጮች"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
 msgid "Contents"
 msgstr "ይዞታዎች"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1342
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1782
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1726
 msgid "About"
 msgstr "ስለ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1646
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1507
+#: usr/share/linuxmint/mintupdate/main.ui.h:9
+msgid "Welcome to the Update Manager"
+msgstr "እንኳን ደህና መጡ ወደ ማሻሻያ አስተዳዳሪ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
 msgid "Packages included in this update:"
 msgstr "በዚህ ማሻሻያ ውስጥ የ ተካተቱ ጥቅሎች"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1598
 msgid "Ignore updates for this package"
 msgstr "ለዚህ ጥቅል ማሻሻያውን መተው"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1706
-msgid "Process ID:"
-msgstr "የሂደት መታወቂያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1707
-msgid "Log file:"
-msgstr "የፋይል መግቢያ፡"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1725
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1668
 msgid "Date"
 msgstr "ቀን"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1843
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1800
 msgid "Options"
 msgstr "ምርጫዎች"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1844
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1801
 msgid "Levels"
 msgstr "ደረጃዎች"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1802
 msgid "Auto-refresh"
 msgstr "በራሱ-ማነቃቂያ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1846
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
 msgid "Blacklist"
 msgstr "የ ጥቁር ዝርዝር"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1849
-msgid "Impact level"
-msgstr "የ ተፅእኖው ደረጃ"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
+msgid "Auto-upgrade"
+msgstr "በራሱ-ማሻሻያ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1851
-msgid "Selected"
-msgstr "ተመርጧል"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
-msgid "Visible"
-msgstr "የሚታይ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1866
-msgid "First, refresh the list of updates after:"
-msgstr "መጀመሪያ ዝርዝሩን ያነቃቁ የ ማሻሻያውን:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1867
-msgid "Then, refresh the list of updates every:"
-msgstr "ከዛ ዝርዝሩን ያነቃቁ የ ማሻሻያውን በየ:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1868
-msgid ""
-"Note: The list only gets refreshed while the update manager window is closed "
-"(system tray mode)."
-msgstr ""
-"ማስታወሻ: ዝርዝሮቹ የሚነቃቁት የማሻሻያ አስተዳዳሪ መስኮት ከተዘጋ በኋላ ነው (በስርአቱ ማሻሻያ ማሳያ ላይ)."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
-msgid ""
-"Include updates which require the installation of new packages or the "
-"removal of installed packages"
-msgstr "አዲስ ጥቅሎች መግጠም የሚያስፈልገው ማሻሻያ ማካተቻ: ወይንም የ ተገጠሙ ጥቅሎችን ማስወገድ የሚያስፈልገው"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1871
-msgid "Hide the update manager after applying updates"
-msgstr "የ ማሻሻያ አስተዳዳሪ ማሻሻያውን ከ ጨረሰ በኋላ መደበቂያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
-msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr "የ ትሪ ምልክት ብቻ ማሳያ ማሻሻያ በሚኖር ጊዜ ወይንም ስህተት ሲፈጠር"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1873
-msgid "Don't suggest to switch to a local mirror"
-msgstr "አካባቢ ማንፀባረቂያ አታሳስብ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1874
-msgid "Always show security updates"
-msgstr "ሁል ጊዜ የደህንነት ማሻሻያ አሳይ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1875
-msgid "Always select security updates"
-msgstr "ሁል ጊዜ የ ደህንነት ማሻሻያ መምረጫ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1876
-msgid "Always show kernel updates"
-msgstr "ሁልጊዜ የ ከረኔል ማሻሻያ ማሳያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
-msgid "Always select kernel updates"
-msgstr "ሁል ጊዜ የ ከረኔል ማሻሻያ መምረጫ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
-msgid "minutes"
-msgstr "ደቂቃዎች"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
-msgid "hours"
-msgstr "ሰአቶች"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
-msgid "days"
-msgstr "ቀኖች"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
-msgid "Cancel"
-msgstr "መሰረዣ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1882
-msgid "Apply"
-msgstr "መፈጸሚያ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1923
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
 msgid "Ignored updates"
 msgstr "የተተዉ ማሻሻያዎች"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1986
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1916
 msgid "Please specify the name of the update to ignore:"
 msgstr "እባክዎን የሚተወውን የ ማሻሻያ ስም ይግለጹ:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1917
 msgid "Ignore an update"
 msgstr "ማሻሻያውን መተው"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1991
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1921
 msgid "Name:"
 msgstr "ስም:"
 
@@ -1835,13 +1360,13 @@ msgstr "ሀላፊነቱ ይገባኛል: እኔ ማሻሻል እፈልጋለሁ 
 msgid "Summary"
 msgstr "ማጠቃለያ"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:260
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:256
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
 msgstr "የ እርስዎ የ መስሪያ ስርአት ተሳክቶ ተሻሽሏል: እባክዎን የ እርስዎን ኮምፒዩተር እንደገና ያስነሱ"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:269
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:259
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
@@ -1854,6 +1379,272 @@ msgstr "ዝግጁ የሆኑ ማሻሻያዎችን ማሳያ እና መግጠሚ�
 #: usr/bin/mint-release-upgrade-root:16
 msgid "Please enter your password to perform the upgrade"
 msgstr "እባክዎን የመግቢያ ቃል ያስገቡ ማሻሻያውን ለመፈጸም"
+
+#: usr/share/linuxmint/mintupdate/information.ui.h:1
+msgid "Log file:"
+msgstr "የፋይል መግቢያ፡"
+
+#: usr/share/linuxmint/mintupdate/information.ui.h:2
+msgid "Process ID:"
+msgstr "የሂደት መታወቂያ"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:1
+msgid "Warning!"
+msgstr "ማስጠንቀቅያ!"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:2
+msgid "Proceed with caution"
+msgstr "በ ጥንቃቄ ይቀጥሉ"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:3
+msgid ""
+"The Linux kernel is a critical part of the system. Regressions can lead to "
+"lack of networking, lack of sound, lack of graphical environment or even the "
+"inability to boot the computer."
+msgstr ""
+"የ ሊነክስ ከረኔል የ ስርአቱ በጣም አስፈላጊ አካል ነው: ዝቅ ማድረግ ሊያሰናክል ይችላል የ ኔትዎርክ: ድምፅ ያለመኖር: "
+"የ ንድፍ አካባቢ ወይንም ኮምፒዩተሩን እንዳይነሳ ሊያደርግ ይችላል"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:4
+msgid ""
+"Before installing or removing kernels, please make sure to read the help "
+"section, to make sure you know how to select kernels, how to revert updates "
+"and how to check your DKMS status."
+msgstr ""
+"እርስዎ ከረኔል ከ መግጠም ወይንም ከ ማስወገድዎት በፊት: እባክዎን እርግጠኛ ይሁኑ የ እርዳታ ክፍል ማንበብዎትን: "
+"ከረኔል እንዴት እንደሚመርጡ: እንዴት እንደ ነበር እንደሚመልሱ እና የ DKMS ሁኔታ እንዴት እንደሚመረምሩ"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:5
+msgid "Do not show this message again"
+msgstr "ይህን መልእክት በድጋሚ አታሳይ"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
+#: usr/share/linuxmint/mintupdate/main.ui.h:18
+msgid "Help"
+msgstr "እርዳታ"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
+msgid "Continue"
+msgstr "ይቀጥሉ"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "ማስወገጃ"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:2
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
+msgid "Select All"
+msgstr "ሁሉንም መምረጫ"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:4
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:4
+msgid "Install Updates"
+msgstr "ማሻሻያውን መግጠሚያ"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:7
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:14
+msgid "Description"
+msgstr "መግለጫ"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:8
+msgid "Changelog"
+msgstr "የተቀየረ መግቢያ"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:10
+msgid ""
+"This tool provides your operating system with software and security updates."
+msgstr "ይህ መሳሪያ የሚያቀርበው ለ እርስዎ የ መስሪያ ስርአት ሶፍትዌር እና የ ደህንነት ማሻሻያ ነው"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "የ ደህንነት ማሻሻያዎች"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:12
+msgid ""
+"Apply security updates to patch vulnerabilities and keep your computer safe."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:13
+msgid "Software updates"
+msgstr "ሶፍትዌር ማሻሻያ"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:14
+msgid "Apply software updates to fix bugs in your computer."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:16
+msgid ""
+"Set up system snapshots to protect yourself from mistakes and regressions. "
+"If anything breaks simply restore the last snapshot."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:17
+msgid ""
+"Linux Mint recommends to set up automated system snapshots and to apply all "
+"available updates. This way, your computer is always secure and you can go "
+"back in time and recover from any potential regression."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:1
+msgid "Apply"
+msgstr "መፈጸሚያ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid "Cancel"
+msgstr "መሰረዣ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:3
+msgid ""
+"Make sure your system snapshots are properly configured before using this "
+"option."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:4
+msgid ""
+"When this option is enabled, all updates are applied automatically on a "
+"daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:5
+msgid ""
+"You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
+"/etc/mintupdate.blacklist to blacklist some of them."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:6
+msgid "Apply updates automatically"
+msgstr "ማሻሻያ ራሱ በራሱ መፈጸሚያ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:7
+msgid "Impact level"
+msgstr "የ ተፅእኖው ደረጃ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:8
+msgid "Selected"
+msgstr "ተመርጧል"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:9
+msgid "Visible"
+msgstr "የሚታይ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:19
+msgid ""
+"It is recommended to set up system snapshots and to apply all available "
+"updates. Only hide levels when troubleshooting or trying to identify a "
+"regression. Check the help section for more information."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:20
+msgid "Interface"
+msgstr "ግንኙነት"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:21
+msgid "Hide the update manager after applying updates"
+msgstr "የ ማሻሻያ አስተዳዳሪ ማሻሻያውን ከ ጨረሰ በኋላ መደበቂያ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:22
+msgid "Only show a tray icon when updates are available or in case of errors"
+msgstr "የ ትሪ ምልክት ብቻ ማሳያ ማሻሻያ በሚኖር ጊዜ ወይንም ስህተት ሲፈጠር"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:23
+msgid "Show a warning if system snapshots are not set up"
+msgstr "የ ስርአት መመልከቻ ፎቶ ማንሻ ካልተሰናዳ ማስጠንቀቂያ ማሳያ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:24
+msgid "Don't suggest to switch to a local mirror"
+msgstr "አካባቢ ማንፀባረቂያ አታሳስብ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:25
+msgid "Updates"
+msgstr "ማሻሻያዎች"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:26
+msgid ""
+"It is recommended to show and apply all available updates. Only disable the "
+"options below when troubleshooting."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:27
+msgid ""
+"Include updates which require the installation of new packages or the "
+"removal of installed packages"
+msgstr "አዲስ ጥቅሎች መግጠም የሚያስፈልገው ማሻሻያ ማካተቻ: ወይንም የ ተገጠሙ ጥቅሎችን ማስወገድ የሚያስፈልገው"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:28
+msgid "Always show security updates"
+msgstr "ሁል ጊዜ የደህንነት ማሻሻያ አሳይ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:29
+msgid "Always select security updates"
+msgstr "ሁል ጊዜ የ ደህንነት ማሻሻያ መምረጫ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:30
+msgid "Always show kernel updates"
+msgstr "ሁልጊዜ የ ከረኔል ማሻሻያ ማሳያ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:31
+msgid "Always select kernel updates"
+msgstr "ሁል ጊዜ የ ከረኔል ማሻሻያ መምረጫ"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:32
+msgid "First, refresh the list of updates after:"
+msgstr "መጀመሪያ ዝርዝሩን ያነቃቁ የ ማሻሻያውን:"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:33
+msgid "Then, refresh the list of updates every:"
+msgstr "ከዛ ዝርዝሩን ያነቃቁ የ ማሻሻያውን በየ:"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:34
+msgid "days"
+msgstr "ቀኖች"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:35
+msgid "hours"
+msgstr "ሰአቶች"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:36
+msgid "minutes"
+msgstr "ደቂቃዎች"
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:37
+msgid ""
+"Note: The list only gets refreshed while the update manager window is closed "
+"(system tray mode)."
+msgstr ""
+"ማስታወሻ: ዝርዝሮቹ የሚነቃቁት የማሻሻያ አስተዳዳሪ መስኮት ከተዘጋ በኋላ ነው (በስርአቱ ማሻሻያ ማሳያ ላይ)."
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
+msgid "Window"
+msgstr "መስኮት"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
+msgid "Selection"
+msgstr "ምርጫ"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
+msgid "Select level 1 updates"
+msgstr "ይምረጡ ደረጃ 1 ማሻሻያ"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
+msgid "Select level 2 updates"
+msgstr "ይምረጡ ደረጃ 2 ማሻሻያ"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:10
+msgid "Select level 3 updates"
+msgstr "ይምረጡ ደረጃ 3 ማሻሻያ"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:11
+msgid "Select level 4 updates"
+msgstr "ይምረጡ ደረጃ 4 ማሻሻያ"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:12
+msgid "Select security updates"
+msgstr "የ ደህንነት ማሻሻያ ይምረጡ"
+
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:13
+msgid "Select kernel updates"
+msgstr "የ ከረኔል ማሻሻያ ይምረጡ"
 
 #~ msgid "Checking the connection to the Internet..."
 #~ msgstr "በፍለጋ ላይ የኢንተርኔት ግንኙነት..."
