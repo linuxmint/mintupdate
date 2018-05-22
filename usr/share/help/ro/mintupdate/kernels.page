@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Nuclee și actualizări nuclee</desc>
+    <desc>Nucleele și actualizările nucleelor</desc>
   </info>
 
   <title>Actualizări nuclee</title>
 
   <p>Nucleul este partea centrală a sistemului de operare. Printre altele, este responsabil pentru suportul hardware.</p>
 
-  <note><p>În Linux Mint, actualizările de kernel aduc atât îmbunătățiri de securitate, cât și remedieri de erori (și, de asemenea, caracteristici noi), astfel că au impact asupra părților esențiale ale sistemului de operare. De aceea, actualizările de kernel sunt importante din punctul de vedere al securității, dar sunt și dispuse la regresii care pot fi dificil de remediat de utilizatorii începători.</p></note>
+  <note><p>În Linux Mint, actualizările de nucleu aduc atât îmbunătățiri de securitate, cât și remedieri de erori (și, uneori, caracteristici noi), astfel că au impact asupra părților esențiale ale sistemului de operare. De aceea, actualizările de nucleu sunt importante din punctul de vedere al securității, dar pot produce și regresii care pot fi dificil de remediat de utilizatorii începători.</p></note>
 
-  <p>Din punct de vedere al securității, este important să aplicați actualizări de nucleu.</p>
+  <p>Din punctul de vedere al securității, este important să aplicați actualizările de nucleu.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>În schimb o regresie în nucleu ar putea afecta abilitatea de conectare la internet, de a porni mediul grafic sau chiar să porniți sistemul de operare.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Din acest motiv, e important să acordați atenție la aplicarea actualizărilor de nucleu și să știți cum să reveniți la cel anterior dacă ceva nu merge bine.</p>
 
   <section id="kernel1">
     <title>Multiple nuclee pot fi instalate</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Când aplicați o actualizare, înlocuiți vechea versiune a programului cu una nouă.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Lucrurile sunt diferite cu un nucleu. Când aplicați o „actualizare de nucleu”, de fapt nu-l actualizați, ci noul nucleu va fi instalat alături de cel existent.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>La fiecare aplicare a unei actualizări de nucleu, instalați un nou nucleu în sistem, fără eliminarea celor vechi.</p>
 
-    <p>La momentul pornirii, computerul selectează cel mai recent.</p>
+    <p>La momentul pornirii, computerul îl selectează pe cel mai recent.</p>
 
   </section>
 
   <section id="kernel2">
     <title>Identificarea nucleului curent</title>
 
-    <p>Dacă doriți să știți care kernel utilizați în prezent, deschideți un terminal și tastați:</p>
+    <p>Dacă doriți să știți ce nucleu utilizați în prezent, deschideți un terminal și tastați:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Instalări și eliminări de nuclee</title>
+    <title>Instalarea și eliminaea nucleelor</title>
 
-    <p>Puteți instala și elimina nuclee din Administratorul actualizări.</p>
+    <p>Puteți instala și elimina nuclee din Administratorul de actualizări.</p>
 
-    <p>Selectați "Vedere" -&gt; "Nuclee Linux" din meniu.</p>
+    <p>Selectați "Vizualizare" -&gt; "Nuclee Linux" din meniu.</p>
 
-    <note><p>Nu puteți elimina nucleul pe care îl utilizați în prezent. Pentru al elimina, trebuie să reporniți și să selectați un alt nucleu pentru a porni.</p></note>
+    <note><p>Nu puteți elimina nucleul pe care îl utilizați în prezent. Pentru a-l elimina, trebuie să reporniți și să selectați un alt nucleu la pornire.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selectare nucleu</title>
+    <title>Selectarea unui nucleu</title>
 
-    <p>Puteți avea nuclee multiple instalate, dar puteți rula doar un singur nucleu la un moment dat.</p>
+    <p>Puteți avea mai multe nuclee instalate, dar puteți rula un singur nucleu la un moment dat.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Când porniți calculatorul, primul ecran se numește meniul Grub. Acest meniu permite alegerea sistemelor de operare, însă îl puteți folosi și pentru selectarea unui nucleu.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>Pentru a selecta un nucleu, alegeți "Opțiuni avansate" din meniul Grub. Ar trebui să vedeți toate nucleele instalate în prezent. Selectați pe cel pe care doriți să-l utilizați și computerul dvs. va porni cu acesta.</p>
+    <p>Pentru a selecta un nucleu, alegeți "Opțiuni avansate" din meniul Grub. Ar trebui să vedeți toate nucleele instalate în prezent. Selectați-l pe cel pe care doriți să-l utilizați și calculatorul dvs. va porni cu acesta.</p>
 
   </section>
 
   <section id="kernel5">
     <title>Verificarea stării DKMS</title>
 
-    <p>Nucleul include toate driverele surse deschise și acestea funcționează, de obicei, foarte bine. Noile drivere (NVIDIA, AMD, Broadcom ... etc) nu sunt incluse și trebuie să se compileze împreună cu fiecare nucleu pe care îl instalați. Aceasta se face printr-un mecanism numit DKMS.</p>
+    <p>Nucleul include toate driverele cu sursa deschisă și acestea funcționează, de obicei, foarte bine. Driverele proprietărești (NVIDIA, AMD, Broadcom etc) nu sunt incluse și trebuie să se compileze împreună cu fiecare nucleu pe care îl instalați. Aceasta se face printr-un mecanism numit DKMS.</p>
 
-    <p>Dacă un driver proprietar nu este corect recompilat cu DKMS pentru unul dintre nucleele dvs., acesta nu va funcționa corect cu acest nucleu.</p>
+    <p>Dacă un driver proprietăresc nu este corect recompilat cu DKMS pentru unul dintre nucleele dvs., acesta nu va funcționa corect cu acest nucleu.</p>
 
-    <p>După instalarea sau eliminarea unui nucleu, puteți verifica starea DKMS, pentru a vă asigura că toate driverele de tip proprietar sunt instalate corespunzător pentru fiecare dintre nucleele dvs. cu următoarea comandă:</p>
+    <p>După instalarea sau eliminarea unui nucleu, puteți verifica starea DKMS pentru a vă asigura că toate driverele proprietărești sunt instalate corespunzător pentru fiecare dintre nucleele dvs., folosind următoarea comandă:</p>
 
-    <screen>stare dkms</screen>
+    <screen>dkms status</screen>
 
-    <note><p>Noile nuclee devin de obicei disponibile înainte ca driverele proprietare să le susțină prin intermediul DKMS. Dacă utilizați drivere de tip proprietar, se recomandă să rămâneți la actualizările nucleu și să nu instalați nuclee din seriile care sunt mai noi decât seria nucleelor recomandate.</p></note>
+    <note><p>Noile nuclee devin de obicei disponibile înainte ca driverele proprietărești să aibă suport prin intermediul DKMS. Dacă utilizați drivere proprietărești, este recomandat să nu instalați nuclee din serii mai noi decât seria nucleelor recomandate.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Revenirea la o actualizare a nucleului</title>
+    <title>Revenirea la un nucleu anterior</title>
 
-    <p>Dacă ceva nu funcționează cu ultimul nucleu pe care l-ați instalat (sau cea mai recentă actualizare de nucleu), reporniți, selectați nucleul pe care îl utilizați anterior, eliminați noul nucleu și reporniți din nou.</p>
+    <p>Dacă ceva nu funcționează cu ultimul nucleu pe care l-ați instalat (sau cea mai recentă actualizare de nucleu), reporniți, selectați nucleul pe care l-ați utilizat anterior, eliminați noul nucleu și reporniți din nou.</p>
 
   </section>
 

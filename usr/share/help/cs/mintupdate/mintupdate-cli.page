@@ -14,11 +14,11 @@
     <desc>Aktualizování z příkazového řádku</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Pomocí nástroje mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Správa aktualizací poskytuje nástroj pro příkazový řádek nazvaný „mintupdate-cli“.</p>
 
-    <p>Pokud máte zkušenosti s Linuxem můžete používat tento nástroj ve svých skriptech či naplánovaných (cron) úlohách k automatizaci instalace softwarových aktualizací.</p>
+    <p>Pokud máte zkušenosti s Linuxem, může se vám tento nástroj hodit pro použití ve skriptech či naplánovaných (cron) úlohách k automatizaci instalace aktualizací software.</p>
 
   <section id="tool1">
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Použitím parametru -l je možné zobrazit aktualizace pouze z určité úrovně (při řešení problémů).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Použitím parametru -s je možné zobrazit pouze aktualizace zabezpečení.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Použitím parametru -k je možné zobrazit pouze aktualizace jádra systému.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Například, následující příkaz vypíše všechny aktualizace zabezpečení:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Použití aktualizací</title>
+  <title>Instalace aktualizací</title>
 
   <p>Následně za použití stejných voleb můžete aktualizace nainstalovat pomocí dílčího příkazu „upgrade“.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Například, následující příkaz nainstaluje aktualizace jádra systému:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Všimněte si argumentu -r přidaného za účelem aktualizace obsahu mezipaměti.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Pro více informací o mintupdate-cli a úplný seznam argumentů k němu, zadejte:</p>
 
   <screen>mintupdate-cli -h</screen>
 

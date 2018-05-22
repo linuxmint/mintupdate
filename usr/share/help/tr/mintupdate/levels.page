@@ -11,16 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
+    <desc>Sorun giderme anlarında, regresyon ve hatalardan hangi güncellemenin sorumlu olduğunu belirlemek için, güncelleme seviyelerini kullanın.</desc>
   </info>
 
   <title>Güncelleme seviyeleri</title>
 
-    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+    <p>Kritik regresyonlar (yazılım gerilemeleri, hataları) çok nadir görülür. Olduğunda, sisteminizi en son sistem anlık görüntüsü ile geri yükler ve Linux Mint geliştirme ekibine regresyon hakkında bilgi verir.</p>
 
-    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+    <p>Linux Mint ekibi, regresyondan hangi güncellemenin sorumlu olduğunu bilmek isteyecektir.</p>
 
-    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
+    <p>Uzun bir güncelleme listesiyle karşı karşıyaysanız ve nereye bakacağınızdan emin değilseniz, "Görünüm"-&gt;"Görünen Sütunlar"-&gt;"Seviyeler" seçeneğine tıklayın.</p>
 
     <p>Güncellemelere işletim sistemindeki etki olasılığını/gücünü gösterir biçimde seviye verilir.</p>
 
@@ -40,12 +40,12 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Büyük</p></td>
-      <td><p>Impact on multiple applications.</p></td>
+      <td><p>Birden çok uygulama üzerindeki etkisi var.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Hassas</p></td>
-      <td><p>Impact on sensitive parts of the system.</p></td>
+      <td><p>Sistemin hassas bölümleri üzerindeki etkisi var.</p></td>
     </tr>
     </table>
 
@@ -63,7 +63,7 @@
         <item><p>Ortam oynatıcı</p></item>
       </list>
 
-    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
+    <p>Bu güncellemelerdeki regresyonlar genellikle sadece güncelledikleri yazılımı etkiler, işletim sistemininin kendisini değil.</p>
 
   </section>
 

@@ -14,9 +14,9 @@
     <desc>Actualització des de la línia d'ordres</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Ús de mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>El gestor d'actualitzacions disposa d'una utilitat de línia d'ordres anomenada "mintupdate-cli".</p>
 
     <p>Si teniu experiència amb Linux, podeu usar aquesta eina en scripts o en tasques cron, per automatitzar la instal·lació d'actualitzacions.</p>
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Feu servir -l per mostrar només actualitzacions de certs nivells (per solucionar problemes).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Feu servir -s per mostrar només les actualitzacions de seguretat.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Podeu utilitzar -k per mostrar només les actualitzacions del kernel.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Per exemple, la següent ordre enumera totes les actualitzacions de seguretat:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Podeu utilitzar l'ordre "upgrade" per aplicar les actualitzacions, mitjançant les mateixes opcions.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Per exemple, la següent ordre aplica les actualitzacions del kernel:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Observeu l'argument -r que s'ha afegit per refrescar la memòria cau.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Per a més informació sobre mintupdate-cli i una llista completa d'arguments, teclegeu:</p>
 
   <screen>mintupdate-cli -h</screen>
 

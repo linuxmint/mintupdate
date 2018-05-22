@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Mise à jour depuis le ligne de commande</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Utilisant mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Le gestionnaire de mises à jour fournit un utilitaire en ligne de commande appelé "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Si vous êtes expérimenté avec Linux, vous pouvez utiliser cet outil dans vos scripts ou vos tâches cron pour automatiser l'installation des mises à jour logicielles.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Lister les mises à jour</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Vous pouvez utiliser la commande "list" pour lister les mises à jour :</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Vous pouvez utiliser -l pour seulement afficher certains niveaux (lors de diagnostics).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Vous pouvez utiliser -s pour seulement afficher les mises à jour de sécurité.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Vous pouvez utiliser -k pour seulement afficher les mises à jours du noyau.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Par exemple, la commande suivante affiche toutes les mises à jours de sécurité.</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Application des mises à jour</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Vous pouvez utiliser la commande "upgrade" pour appliquer les mises à jour, en utilisant les mêmes options.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Par exemple, la commande suivante applique les mises à jour du noyau:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Notez l'argument -r, qui fut ajouté afin d'actualiser le cache.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Pour plus d'information concernant mintupdate-cli et une liste complète des arguments, écrivez:</p>
 
   <screen>mintupdate-cli -h</screen>
 

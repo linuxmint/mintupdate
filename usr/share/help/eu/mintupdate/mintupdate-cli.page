@@ -14,9 +14,9 @@
     <desc>Komando lerrotik eguneratzea</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>mintupdate-cli erabiltzen</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Eguneraketa-kudeatzaileak "mintupdate-cli" izeneko komando lerroko tresna bat dakar.</p>
 
     <p>Linux-ekin esperientzia baduzu, tresna hau erabil dezakezu zure script edo cron lanetan software eguneraketen instalazioa automatizatzeko.</p>
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>-l erabil dezakezu maila jakin batzuetako eguneraketak soilik erakusteko (arazoak konpontzen ari zarenerako).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>-s erabil dezakezu segurtasun eguneraketak soilik erakusteko.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>-k erabil dezakezu nukleoaren eguneraketak soilik erakusteko.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Adibidez, ondorengo komandoak segurtasun eguneraketa guztiak zerrendatzen ditu:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>"upgrade" (bertsio-berritu) komandoa erabil dezakezu eguneraketak aplikatzeko, aukera berdinak erabiliz.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Adibidez, ondorengo komandoak nukleoaren eguneraketa guztiak aplikatzen ditu:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>-r argumentua cache-a freskatzeko gehitu da.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>mintupdate-cli-ren erabilerari buruzko informazio gehiago edo argumentu zerrenda osoa nahi badituzu, idatzi:</p>
 
   <screen>mintupdate-cli -h</screen>
 

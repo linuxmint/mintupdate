@@ -14,11 +14,11 @@
     <desc>Uppdatera via kommandoraden</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Så här använder du mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Uppdateringshanteraren innehåller också ett kommandoradsverktyg som kallas "mintupdate-cli".</p>
 
-    <p>Om du är erfaren med Linux kan du använda detta verktyg i dina skript eller dina cron-jobb för att automatisera installationen av programuppdateringar.</p>
+    <p>Om du är en erfaren Linux-användare kan du använda detta verktyg i dina skript eller dina cron-jobb för att automatisera installationen av programuppdateringar.</p>
 
   <section id="tool1">
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Lägg till -l om du bara vill se uppdateringar på vissa nivåer (vid felsökning).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Lägg till -s om du bara vill se säkerhetsuppdateringar.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Lägg till -k om du bara vill se uppdateringar av Linux-kärnan.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Till exempel visar följande kommando alla säkerhetsuppdateringar:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Du kan använda "upgrade"-kommandot för att tillämpa uppdateringar, med samma alternativ.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Följande kommando installerar uppdateringar av Linux-kärnan:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Notera -r flaggan som lades till för att uppdatera cachen.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>För mer information om mintupdate-cli och en komplett lista med de val som finns, skriv:</p>
 
   <screen>mintupdate-cli -h</screen>
 

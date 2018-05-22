@@ -14,9 +14,9 @@
     <desc>Actualisation per le linea de commando</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Usar mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Le Gestor de actualisation forni un utilitate a linea de commando appellate "mintupdate-cli".</p>
 
     <p>Si tu es experiente de Linux, tu pote usar iste application in tu scripts o in tu cargas de cron pro automatisar le installation de actualisationes de software.</p>
 
@@ -26,15 +26,15 @@
 
   <p>Tu pote usar le commando "listar" pro listar le actualisationes:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>lista de mintupdate-cli</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Tu pote usar -l pro monstrar solo le actualisationes pro certe nivellos (durante le resolution de defectos).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Tu pote usar -s pro monstrar solo le actualisationes de securitate.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Tu pote usar -k pro monstrar solo le actualisationes de kernel.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Pro instantia, le sequente commando lista tote le actualisationes de securitate:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Tu pote usar le commando "actualisar" pro applicar le actualisationes, per le mesme optiones.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Pro instantia, le sequente commando concerne le actualisationes de kernel:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Nota le argumento -r, que esseva addite pro refrescar le memoria tampon.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Pro altere informationes sur mintupdate-cli e un lista complete de argumentos, scribe:</p>
 
   <screen>mintupdate-cli -h</screen>
 

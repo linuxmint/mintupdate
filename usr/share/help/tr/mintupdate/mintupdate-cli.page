@@ -14,9 +14,9 @@
     <desc>Komut satırından güncelleme</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>mintupdate-cli (komut satırı arayüzü) kullanımı</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Güncelleme Yöneticisi "mintupdate-cli" olarak isimlendirilen bir komut satırı aracı sunar.</p>
 
     <p>Eğer Linux'da yeterince tecrübe sahibiyseniz, bu aracı betik ya da cron işleri ile otomatik yazılım güncellemeleri kurulumu için kullanabilirsiniz.</p>
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>(Sorun giderme anlarında) sadece belirli seviyeler için güncellemeleri göstermek amacıyla -l değişkenini kullanabilirsiniz.</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Sadece güvenlik güncellemelerini görmek için -s değişkenini kullanabilirsiniz.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Sadece çekirdek güncellemelerini görmek için -k değişkenini kullanabilirsiniz.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Örneğin, aşağıdaki komut tüm güvenlik güncelleştirmelerini listeler:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Güncellemeleri "upgrade" komutu ile uygulayabilirsiniz, aynı seçenekler kullanılır.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Örneğin, aşağıdaki komut çekirdek güncellemelerini uygular:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>-r değişkeni için not, eklendiğinde paket önbelleğini tazeler.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>mintupdate-cli ve değişkenlerin tam listesi hakkında daha fazla bilgi için, şunu girin:</p>
 
   <screen>mintupdate-cli -h</screen>
 

@@ -16,7 +16,7 @@
 
   <title>Using mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>软件更新器提供了一个名为“mintupdate-cli”的命令行实用程序。</p>
 
     <p>如果您熟悉 Linux，您可以在您的脚本或者 cron 任务中使用这一工具来自动安装软件更新。</p>
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>您可以使用-l只显示某些级别的更新(当故障排除时)。</p>
 
   <p>You can use -s to only show the security updates.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>你可以使用-k只显示内核更新。</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>例如，以下命令会列出所有安全更新：</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,7 +46,7 @@
 
   <p>您可以用“upgrade”命令来应用更新。它的选项与“list”相同。</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>例如，下面的命令应用内核更新：</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 

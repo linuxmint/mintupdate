@@ -14,9 +14,9 @@
     <desc>Обновление из командной строки</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Использование mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Менеджер обновлений содержит инструмент командной строки "mintupdate-cli".</p>
 
     <p>Если вы опытный пользователь Linux, вы можете использовать этот инструмент в ваших скриптах или в заданиях планировщика cron для автоматизации установки обновлений программного обеспечения.</p>
 
@@ -24,17 +24,17 @@
 
   <title>Получение списка обновлений</title>
 
-  <p>Вы можете использовать команду "list" для получения списка обновлений:</p>
+  <p>Для получения списка обновлений используйте команду «list»:</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Для отображения обновлений только определенных уровней (при устранении неполадок) используйте ключ -l.</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Для отображения только обновлений безопасности используйте ключ -s.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Для отображения только обновлений ядра используйте ключ -k.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Например, следующая команда отображает все обновления безопасности:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -44,15 +44,15 @@
 
   <title>Применение обновлений</title>
 
-  <p>Вы можете использовать команду «upgrade», чтобы применить обновления, используя те же параметры.</p>
+  <p>Для применения обновлений с теми же параметрами используйте команду «upgrade».</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Например, следующая команда устанавливает обновления ядра:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Используйте ключ -r, если вы хотите дополнительно обновить кэш.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Для получения дополнительной информации и полного списка аргументов mintupdate-cli введите:</p>
 
   <screen>mintupdate-cli -h</screen>
 

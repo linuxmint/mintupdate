@@ -14,9 +14,9 @@
     <desc>Nadopuna iz naredbenog redka</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Upotreba mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Upravitelj nadopuna omogućuje alat naredbenog redka nazvanog "mintupdate-cli".</p>
 
     <p>Ako ste iskusni u radu s Linuxom, možete koristiti ovaj alat u vašim skriptama ili vašim cron zadacima kako bi automatizirali instalaciju nadopuna softvera.</p>
 
@@ -26,15 +26,15 @@
 
   <p>Možete koristiti "list" naredbu za prikaz nadopuna:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>mintupdate-cli popis</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Možete koristiti -l za prikaz nadopuna do određenih razina (pri otklanjanju poteškoća).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Možete koristiti -s za prikaz sigurnosnih nadopuna</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Možete koristiti -k za prikaz nadopuna kernela.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Na primjer, sljedeća naredba prikazuje sve sigurnosne nadopune:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Možete koristiti "upgrade" naredbu kako bi primijenili nadopune, koristeći iste mogućnosti.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Na primjer, sljedeća naredba prikazuje sve nadopune kernela:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Napomena: -r argument, je dodan za osvježavanje predmemorije.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Za više informacija o mintupdate-cli i potpuni prikaz argumenata, upišite:</p>
 
   <screen>mintupdate-cli -h</screen>
 

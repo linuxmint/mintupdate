@@ -5,36 +5,36 @@
     <link type="guide" xref="index#advanced"/>
 
     <credit type="author">
-      <name>لينكس مينت</name>
+      <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
     </credit>
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>التحديث من سطر الأوامر</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>باستخدام mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>مدير التحديث يوفر أداة مساعدة لسطر الأوامر تسمى "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>إذا كنت من ذوي الخبرة في Linux، يمكنك استخدام هذه الأداة في البرامج النصية أو مهام cron (مجدول الأعمال الزمني) الخاص بك، لأتمام عملية تثبيت تحديثات البرامج.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>قائمة التحديثات</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>يمكنك استخدام الأمر "list" لإدراج التحديثات:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>قائمة mintupdate-cli</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>يمكنك استخدام -l لعرض التحديثات لمستويات معينة فقط (عند استكشاف الأخطاء وإصلاحها).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>يمكنك استخدام -s لعرض تحديثات الأمان فقط.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>يمكنك استخدام -k لعرض تحديثات النواه فقط.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>على سبيل المثال، الأمر التالي يسرد كل التحديثات الأمنية:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>تطبيق التحديثات</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>يمكنك استخدام الأمر "ترقية" لتطبيق التحديثات، باستخدام نفس الخيارات.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>على سبيل المثال، الأمر التالي يقوم بتطبيق تحديثات النواه:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>ملاحظة المتغير r- الذي تم إضافته، هو لتحديث ذاكرة التخزين المؤقت.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>لمزيد من المعلومات حول mintupdate-cli وقائمة كاملة بالوسيطات، اكتب:</p>
 
   <screen>mintupdate-cli -h</screen>
 

@@ -14,9 +14,9 @@
     <desc>Atnaujinimas iš komandų eilutės</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Mintupdate-cli naudojimas</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Atnaujinimų tvarkytuvė pateikia komandų eilutės paslaugų programą, pavadinimu "mintupdate-cli".</p>
 
     <p>Jeigu esate patyręs Linux naudotojas, galite naudoti šį įrankį savo scenarijuose ar savo cron užduotyse, kad automatizuotumėte programinės įrangos atnaujinimų diegimą.</p>
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Norėdami rodyti atnaujinimus pagal tam tikrus lygius (šalindami nesklandumus), galite naudoti -l parametrą.</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Norėdami rodyti tik saugumo atnaujinimus, galite naudoti -s parametrą.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Norėdami rodyti tik branduolio atnaujinimus, galite naudoti -k parametrą.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Pavyzdžiui, ši komanda išvardys visus saugumo atnaujinimus:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Norėdami taikyti atnaujinimus, galite naudoti komandą "upgrade", naudojant tuos pačius parametrus.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Pavyzdžiui, ši komanda pritaikys branduolio atnaujinimus:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Pastebėkite -r argumentą, kuris buvo pridėtas tam, kad iš naujo būtų įkeltas podėlis.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Išsamesnei informacijai apie mintupdate-cli ir pilnam argumentų sąrašui, rašykite:</p>
 
   <screen>mintupdate-cli -h</screen>
 

@@ -14,9 +14,9 @@
     <desc>Atualizando a partir da linha de comandos</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Usando mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>O gerente de atualização prover um utilitário de linha de comando chamado "mintupdate-cli".</p>
 
     <p>Se você é experiente com o Linux, você pode usar esta ferramenta in seu script ou suas tarefas cron para automatizar a instalação de softwares de atualização.</p>
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Você pode usar -l para mostrar apenas atualizações para determinados níveis   (quando houverem).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Você pode usar -s para somente mostrar as atualizações de segurança.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Você pode usar -k para somente mostrar atualizações de kernel.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Por exemplo, o comando a seguir lista todas as atualizações de segurança</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Você pode usar o comando "upgrade" para aplicar atualizações, usando as mesmas opções.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Por exemplo, o comando a seguir aplica as atualizações do kernel:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Note o argumento -r, qual foi adicionado para atualizar o cache.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Para mais informações no mintupdate-cli e uma completa lista de argumentos, escreva:</p>
 
   <screen>mintupdate-cli -h</screen>
 

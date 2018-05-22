@@ -14,9 +14,9 @@
     <desc>Bijwerken via een terminalopdracht</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Gebruik maken van mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Bijwerkbeheer bevat een opdrachtregel-gereedschapje genaamd 'mintupdate-cli'.</p>
 
     <p>Als u veel ervaring heeft met Linux, dan kunt u dit gereedschapje gebruiken in uw scripts of cron-taken, om het installeren van bijgewerkte programmatuur te automatiseren.</p>
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>U kunt -l gebruiken om alleen bijgewerkte pakketten te tonen van bepaalde niveaus (bij probleemoplossing).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>U kunt -s gebruiken om uitsluitend de veiligheidsreparaties te tonen.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>U kunt -k gebruiken om alleen de bijgewerkte systeemkernen te tonen.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>De volgende opdracht geeft bijvoorbeeld alle beschikbare veiligheidsreparaties weer:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>U kunt de opdracht 'upgrade' gebruiken om bijgewerkte pakketten te installeren, met gebruikmaking van dezelfde parameters.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>De volgende opdracht installeert bijvoorbeeld een bijgewerkte systeemkern:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Let op de parameter -r, die is toegevoegd om de tijdelijke opslag te verversen.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Voor meer informatie over mintupdate-cli en een volledige lijst van argumenten, tikt u dit in:</p>
 
   <screen>mintupdate-cli -h</screen>
 

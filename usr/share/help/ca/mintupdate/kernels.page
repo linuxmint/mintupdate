@@ -29,7 +29,7 @@
   <section id="kernel1">
     <title>Es poden instal·lar diversos kernels</title>
 
-    <p>Quan s'aplica una actualització, se substitueix la versió vella del programari amb una nova versió.</p>
+    <p>Quan apliqueu una actualització, substituïu la versió antiga del programari amb la versió nova.</p>
 
     <p>Les coses són diferents amb els kernels. Quan s'aplica una "actualització del kernel", realment s'instal·la un kernel nou al costat del ja existent.</p>
 
@@ -42,7 +42,7 @@
   <section id="kernel2">
     <title>Identificació del kernel actual</title>
 
-    <p>Si voleu saber quin kernel esteu utilitzant actualment, obriu un terminal i escriviu:</p>
+    <p>Si voleu saber quin kernel esteu utilitzant actualment, obriu un terminal i teclegeu:</p>
 
     <screen>uname -a</screen>
 
@@ -64,7 +64,7 @@
 
     <p>Podeu tenir diversos kernels instal·lats, però només es pot executar un alhora.</p>
 
-    <p>Quan arrenqui l'ordinador, la primera pantalla és el menú grub. Aquest menú permet escollir el sistema operatiu, però també podeu utilitzar-la per seleccionar un kernel.</p>
+    <p>Quan arranqueu l'ordinador, la primera pantalla és el menú grub. Aquest menú us permet escollir el sistema operatiu, però també podeu utilitzar-la per seleccionar un kernel.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
@@ -75,7 +75,7 @@
   <section id="kernel5">
     <title>Comprova l'estat de DKMS</title>
 
-    <p>El kernel inclou tots els controladors de codi obert i normalment funcionen molt bé. Els controladors propietaris (NVIDIA, AMD, Broadcom, etc.) no s'inclouen i han de compilar-se en cada nucli que els instal·leu. Això es fa mitjançant un mecanisme anomenat DKMS.</p>
+    <p>El kernel inclou tots els controladors de codi obert i normalment funcionen molt bé. Els controladors propietaris (NVIDIA, AMD, Broadcom, etc.) no s'inclouen i han de compilar-se en cada kernel que els instal·leu. Això es fa mitjançant un mecanisme anomenat DKMS.</p>
 
     <p>Si un controlador propietari no està adequadament recompilat amb DKMS per a algun dels vostres kernels, no funcionarà correctament amb aquest kernel.</p>
 

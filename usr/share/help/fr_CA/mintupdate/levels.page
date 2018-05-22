@@ -11,93 +11,93 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
+    <desc>Utilisez les niveaux de mise à jour lors de diagnotics, afin d'identifier la mise à jour responsable de la régression.</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>Niveaux de mises à jour</title>
 
-    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+    <p>Les régressions critiques surviennent rarement. Quand cela survient, restaurez votre système avec votre dernière image de votre système et avisez les dévellopeurs de Linux Mint de cette régression.</p>
 
-    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+    <p>L'équipe de Linux Mint voudra connaître quelle mise à jour à causé la régression.</p>
 
-    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
+    <p>Si vous êtes confrontés à une longue liste de mises à jour et que vous n'êtes pas certain où regarder, appuyez sur "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>On attribue aux mises à jour un niveau selon leur impact sur le système d'exploitation.</p>
 
-    <p>There are 4 levels:</p>
+    <p>Il y a 4 niveaux :</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
       <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Aucun impact sur le système ou sur d'autres programmes.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
       <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Niveau par défaut. Habituellement faible impact sur le système.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Impact on multiple applications.</p></td>
+      <td><p>Grand</p></td>
+      <td><p>Impact sur de multiples applications.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Impact on sensitive parts of the system.</p></td>
+      <td><p>Sensible</p></td>
+      <td><p>Impact sur des parties sensibles du système.</p></td>
     </tr>
     </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>Les mises à jour de niveau 1 sont des mises à jour qui affectent uniquement leur propre logiciel et n'ont pas d'impact sur le reste du système.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>Ce sont habituellement des mises à jour pour des applications individuelles. Par exemple :</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>La calculatrice</p></item>
+        <item><p>Le lecteur PDF</p></item>
+        <item><p>L'éditeur de texte</p></item>
+        <item><p>Le lecteur multimédia</p></item>
       </list>
 
-    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
+    <p>Les régressions dans ces mises à jour touchent habituellement le logiciel qui est en cause et non le système d'exploitation.</p>
 
   </section>
 
   <section id="level2">
     <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>C'est le niveau par défaut, ainsi la grande majorité des mises à jour sont de niveau 2.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Ces mises à jour ne sont pas connues pour impacter de larges zones ou des parties sensibles du système, mais il n'est pas garanti non plus, qu'elles affectent seulement leur propre logiciel.</p>
 
   </section>
 
   <section id="level3">
     <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>Les mises à jour de niveau 3 sont des mises à jour qui n'affectent pas seulement elles-mêmes mais ont aussi un impact sur d'autres applications.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Des exemples typiques de niveau 3 sont GTK, DBUS, etc... Une régression dans ces mises à jour n'empêcherait pas votre ordinateur de démarrer correctement, mais elle pourrait impacter de nombreuses applications.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Les environnements de bureau sont aussi des mises à jour de niveau 3. Si une régression critique se produit dans Cinnamon, il se peut vous soyez incapable de vous connecter.</p>
 
   </section>
 
   <section id="level4">
     <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>Les mises à jour de niveau 4 sont des mises à jour qui affectent des parties sensibles du système d'exploitation telles que :</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>La séquence de démarrage</p></item>
+        <item><p>Le gestionnaire d'affichage (écran de connexion, gestion de session)</p></item>
+        <item><p>Le noyau (support du matériel)</p></item>
+        <item><p>Les pilotes (réseau, NVIDIA/AMD)</p></item>
+        <item><p>L'affichage (Xorg, mesa)</p></item>
     </list>
 
   </section>

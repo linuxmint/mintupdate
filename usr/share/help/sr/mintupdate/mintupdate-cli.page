@@ -11,48 +11,48 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Ажурирање кроз командну линију</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Користећи mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Управљач ажурирања обезбеђује корисничку команду под називом "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Ако имате искуства са Линуксом, можете користити ову алатку у вашим скриптама или у вашим "cron" задацима како би аутоматизовали примену софтверских ажурирања.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Приказ аћурирања</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Можете користити команду "list" да прикажете ажурирања:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>mintupdate-cli листа</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Можете користити -l само да покажете исправке за одређене нивое (када се ради о решавању проблема).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Можете користити -s само да покажете безбедносне исправке.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Можете користити -k само да покажете исправке језгра.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>На пример, следећа команда садржи све сигурносне исправке:</p>
 
-  <screen>mintupdate-cli list -s</screen>
+  <screen>mintupdate-cli листа -s</screen>
 
   </section>
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Примена ажурирања</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Можете користити команду "upgrade" да примените ажурирања, користећи исте могућности.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>На пример, следећа наредба односи се на надоградњу језгре:</p>
 
-  <screen>sudo mintupdate-cli upgrade -r -k</screen>
+  <screen>sudo mintupdate-cli надоградња -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Обратите пажњу на аргумент -r, који је додат како би се освежила кеш-меморија.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>За више информација о mintupdate-cli и комплетној листи аргумената укуцајте:</p>
 
   <screen>mintupdate-cli -h</screen>
 

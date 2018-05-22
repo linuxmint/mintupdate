@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Diweddaru o'r llinell orchymyn</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Defnyddio intupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Mae'r Rheolwr Diweddaru yn darparu gwasanaeth llinell orchymyn o'r enw "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Os ydych yn brofiadol gyda Linux, gallwch ddefnyddio'r teclyn yma yn eich sgriptiau neu dasgau cron i awtomeiddio gosod diweddariadau meddalwedd.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Rhestru'r diweddariadau</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Gallwch ddefnyddio'r orchymyn "list" i restru diweddariadau:</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Gallwch ddefnyddio -l i ddim ond dangos diweddariadau ar gyfer lefelau penodol (wrth ddatrys problemau)</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Gallwch ddefnyddio -s i ddim ond dangos y diweddariadau diogelwch.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Gallwch ddefnyddio -k i ddim ond dangos diweddariadau'r cnewyllyn.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Er enghraifft, mae'r rhestr canlynol yn dangos pob gorchmyn diogelwch.</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Gosod diweddariadau</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Gallwch ddefnyddio'r gorchymyn "upgrade" i osod diweddariadau, gan ddefnyddio'r un dewisiadau.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Er enghraifft, mae'r gorchymyn canlynol yn perthyn i ddiweddariadau cnewyllyn:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Sylwch ar yr ymresymiad -r, sydd wedi ei ychwanegu i adnewyddu'r storfa.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Am ragor o fanylion am mintupdate-cli a'r rhestr llawn o ymresymiadau, teipiwch:</p>
 
   <screen>mintupdate-cli -h</screen>
 

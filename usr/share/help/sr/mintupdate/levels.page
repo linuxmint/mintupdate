@@ -11,93 +11,93 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
+    <desc>Користите нивое ажурирања приликом решавања проблема, да бисте идентификовали која је надоградња одговорна за регресију.</desc>
   </info>
 
-  <title>Update levels</title>
+  <title>Нивои ажурирања</title>
 
-    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+    <p>Критична регресија се дешава веома ретко. Када то урадите, вратите свој систем најновијим системским снимком и реците тиму развоја Линукс Минта о регресији.</p>
 
-    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+    <p>Линукс Минт тим ће желети да зна која је ажурирања одговорна за регресију.</p>
 
-    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
+    <p>Ако сте суочени са дугачком листом исправки и нисте сигурни где да погледате, кликните на "Преглед" - "Видљиве колоне" -&gt; "Нивои".</p>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>Ажурирањима су додељени нивои који приказују колики утицај имају на оперативни систем.</p>
 
-    <p>There are 4 levels:</p>
+    <p>Постоје 4 нивоа:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Најмањи</p></td>
+      <td><p>Без утицаја на систем или на остале апликације.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
-      <td><p>Normal</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Нормалнo</p></td>
+      <td><p>Подразумеван ниво. Обично има низак утицај на систем.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
-      <td><p>Large</p></td>
-      <td><p>Impact on multiple applications.</p></td>
+      <td><p>Крупно</p></td>
+      <td><p>Утицај на више апликација.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Impact on sensitive parts of the system.</p></td>
+      <td><p>Осетљиво</p></td>
+      <td><p>Утицај на осетљиве делове система.</p></td>
     </tr>
     </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>Ажурирања нивоа 1 утичу само на апликације којима су намењена и немају утицаја на остатак система.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>Она су обично ажурирања појединачних апликација. На пример:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
-        <item><p>The media player</p></item>
+        <item><p>Калкулатор</p></item>
+        <item><p>ПДФ читач</p></item>
+        <item><p>Уређивач текста</p></item>
+        <item><p>Репродуктор медија</p></item>
       </list>
 
-    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
+    <p>Регресије у овим ажурирањима обично утичу само на софтвер који они ажурирају, а не на сам оперативни систем.</p>
 
   </section>
 
   <section id="level2">
     <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>Ово је подразумевани ниво, тако да је велика већина ажурирања нивоа 2.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Ова ажурирања нису позната по утицају на широко подручје или осетљиве делове система, али нема ни гаранције да утичу само на своје апликације.</p>
 
   </section>
 
   <section id="level3">
     <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>Ажурирања нивоа 3 утичу не само на сопствене апликације већ и на други софтвер.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Типични примери ажурирања нивоа 3 су ГТК, ДБУС итд... Нестабилност изазвана овим ажурирањима не би спречила ваш рачунар да се исправно покрене, али би могла да захвати велики број апликација.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Окружења радне површине су такође ажурирања нивоа 3. Ако се критична нестабилност догоди у Синамону, могуће је да нећете моћи да се пријавите у сесију.</p>
 
   </section>
 
   <section id="level4">
     <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>Ажурирања нивоа 4 утичу на осетљиве делове оперативног система као што су:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Редослед покретања</p></item>
+        <item><p>Управљач графичког приказа (екран пријаве, управљање сесијом)</p></item>
+        <item><p>Кернел (хардверска подршка)</p></item>
+        <item><p>Драјвери (мрежно повезивање, NVIDIA/AMD)</p></item>
+        <item><p>Графички приказ (Xorg, mesa)</p></item>
     </list>
 
   </section>

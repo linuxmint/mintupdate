@@ -14,9 +14,9 @@
     <desc>Uppfærslur af skipanalínu</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Notkun mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Uppfærslustjórinn kemur með skipanalínutóli sem kallast  "mintupdate-cli".</p>
 
     <p>Ef þú hefur nokkra reynslu af Linux, geturðu notað þetta tól í skriftum eða cron-verkum til að útbúa sjálfvirkar uppfærslur á hugbúnaði.</p>
 
@@ -28,13 +28,13 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Þú getur notað -l til að birta einungis uppfærslur fyrir ákveðin uppfærslustig (til að finna lausn á vandamálum).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Þú getur notað -s til að birta einungis öryggisuppfærslur.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Þú getur notað -k til að birta einungis uppfærslur á kjarna.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Sem dæmi; eftirfarandi skipun telur upp allar öryggisuppfærslur:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Þú getur notað "upgrade" skipunina til að setja inn uppfærslur, með sömu valkostum.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Sem dæmi; eftirfarandi skipun telur upp allar kjarnauppfærslur:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Taktu eftir -r viðfanginu sem sett var inn til þess að endurnýja skyndiminnið.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Til að fá frekari upplýsingar um mintupdate-cli og lista yfir öll viðföng þess, sláðu inn:</p>
 
   <screen>mintupdate-cli -h</screen>
 

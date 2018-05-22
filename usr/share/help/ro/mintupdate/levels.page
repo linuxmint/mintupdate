@@ -11,16 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
+    <desc>Folosiți nivelurile de actualizare când depanați, pentru identificarea actualizării responsabile pentru o regresie.</desc>
   </info>
 
-  <title>Actualizează niveluri</title>
+  <title>Niveluri de actualizări</title>
 
-    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+    <p>Regresiile critice se întâmplă foarte rar. Când se întâmplă, restaurați sistemul din cel mai recent instantaneu și anunțați regresia echipei de dezvoltare Linux Mint.</p>
 
-    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+    <p>Echipa Linux Mint va dori să afle care actualizare este responsabilă pentru regresie.</p>
 
-    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
+    <p>Dacă v-ați confruntat cu o listă lungă de actualizări și nu știți cu siguranță unde să vă uitați, dați clic pe "Vizualizare"-&gt;"Coloane vizibile"-&gt;"Nivel".</p>
 
     <p>Actualizărilor le sunt alocate niveluri care indică ce impact au asupra sistemului de opreare.</p>
 
@@ -40,19 +40,19 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Mare</p></td>
-      <td><p>Impact on multiple applications.</p></td>
+      <td><p>Impact asupra multor aplicații.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Sensibil</p></td>
-      <td><p>Impact on sensitive parts of the system.</p></td>
+      <td><p>Impact asupra părților sensibile ale sistemului.</p></td>
     </tr>
     </table>
 
   <section id="level1">
     <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
 
-    <p>Actualizările de nivel 1sunt actualizări care afectează numai propriile aplicații și nu au vreun impact asupra restului sistemului.</p>
+    <p>Actualizările de nivel 1 afectează numai aplicațiile din aceste actualizări și nu niciun impact asupra restului sistemului.</p>
 
     <p>De obicei sunt actualizări pentru aplicații singulare. De exemplu:</p>
 
@@ -63,7 +63,7 @@
         <item><p>Playerul media</p></item>
       </list>
 
-    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
+    <p>Regresiile acestor actualizări afectează de obicei doar programele pe care le actualizați, nu sistemul de operare în sine.</p>
 
   </section>
 
@@ -72,32 +72,32 @@
 
     <p>Acesta este nivelul implicit, așa că marea majoritate a actualizărilor sunt de nivel 2.</p>
 
-    <p>Aceste actualizări nu sunt cunoscute ca având o influență mare asupra unor zone întinse sau sensibile ale sistemului, dar în cazul lor, nu există nici garanția că vor afecta doar propriile aplicații.</p>
+    <p>În mod normal aceste actualizări nu au o influență mare asupra unor zone extinse sau sensibile ale sistemului, însă nu este garantat că vor afecta doar propriile aplicații.</p>
 
   </section>
 
   <section id="level3">
     <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
 
-    <p>Actualizările de nivel 3 sunt actualizări care nu afectează doar propriile lor aplicații, dar au și un impact asupra altor aplicații.</p>
+    <p>Actualizările de nivelul 3 afectează aplicațiile conținute în aceste actualizări și au un impact asupra altor aplicații.</p>
 
-    <p>Exemple de actualizări de nivel 3 tipice sunt: GTK, DBUS, etc... O regresiune în aceste actualizări nu v-ar împiedica sistemul să pornească corect, dar ar putea avea efect asupra mai multor aplicații.</p>
+    <p>Exemple tipice de actualizări de nivelul 3 sunt: GTK, DBUS etc. O regresie în aceste actualizări nu ar împiedica sistemul să pornească corect, însă ar putea afecta multe aplicații.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Și mediile grafice sunt actualizări de nivelul 3. Dacă o regresie critică se întâmplă în Cinnamon, ar fi posibil să nu vă puteți autentifica.</p>
 
   </section>
 
   <section id="level4">
     <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
 
-    <p>Actualizările de nivel 4 sunt actualizări care afectează părți sensibile ale sistemului, cum ar fi:</p>
+    <p>Actualizările de nivelul 4 afectează părți sensibile ale sistemului, cum ar fi:</p>
 
     <list>
-        <item><p>Secvența de boot</p></item>
+        <item><p>Secvența de pornire (boot)</p></item>
         <item><p>Managerul de afișare (ecranul de autentificare, gestionarea sesiunilor)</p></item>
         <item><p>Nucleul (suport hardware)</p></item>
         <item><p>Driverele (de rețea, NVIDIA/AMD)</p></item>
-        <item><p>Afișare (Xorg, mesa)</p></item>
+        <item><p>Afișarea (Xorg, mesa)</p></item>
     </list>
 
   </section>

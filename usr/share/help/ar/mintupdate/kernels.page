@@ -5,92 +5,92 @@
     <link type="guide" xref="index#kernel"/>
 
     <credit type="author">
-      <name>لينكس مينت</name>
+      <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
     </credit>
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>تحديثات النواة والنواة المتعددة</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>تحديثات النواة</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>النواة هي الجزء المركزي من نظام التشغيل. من بين أمور أخرى، فهو مسؤول عن دعم الأجهزة.</p>
 
-  <note><p>In Linux Mint, kernel updates bring both security patches and bug fixes (and sometimes even new features), and they impact critical parts of the operating system. This makes kernel updates important from a security point of view, but also prone to regressions which can be hard to fix for novice users.</p></note>
+  <note><p>في Linux Mint، توفر تحديثات kernel تصحيحات أمان وإصلاحات للأخطاء (وأحياناً ميزات جديدة)، وتؤثر على الأجزاء المهمة في نظام التشغيل. وهذا ما يجعل تحديثات النواة مهمة من وجهة النظر الأمنية، ولكنها أيضاً عرضة لإنتكاسات قد يصعب حلها للمستخدمين المبتدئين.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>من ناحية الأمان، من المهم تطبيق تحديثات النواة.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>ومع ذلك، قد يؤثر إنتكاس النواة على قدرتك على الاتصال بالإنترنت، أو لبدء بيئة سطح المكتب أو حتى تمهيد نظام التشغيل.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>لهذا السبب، من المهم توخي الحذر عند تطبيق تحديثات النواة ومعرفة كيفية التراجع عنها عند حدوث خطأ ما.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>يمكن تثبيت نواة متعددة</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>عند تطبيق أحد التحديثات، فإنك تستبدل الإصدار القديم من البرنامج بالإصدار الجديد.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>الأمور مختلفة عندما يتعلق الأمر بالنواة. عند تطبيق "تحديث النواة"، لا تقوم بتحديث النواة فعلياً، بل تقوم بتثبيت النواة الجديدة إلى جانب الموجودة.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>في كل مرة تقوم بتطبيق تحديث النواة، يمكنك تثبيت نواة جديدة على النظام، دون إزالة القديمة.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>في وقت التمهيد، يختار الكمبيوتر أحدث واحدة.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>تحديد النواة الحالية</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>إذا كنت تريد معرفة النواة التي تستخدمها حالياً، فافتح محطة الطرفية واكتب الأمر:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>تثبيت وإزالة النواة المتعددة</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>يمكنك تثبيت وإزالة النواة من مدير التحديث.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>حدد "عرض" - "</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>لا يمكنك إزالة النواة التي تستخدمها حاليًا. لإزالتها، تحتاج إلى إعادة التشغيل وتحديد نواة مختلفة للتمهيد.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>اختيار النواة</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>يمكنك تثبيت عدة نواة، ولكن يمكنك تشغيل نواة واحدة فقط في كل مرة.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>عند تشغيل جهاز الكمبيوتر، تسمى الشاشة الأولى بالقائمة Grub. تسمح لك هذه القائمة باختيار أنظمة التشغيل ولكن يمكنك أيضًا استخدامها لتحديد النواة.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>لتحديد نواة، اختر "خيارات متقدمة" في قائمة Grub. يجب أن تشاهد جميع النواة المثبتة حاليًا. حدد الخيار الذي تريد استخدامه وسيقوم جهاز الكمبيوتر الخاص بك بالتمهيد معه.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>التحقق من حالة DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>تتضمن النواة جميع برامج التشغيل مفتوحة المصدر وتعمل عادة بشكل جيد. لا يتم تضمين برامج التشغيل الخاصة (NVIDIA و AMD و Broadcom...الخ) ويجب أن يقوموا بتجميع أنفسهم مقابل كل نواة تقوم بتثبيتها. يتم ذلك عن طريق آلية تسمى DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>إذا لم يتم إعادة تحميل برنامج التشغيل الخاص بك بشكل صحيح مع DKMS لإحدى النواة الخاصة بك، فلن يعمل بشكل صحيح مع تلك النواة.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>بعد تثبيت أو إزالة النواة، يمكنك التحقق من حالة DKMS، للتأكد من تثبيت جميع برامج التشغيل الخاصة بشكل صحيح لكل من النواة الخاصة بك باستخدام الأمر التالي:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>تصبح سلسلة النواة الجديدة متاحة عادة قبل أن يدعمها برامج التشغيل الخاصة عن طريق DKMS. إذا كنت تستخدم برامج تشغيل خاصة، فمن المستحسن التمسك بتحديثات النواة وعدم تثبيت نواة من السلسلة الأحدث من سلسلة النوى الموصى بها.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>العودة إلى تحديث النواة</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>إذا كان هناك شيء لا يعمل مع أحدث نواة قمت بتثبيتها (أو أحدث تحديث للنواة)، أعد التمهيد، وحدد النواة التي كنت تستخدمها من قبل وقم بإزالة النواة الجديدة وإعادة التمهيد مرة أخرى.</p>
 
   </section>
 

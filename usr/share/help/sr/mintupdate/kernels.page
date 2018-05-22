@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Кернели и ажурирања кернела</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Ажурирања кернела</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Кернел је средишњи део оперативног система. Поред других задатака, одговоран је за хардверску подршку.</p>
 
-  <note><p>У Линукс Минту, ажурирања кернела доносе и безбедносне закрпе и исправке грешака (а понекад чак и нове функције), и утичу на критичне делове оперативног система. Ово их чини важним са безбедносне тачке гледишта, али постоји и склоност ка уназађивањима које новим корисницима могу задати подоста проблема приликом исправљања.</p></note>
+  <note><p>У Линукс Минту, ажурирања кернела доносе и безбедносне закрпе и исправке грешака (а понекад чак и нове функције) и утичу на критичне делове оперативног система. Ово их чини важним са безбедносне тачке гледишта, али постоји и склоност ка нестабилностима које новим корисницима могу задати подоста проблема приликом исправљања.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Са безбедносне тачке гледишта, важно је применити ажурирања кернела.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Нестабилност кернела би могла да утиче на вашу могућност да се повежете на Интернет, покренете десктоп окружење или чак да покренете оперативни систем.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Из овог разлога је важно да будете опрезни приликом ажурирања кернела и да знате како да вратите кернел на стање пре ажурирања ако нешто пође по злу.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Више кернела може бити инсталирано</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Када примените ажурирање, мењате стару верзију софтвера за нову верзију.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Ствари су другачије када се ради о кернелу. Када примените ажурирање кернела, ви заправо не замењујете кернел, већ инсталирате нови кернел уз постојећи.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Сваки пут када примените ажурирање кернела, ви заправо инсталирате нови кернел, без уклањања старих.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Приликом покретања, рачунар сам бира најновију верзију.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Препознавање тренутног кернела</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Ако желите да знате који кернел тренутно користите, отворите терминал и упишите:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Инсталирање и уклањање кернела</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Можете да инсталирате и уклоните кернеле кроз Управљач ажурирањима.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Изаберите "Преглед" -&gt; "Линукс Кернелс" у менију.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Не можете да уклоните кернел који користите тренутно. Да бисте га уклонили, морате да поново покренете рачунар и одаберете други кернел.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Одабир кернела</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Можете инсталирати више кернела, но у сваком тренутку само један може бити покренут.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Када покренете рачунар, први екран који видите се назива Grub мени. Овај мени вам омогућава да одаберете оперативни систем, али га такође можете користити и за одабир кернела.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Да бисте одабрали кернел, изаберите "Advanced options" у Grub менију. Требало би да видите све кернеле који су тренутно инсталирани. Одаберите онај који желите да користите и ваш рачунар ће га покренути.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Провера статуса DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Кернел садржи све драјвере отвореног кода и они обично раде добро. Власнички драјвери (NVIDIA, AMD, Broadcom...итд.) нису укључени па они морају да се сами саставе за сваки кернел који инсталирате. Ово се ради путем механизма који се зове DKMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Ако власнички драјвер није исправно састављен за један од ваших кернела путем DKMS, он неће исправно радити са тим кернелом.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Након што инсталирате или уклоните кернел, можете проверити ваш статус DKMS, да се уверите да су сви власнички драјвери исправно инсталирани за сваки од ваших кернела користећи следећи унос:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Нове серије кернела обично постају доступне пре него што их власнички драјвери подрже путем DKMS. Ако користите власничке драјвере, препоручује се да се држите ажурирања постојећег кернела а не да их инсталирате из серија које су новије од серија препоручених кернела.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Повратак на претходну верзију кернела</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Ако нешто не ради са најновјим кернелом који сте инсталирали (или са последњим ажурирањем кернела), поново покрените рачунар, одаберите кернел који сте претходно користили, уклоните нови кернел и поново покрените рачунар.</p>
 
   </section>
 
