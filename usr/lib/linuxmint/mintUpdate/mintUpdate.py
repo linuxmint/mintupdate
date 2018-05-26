@@ -870,7 +870,7 @@ class RefreshThread(threading.Thread):
 
     def _on_infobar_mintsources_response(self, infobar, response_id):
         infobar.destroy()
-        subprocess.Popen(["mintsources"])
+        subprocess.Popen(["pkexec", "mintsources"])
 
     def _on_infobar_timeshift_response(self, infobar, response_id):
         infobar.destroy()
