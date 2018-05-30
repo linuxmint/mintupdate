@@ -40,6 +40,52 @@ OnlyShowIn=KDE;
 
 additionalfiles.generate(DOMAIN, PATH, "usr/share/applications/mintupdate-kde.desktop", prefix, "Update Manager", "Show and install available updates", suffix, genericName="Show and install available updates")
 
+prefix= """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+
+  <vendor>Linux Mint</vendor>
+  <vendor_url>https://linuxmint.com/</vendor_url>
+
+  <action id="com.linuxmint.updates.enable-automatic-updates">
+    <icon_name>mintupdate</icon_name>
+"""
+
+suffix = """
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mintupdate-enable-auto-updates</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">false</annotate>
+  </action>
+"""
+
+additionalfiles.generate_polkit_policy(DOMAIN, PATH, "usr/share/polkit-1/actions/com.linuxmint.updates.policy", prefix, "Update Manager", suffix)
+
+prefix = """
+    <action id="com.linuxmint.updates.disable-automatic-updates">
+    <icon_name>mintupdate</icon_name>
+"""
+
+suffix= """
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mintupdate-disable-auto-updates</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">false</annotate>
+  </action>
+
+</policyconfig>
+"""
+
+additionalfiles.generate_polkit_policy(DOMAIN, PATH, "usr/share/polkit-1/actions/com.linuxmint.updates.policy", prefix, "Update Manager", suffix, append=True)
+
 locales = []
 cur_dir = os.getcwd()
 os.chdir("/usr/share/locale")
@@ -53,5 +99,5 @@ for locale in locales:
     os.system("mkdir -p usr/share/help/%s/mintupdate/" % locale)
     os.system("msgunfmt /usr/share/locale/%s/LC_MESSAGES/mintupdate.mo > /tmp/%s.po" % (locale, locale))
     for page in ["index", "kernels", "levels", "mintupdate-cli", "snapshots", "regressions", "updates"]:
-    	os.system("xml2po -p /tmp/%(locale)s.po -o usr/share/help/%(locale)s/mintupdate/%(page)s.page usr/share/help/C/mintupdate/%(page)s.page" % {'locale': locale, 'page':page})
+        os.system("xml2po -p /tmp/%(locale)s.po -o usr/share/help/%(locale)s/mintupdate/%(page)s.page usr/share/help/C/mintupdate/%(page)s.page" % {'locale': locale, 'page':page})
     os.system("cp usr/share/help/C/mintupdate/legal.xml usr/share/help/%s/mintupdate/" % locale)
