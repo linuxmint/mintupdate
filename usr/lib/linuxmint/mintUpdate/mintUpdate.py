@@ -25,7 +25,8 @@ gi.require_version('GdkX11', '3.0') # Needed to get xid
 gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
 from gi.repository import AppIndicator3 as AppIndicator
-
+gi.require_version('Notify', '0.7')
+from gi.repository import Notify
 from Classes import Update
 
 try:
@@ -765,6 +766,13 @@ class RefreshThread(threading.Thread):
 
                     if (num_visible >= 1):
                         systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
+                        ## FIXME ##
+                        # it works, but is there another way to the setting?
+                        settings = Gio.Settings("com.linuxmint.updates")
+                        if settings.get_boolean("show-notification"):
+                            Notify.init("updates-available")
+                            n = Notify.Notification.new("updates available", "Pleaes install the available updates using mintupdate", "dialog-info")
+                            n.show()
                     self.application.statusIcon.set_tooltip_text(systrayString)
 
                 Gdk.threads_leave()
@@ -1825,6 +1833,8 @@ class MintUpdate():
         builder.get_object("checkbutton_warning_timeshift").set_active(self.settings.get_boolean("warn-about-timeshift"))
         builder.get_object("auto_updates_checkbox").set_active(os.path.exists(CRON_JOB))
 
+        builder.get_object("checkbutton_show_notification").set_active(self.settings.get_boolean("show-notification"))
+
         builder.get_object("refresh_days").set_range(0, 365)
         builder.get_object("refresh_days").set_increments(1, 10)
         builder.get_object("refresh_days").set_value(self.settings.get_int("refresh-days"))
@@ -1893,6 +1903,9 @@ class MintUpdate():
         self.settings.set_int('autorefresh-hours', int(builder.get_object("autorefresh_hours").get_value()))
         self.settings.set_int('autorefresh-minutes', int(builder.get_object("autorefresh_minutes").get_value()))
         self.settings.set_boolean('dist-upgrade', builder.get_object("checkbutton_dist_upgrade").get_active())
+
+        self.settings.set_boolean('show-notification', builder.get_object("checkbutton_show_notification").get_active())        
+ 
         blacklist = []
         treeview_blacklist = builder.get_object("treeview_blacklist")
         model = treeview_blacklist.get_model()
