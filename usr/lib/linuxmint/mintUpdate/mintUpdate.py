@@ -617,7 +617,7 @@ class RefreshThread(threading.Thread):
                     info_label.set_markup(infobar_message)
                     infobar.get_content_area().pack_start(info_label,False, False,0)
                     infobar.add_button(_("OK"), Gtk.ResponseType.OK)
-                    infobar.connect("response", self._on_infobar_response)
+                    infobar.connect("response", self._on_infobar_mintsources_response)
                     self.application.builder.get_object("hbox_infobar").pack_start(infobar, True, True,0)
                     infobar.show_all()
                     self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s\n%s" % (label1, label2, label3), "mintupdate-error", True)
