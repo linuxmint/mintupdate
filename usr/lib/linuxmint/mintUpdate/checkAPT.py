@@ -348,12 +348,12 @@ if __name__ == "__main__":
         check.clean_descriptions()
         check.serialize_updates()
         if os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
-            try:
-                import subprocess
-                subprocess.run(['/usr/bin/mintinstall-update-pkgcache'], timeout=60)
-            except:
-                # Best effort
-                pass
+            # Spawn the cache update asynchronously
+            # We're using os.system with & here to make sure it's async and detached
+            # from the caller (which will die before the child process is finished)
+            # stdout/stderr is also directed to /dev/null so it doesn't interfere
+            # or block the output from checkAPT
+            os.system("/usr/bin/mintinstall-update-pkgcache > /dev/null 2>&1 &")
     except Exception as error:
         print("CHECK_APT_ERROR---EOL---")
         print(sys.exc_info()[0])
