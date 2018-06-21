@@ -9,6 +9,11 @@ import traceback
 from Classes import Update
 from checkAPT import APTCheck
 
+# These updates take priority over other updates.
+# If a new version of these packages is available,
+# nothing else is listed. These packages are also always listed.
+PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(prog="mintupdate-cli")
@@ -44,7 +49,9 @@ if __name__ == "__main__":
         updates = []
         for source_name in sorted(check.updates.keys()):
             update = check.updates[source_name]
-            if args.only_kernel and update.type != "kernel":
+            if source_name in PRIORITY_UPDATES:
+                updates.append(update)
+            elif args.only_kernel and update.type != "kernel":
                 continue
             elif args.only_security and update.type != "security":
                 continue
