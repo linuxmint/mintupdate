@@ -11,16 +11,16 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
+    <desc>Käytä päivitystasoja virheenjäljityksessä määrittääksesi mikä päivitys on vastuussa regressiosta.</desc>
   </info>
 
   <title>Päivitysten tasot</title>
 
-    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+    <p>Kriittisiä regressioita tapahtuu hyvin harvoin. Kun niitä tapahtuu, palauta järjestelmäsi viimeisimmästä järjestelmävedoksesta ja kerro regressiosta Linux Mint kehitystiimille.</p>
 
-    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+    <p>Linux Mint tiimi haluaa tietää mikä päivitys on vastuussa regressiosta.</p>
 
-    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
+    <p>Jos kohtaat pitkän listan päivityksiä, etkä ole varma mihin katsoa, napsauta "Näytä"-&gt;"Näkyvät sarakkeet"-&gt;"Tasot".</p>
 
     <p>Päivityksille on annettu tasot, jotka kuvaavat kuinka paljon niillä on vaikutusta käyttöjärjestelmään.</p>
 
@@ -40,12 +40,12 @@
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Suuri</p></td>
-      <td><p>Impact on multiple applications.</p></td>
+      <td><p>Vaikuttaa useisiin sovelluksiin.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
       <td><p>Herkkä</p></td>
-      <td><p>Impact on sensitive parts of the system.</p></td>
+      <td><p>Vaikuttaa järjestelmän herkkiin osiin.</p></td>
     </tr>
     </table>
 
@@ -63,7 +63,7 @@
         <item><p>Mediasoitin</p></item>
       </list>
 
-    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
+    <p>Regressiot näissä päivityksissä vaikuttavat vain ohjelmiin, joita ne päivittävät, eivät itse käyttöjärjestelmään.</p>
 
   </section>
 
@@ -94,7 +94,7 @@
 
     <list>
         <item><p>Käynnistysjärjestys</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
+        <item><p>Näytön hallinta (kirjautumisikkuna, istunnon hallinta)</p></item>
         <item><p>Ydin (laitteistotuki)</p></item>
         <item><p>Ajurit (verkkoyhteydet, NVIDIA/AMD)</p></item>
         <item><p>Näyttö (Xorg, mesa)</p></item>

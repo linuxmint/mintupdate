@@ -14,9 +14,9 @@
     <desc>Aktualizacja z wiersza poleceń</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Użyj interfejsu wiersza poleceń mintupdate</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Menedżer aktualizacji dostarcza narzędzie wiersza poleceń nazywane „mintupdate-cli".</p>
 
     <p>Jeśli jesteś doświadczonym użytkownikiem Linuxa, możesz użyć tego narzędzia w swoich skryptach lub zadaniach cron, aby zautomatyzować instalację aktualizacji oprogramowania.</p>
 
@@ -26,15 +26,15 @@
 
   <p>Możesz użyć polecenia "list", aby wyświetlić listę aktualizacji:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>lista interfejsu wiersza poleceń mintupdate</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Możesz użyć -l, aby wyświetlić aktualizacje tylko dla sprawdzonych poziomów (gdy rozwiązujesz problemy).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Możesz użyć -s, by tylko pokazać aktualizacje bezpieczeństwa.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Możesz użyć -s, by tylko pokazać aktualizacje jądra.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Dla przykładu następująca komenda wylistuje wszystkie aktualizacje bezpieczeństwa:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Możesz użyć polecenia "upgrade", aby zastosować aktualizacje używając tych samych opcji.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Dla przykładu następująca komenda zastosuje aktualizacje jądra:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Zwróć uwagę na argument -r dodany w celu odświeżenia pamięci podręcznej.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>By uzyskać więcej informacji o interfejsie poleceń mintupdate i kompletną listę argumentów wpisz:</p>
 
   <screen>mintupdate-cli -h</screen>
 

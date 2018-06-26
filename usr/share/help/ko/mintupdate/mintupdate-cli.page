@@ -14,9 +14,9 @@
     <desc>명령문으로 업데이트하기</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>mintupdate-cli 사용하기</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>업데이트 매니저는 "mintupdate-cli" 민트 업데이트 클라이라고 불리는 명령문 유틸리티를 제공합니다.</p>
 
     <p>리눅스 사용 경험이 있으시면, 스크립트 또는 cron 작업을 이용해서 소프트웨어 업데이트 설치를 자동화해보세요.</p>
 
@@ -26,15 +26,15 @@
 
   <p>"list" 명령을 통해서 목록 업데이트를 할 수 있습니다:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>mintupdate-cli 목록</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>옵션 -l은 특정 레벨의 업데이트 항목을 표시합니다 (문제 해결을 할 때).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>옵션 -s는 보안 업데이트 항목을 표시합니다,</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>옵션 -k는 커널 업데이트 항목을 표시합니다</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>예를 들면, 다음 명령어는 모든 보안 업데이트 항목들을 표시합니다:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>업데이트 적용에는 "upgrade" 명령어를 사용하며, 옵션은 같습니다.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>예를 들면, 다음 명령어는 모든 커널 업데이트 항목들을 표시합니다:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>-r 옵션은, 캐시를 새로 고치기 위해 더해졌습니다.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>mintupdate-cli에  관한 더 많은 정보 및 모든 인수 목록을 보시려면 다음 명령어를 입력하세요:</p>
 
   <screen>mintupdate-cli -h</screen>
 
