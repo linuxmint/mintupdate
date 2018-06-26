@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-05-07 13:28+0100\n"
-"PO-Revision-Date: 2018-05-15 10:18+0000\n"
+"PO-Revision-Date: 2018-06-21 19:22+0000\n"
 "Last-Translator: lang-it <Unknown>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2018-05-22 09:17+0000\n"
-"X-Generator: Launchpad (build 18658)\n"
+"X-Launchpad-Export-Date: 2018-06-26 10:05+0000\n"
+"X-Generator: Launchpad (build 18688)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -113,6 +113,8 @@ msgstr ""
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
 msgstr ""
+"Quando vai incontro ad una seria regressione, ripristina l'ultima istantanea "
+"di sistema."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
@@ -125,16 +127,22 @@ msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"Timeshift, l'utilità per le istantanee di sistema, è disponibile in tutte le "
+"versioni di Linux Mint"
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"Può essere usata per creare istantanee di sistema (snapshot) manualmente ma "
+"anche automaticamente."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
 msgstr ""
+"Linux Mint raccomanda di automatizzare la creazione automatica di istantanee "
+"giornaliere ed all'avvio."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -142,6 +150,10 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Se un aggiornamento, un errore, un bug o un programma malevolo danneggia "
+"qualcosa del tuo computer, puoi ripristinare il sistema operativo da "
+"qualunque istantanea (snapshot), cancellando il problema come se non fosse "
+"mai avvenuto."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
@@ -408,6 +420,8 @@ msgid ""
 "If you are faced with a long list of updates and you're not sure where to "
 "look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
 msgstr ""
+"Se hai di fronte una lunga lista di aggiornamenti e non sei sicuro di dove "
+"guardare, click on \"Vistalizza\"-&gt;\"Colonne visibili\"-&gt;\"Livello\"."
 
 #: usr/share/help/C/mintupdate/levels.page:27(p)
 msgid ""
@@ -503,6 +517,8 @@ msgid ""
 "Regressions in these updates usually only affect the software they're "
 "updating, not the operating system itself."
 msgstr ""
+"Le regressioni in questi aggiornamenti colpiscono normalmente solo il "
+"software che aggiornano, non il sistema operativo."
 
 #: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
@@ -863,6 +879,10 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Per mantenere il tuo computer sicuro e in buone condizioni di lavoro, è "
+"raccomandato applicare tutti gli aggiornamenti disponibili ed impostare le "
+"istantanee di sistema, in modo da poter ripristinare il sistema nel caso "
+"qualcosa vada storto."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -880,7 +900,7 @@ msgstr "Risoluzione problemi"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains update levels."
-msgstr ""
+msgstr "Questa sezione spiega i livelli di aggiornamento."
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
@@ -1067,6 +1087,7 @@ msgstr ""
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Per cambiare il mirror di Linux Mint e risolvere il problema, premere OK."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
@@ -1140,13 +1161,15 @@ msgstr[1] "%d aggiornamenti disponibili"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "Please set up System Snapshots"
-msgstr "Per favore configura Istantanee di Sistema"
+msgstr "Per favore configura le Istantanee di Sistema"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
 msgstr ""
+"Se qualcosa si danneggia, le istantanee ti permetteranno di ripristinare il "
+"sistema nelle precedenti condizioni di lavoro."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Do you want to switch to a local mirror?"
@@ -1602,6 +1625,8 @@ msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Imposta le istantanee di sistema per proteggerti da errori e regressioni. Se "
+"qualcosa va storto, semplicemente ripristina l'ultima istantanea."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid ""
@@ -1609,6 +1634,10 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint raccomanda di impostare le istantanee di sistema automatiche e di "
+"applicare tutti gli aggiornamenti. In tal modo, il tuo computer è sempre "
+"sicuro e puoi \"tornare indietro nel tempo\" e ripristinare qualunque "
+"potenziale regressione ."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
@@ -1623,6 +1652,8 @@ msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Assicurati che le istantanee di sistema siano correttamente configurate "
+"prima di usare questa opzione."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
@@ -1664,6 +1695,10 @@ msgid ""
 "updates. Only hide levels when troubleshooting or trying to identify a "
 "regression. Check the help section for more information."
 msgstr ""
+"Si raccomanda di impostare le istantanee di sistema e di applicare tutti gli "
+"aggiornamenti disponibili. Nascondi i livelli solo cercando una soluzione ad "
+"un problema e/o cercando di identificare una regressione. Controlla la "
+"sezione di aiuto per maggiori informazioni."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:20
 msgid "Interface"

@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-05-07 13:28+0100\n"
-"PO-Revision-Date: 2017-12-25 16:21+0000\n"
+"PO-Revision-Date: 2018-06-02 14:15+0000\n"
 "Last-Translator: Ari Ervasti <ari.ervasti87@gmail.com>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2018-05-22 09:17+0000\n"
-"X-Generator: Launchpad (build 18658)\n"
+"X-Launchpad-Export-Date: 2018-06-26 10:05+0000\n"
+"X-Generator: Launchpad (build 18688)\n"
 "Language: fi\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -92,6 +92,8 @@ msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
+"Ohjelmistopäivitykset eivät ole yhtä tärkeitä. Ne tuovat virheenkorjauksia "
+"tai parannuksia jotka eivät liity turvallisuuteen."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -112,28 +114,35 @@ msgstr ""
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
 msgstr ""
+"Kohdatessasi vakavia regressioita, palauta viimeisin järjestelmävedos."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "System snapshots"
-msgstr ""
+msgstr "Järjestelmävedokset"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"Timeshift, järjestelmävedos työkalu on käytettävissä kaikissa Linux Mint "
+"versioissa."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"Sitä voidaan käyttää vedosten manuaaliseen luomiseen, mutta myös "
+"automaattisiin järjestelmävedoksiin."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
 msgstr ""
+"Linux Mint suosittelee päivittäisien ja käynnistyksen yhteydessä tehtävien "
+"vedosten automatisointia."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -141,12 +150,17 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Jos päivitys, virhe tai haitallinen ohjelma rikkoo jotain tietokoneeltasi, "
+"voit palauttaa käyttöjärjestelmän mistä tahansa vedoksesta, jolloin perut "
+"ongelman kuin sitä ei olisi koskaan ollut."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
+"Järjestelmävedokset kattavat vain itse käyttöjärjestelmän itsensä. Ne eivät "
+"sisällä tai vaikuta henkilökohtaiseen dataasi."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
@@ -230,12 +244,14 @@ msgstr "Päivittäminen komentoriviltä"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "Komennon mintupdate-cli käyttö"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
+"Päivitysten hallinta tarjoaa komentorivi työkalun, jota kutsutaan nimellä "
+"\"mintupdate-cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
@@ -256,30 +272,32 @@ msgstr "Voit käyttää \"list\" komentoa listataksesi päivitykset:"
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid ""
 "You can use -l to only show updates for certain levels (when "
 "troubleshooting)."
 msgstr ""
+"Voit käyttää -l argumenttia näyttääksesi päivitysten tietyt tasot (kun "
+"jäljität virheitä)."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "Voit käyttää -s argumenttia näyttääksesi vain tietoturvapäivitykset."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr ""
+msgstr "Voit käyttää -k argumenttia näyttääksesi vain ytimen päivitykset."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
 msgid "For instance, the following command lists all security updates:"
-msgstr ""
+msgstr "Esimerkiksi, seuraava komenta listaa vain tietoturvapäivitykset:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
 msgid "Applying updates"
@@ -294,12 +312,12 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "Esimerkiksi, seuraava komento toteuttaa ytimen päivitykset:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid "Note the -r argument, which was added to refresh the cache."
@@ -310,11 +328,13 @@ msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"Voit saada lisätietoja mintupdate-cli komennosta ja täyden listan "
+"argumenteista kirjoittamalla:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -324,6 +344,8 @@ msgid ""
 "@@image: 'figures/mintupdate-level1.svg'; "
 "md5=4721d1b8ee24af8a530de2567ed1221c"
 msgstr ""
+"@@image: 'figures/mintupdate-level1.svg'; "
+"md5=4721d1b8ee24af8a530de2567ed1221c"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -333,6 +355,8 @@ msgid ""
 "@@image: 'figures/mintupdate-level2.svg'; "
 "md5=3166f49269a73d52075b41dfde52ac87"
 msgstr ""
+"@@image: 'figures/mintupdate-level2.svg'; "
+"md5=3166f49269a73d52075b41dfde52ac87"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -342,6 +366,8 @@ msgid ""
 "@@image: 'figures/mintupdate-level3.svg'; "
 "md5=7f94f299af95a42e73759eb4676e2319"
 msgstr ""
+"@@image: 'figures/mintupdate-level3.svg'; "
+"md5=7f94f299af95a42e73759eb4676e2319"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -351,12 +377,16 @@ msgid ""
 "@@image: 'figures/mintupdate-level4.svg'; "
 "md5=9e9eb80679d932ccce1db26618475908"
 msgstr ""
+"@@image: 'figures/mintupdate-level4.svg'; "
+"md5=9e9eb80679d932ccce1db26618475908"
 
 #: usr/share/help/C/mintupdate/levels.page:16(desc)
 msgid ""
 "Use update levels when troubleshooting, to identify which update is "
 "responsible for a regression."
 msgstr ""
+"Käytä päivitystasoja virheenjäljityksessä määrittääksesi mikä päivitys on "
+"vastuussa regressiosta."
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
@@ -368,18 +398,24 @@ msgid ""
 "with the latest system snapshot and tell the Linux Mint development team "
 "about the regression."
 msgstr ""
+"Kriittisiä regressioita tapahtuu hyvin harvoin. Kun niitä tapahtuu, palauta "
+"järjestelmäsi viimeisimmästä järjestelmävedoksesta ja kerro regressiosta "
+"Linux Mint kehitystiimille."
 
 #: usr/share/help/C/mintupdate/levels.page:23(p)
 msgid ""
 "The Linux Mint team will want to know which update is responsible for the "
 "regression."
 msgstr ""
+"Linux Mint tiimi haluaa tietää mikä päivitys on vastuussa regressiosta."
 
 #: usr/share/help/C/mintupdate/levels.page:25(p)
 msgid ""
 "If you are faced with a long list of updates and you're not sure where to "
 "look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
 msgstr ""
+"Jos kohtaat pitkän listan päivityksiä, etkä ole varma mihin katsoa, napsauta "
+"\"Näytä\"-&gt;\"Näkyvät sarakkeet\"-&gt;\"Tasot\"."
 
 #: usr/share/help/C/mintupdate/levels.page:27(p)
 msgid ""
@@ -421,7 +457,7 @@ msgstr "Suuri"
 #: usr/share/help/C/mintupdate/levels.page:45(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:17
 msgid "Impact on multiple applications."
-msgstr ""
+msgstr "Vaikuttaa useisiin sovelluksiin."
 
 #: usr/share/help/C/mintupdate/levels.page:49(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:13
@@ -431,7 +467,7 @@ msgstr "Herkkä"
 #: usr/share/help/C/mintupdate/levels.page:50(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:18
 msgid "Impact on sensitive parts of the system."
-msgstr ""
+msgstr "Vaikuttaa järjestelmän herkkiin osiin."
 
 #: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
@@ -475,6 +511,8 @@ msgid ""
 "Regressions in these updates usually only affect the software they're "
 "updating, not the operating system itself."
 msgstr ""
+"Regressiot näissä päivityksissä vaikuttavat vain ohjelmiin, joita ne "
+"päivittävät, eivät itse käyttöjärjestelmään."
 
 #: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
@@ -554,7 +592,7 @@ msgstr "Käynnistysjärjestys"
 
 #: usr/share/help/C/mintupdate/levels.page:99(p)
 msgid "The display manager (login screen, session management)"
-msgstr ""
+msgstr "Näytön hallinta (kirjautumisikkuna, istunnon hallinta)"
 
 #: usr/share/help/C/mintupdate/levels.page:100(p)
 msgid "The kernel (hardware support)"
@@ -669,7 +707,7 @@ msgstr "Voit asentaa ja poistaa ytimiä Päivitysten hallinnasta."
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr ""
+msgstr "Valitse \"Näytä\" -&gt; \"Linux ytimet\" valikossa."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
@@ -824,6 +862,9 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Pitääksesi tietokoneesi turvassa ja hyvässä kunnossa, on suositeltavaa "
+"asentaa kaikki tarjolla olevat päivitykset ja asettaa järjestelmävedokset, "
+"jotta voit palauttaa järjestelmäsi jonkin mennessä pieleen."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -835,11 +876,11 @@ msgstr "Tämä osio selittää ohjelmistopäivityksiin liittyvät ydinkonseptit.
 
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Virheenjäljitys"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains update levels."
-msgstr ""
+msgstr "Tämä osio selittää päivitystasot."
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
@@ -1027,6 +1068,8 @@ msgstr "Älä asenna tai päivitä mitään, se voi rikkoa käyttöjärjestelmä
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Vaihtaaksesi toiseen Linux Mint peilipalvelimeen  ja ratkaistaksesi tämän "
+"ongelman, napsauta OK."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
@@ -1073,7 +1116,7 @@ msgstr "Ohjelmistopäivitys"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
 msgid "3rd-party update"
-msgstr ""
+msgstr "Kolmannen–osapuolen päivitys"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
@@ -1100,13 +1143,15 @@ msgstr[1] "%d päivitystä saatavilla"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "Please set up System Snapshots"
-msgstr ""
+msgstr "Aseta järjestelmävedokset"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
 msgstr ""
+"Jos jokin hajoaa, vedokset mahdollistavat järjestelmäsi palauttamisen "
+"aiempaan, toimivaan tilaan."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Do you want to switch to a local mirror?"
@@ -1115,6 +1160,8 @@ msgstr "Haliatko vaihtaa paikalliselle palvelimelle?"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
+"Paikalliset peilipalvelimet ovat yleensä nopeampia, kuin "
+"packages.linuxmint.com."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
@@ -1124,14 +1171,16 @@ msgstr "Valitse toinen palvelin"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s on tavoittamattomissa."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
 msgstr[0] ""
+"Edellinen päivitys palvelimella %(mirror)s oli %(days)d päivä sitten."
 msgstr[1] ""
+"Edellinen päivitys palvelimella %(mirror)s oli %(days)d päivää sitten."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
 msgid "Exit"
@@ -1197,7 +1246,7 @@ msgstr "Asetukset"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
 msgid "Quit"
-msgstr ""
+msgstr "Lopeta"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
 msgid "_File"
@@ -1256,11 +1305,11 @@ msgstr "_Ohje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
 msgid "Welcome screen"
-msgstr ""
+msgstr "Aloitusnäkymä"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Pikanäppäimet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
 msgid "Contents"
@@ -1306,7 +1355,7 @@ msgstr "Mustalista"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
 msgid "Auto-upgrade"
-msgstr ""
+msgstr "Automaattinen päivitys"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
 msgid "Ignored updates"
@@ -1536,26 +1585,30 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Security updates"
-msgstr ""
+msgstr "tietoturvapäivitykset"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
+"Toteuta tietotuvapäivitykset paikataksesi haavoittuvuuksia ja pitääksesi "
+"tietokoneesi turvassa."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid "Software updates"
-msgstr ""
+msgstr "Ohjelmistopäivitykset"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Apply software updates to fix bugs in your computer."
-msgstr ""
+msgstr "Toteuta ohjelmistopäivitykset korjataksesi virheitä tietokoneeltasi."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Aseta järjestelmävedokset suojautuaksesi virheiltä ja regressioilta. Jos "
+"joki hajoaa, palautat vain edellisestä vedoksesta."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid ""
@@ -1563,6 +1616,10 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint suosittelee automaattisten järjestelmävedosten asettamista ja "
+"saatavilla olevien päivitysten toteuttamista. Tällöin tietokoneesi on aina "
+"turvallinen ja voit palata ajassa ja palautua mistä tahansa potentiaalisesta "
+"regressiosta."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
@@ -1577,22 +1634,29 @@ msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Varmista järjestelmävedostesi asetusten olevan kunnossa ennen kuin käytät "
+"tätä valintaa."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "When this option is enabled, all updates are applied automatically on a "
 "daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
 msgstr ""
+"Kun tämä valinta on käytössä, kaikki päivitykset toteutetaan päivittäin "
+"automaattisesti, pääkäyttäjänä, cron työnä  (/etc/cron.daily/mintupdate)."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
 "/etc/mintupdate.blacklist to blacklist some of them."
 msgstr ""
+"Voit muokata /etc/cron.daily/mintupdate tiedostoa hienosäätääksesi "
+"automaattisia päivityksiä ja /etc/mintupdate.blacklist tiedostoa estääksesi "
+"osan niistä."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:6
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "Toteuta päivitykset automaattisesti"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:7
 msgid "Impact level"
@@ -1612,10 +1676,13 @@ msgid ""
 "updates. Only hide levels when troubleshooting or trying to identify a "
 "regression. Check the help section for more information."
 msgstr ""
+"On suositeltua asettaa järjestelmävedokset ja toteuttaa kaikki päivitykset. "
+"Piilota tasoja vain virheenjäljityksessä tai regression tunnistamisessa. "
+"Tarkasta ohje osio saadaksesi lisätietoja."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:20
 msgid "Interface"
-msgstr ""
+msgstr "Käyttöliittymä"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:21
 msgid "Hide the update manager after applying updates"
@@ -1629,7 +1696,7 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:23
 msgid "Show a warning if system snapshots are not set up"
-msgstr ""
+msgstr "Näytä varoitus, jos järjestelmävedoksia ei ole asetettu"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:24
 msgid "Don't suggest to switch to a local mirror"
@@ -1637,13 +1704,15 @@ msgstr "Älä ehdota vaihtoa paikalliseen peiliin"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:25
 msgid "Updates"
-msgstr ""
+msgstr "Päivitykset"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:26
 msgid ""
 "It is recommended to show and apply all available updates. Only disable the "
 "options below when troubleshooting."
 msgstr ""
+"On suositeltua näyttää ja toteuttaa kaikki saatavilla olevat päivitykset. "
+"Poista alla olevat valinnat vain virheenjäljityksessä."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:27
 msgid ""
@@ -1699,11 +1768,11 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "Ikkuna"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "Valinta"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select level 1 updates"

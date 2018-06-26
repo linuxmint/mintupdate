@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-05-07 13:28+0100\n"
-"PO-Revision-Date: 2018-01-31 15:56+0000\n"
-"Last-Translator: Marcin Mikołajczak <lubuntu@m4sk.in>\n"
+"PO-Revision-Date: 2018-06-15 09:57+0000\n"
+"Last-Translator: Paweł Pańczyk <pawelppanczyk@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2018-05-22 09:17+0000\n"
-"X-Generator: Launchpad (build 18658)\n"
+"X-Launchpad-Export-Date: 2018-06-26 10:05+0000\n"
+"X-Generator: Launchpad (build 18688)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -89,6 +89,8 @@ msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
+"Aktualizacje programów nie są tak ważne. Naprawiają błędy lub wprowadzają "
+"usprawnienia, które nie są związane z bezpieczeństwem."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -110,28 +112,34 @@ msgstr ""
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
 msgstr ""
+"W przypadku wystąpienia poważnej regresji, przywróć ostatnią migawkę systemu."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "System snapshots"
-msgstr ""
+msgstr "System migawek"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"Timeshift, systemowe narzędzie do tworzenia migawek, jest dostępny we "
+"wszystkich wersjach Linux Mint."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"Może być użyte do ręcznego stworzenia migawki ale także automatyzacji "
+"systemu migawek."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
 msgstr ""
+"Linux Mit zaleca automatyzacje migawek dziennych oraz migawek rozruchowych."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -139,12 +147,17 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Jeżeli aktualizacja, pomyłka, błąd lub złośliwość programu popsuje coś na "
+"twoim komputerze, możesz przywrócić system operacyjny z dowolnej migawki, to "
+"usunie problem tak jakby go nigdy nie było."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
+"System migawek obejmuje tylko system operacyjny. Nie zawiera ani nie wpływa "
+"na Twoje osobiste dane."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
@@ -224,12 +237,14 @@ msgstr "Aktualizacja z wiersza poleceń"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "Użyj interfejsu wiersza poleceń mintupdate"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
+"Menedżer aktualizacji dostarcza narzędzie wiersza poleceń nazywane "
+"„mintupdate-cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
@@ -251,30 +266,34 @@ msgstr "Możesz użyć polecenia \"list\", aby wyświetlić listę aktualizacji:
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "lista interfejsu wiersza poleceń mintupdate"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid ""
 "You can use -l to only show updates for certain levels (when "
 "troubleshooting)."
 msgstr ""
+"Możesz użyć -l, aby wyświetlić aktualizacje tylko dla sprawdzonych poziomów "
+"(gdy rozwiązujesz problemy)."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "Możesz użyć -s, by tylko pokazać aktualizacje bezpieczeństwa."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr ""
+msgstr "Możesz użyć -s, by tylko pokazać aktualizacje jądra."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
 msgid "For instance, the following command lists all security updates:"
 msgstr ""
+"Dla przykładu następująca komenda wylistuje wszystkie aktualizacje "
+"bezpieczeństwa:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
 msgid "Applying updates"
@@ -289,12 +308,12 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "Dla przykładu następująca komenda zastosuje aktualizacje jądra:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid "Note the -r argument, which was added to refresh the cache."
@@ -306,11 +325,13 @@ msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"By uzyskać więcej informacji o interfejsie poleceń mintupdate i kompletną "
+"listę argumentów wpisz:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -361,6 +382,8 @@ msgid ""
 "Use update levels when troubleshooting, to identify which update is "
 "responsible for a regression."
 msgstr ""
+"Użyj poziomów aktualizacji przy rozwiązywaniu problemów, aby zidentyfikować "
+"problematyczną aktualizację."
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
@@ -372,18 +395,25 @@ msgid ""
 "with the latest system snapshot and tell the Linux Mint development team "
 "about the regression."
 msgstr ""
+"Krytyczne regresje zdarzają się bardzo rzadko. Kiedy jej doświadczysz, "
+"przywróć swój system z ostatniej migawki systemowej i powiedz zespołowi "
+"deweloperów Linux Mint o regresji."
 
 #: usr/share/help/C/mintupdate/levels.page:23(p)
 msgid ""
 "The Linux Mint team will want to know which update is responsible for the "
 "regression."
 msgstr ""
+"Zespół Linux Mint chciałby wiedzieć, które aktualizacje są odpowiedzialne za "
+"regresje."
 
 #: usr/share/help/C/mintupdate/levels.page:25(p)
 msgid ""
 "If you are faced with a long list of updates and you're not sure where to "
 "look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
 msgstr ""
+"Jeśli widzisz długą listę aktualizacji i nie jesteś pewien gdzie szukać, "
+"wybierz \"Widok\"-&gt;\"Widoczne kolumny\"-&gt;\"Poziomy\"."
 
 #: usr/share/help/C/mintupdate/levels.page:27(p)
 msgid ""
@@ -425,7 +455,7 @@ msgstr "Duży"
 #: usr/share/help/C/mintupdate/levels.page:45(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:17
 msgid "Impact on multiple applications."
-msgstr ""
+msgstr "Ma wpływ na wiele programów."
 
 #: usr/share/help/C/mintupdate/levels.page:49(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:13
@@ -435,7 +465,7 @@ msgstr "Wrażliwy"
 #: usr/share/help/C/mintupdate/levels.page:50(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:18
 msgid "Impact on sensitive parts of the system."
-msgstr ""
+msgstr "Ma wpływ na wrażliwe elementy systemu."
 
 #: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
@@ -478,6 +508,8 @@ msgid ""
 "Regressions in these updates usually only affect the software they're "
 "updating, not the operating system itself."
 msgstr ""
+"Regresje w tych aktualizacjach są zazwyczaj spowodowane aktualizacją "
+"oprogramowania, nie systemu operacyjnego."
 
 #: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
@@ -833,6 +865,9 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"By utrzymać komputer bezpiecznym oraz w dobrej kondycji, zalecane jest "
+"zastosowanie wszystkich aktualizacji oraz ustawienie systemu migawek, tak by "
+"móc przywróć twój system w przypadku gdy coś pójdzie nie tak."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -845,11 +880,11 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Rozwiązywanie problemów"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains update levels."
-msgstr ""
+msgstr "Ta sekcja objaśnia poziomy aktualizacji."
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
@@ -871,6 +906,7 @@ msgstr ""
 "  Damian Woźniak https://launchpad.net/~fisz\n"
 "  Debeet https://launchpad.net/~debeet\n"
 "  Glytz https://launchpad.net/~glytz\n"
+"  Kacper Paczos https://launchpad.net/~pyroxar\n"
 "  Kamil Olszewski https://launchpad.net/~k-p-olszewski\n"
 "  Marcin Mikołajczak https://launchpad.net/~m4sk1n\n"
 "  Mateusz Łukasik https://launchpad.net/~mati75\n"
@@ -1036,6 +1072,8 @@ msgstr ""
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Kliknij OK, by przełączyć się na inny serwer lustrzany Linux Mint i "
+"rozwiązać ten problem."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
@@ -1082,7 +1120,7 @@ msgstr "Aktualizacja oprogramowania"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
 msgid "3rd-party update"
-msgstr ""
+msgstr "aktualizacje strony trzeciej"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
@@ -1097,8 +1135,8 @@ msgstr "Nie została zaznaczona żadna aktualizacja"
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Wybrano %(selected)d aktualizację (%(size)s)"
+msgstr[1] "Wybrano %(selected)d aktualizacji (%(size)s)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
 #, python-format
@@ -1110,13 +1148,15 @@ msgstr[2] "%d dostępnych aktualizacji"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "Please set up System Snapshots"
-msgstr ""
+msgstr "Proszę ustawić system migawki"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
 msgstr ""
+"Jeśli coś się popsuje, migawki pozwolą Ci przywrócić swój system do "
+"wcześniejszego działającego stanu."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Do you want to switch to a local mirror?"
@@ -1125,6 +1165,7 @@ msgstr "Czy chcesz przełączyć się na lokalny serwer zwierciadlany?"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
+"Lokalne serwery lustrzane są zazwyczaj szybsze niż packages.linuxmint.com."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
@@ -1134,14 +1175,15 @@ msgstr "Prosimy o przełączenie na inny serwer zwierciadlany"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s jest niedostępny."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
 msgstr[0] ""
-msgstr[1] ""
+"Ostatnia aktualizacja %(mirror)s miała miejsce %(days)d dzień temu."
+msgstr[1] "Ostatnia aktualizacja %(mirror)s miała miejsce %(days)d dni temu."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
 msgid "Exit"
@@ -1207,7 +1249,7 @@ msgstr "Właściwości"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
 msgid "Quit"
-msgstr ""
+msgstr "Wyjdź"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
 msgid "_File"
@@ -1266,11 +1308,11 @@ msgstr "_Pomoc"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
 msgid "Welcome screen"
-msgstr ""
+msgstr "Ekran powitalny"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Skróty klawiaturowe"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
 msgid "Contents"
@@ -1316,7 +1358,7 @@ msgstr "Czarna lista"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
 msgid "Auto-upgrade"
-msgstr ""
+msgstr "Automatyczne aktualizowanie"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
 msgid "Ignored updates"
@@ -1551,26 +1593,31 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Security updates"
-msgstr ""
+msgstr "Aktualizacje bezpieczeństwa"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
+"Zastosuj aktualizacje bezpieczeństwa, by załatać podatności i utrzymać swój "
+"komputer bezpiecznym."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid "Software updates"
-msgstr ""
+msgstr "Aktualizacje oprogramowania"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Apply software updates to fix bugs in your computer."
 msgstr ""
+"Zastosuj aktualizacje oprogramowania, by naprawić problemy swojego komputera."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Ustaw system migawek, aby uchronić się przed błędami i regresjami. Jeśli coś "
+"się popsuje, po prostu przywróć ostatnią migawkę."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid ""
@@ -1578,6 +1625,10 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint zaleca ustawienie automatycznego systemu migawek oraz stosowanie "
+"wszystkich aktualizacji. Tym sposobem Twój system jest zawsze bezpieczny, a "
+"Ty masz możliwość wycofania zmian i przywrócenia poprzedniego stanu w razie "
+"jakiejkolwiek potencjalnej regresji."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
@@ -1592,22 +1643,30 @@ msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Upewnij się, że Twój system migawek jest poprawnie skonfigurowany, zanim "
+"użyjesz tej funkcji."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "When this option is enabled, all updates are applied automatically on a "
 "daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
 msgstr ""
+"Gdy ta opcja jest włączona, wszystkie aktualizacje są stosowane "
+"automatycznie każdego dnia poprzez zadanie cron'a "
+"(/etc/cron.daily/mintupdate)."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
 "/etc/mintupdate.blacklist to blacklist some of them."
 msgstr ""
+"Możesz zmodyfikować /etc/cron.daily/mintupdate, aby wyregulować automatyczne "
+"aktualizacje, a /etc/mintupdate.blacklist, aby dodać niektóre aktualizacje "
+"do czarnej listy."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:6
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "Zastosuj aktualizacje automatycznie"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:7
 msgid "Impact level"
@@ -1627,10 +1686,13 @@ msgid ""
 "updates. Only hide levels when troubleshooting or trying to identify a "
 "regression. Check the help section for more information."
 msgstr ""
+"Zalecane jest włączenie systemu migawek i zastosowanie wszystkich dostępnych "
+"aktualizacji. Ukryj poziomy tylko przy rozwiązywaniu problemów lub próbie "
+"identyfikacji regresji. Wybierz sekcję pomocy, aby dowiedzieć się więcej."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:20
 msgid "Interface"
-msgstr ""
+msgstr "Intefejs"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:21
 msgid "Hide the update manager after applying updates"
@@ -1644,7 +1706,7 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:23
 msgid "Show a warning if system snapshots are not set up"
-msgstr ""
+msgstr "Pokaż ostrzeżenie, jeśli system migawek nie jest ustawiony"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:24
 msgid "Don't suggest to switch to a local mirror"
@@ -1652,13 +1714,15 @@ msgstr "Nie sugeruj przełączenia na lokalny serwer zwierciadlany"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:25
 msgid "Updates"
-msgstr ""
+msgstr "Aktualizacje"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:26
 msgid ""
 "It is recommended to show and apply all available updates. Only disable the "
 "options below when troubleshooting."
 msgstr ""
+"Jest zalecane, aby wyświetlać i stosować wszystkie dostępne aktualizacje. "
+"Wyłącz opcje poniżej tylko wtedy, gdy rozwiązujesz problemy."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:27
 msgid ""
@@ -1714,11 +1778,11 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "Okno"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "Zaznaczanie"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select level 1 updates"

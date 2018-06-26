@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2018-05-07 13:28+0100\n"
-"PO-Revision-Date: 2018-05-21 15:37+0000\n"
-"Last-Translator: xfcegyc <Unknown>\n"
+"PO-Revision-Date: 2018-06-08 05:45+0000\n"
+"Last-Translator: AlephAlpha <alephalpha911@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2018-05-22 09:17+0000\n"
-"X-Generator: Launchpad (build 18658)\n"
+"X-Launchpad-Export-Date: 2018-06-26 10:06+0000\n"
+"X-Generator: Launchpad (build 18688)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -97,7 +97,7 @@ msgstr ""
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
-msgstr ""
+msgstr "当遇到严重的倒退时，请恢复最新的系统快照。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
@@ -109,24 +109,24 @@ msgstr "系统快照"
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
-msgstr ""
+msgstr "Linux Mint 的所有版本都提供了系统快照工具 Timeshift。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
-msgstr ""
+msgstr "它可以用于手动创建快照，也可以用于自动化系统快照。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
-msgstr ""
+msgstr "Linux Mint 推荐自动创建每日快照和启动快照。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
 "If an update, a mistake, a bug or a malicious program breaks something on "
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
-msgstr ""
+msgstr "如果更新、错误或恶意程序对计算机造成了破坏，您可以从任何快照恢复操作系统，从而取消问题，就好像它从未发生过一样。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
@@ -197,7 +197,7 @@ msgstr "从命令行更新"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "使用 mintupdate-cli"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
@@ -231,7 +231,7 @@ msgstr "您可以使用-l只显示某些级别的更新(当故障排除时)。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "您可以用 -s 来仅显示安全更新。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "You can use -k to only show the kernel updates."
@@ -272,7 +272,7 @@ msgstr "注意这里添加了 -r 参数，用来刷新缓存。"
 msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
-msgstr ""
+msgstr "关于 mintupdate-cli 的更多信息和完整的参数列表，请输入："
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
@@ -327,7 +327,7 @@ msgstr ""
 msgid ""
 "Use update levels when troubleshooting, to identify which update is "
 "responsible for a regression."
-msgstr ""
+msgstr "在排除故障时使用更新级别，以确定是哪个更新导致了回退。"
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
@@ -338,19 +338,20 @@ msgid ""
 "Critical regressions happen very rarely. When they do, restore your system "
 "with the latest system snapshot and tell the Linux Mint development team "
 "about the regression."
-msgstr ""
+msgstr "严重的回退很少发生。当它们发生时，请用最新的系统快照来恢复您的系统，并将有关回退的情况告知 Linux Mint 开发团队。"
 
 #: usr/share/help/C/mintupdate/levels.page:23(p)
 msgid ""
 "The Linux Mint team will want to know which update is responsible for the "
 "regression."
-msgstr ""
+msgstr "Linux Mint 团队想知道是哪个更新导致了回退。"
 
 #: usr/share/help/C/mintupdate/levels.page:25(p)
 msgid ""
 "If you are faced with a long list of updates and you're not sure where to "
 "look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
 msgstr ""
+"如果您遇到的更新列表很长，而您不知道该看哪里，请单击 \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
 
 #: usr/share/help/C/mintupdate/levels.page:27(p)
 msgid ""
@@ -390,7 +391,7 @@ msgstr "较大"
 #: usr/share/help/C/mintupdate/levels.page:45(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:17
 msgid "Impact on multiple applications."
-msgstr ""
+msgstr "影响多个应用程序。"
 
 #: usr/share/help/C/mintupdate/levels.page:49(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:13
@@ -400,7 +401,7 @@ msgstr "敏感"
 #: usr/share/help/C/mintupdate/levels.page:50(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:18
 msgid "Impact on sensitive parts of the system."
-msgstr ""
+msgstr "影响系统的敏感部分。"
 
 #: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
@@ -440,7 +441,7 @@ msgstr "媒体播放器"
 msgid ""
 "Regressions in these updates usually only affect the software they're "
 "updating, not the operating system itself."
-msgstr ""
+msgstr "这些更新中的回退通常只影响它们所更新的软件，而非操作系统本身。"
 
 #: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
@@ -730,7 +731,7 @@ msgid ""
 "To keep your computer safe and in good working condition, it is recommended "
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
-msgstr ""
+msgstr "为了确保您的计算机安全和良好的工作状态，建议应用所有可用的更新并设置系统快照，这样您可以在发生故障时恢复您的系统。"
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -738,7 +739,7 @@ msgstr "核心概念"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
-msgstr "此部分阐述软件更新的核心概念。"
+msgstr "本节介绍软件更新的核心概念。"
 
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Troubleshooting"
@@ -746,11 +747,11 @@ msgstr "疑难解答"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains update levels."
-msgstr ""
+msgstr "本节介绍更新级别。"
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
-msgstr "此部分阐述内核更新。"
+msgstr "本节介绍内核更新。"
 
 #: usr/share/help/C/mintupdate/index.page:47(title)
 msgid "Advanced techniques"
@@ -758,7 +759,7 @@ msgstr "高级技巧"
 
 #: usr/share/help/C/mintupdate/index.page:49(p)
 msgid "This section explains advanced techniques."
-msgstr "此部分阐述高级技巧。"
+msgstr "本节介绍高级技巧。"
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: usr/share/help/C/mintupdate/index.page:0(None)
@@ -924,7 +925,7 @@ msgstr "请不要安装或升级任何东西，它会破坏您的操作系统！
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:609
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
-msgstr ""
+msgstr "若要切换到不同的 Linux Mint 镜像以解决此问题，请单击“确定”。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
@@ -969,7 +970,7 @@ msgstr "软件更新"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
 msgid "3rd-party update"
-msgstr ""
+msgstr "第三方更新"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
@@ -994,13 +995,13 @@ msgstr[0] "%d 项更新可用"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "Please set up System Snapshots"
-msgstr ""
+msgstr "请设置系统快照"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
-msgstr ""
+msgstr "如果出现故障，快照将允许您将系统恢复到以前的工作状态。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Do you want to switch to a local mirror?"
@@ -1008,7 +1009,7 @@ msgstr "您是否要切换到一个本地的镜像？"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr ""
+msgstr "本地镜像通常比 packages.linuxmint.com 快。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
@@ -1018,14 +1019,13 @@ msgstr "请切换到另一个镜像"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s 不可达。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(mirror)s 最近的更新是在 %(days)d 天前。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
 msgid "Exit"
@@ -1200,7 +1200,7 @@ msgstr "黑名单"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
 msgid "Auto-upgrade"
-msgstr ""
+msgstr "自动更新"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
 msgid "Ignored updates"
@@ -1417,21 +1417,21 @@ msgstr "安全更新"
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
-msgstr ""
+msgstr "应用安全更新以修复漏洞，并保持您的计算机安全。"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid "Software updates"
-msgstr ""
+msgstr "软件更新"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Apply software updates to fix bugs in your computer."
-msgstr ""
+msgstr "应用安全更新以修复计算机中的错误。"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
-msgstr ""
+msgstr "设置系统快照以保护您不受错误和回退的影响。如果出现任何故障，只需恢复到最新的快照。"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid ""
@@ -1439,6 +1439,7 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint 建议设置自动系统快照，并应用所有可用的更新。这样您的计算机始终是安全的，您可以回到过去，从任何潜在的回退中恢复过来。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
@@ -1452,23 +1453,25 @@ msgstr "取消"
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
-msgstr ""
+msgstr "在使用此选项之前，请确保系统快照已正确配置。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "When this option is enabled, all updates are applied automatically on a "
 "daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
-msgstr ""
+msgstr "启用此选项后，所有更新每天都会以 root 用户通过 Cron 任务（/etc/cron.daily/mintupdate）来自动应用。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
 "/etc/mintupdate.blacklist to blacklist some of them."
 msgstr ""
+"您可以编辑 /etc/cron.daily/mintupdate 以对自动更新进行微调，或编辑 /etc/mintupdate.blacklist "
+"将一些自动更新列入黑名单。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:6
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "自动应用更新"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:7
 msgid "Impact level"
@@ -1487,7 +1490,7 @@ msgid ""
 "It is recommended to set up system snapshots and to apply all available "
 "updates. Only hide levels when troubleshooting or trying to identify a "
 "regression. Check the help section for more information."
-msgstr ""
+msgstr "建议设置系统快照并应用所有可用的更新。仅在故障排除或试图识别回归时隐藏级别。有关更多信息，请查看“帮助”部分。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:20
 msgid "Interface"
@@ -1503,7 +1506,7 @@ msgstr "仅在有可用更新或出现错误时显示托盘图标"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:23
 msgid "Show a warning if system snapshots are not set up"
-msgstr ""
+msgstr "在没有设置系统快照时显示警告。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:24
 msgid "Don't suggest to switch to a local mirror"
@@ -1517,7 +1520,7 @@ msgstr "更新"
 msgid ""
 "It is recommended to show and apply all available updates. Only disable the "
 "options below when troubleshooting."
-msgstr ""
+msgstr "建议显示和应用所有可用的更新。仅在排除故障时禁用下面的选项。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:27
 msgid ""
