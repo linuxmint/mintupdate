@@ -14,10 +14,6 @@ from Classes import KERNEL_PKG_NAMES
 
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
 
-# Using these two as hack to get around the lack of gtk_box_set_center_widget in 3.10
-VERSION_GROUP = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
-INFO_GROUP = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
-
 def list_header_func(row, before, user_data):
     if before and not row.get_header():
         row.set_header(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
@@ -54,42 +50,6 @@ class InstallKernelThread(threading.Thread):
         returnCode = comnd.wait()
         f.close()
 
-class SidebarSwitcherRow(Gtk.ListBoxRow):
-    def __init__(self, name, widget):
-        Gtk.ListBoxRow.__init__(self)
-
-        self.name = name
-        self.add(widget)
-
-class SidebarSwitcher(Gtk.Bin):
-    def __init__(self):
-        Gtk.Bin.__init__(self)
-
-        self.stack = None
-        scw = Gtk.ScrolledWindow()
-        scw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        scw.set_shadow_type(Gtk.ShadowType.IN)
-        self.add(scw)
-
-        self.list_box = Gtk.ListBox()
-        self.list_box.set_header_func(list_header_func, None)
-        scw.add(self.list_box)
-        self.list_box.connect("row-activated", self.on_row_activated)
-        Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(self), "sidebar")
-
-    def add_titled(self, name, title):
-        label = Gtk.Label(title)
-        label.set_margin_top(8)
-        label.set_margin_bottom(8)
-        row = SidebarSwitcherRow(name, label)
-        self.list_box.add(row)
-
-    def on_row_activated(self, widget, row):
-        self.stack.set_visible_child_name(row.name)
-
-    def set_stack(self, stack):
-        self.stack = stack
-
 class KernelRow(Gtk.ListBoxRow):
     def __init__(self, version, pkg_version, text, installed, used, title, installable, window, application):
         Gtk.ListBoxRow.__init__(self)
@@ -101,36 +61,34 @@ class KernelRow(Gtk.ListBoxRow):
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         hbox.set_margin_top(8)
         hbox.set_margin_bottom(8)
-        hbox.set_margin_left(20)
-        hbox.set_margin_right(20)
+        hbox.set_margin_start(20)
+        hbox.set_margin_end(20)
         vbox.pack_start(hbox, True, True, 0)
         version_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         hbox.pack_start(version_box, False, False, 0)
         version_label = Gtk.Label()
         version_label.set_markup("%s" % text)
         version_box.pack_start(version_label, False, False, 0)
-        VERSION_GROUP.add_widget(version_box)
         info_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         info_box.set_spacing(6)
         hbox.pack_end(info_box, False, False, 0)
-        INFO_GROUP.add_widget(info_box)
 
         if title != "":
             label = Gtk.Label()
-            label.set_margin_right(6)
-            label.set_margin_left(6)
+            label.set_margin_end(6)
+            label.set_margin_start(6)
             label.props.xalign = 0.5
             label.set_markup("<i>%s</i>" % title)
             Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(label), "dim-label")
-            hbox.pack_start(label, True, False, 0)
+            hbox.set_center_widget(label)
 
         self.revealer = Gtk.Revealer()
         self.revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
         self.revealer.set_transition_duration(150)
         vbox.pack_start(self.revealer, True, True, 0)
         hidden_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        hidden_box.set_margin_right(20)
-        hidden_box.set_margin_left(20)
+        hidden_box.set_margin_end(20)
+        hidden_box.set_margin_start(20)
         hidden_box.set_margin_bottom(6)
         self.revealer.add(hidden_box)
 
@@ -226,7 +184,7 @@ class KernelWindow():
         stack = Gtk.Stack()
         stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
 
-        stack_switcher = SidebarSwitcher()
+        stack_switcher = Gtk.StackSidebar()
         stack_switcher.set_stack(stack)
         scrolled_series.pack_start(stack_switcher, True, True, 0)
         kernel_stack_box.pack_start(stack, True, True, 0)
@@ -269,7 +227,7 @@ class KernelWindow():
             list_box.set_activate_on_single_click(True)
             scw.add(list_box)
             stack.add_titled(scw, page, page)
-            stack_switcher.add_titled(page, page)
+            # stack_switcher.add_titled(page, page)
 
             for kernel in kernel_list:
                 (version, pkg_version, page_label, label, installed, used, title, installable) = kernel
@@ -280,8 +238,6 @@ class KernelWindow():
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)
-
-        stack_switcher.list_box.select_row(stack_switcher.list_box.get_row_at_index(0))
 
         self.main_stack.add_named(main_box, "main_box")
 
