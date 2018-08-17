@@ -35,6 +35,8 @@ class InstallKernelThread(threading.Thread):
                 "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
         f = tempfile.NamedTemporaryFile()
         cache = apt.Cache()
+        if self.remove:
+            KERNEL_PKG_NAMES.append('linux-image-unsigned-VERSION-generic') # mainline, remove only      
         for name in KERNEL_PKG_NAMES:
             name = name.replace("VERSION", self.version)
             if name in cache:
