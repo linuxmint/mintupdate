@@ -15,6 +15,7 @@ if settings.get_boolean("use-lowlatency-kernels"):
 else:
     KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
     KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
+    KERNEL_PKG_NAMES.append('linux-image-unsigned-VERSION-generic') # mainline
     META_NAMES = ['linux-generic', 'linux-generic-hwe-16.04']
 
 class Rule():
