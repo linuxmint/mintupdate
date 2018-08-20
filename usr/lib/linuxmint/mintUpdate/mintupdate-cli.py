@@ -24,7 +24,7 @@ if __name__ == "__main__":
     group.add_argument("-s", "--only-security", action="store_true", help="only include security updates")
     group.add_argument("-l", "--only-levels", help="only include certain levels (only use for troubleshooting, list of level numbers, comma-separated)")
 
-    parser.add_argument("-i", "--ignore", help="list of updates to ignore (comma-separated). Note: You can also blacklist updates by adding their name to /etc/mintupdate-cli.blacklist.")
+    parser.add_argument("-i", "--ignore", help="list of updates to ignore (comma-separated). Note: You can also blacklist updates by adding their name to /etc/mintupdate.blacklist.")
     parser.add_argument("-r", "--refresh-cache", action="store_true", help="refresh the APT cache")
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
     parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions")
