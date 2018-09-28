@@ -2,13 +2,12 @@
 import apt
 import subprocess
 import os
-import re
 import tempfile
 import threading
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GdkX11', '3.0') # Needed to get xid
-from gi.repository import Gtk, Gdk, GdkX11
+from gi.repository import Gtk
 
 from Classes import KERNEL_PKG_NAMES
 
@@ -35,6 +34,8 @@ class InstallKernelThread(threading.Thread):
                 "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
         f = tempfile.NamedTemporaryFile()
         cache = apt.Cache()
+        if self.remove:
+            KERNEL_PKG_NAMES.append('linux-image-unsigned-VERSION-generic') # mainline, remove only
         for name in KERNEL_PKG_NAMES:
             name = name.replace("VERSION", self.version)
             if name in cache:
@@ -91,7 +92,7 @@ class SidebarSwitcher(Gtk.Bin):
         self.stack = stack
 
 class KernelRow(Gtk.ListBoxRow):
-    def __init__(self, version, pkg_version, text, installed, used, title, installable, window, application):
+    def __init__(self, version, pkg_version, text, installed, used, title, installable, origin, window, application):
         Gtk.ListBoxRow.__init__(self)
 
         self.application = application
@@ -134,24 +135,25 @@ class KernelRow(Gtk.ListBoxRow):
         hidden_box.set_margin_bottom(6)
         self.revealer.add(hidden_box)
 
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        box.set_margin_bottom(6)
-        hidden_box.pack_start(box, True, True, 0)
-        link = Gtk.Label()
-        link.set_markup("<a href='https://launchpad.net/ubuntu/+source/linux/+bugs?field.searchtext=%s'>Bug reports</a>" % version)
-        link.set_line_wrap(True)
-        box.pack_start(link, False, False, 2)
-        link = Gtk.Label()
-        changelog_version = pkg_version
-        if "~" in pkg_version:
-            changelog_version = pkg_version.split("~")[0]
-        link.set_markup("<a href='http://changelogs.ubuntu.com/changelogs/pool/main/l/linux/linux_%s/changelog'>Changelog</a>" % changelog_version)
-        link.set_line_wrap(True)
-        box.pack_start(link, False, False, 2)
-        link = Gtk.Label()
-        link.set_markup("<a href='https://people.canonical.com/~ubuntu-security/cve/pkg/linux.html'>CVE Tracker</a>")
-        link.set_line_wrap(True)
-        box.pack_start(link, False, False, 2)
+        if origin == "1":
+            box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+            box.set_margin_bottom(6)
+            hidden_box.pack_start(box, True, True, 0)
+            link = Gtk.Label()
+            link.set_markup("<a href='https://launchpad.net/ubuntu/+source/linux/+bugs?field.searchtext=%s'>Bug reports</a>" % version)
+            link.set_line_wrap(True)
+            box.pack_start(link, False, False, 2)
+            link = Gtk.Label()
+            changelog_version = pkg_version
+            if "~" in pkg_version:
+                changelog_version = pkg_version.split("~")[0]
+            link.set_markup("<a href='http://changelogs.ubuntu.com/changelogs/pool/main/l/linux/linux_%s/changelog'>Changelog</a>" % changelog_version)
+            link.set_line_wrap(True)
+            box.pack_start(link, False, False, 2)
+            link = Gtk.Label()
+            link.set_markup("<a href='https://people.canonical.com/~ubuntu-security/cve/pkg/linux.html'>CVE Tracker</a>")
+            link.set_line_wrap(True)
+            box.pack_start(link, False, False, 2)
 
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         button = Gtk.Button.new_with_label("")
@@ -233,17 +235,15 @@ class KernelWindow():
 
         builder.get_object("button_close").connect("clicked", self.hide_window)
 
-        kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py | sort -r | grep \"###\"", shell = True).decode("utf-8")
+        kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py", shell = True).decode("utf-8")
         kernels = kernels.split("\n")
+        kernels.sort(reverse = True)
         kernel_list = []
         pages_needed = []
         for kernel in kernels:
             values = kernel.split('###')
-            if len(values) == 7:
-                status = values[0]
-                if status != "KERNEL":
-                    continue
-                (status, version_id, version, pkg_version, installed, used, installable) = values
+            if len(values) == 8:
+                (status, version_id, version, pkg_version, installed, used, installable, origin) = values
                 installed = (installed == "1")
                 used = (used == "1")
                 title = ""
@@ -251,12 +251,14 @@ class KernelWindow():
                     title = _("Active")
                 elif installed:
                     title = _("Installed")
+                if origin == "0":
+                    title += " (local)"
 
                 installable = (installable == "1")
                 label = version
 
                 page_label = label.split(".")[0] + "." + label.split(".")[1]
-                kernel_list.append([version, pkg_version, page_label, label, installed, used, title, installable])
+                kernel_list.append([version, pkg_version, page_label, label, installed, used, title, installable, origin])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
 
@@ -272,11 +274,11 @@ class KernelWindow():
             stack_switcher.add_titled(page, page)
 
             for kernel in kernel_list:
-                (version, pkg_version, page_label, label, installed, used, title, installable) = kernel
+                (version, pkg_version, page_label, label, installed, used, title, installable, origin) = kernel
                 if used:
                     current_label.set_markup("<b>%s %s</b>" % (_("You are currently using the following kernel:"), kernel[3]))
                 if page_label == page:
-                    row = KernelRow(version, pkg_version, label, installed, used, title, installable, self.window, self.application)
+                    row = KernelRow(version, pkg_version, label, installed, used, title, installable, origin, self.window, self.application)
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)
