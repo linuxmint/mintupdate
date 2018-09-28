@@ -57,12 +57,14 @@ class Update():
             self.display_name = self.source_name
             self.short_description = package.candidate.raw_description
             self.description = package.candidate.description
+            self.archive = ""
             if (self.new_version != self.old_version):
                 self.type = "package"
                 self.origin = ""
                 for origin in package.candidate.origins:
                     self.origin = origin.origin
                     self.site = origin.site
+                    self.archive = origin.archive
                     if origin.origin == "Ubuntu":
                         self.origin = "ubuntu"
                     elif origin.origin == "Debian":
@@ -116,10 +118,14 @@ class Update():
     def overwrite_main_package(self, pkg):
         self.description = pkg.candidate.description
         self.short_description = pkg.candidate.raw_description
-        self.main_package_name  = pkg.name
+        self.main_package_name = pkg.name
 
     def serialize(self):
-        output_string = u"###%d###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % (self.level, self.display_name, self.source_name, self.real_source_name, self.main_package_name, ", ".join(self.package_names), self.new_version, self.old_version, self.size, self.type, self.origin, self.short_description, self.description, self.site)
+        output_string = u"###%d###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
+        (self.level, self.display_name, self.source_name, self.real_source_name,\
+         self.main_package_name, ", ".join(self.package_names), self.new_version,\
+         self.old_version, self.size, self.type, self.origin, \
+         self.short_description, self.description, self.site, self.archive)
         print(output_string.encode('ascii', 'xmlcharrefreplace'))
 
     def parse(self, input_string):
@@ -128,7 +134,10 @@ class Update():
         except:
             pass
         values = input_string.split("###")
-        nothing, level, self.display_name, self.source_name, self.real_source_name, self.main_package_name, package_names, self.new_version, self.old_version, size, self.type, self.origin, self.short_description, self.description, self.site = values
+        _, level, self.display_name, self.source_name, self.real_source_name,\
+            self.main_package_name, package_names, self.new_version,\
+            self.old_version, size, self.type, self.origin, self.short_description,\
+            self.description, self.site, self.archive = values
         self.level = int(level)
         self.size = int(size)
         for package_name in package_names.split(", "):
