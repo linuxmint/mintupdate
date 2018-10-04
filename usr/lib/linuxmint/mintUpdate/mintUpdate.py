@@ -710,7 +710,10 @@ class RefreshThread(threading.Thread):
                                 model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name))
 
                             theme = Gtk.IconTheme.get_default()
-                            pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
+                            try:
+                                pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
+                            except:
+                                pixbuf = None
 
                             origin = update.origin
                             origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
