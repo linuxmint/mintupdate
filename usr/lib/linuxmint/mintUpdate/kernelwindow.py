@@ -220,7 +220,7 @@ class KernelWindow():
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
 
-        for page in reversed(pages_needed):
+        for page in pages_needed:
             scw = Gtk.ScrolledWindow()
             scw.set_shadow_type(Gtk.ShadowType.IN)
             list_box = Gtk.ListBox()
