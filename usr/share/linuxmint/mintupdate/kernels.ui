@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkBox" id="intro_box">
@@ -90,7 +90,7 @@
                       <object class="GtkLabel" id="label_warning">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">The Linux kernel is a critical part of the system. Regressions can lead to lack of networking, lack of sound, lack of graphical environment or even the inability to boot the computer.</property>
+                        <property name="label" translatable="yes">Installing a new kernel can sometimes cause problems, especially if you're using proprietary drivers.</property>
                         <property name="use_markup">True</property>
                         <property name="wrap">True</property>
                         <property name="xalign">0</property>
@@ -102,17 +102,70 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">These issues include:</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">20</property>
+                        <property name="margin_right">20</property>
+                        <property name="label" translatable="yes">- No wifi (or ethernet)
+- No video acceleration
+- Black screen on startup
+- Random system freeze</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkLabel" id="label_more_info_1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Before installing or removing kernels, please make sure to read the help section, to make sure you know how to select kernels, how to revert updates and how to check your DKMS status.</property>
+                        <property name="label" translatable="yes">If you face any of these issues, don't panic:</property>
                         <property name="wrap">True</property>
                         <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">20</property>
+                        <property name="margin_right">20</property>
+                        <property name="label" translatable="yes">- Reboot.
+- Press and hold the Shift key to show the boot menu.
+- In the boot menu, select the line which starts with 'Advanced options'.
+- Select an older kernel.
+- After the computer boots with the older kernel, uninstall the new one.</property>
+                        <property name="wrap">True</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                   </object>
@@ -328,10 +381,10 @@
     <property name="title" translatable="yes">Kernels</property>
     <property name="default_width">800</property>
     <property name="default_height">500</property>
-    <child>
+    <child type="titlebar">
       <placeholder/>
     </child>
-    <child type="titlebar">
+    <child>
       <placeholder/>
     </child>
   </object>
