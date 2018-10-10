@@ -737,7 +737,7 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
                             model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                             model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-                            model.set_value(iter, UPDATE_SOURCE, "%s (%s)" % (origin, update.site))
+                            model.set_value(iter, UPDATE_SOURCE, "%s / %s" % (origin, update.archive))
                             model.set_value(iter, UPDATE_LEVEL_STR, str(update.level))
                             model.set_value(iter, UPDATE_SIZE, update.size)
                             model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
