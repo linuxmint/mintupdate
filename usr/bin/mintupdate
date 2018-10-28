@@ -1,6 +1,3 @@
-#!/usr/bin/python3
+#!/bin/bash
 
-import os
-
-command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
-os.system(command)
+/usr/lib/linuxmint/mintUpdate/mintUpdate.py $@ &
