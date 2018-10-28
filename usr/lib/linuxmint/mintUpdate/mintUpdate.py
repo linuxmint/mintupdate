@@ -19,7 +19,6 @@ import configparser
 import traceback
 import setproctitle
 import argparse
-import fcntl
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -50,16 +49,6 @@ if args.version:
     if args.show == False and args.no_show == False and args.force == False:
         sys.exit(0)
 
-PID_DIRECTORY = 'mintUpdate'
-PID_FILE = PID_DIRECTORY + '/mintupdate' + str(os.getpid()) + '.pid'
-
-if os.path.exists(PID_DIRECTORY) == False:
-    os.mkdir(PID_DIRECTORY)
-
-if os.listdir(path=PID_DIRECTORY) and args.force == False:
-    print("Another instance of mintUpdate is already running. Quitting.")
-    sys.exit(0)
-
 # Check if there are any active instances of mintUpdate running in the background.
 # If there are, then the current instance is the first instance of mintUpdate.
 output = subprocess.check_output("pgrep mintUpdate", shell = True).strip().decode("UTF-8").split('\n')
@@ -68,11 +57,9 @@ if len(output) == 1:
 else:
     firstInstance = False
 
-pid_fp = open(PID_FILE, 'w')
-try:
-    fcntl.lockf(pid_fp, fcntl.LOCK_EX | fcntl.LOCK_NB)
-except IOError:
-    print("Another instance of mintUpdate is already running. Quitting.")
+if firstInstance == False and args.force == False:
+    print("Another instance of mintUpdate is already running (either in the background or in a window). Quitting.")
+    print("If you would like to force-start a fresh instance of mintUpdate, please use 'mintupdate --force' in the command line.")
     sys.exit(0)
 
 # Whether the mintUpdate window needs to be shown
@@ -1494,16 +1481,13 @@ class MintUpdate():
 ######### WINDOW/STATUSICON ##########
 
     def close_window(self, window, event):
-        global pid_fp, PID_FILE, firstInstance
-        if os.path.exists(PID_FILE):
-            pid_fp.close()
-            os.remove(PID_FILE)
+        global firstInstance
         window.hide()
         self.save_window_size()
         self.app_hidden = True
         if firstInstance == False:
             try:
-                os.system("kill -s 9 " + str(os.getpid()))
+                os.system("kill -s 9 %s" % os.getpid())
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
@@ -1516,15 +1500,12 @@ class MintUpdate():
 ######### MENU/TOOLBAR FUNCTIONS ################
 
     def hide_main_window(self, widget):
-        global pid_fp, PID_FILE, firstInstance
-        if os.path.exists(PID_FILE):
-            pid_fp.close()
-            os.remove(PID_FILE)
+        global firstInstance
         self.window.hide()
         self.app_hidden = True
         if firstInstance == False:
             try:
-                os.system("kill -s 9 " + str(os.getpid()))
+                os.system("kill -s 9 %s" % os.getpid())
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
