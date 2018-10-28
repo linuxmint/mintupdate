@@ -18,6 +18,8 @@ import datetime
 import configparser
 import traceback
 import setproctitle
+import argparse
+import fcntl
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -28,13 +30,60 @@ from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update
 
-try:
-    os.system("killall -q mintUpdate")
-except Exception as e:
-    print (e)
-    print(sys.exc_info()[0])
-
 setproctitle.setproctitle("mintUpdate")
+
+# Parsing arguments
+parser = argparse.ArgumentParser(prog="mintupdate", description="The Linux Mint update manager")
+
+group = parser.add_mutually_exclusive_group()
+group.add_argument("-s", "--show", action="store_true", help="show the update manager")
+group.add_argument("-n", "--no-show", action="store_true", help="don't show the update manager")
+
+parser.add_argument("-v", "--version", action="store_true", help="display the current version")
+parser.add_argument("-f", "--force", action="store_true", help="force-start a fresh instance")
+
+args = parser.parse_args()
+
+# Display the version if the user requested to
+if args.version:
+    print("mintUpdate 5.4.1")
+    if args.show == False and args.no_show == False and args.force == False:
+        sys.exit(0)
+
+PID_DIRECTORY = 'mintUpdate'
+PID_FILE = PID_DIRECTORY + '/mintupdate' + str(os.getpid()) + '.pid'
+
+if os.path.exists(PID_DIRECTORY) == False:
+    os.mkdir(PID_DIRECTORY)
+
+if os.listdir(path=PID_DIRECTORY) and args.force == False:
+    print("Another instance of mintUpdate is already running. Quitting.")
+    sys.exit(0)
+
+# Check if there are any active instances of mintUpdate running in the background.
+# If there are, then the current instance is the first instance of mintUpdate.
+output = subprocess.check_output("pgrep mintUpdate", shell = True).strip().decode("UTF-8").split('\n')
+if len(output) == 1:
+    firstInstance = True
+else:
+    firstInstance = False
+
+pid_fp = open(PID_FILE, 'w')
+try:
+    fcntl.lockf(pid_fp, fcntl.LOCK_EX | fcntl.LOCK_NB)
+except IOError:
+    print("Another instance of mintUpdate is already running. Quitting.")
+    sys.exit(0)
+
+# Whether the mintUpdate window needs to be shown
+if len(sys.argv) == 1: # If no arguments are used, mintUpdate is launched
+    showWindow = True
+elif args.show:
+    showWindow = True
+elif args.no_show:
+    showWindow = False
+else:
+    showWindow = True
 
 # i18n
 gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
@@ -737,7 +786,7 @@ class RefreshThread(threading.Thread):
                             model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
                             model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                             model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-                            model.set_value(iter, UPDATE_SOURCE, "%s / %s" % (origin, update.archive))
+                            model.set_value(iter, UPDATE_SOURCE, "%s (%s)" % (origin, update.site))
                             model.set_value(iter, UPDATE_LEVEL_STR, str(update.level))
                             model.set_value(iter, UPDATE_SIZE, update.size)
                             model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
@@ -1111,16 +1160,16 @@ class MintUpdate():
             self.builder.get_object("notebook_details").connect("switch-page", self.switch_page)
             self.window.connect("delete_event", self.close_window)
             
-            # Install Updates button
-            install_button = self.builder.get_object("tool_apply")
-            install_button.connect("clicked", self.install)
+            # Apply button
+            apply_button = self.builder.get_object("tool_apply")
+            apply_button.connect("clicked", self.install)
             key, mod = Gtk.accelerator_parse("<Control>I")
-            install_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            apply_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             
             # Clear button
             clear_button = self.builder.get_object("tool_clear")
             clear_button.connect("clicked", self.clear)
-            key, mod = Gtk.accelerator_parse("<Control><Shift>A")
+            key, mod = Gtk.accelerator_parse("<Shift><Control>A")
             clear_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             
             # Select All button
@@ -1299,18 +1348,18 @@ class MintUpdate():
                 print (e)
                 print(sys.exc_info()[0])
             viewSubmenu.append(infoMenuItem)
-            
-            # New 'Select' menu
+
+            # New select menu
             selectMenu = Gtk.MenuItem.new_with_label("Select")
             selectSubmenu = Gtk.Menu()
             selectMenu.set_submenu(selectSubmenu)
-
+            
             clearItem = Gtk.MenuItem.new_with_label("Clear")
             clearItem.connect("activate", self.clear)
             key, mod = Gtk.accelerator_parse("<Control><Shift>A")
             clearItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(clearItem)
-
+            
             selectAllItem = Gtk.MenuItem.new_with_label("All")
             selectAllItem.connect("activate", self.select_all)
             key, mod = Gtk.accelerator_parse("<Control>A")
@@ -1352,7 +1401,7 @@ class MintUpdate():
             key, mod = Gtk.accelerator_parse("<Control>K")
             selectKernelItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(selectKernelItem)
-            
+
             helpMenu = Gtk.MenuItem.new_with_mnemonic(_("_Help"))
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
@@ -1387,12 +1436,10 @@ class MintUpdate():
             self.builder.get_object("menubar1").append(selectMenu)
             self.builder.get_object("menubar1").append(helpMenu)
 
-            if len(sys.argv) > 1:
-                showWindow = sys.argv[1]
-                if (showWindow == "show"):
-                    self.window.show_all()
-                    self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
-                    self.app_hidden = False
+            if showWindow == True:
+                self.window.show_all()
+                self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
+                self.app_hidden = False
 
             # Status pages
             status_updated_page = self.builder.get_object("status_updated")
@@ -1447,10 +1494,19 @@ class MintUpdate():
 ######### WINDOW/STATUSICON ##########
 
     def close_window(self, window, event):
+        global pid_fp, PID_FILE, firstInstance
+        if os.path.exists(PID_FILE):
+            pid_fp.close()
+            os.remove(PID_FILE)
         window.hide()
         self.save_window_size()
         self.app_hidden = True
-        return True
+        if firstInstance == False:
+            try:
+                os.system("kill -s 9 " + str(os.getpid()))
+            except Exception as e:
+                print (e)
+                print(sys.exc_info()[0])
 
     def save_window_size(self):
         self.settings.set_int('window-width', self.window.get_size()[0])
@@ -1460,8 +1516,18 @@ class MintUpdate():
 ######### MENU/TOOLBAR FUNCTIONS ################
 
     def hide_main_window(self, widget):
+        global pid_fp, PID_FILE, firstInstance
+        if os.path.exists(PID_FILE):
+            pid_fp.close()
+            os.remove(PID_FILE)
         self.window.hide()
         self.app_hidden = True
+        if firstInstance == False:
+            try:
+                os.system("kill -s 9 " + str(os.getpid()))
+            except Exception as e:
+                print (e)
+                print(sys.exc_info()[0])
 
     def setVisibleColumn(self, checkmenuitem, column, key):
         state = checkmenuitem.get_active()
