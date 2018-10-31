@@ -4,4 +4,4 @@ import os
 import xapp.os
 
 if ((not xapp.os.is_live_session()) and (not xapp.os.is_guest_session())):
-	os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py --no-show &")
+    os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py --no-show &")
