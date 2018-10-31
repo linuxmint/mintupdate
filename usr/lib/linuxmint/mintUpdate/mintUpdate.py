@@ -33,11 +33,7 @@ setproctitle.setproctitle("mintUpdate")
 
 # Parsing arguments
 parser = argparse.ArgumentParser(prog="mintupdate", description="The Linux Mint update manager")
-
-group = parser.add_mutually_exclusive_group()
-group.add_argument("-s", "--show", action="store_true", help="show the update manager")
-group.add_argument("-n", "--no-show", action="store_true", help="don't show the update manager")
-
+parser.add_argument("-n", "--no-show", action="store_true", help="don't show the update manager")
 parser.add_argument("-v", "--version", action="store_true", help="display the current version")
 parser.add_argument("-f", "--force", action="store_true", help="force-start a fresh instance")
 
@@ -46,7 +42,7 @@ args = parser.parse_args()
 # Display the version if the user requested to
 if args.version:
     print("mintUpdate 5.4.1")
-    if args.show == False and args.no_show == False and args.force == False:
+    if args.no_show == False and args.force == False:
         sys.exit(0)
 
 # Check if there are any active instances of mintUpdate running in the background.
@@ -58,16 +54,12 @@ else:
     firstInstance = False
 
 if firstInstance == False and args.force == False:
-    print("Another instance of mintUpdate is already running (either in the background or in a window). Quitting.")
-    print("If you would like to force-start a fresh instance of mintUpdate, please use 'mintupdate --force' in the command line.")
+    print("mintUpdate is running in the background.")
+    print("If you would like to force-start a fresh instance of mintUpdate, please enter 'mintupdate -f' in the command line.")
     sys.exit(0)
 
 # Whether the mintUpdate window needs to be shown
-if len(sys.argv) == 1: # If no arguments are used, mintUpdate is launched
-    showWindow = True
-elif args.show:
-    showWindow = True
-elif args.no_show:
+if args.no_show:
     showWindow = False
 else:
     showWindow = True
@@ -633,7 +625,7 @@ class RefreshThread(threading.Thread):
                 refresh_command = "sudo %s" % refresh_command
 
             try:
-                output =  subprocess.check_output(refresh_command, shell = True).decode("utf-8")
+                output = subprocess.check_output(refresh_command, shell = True).decode("utf-8")
             except Exception as refresh_exception:
                 output = refresh_exception.output.decode("utf-8")
 
@@ -1146,25 +1138,25 @@ class MintUpdate():
             selection.connect("changed", self.display_selected_package)
             self.builder.get_object("notebook_details").connect("switch-page", self.switch_page)
             self.window.connect("delete_event", self.close_window)
-
+            
             # Install Updates button
             install_button = self.builder.get_object("tool_apply")
             install_button.connect("clicked", self.install)
             key, mod = Gtk.accelerator_parse("<Control>I")
             install_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-
+            
             # Clear button
             clear_button = self.builder.get_object("tool_clear")
             clear_button.connect("clicked", self.clear)
             key, mod = Gtk.accelerator_parse("<Control><Shift>A")
             clear_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-
+            
             # Select All button
             select_all_button = self.builder.get_object("tool_select_all")
             select_all_button.connect("clicked", self.select_all)
             key, mod = Gtk.accelerator_parse("<Control>A")
             select_all_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-
+            
             # Refresh button
             refresh_button = self.builder.get_object("tool_refresh")
             refresh_button.connect("clicked", self.force_refresh)
@@ -1423,7 +1415,7 @@ class MintUpdate():
             self.builder.get_object("menubar1").append(selectMenu)
             self.builder.get_object("menubar1").append(helpMenu)
 
-            if showWindow == True:
+            if showWindow:
                 self.window.show_all()
                 self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
                 self.app_hidden = False
@@ -1481,16 +1473,17 @@ class MintUpdate():
 ######### WINDOW/STATUSICON ##########
 
     def close_window(self, window, event):
-        global firstInstance
         window.hide()
         self.save_window_size()
         self.app_hidden = True
-        if firstInstance == False:
+        if not firstInstance:
             try:
-                os.system("kill -s 9 %s" % os.getpid())
+                os.system("kill -s 9 " + str(os.getpid()))
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
+        else:
+           return True
 
     def save_window_size(self):
         self.settings.set_int('window-width', self.window.get_size()[0])
@@ -1500,12 +1493,11 @@ class MintUpdate():
 ######### MENU/TOOLBAR FUNCTIONS ################
 
     def hide_main_window(self, widget):
-        global firstInstance
         self.window.hide()
         self.app_hidden = True
-        if firstInstance == False:
+        if not firstInstance:
             try:
-                os.system("kill -s 9 %s" % os.getpid())
+                os.system("kill -s 9 " + str(os.getpid()))
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
@@ -1558,7 +1550,7 @@ class MintUpdate():
         model = self.treeview.get_model()
         iter = model.get_iter_first()
         while (iter != None):
-            update =  model.get_value(iter, UPDATE_OBJ)
+            update = model.get_value(iter, UPDATE_OBJ)
             if level is not None:
                 if level == update.level:
                     model.set_value(iter, UPDATE_CHECKED, "true")
