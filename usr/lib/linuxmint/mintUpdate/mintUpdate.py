@@ -33,7 +33,7 @@ setproctitle.setproctitle("mintUpdate")
 
 # Parsing arguments
 parser = argparse.ArgumentParser(prog="mintupdate", description="The Linux Mint update manager")
-parser.add_argument("-n", "--no-show", action="store_true", help="don't show the update manager")
+parser.add_argument("-n", "--no-show", action="store_true", help="don't show the update manager window")
 parser.add_argument("-v", "--version", action="store_true", help="display the current version")
 parser.add_argument("-f", "--force", action="store_true", help="force-start a fresh instance")
 
