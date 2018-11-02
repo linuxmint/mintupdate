@@ -1,3 +1,41 @@
-#!/bin/bash
+#!/usr/bin/python3
 
-/usr/lib/linuxmint/mintUpdate/mintUpdate.py $@ &
+import os
+import sys
+import subprocess
+import argparse
+
+if __name__ == "__main__":
+
+    # Parse arguments
+    parser = argparse.ArgumentParser(prog="mintupdate", description="The Linux Mint update manager")
+    parser.add_argument("-n", "--no-show", action="store_true", help="don't show the update manager window")
+    parser.add_argument("-v", "--version", action="version", version="mintUpdate 5.4.1", help="display the current version")
+    parser.add_argument("-f", "--force", action="store_true", help="force-start a fresh instance")
+
+    args = parser.parse_args()
+
+    # Check if there are any active instances of mintUpdate running in the background.
+    # If there are, then the current instance is the first instance of mintUpdate.
+    firstInstance = False
+    try:
+        output = subprocess.check_output("pgrep mintUpdate", shell = True)
+    except:
+        firstInstance = True
+
+    # If this is not the first instance and the user did not attempt to force-start mintUpdate, display the following messages
+    if not firstInstance and args.force == False:
+        print("mintUpdate is running in the background.\n")
+        print("If you would like to force-start a fresh instance of mintUpdate, please enter 'mintupdate -f' in the command line.")
+        sys.exit(0)
+
+    command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py"
+
+    if args.no_show:
+        command += " --no-show"
+
+    if not firstInstance:
+        command += " --force"
+
+    command += " &"
+    os.system(command)
