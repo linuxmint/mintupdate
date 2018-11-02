@@ -31,32 +31,18 @@ from Classes import Update
 
 setproctitle.setproctitle("mintUpdate")
 
-# Parsing arguments
-parser = argparse.ArgumentParser(prog="mintupdate", description="The Linux Mint update manager")
-parser.add_argument("-n", "--no-show", action="store_true", help="don't show the update manager window")
-parser.add_argument("-v", "--version", action="store_true", help="display the current version")
-parser.add_argument("-f", "--force", action="store_true", help="force-start a fresh instance")
+# Parse arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("--no-show", action="store_true")
+parser.add_argument("--force", action="store_true")
 
 args = parser.parse_args()
 
-# Display the version if the user requested to
-if args.version:
-    print("mintUpdate 5.4.1")
-    if args.no_show == False and args.force == False:
-        sys.exit(0)
-
-# Check if there are any active instances of mintUpdate running in the background.
-# If there are, then the current instance is the first instance of mintUpdate.
-output = subprocess.check_output("pgrep mintUpdate", shell = True).strip().decode("UTF-8").split('\n')
-if len(output) == 1:
-    firstInstance = True
-else:
+# If the user force-started a fresh instance of mintUpdate, this is not the first instance of mintUpdate
+if args.force:
     firstInstance = False
-
-if firstInstance == False and args.force == False:
-    print("mintUpdate is running in the background.")
-    print("If you would like to force-start a fresh instance of mintUpdate, please enter 'mintupdate -f' in the command line.")
-    sys.exit(0)
+else:
+    firstInstance = True
 
 # Whether the mintUpdate window needs to be shown
 if args.no_show:
@@ -1478,7 +1464,7 @@ class MintUpdate():
         self.app_hidden = True
         if not firstInstance:
             try:
-                os.system("kill -s 9 " + str(os.getpid()))
+                os.system("kill -9 %s &" % os.getpid())
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
@@ -1497,7 +1483,7 @@ class MintUpdate():
         self.app_hidden = True
         if not firstInstance:
             try:
-                os.system("kill -s 9 " + str(os.getpid()))
+                os.system("kill -9 %s &" % os.getpid())
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
