@@ -1414,8 +1414,9 @@ class MintUpdate():
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
             self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
-            auto_refresh = AutomaticRefreshThread(self)
-            auto_refresh.start()
+            if self.settings.get_boolean("enable-autorefresh"):
+                auto_refresh = AutomaticRefreshThread(self)
+                auto_refresh.start()
 
             Gdk.threads_enter()
             Gtk.main()
@@ -1898,6 +1899,7 @@ class MintUpdate():
         builder.get_object("checkbutton_default_repo_is_ok").set_active(self.settings.get_boolean("default-repo-is-ok"))
         builder.get_object("checkbutton_warning_timeshift").set_active(self.settings.get_boolean("warn-about-timeshift"))
         builder.get_object("auto_updates_checkbox").set_active(os.path.exists(CRON_JOB))
+        builder.get_object("checkbutton_autorefresh").set_active(self.settings.get_boolean("enable-autorefresh"))
 
         builder.get_object("refresh_days").set_range(0, 365)
         builder.get_object("refresh_days").set_increments(1, 10)
@@ -1967,6 +1969,7 @@ class MintUpdate():
         self.settings.set_int('autorefresh-hours', int(builder.get_object("autorefresh_hours").get_value()))
         self.settings.set_int('autorefresh-minutes', int(builder.get_object("autorefresh_minutes").get_value()))
         self.settings.set_boolean('dist-upgrade', builder.get_object("checkbutton_dist_upgrade").get_active())
+        self.settings.set_boolean('enable-autorefresh', builder.get_object("checkbutton_autorefresh").get_active())
         blacklist = []
         treeview_blacklist = builder.get_object("treeview_blacklist")
         model = treeview_blacklist.get_model()
