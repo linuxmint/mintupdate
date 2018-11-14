@@ -28,6 +28,7 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--refresh-cache", action="store_true", help="refresh the APT cache")
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
     parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions")
+    parser.add_argument("--noninteractive", action="store_true", help="avoid configuration questions from Debconf, used for automatic updates")
     parser.add_argument("--install-recommends", action="store_true", help="install recommended packages (use with caution)")
 
     args = parser.parse_args()
@@ -78,7 +79,12 @@ if __name__ == "__main__":
                 arguments.append("-y")
             if args.install_recommends:
                 arguments.append("--install-recommends")
-            subprocess.call(arguments + packages)
+            if args.noninteractive:
+                environment = os.environ
+                environment.update({"DEBIAN_FRONTEND": "noninteractive"})
+            else:
+                environment = None
+            subprocess.call(arguments + packages, env=environment)
     except Exception as error:
         traceback.print_exc()
         sys.exit(1)
