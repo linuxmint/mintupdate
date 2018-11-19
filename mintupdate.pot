@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 16:55+0100\n"
+"POT-Creation-Date: 2018-11-19 14:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -736,16 +736,16 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:222
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:232
 #, python-format
 msgid "Linux kernel %s"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:223
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:233
 msgid "The Linux kernel."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:224
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:234
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -757,58 +757,58 @@ msgid ""
 "to remove the new one first."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:133
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:158
 msgid "Remove"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:136
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:140
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:165
 msgid "Install"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:143
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:168
 msgid "This kernel is not installable."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:157
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:182
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:159
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:184
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:178
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:204
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Kernels"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:235
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
 msgid "Active"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:237
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
 msgid "Installed"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:310
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
 msgid "Supported until"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:312
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
 msgid "End of Life"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:314
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
 msgid "Unsupported"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:336
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
 msgid "You are currently using the following kernel:"
 msgstr ""
 
@@ -1066,7 +1066,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:18
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr ""
@@ -1362,6 +1362,23 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:18
+msgid "Remove old kernels..."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid "Cancel"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
+msgid "Remove selected kernels"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
+msgid "Select the kernels you want to remove:"
+msgstr ""
+
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
 msgid "Clear"
@@ -1423,10 +1440,6 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
-msgid "Cancel"
 msgstr ""
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
