@@ -354,6 +354,7 @@
       <object class="GtkButtonBox" id="buttonbox1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="spacing">6</property>
         <property name="layout_style">end</property>
         <child>
           <object class="GtkButton" id="button_massremove">
@@ -404,7 +405,8 @@
   </object>
   <object class="GtkDialog" id="confirmation_window">
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Select kernels to remove:</property>
+    <property name="border_width">6</property>
+    <property name="title" translatable="yes">Remove old kernels...</property>
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window1</property>
@@ -416,12 +418,10 @@
         <property name="name">box</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
+        <property name="spacing">6</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="button_box">
-            <property name="name">b</property>
             <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="b_cancel">
@@ -459,41 +459,51 @@
           </packing>
         </child>
         <child>
-          <object class="GtkViewport" id="viewport">
+          <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
+            <property name="label" translatable="yes">Select the kernels you want to remove:</property>
+            <property name="wrap">True</property>
+            <property name="xalign">0</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkAlignment">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">20</property>
+            <property name="right_padding">20</property>
             <child>
-              <object class="GtkBox" id="box_list">
+              <object class="GtkScrolledWindow">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="orientation">vertical</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">out</property>
+                <property name="min_content_height">200</property>
                 <child>
-                  <object class="GtkLabel" id="l_current_kernel">
+                  <object class="GtkViewport" id="viewport">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label"></property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <child>
+                      <object class="GtkBox" id="box_list">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+                        <property name="border_width">6</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                    </child>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="l_current_kernel_ver">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_bottom">8</property>
-                    <property name="label"></property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
@@ -501,7 +511,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>

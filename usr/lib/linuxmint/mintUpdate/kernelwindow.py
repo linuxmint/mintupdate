@@ -235,8 +235,6 @@ class KernelWindow():
         # Set up the kernel mass removal confirmation window
         builder.get_object("b_cancel").connect("clicked", self.on_cancel_clicked, self.remove_kernels_window)
         builder.get_object("b_remove").connect("clicked", self.on_remove_clicked, self.remove_kernels_window)
-        l_current_kernel = builder.get_object("l_current_kernel")
-        l_current_kernel_ver = builder.get_object("l_current_kernel_ver")
         remove_kernels_listbox = builder.get_object("box_list")
 
         # Get distro release dates for support duration calculation
@@ -259,7 +257,7 @@ class KernelWindow():
         kernel_list_prelim = []
         pages_needed = []
         pages_needed_sort = []
-        self.marked_kernels = []        
+        self.marked_kernels = []
         for kernel in kernels:
             values = kernel.split('###')
             if len(values) == 10:
@@ -374,8 +372,6 @@ class KernelWindow():
                 if used:
                     currently_using = _("You are currently using the following kernel:")
                     current_label.set_markup("<b>%s %s</b>" % (currently_using, label))
-                    l_current_kernel.set_label(currently_using)
-                    l_current_kernel_ver.set_markup("<b>%s</b>" % label)
                 if page_label == page:
                     row = KernelRow(version, pkg_version, label, installed, used, title, installable, origin, support_status, self.window, self.application)
                     list_box.add(row)
