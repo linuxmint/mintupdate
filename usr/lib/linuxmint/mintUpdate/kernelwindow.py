@@ -94,7 +94,7 @@ class KernelRow(Gtk.ListBoxRow):
             status_label.set_margin_right(0)
             status_label.set_markup(support_status)
             status_label.set_halign(Gtk.Align.END)
-            hbox.pack_start(status_label, True, True, 0)
+            hbox.pack_end(status_label, True, True, 0)
 
         self.revealer = Gtk.Revealer()
         self.revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
@@ -297,7 +297,7 @@ class KernelWindow():
                 (support_end_year, support_end_month) = get_maintenance_end_date(release_dates[release][0], support_duration)
                 is_end_of_life = (now.year > support_end_year or (now.year == support_end_year and now.month > support_end_month))
                 if not is_end_of_life:
-                    support_end_str = "%s %s" % (locale.nl_langinfo(getattr(locale,"ABMON_%d" % support_end_month)), support_end_year)
+                    support_end_str = "%s %s" % (locale.nl_langinfo(getattr(locale,"MON_%d" %support_end_month)), support_end_year)
 
                 kernel_support_info[release].append([page_label, support_duration, support_end_str, is_end_of_life])
 
