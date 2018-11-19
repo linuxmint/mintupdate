@@ -8,11 +8,11 @@ import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GdkX11', '3.0') # Needed to get xid
 from gi.repository import Gtk
+from gi.repository import Gio
 import time
 import datetime
 import locale
 from apt.utils import get_maintenance_end_date
-
 from Classes import KERNEL_PKG_NAMES
 
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
@@ -22,40 +22,63 @@ def list_header_func(row, before, user_data):
         row.set_header(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
 
 class InstallKernelThread(threading.Thread):
-    def __init__(self, version, application, window, remove=False):
+    def __init__(self, kernels, application):
         threading.Thread.__init__(self)
-        self.version = version
-        self.window = window
-        self.remove = remove
+        self.kernels = kernels
         self.application = application
 
     def run(self):
         self.application.window.set_sensitive(False)
-        cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
-                "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
-        f = tempfile.NamedTemporaryFile()
-        cache = apt.Cache()
-        if self.remove:
-            KERNEL_PKG_NAMES.append('linux-image-unsigned-VERSION-generic') # mainline, remove only
-        for name in KERNEL_PKG_NAMES:
-            name = name.replace("VERSION", self.version)
-            if name in cache:
-                pkg = cache[name]
-                if self.remove:
-                    if pkg.is_installed:
-                        pkg_line = "%s\tpurge\n" % name
+        settings = Gio.Settings("com.linuxmint.updates")
+        if settings.get_boolean("use-lowlatency-kernels"):
+            kernel_type = "-lowlatency"
+        else:
+            kernel_type = "-generic"
+        do_regular = False
+        for (version, origin, remove) in self.kernels:
+            if not do_regular:
+                do_regular = True
+                f = tempfile.NamedTemporaryFile()
+                cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
+                    "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), \
+                    "-o", "Synaptic::closeZvt=true", "--set-selections-file", "%s" % f.name]
+                cache = apt.Cache()
+            _KERNEL_PKG_NAMES = KERNEL_PKG_NAMES.copy()
+            if remove:
+                _KERNEL_PKG_NAMES.append('linux-image-unsigned-VERSION' + kernel_type) # mainline, remove only
+            for name in _KERNEL_PKG_NAMES:
+                name = name.replace("VERSION", version)
+                if name in cache:
+                    pkg = cache[name]
+                    if remove:
+                        if pkg.is_installed:
+                            pkg_line = "%s\tpurge\n" % name
+                            f.write(pkg_line.encode("utf-8"))
+                    else:
+                        pkg_line = "%s\tinstall\n" % name
                         f.write(pkg_line.encode("utf-8"))
-                else:
-                    pkg_line = "%s\tinstall\n" % name
-                    f.write(pkg_line.encode("utf-8"))
+            f.flush()
 
-        cmd.append("--set-selections-file")
-        cmd.append("%s" % f.name)
-        f.flush()
-        comnd = subprocess.Popen(' '.join(cmd), stdout=self.application.logger.log, stderr=self.application.logger.log, shell=True)
-        returnCode = comnd.wait()
-        f.close()
+        if do_regular:
+            comnd = subprocess.Popen(' '.join(cmd), stdout=self.application.logger.log, stderr=self.application.logger.log, shell=True)
+            returnCode = comnd.wait()
+            f.close()
         self.application.window.set_sensitive(True)
+
+class MarkKernelRow(Gtk.ListBoxRow):
+    def __init__(self, version, window):
+        Gtk.ListBoxRow.__init__(self)
+        self.window = window
+        button = Gtk.CheckButton(version, False)
+        button.connect("toggled", self.on_checked)
+        Gtk.ToggleButton.set_active(button, True)
+        self.add(button)
+
+    def on_checked(self, widget):
+        if widget.get_active():
+            self.window.marked_kernels.append([widget.get_label(), None, True])
+        else:
+            self.window.marked_kernels.remove([widget.get_label(), None, True])
 
 class KernelRow(Gtk.ListBoxRow):
     def __init__(self, version, pkg_version, text, installed, used, title, installable, origin, support_status, window, application):
@@ -154,7 +177,7 @@ class KernelRow(Gtk.ListBoxRow):
         else:
             self.revealer.set_reveal_child(True)
 
-    def install_kernel(self, widget, version, installed, window):
+    def install_kernel(self, widget, version, installed, window, origin):
         if installed:
             message = _("Are you sure you want to remove the %s kernel?") % version
         else:
@@ -165,7 +188,7 @@ class KernelRow(Gtk.ListBoxRow):
         d.hide()
         d.destroy()
         if r == Gtk.ResponseType.YES:
-            thread = InstallKernelThread(version, self.application, window, installed)
+            thread = InstallKernelThread([[version, origin, installed]], self.application)
             thread.start()
             window.hide()
 
@@ -185,6 +208,7 @@ class KernelWindow():
         main_box = builder.get_object("main_vbox")
         info_box = builder.get_object("intro_box")
         current_label = builder.get_object("label6")
+        self.remove_kernels_window = builder.get_object("confirmation_window")
 
         self.main_stack = Gtk.Stack()
         self.main_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
@@ -206,6 +230,14 @@ class KernelWindow():
         kernel_stack_box.pack_start(stack, True, True, 0)
 
         builder.get_object("button_close").connect("clicked", self.hide_window)
+        builder.get_object("button_massremove").connect("clicked", self.show_remove_kernels_window, self.remove_kernels_window)
+
+        # Set up the kernel mass removal confirmation window
+        builder.get_object("b_cancel").connect("clicked", self.on_cancel_clicked, self.remove_kernels_window)
+        builder.get_object("b_remove").connect("clicked", self.on_remove_clicked, self.remove_kernels_window)
+        l_current_kernel = builder.get_object("l_current_kernel")
+        l_current_kernel_ver = builder.get_object("l_current_kernel_ver")
+        remove_kernels_listbox = builder.get_object("box_list")
 
         # Get distro release dates for support duration calculation
         release_dates = {}
@@ -227,6 +259,7 @@ class KernelWindow():
         kernel_list_prelim = []
         pages_needed = []
         pages_needed_sort = []
+        self.marked_kernels = []        
         for kernel in kernels:
             values = kernel.split('###')
             if len(values) == 10:
@@ -258,6 +291,8 @@ class KernelWindow():
                     installable, origin, release, support_duration])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
+                if installed and not used:
+                    remove_kernels_listbox.add(MarkKernelRow(version, self))
                     pages_needed_sort.append([version_id,page_label])
 
         kernel_support_info = {}
@@ -337,7 +372,10 @@ class KernelWindow():
             for kernel in kernel_list:
                 (version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, support_status) = kernel
                 if used:
-                    current_label.set_markup("<b>%s %s</b>" % (_("You are currently using the following kernel:"), label))
+                    currently_using = _("You are currently using the following kernel:")
+                    current_label.set_markup("<b>%s %s</b>" % (currently_using, label))
+                    l_current_kernel.set_label(currently_using)
+                    l_current_kernel_ver.set_markup("<b>%s</b>" % label)
                 if page_label == page:
                     row = KernelRow(version, pkg_version, label, installed, used, title, installable, origin, support_status, self.window, self.application)
                     list_box.add(row)
@@ -368,3 +406,18 @@ class KernelWindow():
 
     def show_help(self, widget):
         os.system("yelp help:mintupdate/index &")
+
+    def show_remove_kernels_window(self, widget, window):
+        self.window.set_sensitive(False)
+        window.show_all()
+
+    def on_cancel_clicked(self, widget, window):
+        self.window.set_sensitive(True)
+        window.hide()
+
+    def on_remove_clicked(self, widget, window):
+        window.hide()
+        if self.marked_kernels:
+            thread = InstallKernelThread(self.marked_kernels, self.application)
+            thread.start()
+            self.window.hide()
