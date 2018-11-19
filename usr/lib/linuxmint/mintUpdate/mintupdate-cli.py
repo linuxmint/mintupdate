@@ -29,6 +29,7 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
     parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions")
     parser.add_argument("--install-recommends", action="store_true", help="install recommended packages (use with caution)")
+    parser.add_argument("-v", "--version", action="version", version=subprocess.getoutput("/usr/lib/linuxmint/common/version.py mintupdate"), help="Display the current version")
 
     args = parser.parse_args()
     try:
