@@ -9,6 +9,10 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('GdkX11', '3.0') # Needed to get xid
 from gi.repository import Gtk
 from gi.repository import Gio
+import time
+import datetime
+import locale
+from apt.utils import get_maintenance_end_date
 from Classes import KERNEL_PKG_NAMES
 
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
@@ -77,7 +81,7 @@ class MarkKernelRow(Gtk.ListBoxRow):
             self.window.marked_kernels.remove([widget.get_label(), None, True])
 
 class KernelRow(Gtk.ListBoxRow):
-    def __init__(self, version, pkg_version, text, installed, used, title, installable, origin, window, application):
+    def __init__(self, version, pkg_version, text, installed, used, title, installable, origin, support_status, window, application):
         Gtk.ListBoxRow.__init__(self)
 
         self.application = application
@@ -107,6 +111,13 @@ class KernelRow(Gtk.ListBoxRow):
             label.set_markup("<i>%s</i>" % title)
             Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(label), "dim-label")
             hbox.set_center_widget(label)
+
+        if support_status:
+            status_label = Gtk.Label()
+            status_label.set_margin_right(0)
+            status_label.set_markup(support_status)
+            status_label.set_halign(Gtk.Align.END)
+            hbox.pack_end(status_label, True, True, 0)
 
         self.revealer = Gtk.Revealer()
         self.revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_DOWN)
@@ -228,16 +239,31 @@ class KernelWindow():
         l_current_kernel_ver = builder.get_object("l_current_kernel_ver")
         remove_kernels_listbox = builder.get_object("box_list")
 
+        # Get distro release dates for support duration calculation
+        release_dates = {}
+        if os.path.isfile("/usr/share/distro-info/ubuntu.csv"):
+            distro_info = open("/usr/share/distro-info/ubuntu.csv", "r").readlines()
+            for distro in distro_info[1:]:
+                distro = distro.split(",")
+                release_date = time.mktime(time.strptime(distro[4], '%Y-%m-%d'))
+                release_date = datetime.datetime.fromtimestamp(release_date)
+                support_end = time.mktime(time.strptime(distro[5].rstrip(), '%Y-%m-%d'))
+                support_end = datetime.datetime.fromtimestamp(support_end)
+                release_dates[distro[2]] = [release_date, support_end]
+        now = datetime.datetime.now()
+        hwe_support_duration = {}
+
         kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py", shell = True).decode("utf-8")
         kernels = kernels.split("\n")
-        kernels.sort(reverse = True)
-        kernel_list = []
+        kernels.sort()
+        kernel_list_prelim = []
         pages_needed = []
-        self.marked_kernels = []
+        pages_needed_sort = []
+        self.marked_kernels = []        
         for kernel in kernels:
             values = kernel.split('###')
-            if len(values) == 8:
-                (status, version_id, version, pkg_version, installed, used, installable, origin) = values
+            if len(values) == 10:
+                (version_id, version, pkg_version, installed, used, installable, origin, archive, support_duration) = values[1:]
                 installed = (installed == "1")
                 used = (used == "1")
                 title = ""
@@ -250,15 +276,89 @@ class KernelWindow():
 
                 installable = (installable == "1")
                 label = version
+                page_label = ".".join(label.replace("-",".").split(".")[:2])
 
-                page_label = label.split(".")[0] + "." + label.split(".")[1]
-                kernel_list.append([version, pkg_version, page_label, label, installed, used, title, installable, origin])
+                support_duration = int(support_duration)
+
+                release = archive.split("-", 1)[0]
+                if support_duration and origin == "1":
+                    if not release in hwe_support_duration:
+                        hwe_support_duration[release] = []
+                    if not [x for x in hwe_support_duration[release] if x[0] == page_label]:
+                        hwe_support_duration[release].append([page_label, support_duration])
+
+                kernel_list_prelim.append([version_id, version, pkg_version, page_label, label, installed, used, title, \
+                    installable, origin, release, support_duration])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
                 if installed and not used:
                     remove_kernels_listbox.add(MarkKernelRow(version, self))
+                    pages_needed_sort.append([version_id,page_label])
 
-        for page in pages_needed:
+        kernel_support_info = {}
+        for release in hwe_support_duration:
+            if release not in release_dates.keys():
+                continue
+            kernel_support_info[release] = []
+            kernel_count = len(hwe_support_duration[release])
+            time_since_release = (now.year - release_dates[release][0].year) * 12 + (now.month - release_dates[release][0].month)
+            for point_release, kernel in enumerate(hwe_support_duration[release]):
+                (page_label, support_duration) = kernel
+                if support_duration == -1:
+                    # here's some magic to determine hwe support duration based on the release cycle
+                    # described here: https://wiki.ubuntu.com/Kernel/Support#A18.04.x_Ubuntu_Kernel_Support
+                    if point_release >= 4:
+                        # Regularly the 4th point release is the next LTS kernel. However, this sequence breaks when
+                        # out-of-turn HWE kernels like 4.11 are introduced, so we have to work around that:
+                        if kernel_count > 5 and point_release < kernel_count - 1:
+                            support_duration = kernel_support_info[release][3][1]
+                        # the 4th point release is LTS and scheduled 28 months after original release:
+                        elif time_since_release >= 28:
+                            support_duration = (release_dates[release][1].year - release_dates[release][0].year) * 12 + \
+                                (release_dates[release][1].month - release_dates[release][0].month)
+                    if point_release >= 1 and support_duration == -1:
+                        # out of turn HWE kernels can be detected quite well at the time of release,
+                        # but later on there's no way to know which one was the one that was out of turn
+                        max_expected_point_release = (time_since_release - 3) // 6 + 1
+                        if point_release > max_expected_point_release:
+                            # out of turn HWE kernel
+                            support_duration = 10 + max_expected_point_release * 6
+                        else:
+                            # treat as regular HWE kernel
+                            support_duration = 10 + point_release * 6
+
+                support_end_str = ""
+                is_end_of_life = False
+                (support_end_year, support_end_month) = get_maintenance_end_date(release_dates[release][0], support_duration)
+                is_end_of_life = (now.year > support_end_year or (now.year == support_end_year and now.month > support_end_month))
+                if not is_end_of_life:
+                    support_end_str = "%s %s" % (locale.nl_langinfo(getattr(locale,"MON_%d" %support_end_month)), support_end_year)
+
+                kernel_support_info[release].append([page_label, support_duration, support_end_str, is_end_of_life])
+
+        kernel_list = []
+        for kernel in kernel_list_prelim:
+            (version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, release, support_duration) = kernel
+            support_end_str = ""
+            is_end_of_life = False
+            if support_duration and origin == "1":
+                support_info = [x for x in kernel_support_info[release] if x[0] == page_label]
+                if support_info:
+                    (page_label, support_duration, support_end_str, is_end_of_life) = support_info[0]
+            if support_end_str:
+                support_status = '%s %s' % (_("Supported until"), support_end_str)
+            elif is_end_of_life:
+                support_status = '<span foreground="red">%s</span>' % _("End of Life")
+            else:
+                support_status = '<span foreground="red">%s</span>' % _("Unsupported")
+            kernel_list.append([version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, support_status])
+        del(kernel_list_prelim)
+
+        kernel_list.sort(reverse=True)
+        pages_needed_sort.sort(reverse=True)
+
+        for page in pages_needed_sort:
+            page = page[1]
             scw = Gtk.ScrolledWindow()
             scw.set_shadow_type(Gtk.ShadowType.IN)
             list_box = Gtk.ListBox()
@@ -270,14 +370,14 @@ class KernelWindow():
             # stack_switcher.add_titled(page, page)
 
             for kernel in kernel_list:
-                (version, pkg_version, page_label, label, installed, used, title, installable, origin) = kernel
+                (version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, support_status) = kernel
                 if used:
                     currently_using = _("You are currently using the following kernel:")
                     current_label.set_markup("<b>%s %s</b>" % (currently_using, label))
                     l_current_kernel.set_label(currently_using)
                     l_current_kernel_ver.set_markup("<b>%s</b>" % label)
                 if page_label == page:
-                    row = KernelRow(version, pkg_version, label, installed, used, title, installable, origin, self.window, self.application)
+                    row = KernelRow(version, pkg_version, label, installed, used, title, installable, origin, support_status, self.window, self.application)
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)

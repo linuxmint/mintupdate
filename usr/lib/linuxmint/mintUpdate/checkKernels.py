@@ -55,7 +55,28 @@ try:
 
             signed_kernels.append(version)
 
-            resultString = "KERNEL###%s###%s###%s###%s###%s###%s###%s" % (".".join(versions), version, pkg_version, installed, used, installable, origin)
+            archive = pkg.candidate.origins[0].archive
+
+            # get support duration
+            if pkg.candidate.record.has_key("Supported") and pkg.candidate.record["Supported"]:
+                if pkg.candidate.record["Supported"].endswith("y"):
+                    # override support duration for HWE kernels in LTS releases,
+                    # these will be handled by the kernel window
+                    if "-hwe" in pkg.candidate.source_name:
+                        support_duration = -1
+                    else:
+                        support_duration = int(pkg.candidate.record["Supported"][:-1]) * 12
+                elif pkg.candidate.record["Supported"].endswith("m"):
+                    support_duration = int(pkg.candidate.record["Supported"][:-1])
+                else:
+                    # unexpected support tag
+                    support_duration = 0
+            else:
+                # unsupported
+                support_duration = 0
+
+            resultString = "KERNEL###%s###%s###%s###%s###%s###%s###%s###%s###%s" % \
+                (".".join(versions), version, pkg_version, installed, used, installable, origin, archive, support_duration)
             print(resultString.encode("utf-8").decode('ascii', 'xmlcharrefreplace'))
 
 except:

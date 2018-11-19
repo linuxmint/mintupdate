@@ -4,7 +4,6 @@ import apt
 import codecs
 import fnmatch
 import gettext
-import gi
 import os
 import platform
 import re
@@ -14,7 +13,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, META_NAMES
+from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -105,6 +104,18 @@ class APTCheck():
                 self.add_update(pkg)
 
         # Kernel updates
+        if self.settings.get_boolean("use-lowlatency-kernels"):
+            kernel_type = "-lowlatency"
+        else:
+            kernel_type = "-generic"
+
+        meta_names = []
+        _metas = [s for s in self.cache.keys() if s.startswith("linux" + kernel_type)]
+        for meta in _metas:
+            shortname = meta.split(":")[0]
+            if shortname not in meta_names:
+                meta_names.append(shortname)
+
         try:
             if self.settings.get_boolean("kernel-updates-are-visible"):
 
@@ -113,7 +124,7 @@ class APTCheck():
 
                 # Check if any meta is installed..
                 meta_installed = False
-                for meta_name in META_NAMES:
+                for meta_name in meta_names:
                     if meta_name in self.cache:
                         meta = self.cache[meta_name]
                         if meta.is_installed:
@@ -122,7 +133,7 @@ class APTCheck():
 
                 # If no meta is installed, try to recommend one
                 if not meta_installed:
-                    for meta_name in META_NAMES:
+                    for meta_name in meta_names:
                         if meta_name in self.cache:
                             meta = self.cache[meta_name]
                             recommended_kernel = KernelVersion(meta.candidate.version)

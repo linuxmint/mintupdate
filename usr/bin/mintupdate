@@ -1,6 +1,11 @@
 #!/usr/bin/python3
-
 import os
-
-command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
-os.system(command)
+import subprocess
+import argparse
+if __name__ == "__main__":
+    # Parse arguments
+    parser = argparse.ArgumentParser(prog="mintupdate", description="The Linux Mint Update Manager")
+    parser.add_argument("-v", "--version", action="version", version=subprocess.getoutput("/usr/lib/linuxmint/common/version.py mintupdate"), help="Display the current version")
+    args = parser.parse_args()
+    command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
+    os.system(command)
