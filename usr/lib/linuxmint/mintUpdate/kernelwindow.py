@@ -26,6 +26,7 @@ class InstallKernelThread(threading.Thread):
         self.application = application
 
     def run(self):
+        self.application.window.set_sensitive(False)
         cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
                 "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
         f = tempfile.NamedTemporaryFile()
@@ -50,6 +51,7 @@ class InstallKernelThread(threading.Thread):
         comnd = subprocess.Popen(' '.join(cmd), stdout=self.application.logger.log, stderr=self.application.logger.log, shell=True)
         returnCode = comnd.wait()
         f.close()
+        self.application.window.set_sensitive(True)
 
 class KernelRow(Gtk.ListBoxRow):
     def __init__(self, version, pkg_version, text, installed, used, title, installable, origin, window, application):
@@ -159,6 +161,7 @@ class KernelRow(Gtk.ListBoxRow):
 class KernelWindow():
     def __init__(self, application):
         self.application = application
+        self.application.window.set_sensitive(False)
         gladefile = "/usr/share/linuxmint/mintupdate/kernels.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -252,6 +255,7 @@ class KernelWindow():
 
     def hide_window(self, widget):
         self.window.hide()
+        self.application.window.set_sensitive(True)
 
     def on_continue_clicked(self, widget, main_box):
         self.main_stack.set_visible_child(main_box)

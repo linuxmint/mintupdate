@@ -82,7 +82,7 @@ class Update():
                         if origin.component == "romeo":
                             self.type = "unstable"
                             break
-                if self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
+                if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                     self.type = "kernel"
 
             self.level = 2 # Level 2 by default

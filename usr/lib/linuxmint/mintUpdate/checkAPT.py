@@ -129,7 +129,7 @@ class APTCheck():
                         meta = self.cache[meta_name]
                         if meta.is_installed:
                             meta_installed = True
-                            break
+                            return
 
                 # If no meta is installed, try to recommend one
                 if not meta_installed:
@@ -145,11 +145,13 @@ class APTCheck():
 
                 # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
                 max_kernel = uname_kernel
-                for pkg in self.cache:
-                    package_name = pkg.name
-                    if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith(kernel_type):
-                        version = package_name.replace("linux-image-", "").replace("-generic", "").replace("-lowlatency", "")
-                        kernel = KernelVersion(version)
+                kernel_type = "-generic"
+                if self.settings.get_boolean("use-lowlatency-kernels"):
+                    kernel_type = "-lowlatency"
+                for pkgname in self.cache.keys():
+                    match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)' + kernel_type + '$', pkgname)
+                    if match:
+                        kernel = KernelVersion(match.group(1))
                         if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                             max_kernel = kernel
                 if max_kernel.numeric_representation != uname_kernel.numeric_representation:
