@@ -24,6 +24,7 @@ class InstallKernelThread(threading.Thread):
         self.application = application
 
     def run(self):
+        self.application.window.set_sensitive(False)
         settings = Gio.Settings("com.linuxmint.updates")
         if settings.get_boolean("use-lowlatency-kernels"):
             kernel_type = "-lowlatency"
@@ -58,6 +59,7 @@ class InstallKernelThread(threading.Thread):
             comnd = subprocess.Popen(' '.join(cmd), stdout=self.application.logger.log, stderr=self.application.logger.log, shell=True)
             returnCode = comnd.wait()
             f.close()
+        self.application.window.set_sensitive(True)
 
 class MarkKernelRow(Gtk.ListBoxRow):
     def __init__(self, version, window):
@@ -182,6 +184,7 @@ class KernelRow(Gtk.ListBoxRow):
 class KernelWindow():
     def __init__(self, application):
         self.application = application
+        self.application.window.set_sensitive(False)
         gladefile = "/usr/share/linuxmint/mintupdate/kernels.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -290,6 +293,7 @@ class KernelWindow():
 
     def hide_window(self, widget):
         self.window.hide()
+        self.application.window.set_sensitive(True)
 
     def on_continue_clicked(self, widget, main_box):
         self.main_stack.set_visible_child(main_box)
