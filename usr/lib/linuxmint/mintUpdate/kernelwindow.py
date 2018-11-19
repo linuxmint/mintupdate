@@ -230,6 +230,7 @@ class KernelWindow():
         kernel_stack_box.pack_start(stack, True, True, 0)
 
         builder.get_object("button_close").connect("clicked", self.hide_window)
+        self.window.connect("destroy", self.hide_window)
         builder.get_object("button_massremove").connect("clicked", self.show_remove_kernels_window, self.remove_kernels_window)
 
         # Set up the kernel mass removal confirmation window
