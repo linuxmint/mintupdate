@@ -138,7 +138,8 @@ class APTCheck():
                 if self.settings.get_boolean("use-lowlatency-kernels"):
                     kernel_type = "-lowlatency"
                 for pkgname in self.cache.keys():
-                    match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)' + kernel_type + '$', pkgname)                    if match:
+                    match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)' + kernel_type + '$', pkgname)
+                    if match:
                         kernel = KernelVersion(match.group(1))
                         if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                             max_kernel = kernel
