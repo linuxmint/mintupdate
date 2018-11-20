@@ -1,0 +1,10 @@
+[Unit]
+Description=Update Manager weekly autoremove
+
+[Timer]
+OnCalendar=weekly
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target
