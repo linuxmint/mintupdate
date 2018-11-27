@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Memperbaharui dari baris perintah</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Menggunakan mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Manajer Pembaharuan menyediakan sebuah utilitas baris perintah yang dinamakan "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Jika anda berpengalaman dengan Linux, anda dapat gunakan peralatan dalam skrip anda atau dengan cron jobs untuk mengotomatisasi pemasangan pembahauan perangkat lunak anda.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Daftar pembaharuan</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Anda dapat gunakan perintah "list"untuk menampilkan daftar pembaharuan:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>Daftar mintupdate-cli</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Anda dapat gunakan -l hanya untuk menampilkan pembaharuan di tingkat tertentu (ketika mencari permasalahan).</p>
 
   <p>You can use -s to only show the security updates.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Anda dapat gunakan -k hanya untuk menampilkan pembaharuan kernel.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Sebagai contoh, perintah berikut ini menampilkan semua daftar pembaharuan keamanan:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,11 +42,11 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Menyetujui pembaharuan</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Anda dapat gunakan perintah "upgrade" untuk menyetujui pembaharuan, menggunakan pilihan yang sama.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Sebagai contoh, perintah berikut ini menyetujui pembaharuan kernel:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 

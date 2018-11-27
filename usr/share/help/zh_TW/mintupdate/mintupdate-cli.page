@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>使用命令列更新</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>使用 mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>更新管理員提供了命令列更新工具，叫「mintupdate-cli」。</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>如果你熟悉 Linux，你可以在批次檔裏定期執行這個工具，自動完成軟體更新。</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>列出更新</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>你可以使用「list」指令來列出更新：</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>你可以使用 -l 只顯示目前設定等級的更新 (在有問題需要解決時)。</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>你可以使用 -s 只顯示安全性更新。</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>你可以使用 -k 只顯核心更新</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>例如，以下的指令可以列出所有安全性更新：</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>套用更新</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>你可以使用「upgrade」指令來套用更新，會使用相同的選項。</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>例如，以下的命令會套用核心更新：</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>注意 -r 這個參數，是用來刷新快取。</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>要看更多 mintupdate-cli 的資訊與完整參數清單，請輸入：</p>
 
   <screen>mintupdate-cli -h</screen>
 

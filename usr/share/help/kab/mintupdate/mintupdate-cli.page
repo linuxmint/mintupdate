@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Aleqqem seg uzirig n inezḍayen</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Aseqdec n mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Amsefrak n ileqman yesɛa anezḍay isem-is "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Ma tessneḍ-as aṭas i Linux, tzemreḍ ad tesqedceḍ afecku-agi deg yisekripten-inek neɣ di tmahilin-inek cron iwakken ad teswurmneḍ asbeddi n ileqman n iseɣẓanen.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Sebder ileqman</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Tzemreḍ ad tesqedceḍ anezḍay "list" iwakken ad tesbedreḍ ileqman :</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Tzemreḍ ad tesqedceḍ -l iwakken ad tsekneḍ kan ileqman yesɛan kra n uswir (i weseggem).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Tzemreḍ ad tesqedceḍ -s iwakken ad tsekneḍ kan ileqman n tɣellist.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Tzemreḍ ad tesqedceḍ -k iwakken ad tsekneḍ kan ileqman n yiɣes.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Deg umedya, anezḍay-agi yeskan akk ileqman n tɣellist:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Snes ileqman</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Tzemreḍ ad tesqedceḍ anezḍay "upgrade" iwakken ad tesneseḍ ileqman, s useqdec n tnefrunin am tidak.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Deg umedya, anezḍay-agi ad isnes ileqman n yiɣes:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Wali tiɣiret -r, i yezemren ad tettwaseqdec i umucceḍ n tuffirt.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>I wugar n isallan ɣef mintupdate-cli akked tebdart tummidt n tiɣirtin, aru:</p>
 
   <screen>mintupdate-cli -h</screen>
 

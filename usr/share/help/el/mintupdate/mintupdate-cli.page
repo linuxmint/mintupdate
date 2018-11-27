@@ -11,30 +11,30 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Ενημέρωση από τη γραμμή εντολών</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Χρησιμοποιώντας το mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Ο διαχειριστής ενημερώσεων παρέχει ένα βοηθητικό πρόγραμμα γραμμής εντολών που ονομάζεται "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Εάν είστε έμπειροι με το Linux, μπορείτε να χρησιμοποιήσετε αυτό το εργαλείο στις δέσμες ενεργειών σας ή στις εργασίες cron για να αυτοματοποιήσετε την εγκατάσταση ενημερώσεων λογισμικού.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Ενημερώσεις λίστας</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Μπορείτε να χρησιμοποιήσετε την εντολή "list" για να καταχωρίσετε ενημερώσεις:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>λίστα mintupdate-cli</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Μπορείτε να χρησιμοποιήσετε το -l για να εμφανίζετε μόνο ενημερώσεις για ορισμένα επίπεδα (όταν αντιμετωπίζετε προβλήματα).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Μπορείτε να χρησιμοποιήσετε το -s για να εμφανίσετε μόνο τις ενημερωμένες εκδόσεις ασφαλείας.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Μπορείτε να χρησιμοποιήσετε το -k για να εμφανίσετε μόνο τις ενημερώσεις του πυρήνα.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Για παράδειγμα, η ακόλουθη εντολή παραθέτει όλες τις ενημερωμένες εκδόσεις ασφαλείας:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,17 +42,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Εφαρμογή ενημερώσεων</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Μπορείτε να χρησιμοποιήσετε την εντολή "αναβάθμιση" για να εφαρμόσετε ενημερώσεις, χρησιμοποιώντας τις ίδιες επιλογές.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Για παράδειγμα, η ακόλουθη εντολή ισχύει για ενημερώσεις πυρήνα:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Σημειώστε το όρισμα -r, το οποίο προστέθηκε για να ανανεώσει την προσωρινή μνήμη.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Για περισσότερες πληροφορίες σχετικά με το mintupdate-cli και μια πλήρη λίστα με τα ορίσματα, πληκτρολογήστε:</p>
 
   <screen>mintupdate-cli -h</screen>
 
