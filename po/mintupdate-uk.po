@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-05-07 13:28+0100\n"
-"PO-Revision-Date: 2018-06-17 19:06+0000\n"
-"Last-Translator: Oleg Prykhodko <Unknown>\n"
+"POT-Creation-Date: 2018-11-19 14:05+0000\n"
+"PO-Revision-Date: 2018-11-21 19:02+0000\n"
+"Last-Translator: stuartlittle <Stuartlittle1970@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2018-06-26 10:06+0000\n"
-"X-Generator: Launchpad (build 18688)\n"
+"X-Launchpad-Export-Date: 2018-11-27 17:42+0000\n"
+"X-Generator: Launchpad (build 18826)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -76,11 +76,11 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
-"Безпека не лише важлива, але також має технічний характер. Вразливості не "
-"завжди впливають на Ваш комп’ютер й можуть бути складно помічені. Більшість "
-"людей не збагнуть цього й їх комп’ютери зазнають ризику. Втім, порушення "
-"правил безпеки може призвести до важких наслідків, тому завжди радиться "
-"сприймати їх серйозно."
+"Безпека дуже важлива, разом з тим має технічну складову. Вразливості не "
+"завжди шкодять Вашому комп’ютеру і побачити їх доволі складно. Більшість "
+"людей взагалі їх не помічають, тому їхні комп’ютери в зоні ризику. "
+"Нехтування правилами безпеки може призвести до важких наслідків, тому завжди "
+"рекомендується дотримуватись їх."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
@@ -112,7 +112,7 @@ msgstr ""
 "Якщо зіткнулися із серйозною регресією, відновіть останній знімок системи."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "System snapshots"
 msgstr "Знімки системи"
@@ -130,10 +130,12 @@ msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"Це може бути використано для створення знімків вручну але також для "
+"автоматизації знімків системи."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
-msgstr ""
+msgstr "Linux Mint рекомендує автоматизувати щоденні та знімки завантаження."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -141,12 +143,17 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Якщо оновлення, помилка, помилка програми або шкідлива програма пошкодить що-"
+"небудь на Вашому комп'ютері, Ви можете відновити операційну систему з любого "
+"знімка, таким чином скасувати проблему, ніби її взагалі не було."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
+"Системні знімки охоплюють тільки саму операційну систему. Вони не включають "
+"або не впливають на ваші особисті дані."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
@@ -225,12 +232,13 @@ msgstr "Оновлення з командного рядка"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "Використання mintupdate-cli"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
+"Менеджер оновлень надає засіб командного рядку під назвою \"mintupdate-cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
@@ -252,30 +260,32 @@ msgstr "Ви можете використовувати команду \"list\"
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "mintupdate-cli список"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid ""
 "You can use -l to only show updates for certain levels (when "
 "troubleshooting)."
 msgstr ""
+"Ви можете використовувати -l для показу лише оновлень для певних рівнів (під "
+"час усунення несправностей)."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "Ви можете використовувати -s, щоб показувати лише оновлення безпеки."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr ""
+msgstr "Ви можете використовувати -k, щоб показувати лише оновлення ядра."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
 msgid "For instance, the following command lists all security updates:"
-msgstr ""
+msgstr "Наприклад, наступна команда містить список всіх оновлень безпеки:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
 msgid "Applying updates"
@@ -290,12 +300,12 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "Наприклад, наступна команда застосовує оновлення ядра:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid "Note the -r argument, which was added to refresh the cache."
@@ -306,11 +316,13 @@ msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"Для отримання додаткової інформації про mintupdate-cli та повного списку "
+"аргументів, введіть:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -361,6 +373,8 @@ msgid ""
 "Use update levels when troubleshooting, to identify which update is "
 "responsible for a regression."
 msgstr ""
+"Використовуйте рівні оновлення під час усунення несправностей, щоб "
+"визначити, яке оновлення відповідає за регрес."
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
@@ -372,18 +386,23 @@ msgid ""
 "with the latest system snapshot and tell the Linux Mint development team "
 "about the regression."
 msgstr ""
+"Критичні регресії трапляються дуже рідко. Коли вони трапляться, відновіть "
+"свою систему з оснаннього знімку системи та повідомте команді розробників "
+"Linux Mint про регрес."
 
 #: usr/share/help/C/mintupdate/levels.page:23(p)
 msgid ""
 "The Linux Mint team will want to know which update is responsible for the "
 "regression."
-msgstr ""
+msgstr "Команда Linux Mint хоче знати, яке оновлення відповідає за регрес."
 
 #: usr/share/help/C/mintupdate/levels.page:25(p)
 msgid ""
 "If you are faced with a long list of updates and you're not sure where to "
 "look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
 msgstr ""
+"Якщо ви стикаєтесь з довгим списком оновлень і не впевнені, де шукати, "
+"натисніть \"Перегляд\" -&gt;\"Видимі стовпці\"-&gt;\" Рівні \"."
 
 #: usr/share/help/C/mintupdate/levels.page:27(p)
 msgid ""
@@ -425,7 +444,7 @@ msgstr "Великий"
 #: usr/share/help/C/mintupdate/levels.page:45(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:17
 msgid "Impact on multiple applications."
-msgstr ""
+msgstr "Вплив на декілька додатків."
 
 #: usr/share/help/C/mintupdate/levels.page:49(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:13
@@ -435,7 +454,7 @@ msgstr "Чутливий"
 #: usr/share/help/C/mintupdate/levels.page:50(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:18
 msgid "Impact on sensitive parts of the system."
-msgstr ""
+msgstr "Вплив на чутливі частини системи."
 
 #: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
@@ -478,6 +497,8 @@ msgid ""
 "Regressions in these updates usually only affect the software they're "
 "updating, not the operating system itself."
 msgstr ""
+"Регресії в цих оновленнях зазвичай впливають на програмне забезпечення, яке "
+"вони оновлюють, а не на саму операційну систему."
 
 #: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
@@ -789,10 +810,10 @@ msgstr ""
 "раніше, вилучіть нове ядро та перезавантажте комп’ютер."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:968
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1031
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:970
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:974
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1805 generate_desktop_files:26
 msgid "Update Manager"
 msgstr "Менеджер оновлень"
 
@@ -826,6 +847,9 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Щоб зберегти свій комп'ютер у безпеці та гарному робочому стані, "
+"рекомендується застосувати всі доступні оновлення та настроїти системні "
+"знімки, щоб ви могли відновити Вашу систему у випадку, помилки."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -843,7 +867,7 @@ msgstr "Усунення проблем"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains update levels."
-msgstr ""
+msgstr "У цьому розділі пояснюються рівні оновлення."
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
@@ -870,19 +894,20 @@ msgstr ""
 "  Oliver Star https://launchpad.net/~oliverstar\n"
 "  Serge Gavrilenko https://launchpad.net/~screamer-sg\n"
 "  Sergiy Gavrylov https://launchpad.net/~gavro\n"
+"  Yevhen Shkriblyak https://launchpad.net/~masterdevx\n"
 "  Yurii Bagrii https://launchpad.net/~y-h-m\n"
 "  stuartlittle https://launchpad.net/~stuartlittle1970"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:206
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:232
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Ядро Linux %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:207
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:233
 msgid "The Linux kernel."
 msgstr "Ядро Linux."
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:208
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:234
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -902,47 +927,59 @@ msgstr ""
 "закриті драйвери і хочете використовувати старе ядро, необхідно спочатку "
 "вилучити нове."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:154
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:158
 msgid "Remove"
 msgstr "Вилучити"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:157
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr ""
 "Це ядро не може бути вилучено, оскільки воно використовується на даний час."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:165
 msgid "Install"
 msgstr "Встановити"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:164
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:168
 msgid "This kernel is not installable."
 msgstr "Це ядро не може бути встановлено."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:178
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:182
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
 msgstr "Ви впевнені, що бажаєте вилучити %s ядро?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:180
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:184
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "Ви впевнені, що бажаєте встановити %s ядро?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:199
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:204
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Kernels"
 msgstr "Ядра"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
 msgid "Active"
 msgstr "Активний"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
 msgid "Installed"
 msgstr "Встановлено"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:280
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+msgid "Supported until"
+msgstr "Підтримується до"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+msgid "End of Life"
+msgstr "Кінець підтримки"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+msgid "Unsupported"
+msgstr "Не підтримується"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
 msgid "You are currently using the following kernel:"
 msgstr "На дану мить використовується таке ядро системи:"
 
@@ -988,7 +1025,7 @@ msgstr "Встановлення оновлень"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1015
 msgid "Checking for updates"
 msgstr "Перевірка на оновлення"
 
@@ -1025,39 +1062,41 @@ msgstr ""
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Щоб перейти на інше дзеркало Linux Mint і вирішити цю проблему, натисніть "
+"кнопку ОК."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
 msgstr "Будь ласка, перемкніться на інше дзеркало Linux Mint"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:850
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:852
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid "OK"
 msgstr "OK"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:862
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:864
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
 msgstr "Не вдалося оновити перелік оновлень"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:753
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:755
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "Your system is up to date"
 msgstr "Ваша система оновлена"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:718
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:720
 msgid "Kernel update"
 msgstr "Оновлення ядра"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:721
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:723
 msgid "Security update"
 msgstr "Оновлення безпеки"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:724
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:726
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1066,24 +1105,24 @@ msgstr ""
 "бажаєте допомогти розробникам у бета-тестуванні нового програмного "
 "забезпечення."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:730
 msgid "Software update"
 msgstr "Оновлення програмного забезпечення"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
 msgid "3rd-party update"
-msgstr ""
+msgstr "Оновлення сторонніх розробників"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1487
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 msgid "No updates selected"
 msgstr "Немає вибраних оновлень"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1463
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
@@ -1091,7 +1130,7 @@ msgstr[0] "Вибрано %(selected)d оновлення (%(size)s)"
 msgstr[1] "Вибрано %(selected)d оновлення (%(size)s)"
 msgstr[2] "Вибрано %(selected)d оновлень (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:767
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
@@ -1099,229 +1138,232 @@ msgstr[0] "%d доступне оновлення"
 msgstr[1] "%d доступні оновлення"
 msgstr[2] "%d доступних оновлень"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
 msgid "Please set up System Snapshots"
-msgstr ""
+msgstr "Будь-ласка, налаштуйте знімки системи"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
 msgstr ""
+"Якщо щось пошкодиться, знімки дозволять Вам відновити Вашу систему до "
+"попереднього робочого стану."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Do you want to switch to a local mirror?"
 msgstr "Ви бажаєте перемкнутися на місцеве дзеркало?"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr ""
+msgstr "Локальні дзеркала, як правило, швидші, ніж packages.linuxmint.com."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 msgid "Please switch to another mirror"
 msgstr "Будь ласка, перемкніться на інше дзеркало"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s недосяжний."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Останнє оновлення на %(mirror)s було %(days)d день тому."
+msgstr[1] "Останнє оновлення на %(mirror)s було %(days)d дні тому."
+msgstr[2] "Останнє оновлення на %(mirror)s було %(days)d днів тому."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Exit"
 msgstr "Вихід"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 msgid "Upgrade"
 msgstr "Оновити"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1061
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1063
 msgid "Name"
 msgstr "Назва"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1065
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1067
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1249
 msgid "Level"
 msgstr "Рівень"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1069
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1071
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1751
 msgid "Old version"
 msgstr "Стара версія"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1073
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1245
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1075
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1267
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1754
 msgid "New version"
 msgstr "Нова версія"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1251
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1273
 msgid "Size"
 msgstr "Розмір"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1081
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1083
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1243
 msgid "Type"
 msgstr "Тип"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
 msgid "Origin"
 msgstr "Походження"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1139
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "Перевірити оновлення"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1724
 msgid "Information"
 msgstr "Інформація"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1785
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1149
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1183
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
 msgid "Preferences"
 msgstr "Параметри"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 msgid "Quit"
-msgstr ""
+msgstr "Вийти"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
 msgid "_File"
 msgstr "_Файл"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1150
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr "Закрити"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1178
 msgid "_Edit"
 msgstr "_Зміни"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1173
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1195
 msgid "Software sources"
 msgstr "Джерела програм"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Оновити до %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1222
 msgid "_View"
 msgstr "_Перегляд"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1665
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1742
 msgid "History of updates"
 msgstr "Історія оновлень"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1231
 msgid "Linux kernels"
 msgstr "Ядра Linux"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1217
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
 msgid "Visible columns"
 msgstr "Видимі стовпчики"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1671
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1748
 msgid "Package"
 msgstr "Пакунок"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
 msgid "Show descriptions"
 msgstr "Показувати описи"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Довідка"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
 msgid "Welcome screen"
-msgstr ""
+msgstr "Вступне вікно"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1367
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Сполучення клавіш"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1373
 msgid "Contents"
 msgstr "Зміст"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1726
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1380
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
 msgid "About"
 msgstr "Про програму"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1507
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Welcome to the Update Manager"
 msgstr "Ласкаво просимо у Менеджер Оновлень"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1666
 msgid "Packages included in this update:"
 msgstr "Пакунки, включені в це оновлення:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1598
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
 msgid "Ignore updates for this package"
 msgstr "Ігнорувати оновлення цього пакунку"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1668
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1745
 msgid "Date"
 msgstr "Дата"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1800
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
 msgid "Options"
 msgstr "Параметри"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1801
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
 msgid "Levels"
 msgstr "Рівні"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1802
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
 msgid "Auto-refresh"
 msgstr "Автоперевірка"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
 msgid "Blacklist"
 msgstr "Чорний список"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
 msgid "Auto-upgrade"
-msgstr ""
+msgstr "Автоматичне оновлення"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1922
 msgid "Ignored updates"
 msgstr "Ігнорувати оновлення"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1916
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1993
 msgid "Please specify the name of the update to ignore:"
 msgstr "Будь ласка, вкажіть назву оновлення яке потрібно ігнорувати"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1917
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
 msgid "Ignore an update"
 msgstr "Ігнорувати оновлення"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1921
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1998
 msgid "Name:"
 msgstr "Назва:"
 
@@ -1473,36 +1515,77 @@ msgstr "Дійте обережно"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
-"The Linux kernel is a critical part of the system. Regressions can lead to "
-"lack of networking, lack of sound, lack of graphical environment or even the "
-"inability to boot the computer."
+"Installing a new kernel can sometimes cause problems, especially if you're "
+"using proprietary drivers."
 msgstr ""
-"Ядро Linux є критичною частиною системи. Регресії можуть призвести до "
-"відсутності мережі, звуку, графічного середовища або навіть неможливості "
-"завантаження комп'ютера."
+"Встановлення нового ядра іноді може викликати проблеми, особливо, якщо ви "
+"використовуєте пропрієтарні драйвери."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
-msgid ""
-"Before installing or removing kernels, please make sure to read the help "
-"section, to make sure you know how to select kernels, how to revert updates "
-"and how to check your DKMS status."
-msgstr ""
-"Перед встановленням або вилученням ядра, будь ласка, не забудьте прочитати "
-"розділ довідки, щоб переконатися, що Ви знаєте, як вибирати ядра, як "
-"повернутися до початкового стану оновлення та як перевірити стан DKMS."
+msgid "These issues include:"
+msgstr "Ці неполадки включають:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
+msgid ""
+"- No wifi (or ethernet)\n"
+"- No video acceleration\n"
+"- Black screen on startup\n"
+"- Random system freeze"
+msgstr ""
+"- Відсутній Wi-Fi (або  Ethernet)\n"
+"- Відсутнє відео-прискорення\n"
+"- Чорний екран при запуску\n"
+"- Випадкові зависання системи"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
+msgid "If you face any of these issues, don't panic:"
+msgstr "Якщо ви зіткнулися з будь-якою із цих проблем, не панікуйте:"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:10
+msgid ""
+"- Reboot.\n"
+"- Press and hold the Shift key to show the boot menu.\n"
+"- In the boot menu, select the line which starts with 'Advanced options'.\n"
+"- Select an older kernel.\n"
+"- After the computer boots with the older kernel, uninstall the new one."
+msgstr ""
+"- Перезавантажте ПК.\n"
+"- Натисніть та утримуйте клавішу Shift (у деяких випадках Esc), щоб увійти в "
+"меню завантаження.\n"
+"- У меню завантаження виберіть пункт 'Додаткові параметри'.\n"
+"- Виберіть старіше ядро.\n"
+"- Після того, як комп'ютер завантажиться, використовуючи старе ядро, "
+"видаліть нове ядро."
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
 msgstr "Більше не показувати це повідомлення"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "Help"
 msgstr "Довідка"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
 msgstr "Далі"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:18
+msgid "Remove old kernels..."
+msgstr "Вилучити старі ядра..."
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
+msgid "Remove selected kernels"
+msgstr "Вилучити вибрані ядра"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
+msgid "Select the kernels you want to remove:"
+msgstr "Виберіть ядра, які волієте вилучити:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1537,26 +1620,32 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Security updates"
-msgstr ""
+msgstr "Оновлення безпеки"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
+"Застосовуйте оновлення безпеки, щоб виправляти вразливості та захистити свій "
+"комп'ютер."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid "Software updates"
-msgstr ""
+msgstr "Оновлення програмного забезпечення"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Apply software updates to fix bugs in your computer."
 msgstr ""
+"Застосуйте оновлення програмного забезпечення для виправлення помилок на "
+"вашому комп'ютері."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Налаштуйте системні знімки, щоб захистити себе від помилок і регресій. Якщо "
+"щось пошкодиться, просто відновіть останній знімок."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid ""
@@ -1564,36 +1653,42 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint рекомендує встановлювати автоматичні знімки системи та "
+"застосовувати всі наявні оновлення. Таким чином, ваш комп'ютер завжди у "
+"безпеці, і ви можете відновитись після будь-якої потенційної регресії."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
 msgstr "Застосувати"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
-msgid "Cancel"
-msgstr "Скасувати"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Перш ніж використовувати цю опцію, переконайтеся, що ваші знімки системи "
+"правильно налаштовані."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "When this option is enabled, all updates are applied automatically on a "
 "daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
 msgstr ""
+"Якщо цей параметр увімкнено, всі оновлення застосовуються автоматично "
+"щоденно, як root, за допомогою завдання cron (/etc/cron.daily/mintupdate)."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
 "/etc/mintupdate.blacklist to blacklist some of them."
 msgstr ""
+"Ви можете редагувати файл /etc/cron.daily/mintupdate, щоб точно налаштувати "
+"автоматичні оновлення та /etc/mintupdate.blacklist для чорного списку деяких "
+"з них."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:6
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "Застосувати оновлення автоматично"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:7
 msgid "Impact level"
@@ -1613,10 +1708,13 @@ msgid ""
 "updates. Only hide levels when troubleshooting or trying to identify a "
 "regression. Check the help section for more information."
 msgstr ""
+"Рекомендується встановлювати системні знімки та застосовувати всі наявні "
+"оновлення. Тільки приховати рівні при вирішенні проблем або пошуку регресії. "
+"Щоб дізнатись більше, перегляньте розділ довідки."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:20
 msgid "Interface"
-msgstr ""
+msgstr "Зовнішній вигляд"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:21
 msgid "Hide the update manager after applying updates"
@@ -1630,21 +1728,23 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:23
 msgid "Show a warning if system snapshots are not set up"
-msgstr ""
+msgstr "Показати попередження, якщо системні знімки не налаштовані"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:24
-msgid "Don't suggest to switch to a local mirror"
-msgstr "Не дозволяти перемикання на місцеві дзеркала"
+msgid "Don't suggest switching to a local mirror"
+msgstr "Не пропонувати перемкнутися на місцеве дзеркало"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:25
 msgid "Updates"
-msgstr ""
+msgstr "Оновленння"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:26
 msgid ""
 "It is recommended to show and apply all available updates. Only disable the "
 "options below when troubleshooting."
 msgstr ""
+"Рекомендується показувати та застосовувати всі наявні оновлення. Тільки "
+"вимкніть наведені нижче параметри під час усунення несправностей."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:27
 msgid ""
@@ -1700,11 +1800,11 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "Вікно"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "Вибір"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select level 1 updates"
