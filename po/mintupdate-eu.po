@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-05-07 13:28+0100\n"
-"PO-Revision-Date: 2018-05-08 20:13+0000\n"
+"POT-Creation-Date: 2018-11-19 14:05+0000\n"
+"PO-Revision-Date: 2018-10-12 09:19+0000\n"
 "Last-Translator: Asier Iturralde Sarasola <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2018-06-26 10:05+0000\n"
-"X-Generator: Launchpad (build 18688)\n"
+"X-Launchpad-Export-Date: 2018-11-27 17:41+0000\n"
+"X-Generator: Launchpad (build 18826)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -113,7 +113,7 @@ msgstr ""
 "Erregresio garrantzitsu bat badago, leheneratu sistemaren azken argazkia."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "System snapshots"
 msgstr "Sistemaren argazkiak"
@@ -820,10 +820,10 @@ msgstr ""
 "berrabiarazi."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:968
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1031
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:970
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:974
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1805 generate_desktop_files:26
 msgid "Update Manager"
 msgstr "Eguneraketa-kudeatzailea"
 
@@ -902,16 +902,16 @@ msgstr ""
 "  Mortanauta https://launchpad.net/~mortanauta\n"
 "  anaspeople https://launchpad.net/~anaspeople"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:206
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:232
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Linux nukleoa %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:207
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:233
 msgid "The Linux kernel."
 msgstr "Linux nukleoa."
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:208
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:234
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -931,46 +931,58 @@ msgstr ""
 "dira. Jabedun kontrolatzaileak erabiltzen ari bazara eta nukleo zaharrago "
 "bat erabili nahi baduzu berria kendu beharko duzu lehenik."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:154
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:158
 msgid "Remove"
 msgstr "Kendu"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:157
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr "Ezin da nukleo hau kendu unean erabiltzen ari delako."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:165
 msgid "Install"
 msgstr "Instalatu"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:164
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:168
 msgid "This kernel is not installable."
 msgstr "Nukleo hau ezin da instalatu."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:178
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:182
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
 msgstr "Ziur zaude %s nukleoa kendu nahi duzula?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:180
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:184
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "Ziur zaude %s nukleoa instalatu nahi duzula?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:199
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:204
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Kernels"
 msgstr "Nukleoak"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
 msgid "Active"
 msgstr "Aktibo"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
 msgid "Installed"
 msgstr "Instalatuta"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:280
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+msgid "Supported until"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+msgid "End of Life"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+msgid "Unsupported"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
 msgid "You are currently using the following kernel:"
 msgstr "Une honetan ondorengo nukleoa erabiltzen ari zara:"
 
@@ -1016,7 +1028,7 @@ msgstr "Eguneraketak instalatzen"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1015
 msgid "Checking for updates"
 msgstr "Eguneraketarik badagoen egiaztatzen"
 
@@ -1059,33 +1071,33 @@ msgid "Please switch to another Linux Mint mirror"
 msgstr "Mesedez aldatu Linux Mint-en beste ispilu batera"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:850
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:852
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid "OK"
 msgstr "Ados"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:862
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:864
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
 msgstr "Ezin izan da eguneraketa-zerrenda freskatu"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:753
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:755
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "Your system is up to date"
 msgstr "Zure sistema eguneratuta dago"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:718
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:720
 msgid "Kernel update"
 msgstr "Nukleoa eguneratzea"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:721
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:723
 msgid "Security update"
 msgstr "Segurtasun-eguneraketa"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:724
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:726
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1093,42 +1105,42 @@ msgstr ""
 "Software ezegonkorra. Garatzaileei beta probak egiten laguntzeko bakarrik "
 "erabili eguneratze hau."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:730
 msgid "Software update"
 msgstr "Software-eguneraketa"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
 msgid "3rd-party update"
 msgstr "Hirugarrengoen eguneraketa"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1487
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 msgid "No updates selected"
 msgstr "Ez da hautatu eguneraketarik"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1463
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
 msgstr[0] "Eguneraketa %(selected)d hautatuta (%(size)s)"
 msgstr[1] "%(selected)d eguneraketa hautatuta (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:767
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
 msgstr[0] "Eguneraketa %d eskuragarri"
 msgstr[1] "%d eguneraketa eskuragarri"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
 msgid "Please set up System Snapshots"
 msgstr "Mesedez, konfiguratu sistemaren argazkiak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
@@ -1136,220 +1148,220 @@ msgstr ""
 "Zerbait puskatzen bada, argazkiek sistema aurreko egoerara leheneratzeko "
 "aukera emango dizute."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Do you want to switch to a local mirror?"
 msgstr "Ispilu lokal batera aldatu nahi duzu?"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
 "Ispilu lokalak orokorrean azkarragoak dira packages.linuxmint.com baino."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 msgid "Please switch to another mirror"
 msgstr "Mesedez aldatu beste ispilu batera"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s ez dago eskuragarri."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
 msgstr[0] "%(mirror)s(e)n azken eguneraketa duela egun %(days)d izan zen."
 msgstr[1] "%(mirror)s(e)n azken eguneraketa duela %(days)d egun izan zen."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Exit"
 msgstr "Irten"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 msgid "Upgrade"
 msgstr "Bertsio-berritu"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1061
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1063
 msgid "Name"
 msgstr "Izena"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1065
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1067
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1249
 msgid "Level"
 msgstr "Maila"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1069
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1071
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1751
 msgid "Old version"
 msgstr "Bertsio zaharra"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1073
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1245
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1075
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1267
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1754
 msgid "New version"
 msgstr "Bertsio berria"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1251
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1273
 msgid "Size"
 msgstr "Tamaina"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1081
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1083
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1243
 msgid "Type"
 msgstr "Mota"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
 msgid "Origin"
 msgstr "Jatorria"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1139
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "Freskatu"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1724
 msgid "Information"
 msgstr "Informazioa"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1785
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1149
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1183
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
 msgid "Preferences"
 msgstr "Hobespenak..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 msgid "Quit"
 msgstr "Irten"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
 msgid "_File"
 msgstr "_Fitxategia"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1150
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr "Itxi"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1178
 msgid "_Edit"
 msgstr "_Editatu"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1173
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1195
 msgid "Software sources"
 msgstr "Software-jatorriak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Bertsio-berritu %s(e)ra"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1222
 msgid "_View"
 msgstr "_Ikusi"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1665
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1742
 msgid "History of updates"
 msgstr "Eguneraketen historia."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1231
 msgid "Linux kernels"
 msgstr "Linux nukleoak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1217
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
 msgid "Visible columns"
 msgstr "Zutabe ikusgaiak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1671
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1748
 msgid "Package"
 msgstr "Paketea"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
 msgid "Show descriptions"
 msgstr "Erakutsi deskribapenak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Laguntza"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
 msgid "Welcome screen"
 msgstr "Ongietorri pantaila"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1367
 msgid "Keyboard Shortcuts"
 msgstr "Laster-teklak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1373
 msgid "Contents"
 msgstr "Edukiak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1726
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1380
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
 msgid "About"
 msgstr "Honi buruz"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1507
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Welcome to the Update Manager"
 msgstr "Ongi etorri Eguneraketa-kudeatzailera"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1666
 msgid "Packages included in this update:"
 msgstr "Eguneraketa honetako paketeak:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1598
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
 msgid "Ignore updates for this package"
 msgstr "Ezikusia egin pakete honentzako eguneraketei"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1668
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1745
 msgid "Date"
 msgstr "Data"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1800
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
 msgid "Options"
 msgstr "Aukerak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1801
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
 msgid "Levels"
 msgstr "Mailak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1802
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
 msgid "Auto-refresh"
 msgstr "Freskatu automatikoki"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
 msgid "Blacklist"
 msgstr "Zerrenda beltza"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
 msgid "Auto-upgrade"
 msgstr "Bertsio-berritze automatikoa"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1922
 msgid "Ignored updates"
 msgstr "Ezikusitako eguneraketak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1916
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1993
 msgid "Please specify the name of the update to ignore:"
 msgstr "Mesedez zehaztu ez ikusia egin nahi diozun eguneraketaren izena:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1917
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
 msgid "Ignore an update"
 msgstr "Ezikusi eguneraketa bat"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1921
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1998
 msgid "Name:"
 msgstr "Izena:"
 
@@ -1504,36 +1516,75 @@ msgstr "Jarraitu arretaz"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
-"The Linux kernel is a critical part of the system. Regressions can lead to "
-"lack of networking, lack of sound, lack of graphical environment or even the "
-"inability to boot the computer."
+"Installing a new kernel can sometimes cause problems, especially if you're "
+"using proprietary drivers."
 msgstr ""
-"Linux nukleoa sistemaren zati kritiko bat da. Erregresioek sare, soinu edo "
-"ingurune grafikorik gabe geratzea edo ordenagailua ezin abiaraztea eragin "
-"dezakete."
+"Nukleo berri bat instalatzeak arazoak eragin ditzake, bereziki jabedun "
+"kontrolatzaileak erabiltzen badituzu."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
-msgid ""
-"Before installing or removing kernels, please make sure to read the help "
-"section, to make sure you know how to select kernels, how to revert updates "
-"and how to check your DKMS status."
-msgstr ""
-"Nukleoak instalatu edo kendu aurretik, irakurri laguntzako orria, nukleoak "
-"nola hautatu, eguneraketak nola leheneratu eta DKMS egoera nola egiaztatu "
-"jakiteko."
+msgid "These issues include:"
+msgstr "Arazoen posibleen artean daude:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
+msgid ""
+"- No wifi (or ethernet)\n"
+"- No video acceleration\n"
+"- Black screen on startup\n"
+"- Random system freeze"
+msgstr ""
+"- Wifirik (edo ethernetik) ez\n"
+"- Bideo azeleraziorik ez\n"
+"- Pantaila beltza abioan\n"
+"- Sistema ausaz blokeatzea"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
+msgid "If you face any of these issues, don't panic:"
+msgstr "Hauetako arazoren bat baduzu, ez izutu:"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:10
+msgid ""
+"- Reboot.\n"
+"- Press and hold the Shift key to show the boot menu.\n"
+"- In the boot menu, select the line which starts with 'Advanced options'.\n"
+"- Select an older kernel.\n"
+"- After the computer boots with the older kernel, uninstall the new one."
+msgstr ""
+"- Berrabiarazi\n"
+"- Sakatuta mantendu Maius tekla abioko menua erakusteko.\n"
+"- Abioko menuan, hautatu 'Aukera aurreratuak' jartzen duen lerroa.\n"
+"- Hautatu nukleo zaharrago bat.\n"
+"- Ordenagailua nukleo zaharragoarekin abiarazi ondoren, desinstalatu berria."
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
 msgstr "Ez erakutsi mezu hau berriro"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "Help"
 msgstr "Laguntza"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
 msgstr "Jarraitu"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:18
+msgid "Remove old kernels..."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid "Cancel"
+msgstr "Utzi"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
+msgid "Remove selected kernels"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
+msgid "Select the kernels you want to remove:"
+msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1608,10 +1659,6 @@ msgstr ""
 msgid "Apply"
 msgstr "Aplikatu"
 
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
-msgid "Cancel"
-msgstr "Utzi"
-
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
@@ -1683,7 +1730,7 @@ msgid "Show a warning if system snapshots are not set up"
 msgstr "Erakutsi abisu bat sistemaren argazkiak ez badaude konfiguratuta."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:24
-msgid "Don't suggest to switch to a local mirror"
+msgid "Don't suggest switching to a local mirror"
 msgstr "Ez proposatu ispilu lokal batera aldatzea"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:25

@@ -4,7 +4,6 @@ import apt
 import codecs
 import fnmatch
 import gettext
-import gi
 import os
 import platform
 import re
@@ -14,7 +13,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, META_NAMES
+from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -105,6 +104,18 @@ class APTCheck():
                 self.add_update(pkg)
 
         # Kernel updates
+        if self.settings.get_boolean("use-lowlatency-kernels"):
+            kernel_type = "-lowlatency"
+        else:
+            kernel_type = "-generic"
+
+        meta_names = []
+        _metas = [s for s in self.cache.keys() if s.startswith("linux" + kernel_type)]
+        for meta in _metas:
+            shortname = meta.split(":")[0]
+            if shortname not in meta_names:
+                meta_names.append(shortname)
+
         try:
             if self.settings.get_boolean("kernel-updates-are-visible"):
 
@@ -113,16 +124,16 @@ class APTCheck():
 
                 # Check if any meta is installed..
                 meta_installed = False
-                for meta_name in META_NAMES:
+                for meta_name in meta_names:
                     if meta_name in self.cache:
                         meta = self.cache[meta_name]
                         if meta.is_installed:
                             meta_installed = True
-                            break
+                            return
 
                 # If no meta is installed, try to recommend one
                 if not meta_installed:
-                    for meta_name in META_NAMES:
+                    for meta_name in meta_names:
                         if meta_name in self.cache:
                             meta = self.cache[meta_name]
                             recommended_kernel = KernelVersion(meta.candidate.version)
@@ -137,11 +148,10 @@ class APTCheck():
                 kernel_type = "-generic"
                 if self.settings.get_boolean("use-lowlatency-kernels"):
                     kernel_type = "-lowlatency"
-                for pkg in self.cache:
-                    package_name = pkg.name
-                    if (package_name.startswith("linux-image-3") or package_name.startswith("linux-image-4")) and package_name.endswith(kernel_type):
-                        version = package_name.replace("linux-image-", "").replace("-generic", "").replace("-lowlatency", "")
-                        kernel = KernelVersion(version)
+                for pkgname in self.cache.keys():
+                    match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)' + kernel_type + '$', pkgname)
+                    if match:
+                        kernel = KernelVersion(match.group(1))
                         if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                             max_kernel = kernel
                 if max_kernel.numeric_representation != uname_kernel.numeric_representation:

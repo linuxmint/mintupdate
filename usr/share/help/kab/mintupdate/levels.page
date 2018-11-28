@@ -11,93 +11,93 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Use update levels when troubleshooting, to identify which update is responsible for a regression.</desc>
+    <desc>Seqdec iswiren n ileqman i weseggem, iwakken ad d-tafeḍ lqem ansi d yekka ukaray.</desc>
   </info>
 
   <title>Iswiren n uleqqem</title>
 
-    <p>Critical regressions happen very rarely. When they do, restore your system with the latest system snapshot and tell the Linux Mint development team about the regression.</p>
+    <p>Ikarayen iweɛren ur d-ḍerrun ara s waṭas. Ticki d-ḍran, err-d anagraw-inek s tugna yettwaṭṭfen tamaynutt maḍi yerna azen alɣu ɣef ukaray-agi i terbaɛt n isneflayen n Linux Mint.</p>
 
-    <p>The Linux Mint team will want to know which update is responsible for the regression.</p>
+    <p>Tarbaɛt n Linux Mint tebɣa ad tẓer anwa lqem i d-iglan s ukaray.</p>
 
-    <p>If you are faced with a long list of updates and you're not sure where to look, click on "View"-&gt;"Visible Columns"-&gt;"Levels".</p>
+    <p>Ma tufiḍ-d sdat-k aṭas n ileqman yerna ur teẓriḍ ara ansa ara tebduḍ, sit ɣef "Tamuɣli"-&gt;"Ijga ittwalayen"-&gt;"Iswiren".</p>
 
-    <p>Updates are given a level indicating how much of an impact they have on the operating system.</p>
+    <p>Ileqman yettunefk-asen uswir ilmend n gellu-nnen ɣef unagraw n wammud.</p>
 
-    <p>There are 4 levels:</p>
+    <p>Llan 4 n iswiren:</p>
 
     <table shade="all" frame="all" rules="rows cols">
     <tr>
       <td><media type="image" src="figures/mintupdate-level1.svg" height="40"/></td>
-      <td><p>Minimal</p></td>
-      <td><p>No impact on the system or other applications.</p></td>
+      <td><p>Adday</p></td>
+      <td><p>Ulac gellu ɣef unagraw n wammud neɣ ɣef isnasen-nniḍen.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level2.svg" height="40"/></td>
       <td><p>Amagnu</p></td>
-      <td><p>Default level. Usually low impact on the system.</p></td>
+      <td><p>Aswir n lexṣas. Di tegti ulac gellu ɣef unagraw.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level3.svg" height="40"/></td>
       <td><p>Hraw</p></td>
-      <td><p>Impact on multiple applications.</p></td>
+      <td><p>Gellu ɣef waṭas n isnasen.</p></td>
     </tr>
     <tr>
       <td><media type="image" src="figures/mintupdate-level4.svg" height="40"/></td>
-      <td><p>Sensitive</p></td>
-      <td><p>Impact on sensitive parts of the system.</p></td>
+      <td><p>Yettḥulfu</p></td>
+      <td><p>Gellu ɣef iḥricen yettḥulfun n unagraw.</p></td>
     </tr>
     </table>
 
   <section id="level1">
-    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Level 1</title>
+    <title><media type="image" src="figures/mintupdate-level1.svg" height="40"/> Aswir 1</title>
 
-    <p>Level 1 updates are updates which only affect their own software and have no impact on the rest of the system.</p>
+    <p>Ileqman n uswir 1 d ileqman yettḥazan kan aseɣẓan-nnsen ur sɛin ara gellu ɣef unagraw.</p>
 
-    <p>They're usually updates for single applications. For instance:</p>
+    <p>Di tegti d ileqman  i yisnasen isufen. Amedya:</p>
 
     <list>
-        <item><p>The calculator</p></item>
-        <item><p>The PDF reader</p></item>
-        <item><p>The text editor</p></item>
+        <item><p>Tamsiḍent</p></item>
+        <item><p>Imeɣri n PDF</p></item>
+        <item><p>Amaẓrag n uḍris</p></item>
         <item><p>Ameɣri n umidya</p></item>
       </list>
 
-    <p>Regressions in these updates usually only affect the software they're updating, not the operating system itself.</p>
+    <p>Ikarayen deg yileqman-agi ttḥazan kan aseɣẓan ittuleqmen, ma d anagraw n wammud ur t-ttḥazan ara.</p>
 
   </section>
 
   <section id="level2">
-    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Level 2</title>
+    <title><media type="image" src="figures/mintupdate-level2.svg" height="40"/> Aswir 2</title>
 
-    <p>This is the default level, so the vast majority of updates are level 2.</p>
+    <p>D awswir n lexṣas, tuget n ileqman sɛan aswir 2.</p>
 
-    <p>These updates aren't known to impact large areas or sensitive parts of the system, but they're not guaranteed to only affect their own software either.</p>
+    <p>Ileqman-agi ur ttwasnen ara s gellu ɣef tɣezza timeqranin neɣ iḥricen yettḥulfun n unagraw, acu kan ur yettwaḍman ara belli ad ḥazen kan iseɣẓanen-nnsen.</p>
 
   </section>
 
   <section id="level3">
-    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Level 3</title>
+    <title><media type="image" src="figures/mintupdate-level3.svg" height="40"/> Aswir 3</title>
 
-    <p>Level 3 updates are updates which not only affect themselves but also have an impact on other applications.</p>
+    <p>Ileqman n uswir 3 d ur ttḥazan ara kan iman-nnsen, mac asɛan gellu ɣef isnasen-nniḍen.</p>
 
-    <p>Typical examples of level 3 updates are GTK, DBUS, etc... A regression in these updates wouldn't stop your computer from booting properly, but it could impact many applications.</p>
+    <p>Imedyaten anawen n ileqman n uswir wis 3 d GTK, DBUS, atg...  Tuɣalin ɣer deffir deg ileqman-agi ur tseḥbas-ara aselkim akken ad isenker akken iwata, maca yezmer ad yeswaɣ aṭas n isnasen.</p>
 
-    <p>Desktop environments are also level 3 updates. If a critical regression happens in Cinnamon, you might be unable to log in.</p>
+    <p>Tiwnaḍin n tnarit daɣen d ileqman n uswir 3. Ma yeḍra-d ukaray ameqran di Cinnamon, yezmer ad tggamiḍ ad teqqneḍ.</p>
 
   </section>
 
   <section id="level4">
-    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Level 4</title>
+    <title><media type="image" src="figures/mintupdate-level4.svg" height="40"/> Aswir 4</title>
 
-    <p>Level 4 updates are updates which affect sensitive parts of the operating system such as:</p>
+    <p>Ileqman n uswir 4 d ileqman yettḥazan iḥricen yettḥulfun n unagraw n wammud akka am:</p>
 
     <list>
-        <item><p>The boot sequence</p></item>
-        <item><p>The display manager (login screen, session management)</p></item>
-        <item><p>The kernel (hardware support)</p></item>
-        <item><p>The drivers (networking, NVIDIA/AMD)</p></item>
-        <item><p>The display (Xorg, mesa)</p></item>
+        <item><p>Talubbayt n usekker</p></item>
+        <item><p>Amsefrak n ubeqqeḍ (agdil n tuqqna, asefrek n tɣimit)</p></item>
+        <item><p>Iɣes (tadhelt n warrum)</p></item>
+        <item><p>Inuḍaf (aẓeḍḍa, NVIDIA/AMD)</p></item>
+        <item><p>Abeqqeḍ (Xorg, mesa)</p></item>
     </list>
 
   </section>

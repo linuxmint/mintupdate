@@ -11,11 +11,9 @@ settings = Gio.Settings("com.linuxmint.updates")
 if settings.get_boolean("use-lowlatency-kernels"):
     KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-lowlatency', 'linux-image-VERSION-lowlatency', 'linux-modules-VERSION-lowlatency', 'linux-modules-extra-VERSION-lowlatency']
     KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-lowlatency') # Naming convention in 16.04, until 4.15 series
-    META_NAMES = ['linux-lowlatency', 'linux-lowlatency-hwe-16.04']
 else:
     KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
     KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
-    META_NAMES = ['linux-generic', 'linux-generic-hwe-16.04']
 
 class Rule():
 
@@ -84,7 +82,7 @@ class Update():
                         if origin.component == "romeo":
                             self.type = "unstable"
                             break
-                if self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
+                if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                     self.type = "kernel"
 
             self.level = 2 # Level 2 by default

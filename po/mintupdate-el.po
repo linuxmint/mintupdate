@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-05-07 13:28+0100\n"
-"PO-Revision-Date: 2017-01-23 17:53+0000\n"
-"Last-Translator: Tony <tonyzet988@gmail.com>\n"
+"POT-Creation-Date: 2018-11-19 14:05+0000\n"
+"PO-Revision-Date: 2018-07-07 20:45+0000\n"
+"Last-Translator: Angelos Chraniotis <linuxangel@inbox.com>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2018-06-26 10:05+0000\n"
-"X-Generator: Launchpad (build 18688)\n"
+"X-Launchpad-Export-Date: 2018-11-27 17:41+0000\n"
+"X-Generator: Launchpad (build 18826)\n"
 "Language: el\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -41,11 +41,11 @@ msgstr "root@linuxmint.com"
 
 #: usr/share/help/C/mintupdate/updates.page:16(desc)
 msgid "There are different types of updates"
-msgstr ""
+msgstr "Υπάρχουν διάφοροι τύποι ενημερώσεων"
 
 #: usr/share/help/C/mintupdate/updates.page:19(title)
 msgid "The different types of updates"
-msgstr ""
+msgstr "Οι διάφοροι τύποι ενημερώσεων"
 
 #: usr/share/help/C/mintupdate/updates.page:21(p)
 msgid "There are different types of updates:"
@@ -78,12 +78,20 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
+"Η ασφάλεια είναι πολύ σημαντική αλλά και πολύ τεχνική. Οι ευπάθειες δεν "
+"επηρεάζουν πάντοτε τον υπολογιστή σας και μπορεί να είναι αρκετά δύσκολο να "
+"κατανοηθούν. Οι περισσότεροι άνθρωποι δεν τις καταλαβαίνουν καθόλου και οι "
+"προσωπικοί τους υπολογιστές σπάνια διατρέχουν κίνδυνο. Τούτου λεχθέντος, μια "
+"παραβίαση της ασφάλειας μπορεί να έχει κακές συνέπειες, οπότε συνιστάται "
+"πάντα να τις παίρνετε σοβαρά."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
+"Οι ενημερώσεις λογισμικού δεν είναι τόσο σημαντικές. Προσφέρουν διορθώσεις "
+"σφαλμάτων ή βελτιώσεις που δεν σχετίζονται με την ασφάλεια."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -105,28 +113,36 @@ msgstr ""
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
 msgstr ""
+"Όταν αντιμετωπίζετε σοβαρή υποχώρηση, επαναφέρετε το πιο πρόσφατο "
+"στιγμιότυπο του συστήματος."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "System snapshots"
-msgstr ""
+msgstr "Στιγμιότυπο συστήματος"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"Το Timeshift, το βοηθητικό πρόγραμμα στιγμιότυπων του συστήματος, είναι "
+"διαθέσιμο σε όλες τις εκδόσεις του Linux Mint."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"Μπορεί να χρησιμοποιηθεί για τη δημιουργία στιγμιότυπων με μη αυτόματο "
+"τρόπο, αλλά και για την αυτοματοποίηση των στιγμιότυπων του συστήματος."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
 msgstr ""
+"Το Linux Mint συνιστά την αυτοματοποίηση των ημερήσιων στιγμών και των "
+"στιγμιότυπων εκκίνησης."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -134,31 +150,39 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Εάν μια ενημέρωση, ένα λάθος, ένα σφάλμα ή ένα κακόβουλο πρόγραμμα σπάσει "
+"κάτι στον υπολογιστή σας, μπορείτε να επαναφέρετε το λειτουργικό σύστημα από "
+"οποιοδήποτε στιγμιότυπο, ακυρώνοντας έτσι το πρόβλημα σαν να μην συνέβη ποτέ."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
+"Τα στιγμιότυπα συστήματος καλύπτουν μόνο το ίδιο το λειτουργικό σύστημα. Δεν "
+"περιλαμβάνουν ούτε επηρεάζουν τα προσωπικά σας δεδομένα."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
-msgstr ""
+msgstr "Όταν μια ενημέρωση σπάσει κάτι, ονομάζεται \"υποχώρηση\"."
 
 #: usr/share/help/C/mintupdate/regressions.page:19(title)
 msgid "Software regressions"
-msgstr ""
+msgstr "Υποχωρήσεις λογισμικού"
 
 #: usr/share/help/C/mintupdate/regressions.page:21(p)
 msgid ""
 "Updates keep your computer safe, eliminate bugs and even sometimes add new "
 "features to your operating system."
 msgstr ""
+"Οι ενημερώσεις διατηρούν τον υπολογιστή σας ασφαλή, εξαλείφουν σφάλματα και "
+"μερικές φορές προσθέτουν νέες λειτουργίες στο λειτουργικό σας σύστημα."
 
 #: usr/share/help/C/mintupdate/regressions.page:23(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions'."
 msgstr ""
+"Δυστυχώς, μερικές φορές εισάγουν νέα ζητήματα που ονομάζονται «υποχωρήσεις»."
 
 #: usr/share/help/C/mintupdate/regressions.page:25(p)
 msgid ""
@@ -167,21 +191,29 @@ msgid ""
 "skilled developers are, they can't always predict every possible situation "
 "or test on every possible hardware specification."
 msgstr ""
+"Οι υποχωρήσεις είναι πολύ συχνές στη βιομηχανία λογισμικού. Είναι εγγενείς "
+"στην ανάπτυξη λογισμικού. Οι αλλαγές κώδικα μπορούν να προκαλέσουν "
+"υποχωρήσεις. Δεν έχει σημασία πόσο εξειδικευμένοι οι προγραμματιστές είναι, "
+"δεν μπορούν πάντα να προβλέψουν κάθε πιθανή κατάσταση ή δοκιμή σε κάθε "
+"πιθανή προδιαγραφή υλικού."
 
 #: usr/share/help/C/mintupdate/regressions.page:27(p)
 msgid ""
 "When a regression happens, it breaks something which worked well before."
-msgstr ""
+msgstr "Όταν συμβαίνει μια υποχώρηση, σπάει κάτι που λειτούργησε καλά πριν."
 
 #: usr/share/help/C/mintupdate/regressions.page:29(p)
 msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
 msgstr ""
+"Μερικές φορές δεν έχει σημασία, αλλά μερικές φορές έχει σημασία πολύ."
 
 #: usr/share/help/C/mintupdate/regressions.page:31(p)
 msgid ""
 "It depends on what part of the operating system is affected and whether or "
 "not you're able to work around it or to fix it."
 msgstr ""
+"Εξαρτάται από το ποιο τμήμα του λειτουργικού συστήματος επηρεάζεται και από "
+"το αν μπορείτε να το επιλύσετε ή να το διορθώσετε."
 
 #: usr/share/help/C/mintupdate/regressions.page:33(p)
 msgid ""
@@ -189,100 +221,127 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
+"Πείτε, ο αναγνώστης PDF δεν είναι πλέον σε θέση να εκτυπώσει. Λοιπόν, είναι "
+"ενοχλητικό ... αλλά δεν είναι τόσο προβληματικό όσο η σύνδεση του δικτύου "
+"σας σταμάτησε να λειτουργεί ή αν ξαφνικά δεν ήταν δυνατή η εκκίνηση του "
+"υπολογιστή ή η σύνδεση."
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
 "In the latter case, it can be very problematic if you're not experienced "
 "with Linux and you don't know how to troubleshoot."
 msgstr ""
+"Στην τελευταία περίπτωση, μπορεί να είναι πολύ προβληματική αν δεν είστε "
+"έμπειροι με το Linux και δεν γνωρίζετε τον τρόπο αντιμετώπισης προβλημάτων."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
-msgstr ""
+msgstr "Ενημέρωση από τη γραμμή εντολών"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "Χρησιμοποιώντας το mintupdate-cli"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
+"Ο διαχειριστής ενημερώσεων παρέχει ένα βοηθητικό πρόγραμμα γραμμής εντολών "
+"που ονομάζεται \"mintupdate-cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
 "If you are experienced with Linux, you can use this tool in your scripts or "
 "your cron jobs to automate the installation of software updates."
 msgstr ""
+"Εάν είστε έμπειροι με το Linux, μπορείτε να χρησιμοποιήσετε αυτό το εργαλείο "
+"στις δέσμες ενεργειών σας ή στις εργασίες cron για να αυτοματοποιήσετε την "
+"εγκατάσταση ενημερώσεων λογισμικού."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
-msgstr ""
+msgstr "Ενημερώσεις λίστας"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
 msgstr ""
+"Μπορείτε να χρησιμοποιήσετε την εντολή \"list\" για να καταχωρίσετε "
+"ενημερώσεις:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "λίστα mintupdate-cli"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid ""
 "You can use -l to only show updates for certain levels (when "
 "troubleshooting)."
 msgstr ""
+"Μπορείτε να χρησιμοποιήσετε το -l για να εμφανίζετε μόνο ενημερώσεις για "
+"ορισμένα επίπεδα (όταν αντιμετωπίζετε προβλήματα)."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -s to only show the security updates."
 msgstr ""
+"Μπορείτε να χρησιμοποιήσετε το -s για να εμφανίσετε μόνο τις ενημερωμένες "
+"εκδόσεις ασφαλείας."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "You can use -k to only show the kernel updates."
 msgstr ""
+"Μπορείτε να χρησιμοποιήσετε το -k για να εμφανίσετε μόνο τις ενημερώσεις του "
+"πυρήνα."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
 msgid "For instance, the following command lists all security updates:"
 msgstr ""
+"Για παράδειγμα, η ακόλουθη εντολή παραθέτει όλες τις ενημερωμένες εκδόσεις "
+"ασφαλείας:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
 msgid "Applying updates"
-msgstr ""
+msgstr "Εφαρμογή ενημερώσεων"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr ""
+"Μπορείτε να χρησιμοποιήσετε την εντολή \"αναβάθμιση\" για να εφαρμόσετε "
+"ενημερώσεις, χρησιμοποιώντας τις ίδιες επιλογές."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "Για παράδειγμα, η ακόλουθη εντολή ισχύει για ενημερώσεις πυρήνα:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid "Note the -r argument, which was added to refresh the cache."
 msgstr ""
+"Σημειώστε το όρισμα -r, το οποίο προστέθηκε για να ανανεώσει την προσωρινή "
+"μνήμη."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:57(p)
 msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"Για περισσότερες πληροφορίες σχετικά με το mintupdate-cli και μια πλήρη "
+"λίστα με τα ορίσματα, πληκτρολογήστε:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -292,6 +351,8 @@ msgid ""
 "@@image: 'figures/mintupdate-level1.svg'; "
 "md5=4721d1b8ee24af8a530de2567ed1221c"
 msgstr ""
+"@@image: 'figures/mintupdate-level1.svg'; "
+"md5=4721d1b8ee24af8a530de2567ed1221c"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -301,6 +362,8 @@ msgid ""
 "@@image: 'figures/mintupdate-level2.svg'; "
 "md5=3166f49269a73d52075b41dfde52ac87"
 msgstr ""
+"@@image: 'figures/mintupdate-level2.svg'; "
+"md5=3166f49269a73d52075b41dfde52ac87"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -310,6 +373,8 @@ msgid ""
 "@@image: 'figures/mintupdate-level3.svg'; "
 "md5=7f94f299af95a42e73759eb4676e2319"
 msgstr ""
+"@@image: 'figures/mintupdate-level3.svg'; "
+"md5=7f94f299af95a42e73759eb4676e2319"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -319,16 +384,20 @@ msgid ""
 "@@image: 'figures/mintupdate-level4.svg'; "
 "md5=9e9eb80679d932ccce1db26618475908"
 msgstr ""
+"@@image: 'figures/mintupdate-level4.svg'; "
+"md5=9e9eb80679d932ccce1db26618475908"
 
 #: usr/share/help/C/mintupdate/levels.page:16(desc)
 msgid ""
 "Use update levels when troubleshooting, to identify which update is "
 "responsible for a regression."
 msgstr ""
+"Χρησιμοποιήστε τα επίπεδα ενημέρωσης κατά την αντιμετώπιση προβλημάτων, για "
+"να προσδιορίσετε ποια ενημέρωση είναι υπεύθυνη για μια υποχώρηση."
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
-msgstr ""
+msgstr "Επίπεδα Ενημέρωσης"
 
 #: usr/share/help/C/mintupdate/levels.page:21(p)
 msgid ""
@@ -336,135 +405,163 @@ msgid ""
 "with the latest system snapshot and tell the Linux Mint development team "
 "about the regression."
 msgstr ""
+"Οι κρίσιμες υποχωρήσεις συμβαίνουν πολύ σπάνια. Όταν το κάνουν, "
+"αποκαταστήστε το σύστημά σας με το πιο πρόσφατο στιγμιότυπο του συστήματος "
+"και ενημερώστε την ομάδα ανάπτυξης Linux Mint για την υποχώρηση."
 
 #: usr/share/help/C/mintupdate/levels.page:23(p)
 msgid ""
 "The Linux Mint team will want to know which update is responsible for the "
 "regression."
 msgstr ""
+"Η ομάδα Linux Mint θα θέλει να γνωρίζει ποια ενημέρωση είναι υπεύθυνη για "
+"την υποχώρηση."
 
 #: usr/share/help/C/mintupdate/levels.page:25(p)
 msgid ""
 "If you are faced with a long list of updates and you're not sure where to "
 "look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
 msgstr ""
+"Εάν αντιμετωπίζετε μια μακρά λίστα ενημερώσεων και δεν είστε σίγουροι πού να "
+"ψάξετε, κάντε κλικ στην επιλογή \"Προβολή\"-&gt;\"Ορατές στήλες\"-"
+"&gt;\"Επίπεδα\"."
 
 #: usr/share/help/C/mintupdate/levels.page:27(p)
 msgid ""
 "Updates are given a level indicating how much of an impact they have on the "
 "operating system."
 msgstr ""
+"Οι ενημερώσεις δίδονται σε επίπεδο που υποδεικνύει πόσο από τις επιπτώσεις "
+"τους έχουν στο λειτουργικό σύστημα."
 
 #: usr/share/help/C/mintupdate/levels.page:29(p)
 msgid "There are 4 levels:"
-msgstr ""
+msgstr "Υπάρχουν 4 επίπεδα:"
 
 #: usr/share/help/C/mintupdate/levels.page:34(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:10
 msgid "Minimal"
-msgstr ""
+msgstr "Ελάχιστο"
 
 #: usr/share/help/C/mintupdate/levels.page:35(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:15
 msgid "No impact on the system or other applications."
-msgstr ""
+msgstr "Δεν επηρεάζει το σύστημα ή άλλες εφαρμογές."
 
 #: usr/share/help/C/mintupdate/levels.page:39(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:11
 msgid "Normal"
-msgstr ""
+msgstr "Φυσιολογικό"
 
 #: usr/share/help/C/mintupdate/levels.page:40(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:16
 msgid "Default level. Usually low impact on the system."
-msgstr ""
+msgstr "Προεπιλεγμένο επίπεδο. Συνήθως χαμηλή επίπτωση στο σύστημα."
 
 #: usr/share/help/C/mintupdate/levels.page:44(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:12
 msgid "Large"
-msgstr ""
+msgstr "Μεγάλο"
 
 #: usr/share/help/C/mintupdate/levels.page:45(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:17
 msgid "Impact on multiple applications."
-msgstr ""
+msgstr "Επιπτώσεις σε πολλές εφαρμογές."
 
 #: usr/share/help/C/mintupdate/levels.page:49(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:13
 msgid "Sensitive"
-msgstr ""
+msgstr "Ευαίσθητο"
 
 #: usr/share/help/C/mintupdate/levels.page:50(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:18
 msgid "Impact on sensitive parts of the system."
-msgstr ""
+msgstr "Επιπτώσεις στα ευαίσθητα μέρη του συστήματος."
 
 #: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
 "Level 1"
 msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
+"Επίπεδο 1"
 
 #: usr/share/help/C/mintupdate/levels.page:57(p)
 msgid ""
 "Level 1 updates are updates which only affect their own software and have no "
 "impact on the rest of the system."
 msgstr ""
+"Οι ενημερώσεις επιπέδου 1 είναι ενημερώσεις που επηρεάζουν μόνο το δικό τους "
+"λογισμικό και δεν έχουν επίδραση στο υπόλοιπο σύστημα."
 
 #: usr/share/help/C/mintupdate/levels.page:59(p)
 msgid "They're usually updates for single applications. For instance:"
 msgstr ""
+"Πρόκειται συνήθως για ενημερώσεις για μεμονωμένες εφαρμογές. Για παράδειγμα:"
 
 #: usr/share/help/C/mintupdate/levels.page:62(p)
 msgid "The calculator"
-msgstr ""
+msgstr "Η αριθμομηχανή"
 
 #: usr/share/help/C/mintupdate/levels.page:63(p)
 msgid "The PDF reader"
-msgstr ""
+msgstr "Ο αναγνώστης PDF"
 
 #: usr/share/help/C/mintupdate/levels.page:64(p)
 msgid "The text editor"
-msgstr ""
+msgstr "Ο επεξεργαστής κειμένου"
 
 #: usr/share/help/C/mintupdate/levels.page:65(p)
 msgid "The media player"
-msgstr ""
+msgstr "Η συσκευή αναπαραγωγής πολυμέσων"
 
 #: usr/share/help/C/mintupdate/levels.page:68(p)
 msgid ""
 "Regressions in these updates usually only affect the software they're "
 "updating, not the operating system itself."
 msgstr ""
+"Οι υποχωρήσεις σε αυτές τις ενημερώσεις συνήθως επηρεάζουν μόνο το λογισμικό "
+"που ενημερώνουν και όχι το ίδιο το λειτουργικό σύστημα."
 
 #: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
 "Level 2"
 msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
+"Επίπεδο 2"
 
 #: usr/share/help/C/mintupdate/levels.page:75(p)
 msgid ""
 "This is the default level, so the vast majority of updates are level 2."
 msgstr ""
+"Αυτό είναι το προεπιλεγμένο επίπεδο, οπότε η συντριπτική πλειονότητα των "
+"ενημερώσεων είναι επίπεδο 2."
 
 #: usr/share/help/C/mintupdate/levels.page:77(p)
 msgid ""
 "These updates aren't known to impact large areas or sensitive parts of the "
 "system, but they're not guaranteed to only affect their own software either."
 msgstr ""
+"Αυτές οι ενημερώσεις δεν είναι γνωστό ότι επηρεάζουν μεγάλες περιοχές ή "
+"ευαίσθητα μέρη του συστήματος, αλλά δεν εγγυάται ότι επηρεάζουν μόνο το δικό "
+"τους λογισμικό."
 
 #: usr/share/help/C/mintupdate/levels.page:82(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
 "Level 3"
 msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
+"Επίπεδο 3"
 
 #: usr/share/help/C/mintupdate/levels.page:84(p)
 msgid ""
 "Level 3 updates are updates which not only affect themselves but also have "
 "an impact on other applications."
 msgstr ""
+"Οι ενημερώσεις επιπέδου 3 είναι ενημερώσεις που δεν επηρεάζουν μόνο τους "
+"εαυτούς τους, αλλά έχουν επίσης αντίκτυπο σε άλλες εφαρμογές."
 
 #: usr/share/help/C/mintupdate/levels.page:86(p)
 msgid ""
@@ -472,64 +569,78 @@ msgid ""
 "these updates wouldn't stop your computer from booting properly, but it "
 "could impact many applications."
 msgstr ""
+"Χαρακτηριστικά παραδείγματα ενημερώσεων επιπέδου 3 είναι οι GTK, DBUS, κ.λπ "
+".. Μια παλινδρόμηση σε αυτές τις ενημερώσεις δεν θα σταματήσει τον "
+"υπολογιστή σας από την σωστή εκκίνηση, αλλά θα μπορούσε να επηρεάσει πολλές "
+"εφαρμογές."
 
 #: usr/share/help/C/mintupdate/levels.page:88(p)
 msgid ""
 "Desktop environments are also level 3 updates. If a critical regression "
 "happens in Cinnamon, you might be unable to log in."
 msgstr ""
+"Τα περιβάλλοντα επιφάνειας εργασίας είναι επίσης ενημερώσεις επιπέδου 3. Αν "
+"υπάρχει μια κρίσιμη υποχώρηση στο Cinnamon, ίσως δεν μπορείτε να συνδεθείτε."
 
 #: usr/share/help/C/mintupdate/levels.page:93(title)
 msgid ""
 "<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
 "Level 4"
 msgstr ""
+"<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
+"Επίπεδο 4"
 
 #: usr/share/help/C/mintupdate/levels.page:95(p)
 msgid ""
 "Level 4 updates are updates which affect sensitive parts of the operating "
 "system such as:"
 msgstr ""
+"Οι ενημερώσεις επιπέδου 4 είναι ενημερώσεις που επηρεάζουν ευαίσθητα μέρη "
+"του λειτουργικού συστήματος, όπως:"
 
 #: usr/share/help/C/mintupdate/levels.page:98(p)
 msgid "The boot sequence"
-msgstr ""
+msgstr "Την ακολουθία εκκίνησης"
 
 #: usr/share/help/C/mintupdate/levels.page:99(p)
 msgid "The display manager (login screen, session management)"
-msgstr ""
+msgstr "Τον διαχειριστή οθόνης (οθόνη σύνδεσης, διαχείριση συνεδριών)"
 
 #: usr/share/help/C/mintupdate/levels.page:100(p)
 msgid "The kernel (hardware support)"
-msgstr ""
+msgstr "Ο πυρήνας (υποστήριξη υλικού)"
 
 #: usr/share/help/C/mintupdate/levels.page:101(p)
 msgid "The drivers (networking, NVIDIA/AMD)"
-msgstr ""
+msgstr "Οι οδηγοί (δικτύωση, NVIDIA / AMD)"
 
 #: usr/share/help/C/mintupdate/levels.page:102(p)
 msgid "The display (Xorg, mesa)"
-msgstr ""
+msgstr "Η οθόνη (Xorg, mesa)"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr ""
+msgstr "Πυρήνες και ενημερώσεις πυρήνα"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
 msgid "Kernel updates"
-msgstr ""
+msgstr "Ενημερώσεις πυρήνα"
 
 #: usr/share/help/C/mintupdate/kernels.page:21(p)
 msgid ""
 "The kernel is the central part of the operating system. Among other things, "
 "it is responsible for hardware support."
 msgstr ""
+"Ο πυρήνας είναι το κεντρικό τμήμα του λειτουργικού συστήματος. Μεταξύ άλλων, "
+"είναι υπεύθυνος για την υποστήριξη υλικού."
 
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
 msgstr ""
+"Από την άποψη της ασφάλειας, είναι σημαντικό να εφαρμοστούν ενημερώσεις "
+"πυρήνα."
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -537,22 +648,30 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
+"Ωστόσο, η υποχώρηση του πυρήνα θα μπορούσε να επηρεάσει την ικανότητά σας να "
+"συνδεθείτε στο Internet, να ξεκινήσετε το περιβάλλον της επιφάνειας εργασίας "
+"σας ή ακόμα και να εκκινήσετε το λειτουργικό σύστημα."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
 msgstr ""
+"Για το λόγο αυτό, είναι σημαντικό να είστε προσεκτικοί κατά την εφαρμογή "
+"ενημερώσεων πυρήνα και να ξέρετε πώς να τις επαναφέρετε όταν κάτι πάει "
+"στραβά."
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
-msgstr ""
+msgstr "Μπορούν να εγκατασταθούν πολλοί πυρήνες"
 
 #: usr/share/help/C/mintupdate/kernels.page:34(p)
 msgid ""
 "When you apply an update, you replace the old version of the software with "
 "the new version."
 msgstr ""
+"Όταν εφαρμόζετε μια ενημερωμένη έκδοση, αντικαθιστάτε την παλιά έκδοση του "
+"λογισμικού με τη νέα έκδοση."
 
 #: usr/share/help/C/mintupdate/kernels.page:36(p)
 msgid ""
@@ -560,59 +679,73 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
+"Τα πράγματα είναι διαφορετικά όταν πρόκειται για πυρήνες. Όταν εφαρμόζετε "
+"μια \"ενημέρωση του πυρήνα\", δεν ενημερώνετε τον πυρήνα, εγκατασταίνεται "
+"έναν νέο πυρήνα παράλληλα με τον υπάρχοντα."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
 "Every time you apply a kernel update, you install a new kernel on the "
 "system, without removing the old ones."
 msgstr ""
+"Κάθε φορά που εφαρμόζετε μια ενημερωμένη έκδοση του πυρήνα, εγκαθιστάτε ένα "
+"νέο πυρήνα στο σύστημα, χωρίς να αφαιρέσετε τους παλιούς."
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
-msgstr ""
+msgstr "Κατά την εκκίνηση, ο υπολογιστής επιλέγει τον πιο πρόσφατο."
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
-msgstr ""
+msgstr "Προσδιορισμός του τρέχοντος πυρήνα"
 
 #: usr/share/help/C/mintupdate/kernels.page:47(p)
 msgid ""
 "If you want to know which kernel you are currently using, open a terminal "
 "and type:"
 msgstr ""
+"Αν θέλετε να μάθετε ποιο πυρήνα χρησιμοποιείτε αυτήν τη στιγμή, ανοίξτε ένα "
+"τερματικό και πληκτρολογήστε:"
 
 #: usr/share/help/C/mintupdate/kernels.page:49(screen)
 #, no-wrap
 msgid "uname -a"
-msgstr ""
+msgstr "uname -a"
 
 #: usr/share/help/C/mintupdate/kernels.page:54(title)
 msgid "Installing and removing kernels"
-msgstr ""
+msgstr "Εγκατάσταση και αφαίρεση πυρήνων"
 
 #: usr/share/help/C/mintupdate/kernels.page:56(p)
 msgid "You can install and remove kernels from the Update Manager."
 msgstr ""
+"Μπορείτε να εγκαταστήσετε και να καταργήσετε πυρήνες από τον Διαχειριστή "
+"Ενημερώσεων"
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr ""
+msgstr "Επιλέξτε \"Προβολή\" -&gt; \"Linux Kernels\" στο μενού."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
 "You cannot remove the kernel you are currently using. To remove it, you need "
 "to reboot and select a different kernel to boot with."
 msgstr ""
+"Δεν μπορείτε να καταργήσετε τον πυρήνα που χρησιμοποιείτε αυτήν τη στιγμή. "
+"Για να το καταργήσετε, πρέπει να κάνετε επανεκκίνηση και να επιλέξετε έναν "
+"διαφορετικό πυρήνα για την εκκίνηση."
 
 #: usr/share/help/C/mintupdate/kernels.page:65(title)
 msgid "Selecting a kernel"
-msgstr ""
+msgstr "Επιλέγοντας έναν πυρήνα"
 
 #: usr/share/help/C/mintupdate/kernels.page:67(p)
 msgid ""
 "You can have multiple kernels installed, but you can only run one kernel at "
 "a time."
 msgstr ""
+"Μπορείτε να έχετε εγκαταστήσει πολλούς πυρήνες, αλλά μπορείτε να εκτελέσετε "
+"μόνο έναν πυρήνα κάθε φορά."
 
 #: usr/share/help/C/mintupdate/kernels.page:69(p)
 msgid ""
@@ -620,6 +753,9 @@ msgid ""
 "This menu allows you to choose operating systems but you can also use it to "
 "select a kernel."
 msgstr ""
+"Όταν εκκινείτε τον υπολογιστή, η πρώτη οθόνη ονομάζεται μενού Grub. Αυτό το "
+"μενού σας επιτρέπει να επιλέξετε λειτουργικά συστήματα, αλλά μπορείτε επίσης "
+"να το χρησιμοποιήσετε για να επιλέξετε έναν πυρήνα."
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -627,6 +763,10 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
+"Εάν έχετε εγκατεστημένο μόνο ένα λειτουργικό σύστημα, η ακολουθία εκκίνησης "
+"ενδέχεται να παραλείψει το μενού Grub. Για να εμφανίσετε το μενού Grub, "
+"εκκινήστε τον υπολογιστή και συνεχίστε να πατάτε το αριστερό πλήκτρο <key> "
+"Shift </ key>."
 
 #: usr/share/help/C/mintupdate/kernels.page:73(p)
 msgid ""
@@ -634,10 +774,14 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
+"Για να επιλέξετε έναν πυρήνα, επιλέξτε \"Σύνθετες επιλογές\" στο μενού Grub. "
+"Θα πρέπει να δείτε όλους τους πυρήνες που είναι εγκατεστημένοι αυτήν τη "
+"στιγμή. Επιλέξτε αυτό που θέλετε να χρησιμοποιήσετε και ο υπολογιστής σας θα "
+"εκκινήσει με αυτόν."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
-msgstr ""
+msgstr "Έλεγχος της κατάστασης DKMS"
 
 #: usr/share/help/C/mintupdate/kernels.page:80(p)
 msgid ""
@@ -646,12 +790,19 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
+"Ο πυρήνας περιλαμβάνει όλους τους οδηγούς ανοιχτού κώδικα και αυτές συνήθως "
+"λειτουργούν πολύ καλά. Οι ιδιόκτητοι οδηγοί (NVIDIA, AMD, Broadcom κ.λπ.) "
+"δεν περιλαμβάνονται και πρέπει να χτίσουν τον εαυτό τους εναντίον κάθε "
+"πυρήνα που εγκαθιστάτε. Αυτό γίνεται μέσω ενός μηχανισμού που ονομάζεται "
+"DKMS."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
+"Εάν ένα ιδιόκτητο πρόγραμμα οδήγησης δεν συμμορφώνεται σωστά με το DKMS για "
+"έναν από τους πυρήνες σας, δεν θα λειτουργήσει σωστά με αυτόν τον πυρήνα."
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -659,11 +810,15 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
+"Αφού εγκαταστήσετε ή αφαιρέσετε έναν πυρήνα, μπορείτε να ελέγξετε την "
+"κατάσταση DKMS σας, για να βεβαιωθείτε ότι όλα τα ιδιόκτητα προγράμματα "
+"οδήγησης έχουν εγκατασταθεί σωστά για καθένα από τους πυρήνες σας με την "
+"ακόλουθη εντολή:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
 msgid "dkms status"
-msgstr ""
+msgstr "dkms status"
 
 #: usr/share/help/C/mintupdate/kernels.page:88(p)
 msgid ""
@@ -672,10 +827,14 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
+"Οι νέες σειρές πυρήνα είναι συνήθως διαθέσιμες πριν οι ιδιόκτητοι οδηγοί "
+"τους υποστηρίξουν μέσω του DKMS. Αν χρησιμοποιείτε ιδιόκτητους οδηγούς, "
+"συνιστάται να τηρείτε τις ενημερώσεις του πυρήνα και να μην εγκαταστήσετε "
+"πυρήνες από σειρές που είναι νεότερες από τη σειρά των συνιστώμενων πυρήνων."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
-msgstr ""
+msgstr "Επαναφορά της ενημέρωσης του πυρήνα"
 
 #: usr/share/help/C/mintupdate/kernels.page:95(p)
 msgid ""
@@ -683,12 +842,16 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
+"Εάν κάτι δεν λειτουργεί με τον τελευταίο πυρήνα που εγκαταστήσατε (ή με την "
+"τελευταία ενημέρωση του πυρήνα), επανεκκινήστε, επιλέξτε τον πυρήνα που "
+"χρησιμοποιούσατε προηγουμένως, αφαιρέστε τον νέο πυρήνα και επανεκκινήστε "
+"ξανά."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:968
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1031
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:970
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:974
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1805 generate_desktop_files:26
 msgid "Update Manager"
 msgstr "Διαχειριστής Ενημερώσεων"
 
@@ -705,12 +868,17 @@ msgid ""
 "Updates are important because they keep your computer safe, eliminate bugs "
 "and can even add new features to your operating system."
 msgstr ""
+"Οι ενημερώσεις είναι σημαντικές επειδή διατηρούν τον υπολογιστή σας ασφαλές, "
+"εξαλείφουν σφάλματα και μπορούν ακόμη και να προσθέτουν νέες λειτουργίες στο "
+"λειτουργικό σας σύστημα."
 
 #: usr/share/help/C/mintupdate/index.page:24(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
 msgstr ""
+"Δυστυχώς, μερικές φορές εισάγουν νέα ζητήματα που ονομάζονται «υποχωρήσεις», "
+"τα οποία μπορούν να σπάσουν τα πράγματα που λειτούργησαν πολύ πριν."
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
@@ -718,34 +886,40 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Για να διατηρήσετε τον υπολογιστή σας ασφαλές και σε καλή λειτουργική "
+"κατάσταση, συνιστάται να εφαρμόσετε όλες τις διαθέσιμες ενημερώσεις και να "
+"ρυθμίσετε στιγμιότυπα συστήματος, ώστε να μπορείτε να επαναφέρετε το σύστημά "
+"σας σε περίπτωση που κάτι πάει στραβά."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
-msgstr ""
+msgstr "Βασικές έννοιες"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
 msgstr ""
+"Αυτή η ενότητα εξηγεί τις βασικές έννοιες που σχετίζονται με τις ενημερώσεις "
+"λογισμικού."
 
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Αντιμετώπιση προβλημάτων"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains update levels."
-msgstr ""
+msgstr "Αυτή η ενότητα εξηγεί τα επίπεδα ενημέρωσης."
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
-msgstr ""
+msgstr "Αυτή η ενότητα εξηγεί τις ενημερώσεις του πυρήνα."
 
 #: usr/share/help/C/mintupdate/index.page:47(title)
 msgid "Advanced techniques"
-msgstr ""
+msgstr "Προχωρημένεςτεχνικές"
 
 #: usr/share/help/C/mintupdate/index.page:49(p)
 msgid "This section explains advanced techniques."
-msgstr ""
+msgstr "Αυτή η ενότητα εξηγεί τις προηγμένες τεχνικές."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: usr/share/help/C/mintupdate/index.page:0(None)
@@ -761,19 +935,20 @@ msgstr ""
 "  Sakis Proto https://launchpad.net/~sakis-proto\n"
 "  StratosJL https://launchpad.net/~stratosjl\n"
 "  Tony https://launchpad.net/~tonyzet988\n"
+"  Vasileios Kosmidis https://launchpad.net/~vasiliskos\n"
 "  mikpap https://launchpad.net/~mikpap\n"
 "  sparus https://launchpad.net/~bitsikas"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:206
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:232
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Πυρήνας Linux %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:207
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:233
 msgid "The Linux kernel."
 msgstr "Ο πυρήνας Linux."
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:208
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:234
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -794,48 +969,60 @@ msgstr ""
 "σας. Εάν χρησιμοποιείτε ιδιόκτητους οδηγούς και θέλετε να χρησιμοποιήσετε "
 "έναν παλιότερο πυρήνα, θα πρέπει να αφαιρέσετε πρώτα το νέο."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:154
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:158
 msgid "Remove"
 msgstr "Αφαίρεση"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:157
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr ""
 "Αυτός ο πυρήνας δεν μπορεί να αφαιρεθεί επειδή χρησιμοποιείται αυτή τη "
 "στιγμή."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:165
 msgid "Install"
 msgstr "Εγκατάσταση"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:164
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:168
 msgid "This kernel is not installable."
 msgstr "Αυτός ο πυρήνας δεν είναι εγκαταστάσιμος."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:178
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:182
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
-msgstr "Είστε σίγουρος ότι θέλετε να αφαιρέσετε τον πυρήνα %s;"
+msgstr "Είσαστε βέβαιοι ότι επιθυμείτε να καταργήσετε τον πυρήνα %s;"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:180
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:184
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
-msgstr "Είστε σίγουρος ότι θέλετε να εγκαταστήσετε τον πυρήνα %s;"
+msgstr "Είσαστε βέβαιοι ότι επιθυμείτε να εγκαταστήσετε τον πυρήνα %s;"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:199
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:204
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Kernels"
-msgstr ""
+msgstr "Πυρήνες"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
 msgid "Active"
 msgstr "Ενεργό"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
 msgid "Installed"
 msgstr "Εγκαταστάθηκε"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:280
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+msgid "Supported until"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+msgid "End of Life"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+msgid "Unsupported"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
 msgid "You are currently using the following kernel:"
 msgstr "Αυτή τη στιγμή χρησιμοποιείτε τον ακόλουθο πυρήνα:"
 
@@ -869,11 +1056,11 @@ msgstr "Η αναβάθμιση αυτή θα προκαλέσει επιπρό�
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
 msgid "The following packages will be removed:"
-msgstr ""
+msgstr "Τα ακόλουθα πακέτα θα καταργηθούν:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:376
 msgid "The following packages will be installed:"
-msgstr ""
+msgstr "Τα ακόλουθα πακέτα θα εγκατασταθούν:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:419
 msgid "Installing updates"
@@ -881,7 +1068,7 @@ msgstr "Εγκατάσταση ενημερώσεων"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1015
 msgid "Checking for updates"
 msgstr "Έλεγχος για ενημερώσεις"
 
@@ -918,39 +1105,43 @@ msgstr ""
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Για να μεταβείτε σε διαφορετικό κατοπτρισμό του Linux Mint και να επιλύσετε "
+"αυτό το πρόβλημα, κάντε κλικ στο Εντάξει."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
-msgstr "Παρακαλούμε να μεταβείτε σε άλλη τοποθεσία (mirror) του Linux Mint"
+msgstr ""
+"Παρακαλούμε να μεταβείτε σε διαφορετική εναλλακτική τοποθεσία (mirror) του "
+"Linux Mint"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:850
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:852
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid "OK"
 msgstr "ΟΚ"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:862
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:864
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
 msgstr "Αδυναμία ανανέωσης της λίστας ενημερώσεων"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:753
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:755
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "Your system is up to date"
-msgstr "Το σύστημά σας ειναι ενημερωμένο"
+msgstr "Το σύστημά σας είναι ενημερωμένο"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:718
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:720
 msgid "Kernel update"
 msgstr "Ενημέρωση πυρήνα"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:721
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:723
 msgid "Security update"
 msgstr "Ενημέρωση ασφαλείας"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:724
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:726
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -958,260 +1149,265 @@ msgstr ""
 "Ασταθές λογισμικό. Εφαρμόστε αυτή την ενημέρωση μόνο για να βοηθήσετε τους "
 "προγραμματιστές να κάνουν ελέγχους τύπου beta στο λογισμικό."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:730
 msgid "Software update"
 msgstr "Ενημέρωση λογισμικού"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
 msgid "3rd-party update"
-msgstr ""
+msgstr "Ενημέρωση τρίτων"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1487
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 msgid "No updates selected"
 msgstr "Καμία επιλεγμένη ενημέρωση"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1463
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(selected)d ενημέρωση επιλέχτηκε (%(size)s)"
+msgstr[1] "%(selected)d ενημερώσεις επιλέχτηκαν (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:767
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d διαθέσιμη ενημέρωση"
+msgstr[1] "%d διαθέσιμες ενημερώσεις"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
 msgid "Please set up System Snapshots"
-msgstr ""
+msgstr "Παρακαλούμε ρυθμίστε τα Στιγμιότυπα του Συστήματος"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
 msgstr ""
+"Αν κάτι σπάσει, τα στιγμιότυπα θα σας επιτρέψουν να επαναφέρετε το σύστημά "
+"σας στην προηγούμενη κατάσταση λειτουργίας."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Do you want to switch to a local mirror?"
-msgstr "Θέλετε να μεταβείτε σε έναν τοπικό καθρέφτη;"
+msgstr ""
+"Επιθυμείτε να αλλάξετε σε μία τοπική εναλλακτική τοποθεσία (local mirror);"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
+"Οι τοπικοί κατοπτρισμοί είναι συνήθως ταχύτεροι από το "
+"packages.linuxmint.com."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 msgid "Please switch to another mirror"
-msgstr "Παρακαλούμε μεταβείτε σε άλλον καθρέφτη (mirror)"
+msgstr "Παρακαλούμε αλλάξτε σε κάποια άλλη εναλλακτική τοποθεσία (mirror)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s είναι μη προσβάσιμος"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Η τελευταία ενημέρωση %(mirror)s ήταν %(days)d ημέρα πριν."
+msgstr[1] "Η τελευταία ενημέρωση %(mirror)s ήταν %(days)d ημέρες πριν."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Exit"
 msgstr "Έξοδος"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 msgid "Upgrade"
 msgstr "Αναβάθμιση"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1061
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1063
 msgid "Name"
-msgstr ""
+msgstr "Όνομα"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1065
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1067
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1249
 msgid "Level"
 msgstr "Επίπεδο"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1069
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1071
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1751
 msgid "Old version"
 msgstr "Παλιά έκδοση"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1073
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1245
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1075
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1267
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1754
 msgid "New version"
 msgstr "Νέα έκδοση"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1251
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1273
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1081
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1083
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1243
 msgid "Type"
 msgstr "Τύπος"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
 msgid "Origin"
 msgstr "Προέλευση"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1139
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "Ανανέωση"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1724
 msgid "Information"
 msgstr "Πληροφορίες"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1785
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1149
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1183
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
 msgid "Preferences"
 msgstr "Προτιμήσεις"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 msgid "Quit"
-msgstr ""
+msgstr "Τερματισμός"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
 msgid "_File"
 msgstr "_Αρχείο"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1150
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1178
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1173
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1195
 msgid "Software sources"
 msgstr "Πηγές λογισμικού"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Αναβάθμιση σε %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1222
 msgid "_View"
 msgstr "_Προβολή"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1665
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1742
 msgid "History of updates"
 msgstr "Ιστορικό ενημερώσεων"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1231
 msgid "Linux kernels"
 msgstr "Πυρήνες Linux"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1217
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
 msgid "Visible columns"
 msgstr "Ορατές στήλες"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1671
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1748
 msgid "Package"
 msgstr "Πακέτο"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
 msgid "Show descriptions"
 msgstr "Εμφάνιση περιγραφών"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
 msgid "Welcome screen"
-msgstr ""
+msgstr "Οθόνη καλωσορίσματος"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1367
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Συντομεύσεις Πληκτρολογίου"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1373
 msgid "Contents"
 msgstr "Περιεχόμενα"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1726
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1380
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
 msgid "About"
 msgstr "Σχετικά"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1507
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Welcome to the Update Manager"
 msgstr "Καλώς ορίσατε στο Διαχειριστή Ενημερώσεων"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1666
 msgid "Packages included in this update:"
-msgstr ""
+msgstr "Πακέτα που περιλαμβάνονται σε αυτήν την ενημέρωση:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1598
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
 msgid "Ignore updates for this package"
 msgstr "Παράβλεψη ενημερώσεων για αυτό το πακέτο"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1668
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1745
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1800
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
 msgid "Options"
 msgstr "Επιλογές"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1801
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
 msgid "Levels"
 msgstr "Επίπεδα"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1802
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
 msgid "Auto-refresh"
 msgstr "Αυτόματη ανανέωση"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
 msgid "Blacklist"
-msgstr ""
+msgstr "Μαύρη λίστα"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
 msgid "Auto-upgrade"
-msgstr ""
+msgstr "Αυτόματη αναβάθμιση"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1922
 msgid "Ignored updates"
 msgstr "Αγνοημένες ενημερώσεις"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1916
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1993
 msgid "Please specify the name of the update to ignore:"
 msgstr "Προσδιορίστε το όνομα της ενημέρωσης που θα παραβλεφθεί:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1917
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
 msgid "Ignore an update"
 msgstr "Παράβλεψη ενημέρωσης"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1921
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1998
 msgid "Name:"
 msgstr "Όνομα:"
 
@@ -1367,29 +1563,63 @@ msgstr "Προχωρήστε με προσοχή"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
-"The Linux kernel is a critical part of the system. Regressions can lead to "
-"lack of networking, lack of sound, lack of graphical environment or even the "
-"inability to boot the computer."
+"Installing a new kernel can sometimes cause problems, especially if you're "
+"using proprietary drivers."
 msgstr ""
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
-msgid ""
-"Before installing or removing kernels, please make sure to read the help "
-"section, to make sure you know how to select kernels, how to revert updates "
-"and how to check your DKMS status."
+msgid "These issues include:"
 msgstr ""
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
-msgid "Do not show this message again"
+msgid ""
+"- No wifi (or ethernet)\n"
+"- No video acceleration\n"
+"- Black screen on startup\n"
+"- Random system freeze"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
+msgid "If you face any of these issues, don't panic:"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:10
+msgid ""
+"- Reboot.\n"
+"- Press and hold the Shift key to show the boot menu.\n"
+"- In the boot menu, select the line which starts with 'Advanced options'.\n"
+"- Select an older kernel.\n"
+"- After the computer boots with the older kernel, uninstall the new one."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:15
+msgid "Do not show this message again"
+msgstr "Μην εμφανίζετε αυτό το μήνυμα ξανά"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
+msgstr "Συνέχεια"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:18
+msgid "Remove old kernels..."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
+msgid "Remove selected kernels"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
+msgid "Select the kernels you want to remove:"
 msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
@@ -1425,26 +1655,33 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Security updates"
-msgstr ""
+msgstr "Ενημερώσεις Ασφαλείας"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
+"Εφαρμόστε ενημερώσεις ασφαλείας για να ενημερώσετε τα θέματα ευπάθειας και "
+"να διατηρήσετε τον υπολογιστή σας ασφαλή."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid "Software updates"
-msgstr ""
+msgstr "Ενημερώσεις λογισμικού"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Apply software updates to fix bugs in your computer."
 msgstr ""
+"Εφαρμόστε ενημερώσεις λογισμικού για να διορθώσετε σφάλματα στον υπολογιστή "
+"σας."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Ρυθμίστε τα στιγμιότυπα του συστήματος για να προστατεύσετε τον εαυτό σας "
+"από λάθη και υποχωρήσεις. Αν κάτι σπάσει απλά επαναφέρετε το τελευταίο "
+"στιγμιότυπο."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid ""
@@ -1452,48 +1689,56 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Το Linux Mint συνιστά να ρυθμίσετε τα αυτοματοποιημένα στιγμιότυπα "
+"συστήματος και να εφαρμόσετε όλες τις διαθέσιμες ενημερώσεις. Με αυτόν τον "
+"τρόπο, ο υπολογιστής σας είναι πάντα ασφαλής και μπορείτε να επιστρέψετε "
+"εγκαίρως και να ανακάμψετε από πιθανή υποχώρηση."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
 msgstr "Εφαρμογή"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
-msgid "Cancel"
-msgstr "Ακύρωση"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Βεβαιωθείτε ότι τα στιγμιότυπα του συστήματός σας έχουν ρυθμιστεί σωστά πριν "
+"χρησιμοποιήσετε αυτήν την επιλογή."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "When this option is enabled, all updates are applied automatically on a "
 "daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
 msgstr ""
+"Όταν αυτή η επιλογή είναι ενεργοποιημένη, όλες οι ενημερώσεις εφαρμόζονται "
+"αυτόματα σε καθημερινή βάση, ως root, μέσω μιας εργασίας cron "
+"(/etc/cron.daily/mintupdate)."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
 "/etc/mintupdate.blacklist to blacklist some of them."
 msgstr ""
+"Μπορείτε να επεξεργαστείτε το /etc/cron.daily/mintupdate για να ρυθμίσετε "
+"τις αυτόματες ενημερώσεις και το /etc/mintupdate.blacklist για να εξαιρέσετε "
+"μερικές από αυτές."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:6
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "Εφαρμογή ενημερώσεων αυτόματα"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:7
 msgid "Impact level"
-msgstr ""
+msgstr "Επίπεδο επιπτώσεων"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:8
 msgid "Selected"
-msgstr ""
+msgstr "Επιλεγμένα"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:9
 msgid "Visible"
-msgstr ""
+msgstr "Ορατά"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:19
 msgid ""
@@ -1501,10 +1746,14 @@ msgid ""
 "updates. Only hide levels when troubleshooting or trying to identify a "
 "regression. Check the help section for more information."
 msgstr ""
+"Συνιστάται η ρύθμιση στιγμιότυπων συστήματος και η εφαρμογή όλων των "
+"διαθέσιμων ενημερώσεων. Μόνο αποκρύψετε τα επίπεδα κατά την αντιμετώπιση "
+"προβλημάτων ή την προσπάθεια προσδιορισμού μιας υποχώρησης. Ελέγξτε την "
+"ενότητα βοήθειας για περισσότερες πληροφορίες."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:20
 msgid "Interface"
-msgstr ""
+msgstr "Διεπαφή"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:21
 msgid "Hide the update manager after applying updates"
@@ -1520,20 +1769,25 @@ msgstr ""
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:23
 msgid "Show a warning if system snapshots are not set up"
 msgstr ""
+"Εμφάνιση μιας προειδοποίησης εάν τα στιγμιότυπα συστήματος δεν είναι "
+"ρυθμισμένα"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:24
-msgid "Don't suggest to switch to a local mirror"
-msgstr "Μην προτείνεις την αλλαγή σε έναν τοπικό καθρέφτει (mirror)"
+msgid "Don't suggest switching to a local mirror"
+msgstr ""
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:25
 msgid "Updates"
-msgstr ""
+msgstr "Ενημερώσεις"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:26
 msgid ""
 "It is recommended to show and apply all available updates. Only disable the "
 "options below when troubleshooting."
 msgstr ""
+"Συνιστάται να εμφανίζονται και να εφαρμόζονται όλες οι διαθέσιμες "
+"ενημερώσεις. Απενεργοποιήστε μόνο τις παρακάτω επιλογές κατά την "
+"αντιμετώπιση προβλημάτων."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:27
 msgid ""
@@ -1549,7 +1803,7 @@ msgstr "Να εμφανίζονται πάντα ενημερώσεις ασφα
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:29
 msgid "Always select security updates"
-msgstr ""
+msgstr "Επιλέξτε πάντα ενημερώσεις ασφαλείας"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:30
 msgid "Always show kernel updates"
@@ -1557,15 +1811,15 @@ msgstr "Να εμφανίζονται πάντα οι ενημερώσεις π�
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:31
 msgid "Always select kernel updates"
-msgstr ""
+msgstr "Πάντα να επιλέγετε ενημερώσεις πυρήνα"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:32
 msgid "First, refresh the list of updates after:"
-msgstr "Πρώτα, ανανεώστε τη λίστα των ενημερωμένων εκδόσεων μετά απο:"
+msgstr "Αρχικά, ανανεώστε τη λίστα των ενημερώσεων μετά από:"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:33
 msgid "Then, refresh the list of updates every:"
-msgstr "Στη συνέχεια, ανανεώστε τη λίστα των ενημερωμένων εκδόσεων κάθε:"
+msgstr "Έπειτα, ανανεώστε τη λίστα των ενημερώσεων κάθε:"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:34
 msgid "days"
@@ -1589,35 +1843,35 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "Παράθυρο"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "Επιλογή"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select level 1 updates"
-msgstr ""
+msgstr "Επιλέξτε ενημερώσεις επιπέδου 1"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select level 2 updates"
-msgstr ""
+msgstr "Επιλέξτε ενημερώσεις επιπέδου 2"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:10
 msgid "Select level 3 updates"
-msgstr ""
+msgstr "Επιλέξτε ενημερώσεις επιπέδου 3"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:11
 msgid "Select level 4 updates"
-msgstr ""
+msgstr "Επιλέξτε ενημερώσεις επιπέδου 4"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:12
 msgid "Select security updates"
-msgstr ""
+msgstr "Επιλέξτε ενημερώσεις ασφαλείας"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:13
 msgid "Select kernel updates"
-msgstr ""
+msgstr "Επιλέξτε ενημερώσεις πυρήνα"
 
 #~ msgid "Please wait, this can take some time"
 #~ msgstr "Παρακαλώ περιμένετε, θα χρειαστούν μερικά λεπτά"

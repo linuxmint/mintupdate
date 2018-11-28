@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-05-07 13:28+0100\n"
-"PO-Revision-Date: 2017-07-02 19:08+0000\n"
-"Last-Translator: David <Unknown>\n"
+"POT-Creation-Date: 2018-11-19 14:05+0000\n"
+"PO-Revision-Date: 2018-10-11 18:10+0000\n"
+"Last-Translator: Vendelín Slezák <Unknown>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
-"X-Launchpad-Export-Date: 2018-06-26 10:05+0000\n"
-"X-Generator: Launchpad (build 18688)\n"
+"X-Launchpad-Export-Date: 2018-11-27 17:42+0000\n"
+"X-Generator: Launchpad (build 18826)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -87,6 +87,8 @@ msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
+"Aktualizácie softvéru nie sú tak dôležité. Opravujú chyby a prinášajú "
+"vylepšenia ale nezlepšujú zapezpečenie."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -105,29 +107,34 @@ msgstr ""
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
-msgstr ""
+msgstr "Keď sa vyskytne kritická regresia, môžete obnoviť systém zo zálohy."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "System snapshots"
-msgstr ""
+msgstr "Zálohy systému"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"Timesift, program na vytváranie záloh systému je k dispozící vo všetkých "
+"verziách Linux Mintu."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"Zálohy systému sa cez neho dajú spraviť buď manuálne, alebo ich môže robiť "
+"automaticky."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
 msgstr ""
+"Linux Mint odporúča vytvoriť každý deň novú dennú zálohu a boot zálohu."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -135,12 +142,16 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Ak sa nepodarí aktualizácia, vyskytne sa chyba, nejaký program niečo pokazí "
+"na vašom počítači, môžete obnoviť systém z nejakej zálohy aby bol taký ako "
+"vtedy."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
+"Záloha systému sa týka iba operačného systému. Neovplyvňuje vaše údaje."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
@@ -217,12 +228,14 @@ msgstr "Aktualizovanie cez príkazový riadok"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "Používa mintupdate-cli"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
+"Správca Aktualizácií poskytuje nástroj pre príkazový riadok \"mintupdate-"
+"cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
@@ -243,34 +256,37 @@ msgstr "Môžete použíť príkaz \"list\" na vypísanie aktualizácií:"
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid ""
 "You can use -l to only show updates for certain levels (when "
 "troubleshooting)."
 msgstr ""
+"Môžete použiť -l aby sa zobrazili iba aktualizácie z konkrétnej úrovne(pri "
+"riešení problémov)."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "Pomocou -s zobrazíte iba bezpečnostné aktualizácie."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr ""
+msgstr "Pomocou -k zobrazíte iba aktualizácie kernelu."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
 msgid "For instance, the following command lists all security updates:"
 msgstr ""
+"Napríklad nasledujúci príkaz zobrazí všetky aktualizácie zabezpečenia:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
 msgid "Applying updates"
-msgstr "Aplikujem aktualizácie"
+msgstr "Aplikácia aktualizácií"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid ""
@@ -281,12 +297,12 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "Napríklad tento príkaz sa vzťahuje na aktualizácie kernelu:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid "Note the -r argument, which was added to refresh the cache."
@@ -297,11 +313,12 @@ msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"Pre viac informácií o mintupdate-cli a vypísanie zoznamu argumentov napíšte:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -352,6 +369,8 @@ msgid ""
 "Use update levels when troubleshooting, to identify which update is "
 "responsible for a regression."
 msgstr ""
+"Úrovne aktualizácií sa môžu použiť pri určovaní ktorá aktualizácia je "
+"zodpovedná za regresie."
 
 #: usr/share/help/C/mintupdate/levels.page:19(title)
 msgid "Update levels"
@@ -363,18 +382,24 @@ msgid ""
 "with the latest system snapshot and tell the Linux Mint development team "
 "about the regression."
 msgstr ""
+"Kritické regresie sú veľmi zriedkavé. Ak sa u vás vyskytnú, obnovte systém "
+"zo zálohy a povedzte o regresí vývojárom Linuxu Mint."
 
 #: usr/share/help/C/mintupdate/levels.page:23(p)
 msgid ""
 "The Linux Mint team will want to know which update is responsible for the "
 "regression."
 msgstr ""
+"Vývojári Linuxu Mint budú chcieť vedieť ktorá aktualizácia spôsobila "
+"regresiu."
 
 #: usr/share/help/C/mintupdate/levels.page:25(p)
 msgid ""
 "If you are faced with a long list of updates and you're not sure where to "
 "look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
 msgstr ""
+"Ak máte dlhý zoznam aktualizácií a neviete kde nájsť pokazenú aktualizáciu, "
+"kliknite na \"Zobraziť\"-&gt;\"Viditeľné stĺpce\"-&gt;\"Úroveň\"."
 
 #: usr/share/help/C/mintupdate/levels.page:27(p)
 msgid ""
@@ -415,7 +440,7 @@ msgstr "Veľká"
 #: usr/share/help/C/mintupdate/levels.page:45(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:17
 msgid "Impact on multiple applications."
-msgstr ""
+msgstr "Dopad na viaceré programy."
 
 #: usr/share/help/C/mintupdate/levels.page:49(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:13
@@ -425,7 +450,7 @@ msgstr "Citlivá"
 #: usr/share/help/C/mintupdate/levels.page:50(p)
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:18
 msgid "Impact on sensitive parts of the system."
-msgstr ""
+msgstr "Dopad na citlivé časti systému."
 
 #: usr/share/help/C/mintupdate/levels.page:55(title)
 msgid ""
@@ -468,6 +493,8 @@ msgid ""
 "Regressions in these updates usually only affect the software they're "
 "updating, not the operating system itself."
 msgstr ""
+"Regresia tejto aktualizácie má zvyčajne dopad iba na softvér ktorý sa "
+"aktualizuje, nie na operačný systém."
 
 #: usr/share/help/C/mintupdate/levels.page:73(title)
 msgid ""
@@ -775,10 +802,10 @@ msgstr ""
 "reštartujte počítač znova."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:968
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1031
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1728 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:970
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:974
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1805 generate_desktop_files:26
 msgid "Update Manager"
 msgstr "Správca aktualizácií"
 
@@ -812,6 +839,8 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Ak chcete udržať váš počítač v bezpečí a dobrom stave, odporúča sa "
+"nainštalovať všetky dostupné aktualizácie a spraviť zálohu systému."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -824,11 +853,11 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Troubleshooting"
-msgstr ""
+msgstr "Riešenie problémov"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains update levels."
-msgstr ""
+msgstr "Táto sekcia vysvetľuje levely aktualizácií"
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
@@ -853,22 +882,23 @@ msgstr ""
 "  HANAX https://launchpad.net/~tomhanax\n"
 "  Milan Slovák https://launchpad.net/~milboys\n"
 "  Tom https://launchpad.net/~takact1\n"
+"  Vendelín Slezák https://launchpad.net/~klaykap\n"
 "  mr99_9 https://launchpad.net/~mr9\n"
 "  redwood https://launchpad.net/~redwood\n"
 "  tibbi https://launchpad.net/~tibbi\n"
 "  Ľuboš Mudrák https://launchpad.net/~lubos-mudrak\n"
 "  Ľudovít Lučenič https://launchpad.net/~llucenic"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:206
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:232
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Linuxové jadro %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:207
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:233
 msgid "The Linux kernel."
 msgstr "Linuxové jadro."
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:208
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:234
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -888,46 +918,58 @@ msgstr ""
 "ovládače a chcete použiť staršie jadro, musíte najprv odstrániť najnovšie "
 "jadro."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:154
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:158
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:157
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr "Toto jadro nemôže byť odstránené, pretože je momentálne používané."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:165
 msgid "Install"
 msgstr "Inštalovať"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:164
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:168
 msgid "This kernel is not installable."
 msgstr "Toto jadro sa nedá nainštalovať."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:178
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:182
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
 msgstr "Ste si istý, že chcete jadro %s odstrániť?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:180
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:184
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "Ste si istý, že chcete nainštalovať jadro %s?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:199
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:204
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Kernels"
 msgstr "Jadrá (Kernely)"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
 msgid "Active"
 msgstr "Aktívne"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
 msgid "Installed"
 msgstr "Nainštalované"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:280
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+msgid "Supported until"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+msgid "End of Life"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+msgid "Unsupported"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
 msgid "You are currently using the following kernel:"
 msgstr "Práve používate nasledovné jadro:"
 
@@ -961,11 +1003,11 @@ msgstr "Táto aktualizácia spustí ďalšie zmeny"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
 msgid "The following packages will be removed:"
-msgstr ""
+msgstr "Budú odstránené nasledovné balíky:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:376
 msgid "The following packages will be installed:"
-msgstr ""
+msgstr "Budú nainštalované nasledovné balíčky:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:419
 msgid "Installing updates"
@@ -973,7 +1015,7 @@ msgstr "Inštalujú sa aktualizácie"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1015
 msgid "Checking for updates"
 msgstr "Kontrolujem aktualizácie..."
 
@@ -1008,39 +1050,41 @@ msgstr "Neinštalujte ani neaktualizujte nič. Môže to poškodiť váš systé
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Ak chcete prepnúť na iné zrkadlo Linuxu Mint a vyriešiť tento problém, "
+"stlačte OK."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
 msgid "Please switch to another Linux Mint mirror"
 msgstr "Prosím, prepnite na iné zrkadlo systému Linux Mint"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:850
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:852
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid "OK"
 msgstr "OK"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:862
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:864
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
 msgstr "Nepodarilo sa obnoviť zoznam aktualizácií"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:753
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:755
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "Your system is up to date"
 msgstr "Váš systém je aktualizovaný"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:718
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:720
 msgid "Kernel update"
 msgstr "Aktualizácia jadra"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:721
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:723
 msgid "Security update"
 msgstr "Bezpečnostná aktualizácia"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:724
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:726
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1048,260 +1092,265 @@ msgstr ""
 "Nestabilný softvér. Aplikujte túto aktualizáciu iba ak chcete pomôcť "
 "vývojárom s odskúšaním nového softvéru."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:730
 msgid "Software update"
 msgstr "Aktualizácia softvéru"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
 msgid "3rd-party update"
-msgstr ""
+msgstr "3rd-party aktualizácia"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:757
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1487
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 msgid "No updates selected"
 msgstr "Nevybrali ste žiadne aktualizácie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1463
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(selected)d aktualizácia vybraná (%(size)s)"
+msgstr[1] "%(selected)d aktualizácie vybrané (%(size)s)"
+msgstr[2] "%(selected)d aktualizácií vybraných (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:767
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d aktualizácia je k dispozící"
+msgstr[1] "%d aktualizácie sú k dispozící"
+msgstr[2] "%d aktualizácií je k dispozící"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
 msgid "Please set up System Snapshots"
-msgstr ""
+msgstr "Prosím nastavte Zálohovanie systému."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
 msgstr ""
+"Ak sa čokoľvek pokazí, záloha systému opraví váš operačný systém do "
+"predchodzieho stavu."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Do you want to switch to a local mirror?"
 msgstr "Chcete prepnúť na miestne zrkadlo?"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr ""
+msgstr "Miestne zrkadlá sú zvyčajne rýchlejšie než packages.linuxmint.com."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 msgid "Please switch to another mirror"
 msgstr "Prosím, prepnite na iné zrkadlo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s je nodostupné."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:832
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Posledná aktualizácia %(mirror)sbola pred %(days)d dňom."
+msgstr[1] "Posledná aktualizácia %(mirror)sbola pred %(days)d dňami."
+msgstr[2] "Posledná aktualizácia %(mirror)sbola pred %(days)d dňami."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Exit"
 msgstr "Skončiť"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 msgid "Upgrade"
 msgstr "Aktualizovať"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1061
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1063
 msgid "Name"
 msgstr "Názov"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1065
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1067
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1249
 msgid "Level"
 msgstr "Úroveň"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1069
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1071
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1751
 msgid "Old version"
 msgstr "Stará verzia"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1073
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1245
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1075
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1267
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1754
 msgid "New version"
 msgstr "Nová verzia"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1251
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1273
 msgid "Size"
 msgstr "Veľkosť"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1081
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1083
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1243
 msgid "Type"
 msgstr "Typ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
 msgid "Origin"
 msgstr "Pôvod"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1117
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1139
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "Obnoviť"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1724
 msgid "Information"
 msgstr "Informácie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1127
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1785
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1149
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1183
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
 msgid "Preferences"
 msgstr "Nastavenia"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1132
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 msgid "Quit"
-msgstr ""
+msgstr "Zavrieť"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1145
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
 msgid "_File"
 msgstr "_Súbor"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1150
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr "Zatvoriť"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1178
 msgid "_Edit"
 msgstr "_Upraviť"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1173
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1195
 msgid "Software sources"
 msgstr "Zdroje softvéru"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Aktualizovať na %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1200
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1222
 msgid "_View"
 msgstr "_Zobraziť"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1665
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1742
 msgid "History of updates"
 msgstr "História aktualizácií"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1231
 msgid "Linux kernels"
 msgstr "Linuxové jadrá"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1217
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
 msgid "Visible columns"
 msgstr "Viditeľné stĺpce"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1671
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1748
 msgid "Package"
 msgstr "Balík"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
 msgid "Show descriptions"
 msgstr "Zobraziť popisy"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Pomoc"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
 msgid "Welcome screen"
-msgstr ""
+msgstr "Úvodná obrazovka"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1367
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Klávesové skratky"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1297
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1373
 msgid "Contents"
 msgstr "Obsah"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1726
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1380
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
 msgid "About"
 msgstr "O aplikácii"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1507
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Welcome to the Update Manager"
 msgstr "Víta Vás Správca Aktualizácií"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1666
 msgid "Packages included in this update:"
-msgstr ""
+msgstr "Balíčky tejto aktualizácie:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1598
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
 msgid "Ignore updates for this package"
 msgstr "Ignorovať aktualizácie pre tento balíček"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1668
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1745
 msgid "Date"
 msgstr "Dátum"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1800
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
 msgid "Options"
 msgstr "Možnosti"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1801
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
 msgid "Levels"
 msgstr "Úrovne"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1802
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
 msgid "Auto-refresh"
 msgstr "Automatické obnovenie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
 msgid "Blacklist"
 msgstr "Čierna listina"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1804
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
 msgid "Auto-upgrade"
-msgstr ""
+msgstr "Automatické aktualizovanie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1922
 msgid "Ignored updates"
 msgstr "Ignorované aktualizácie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1916
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1993
 msgid "Please specify the name of the update to ignore:"
 msgstr "Prosím, zadajte názov aktualizácie, ktorá sa má ignorovať:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1917
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
 msgid "Ignore an update"
 msgstr "Ignorovať aktualizáciu"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1921
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1998
 msgid "Name:"
 msgstr "Názov:"
 
@@ -1454,33 +1503,75 @@ msgstr "Pokračujte uvážlivo"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
-"The Linux kernel is a critical part of the system. Regressions can lead to "
-"lack of networking, lack of sound, lack of graphical environment or even the "
-"inability to boot the computer."
+"Installing a new kernel can sometimes cause problems, especially if you're "
+"using proprietary drivers."
 msgstr ""
+"Inštalácia nového jadra môže niekedy spôsobiť problémy, najmä ak používate "
+"vlastnícke ovládače."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
-msgid ""
-"Before installing or removing kernels, please make sure to read the help "
-"section, to make sure you know how to select kernels, how to revert updates "
-"and how to check your DKMS status."
-msgstr ""
-"Pred inštalovaním alebo odstraňovaním jadier si prosím prečítajte sekciu "
-"nápovedy aby ste sa uistili, že viete ako sa volia aktualizácie, ako vrátiť "
-"aktualizácie a viete si skontrolovať DKMS stav."
+msgid "These issues include:"
+msgstr "Tieto problémy zahŕňajú:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
+msgid ""
+"- No wifi (or ethernet)\n"
+"- No video acceleration\n"
+"- Black screen on startup\n"
+"- Random system freeze"
+msgstr ""
+"-Nijaká wifi(alebo ethernet)\n"
+"-Nijaká video akcelerácia\n"
+"-Čierna obrazovka pri štarte\n"
+"-Náhodná systémová chyba"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
+msgid "If you face any of these issues, don't panic:"
+msgstr "Ak máte nejaký z týchto problémov, nerobte paniku:"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:10
+msgid ""
+"- Reboot.\n"
+"- Press and hold the Shift key to show the boot menu.\n"
+"- In the boot menu, select the line which starts with 'Advanced options'.\n"
+"- Select an older kernel.\n"
+"- After the computer boots with the older kernel, uninstall the new one."
+msgstr ""
+"-Reštartovať.\n"
+"-Stlačte a pridržte Shift na zobrazenie boot menu.\n"
+"-V boot menu vyberte riadok 'Advanced options'.\n"
+"-Zvoľte staršie jadro.\n"
+"-Po naštartovaní počítaču odinštalujte nový kernel."
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
 msgstr "Túto správu už znova nezobrazovať"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "Help"
 msgstr "Nápoveda"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
 msgstr "Pokračovať"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:18
+msgid "Remove old kernels..."
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
+msgid "Remove selected kernels"
+msgstr ""
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
+msgid "Select the kernels you want to remove:"
+msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1515,26 +1606,30 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Security updates"
-msgstr ""
+msgstr "Bezpečnostné aktualizácie"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
+"Aplikovať bezpečnostné aktualizácie na opravu chýb a udržanie vášho počítaču "
+"v bezpečí."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid "Software updates"
-msgstr ""
+msgstr "Aktualizácie softvéru"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Apply software updates to fix bugs in your computer."
-msgstr ""
+msgstr "Použiť aktualizácie softvéru na opravenie chýb vo vašom počítači."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Nastavte zálohovanie systému aby sa vám chybami a regresiami neznefunkčnil "
+"počítač. Ak sa čokoľvek pokazí, jednoducho obnovíte poslednú zálohu."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid ""
@@ -1542,36 +1637,43 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint odporúča nastaviť automatické robenie záloh systému a "
+"inštalovanie všetkých dostupných aktualizácií. Tak bude váš počítač vždy v "
+"bezpečí a keď sa čokoľvek pokazí, stačí obnoviť poslednú zálohu a systém "
+"bude fungovať."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
 msgstr "Použiť"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
-msgid "Cancel"
-msgstr "Zrušiť"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Pred spustením automatických aktualizácií sa prosím uistite že máte správne "
+"nakonfigurované zálohovanie systému."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "When this option is enabled, all updates are applied automatically on a "
 "daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
 msgstr ""
+"Keď je táto voľba zapnutá, všetky aktualizácie sa automaticky sťahujú a "
+"inštalujú každý deň ako root pomocou cron práce(/etc/cron.daily/mintupdate)."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
 "/etc/mintupdate.blacklist to blacklist some of them."
 msgstr ""
+"Môžete upraviť /etc/cron.daily/mintupdate na vyladenie automatických "
+"akualizácií a /etc/mintupdate.blacklist na pridanie nejakej aktualizácie na "
+"čiernu listinu."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:6
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "Spustiť automatické aktualizácie"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:7
 msgid "Impact level"
@@ -1591,10 +1693,13 @@ msgid ""
 "updates. Only hide levels when troubleshooting or trying to identify a "
 "regression. Check the help section for more information."
 msgstr ""
+"Odporúča sa nastaviť zálohovanie systému a inštalovanie všetkých dostupných "
+"aktualizácií. Zmente toto nastavenie iba ak hľadáte regresiu. Viacej "
+"informácií nájdete v Pomocníkovi."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:20
 msgid "Interface"
-msgstr ""
+msgstr "Prostredie"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:21
 msgid "Hide the update manager after applying updates"
@@ -1608,21 +1713,23 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:23
 msgid "Show a warning if system snapshots are not set up"
-msgstr ""
+msgstr "Upozorniť ak nie je vytvorená záloha systému"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:24
-msgid "Don't suggest to switch to a local mirror"
-msgstr "Nenavrhovať prepnutie na miestne zrkadlo"
+msgid "Don't suggest switching to a local mirror"
+msgstr "Neodporúčame prepnúť na lokálne zrkadlo"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:25
 msgid "Updates"
-msgstr ""
+msgstr "Aktualizácie"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:26
 msgid ""
 "It is recommended to show and apply all available updates. Only disable the "
 "options below when troubleshooting."
 msgstr ""
+"Odporúča sa mať viditeľné všetky aktualizácie. Zmente toto nastavenie iba ak "
+"ho potrebujete na riešenie problémov."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:27
 msgid ""
@@ -1678,11 +1785,11 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "Okno"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "Výber"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select level 1 updates"

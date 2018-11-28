@@ -14,9 +14,9 @@
     <desc>Оновлення з командного рядка</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Використання mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Менеджер оновлень надає засіб командного рядку під назвою "mintupdate-cli".</p>
 
     <p>Якщо Ви досвідчений користувач Linux, Ви можете використовувати це знаряддя у Ваших скриптах або Ваших планувальниках завдань для автоматичного встановлення оновлень програмного забезпечення.</p>
 
@@ -26,15 +26,15 @@
 
   <p>Ви можете використовувати команду "list" для оновлення переліку:</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>mintupdate-cli список</screen>
 
-  <p>You can use -l to only show updates for certain levels (when troubleshooting).</p>
+  <p>Ви можете використовувати -l для показу лише оновлень для певних рівнів (під час усунення несправностей).</p>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Ви можете використовувати -s, щоб показувати лише оновлення безпеки.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Ви можете використовувати -k, щоб показувати лише оновлення ядра.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Наприклад, наступна команда містить список всіх оновлень безпеки:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -46,13 +46,13 @@
 
   <p>Ви можете використати команду "upgrade", щоб застосувати оновлення, використовуючи ті ж параметри.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Наприклад, наступна команда застосовує оновлення ядра:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
   <p>Напишіть аргумент -r, для оновлення кешу.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Для отримання додаткової інформації про mintupdate-cli та повного списку аргументів, введіть:</p>
 
   <screen>mintupdate-cli -h</screen>
 
