@@ -338,16 +338,18 @@ class KernelWindow():
         kernel_list = []
         for kernel in kernel_list_prelim:
             (version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, release, support_duration) = kernel
-            support_end_str = ""
-            is_end_of_life = False
+            support_status = ""
             if support_duration and origin == "1":
-                support_info = [x for x in kernel_support_info[release] if x[0] == page_label]
+                if release in kernel_support_info.keys():
+                    support_info = [x for x in kernel_support_info[release] if x[0] == page_label]
+                else:
+                    support_info = None
                 if support_info:
                     (page_label, support_duration, support_end_str, is_end_of_life) = support_info[0]
-            if support_end_str:
-                support_status = '%s %s' % (_("Supported until"), support_end_str)
-            elif is_end_of_life:
-                support_status = '<span foreground="red">%s</span>' % _("End of Life")
+                    if support_end_str:
+                        support_status = '%s %s' % (_("Supported until"), support_end_str)
+                    elif is_end_of_life:
+                        support_status = '<span foreground="red">%s</span>' % _("End of Life")
             else:
                 support_status = '<span foreground="red">%s</span>' % _("Unsupported")
             kernel_list.append([version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, support_status])
