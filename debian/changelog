@@ -1,3 +1,63 @@
+mintupdate (5.4.2) tessa; urgency=medium
+
+  [ Michael Webster ]
+  * preferences.ui: Allow a vertical scrollbar in the first preferences page, and make its window slightly larger to start with.
+
+  [ JosephMcc ]
+  * kernel-window: Clean up for Gtk3.22 (#377)
+
+  [ gm10 ]
+  * Origin column: replace url with release pocket (#392)
+  * Kernel window: Show installed mainline kernels (#391)
+
+  [ chingyinwan123 ]
+  * Rephrased msgid (#396)
+
+  [ gm10 ]
+  * Sort kernel series descending (#397)
+
+  [ Clement Lefebvre ]
+  * Rephrase text in kernel warning dialog
+  * l10n: Update POT
+
+  [ chingyinwan123 ]
+  * Use monospace font for the changelog (#398)
+  * Linked keyboard shortcuts to mintUpdate (#393)
+
+  [ gm10 ]
+  * fix autostart name (#399)
+  * fix kernel window icon
+  * fix kernel update type detection (#407)
+  * Lock main window while kernel window or kernel install thread are active (#409)
+  * Only use Ubuntu kernel meta packages for kernel updates (#405)
+  * Fix kernel update type detection v2 (#412)
+
+  [ Clement Lefebvre ]
+  * Fix typo
+
+  [ gm10 ]
+  * kernelwindow: show support status (#413)
+
+  [ Clement Lefebvre ]
+  * Kernel window: Fix kernel status alignment.
+  * CLI: add support for --version
+
+  [ gm10 ]
+  * dynamically detect kernel meta packages (#415)
+  * kernelwindow: Add Remove Old Kernels button and dialog for multi-removal (#414)
+
+  [ Clement Lefebvre ]
+  * Kernel removal dialog: Fix spacing/layout
+  * Fix main window staying insensitive after closing the kernel window
+  * l10n: Update POT
+  * l10n: Update translations
+  * l10n: Update files
+
+  [ gm10 ]
+  * kernelwindow: fix to handling of missing release info (#420)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 28 Nov 2018 12:45:29 +0000
+
 mintupdate (5.4.1) tara; urgency=medium
 
   [ Vincent Vermeulen ]
