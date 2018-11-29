@@ -27,9 +27,9 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--ignore", help="list of updates to ignore (comma-separated). Note: You can also blacklist updates by adding their name to /etc/mintupdate.blacklist.")
     parser.add_argument("-r", "--refresh-cache", action="store_true", help="refresh the APT cache")
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
-    parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions")
-    parser.add_argument("--noninteractive", action="store_true", help="avoid configuration questions from Debconf, used for automatic updates")
+    parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions and always install new configuration files (unless you also use \"--keep-configuration\" option)")
     parser.add_argument("--install-recommends", action="store_true", help="install recommended packages (use with caution)")
+    parser.add_argument("--keep-configuration", action="store_true", default=False, help="always keep local changes in configuration files (use with caution)")
     parser.add_argument("-v", "--version", action="version", version=subprocess.getoutput("/usr/lib/linuxmint/common/version.py mintupdate"), help="Display the current version")
 
     args = parser.parse_args()
@@ -75,16 +75,19 @@ if __name__ == "__main__":
                 packages += update.package_names
             arguments = ["apt-get", "install"]
             if args.dry_run:
-                arguments.append("-s")
+                arguments.append("--simulate")
             if args.yes:
-                arguments.append("-y")
-            if args.install_recommends:
-                arguments.append("--install-recommends")
-            if args.noninteractive:
                 environment = os.environ
                 environment.update({"DEBIAN_FRONTEND": "noninteractive"})
+                arguments.append("--assume-yes")
+                if not args.keep_configuration:
+                    arguments.extend(["--option", "Dpkg::Options::=--force-confnew"])
             else:
                 environment = None
+            if args.install_recommends:
+                arguments.append("--install-recommends")
+            if args.keep_configuration:
+                arguments.extend(["--option", "Dpkg::Options::=--force-confold"])
             subprocess.call(arguments + packages, env=environment)
     except Exception as error:
         traceback.print_exc()
