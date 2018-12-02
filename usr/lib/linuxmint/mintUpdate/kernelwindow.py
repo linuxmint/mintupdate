@@ -353,11 +353,11 @@ class KernelWindow():
                             supported_list.append(page_label)
                             support_status = '%s %s' % (_("Supported until"), support_end_str)
                         else:
-                            support_status = '<span foreground="orange">%s</span>' % _("Superseded")
+                            support_status = _("Superseded")
                     elif is_end_of_life:
-                        support_status = '<span foreground="red">%s</span>' % _("End of Life")
+                        support_status = _("End of Life")
             else:
-                support_status = '<span foreground="red">%s</span>' % _("Unsupported")
+                support_status = _("Unsupported")
             kernel_list.append([version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, support_status])
         del(kernel_list_prelim)
         pages_needed_sort.sort(reverse=True)
