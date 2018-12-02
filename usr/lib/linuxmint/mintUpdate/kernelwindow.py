@@ -252,7 +252,11 @@ class KernelWindow():
         now = datetime.datetime.now()
         hwe_support_duration = {}
 
-        kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py", shell = True).decode("utf-8")
+        try:
+            kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py").decode("utf-8")
+        except subprocess.CalledProcessError as e:
+            print("Update Manager: Error in checkKernels.py output")
+            kernels = e.output.decode("utf-8")
         kernels = kernels.split("\n")
         kernels.sort()
         kernel_list_prelim = []
