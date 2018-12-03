@@ -35,7 +35,7 @@ class InstallKernelThread(threading.Thread):
         else:
             kernel_type = "-generic"
         do_regular = False
-        for (version, origin, remove) in self.kernels:
+        for (version, remove) in self.kernels:
             if not do_regular:
                 do_regular = True
                 f = tempfile.NamedTemporaryFile()
@@ -76,9 +76,9 @@ class MarkKernelRow(Gtk.ListBoxRow):
 
     def on_checked(self, widget):
         if widget.get_active():
-            self.window.marked_kernels.append([widget.get_label(), None, True])
+            self.window.marked_kernels.append([widget.get_label(), True])
         else:
-            self.window.marked_kernels.remove([widget.get_label(), None, True])
+            self.window.marked_kernels.remove([widget.get_label(), True])
 
 class KernelRow(Gtk.ListBoxRow):
     def __init__(self, version, pkg_version, text, installed, used, title, installable, origin, support_status, window, application):
@@ -177,7 +177,7 @@ class KernelRow(Gtk.ListBoxRow):
         else:
             self.revealer.set_reveal_child(True)
 
-    def install_kernel(self, widget, version, installed, window, origin):
+    def install_kernel(self, widget, version, installed, window):
         if installed:
             message = _("Are you sure you want to remove the %s kernel?") % version
         else:
@@ -188,7 +188,7 @@ class KernelRow(Gtk.ListBoxRow):
         d.hide()
         d.destroy()
         if r == Gtk.ResponseType.YES:
-            thread = InstallKernelThread([[version, origin, installed]], self.application)
+            thread = InstallKernelThread([[version, installed]], self.application)
             thread.start()
             window.hide()
 
@@ -252,7 +252,11 @@ class KernelWindow():
         now = datetime.datetime.now()
         hwe_support_duration = {}
 
-        kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py", shell = True).decode("utf-8")
+        try:
+            kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py").decode("utf-8")
+        except subprocess.CalledProcessError as e:
+            print("Update Manager: Error in checkKernels.py output")
+            kernels = e.output.decode("utf-8")
         kernels = kernels.split("\n")
         kernels.sort()
         kernel_list_prelim = []
@@ -290,9 +294,9 @@ class KernelWindow():
                     installable, origin, release, support_duration])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
+                    pages_needed_sort.append([version_id,page_label])
                 if installed and not used:
                     remove_kernels_listbox.add(MarkKernelRow(version, self))
-                    pages_needed_sort.append([version_id,page_label])
 
         kernel_support_info = {}
         for release in hwe_support_duration:
@@ -335,7 +339,9 @@ class KernelWindow():
 
                 kernel_support_info[release].append([page_label, support_duration, support_end_str, is_end_of_life])
 
+        kernel_list_prelim.sort(reverse=True)
         kernel_list = []
+        supported_list = []
         for kernel in kernel_list_prelim:
             (version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, release, support_duration) = kernel
             support_status = ""
@@ -347,17 +353,20 @@ class KernelWindow():
                 if support_info:
                     (page_label, support_duration, support_end_str, is_end_of_life) = support_info[0]
                     if support_end_str:
-                        support_status = '%s %s' % (_("Supported until"), support_end_str)
+                        if not page_label in supported_list:
+                            supported_list.append(page_label)
+                            support_status = '%s %s' % (_("Supported until"), support_end_str)
+                        else:
+                            support_status = _("Superseded")
                     elif is_end_of_life:
-                        support_status = '<span foreground="red">%s</span>' % _("End of Life")
+                        support_status = _("End of Life")
             else:
-                support_status = '<span foreground="red">%s</span>' % _("Unsupported")
+                support_status = _("Unsupported")
             kernel_list.append([version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, support_status])
         del(kernel_list_prelim)
-
-        kernel_list.sort(reverse=True)
         pages_needed_sort.sort(reverse=True)
 
+        pages_needed_sort.sort(reverse=True)
         for page in pages_needed_sort:
             page = page[1]
             scw = Gtk.ScrolledWindow()
@@ -374,7 +383,7 @@ class KernelWindow():
                 (version_id, version, pkg_version, page_label, label, installed, used, title, installable, origin, support_status) = kernel
                 if used:
                     currently_using = _("You are currently using the following kernel:")
-                    current_label.set_markup("<b>%s %s</b>" % (currently_using, label))
+                    current_label.set_markup("<b>%s %s%s</b>" % (currently_using, label, " (%s)" % support_status if support_status else support_status))
                 if page_label == page:
                     row = KernelRow(version, pkg_version, label, installed, used, title, installable, origin, support_status, self.window, self.application)
                     list_box.add(row)
