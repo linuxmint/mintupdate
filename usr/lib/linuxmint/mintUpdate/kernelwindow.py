@@ -35,7 +35,7 @@ class InstallKernelThread(threading.Thread):
         else:
             kernel_type = "-generic"
         do_regular = False
-        for (version, origin, remove) in self.kernels:
+        for (version, remove) in self.kernels:
             if not do_regular:
                 do_regular = True
                 f = tempfile.NamedTemporaryFile()
@@ -76,9 +76,9 @@ class MarkKernelRow(Gtk.ListBoxRow):
 
     def on_checked(self, widget):
         if widget.get_active():
-            self.window.marked_kernels.append([widget.get_label(), None, True])
+            self.window.marked_kernels.append([widget.get_label(), True])
         else:
-            self.window.marked_kernels.remove([widget.get_label(), None, True])
+            self.window.marked_kernels.remove([widget.get_label(), True])
 
 class KernelRow(Gtk.ListBoxRow):
     def __init__(self, version, pkg_version, text, installed, used, title, installable, origin, support_status, window, application):
@@ -177,7 +177,7 @@ class KernelRow(Gtk.ListBoxRow):
         else:
             self.revealer.set_reveal_child(True)
 
-    def install_kernel(self, widget, version, installed, window, origin):
+    def install_kernel(self, widget, version, installed, window):
         if installed:
             message = _("Are you sure you want to remove the %s kernel?") % version
         else:
@@ -188,7 +188,7 @@ class KernelRow(Gtk.ListBoxRow):
         d.hide()
         d.destroy()
         if r == Gtk.ResponseType.YES:
-            thread = InstallKernelThread([[version, origin, installed]], self.application)
+            thread = InstallKernelThread([[version, installed]], self.application)
             thread.start()
             window.hide()
 
