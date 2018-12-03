@@ -290,9 +290,9 @@ class KernelWindow():
                     installable, origin, release, support_duration])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
+                    pages_needed_sort.append([version_id,page_label])
                 if installed and not used:
                     remove_kernels_listbox.add(MarkKernelRow(version, self))
-                    pages_needed_sort.append([version_id,page_label])
 
         kernel_support_info = {}
         for release in hwe_support_duration:
