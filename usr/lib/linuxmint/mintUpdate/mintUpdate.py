@@ -1110,25 +1110,25 @@ class MintUpdate():
             selection.connect("changed", self.display_selected_package)
             self.builder.get_object("notebook_details").connect("switch-page", self.switch_page)
             self.window.connect("delete_event", self.close_window)
-            
+
             # Install Updates button
             install_button = self.builder.get_object("tool_apply")
             install_button.connect("clicked", self.install)
             key, mod = Gtk.accelerator_parse("<Control>I")
             install_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            
+
             # Clear button
             clear_button = self.builder.get_object("tool_clear")
             clear_button.connect("clicked", self.clear)
             key, mod = Gtk.accelerator_parse("<Control><Shift>A")
             clear_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            
+
             # Select All button
             select_all_button = self.builder.get_object("tool_select_all")
             select_all_button.connect("clicked", self.select_all)
             key, mod = Gtk.accelerator_parse("<Control>A")
             select_all_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            
+
             # Refresh button
             refresh_button = self.builder.get_object("tool_refresh")
             refresh_button.connect("clicked", self.force_refresh)
@@ -1299,7 +1299,7 @@ class MintUpdate():
                 print (e)
                 print(sys.exc_info()[0])
             viewSubmenu.append(infoMenuItem)
-            
+
             # New 'Select' menu
             selectMenu = Gtk.MenuItem.new_with_label("Select")
             selectSubmenu = Gtk.Menu()
@@ -1316,43 +1316,43 @@ class MintUpdate():
             key, mod = Gtk.accelerator_parse("<Control>A")
             selectAllItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(selectAllItem)
-            
+
             selectLevel1Item = Gtk.MenuItem.new_with_label("Level 1")
             selectLevel1Item.connect("activate", self.select_level1)
             key, mod = Gtk.accelerator_parse("<Control>1")
             selectLevel1Item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(selectLevel1Item)
-            
+
             selectLevel2Item = Gtk.MenuItem.new_with_label("Level 2")
             selectLevel2Item.connect("activate", self.select_level2)
             key, mod = Gtk.accelerator_parse("<Control>2")
             selectLevel2Item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(selectLevel2Item)
-            
+
             selectLevel3Item = Gtk.MenuItem.new_with_label("Level 3")
             selectLevel3Item.connect("activate", self.select_level3)
             key, mod = Gtk.accelerator_parse("<Control>3")
             selectLevel3Item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(selectLevel3Item)
-            
+
             selectLevel4Item = Gtk.MenuItem.new_with_label("Level 4")
             selectLevel4Item.connect("activate", self.select_level4)
             key, mod = Gtk.accelerator_parse("<Control>4")
             selectLevel4Item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(selectLevel4Item)
-            
+
             selectSecurityItem = Gtk.MenuItem.new_with_label("Security")
             selectSecurityItem.connect("activate", self.select_security_updates)
             key, mod = Gtk.accelerator_parse("<Control>S")
             selectSecurityItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(selectSecurityItem)
-            
+
             selectKernelItem = Gtk.MenuItem.new_with_label("Kernel")
             selectKernelItem.connect("activate", self.select_kernel_updates)
             key, mod = Gtk.accelerator_parse("<Control>K")
             selectKernelItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             selectSubmenu.append(selectKernelItem)
-            
+
             helpMenu = Gtk.MenuItem.new_with_mnemonic(_("_Help"))
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
