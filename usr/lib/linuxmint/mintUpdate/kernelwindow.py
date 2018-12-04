@@ -234,7 +234,6 @@ class KernelWindow():
         builder.get_object("button_massremove").connect("clicked", self.show_remove_kernels_window, self.remove_kernels_window)
 
         # Set up the kernel mass removal confirmation window
-        self.remove_kernels_window.connect("destroy", self.on_cancel_clicked, self.remove_kernels_window)
         builder.get_object("b_cancel").connect("clicked", self.on_cancel_clicked, self.remove_kernels_window)
         builder.get_object("b_remove").connect("clicked", self.on_remove_clicked, self.remove_kernels_window)
         remove_kernels_listbox = builder.get_object("box_list")
