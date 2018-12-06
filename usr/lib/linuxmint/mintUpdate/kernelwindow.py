@@ -60,8 +60,7 @@ class InstallKernelThread(threading.Thread):
             f.flush()
 
         if do_regular:
-            comnd = subprocess.Popen(' '.join(cmd), stdout=self.application.logger.log, stderr=self.application.logger.log, shell=True)
-            returnCode = comnd.wait()
+            subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log)
             f.close()
         self.application.window.set_sensitive(True)
 
