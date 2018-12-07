@@ -430,11 +430,13 @@ class InstallThread(threading.Thread):
                         f.write(pkg_line.encode("utf-8"))
                     f.flush()
 
+                    subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
                     try:
                         result = subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log, check=True)
                         returnCode = result.returncode
                     except subprocess.CalledProcessError as e:
                         returnCode = e.returncode
+                    subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
                     self.application.logger.write("Return code:" + str(returnCode))
                     f.close()
 

@@ -60,7 +60,9 @@ class InstallKernelThread(threading.Thread):
             f.flush()
 
         if do_regular:
+            subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
             subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log)
+            subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
             f.close()
         self.application.window.set_sensitive(True)
 
