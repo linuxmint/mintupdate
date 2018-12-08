@@ -11,15 +11,15 @@ from gi.repository import Gio
 PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
 
 settings = Gio.Settings("com.linuxmint.updates")
-if settings.get_boolean("use-lowlatency-kernels"):
-    CONFIGURED_KERNEL_TYPE = "-lowlatency"
-else:
-    CONFIGURED_KERNEL_TYPE = "-generic"
 
 SUPPORTED_KERNEL_TYPES = ["-generic", "-lowlatency", "-aws", "-azure", "-gcp", "-kvm", "-oem", "-oracle"]
 KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-KERNELTYPE', 'linux-image-VERSION-KERNELTYPE', \
     'linux-modules-VERSION-KERNELTYPE', 'linux-modules-extra-VERSION-KERNELTYPE']
 KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-KERNELTYPE') # Naming convention in 16.04, until 4.15 series
+
+CONFIGURED_KERNEL_TYPE = settings.get_string("selected-kernel-type")
+if CONFIGURED_KERNEL_TYPE not in SUPPORTED_KERNEL_TYPES:
+    CONFIGURED_KERNEL_TYPE = "-generic"
 
 def get_release_dates():
     """ Get distro release dates for support duration calculation """

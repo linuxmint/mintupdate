@@ -5,6 +5,9 @@ import os
 import re
 from Classes import CONFIGURED_KERNEL_TYPE, SUPPORTED_KERNEL_TYPES
 
+if len(sys.argv) > 1 and sys.argv[1] in SUPPORTED_KERNEL_TYPES:
+    CONFIGURED_KERNEL_TYPE = sys.argv[1]
+
 try:
     current_version = os.uname().release
     cache = apt.Cache()

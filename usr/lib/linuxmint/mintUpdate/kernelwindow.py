@@ -214,22 +214,19 @@ class KernelRow(Gtk.ListBoxRow):
                 window.hide()
 
 class KernelWindow():
+
     def __init__(self, application):
         self.application = application
         self.application.window.set_sensitive(False)
         gladefile = "/usr/share/linuxmint/mintupdate/kernels.ui"
-        builder = Gtk.Builder()
-        builder.set_translation_domain("mintupdate")
-        builder.add_from_file(gladefile)
-        self.window = builder.get_object("window1")
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("mintupdate")
+        self.builder.add_from_file(gladefile)
+        self.window = self.builder.get_object("window1")
         self.window.set_title(_("Kernels"))
-        listbox_series = builder.get_object("listbox_series")
-        scrolled_series = builder.get_object("box7")
-        kernel_stack_box = builder.get_object("box1")
-        main_box = builder.get_object("main_vbox")
-        info_box = builder.get_object("intro_box")
-        current_label = builder.get_object("label6")
-        self.remove_kernels_window = builder.get_object("confirmation_window")
+        main_box = self.builder.get_object("main_vbox")
+        info_box = self.builder.get_object("intro_box")
+        self.remove_kernels_window = self.builder.get_object("confirmation_window")
 
         self.main_stack = Gtk.Stack()
         self.main_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
@@ -237,39 +234,87 @@ class KernelWindow():
 
         # Setup the kernel warning page
         self.main_stack.add_named(info_box, "info_box")
-        builder.get_object("button_continue").connect("clicked", self.on_continue_clicked, main_box)
-        builder.get_object("button_help").connect("clicked", self.show_help)
-        hide_info_checkbox = builder.get_object("checkbutton1").connect("toggled", self.on_info_checkbox_toggled)
+        self.builder.get_object("button_continue").connect("clicked", self.on_continue_clicked, main_box)
+        self.builder.get_object("button_help").connect("clicked", self.show_help)
+        self.builder.get_object("checkbutton1").connect("toggled", self.on_info_checkbox_toggled)
 
         # Setup the main kernel page
-        stack = Gtk.Stack()
-        stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
-
+        self.stack = Gtk.Stack()
+        self.stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
         stack_switcher = Gtk.StackSidebar()
-        stack_switcher.set_stack(stack)
+        stack_switcher.set_stack(self.stack)
+        scrolled_series = self.builder.get_object("box7")
         scrolled_series.pack_start(stack_switcher, True, True, 0)
-        kernel_stack_box.pack_start(stack, True, True, 0)
+        kernel_stack_box = self.builder.get_object("box1")
+        kernel_stack_box.pack_start(self.stack, True, True, 0)
 
-        builder.get_object("button_close").connect("clicked", self.destroy_window)
+        self.builder.get_object("button_close").connect("clicked", self.destroy_window)
         self.window.connect("destroy", self.destroy_window)
-        builder.get_object("button_massremove").connect("clicked", self.show_remove_kernels_window, self.remove_kernels_window)
+        self.builder.get_object("button_massremove").connect("clicked", self.show_remove_kernels_window, self.remove_kernels_window)
+
+        self.current_label = self.builder.get_object("current_label")
+        self.remove_kernels_listbox = self.builder.get_object("box_list")
 
         # Set up the kernel mass removal confirmation window
-        builder.get_object("b_cancel").connect("clicked", self.on_cancel_clicked, self.remove_kernels_window)
-        builder.get_object("b_remove").connect("clicked", self.on_remove_clicked, self.remove_kernels_window)
-        remove_kernels_listbox = builder.get_object("box_list")
+        self.builder.get_object("b_cancel").connect("clicked", self.on_cancel_clicked, self.remove_kernels_window)
+        self.builder.get_object("b_remove").connect("clicked", self.on_remove_clicked, self.remove_kernels_window)
+
+        self.initially_configured_kernel_type = CONFIGURED_KERNEL_TYPE
+        allow_kernel_type_selection = self.application.settings.get_boolean("allow-kernel-type-selection")
+        if allow_kernel_type_selection:
+            # Set up the kernel type selection dropdown
+            self.kernel_type_selector = self.builder.get_object("cb_kernel_type")
+            for index, kernel_type in enumerate(SUPPORTED_KERNEL_TYPES):
+                self.kernel_type_selector.append_text(kernel_type[1:])
+                if kernel_type[1:] == CONFIGURED_KERNEL_TYPE[1:]:
+                    self.kernel_type_selector.set_active(index)
+
+            # Refresh window on kernel type selection change
+            def on_kernel_type_selector_changed(widget):
+                global CONFIGURED_KERNEL_TYPE
+                CONFIGURED_KERNEL_TYPE = "-" + widget.get_active_text()
+                self.application.settings.set_string("selected-kernel-type", CONFIGURED_KERNEL_TYPE)
+                for child in self.stack.get_children():
+                    child.destroy()
+                for child in self.remove_kernels_listbox.get_children():
+                    child.destroy()
+                self.build_kernels_list()
+                self.stack.show_all()
+            self.kernel_type_selector.connect("changed", on_kernel_type_selector_changed)
 
         # Get distro release dates for support duration calculation
         self.release_dates = get_release_dates()
 
+        # Build kernels list
+        self.build_kernels_list()
+
+        self.main_stack.add_named(main_box, "main_box")
+
+        if self.application.settings.get_boolean("hide-kernel-update-warning"):
+            self.main_stack.set_visible_child(main_box)
+        else:
+            self.main_stack.set_visible_child(info_box)
+
+        # Center on main window
+        window_size = self.window.get_size()
+        parent_size = self.application.window.get_size()
+        parent_position = self.application.window.get_position()
+        parent_center_x = parent_position.root_x + parent_size.width / 2
+        parent_center_y = parent_position.root_y + parent_size.height / 2
+        self.window.move(parent_center_x - window_size.width / 2,
+                         parent_center_y - window_size.height / 2)
+
+        self.window.show_all()
+        self.builder.get_object("cb_label").set_visible(allow_kernel_type_selection)
+        self.builder.get_object("cb_kernel_type").set_visible(allow_kernel_type_selection)
+
+    def build_kernels_list(self):
+        # get list of installed and available kernels from apt
         now = datetime.now()
         hwe_support_duration = {}
 
-        try:
-            kernels = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkKernels.py").decode("utf-8")
-        except subprocess.CalledProcessError as e:
-            print("Update Manager: Error in checkKernels.py output")
-            kernels = e.output.decode("utf-8")
+        kernels = subprocess.run(["/usr/lib/linuxmint/mintUpdate/checkKernels.py", CONFIGURED_KERNEL_TYPE],
+            stdout=subprocess.PIPE).stdout.decode()
         kernels = kernels.split("\n")
         kernels.sort()
         kernel_list_prelim = []
@@ -315,13 +360,14 @@ class KernelWindow():
                     pages_needed.append(page_label)
                     pages_needed_sort.append([version_id,page_label])
 
+        # get kernel support duration
         kernel_support_info = {}
         for release in hwe_support_duration:
-            if release not in release_dates.keys():
+            if release not in self.release_dates.keys():
                 continue
             kernel_support_info[release] = []
             kernel_count = len(hwe_support_duration[release])
-            time_since_release = (now.year - release_dates[release][0].year) * 12 + (now.month - release_dates[release][0].month)
+            time_since_release = (now.year - self.release_dates[release][0].year) * 12 + (now.month - self.release_dates[release][0].month)
             for point_release, kernel in enumerate(hwe_support_duration[release]):
                 (page_label, support_duration) = kernel
                 if support_duration == -1:
@@ -334,8 +380,8 @@ class KernelWindow():
                             support_duration = kernel_support_info[release][3][1]
                         # the 4th point release is LTS and scheduled 28 months after original release:
                         elif time_since_release >= 28:
-                            support_duration = (release_dates[release][1].year - release_dates[release][0].year) * 12 + \
-                                (release_dates[release][1].month - release_dates[release][0].month)
+                            support_duration = (self.release_dates[release][1].year - self.release_dates[release][0].year) * 12 + \
+                                (self.release_dates[release][1].month - self.release_dates[release][0].month)
                     if point_release >= 1 and support_duration == -1:
                         # out of turn HWE kernels can be detected quite well at the time of release,
                         # but later on there's no way to know which one was the one that was out of turn
@@ -349,7 +395,7 @@ class KernelWindow():
 
                 support_end_str = ""
                 is_end_of_life = False
-                (support_end_year, support_end_month) = get_maintenance_end_date(release_dates[release][0], support_duration)
+                (support_end_year, support_end_month) = get_maintenance_end_date(self.release_dates[release][0], support_duration)
                 is_end_of_life = (now.year > support_end_year or (now.year == support_end_year and now.month > support_end_month))
                 if not is_end_of_life:
                     support_end_str = "%s %s" % (locale.nl_langinfo(getattr(locale,"MON_%d" %support_end_month)), support_end_year)
@@ -359,6 +405,8 @@ class KernelWindow():
         kernel_list_prelim.sort(reverse=True)
         kernel_list = []
         supported_kernels = {}
+
+        self.installed_kernels = []
         for kernel in kernel_list_prelim:
             (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, release, support_duration) = kernel
             support_status = ""
@@ -390,8 +438,8 @@ class KernelWindow():
 
             kernel_list.append([version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, support_status])
         del(kernel_list_prelim)
-        pages_needed_sort.sort(reverse=True)
 
+        # add kernels to UI
         pages_needed_sort.sort(reverse=True)
         for page in pages_needed_sort:
             page = page[1]
@@ -402,14 +450,13 @@ class KernelWindow():
             list_box.set_selection_mode(Gtk.SelectionMode.NONE)
             list_box.set_activate_on_single_click(True)
             scw.add(list_box)
-            stack.add_titled(scw, page, page)
-            # stack_switcher.add_titled(page, page)
+            self.stack.add_titled(scw, page, page)
 
             for kernel in kernel_list:
                 (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, support_status) = kernel
                 if used:
                     currently_using = _("You are currently using the following kernel:")
-                    current_label.set_markup("<b>%s %s%s</b>" % (currently_using, label, " (%s)" % support_status if support_status else support_status))
+                    self.current_label.set_markup("<b>%s %s%s</b>" % (currently_using, label, " (%s)" % support_status if support_status else support_status))
                 if page_label == page:
                     row = KernelRow(version, pkg_version, kernel_type, label, installed, used, title, installable, origin, support_status, self.window, self.application)
                     list_box.add(row)
@@ -423,19 +470,12 @@ class KernelWindow():
         else:
             self.main_stack.set_visible_child(info_box)
 
-        # Center on main window
-        window_size = self.window.get_size()
-        parent_size = self.application.window.get_size()
-        parent_position = self.application.window.get_position()
-        parent_center_x = parent_position.root_x + parent_size.width / 2
-        parent_center_y = parent_position.root_y + parent_size.height / 2
-        self.window.move(parent_center_x - window_size.width / 2,
-                         parent_center_y - window_size.height / 2)
-
         self.window.show_all()
 
     def destroy_window(self, widget):
         self.window.destroy()
+        if self.initially_configured_kernel_type != CONFIGURED_KERNEL_TYPE:
+            self.application.refresh()
         self.application.window.set_sensitive(True)
 
     def on_continue_clicked(self, widget, main_box):
