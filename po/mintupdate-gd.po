@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-19 14:05+0000\n"
+"POT-Creation-Date: 2018-12-03 14:12+0000\n"
 "PO-Revision-Date: 2017-03-10 11:40+0000\n"
 "Last-Translator: GunChleoc <Unknown>\n"
 "Language-Team: Sgioba na gàidhlig\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Launchpad-Export-Date: 2018-11-27 17:42+0000\n"
-"X-Generator: Launchpad (build 18826)\n"
+"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
+"X-Generator: Launchpad (build 18837)\n"
 "Language: gd\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -507,6 +507,7 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
 msgid "Kernel updates"
 msgstr ""
 
@@ -799,27 +800,31 @@ msgstr "A bheil thu cinnteach gu bheil thu airson eitean %s a stàladh?"
 msgid "Kernels"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 msgid "Active"
 msgstr "Gnìomhach"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 msgid "Installed"
 msgstr "Air a stàladh"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
 msgid "Supported until"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+msgid "Superseded"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
 msgid "End of Life"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
 msgid "Unsupported"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
 msgid "You are currently using the following kernel:"
 msgstr ""
 
@@ -1124,6 +1129,41 @@ msgstr "Pacaid"
 msgid "Show descriptions"
 msgstr "Seall na tuairisgeulan"
 
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+msgid "Select"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Falamhaich"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
+msgid "All updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
+msgid "Level 1 updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
+msgid "Level 2 updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
+msgid "Level 3 updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
+msgid "Level 4 updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr ""
+
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Cobhair"
@@ -1410,11 +1450,6 @@ msgstr ""
 msgid "Select the kernels you want to remove:"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "Falamhaich"
-
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
@@ -1437,10 +1472,6 @@ msgstr "Loga nan atharraichean"
 #: usr/share/linuxmint/mintupdate/main.ui.h:10
 msgid ""
 "This tool provides your operating system with software and security updates."
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
 msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12

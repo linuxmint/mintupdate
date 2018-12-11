@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-19 14:05+0000\n"
-"PO-Revision-Date: 2018-11-19 17:36+0000\n"
+"POT-Creation-Date: 2018-12-03 14:12+0000\n"
+"PO-Revision-Date: 2018-12-03 17:30+0000\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2018-11-27 17:42+0000\n"
-"X-Generator: Launchpad (build 18826)\n"
+"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
+"X-Generator: Launchpad (build 18837)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -598,6 +598,7 @@ msgstr "Kerneli i nadopune kernela"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
 msgid "Kernel updates"
 msgstr "Nadopune kernela"
 
@@ -958,27 +959,31 @@ msgstr "Sigurno želite instalirati kernel %s?"
 msgid "Kernels"
 msgstr "Kerneli"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 msgid "Active"
 msgstr "Aktivan"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 msgid "Installed"
 msgstr "Instaliran"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
 msgid "Supported until"
 msgstr "Podržan do"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+msgid "Superseded"
+msgstr "Nepokrenut"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
 msgid "End of Life"
 msgstr "Zastario"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
 msgid "Unsupported"
 msgstr "Nepodržan"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
 msgid "You are currently using the following kernel:"
 msgstr "Trenutno koristite sljedeći kernel:"
 
@@ -1293,6 +1298,41 @@ msgstr "Paket"
 msgid "Show descriptions"
 msgstr "Prikaži opise"
 
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+msgid "Select"
+msgstr "Odaberi"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Ukloni odabir"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
+msgid "All updates"
+msgstr "Sve nadopune"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
+msgid "Level 1 updates"
+msgstr "Nadopune razine 1"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
+msgid "Level 2 updates"
+msgstr "Nadopune razine 2"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
+msgid "Level 3 updates"
+msgstr "Nadopune razine 3"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
+msgid "Level 4 updates"
+msgstr "Nadopune razine 4"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "Sigurnosne nadopune"
+
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Pomoć"
@@ -1551,7 +1591,7 @@ msgid ""
 "- After the computer boots with the older kernel, uninstall the new one."
 msgstr ""
 "- Ponovno pokrenite računalo.\n"
-"- Držite pritisnutim tipku Shift kako bi se prikazao izbornik pokretanja "
+"- Držite pritisnutu tipku Shift kako bi se prikazao izbornik pokretanja "
 "sustava.\n"
 "- U izborniku pokretanja sustava, odaberite redak koji počinje s 'Napredne "
 "mogućnosti'.\n"
@@ -1589,11 +1629,6 @@ msgstr "Ukloni odabrane kernele"
 msgid "Select the kernels you want to remove:"
 msgstr "Odaberi željene kernele za uklanjanje:"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "Ukloni odabir"
-
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
@@ -1619,10 +1654,6 @@ msgid ""
 msgstr ""
 "Ovaj alat opskrbljuje vaš operativni sustav sa softverskim i sigurnosnim "
 "nadopunama."
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr "Sigurnosne nadopune"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""

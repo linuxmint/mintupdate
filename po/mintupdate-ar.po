@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-19 14:05+0000\n"
+"POT-Creation-Date: 2018-12-03 14:12+0000\n"
 "PO-Revision-Date: 2018-04-12 18:36+0000\n"
 "Last-Translator: انور الاسكندرانى <Unknown>\n"
 "Language-Team: anwar AL_iskandrany <anwareleskndrany13@gmail.com >\n"
@@ -11,8 +11,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2018-11-27 17:41+0000\n"
-"X-Generator: Launchpad (build 18826)\n"
+"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
+"X-Generator: Launchpad (build 18837)\n"
 "Language: ar_EG\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -578,6 +578,7 @@ msgstr "تحديثات النواة والنواة المتعددة"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
 msgid "Kernel updates"
 msgstr "تحديثات النواة"
 
@@ -926,27 +927,31 @@ msgstr "هل تريد بالتأكيد تثبيت النواة %s؟"
 msgid "Kernels"
 msgstr "النواة المتعددة"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 msgid "Active"
 msgstr "نشط"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 msgid "Installed"
 msgstr "مثبت"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
 msgid "Supported until"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+msgid "Superseded"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
 msgid "End of Life"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
 msgid "Unsupported"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
 msgid "You are currently using the following kernel:"
 msgstr "أنت تستخدم حالياً النواة التالية:"
 
@@ -1263,6 +1268,41 @@ msgstr "الحزمة"
 msgid "Show descriptions"
 msgstr "عرض الأوصاف"
 
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+msgid "Select"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "مسح"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
+msgid "All updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
+msgid "Level 1 updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
+msgid "Level 2 updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
+msgid "Level 3 updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
+msgid "Level 4 updates"
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "تحديثات الأمان"
+
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_مساعدة"
@@ -1541,11 +1581,6 @@ msgstr ""
 msgid "Select the kernels you want to remove:"
 msgstr ""
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "مسح"
-
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
@@ -1569,10 +1604,6 @@ msgstr "سجل التغييرات"
 msgid ""
 "This tool provides your operating system with software and security updates."
 msgstr "توفر هذه الأداة لنظام التشغيل الخاص بك تحديثات البرامج والأمان."
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr "تحديثات الأمان"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""

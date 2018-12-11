@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-19 14:05+0000\n"
-"PO-Revision-Date: 2018-11-19 16:49+0000\n"
+"POT-Creation-Date: 2018-12-03 14:12+0000\n"
+"PO-Revision-Date: 2018-12-03 16:52+0000\n"
 "Last-Translator: Dmitriy Kulikov <Unknown>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2018-11-27 17:42+0000\n"
-"X-Generator: Launchpad (build 18826)\n"
+"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
+"X-Generator: Launchpad (build 18837)\n"
 "Language: ru\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -615,6 +615,7 @@ msgstr "Ядра и обновления ядра"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
 msgid "Kernel updates"
 msgstr "Обновление ядра"
 
@@ -994,27 +995,31 @@ msgstr "Вы уверены, что хотите установить ядро %
 msgid "Kernels"
 msgstr "Ядра"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 msgid "Active"
 msgstr "Активно"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 msgid "Installed"
 msgstr "Установлено"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
 msgid "Supported until"
 msgstr "Поддерживается до"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+msgid "Superseded"
+msgstr "Заменено"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
 msgid "End of Life"
 msgstr "Конец поддержки"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
 msgid "Unsupported"
 msgstr "Не поддерживаются"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
 msgid "You are currently using the following kernel:"
 msgstr "В данный момент используется следующее ядро системы:"
 
@@ -1327,6 +1332,41 @@ msgstr "Пакет"
 msgid "Show descriptions"
 msgstr "Показать описания"
 
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+msgid "Select"
+msgstr "Выбрать"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Очистить"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
+msgid "All updates"
+msgstr "Все обновления"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
+msgid "Level 1 updates"
+msgstr "Обновления 1 уровня"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
+msgid "Level 2 updates"
+msgstr "Обновления 2 уровня"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
+msgid "Level 3 updates"
+msgstr "Обновления 3 уровня"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
+msgid "Level 4 updates"
+msgstr "Обновления 4 уровня"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "Обновления безопасности"
+
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Справка"
@@ -1621,11 +1661,6 @@ msgstr "Удалить выбранные ядра"
 msgid "Select the kernels you want to remove:"
 msgstr "Выберите ядра, которые хотите удалить:"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "Очистить"
-
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
@@ -1651,10 +1686,6 @@ msgid ""
 msgstr ""
 "Этот инструмент обеспечивает вашу операционную систему обновлениями "
 "программного обеспечения и безопасности системы."
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr "Обновления безопасности"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""

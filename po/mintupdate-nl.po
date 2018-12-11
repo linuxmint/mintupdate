@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-19 14:05+0000\n"
-"PO-Revision-Date: 2018-11-19 17:25+0000\n"
+"POT-Creation-Date: 2018-12-03 14:12+0000\n"
+"PO-Revision-Date: 2018-12-03 17:56+0000\n"
 "Last-Translator: Pjotr12345 <Unknown>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2018-11-27 17:41+0000\n"
-"X-Generator: Launchpad (build 18826)\n"
+"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
+"X-Generator: Launchpad (build 18837)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -628,6 +628,7 @@ msgstr "Systeemkernen en bijgewerkte systeemkernen"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
 msgid "Kernel updates"
 msgstr "Bijgewerkte systeemkernen"
 
@@ -1007,27 +1008,31 @@ msgstr "Weet u zeker dat u systeemkern %s wilt installeren?"
 msgid "Kernels"
 msgstr "Systeemkernen"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 msgid "Active"
 msgstr "Actief"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 msgid "Installed"
 msgstr "Geïnstalleerd"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
 msgid "Supported until"
 msgstr "Ondersteund tot"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+msgid "Superseded"
+msgstr "Niet langer ondersteund"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
 msgid "End of Life"
 msgstr "Niet meer ondersteund"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
 msgid "Unsupported"
 msgstr "Niet-ondersteund"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
 msgid "You are currently using the following kernel:"
 msgstr "U gebruikt thans de volgende systeemkern:"
 
@@ -1196,7 +1201,7 @@ msgid ""
 "previous working condition."
 msgstr ""
 "Als er iets kapot gaat, stellen momentopnamen u in staat om uw systeem terug "
-"te zetten naar de vroegere goed-werkende toestand."
+"te zetten naar de vroegere goedwerkende toestand."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Do you want to switch to a local mirror?"
@@ -1346,13 +1351,48 @@ msgstr "Pakket"
 msgid "Show descriptions"
 msgstr "Beschrijvingen tonen"
 
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+msgid "Select"
+msgstr "Kiezen"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Wissen"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
+msgid "All updates"
+msgstr "Alle bijgewerkte pakketten"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
+msgid "Level 1 updates"
+msgstr "Bijgewerkte pakketten niveau 1"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
+msgid "Level 2 updates"
+msgstr "Bijgewerkte pakketten niveau 2"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
+msgid "Level 3 updates"
+msgstr "Bijgewerkte pakketten niveau 3"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
+msgid "Level 4 updates"
+msgstr "Bijgewerkte pakketten niveau 4"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "Veiligheidsreparaties"
+
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Hulp"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
 msgid "Welcome screen"
-msgstr "Welkomstscherm"
+msgstr "Begroetingsscherm"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1367
 msgid "Keyboard Shortcuts"
@@ -1647,11 +1687,6 @@ msgstr "Verwijder gekozen systeemkernen"
 msgid "Select the kernels you want to remove:"
 msgstr "Kies de systeemkernen die u wilt verwijderen:"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "Wissen"
-
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
@@ -1677,10 +1712,6 @@ msgid ""
 msgstr ""
 "Dit gereedschap voorziet uw besturingssysteem van veiligheidsreparaties en "
 "foutreparaties."
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr "Veiligheidsreparaties"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
@@ -1771,7 +1802,7 @@ msgid ""
 "regression. Check the help section for more information."
 msgstr ""
 "Het wordt aangeraden om momentopnamen in te stellen van het systeem en om "
-"alle beschikbare bijgewerkte pakketten te installeren. verberg alleen dan "
+"alle beschikbare bijgewerkte pakketten te installeren. Verberg alleen dan "
 "bepaalde niveaus wanneer u bezig bent met probleemoplossing of om een "
 "regressie te identificeren. Bekijk het 'hulp'-onderdeel voor meer informatie."
 

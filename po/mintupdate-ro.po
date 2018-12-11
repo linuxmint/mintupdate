@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-19 14:05+0000\n"
-"PO-Revision-Date: 2018-11-03 11:33+0000\n"
+"POT-Creation-Date: 2018-12-03 14:12+0000\n"
+"PO-Revision-Date: 2018-12-04 08:54+0000\n"
 "Last-Translator: Dorian Baciu <Unknown>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2018-11-27 17:42+0000\n"
-"X-Generator: Launchpad (build 18826)\n"
+"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
+"X-Generator: Launchpad (build 18837)\n"
 "Language: Romanian\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -615,6 +615,7 @@ msgstr "Nucleele și actualizările nucleelor"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
 msgid "Kernel updates"
 msgstr "Actualizări nuclee"
 
@@ -908,6 +909,7 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Alin Trăistaru https://launchpad.net/~alindt\n"
+"  Andrei Hornoiu https://launchpad.net/~titelsin\n"
 "  CD https://launchpad.net/~cstld\n"
 "  Daniel Șerbănescu https://launchpad.net/~dasj19\n"
 "  Dorian Baciu https://launchpad.net/~baciu-dorian\n"
@@ -982,27 +984,31 @@ msgstr "Sigur doriți să instalați nucleul %s?"
 msgid "Kernels"
 msgstr "Nuclee"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 msgid "Active"
 msgstr "Activ"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 msgid "Installed"
 msgstr "Instalat"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
 msgid "Supported until"
-msgstr ""
+msgstr "Suportat până"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+msgid "Superseded"
+msgstr "Înlocuit"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
 msgid "End of Life"
-msgstr ""
+msgstr "Sfârșit de Viață"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
 msgid "Unsupported"
-msgstr ""
+msgstr "Fără suport"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
 msgid "You are currently using the following kernel:"
 msgstr "Momentan utilizați următorul nucleu:"
 
@@ -1316,6 +1322,41 @@ msgstr "Pachet"
 msgid "Show descriptions"
 msgstr "Arată descrierile"
 
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+msgid "Select"
+msgstr "Selectare"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Curăță"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
+msgid "All updates"
+msgstr "Toate actualizările"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
+msgid "Level 1 updates"
+msgstr "Nivelul 1 de actualizări"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
+msgid "Level 2 updates"
+msgstr "Nivelul 2 de actualizări"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
+msgid "Level 3 updates"
+msgstr "Nivelul 3 de actualizări"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
+msgid "Level 4 updates"
+msgstr "Nivelul 4 de actualizări"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "Actualizări de securitate"
+
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "_Ajutor"
@@ -1598,7 +1639,7 @@ msgstr "Continuă"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
 msgid "Remove old kernels..."
-msgstr ""
+msgstr "Îndepărtează kerneluri vechi..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:21
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:2
@@ -1607,16 +1648,11 @@ msgstr "Renunţă"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 msgid "Remove selected kernels"
-msgstr ""
+msgstr "Îndepărtează kernelurile selectate"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:23
 msgid "Select the kernels you want to remove:"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "Curăță"
+msgstr "Alege kernelurile pe care vrei sa le îndepărtezi:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
@@ -1643,10 +1679,6 @@ msgid ""
 msgstr ""
 "Acest instrument furnizează actualizări de software și securitate sistemului "
 "de operare."
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr "Actualizări de securitate"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""

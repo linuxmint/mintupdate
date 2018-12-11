@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-19 14:05+0000\n"
-"PO-Revision-Date: 2018-11-25 21:02+0000\n"
-"Last-Translator: Yazid Bouhamam <Unknown>\n"
+"POT-Creation-Date: 2018-12-03 14:12+0000\n"
+"PO-Revision-Date: 2018-12-03 18:22+0000\n"
+"Last-Translator: Slimane Amiri <slimane.amiri@gmail.com>\n"
 "Language-Team: Kabyle <kab@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2018-11-27 17:42+0000\n"
-"X-Generator: Launchpad (build 18826)\n"
+"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
+"X-Generator: Launchpad (build 18837)\n"
 "Language: kab\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -75,6 +75,11 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
+"Taɣlist tesɛa nfeɛ atas maca d tatiknikant atas daɣen. Timseḥṣal ur saḍanent "
+"ara yal ass aselkim-inek yerna zmerent ad ilint weɛrent i ufham. Tuget n "
+"yemdanen ur tent-fehmen ara maḍi yerna iselkimen-nsen yettaɣ-iten drus maḍi "
+"wugur. Aya yebɣa ad d-yini, taɣlist ma txuṣ tezmer ad d-teglu s watas n "
+"twaɣiyin, ihi ɣef aya i ilaq uqareɛ-nsent deg yal taswiɛt."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
@@ -589,6 +594,7 @@ msgstr "Iɣsan akked ileqman n yiɣes"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
 msgid "Kernel updates"
 msgstr "Aleqqem n yiɣes"
 
@@ -639,6 +645,9 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
+"Timsal mgaradent ticki d ayen yeɛnan aɣsawen.  Deg lawan n usnes \"alleqem n "
+"uɣesaw\", di tidet mači d aɣsaw-agi id-tleqmeḍ maca d asebded i tesbeddeḍ "
+"aɣsaw amaynut rrif n win yellan yakan."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
@@ -707,6 +716,9 @@ msgid ""
 "This menu allows you to choose operating systems but you can also use it to "
 "select a kernel."
 msgstr ""
+"Ticki tesnekreḍ aselkim, agdil amenzu maḍi isem-is umuɣ Grub. Umuɣ-agi d win "
+"ad k-yeǧǧen ad tferneḍ inagrawen n wamud maca tzemreḍ daɣen ad tesqedceḍ-t i "
+"ufran n yiɣes."
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -714,6 +726,9 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
+"Ma tesɛiḍ yiwen kan unagraw n wamud i ibedden, yezmer ahat taseddart n "
+"usenker ad tezgel i wumuɣ Grub. Iwakken ad d-iban wumuɣ Grub s nmara, senker "
+"aselkim yerna eǧǧ taqeffilt <key>Maj</key> tazelmaḍt tessat."
 
 #: usr/share/help/C/mintupdate/kernels.page:73(p)
 msgid ""
@@ -721,6 +736,9 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
+"I ufran n kernel, fren \"Iɣewwaṛen ileqqayen\" deg umuɣ n Grub. Isefk ad "
+"twaliḍ akk ikernelen ittwasbedden. Fren yiwen i tebɣiḍ ad tesqedceḍ sakin "
+"aselmik-inek ad yales tanekra s ukernel-nni."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
@@ -733,6 +751,10 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
+"Iɣes yesɛa akk inuḍaf open source yertna di tegti wigad-agi tteddun akken "
+"iwata. Inuḍaf imlan (NVIDIA, AMD, Broadcom...) ur ddan ara yerna sran ad "
+"sefsun iman-nnsen ɣer yal iɣes ara tesbeddeḍ. Ayagi yettili-d s yiwen n "
+"ttawil umi qqaren DKMS."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
@@ -764,6 +786,10 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
+"Imazraren imaynuten n yiɣs di tegti ttawjaden send ad izmiren ad ddun degsen "
+"inuḍafen imlan s ttawil n DKMS. Ma tseqdaceḍ inuḍaf imlan ad k-nsemter aṭas "
+"iwakken ad tḍefreḍ ileqman n yiɣes yerna ur tesbeddayeḍ ara iɣsan n "
+"imazraren imaynuten ɣef imazraren n yiɣsan ittusmetren."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
@@ -775,6 +801,9 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
+"Ma yella wacu ur ntteddu ara akked yiɣes aneggaru i tesbeddeḍ (neɣ lqem "
+"aneggaru n yiɣes), ales asekker, fren iɣes i tesqedceḍ tikkelt taneggarut, "
+"kkes iɣes amaynut sakin sekker aselkim tikkelt-nniḍen."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:970
@@ -814,6 +843,10 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Iwakken ad teǧǧrḍ aselkim-inek d aɣelsan yerna itteddu akken iwata, ad k-"
+"nsemter aṭas iwakken ad tesneseḍ akk ileqman iwejden yerna ad tesɣewreḍ "
+"tuṭṭfiwin tiwurmanin n unagaraw, iwakken ad tizmireḍ ad d-terreḍ anagraw ma "
+"yella wacu yerrẓen."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -821,7 +854,7 @@ msgstr "Isegza izaduren"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
-msgstr ""
+msgstr "Tigezmi-agi temmal tiktiwin tigejdanin n ileqman n iseɣẓanen."
 
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Troubleshooting"
@@ -849,8 +882,10 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Belkacem Mohammed https://launchpad.net/~belkacem77\n"
+"  Slimane Amiri https://launchpad.net/~slimaneamiri\n"
 "  Yacine Bouklif https://launchpad.net/~yacine-bouklif\n"
-"  Yazid Bouhamam https://launchpad.net/~yazid-iflis"
+"  Yazid Bouhamam https://launchpad.net/~yazid-iflis\n"
+"  merzouk Uccen Aḥesnaw https://launchpad.net/~ouchene"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:232
 #, python-format
@@ -872,6 +907,13 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
+"Iɣes n Linux d amasay ɣef tiddin n warrum akked inuḍafen. Ger tamawt belli "
+"lqem-agi ur ittekkes ara iɣes-inek i yellan. Ad tizmireḍ ad tsekkereḍ "
+"aselkim s yiɣes amiran ma tferneḍ tinefrunin tinaẓiyin deg wumuɣ inek n "
+"usekker. Acu kan ttḥadar. Ikarayen n yiɣes zemren ad ḥazen tuqqna-inek ɣer "
+"internet neɣ tuqqna s wudem udlif. Izegriren DKMS ttusefsan i yiɣsan "
+"ineggura yettusbedden deg uselkim-inek. Ma tseqdaceḍ inuḍafen imlan yerna "
+"tebɣiḍ ad tesqedceḍ iɣes amezwaru, isefk ad tekkseḍ qbel amaynut."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:158
 msgid "Remove"
@@ -904,27 +946,31 @@ msgstr "D tidet tebɣiḍ ad tesbeddeḍ iɣes %s ?"
 msgid "Kernels"
 msgstr "Iɣsan"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 msgid "Active"
 msgstr "Urmid"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 msgid "Installed"
 msgstr "Yebded"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
 msgid "Supported until"
 msgstr "Yettwadhel alama"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+msgid "Superseded"
+msgstr "Ittwabeddel"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
 msgid "End of Life"
 msgstr "Tgara n tudert"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
 msgid "Unsupported"
 msgstr "Ur yettwadhel ara"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
 msgid "You are currently using the following kernel:"
 msgstr "Akka tura tseqdaceḍ iɣes:"
 
@@ -1055,7 +1101,7 @@ msgstr "Lqem n useqzan"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
 msgid "3rd-party update"
-msgstr ""
+msgstr "A leqqem n yiḥricen wis 3"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1487
@@ -1089,6 +1135,8 @@ msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
 msgstr ""
+"Ma yella wacu yerrẓen, tuṭṭfiwin n unagraw ad k-ǧǧent ad d-terreḍ anagraw-"
+"inek ɣer waddad uzwir itteddun."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Do you want to switch to a local mirror?"
@@ -1233,6 +1281,41 @@ msgstr "Akemmus"
 msgid "Show descriptions"
 msgstr "Sken isenmalen"
 
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+msgid "Select"
+msgstr "Fren"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Sfeḍ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
+msgid "All updates"
+msgstr "Ileqman meṛṛa"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
+msgid "Level 1 updates"
+msgstr "Ileqman n uswir 1"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
+msgid "Level 2 updates"
+msgstr "Ileqman n uswir 2"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
+msgid "Level 3 updates"
+msgstr "Ileqman n uswir 3"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
+msgid "Level 4 updates"
+msgstr "Ileqman n uswir 4"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "Ileqman n tɣellist"
+
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
 msgstr "Ta_llelt"
@@ -1321,6 +1404,9 @@ msgid ""
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
+"Anagraw-inek xuṣṣen-t isegran iweɛren. Akemmus inmeɣran akked teẓrigt-inek n "
+"Linux Mint isefk ad d-tefk akemmes uhlis 'mint-info' akked ufaylu "
+"/etc/linuxmint/info."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:50
 msgid "No upgrades were found."
@@ -1397,6 +1483,10 @@ msgid ""
 "introduce new issues. Upgrading always represents a risk. Your data is safe "
 "but new issues can potentially affect your operating system."
 msgstr ""
+"Ileqman imaynuten ttakken-d iseɣtiyen n tuccḍiwin akked twuriwin timaynutin "
+"maca, tikwal, zemren ad d-glun s wuguren imaynuten. Aleqqem yezga yesɛa "
+"amihi. Isefka-inek ad qqimen di tɣellist maca llan wuguren i yezemren ad "
+"ḥazen anagraw n wammud inek."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:159
 #, python-format
@@ -1452,6 +1542,8 @@ msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
+"Asebded n ukernel amaynut izmer ad d-yawi tikwal uguren, ladɣa ma tseqdaceḍ "
+"inuḍaf udmawanen"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
 msgid "These issues include:"
@@ -1464,10 +1556,14 @@ msgid ""
 "- Black screen on startup\n"
 "- Random system freeze"
 msgstr ""
+"- Ulac Wi-Fi (neɣ Ethernet)\n"
+"- Ulac asɣiwel n uvidyu\n"
+"- Agdil aberkan deg usekker\n"
+"- Asegres agacuran n unagraw"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "If you face any of these issues, don't panic:"
-msgstr ""
+msgstr "Ma temmugreḍ-d uguren yecban wigi, ur tqelliq ara:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:10
 msgid ""
@@ -1477,6 +1573,11 @@ msgid ""
 "- Select an older kernel.\n"
 "- After the computer boots with the older kernel, uninstall the new one."
 msgstr ""
+"- Ales asekker.\n"
+"- Ssed yerna ṭṭef tanast Shift iwakken ad tbeqqeḍeḍ umuɣ n usekker.\n"
+"- Deg wumuɣ n usekker, fren izirig anida yella 'Tinefrunin tinaẓiyin'.\n"
+"- Fren iɣes aqbur.\n"
+"- Ticki yekker uselkim s yiɣes aqbur, kkes iɣes amaynut."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
@@ -1508,11 +1609,6 @@ msgstr "Kkes iɣsan yettwafernen"
 msgid "Select the kernels you want to remove:"
 msgstr "Fren iɣsan i tebɣiḍ ad tekkseḍ:"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "Sfeḍ"
-
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
@@ -1538,10 +1634,6 @@ msgid ""
 msgstr ""
 "Afecku-agi ad yefk i unagraw n wammud inek ileqman n iseɣẓanen akked "
 "tɣellist."
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr "Ileqman n tɣellist"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
@@ -1572,6 +1664,10 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint yessemtar aseɣwer n tuṭṭfiwin tiwurmanin  n unagraw yerna ad "
+"tesbeddeḍ akk ileqman iqejden. S wakka aselkim-inek ad yeqqim yalas d "
+"aɣelsan yerna ad tizmireḍ ad tuɣaleḍ ɣer deffir deg wakud iwakken ad d-"
+"terreḍ anagraw ma yella-d ukaray."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Apply"
@@ -1582,18 +1678,24 @@ msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Ttḥeqqeq belli tuṭṭfiwin n unagraw inek ttusɣwerent akken iwata send ad "
+"tesqedceḍ tanefrunt-agi."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "When this option is enabled, all updates are applied automatically on a "
 "daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
 msgstr ""
+"Ticki termed tnefrunt-agi, akk ileqman ad ttusbedden s wudem awurman yal "
+"ass, s twuri cron (/etc/cron.daily/mintupdate)."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
 "/etc/mintupdate.blacklist to blacklist some of them."
 msgstr ""
+"Tzemreḍ ad tẓergeḍ /etc/cron.daily/mintupdate iwakken ad tesɣewreḍ ileqman "
+"iwurmanen akked /etc/mintupdate.blacklist iwakken ad tesweḥleḍ kra segsen."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:6
 msgid "Apply updates automatically"
@@ -1617,6 +1719,9 @@ msgid ""
 "updates. Only hide levels when troubleshooting or trying to identify a "
 "regression. Check the help section for more information."
 msgstr ""
+"Ad k-nsemter iwakken ad tesɣewreḍ tuṭṭfiwin n unagaraw yerna ad tesbeddeḍ "
+"akk ileqman. Ur ttffer ara kra n iswiren ala deg useggem neɣ iwakken ad "
+"tɛeqleḍ akaray. Ẓer tallalt iwakken ad tissineḍ ugar."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:20
 msgid "Interface"
@@ -1629,6 +1734,8 @@ msgstr "Mdel asfaylu n umsefrak n ileqman ticki ttusnesen ileqman"
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:22
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
+"Ur beqqeḍ ara tignit di tfeggagt n twuriwin alama tella tuccḍa neɣ ileqman "
+"iwejden"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:23
 msgid "Show a warning if system snapshots are not set up"
@@ -1636,7 +1743,7 @@ msgstr "Sken talɣut ma yella tuṭṭfiwin n unagraw ur ttusewlen ara."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:24
 msgid "Don't suggest switching to a local mirror"
-msgstr ""
+msgstr "Ur d-summar ara abeddel ɣer usleg adigan"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:25
 msgid "Updates"
@@ -1647,6 +1754,8 @@ msgid ""
 "It is recommended to show and apply all available updates. Only disable the "
 "options below when troubleshooting."
 msgstr ""
+"Ad k-nsemter iwakken ad tbeqqeḍeḍ yerna ad tesbeddeḍ akk ileqman iwejden. "
+"Tinefrunin-agi ukessar ad tent-teffreḍ kan ticki d-yettili useggem."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:27
 msgid ""
@@ -1674,11 +1783,11 @@ msgstr "Yalas ferren ileqman n yiɣes"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:32
 msgid "First, refresh the list of updates after:"
-msgstr ""
+msgstr "Di tazwara, sismeḍ tabdart n ileqman sakin:"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:33
 msgid "Then, refresh the list of updates every:"
-msgstr ""
+msgstr "Sakin, sismeḍ tabdart n ileqman yal:"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:34
 msgid "days"
@@ -1697,6 +1806,8 @@ msgid ""
 "Note: The list only gets refreshed while the update manager window is closed "
 "(system tray mode)."
 msgstr ""
+"Tamawat: Tabdart ad tettusismeḍ kan ticki yemdel usfaylu n umsefrak n "
+"uleqqem (askar n tfeggagt n twuriwin)."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"

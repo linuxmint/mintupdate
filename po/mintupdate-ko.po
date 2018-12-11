@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-11-19 14:05+0000\n"
-"PO-Revision-Date: 2018-11-19 15:48+0000\n"
+"POT-Creation-Date: 2018-12-03 14:12+0000\n"
+"PO-Revision-Date: 2018-12-03 19:26+0000\n"
 "Last-Translator: Jung-Kyu Park <bagjunggyu@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2018-11-27 17:42+0000\n"
-"X-Generator: Launchpad (build 18826)\n"
+"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
+"X-Generator: Launchpad (build 18837)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -553,6 +553,7 @@ msgstr "커널과 커널 업데이트"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:41(title)
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
 msgid "Kernel updates"
 msgstr "커널 업데이트"
 
@@ -876,27 +877,31 @@ msgstr "정말 %s 커널을 설치하시겠습니까?"
 msgid "Kernels"
 msgstr "커널"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 msgid "Active"
 msgstr "사용"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:272
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 msgid "Installed"
 msgstr "설치됨"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:348
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
 msgid "Supported until"
 msgstr "지원 기간"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:350
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+msgid "Superseded"
+msgstr "대체됨"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
 msgid "End of Life"
 msgstr "지원 기간 지남"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:352
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
 msgid "Unsupported"
 msgstr "지원하지 않음"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:374
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
 msgid "You are currently using the following kernel:"
 msgstr "지금 사용하시는 커널입니다:"
 
@@ -1052,7 +1057,7 @@ msgstr "시스템 스냅샷을 설정하십시오."
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
-msgstr "어떤 문제가 생기면, 스냅샷은 당신의 시스템이 이전 작업 조건으로 돌아갈 수 있게 복구하는 것을 가능하게 할 것입니다."
+msgstr "문제가 생기면, 스냅샷은 여러분의 시스템을 이전 작업 환경으로 되돌 수 있도록 복구할 수 있습니다."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 msgid "Do you want to switch to a local mirror?"
@@ -1194,6 +1199,41 @@ msgstr "패키지"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
 msgid "Show descriptions"
 msgstr "설명 보이기"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
+msgid "Select"
+msgstr "선택"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "선택 해제"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
+msgid "All updates"
+msgstr "모든 업데이트"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
+msgid "Level 1 updates"
+msgstr "레벨 1 업데이트"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
+msgid "Level 2 updates"
+msgstr "레벨 2 업데이트"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
+msgid "Level 3 updates"
+msgstr "레벨 3 업데이트"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
+msgid "Level 4 updates"
+msgstr "레벨 4 업데이트"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
+msgid "Security updates"
+msgstr "보안 업데이트"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
 msgid "_Help"
@@ -1478,11 +1518,6 @@ msgstr "선택한 커널 지우기"
 msgid "Select the kernels you want to remove:"
 msgstr "지우고 싶은 커널을 고르세요:"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "선택 해제"
-
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
@@ -1507,10 +1542,6 @@ msgid ""
 "This tool provides your operating system with software and security updates."
 msgstr "이 도구는 여러분의 운영체제를 위한 소프트웨어와 보안 업데이트를 제공합니다."
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr "보안 업데이트"
-
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
@@ -1529,7 +1560,8 @@ msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
-"당신을 당신의 실수와 후회로부터 지키기 위해 시스템 스냅샷을 설정하십시오. 어떤 문제가 생기면 마지막 스냅샷으로 쉽게 복구할 수 있습니다."
+"시스템 스냅샷을 만들어서 여러분의 실수나 시스템 퇴행으로부터 보호하세요. 문제가 생기더라도 마지막 스냅샷을 통해 간단히 복구할 수 "
+"있습니다."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid ""
