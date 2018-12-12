@@ -429,3 +429,5 @@ class KernelWindow():
             thread = InstallKernelThread(self.marked_kernels, self.application)
             thread.start()
             self.window.hide()
+        else:
+            self.window.set_sensitive(True)
