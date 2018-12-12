@@ -1271,16 +1271,16 @@ class MintUpdate():
             newVersionColumnMenuItem.connect("toggled", self.setVisibleColumn, column_new_version, "show-new-version-column")
             visibleColumnsMenu.append(newVersionColumnMenuItem)
 
-            sizeColumnMenuItem = Gtk.CheckMenuItem(_("Size"))
-            sizeColumnMenuItem.set_active(self.settings.get_boolean("show-size-column"))
-            column_size.set_visible(self.settings.get_boolean("show-size-column"))
-            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column_size, "show-size-column")
-            visibleColumnsMenu.append(sizeColumnMenuItem)
-
             sizeColumnMenuItem = Gtk.CheckMenuItem(_("Origin"))
             sizeColumnMenuItem.set_active(self.settings.get_boolean("show-origin-column"))
             column_origin.set_visible(self.settings.get_boolean("show-origin-column"))
             sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column_origin, "show-origin-column")
+            visibleColumnsMenu.append(sizeColumnMenuItem)
+
+            sizeColumnMenuItem = Gtk.CheckMenuItem(_("Size"))
+            sizeColumnMenuItem.set_active(self.settings.get_boolean("show-size-column"))
+            column_size.set_visible(self.settings.get_boolean("show-size-column"))
+            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column_size, "show-size-column")
             visibleColumnsMenu.append(sizeColumnMenuItem)
 
             viewSubmenu.append(visibleColumnsMenuItem)
