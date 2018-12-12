@@ -1023,6 +1023,7 @@ class MintUpdate():
         self.statusbar = self.builder.get_object("statusbar")
         self.context_id = self.statusbar.get_context_id("mintUpdate")
         self.window = self.builder.get_object("main_window")
+        self.window.connect("key-press-event",self.on_key_press_event)
         self.treeview = self.builder.get_object("treeview_update")
         self.stack = Gtk.Stack()
         self.builder.get_object("stack_container").pack_start(self.stack, True, True, 0)
@@ -1300,67 +1301,6 @@ class MintUpdate():
                 print(sys.exc_info()[0])
             viewSubmenu.append(infoMenuItem)
 
-            # New 'Select' menu
-            selectMenu = Gtk.MenuItem.new_with_label(_("Select"))
-            selectSubmenu = Gtk.Menu()
-            selectMenu.set_submenu(selectSubmenu)
-
-            clearItem = Gtk.ImageMenuItem()
-            clearItem.set_image(Gtk.Image.new_from_icon_name("edit-clear-symbolic", Gtk.IconSize.MENU))
-            clearItem.set_label(_("Clear"))
-            clearItem.connect("activate", self.clear)
-            key, mod = Gtk.accelerator_parse("<Control><Shift>A")
-            clearItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            selectSubmenu.append(clearItem)
-
-            selectAllItem = Gtk.ImageMenuItem()
-            selectAllItem.set_image(Gtk.Image.new_from_icon_name("edit-select-all-symbolic", Gtk.IconSize.MENU))
-            selectAllItem.set_label(_("All updates"))
-            selectAllItem.connect("activate", self.select_all)
-            key, mod = Gtk.accelerator_parse("<Control>A")
-            selectAllItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            selectSubmenu.append(selectAllItem)
-
-            selectLevel1Item = Gtk.MenuItem.new_with_label(_("Level 1 updates"))
-            selectLevel1Item.connect("activate", self.select_level1)
-            key, mod = Gtk.accelerator_parse("<Control>1")
-            selectLevel1Item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            selectSubmenu.append(selectLevel1Item)
-
-            selectLevel2Item = Gtk.MenuItem.new_with_label(_("Level 2 updates"))
-            selectLevel2Item.connect("activate", self.select_level2)
-            key, mod = Gtk.accelerator_parse("<Control>2")
-            selectLevel2Item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            selectSubmenu.append(selectLevel2Item)
-
-            selectLevel3Item = Gtk.MenuItem.new_with_label(_("Level 3 updates"))
-            selectLevel3Item.connect("activate", self.select_level3)
-            key, mod = Gtk.accelerator_parse("<Control>3")
-            selectLevel3Item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            selectSubmenu.append(selectLevel3Item)
-
-            selectLevel4Item = Gtk.MenuItem.new_with_label(_("Level 4 updates"))
-            selectLevel4Item.connect("activate", self.select_level4)
-            key, mod = Gtk.accelerator_parse("<Control>4")
-            selectLevel4Item.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            selectSubmenu.append(selectLevel4Item)
-
-            selectSecurityItem = Gtk.ImageMenuItem()
-            selectSecurityItem.set_image(Gtk.Image.new_from_icon_name("mintupdate-type-security-symbolic", Gtk.IconSize.MENU))
-            selectSecurityItem.set_label(_("Security updates"))
-            selectSecurityItem.connect("activate", self.select_security_updates)
-            key, mod = Gtk.accelerator_parse("<Control>S")
-            selectSecurityItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            selectSubmenu.append(selectSecurityItem)
-
-            selectKernelItem = Gtk.ImageMenuItem()
-            selectKernelItem.set_image(Gtk.Image.new_from_icon_name("mintupdate-type-kernel-symbolic", Gtk.IconSize.MENU))
-            selectKernelItem.set_label(_("Kernel updates"))
-            selectKernelItem.connect("activate", self.select_kernel_updates)
-            key, mod = Gtk.accelerator_parse("<Control>K")
-            selectKernelItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
-            selectSubmenu.append(selectKernelItem)
-
             helpMenu = Gtk.MenuItem.new_with_mnemonic(_("_Help"))
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
@@ -1392,7 +1332,6 @@ class MintUpdate():
             self.builder.get_object("menubar1").append(fileMenu)
             self.builder.get_object("menubar1").append(editMenu)
             self.builder.get_object("menubar1").append(viewMenu)
-            self.builder.get_object("menubar1").append(selectMenu)
             self.builder.get_object("menubar1").append(helpMenu)
 
             if len(sys.argv) > 1:
@@ -1434,6 +1373,24 @@ class MintUpdate():
             print(sys.exc_info()[0])
             self.logger.write_error("Exception occurred in main thread: " + str(sys.exc_info()[0]))
             self.logger.close()
+
+######### EVENT HANDLERS #########
+
+    def on_key_press_event(self, widget, event):
+        ctrl = (event.state & Gdk.ModifierType.CONTROL_MASK)
+        if ctrl:
+            if event.keyval == Gdk.KEY_1:
+                self.select_updates(1)
+            elif event.keyval == Gdk.KEY_2:
+                self.select_updates(2)
+            elif event.keyval == Gdk.KEY_3:
+                self.select_updates(3)
+            elif event.keyval == Gdk.KEY_4:
+                self.select_updates(4)
+            elif event.keyval == Gdk.KEY_s:
+                self.select_updates(security=True)
+            elif event.keyval == Gdk.KEY_k:
+                self.select_updates(kernel=True)
 
 ######### UTILITY FUNCTIONS #########
     def hide_window(self, widget, window):
@@ -1496,24 +1453,6 @@ class MintUpdate():
 
     def select_all(self, widget):
         self.select_updates()
-
-    def select_level1(self, widget):
-        self.select_updates(1)
-
-    def select_level2(self, widget):
-        self.select_updates(2)
-
-    def select_level3(self, widget):
-        self.select_updates(3)
-
-    def select_level4(self, widget):
-        self.select_updates(4)
-
-    def select_security_updates(self, widget):
-        self.select_updates(level=None, security=True, kernel=False)
-
-    def select_kernel_updates(self, widget):
-        self.select_updates(level=None, security=False, kernel=True)
 
     def select_updates(self, level=None, security=False, kernel=False):
         model = self.treeview.get_model()
