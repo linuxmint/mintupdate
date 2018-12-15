@@ -23,6 +23,8 @@ try:
         pkg_version = ""
         package = pkg.name
         if r.match(package):
+            if not pkg.candidate:
+                continue
             version = r.sub(r'\1', package)
             # filter duplicates (unsigned kernels where signed exists)
             if version in signed_kernels:
@@ -31,7 +33,7 @@ try:
                 installed = 1
                 pkg_version = pkg.installed.version
             else:
-                if pkg.candidate and pkg.candidate.downloadable:
+                if pkg.candidate.downloadable:
                     installable = 1
                     pkg_version = pkg.candidate.version
             if version == current_version:
