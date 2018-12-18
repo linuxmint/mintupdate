@@ -357,7 +357,7 @@ if __name__ == "__main__":
         check.apply_aliases()
         check.clean_descriptions()
         check.serialize_updates()
-        if os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
+        if os.getuid() == 0 and os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
             # Spawn the cache update asynchronously
             # We're using os.system with & here to make sure it's async and detached
             # from the caller (which will die before the child process is finished)
