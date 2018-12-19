@@ -234,7 +234,7 @@ class Assistant:
             else:
                 os.system("gsettings set %s false" % screensaver_setting)
 
-        cmd = ["/usr/bin/mint-release-upgrade-root", "%s" % self.current_codename, "%s" % self.assistant.get_window().get_xid()]
+        cmd = ["pkexec", "/usr/bin/mint-release-upgrade-root", "%s" % self.current_codename, "%s" % self.assistant.get_window().get_xid()]
         comnd = Popen(' '.join(cmd), shell=True)
         returnCode = comnd.wait()
 

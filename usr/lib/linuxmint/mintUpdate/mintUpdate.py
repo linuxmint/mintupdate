@@ -1215,7 +1215,7 @@ class MintUpdate():
                 if rel_edition.lower() in config['general']['editions']:
                     rel_target = config['general']['target_name']
                     relUpgradeMenuItem = Gtk.ImageMenuItem()
-                    relUpgradeMenuItem.set_image(Gtk.Image.new_from_icon_name("mintupdate-release-upgrade", Gtk.IconSize.MENU))
+                    relUpgradeMenuItem.set_image(Gtk.Image.new_from_icon_name("mintupdate-type-package-symbolic", Gtk.IconSize.MENU))
                     relUpgradeMenuItem.set_label(_("Upgrade to %s") % rel_target)
                     relUpgradeMenuItem.connect("activate", self.open_rel_upgrade)
                     editSubmenu.append(relUpgradeMenuItem)

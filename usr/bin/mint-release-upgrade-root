@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 
-import os, sys, gettext
-
-gettext.install("mintupdate", "/usr/share/locale")
+import os, sys
 
 if len(sys.argv) != 3:
     print("Missing arguments!")
@@ -10,16 +8,5 @@ if len(sys.argv) != 3:
 
 codename = sys.argv[1]
 window_id = int(sys.argv[2])
-
-
-tool = "/usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py"
-sentence = _("Please enter your password to perform the upgrade")
-icon = "mintupdate-release-upgrade"
-
-if os.path.exists("/usr/bin/gksu"):
-    launcher = "gksu  --message \"<b>%s</b>\"" % sentence
-elif os.path.exists("/usr/bin/kdesudo"):
-    launcher = "kdesudo -i %s -d --comment \"<b>%s</b>\"" % (icon, sentence)
-
-command = "%s %s %s %s" % (launcher, tool, codename, window_id)
+command = "/usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py %s %s" % (codename, window_id)
 os.system(command)

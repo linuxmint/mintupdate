@@ -84,5 +84,7 @@ returnCode = comnd.wait()
 
 try:
     subprocess.call("update-grub")
+    if os.path.exists("/usr/share/ubuntu-system-adjustments/systemd/adjust-grub-title"):
+        subprocess.call("/usr/share/ubuntu-system-adjustments/systemd/adjust-grub-title")
 except Exception as detail:
     syslog.syslog("Couldn't update grub: %s" % detail)
