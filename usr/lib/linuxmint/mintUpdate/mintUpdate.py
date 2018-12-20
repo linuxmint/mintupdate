@@ -333,7 +333,7 @@ class InstallThread(threading.Thread):
                         if len(installations) > 0 or len(removals) > 0:
                             Gdk.threads_enter()
                             try:
-                                dialog = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK_CANCEL, None)
+                                dialog = Gtk.MessageDialog(self.application.window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK_CANCEL, None)
                                 dialog.set_title("")
                                 dialog.set_markup("<b>" + _("This upgrade will trigger additional changes") + "</b>")
                                 #dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")
@@ -1883,7 +1883,7 @@ class MintUpdate():
 
         builder.get_object("pref_button_cancel").connect("clicked", self.hide_window, window)
         builder.get_object("pref_button_apply").connect("clicked", self.save_preferences, builder)
-        builder.get_object("button_add").connect("clicked", self.add_blacklisted_package, treeview_blacklist)
+        builder.get_object("button_add").connect("clicked", self.add_blacklisted_package, treeview_blacklist, window)
         builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
         builder.get_object("button_add").set_always_show_image(True)
         builder.get_object("button_remove").set_always_show_image(True)
@@ -1935,8 +1935,8 @@ class MintUpdate():
         builder.get_object("main_window").hide()
         self.refresh()
 
-    def add_blacklisted_package(self, widget, treeview_blacklist):
-        dialog = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK, None)
+    def add_blacklisted_package(self, widget, treeview_blacklist, window):
+        dialog = Gtk.MessageDialog(window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK, None)
         dialog.set_markup("<b>" + _("Please specify the name of the update to ignore:") + "</b>")
         dialog.set_title(_("Ignore an update"))
         dialog.set_icon_name("mintupdate")
