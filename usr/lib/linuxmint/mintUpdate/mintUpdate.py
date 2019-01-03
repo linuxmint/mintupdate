@@ -8,11 +8,7 @@ import tempfile
 import threading
 import time
 import gettext
-import io
 import json
-import tarfile
-import urllib.request
-import proxygsettings
 import subprocess
 import pycurl
 from datetime import datetime
@@ -28,6 +24,7 @@ from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango, GLib
 from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update, PRIORITY_UPDATES, get_release_dates
+from mintcommon import apt_changelog
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -144,185 +141,22 @@ class CacheWatcher(threading.Thread):
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
         threading.Thread.__init__(self)
-        self.source_package = package_update.real_source_name
-        self.version = package_update.new_version
-        self.origin = package_update.origin
         self.application = application
-        # get the proxy settings from gsettings
-        self.ps = proxygsettings.get_proxy_settings()
-
-
-        # Remove the epoch if present in the version
-        if ":" in self.version:
-            self.version = self.version.split(":")[-1]
-
-    def get_ppa_info(self):
-        ppa_sources_file = "/etc/apt/sources.list"
-        ppa_sources_dir = "/etc/apt/sources.list.d/"
-        ppa_words = self.origin.lstrip("LP-PPA-").split("-")
-
-        source = ppa_sources_file
-        if os.path.exists(ppa_sources_dir):
-            for filename in os.listdir(ppa_sources_dir):
-                if filename.startswith(self.origin.lstrip("LP-PPA-")):
-                    source = os.path.join(ppa_sources_dir, filename)
-                    break
-        if not os.path.exists(source):
-            return None, None
-        try:
-            with open(source) as f:
-                for line in f:
-                    if (not line.startswith("#") and all(word in line for word in ppa_words)):
-                        ppa_info = line.split("ppa.launchpad.net/")[1]
-                        break
-                else:
-                    return None, None
-        except EnvironmentError as e:
-            print ("Error encountered while trying to get PPA owner and name: %s" % e)
-            return None, None
-        ppa_owner, ppa_name, ppa_x = ppa_info.split("/", 2)
-        return ppa_owner, ppa_name
-
-    def get_ppa_changelog(self, ppa_owner, ppa_name):
-        max_tarball_size = 1000000
-        print ("\nFetching changelog for PPA package %s/%s/%s ..." % (ppa_owner, ppa_name, self.source_package))
-        if self.source_package.startswith("lib"):
-            ppa_abbr = self.source_package[:4]
-        else:
-            ppa_abbr = self.source_package[0]
-        deb_dsc_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s_%s.dsc" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, self.source_package, self.version)
-        try:
-            deb_dsc = urllib.request.urlopen(deb_dsc_uri, None, 10).read().decode("utf-8")
-        except Exception as e:
-            print ("Could not open Launchpad URL %s - %s" % (deb_dsc_uri, e))
-            return
-        for line in deb_dsc.split("\n"):
-            if "debian.tar" not in line:
-                continue
-            tarball_line = line.strip().split(" ", 2)
-            if len(tarball_line) == 3:
-                deb_checksum, deb_size, deb_filename = tarball_line
-                break
-        else:
-            deb_filename = None
-        if not deb_filename or not deb_size or not deb_size.isdigit():
-            print ("Unsupported debian .dsc file format. Skipping this package.")
-            return
-        if (int(deb_size) > max_tarball_size):
-            print ("Tarball size %s B exceeds maximum download size %d B. Skipping download." % (deb_size, max_tarball_size))
-            return
-        deb_file_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
-        try:
-            deb_file = urllib.request.urlopen(deb_file_uri, None, 10).read().decode("utf-8")
-        except Exception as e:
-            print ("Could not download tarball from %s - %s" % (deb_file_uri, e))
-            return
-        if deb_filename.endswith(".xz"):
-            cmd = ["xz", "--decompress"]
-            try:
-                xz = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-                xz.stdin.write(deb_file)
-                xz.stdin.close()
-                deb_file = xz.stdout.read()
-                xz.stdout.close()
-            except EnvironmentError as e:
-                print ("Error encountered while decompressing xz file: %s" % e)
-                return
-        deb_file = io.BytesIO(deb_file)
-        try:
-            with tarfile.open(fileobj = deb_file) as f:
-                deb_changelog = f.extractfile("debian/changelog").read()
-        except tarfile.TarError as e:
-            print ("Error encountered while reading tarball: %s" % e)
-            return
-
-        return deb_changelog
+        self.pkg_name = package_update.package_names[0]
 
     def run(self):
         Gdk.threads_enter()
         self.application.textview_changes.set_text(_("Downloading changelog..."))
         Gdk.threads_leave()
 
-        if self.ps == {}:
-            # use default urllib.request proxy mechanisms (possibly *_proxy environment vars)
-            proxy = urllib.request.ProxyHandler()
-        else:
-            # use proxy settings retrieved from gsettings
-            proxy = urllib.request.ProxyHandler(self.ps)
-
-        opener = urllib.request.build_opener(proxy)
-        urllib.request.install_opener(opener)
-
-        changelog = [_("No changelog available")]
-
-        changelog_sources = []
-        if self.origin == "linuxmint":
-            changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
-            changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")
-        elif self.origin == "ubuntu":
-            if (self.source_package.startswith("lib")):
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-            else:
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-        elif self.origin == "debian":
-            if (self.source_package.startswith("lib")):
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-            else:
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-        elif self.origin.startswith("LP-PPA"):
-            ppa_owner, ppa_name = self.get_ppa_info()
-            if ppa_owner and ppa_name:
-                deb_changelog = self.get_ppa_changelog(ppa_owner, ppa_name)
-                if not deb_changelog:
-                    changelog_sources.append("https://launchpad.net/~%s/+archive/ubuntu/%s/+files/%s_%s_source.changes" % (ppa_owner, ppa_name, self.source_package, self.version))
-                else:
-                    changelog = "%s\n" % deb_changelog
-            else:
-                print ("PPA owner or name could not be determined")
-
-        for changelog_source in changelog_sources:
-            try:
-                print("Trying to fetch the changelog from: %s" % changelog_source)
-                url = urllib.request.urlopen(changelog_source, None, 10)
-                source = url.read().decode("utf-8")
-                url.close()
-
-                changelog = ""
-                if "linuxmint.com" in changelog_source:
-                    changes = source.split("\n")
-                    for change in changes:
-                        stripped_change = change.strip()
-                        if stripped_change == ".":
-                            change = ""
-                        if change == "" or stripped_change.startswith("*") or stripped_change.startswith("["):
-                            changelog = changelog + change + "\n"
-                elif "launchpad.net" in changelog_source:
-                    changes = source.split("Changes:")[1].split("Checksums")[0].split("\n")
-                    for change in changes:
-                        stripped_change = change.strip()
-                        if stripped_change != "":
-                            if stripped_change == ".":
-                                stripped_change = ""
-                            changelog = changelog + stripped_change + "\n"
-                else:
-                    changelog = source
-                changelog = changelog.split("\n")
-                break
-            except:
-                pass
+        changelog = None
+        if self.pkg_name:
+            changelog = apt_changelog.get_changelog(self.pkg_name)
+        if not changelog:
+            changelog = _("No changelog available")
 
         Gdk.threads_enter()
-        self.application.textview_changes.set_text("\n".join(changelog))
+        self.application.textview_changes.set_text(changelog)
         Gdk.threads_leave()
 
 class AutomaticRefreshThread(threading.Thread):
@@ -1674,6 +1508,7 @@ class MintUpdate():
     def hide_main_window(self, widget):
         self.window.hide()
         self.app_hidden = True
+        apt_changelog.drop_cache()
 
     def setVisibleColumn(self, checkmenuitem, column, key):
         state = checkmenuitem.get_active()
