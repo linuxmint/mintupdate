@@ -43,20 +43,20 @@ gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
 
 (UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_SORT_STR_WITH_LEVEL, UPDATE_OBJ) = range(15)
 
-GIGABYTE = 1024 ** 3
-MEGABYTE = 1024 ** 2
-KILOBYTE = 1024
+GIGABYTE = 1000 ** 3
+MEGABYTE = 1000 ** 2
+KILOBYTE = 1000
 
 CRON_JOB = "/etc/cron.daily/mintupdate"
 
 def size_to_string(size):
     if (size >= GIGABYTE):
-        return str(size // GIGABYTE) + _("GB")
+        return "%d %s" % (size // GIGABYTE,  _("GB"))
     if (size >= (MEGABYTE)):
-        return str(size // MEGABYTE) + _("MB")
+        return "%d %s" % (size // MEGABYTE,  _("MB"))
     if (size >= KILOBYTE):
-        return str(size // KILOBYTE) + _("KB")
-    return str(size) + _("B")
+        return "%d %s" % (size // KILOBYTE,  _("KB"))
+    return "%d %s" % (size,  _("B"))
 
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
@@ -761,7 +761,7 @@ class RefreshThread(threading.Thread):
                         self.statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
 
                     self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
-                    self.application.logger.write("Found " + str(num_visible) + " software updates")
+                    self.application.logger.write("Found " + str(num_visible) + " software update(s)")
 
                     if (num_visible >= 1):
                         systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
