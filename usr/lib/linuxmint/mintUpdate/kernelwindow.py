@@ -397,6 +397,15 @@ class KernelWindow():
         else:
             self.main_stack.set_visible_child(info_box)
 
+        # Center on main window
+        window_size = self.window.get_size()
+        parent_size = self.application.window.get_size()
+        parent_position = self.application.window.get_position()
+        parent_center_x = parent_position.root_x + parent_size.width / 2
+        parent_center_y = parent_position.root_y + parent_size.height / 2
+        self.window.move(parent_center_x - window_size.width / 2,
+                         parent_center_y - window_size.height / 2)
+
         self.window.show_all()
 
     def hide_window(self, widget):
