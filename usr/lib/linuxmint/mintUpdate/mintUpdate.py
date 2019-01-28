@@ -650,7 +650,9 @@ class RefreshThread(threading.Thread):
                 except:
                     error_msg = ""
                 Gdk.threads_enter()
-                self.application.set_status(_("Could not refresh the list of updates"), "%s\n\n%s" % (_("Could not refresh the list of updates"), error_msg), "mintupdate-error", True)
+                self.application.set_status(_("Could not refresh the list of updates"),
+                    "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
+                    "mintupdate-error", True)
                 self.application.logger.write("Error in checkAPT.py, could not refresh the list of updates")
                 self.application.stack.set_visible_child_name("status_error")
                 self.application.builder.get_object("label_error_details").set_text(error_msg)
