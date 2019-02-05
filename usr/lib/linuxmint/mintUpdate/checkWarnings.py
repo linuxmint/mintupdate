@@ -35,13 +35,13 @@ try:
                 (depcache.marked_install(pkg) or depcache.marked_upgrade(pkg)) and
                 not pkg.name in selection and
                 not f"{pkg.name}:{pkg.architecture}" in selection and
-                not pkg in packages_to_install
+                not pkg.name in packages_to_install
                 ):
-                packages_to_install.append(pkg)
-            if depcache.marked_delete(pkg) and not pkg in packages_to_remove:
-                packages_to_remove.append(pkg)
-        installations = ' '.join(pkg.name for pkg in packages_to_install)
-        removals = ' '.join(pkg.name for pkg in packages_to_remove)
+                packages_to_install.append(pkg.name)
+            if depcache.marked_delete(pkg) and not pkg.name in packages_to_remove:
+                packages_to_remove.append(pkg.name)
+        installations = ' '.join(packages_to_install)
+        removals = ' '.join(packages_to_remove)
         print(f"{installations}###{removals}")
 except Exception as e:
     print(e)
