@@ -189,9 +189,12 @@ class KernelRow(Gtk.ListBoxRow):
         d.hide()
         d.destroy()
         if r == Gtk.ResponseType.YES:
-            thread = InstallKernelThread([[version, installed]], self.application)
-            thread.start()
-            window.hide()
+            if self.application.dpkg_locked():
+                self.application.show_dpkg_lock_msg(window)
+            else:
+                thread = InstallKernelThread([[version, installed]], self.application)
+                thread.start()
+                window.hide()
 
 class KernelWindow():
     def __init__(self, application):
@@ -436,8 +439,12 @@ class KernelWindow():
     def on_remove_clicked(self, widget, window):
         window.hide()
         if self.marked_kernels:
-            thread = InstallKernelThread(self.marked_kernels, self.application)
-            thread.start()
-            self.window.hide()
+            if self.application.dpkg_locked():
+                self.application.show_dpkg_lock_msg(self.window)
+                self.window.set_sensitive(True)
+            else:
+                thread = InstallKernelThread(self.marked_kernels, self.application)
+                thread.start()
+                self.window.hide()
         else:
             self.window.set_sensitive(True)

@@ -533,8 +533,18 @@ class RefreshThread(threading.Thread):
     def run(self):
 
         if self.application.updates_inhibited:
-            self.application.logger.write("Updates are inhibited, skipping refresh.")
+            self.application.logger.write("Updates are inhibited, skipping refresh")
             return False
+
+        if self.root_mode:
+            while self.application.dpkg_locked():
+                self.application.logger.write("Package management system locked by another process, retrying in 60s")
+                time.sleep(60)
+
+        if self.root_mode:
+            while self.application.dpkg_locked():
+                self.application.logger.write("Package management system locked by another process, retrying in 60s")
+                time.sleep(60)
 
         Gdk.threads_enter()
         vpaned_position = self.application.builder.get_object("paned1").get_position()
@@ -569,26 +579,6 @@ class RefreshThread(threading.Thread):
                 model.set_sort_column_id(UPDATE_SORT_STR_WITH_LEVEL, Gtk.SortType.ASCENDING)
             else:
                 model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
-
-            # Check to see if no other APT process is running
-            if self.root_mode:
-                p1 = subprocess.Popen(['ps', '-U', 'root', '-o', 'comm'], stdout=subprocess.PIPE)
-                p = p1.communicate()[0]
-                running = False
-                pslist = p.split(b'\n')
-                for process in pslist:
-                    if process.strip() in ["dpkg", "apt-get","synaptic","update-manager", "adept", "adept-notifier"]:
-                        running = True
-                        break
-                if (running == True):
-                    Gdk.threads_enter()
-                    self.application.set_status(_("Another application is using APT"), _("Another application is using APT"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
-                    self.application.logger.write_error("Another application is using APT")
-                    if (not self.application.app_hidden):
-                        self.application.window.get_window().set_cursor(None)
-                    self.application.window.set_sensitive(True)
-                    Gdk.threads_leave()
-                    return False
 
             Gdk.threads_enter()
             self.application.set_status_message(_("Finding the list of updates..."))
@@ -1416,6 +1406,25 @@ class MintUpdate():
         self.statusIcon.set_tooltip_text(tooltip)
         self.statusIcon.set_visible(visible)
 
+    @staticmethod
+    def dpkg_locked():
+        """ Returns True if a process has a handle on /var/lib/dpkg/lock (no check for write lock) """
+        try:
+            subprocess.run(["sudo", "/usr/lib/linuxmint/mintUpdate/dpkg_lock_check.sh"],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+            return True
+        except subprocess.CalledProcessError:
+            return False
+
+    @staticmethod
+    def show_dpkg_lock_msg(parent):
+        dialog = Gtk.MessageDialog(parent, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+        Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, _("Cannot proceed"))
+        dialog.format_secondary_markup(_("Another process is currently using the package management system. Please wait for it to finish and then try again."))
+        dialog.set_title(_("Update Manager"))
+        dialog.run()
+        dialog.destroy()
+
 ######### WINDOW/STATUSICON ##########
 
     def close_window(self, window, event):
@@ -1494,12 +1503,18 @@ class MintUpdate():
             self.set_status_message(ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
 
     def force_refresh(self, widget):
-        refresh = RefreshThread(self, root_mode=True)
-        refresh.start()
+        if self.dpkg_locked():
+            self.show_dpkg_lock_msg(self.window)
+        else:
+            refresh = RefreshThread(self, root_mode=True)
+            refresh.start()
 
     def install(self, widget):
-        install = InstallThread(self)
-        install.start()
+        if self.dpkg_locked():
+            self.show_dpkg_lock_msg(self.window)
+        else:
+            install = InstallThread(self)
+            install.start()
 
 ######### WELCOME PAGE FUNCTIONS #######
 
