@@ -178,7 +178,12 @@ class APTCheck():
 
         # ignore packages blacklisted by the user
         for blacklist in self.settings.get_strv("blacklisted-packages"):
-            if fnmatch.fnmatch(source_name, blacklist):
+            if "=" in blacklist:
+                (bl_pkg, bl_ver) = blacklist.split("=", 1)
+            else:
+                bl_pkg = blacklist
+                bl_ver = None
+            if fnmatch.fnmatch(source_name, bl_pkg) and (not bl_ver or bl_ver == package.candidate.version):
                 return
 
         if source_name in PRIORITY_UPDATES:
