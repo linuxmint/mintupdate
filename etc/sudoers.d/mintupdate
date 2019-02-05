@@ -1,6 +1,5 @@
 # Allow any user to check for new system updates without
 # requiring user authentication.
 
-Cmnd_Alias UPDATE = /usr/lib/linuxmint/mintUpdate/checkAPT.py
-
-ALL ALL = NOPASSWD:UPDATE
+ALL ALL = NOPASSWD:/usr/lib/linuxmint/mintUpdate/checkAPT.py
+ALL ALL = NOPASSWD:/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py

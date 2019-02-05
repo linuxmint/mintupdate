@@ -419,19 +419,24 @@ class InstallThread(threading.Thread):
                     self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing", True)
                     Gdk.threads_leave()
                     self.application.logger.write("Ready to launch synaptic")
-                    cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
-                            "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
                     f = tempfile.NamedTemporaryFile()
+
+                    cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
+                            "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), \
+                            "-o", "Synaptic::closeZvt=true", "--set-selections-file", "%s" % f.name]
 
                     for pkg in packages:
                         pkg_line = "%s\tinstall\n" % pkg
                         f.write(pkg_line.encode("utf-8"))
-
-                    cmd.append("--set-selections-file")
-                    cmd.append("%s" % f.name)
                     f.flush()
-                    comnd = subprocess.Popen(' '.join(cmd), stdout=self.application.logger.log, stderr=self.application.logger.log, shell=True)
-                    returnCode = comnd.wait()
+
+                    subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
+                    try:
+                        result = subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log, check=True)
+                        returnCode = result.returncode
+                    except subprocess.CalledProcessError as e:
+                        returnCode = e.returncode
+                    subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
                     self.application.logger.write("Return code:" + str(returnCode))
                     f.close()
 
@@ -598,7 +603,7 @@ class RefreshThread(threading.Thread):
 
             try:
                 output =  subprocess.check_output(refresh_command, shell = True).decode("utf-8")
-            except Exception as refresh_exception:
+            except subprocess.CalledProcessError as refresh_exception:
                 output = refresh_exception.output.decode("utf-8")
 
             if len(output) > 0 and not "CHECK_APT_ERROR" in output:
