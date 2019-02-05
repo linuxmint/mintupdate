@@ -31,18 +31,18 @@ try:
 
         # Get changes
         for pkg in cache.packages:
-            if not depcache.marked_keep(pkg):
-                if depcache.marked_install(pkg) or depcache.marked_upgrade(pkg):
-                    if not pkg.name in selection:
-                        if not '%s:%s' % (pkg.name, pkg.architecture) in selection:
-                            if not pkg in packages_to_install:
-                                packages_to_install.append(pkg)
-            if depcache.marked_delete(pkg):
-                    if not pkg in packages_to_remove:
-                        packages_to_remove.append(pkg)
+            if (not depcache.marked_keep(pkg) and
+                (depcache.marked_install(pkg) or depcache.marked_upgrade(pkg)) and
+                not pkg.name in selection and
+                not f"{pkg.name}:{pkg.architecture}" in selection and
+                not pkg in packages_to_install
+                ):
+                packages_to_install.append(pkg)
+            if depcache.marked_delete(pkg) and not pkg in packages_to_remove:
+                packages_to_remove.append(pkg)
         installations = ' '.join(pkg.name for pkg in packages_to_install)
         removals = ' '.join(pkg.name for pkg in packages_to_remove)
-        print("%s###%s" % (installations, removals))
+        print(f"{installations}###{removals}")
 except Exception as e:
-    print (e)
+    print(e)
     print(sys.exc_info()[0])
