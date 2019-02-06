@@ -1884,7 +1884,6 @@ class MintUpdate():
         builder.get_object("checkbutton_warning_timeshift").set_active(self.settings.get_boolean("warn-about-timeshift"))
         builder.get_object("auto_upgrade_checkbox").set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
         builder.get_object("auto_autoremove_checkbox").set_active(os.path.isfile(AUTOMATIONS["autoremove"][0]))
-        builder.get_object("auto_clean_checkbox").set_active(os.path.isfile(AUTOMATIONS["clean"][0]))
 
         def set_GtkSpinButton(name, value, range_min=0, range_max=1, increment_step=1, increment_page=10):
             obj = builder.get_object(name)
