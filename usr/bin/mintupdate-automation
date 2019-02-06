@@ -24,8 +24,8 @@ def do_enable(_automation_id):
     if not os.path.isfile(filename):
         if name == "systemd":
             basename = os.path.basename(filename)
-            subprocess.call(["/bin/systemctl", "start", basename])
-            subprocess.call(["/bin/systemctl", "enable", basename])
+            subprocess.run(["/bin/systemctl", "start", basename])
+            subprocess.run(["/bin/systemctl", "enable", basename])
         else:
             default = "/usr/share/linuxmint/mintupdate/automation/%s.default" % automation_id
             os.system("cp %s %s" % (default, filename))
@@ -36,8 +36,8 @@ def do_disable(_automation_id):
     if os.path.isfile(filename):
         if name == "systemd":
             basename = os.path.basename(filename)
-            subprocess.call(["/bin/systemctl", "stop", basename])
-            subprocess.call(["/bin/systemctl", "disable", basename])
+            subprocess.run(["/bin/systemctl", "stop", basename])
+            subprocess.run(["/bin/systemctl", "disable", basename])
         else:
             os.system("rm -f %s" % filename)
             print("%s %s removed." % (name, filename))
@@ -46,5 +46,9 @@ if enable:
     do_enable(automation_id)
     if automation_id == "upgrade":
         do_enable("blacklist")
+    if automation_id == "upgrade":
+        subprocess.run(["/bin/systemctl", "enable", "mintupdate-automation-cleanup.service"])
 else:
     do_disable(automation_id)
+    if automation_id == "upgrade":
+        subprocess.run(["/bin/systemctl", "start", "mintupdate-automation-cleanup.service"])
