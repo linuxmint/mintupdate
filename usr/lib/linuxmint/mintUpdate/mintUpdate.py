@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 import os
 import sys
@@ -240,7 +241,7 @@ class ChangelogRetriever(threading.Thread):
 
     def run(self):
         Gdk.threads_enter()
-        self.application.builder.get_object("textview_changes").get_buffer().set_text(_("Downloading changelog..."))
+        self.application.textview_changes.set_text(_("Downloading changelog..."))
         Gdk.threads_leave()
 
         if self.ps == {}:
@@ -316,16 +317,12 @@ class ChangelogRetriever(threading.Thread):
                             changelog = changelog + stripped_change + "\n"
                 else:
                     changelog = source
-                changelog = changelog.split("\n")
                 break
             except:
                 pass
 
         Gdk.threads_enter()
-        self.application.builder.get_object("textview_changes").get_buffer().set_text("")
-        for change in changelog:
-            self.application.builder.get_object("textview_changes").get_buffer().insert(self.application.builder.get_object("textview_changes").get_buffer().get_end_iter(), change)
-            self.application.builder.get_object("textview_changes").get_buffer().insert(self.application.builder.get_object("textview_changes").get_buffer().get_end_iter(), "\n")
+        self.application.textview_changes.set_text(changelog)
         Gdk.threads_leave()
 
 class AutomaticRefreshThread(threading.Thread):
@@ -1177,8 +1174,10 @@ class MintUpdate():
             accel_group = Gtk.AccelGroup()
             self.window.add_accel_group(accel_group)
 
-            self.buffer = self.builder.get_object("textview_description").get_buffer()
-            self.buffer.create_tag("smaller", scale=0.9, style=Pango.Style.ITALIC)
+            self.notebook_details = self.builder.get_object("notebook_details")
+            self.textview_packages = self.builder.get_object("textview_packages").get_buffer()
+            self.textview_description = self.builder.get_object("textview_description").get_buffer()
+            self.textview_changes = self.builder.get_object("textview_changes").get_buffer()
 
             # Welcome page
             welcome_page = self.builder.get_object("welcome_page")
@@ -1766,20 +1765,22 @@ class MintUpdate():
 
     def display_selected_package(self, selection):
         try:
-            self.builder.get_object("textview_description").get_buffer().set_text("")
-            self.builder.get_object("textview_changes").get_buffer().set_text("")
+            self.textview_packages.set_text("")
+            self.textview_description.set_text("")
+            self.textview_changes.set_text("")
             (model, iter) = selection.get_selected()
             if (iter != None):
                 package_update = model.get_value(iter, UPDATE_OBJ)
+                self.display_package_list(package_update)
                 self.display_package_description(package_update)
-                if self.builder.get_object("notebook_details").get_current_page() == 0:
-                    # Description tab
-                    self.changelog_retriever_started = False
-                else:
+                if self.notebook_details.get_current_page() == 2:
                     # Changelog tab
                     retriever = ChangelogRetriever(package_update, self)
                     retriever.start()
                     self.changelog_retriever_started = True
+                else:
+                    self.changelog_retriever_started = False
+
         except Exception as e:
             print (e)
             print(sys.exc_info()[0])
@@ -1787,24 +1788,28 @@ class MintUpdate():
     def switch_page(self, notebook, page, page_num):
         selection = self.treeview.get_selection()
         (model, iter) = selection.get_selected()
-        if (iter != None):
-            if (page_num == 1 and not self.changelog_retriever_started):
-                # Changelog tab
-                package_update = model.get_value(iter, UPDATE_OBJ)
-                retriever = ChangelogRetriever(package_update, self)
-                retriever.start()
-                self.changelog_retriever_started = True
+        if iter and page_num == 2 and not self.changelog_retriever_started:
+            # Changelog tab
+            package_update = model.get_value(iter, UPDATE_OBJ)
+            retriever = ChangelogRetriever(package_update, self)
+            retriever.start()
+            self.changelog_retriever_started = True
+
+    def display_package_list(self, package_update):
+        prefix = "\n    • "
+        count = len(package_update.package_names)
+        packages = "%s%s%s\n%s %s\n\n" % \
+            (ngettext("This update affects the following package on your system:",
+                      "This update affects the following %d packages on your system:" % count,
+                      count),
+             prefix,
+             prefix.join(sorted(package_update.package_names)),
+             _("Total size:"), size_to_string(package_update.size))
+        self.textview_packages.set_text(packages)
 
     def display_package_description(self, package_update):
-        description = package_update.description
-        description = description.split("\\n")
-        for line in description:
-            self.buffer.insert(self.buffer.get_end_iter(), line)
-            self.buffer.insert(self.buffer.get_end_iter(), "\n")
-
-        if (len(package_update.package_names) > 1 or package_update.package_names[0] != package_update.display_name):
-            smaller_description = "\n%s %s" % (_("Packages included in this update:"), " ".join(sorted(package_update.package_names)))
-            self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(), smaller_description, "smaller")
+        description = package_update.description.replace("\\n", "\n")
+        self.textview_description.set_text(description)
 
     def treeview_right_clicked(self, widget, event):
         if event.button == 3:
