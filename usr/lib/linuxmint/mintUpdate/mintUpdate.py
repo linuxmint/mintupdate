@@ -28,6 +28,9 @@ from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update
 
+# import AUTOMATIONS dict
+exec(open("/usr/share/linuxmint/mintupdate/automation/index.dict", encoding="utf-8").read())
+
 try:
     os.system("killall -q mintUpdate")
 except Exception as e:
@@ -47,7 +50,6 @@ GIGABYTE = 1024 ** 3
 MEGABYTE = 1024 ** 2
 KILOBYTE = 1024
 
-CRON_JOB = "/etc/cron.daily/mintupdate"
 
 def size_to_string(size):
     if (size >= GIGABYTE):
@@ -247,49 +249,62 @@ class ChangelogRetriever(threading.Thread):
         Gdk.threads_leave()
 
 class AutomaticRefreshThread(threading.Thread):
+
     def __init__(self, application):
         threading.Thread.__init__(self)
         self.application = application
+        self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
 
     def run(self):
         # Initial refresh (with APT cache refresh)
-        try:
-            timer = (self.application.settings.get_int("refresh-minutes") * 60) + (self.application.settings.get_int("refresh-hours") * 60 * 60) + (self.application.settings.get_int("refresh-days") * 24 * 60 * 60)
-            self.application.logger.write("Initial refresh will happen in " + str(self.application.settings.get_int("refresh-minutes")) + " minutes, " + str(self.application.settings.get_int("refresh-hours")) + " hours and " + str(self.application.settings.get_int("refresh-days")) + " days")
-            timetosleep = int(timer)
-            if (timetosleep == 0):
-                time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
-            else:
-                time.sleep(timetosleep)
-                if (self.application.app_hidden == True):
-                    self.application.logger.write("MintUpdate is in tray mode, performing initial refresh")
-                    refresh = RefreshThread(self.application, root_mode=True)
-                    refresh.start()
-                else:
-                    self.application.logger.write("The mintUpdate window is open, skipping initial refresh")
-        except Exception as e:
-            print (e)
-            self.application.logger.write_error("Exception occurred during the initial refresh: " + str(sys.exc_info()[0]))
-
-        # Autorefresh (also with APT cache refresh)
-        try:
-            while(True):
-                timer = (self.application.settings.get_int("autorefresh-minutes") * 60) + (self.application.settings.get_int("autorefresh-hours") * 60 * 60) + (self.application.settings.get_int("autorefresh-days") * 24 * 60 * 60)
-                self.application.logger.write("Auto-refresh will happen in " + str(self.application.settings.get_int("autorefresh-minutes")) + " minutes, " + str(self.application.settings.get_int("autorefresh-hours")) + " hours and " + str(self.application.settings.get_int("autorefresh-days")) + " days")
+        if self.refresh_schedule_enabled:
+            try:
+                timer = (self.application.settings.get_int("refresh-minutes") * 60) + (self.application.settings.get_int("refresh-hours") * 60 * 60) + (self.application.settings.get_int("refresh-days") * 24 * 60 * 60)
                 timetosleep = int(timer)
                 if (timetosleep == 0):
                     time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
                 else:
+                    self.application.logger.write("Initial refresh will happen in " + str(self.application.settings.get_int("refresh-minutes")) + " minutes, " + str(self.application.settings.get_int("refresh-hours")) + " hours and " + str(self.application.settings.get_int("refresh-days")) + " days")
                     time.sleep(timetosleep)
+                    if not self.refresh_schedule_enabled:
+                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling initial refresh")
+                        return
                     if (self.application.app_hidden == True):
-                        self.application.logger.write("MintUpdate is in tray mode, performing auto-refresh")
+                        self.application.logger.write("MintUpdate is in tray mode, performing initial refresh")
                         refresh = RefreshThread(self.application, root_mode=True)
                         refresh.start()
                     else:
-                        self.application.logger.write("The mintUpdate window is open, skipping auto-refresh")
-        except Exception as e:
-            print (e)
-            self.application.logger.write_error("Exception occurred in the auto-refresh thread.. so it's probably dead now: " + str(sys.exc_info()[0]))
+                        self.application.logger.write("The mintUpdate window is open, skipping initial refresh")
+            except Exception as e:
+                print (e)
+                self.application.logger.write_error("Exception occurred during the initial refresh: " + str(sys.exc_info()[0]))
+
+            self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
+
+        # Autorefresh (also with APT cache refresh)
+        while(self.refresh_schedule_enabled):
+            try:
+                timer = (self.application.settings.get_int("autorefresh-minutes") * 60) + (self.application.settings.get_int("autorefresh-hours") * 60 * 60) + (self.application.settings.get_int("autorefresh-days") * 24 * 60 * 60)
+                timetosleep = int(timer)
+                if (timetosleep == 0):
+                    time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
+                else:
+                    self.application.logger.write("Recurring refresh will happen in " + str(self.application.settings.get_int("autorefresh-minutes")) + " minutes, " + str(self.application.settings.get_int("autorefresh-hours")) + " hours and " + str(self.application.settings.get_int("autorefresh-days")) + " days")
+                    time.sleep(timetosleep)
+                    if not self.refresh_schedule_enabled:
+                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling recurring refresh")
+                        return
+                    if (self.application.app_hidden == True):
+                        self.application.logger.write("MintUpdate is in tray mode, performing recurring refresh")
+                        refresh = RefreshThread(self.application, root_mode=True)
+                        refresh.start()
+                    else:
+                        self.application.logger.write("The mintUpdate window is open, skipping recurring refresh")
+            except Exception as e:
+                print (e)
+                self.application.logger.write_error("Exception occurred in the recurring refresh thread: " + str(sys.exc_info()[0]))
+
+            self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
 
 class InstallThread(threading.Thread):
 
@@ -620,8 +635,8 @@ class RefreshThread(threading.Thread):
                     self.application.stack.set_visible_child_name("status_error")
                     self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
                     self.application.builder.get_object("label_error_details").show()
-                    if (not self.application.app_hidden):
-                            self.application.window.get_window().set_cursor(None)
+                    if not self.application.app_hidden:
+                        self.application.window.get_window().set_cursor(None)
                     self.application.window.set_sensitive(True)
                     Gdk.threads_leave()
                     return False
@@ -1297,7 +1312,6 @@ class MintUpdate():
                 print (e)
                 print(sys.exc_info()[0])
             viewSubmenu.append(infoMenuItem)
-
             helpMenu = Gtk.MenuItem.new_with_mnemonic(_("_Help"))
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
@@ -1358,8 +1372,8 @@ class MintUpdate():
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
             self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
-            auto_refresh = AutomaticRefreshThread(self)
-            auto_refresh.start()
+            self.auto_refresh = AutomaticRefreshThread(self)
+            self.auto_refresh.start()
 
             Gdk.threads_enter()
             Gtk.main()
@@ -1847,10 +1861,9 @@ class MintUpdate():
         page_holder.add(stack)
 
         stack.add_titled(builder.get_object("page_options"), "page_options", _("Options"))
-        stack.add_titled(builder.get_object("page_levels"), "page_levels", _("Levels"))
-        stack.add_titled(builder.get_object("page_refresh"), "page_refresh", _("Auto-refresh"))
+        stack.add_titled(builder.get_object("page_levels"), "page_levels", _("Filters"))
         stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
-        stack.add_titled(builder.get_object("page_auto"), "page_auto", _("Auto-upgrade"))
+        stack.add_titled(builder.get_object("page_auto"), "page_auto", _("Automation"))
 
         builder.get_object("visible1").set_active(self.settings.get_boolean("level1-is-visible"))
         builder.get_object("visible2").set_active(self.settings.get_boolean("level2-is-visible"))
@@ -1869,26 +1882,25 @@ class MintUpdate():
         builder.get_object("checkbutton_hide_systray").set_active(self.settings.get_boolean("hide-systray"))
         builder.get_object("checkbutton_default_repo_is_ok").set_active(self.settings.get_boolean("default-repo-is-ok"))
         builder.get_object("checkbutton_warning_timeshift").set_active(self.settings.get_boolean("warn-about-timeshift"))
-        builder.get_object("auto_updates_checkbox").set_active(os.path.exists(CRON_JOB))
+        builder.get_object("auto_upgrade_checkbox").set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
+        builder.get_object("auto_autoremove_checkbox").set_active(os.path.isfile(AUTOMATIONS["autoremove"][0]))
 
-        builder.get_object("refresh_days").set_range(0, 365)
-        builder.get_object("refresh_days").set_increments(1, 10)
-        builder.get_object("refresh_days").set_value(self.settings.get_int("refresh-days"))
-        builder.get_object("refresh_hours").set_range(0, 59)
-        builder.get_object("refresh_hours").set_increments(1, 5)
-        builder.get_object("refresh_hours").set_value(self.settings.get_int("refresh-hours"))
-        builder.get_object("refresh_minutes").set_range(0, 59)
-        builder.get_object("refresh_minutes").set_increments(1, 5)
-        builder.get_object("refresh_minutes").set_value(self.settings.get_int("refresh-minutes"))
-        builder.get_object("autorefresh_days").set_range(0, 365)
-        builder.get_object("autorefresh_days").set_increments(1, 10)
-        builder.get_object("autorefresh_days").set_value(self.settings.get_int("autorefresh-days"))
-        builder.get_object("autorefresh_hours").set_range(0, 59)
-        builder.get_object("autorefresh_hours").set_increments(1, 5)
-        builder.get_object("autorefresh_hours").set_value(self.settings.get_int("autorefresh-hours"))
-        builder.get_object("autorefresh_minutes").set_range(0, 59)
-        builder.get_object("autorefresh_minutes").set_increments(1, 5)
-        builder.get_object("autorefresh_minutes").set_value(self.settings.get_int("autorefresh-minutes"))
+        def set_GtkSpinButton(name, value, range_min=0, range_max=1, increment_step=1, increment_page=10):
+            obj = builder.get_object(name)
+            obj.set_range(range_min, range_max)
+            obj.set_increments(increment_step, increment_page)
+            obj.set_value(value)
+
+        set_GtkSpinButton("refresh_days", self.settings.get_int("refresh-days"), range_max=99, increment_page=2)
+        set_GtkSpinButton("refresh_hours", self.settings.get_int("refresh-hours"), range_max=23, increment_page=5)
+        set_GtkSpinButton("refresh_minutes", self.settings.get_int("refresh-minutes"), range_max=59, increment_page=10)
+        set_GtkSpinButton("autorefresh_days", self.settings.get_int("autorefresh-days"), range_max=99, increment_page=2)
+        set_GtkSpinButton("autorefresh_hours", self.settings.get_int("autorefresh-hours"), range_max=23, increment_page=5)
+        set_GtkSpinButton("autorefresh_minutes", self.settings.get_int("autorefresh-minutes"), range_max=59, increment_page=10)
+
+        refresh_schedule_active = self.settings.get_boolean("refresh-schedule-enabled")
+        builder.get_object("checkbutton_refresh_schedule_enabled").set_active(refresh_schedule_active)
+        builder.get_object("checkbutton_refresh_schedule_enabled").connect("toggled", self.on_refresh_schedule_toggled, builder)
 
         treeview_blacklist = builder.get_object("treeview_blacklist")
         column = Gtk.TreeViewColumn(_("Ignored updates"), Gtk.CellRendererText(), text=0)
@@ -1914,6 +1926,22 @@ class MintUpdate():
         builder.get_object("button_remove").set_always_show_image(True)
 
         window.show_all()
+        builder.get_object("refresh_grid").set_visible(refresh_schedule_active)
+
+    def on_refresh_schedule_toggled(self, widget, builder):
+        builder.get_object("refresh_grid").set_visible(widget.get_active())
+
+    @staticmethod
+    def set_automation(automation_id, builder):
+        active = builder.get_object("auto_%s_checkbox" % automation_id).get_active()
+        exists = os.path.isfile(AUTOMATIONS[automation_id][0])
+        action = None
+        if active and not exists:
+            action = "enable"
+        elif not active and exists:
+            action = "disable"
+        if action:
+            subprocess.call(["pkexec", "/usr/bin/mintupdate-automation", automation_id, action])
 
     def save_preferences(self, widget, builder):
         self.settings.set_boolean('hide-window-after-update', builder.get_object("checkbutton_hide_window_after_update").get_active())
@@ -1949,13 +1977,15 @@ class MintUpdate():
             blacklist.append(pkg)
         self.settings.set_strv("blacklisted-packages", blacklist)
 
-        # auto updates
-        if builder.get_object("auto_updates_checkbox").get_active() and not os.path.exists(CRON_JOB):
-            # enable auto-updates
-            subprocess.call(["pkexec", "mintupdate-enable-auto-updates"])
-        elif not (builder.get_object("auto_updates_checkbox").get_active()) and os.path.exists(CRON_JOB):
-            # disable auto-updates
-            subprocess.call(["pkexec", "mintupdate-disable-auto-updates"])
+        self.set_automation("upgrade", builder)
+        self.set_automation("autoremove", builder)
+        self.set_automation("clean", builder)
+
+        refresh_schedule_enabled = builder.get_object("checkbutton_refresh_schedule_enabled").get_active()
+        self.settings.set_boolean('refresh-schedule-enabled', refresh_schedule_enabled)
+        if refresh_schedule_enabled and not self.auto_refresh.is_alive():
+            self.auto_refresh = AutomaticRefreshThread(self)
+            self.auto_refresh.start()
 
         builder.get_object("main_window").hide()
         self.refresh()

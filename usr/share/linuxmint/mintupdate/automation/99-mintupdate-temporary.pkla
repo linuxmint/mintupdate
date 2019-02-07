@@ -1,0 +1,9 @@
+# Blocks shutdown and reboot commands while mintupdate
+# automation is running. Gets removed when automation
+# finishes.
+#
+[mintupdate]
+Identity=unix-user:*
+Action=org.freedesktop.consolekit.system.stop;org.freedesktop.consolekit.system.stop-multiple-users;org.freedesktop.consolekit.system.restart;org.freedesktop.consolekit.system.restart-multiple-users;org.freedesktop.login1.halt;org.freedesktop.login1.halt-ignore-inhibit;org.freedesktop.login1.halt-multiple-sessions;org.freedesktop.login1.reboot;org.freedesktop.login1.reboot-ignore-inhibit;org.freedesktop.login1.reboot-multiple-sessions;org.freedesktop.login1.power-off;org.freedesktop.login1.power-off-ignore-inhibit;org.freedesktop.login1.power-off-multiple-sessions
+ResultInactive=no
+ResultActive=no
