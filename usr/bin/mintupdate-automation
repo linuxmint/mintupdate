@@ -17,7 +17,6 @@ if len(sys.argv) != 3 or sys.argv[1] not in ("upgrade", "autoremove") or sys.arg
 exec(open("/usr/share/linuxmint/mintupdate/automation/index.dict", encoding="utf-8").read())
 
 automation_id = sys.argv[1]
-enable = sys.argv[2] == "enable"
 
 def do_enable(_automation_id):
     (filename, name) = AUTOMATIONS[_automation_id]
@@ -42,11 +41,10 @@ def do_disable(_automation_id):
             os.system("rm -f %s" % filename)
             print("%s %s removed." % (name, filename))
 
-if enable:
+if sys.argv[2] == "enable":
     do_enable(automation_id)
     if automation_id == "upgrade":
         do_enable("blacklist")
-    if automation_id == "upgrade":
         subprocess.run(["/bin/systemctl", "enable", "mintupdate-automation-cleanup.service"])
 else:
     do_disable(automation_id)
