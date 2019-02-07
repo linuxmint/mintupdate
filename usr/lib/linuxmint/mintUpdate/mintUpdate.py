@@ -29,7 +29,8 @@ from gi.repository import AppIndicator3 as AppIndicator
 from Classes import Update
 
 # import AUTOMATIONS dict
-exec(open("/usr/share/linuxmint/mintupdate/automation/index.dict", encoding="utf-8").read())
+with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
+    AUTOMATIONS = json.load(f)
 
 try:
     os.system("killall -q mintUpdate")
@@ -1979,7 +1980,6 @@ class MintUpdate():
 
         self.set_automation("upgrade", builder)
         self.set_automation("autoremove", builder)
-        self.set_automation("clean", builder)
 
         refresh_schedule_enabled = builder.get_object("checkbutton_refresh_schedule_enabled").get_active()
         self.settings.set_boolean('refresh-schedule-enabled', refresh_schedule_enabled)
