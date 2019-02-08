@@ -2,18 +2,19 @@
 
 import gettext
 gettext.install("mintupdate", "/usr/share/locale")
-
 import html
-
 from gi.repository import Gio
 
 settings = Gio.Settings("com.linuxmint.updates")
 if settings.get_boolean("use-lowlatency-kernels"):
-    KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-lowlatency', 'linux-image-VERSION-lowlatency', 'linux-modules-VERSION-lowlatency', 'linux-modules-extra-VERSION-lowlatency']
-    KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-lowlatency') # Naming convention in 16.04, until 4.15 series
+    CONFIGURED_KERNEL_TYPE = "-lowlatency"
 else:
-    KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-generic', 'linux-image-VERSION-generic', 'linux-modules-VERSION-generic', 'linux-modules-extra-VERSION-generic']
-    KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-generic') # Naming convention in 16.04, until 4.15 series
+    CONFIGURED_KERNEL_TYPE = "-generic"
+
+SUPPORTED_KERNEL_TYPES = ["-generic", "-lowlatency", "-aws", "-azure", "-gcp", "-kvm", "-oem", "-oracle"]
+KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-KERNELTYPE', 'linux-image-VERSION-KERNELTYPE', \
+    'linux-modules-VERSION-KERNELTYPE', 'linux-modules-extra-VERSION-KERNELTYPE']
+KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-KERNELTYPE') # Naming convention in 16.04, until 4.15 series
 
 class Rule():
 

@@ -13,7 +13,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES
+from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, CONFIGURED_KERNEL_TYPE
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -104,13 +104,8 @@ class APTCheck():
                 self.add_update(pkg)
 
         # Kernel updates
-        if self.settings.get_boolean("use-lowlatency-kernels"):
-            kernel_type = "-lowlatency"
-        else:
-            kernel_type = "-generic"
-
         meta_names = []
-        _metas = [s for s in self.cache.keys() if s.startswith("linux" + kernel_type)]
+        _metas = [s for s in self.cache.keys() if s.startswith("linux" + CONFIGURED_KERNEL_TYPE)]
         for meta in _metas:
             shortname = meta.split(":")[0]
             if shortname not in meta_names:
@@ -143,18 +138,15 @@ class APTCheck():
 
             # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
             max_kernel = uname_kernel
-            kernel_type = "-generic"
-            if self.settings.get_boolean("use-lowlatency-kernels"):
-                kernel_type = "-lowlatency"
             for pkgname in self.cache.keys():
-                match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)' + kernel_type + '$', pkgname)
+                match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)%s$' % CONFIGURED_KERNEL_TYPE, pkgname)
                 if match:
                     kernel = KernelVersion(match.group(1))
                     if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
                         max_kernel = kernel
             if max_kernel.numeric_representation != uname_kernel.numeric_representation:
                 for pkgname in KERNEL_PKG_NAMES:
-                    pkgname = pkgname.replace('VERSION', max_kernel.std_version)
+                    pkgname = pkgname.replace('VERSION', max_kernel.std_version).replace("-KERNELTYPE", CONFIGURED_KERNEL_TYPE)
                     if pkgname in self.cache:
                         pkg = self.cache[pkgname]
                         if not pkg.is_installed:
