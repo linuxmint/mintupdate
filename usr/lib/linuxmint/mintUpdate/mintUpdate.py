@@ -1,32 +1,32 @@
 #!/usr/bin/python3
 
-import os
-import sys
-import gi
-import tempfile
-import threading
-import time
+import configparser
+import datetime
 import gettext
 import io
 import json
-import tarfile
-import urllib.request
-import proxygsettings
+import os
 import subprocess
-import pycurl
-import datetime
-import configparser
+import sys
+import tarfile
+import tempfile
+import threading
+import time
 import traceback
-import setproctitle
+import urllib.request
 
-from kernelwindow import KernelWindow
+import gi
 gi.require_version('Gtk', '3.0')
-gi.require_version('GdkX11', '3.0') # Needed to get xid
 gi.require_version('AppIndicator3', '0.1')
-from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
+from gi.repository import Gtk, Gdk, GdkPixbuf, Gio, Pango, GLib
 from gi.repository import AppIndicator3 as AppIndicator
 
+import proxygsettings
+import pycurl
+import setproctitle
 from Classes import Update
+from kernelwindow import KernelWindow
+
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -717,10 +717,9 @@ class RefreshThread(threading.Thread):
 
                             if (self.application.settings.get_boolean("show-descriptions")):
                                 # Pango doesn't like & signs, we need to escape them before using the content as markup
-                                shortdesc = shortdesc.replace("& ", "&amp; ")
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name) + "\n%s" % (shortdesc))
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(shortdesc)}</b>\n{GLib.markup_escape_text(update.display_name)}")
                             else:
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name))
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>")
 
                             theme = Gtk.IconTheme.get_default()
                             pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
