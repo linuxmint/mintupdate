@@ -1,6 +1,7 @@
 # Allow any user to check for new system updates without
 # requiring user authentication.
 
+Defaults!/usr/lib/linuxmint/mintUpdate/checkAPT.py shell_noargs, !env_reset
 ALL ALL = NOPASSWD:/usr/lib/linuxmint/mintUpdate/checkAPT.py
 ALL ALL = NOPASSWD:/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py
 ALL ALL = NOPASSWD:/usr/lib/linuxmint/mintUpdate/dpkg_lock_check.sh
