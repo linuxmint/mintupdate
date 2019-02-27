@@ -31,7 +31,7 @@
 
     <p>Mi ara tesbeddeḍ lqem, ad tsemselsiḍ lqem aqbur n useɣẓan s lqem amaynut.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Timsal mgaradent ticki d ayen yeɛnan aɣsawen.  Deg lawan n usnes "alleqem n uɣesaw", di tidet mači d aɣsaw-agi id-tleqmeḍ maca d asebded i tesbeddeḍ aɣsaw amaynut rrif n win yellan yakan.</p>
 
     <p>Di yal tikkelt ara tesbeddeḍ lqem n yiɣes, ad tesbeddeḍ iɣes amaynut ɣef unagraw, war ma tekkseḍ iqburen.</p>
 
@@ -64,18 +64,18 @@
 
     <p>Tzemreḍ ad tesɛuḍ aṭas n iɣsan yettusbedden, maca yiwen kan i tzemreḍ ad tsekkreḍ ɣef tikkelt.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Ticki tesnekreḍ aselkim, agdil amenzu maḍi isem-is umuɣ Grub. Umuɣ-agi d win ad k-yeǧǧen ad tferneḍ inagrawen n wamud maca tzemreḍ daɣen ad tesqedceḍ-t i ufran n yiɣes.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>I ufran n kernel, fren "Iɣewwaṛen ileqqayen" deg umuɣ n Grub. Isefk ad twaliḍ akk ikernelen ittwasbedden. Fren yiwen i tebɣiḍ ad tesqedceḍ sakin aselmik-inek ad yales tanekra s ukernel-nni.</p>
 
   </section>
 
   <section id="kernel5">
     <title>Selken addad n DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Iɣes yesɛa akk inuḍaf open source yertna di tegti wigad-agi tteddun akken iwata. Inuḍaf imlan (NVIDIA, AMD, Broadcom...) ur ddan ara yerna sran ad sefsun iman-nnsen ɣer yal iɣes ara tesbeddeḍ. Ayagi yettili-d s yiwen n ttawil umi qqaren DKMS.</p>
 
     <p>Ma yella anuḍaf n umli ur yettwasefsu ara akken iwata s DKMS i yiwen gar iɣsan-inek, ur itteddu ara akken iwata akked yiɣes-agi.</p>
 
@@ -83,14 +83,14 @@
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Imazraren imaynuten n yiɣs di tegti ttawjaden send ad izmiren ad ddun degsen inuḍafen imlan s ttawil n DKMS. Ma tseqdaceḍ inuḍaf imlan ad k-nsemter aṭas iwakken ad tḍefreḍ ileqman n yiɣes yerna ur tesbeddayeḍ ara iɣsan n imazraren imaynuten ɣef imazraren n yiɣsan ittusmetren.</p></note>
 
   </section>
 
   <section id="kernel6">
     <title>Tti aleqqem n yiɣes</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Ma yella wacu ur ntteddu ara akked yiɣes aneggaru i tesbeddeḍ (neɣ lqem aneggaru n yiɣes), ales asekker, fren iɣes i tesqedceḍ tikkelt taneggarut, kkes iɣes amaynut sakin sekker aselkim tikkelt-nniḍen.</p>
 
   </section>
 
