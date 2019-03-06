@@ -943,37 +943,57 @@ class RefreshThread(threading.Thread):
 class Logger():
 
     def __init__(self):
-        logdir = "/tmp/mintUpdate/"
-        if not os.path.exists(logdir):
-            os.system("mkdir -p " + logdir)
-            os.system("chmod a+rwx " + logdir)
-        self.log = tempfile.NamedTemporaryFile(mode = 'w', prefix = logdir, delete=False)
+        self.logdir = os.path.join(tempfile.gettempdir(), "mintUpdate/")
+        self._create_log()
+        self.hook = None
+
+    def _create_log(self):
+        if not os.path.exists(self.logdir):
+            os.umask(0)
+            os.makedirs(self.logdir)
+        self.log = tempfile.NamedTemporaryFile(mode="w", prefix=self.logdir, delete=False)
         try:
-            os.system("chmod a+rw %s" % self.log.name)
-        except Exception as e:
-            print (e)
-            print(sys.exc_info()[0])
+            os.chmod(self.log.name, 0o666)
+        except:
+            traceback.print_exc()
+
+    def _log_ready(self):
+        if self.log.closed:
+            return False
+        if not os.path.exists(self.log.name):
+            self.log.close()
+            self._create_log()
+        return True
+
+    def _write(self, line):
+        if self._log_ready():
+            self.log.write(line)
+            self.log.flush()
+        if self.hook:
+            self.hook(line)
 
     def write(self, line):
-        try:
-            self.log.writelines("%s ++ %s \n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
-            self.log.flush()
-        except:
-            pass # cause it might be closed already
+        self._write(f"{datetime.now().strftime('%m.%d@%H:%M')} ++ {line}\n")
 
     def write_error(self, line):
-        try:
-            self.log.writelines("%s -- %s \n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
-            self.log.flush()
-        except:
-            pass # cause it might be closed already
+        self._write(f"{datetime.now().strftime('%m.%d@%H:%M')} -- {line}\n")
+
+    def read(self):
+        if not os.path.exists(self.log.name):
+            self._create_log()
+            return ""
+        else:
+            with open(self.log.name) as f:
+                return f.read()
 
     def close(self):
-        try:
-            self.log.close()
-        except:
-            pass # cause it might be closed already
+        self.log.close()
 
+    def set_hook(self, callback):
+        self.hook = callback
+
+    def remove_hook(self):
+        self.hook = None
 
 class StatusIcon():
     def __init__(self, app):
