@@ -314,6 +314,7 @@ class InstallThread(threading.Thread):
         self.application = application
         self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
         self.application.window.set_sensitive(False)
+        self.reboot_required = self.application.reboot_required
 
     def run(self):
         try:
@@ -330,6 +331,9 @@ class InstallThread(threading.Thread):
                 if (checked == "true"):
                     installNeeded = True
                     package_update = model.get_value(iter, UPDATE_OBJ)
+                    if package_update.type == "kernel" and \
+                       [True for pkg in package_update.package_names if "-image-" in pkg]:
+                        self.reboot_required = True
                     for package in package_update.package_names:
                         packages.append(package)
                         self.application.logger.write("Will install " + str(package))
@@ -469,9 +473,12 @@ class InstallThread(threading.Thread):
                             self.application.logger.write("Install finished")
                         else:
                             self.application.logger.write("Install failed")
+                            update_successful = True
 
                     if update_successful:
-                        if self.application.settings.get_boolean("hide-window-after-update"):
+                        if self.reboot_required:
+                            self.application.reboot_required = True
+                        elif self.application.settings.get_boolean("hide-window-after-update"):
                             Gdk.threads_enter()
                             self.application.app_hidden = True
                             self.application.window.hide()
@@ -564,10 +571,13 @@ class RefreshThread(threading.Thread):
 
         Gdk.threads_enter()
         vpaned_position = self.application.builder.get_object("paned1").get_position()
-        for child in self.application.builder.get_object("hbox_infobar").get_children():
+        for child in self.application.infobar.get_children():
             child.destroy()
-
+        if self.application.reboot_required:
+            self.application.show_infobar(_("Reboot required"),
+                _("You have installed updates that require a reboot to take effect, please reboot your system as soon as possible."))
         Gdk.threads_leave()
+
         try:
             if (self.root_mode):
                 self.application.logger.write("Starting refresh (including refreshing the APT cache)")
@@ -1017,6 +1027,7 @@ class MintUpdate():
         Gdk.threads_init()
         self.app_hidden = True
         self.updates_inhibited = False
+        self.reboot_required = False
         self.logger = Logger()
         self.logger.write("Launching mintUpdate")
         self.settings = Gio.Settings("com.linuxmint.updates")
@@ -1065,6 +1076,9 @@ class MintUpdate():
             updates_page = self.builder.get_object("updates_page")
             self.stack.add_named(updates_page, "updates_available")
             self.stack.set_visible_child_name("updates_available")
+
+            # the infobar container
+            self.infobar = self.builder.get_object("hbox_infobar")
 
             # the treeview
             cr = Gtk.CellRendererToggle()
@@ -1439,6 +1453,29 @@ class MintUpdate():
         dialog.set_title(_("Update Manager"))
         dialog.run()
         dialog.destroy()
+
+    def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon="dialog-warning-symbolic", callback=None):
+        infobar = Gtk.InfoBar()
+        infobar.set_message_type(msg_type)
+        if not icon:
+            if msg_type == Gtk.MessageType.WARNING:
+                icon = "dialog-warning-symbolic"
+            elif msg_type == Gtk.MessageType.ERROR:
+                icon = "dialog-error-symbolic"
+            elif msg_type == Gtk.MessageType.QUESTION:
+                icon = "dialog-information-symbolic"
+        if icon:
+            img = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.LARGE_TOOLBAR)
+            infobar.get_content_area().pack_start(img, False, False, 0)
+        info_label = Gtk.Label()
+        info_label.set_line_wrap(True)
+        info_label.set_markup(f"<b>{title}</b>\n{msg}")
+        infobar.get_content_area().pack_start(info_label, False, False, 0)
+        if callback:
+            infobar.add_button(_("OK"), Gtk.ResponseType.OK)
+            infobar.connect("response", callback)
+        infobar.show_all()
+        self.infobar.pack_start(infobar, True, True, 2)
 
 ######### WINDOW/STATUSICON ##########
 
