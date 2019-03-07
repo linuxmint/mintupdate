@@ -26,7 +26,7 @@ gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
 from gi.repository import AppIndicator3 as AppIndicator
 
-from Classes import Update, PRIORITY_UPDATES
+from Classes import Update, PRIORITY_UPDATES, get_release_dates
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -651,6 +651,33 @@ class RefreshThread(threading.Thread):
                 break
         return (mint_layer_found, error_msg)
 
+    @staticmethod
+    def get_eol_status(early_warning_days=90):
+        """ Checks if distribution has reached end of life (EOL)
+
+        Returns:
+        * is_eol: True if EOL
+        * show_eol_warning: True if early_warning_days > EOL - now
+        * eol_date: datetime object of EOL date
+        """
+        is_eol = False
+        eol_date = None
+        show_eol_warning = False
+        try:
+            release_dates = get_release_dates()
+            if release_dates and os.path.isfile("/etc/os-release"):
+                with open("/etc/os-release", encoding="utf-8") as f:
+                    release_data = f.readlines()
+                base_release = next((x.split("=",1)[1].strip() for x in release_data if (x.startswith("UBUNTU_CODENAME=")) or x.startswith("DEBIAN_CODENAME=")), None)
+                if base_release in release_dates.keys():
+                    now = datetime.now()
+                    eol_date = release_dates[base_release][1]
+                    is_eol =  now > eol_date
+                    show_eol_warning =  (eol_date - now).days <= early_warning_days
+        except:
+            pass
+        return (is_eol, show_eol_warning, eol_date)
+
     def run(self):
 
         if self.application.updates_inhibited:
@@ -754,13 +781,7 @@ class RefreshThread(threading.Thread):
             num_checked = 0
             download_size = 0
 
-            if (len(lines) == None):
-                Gdk.threads_enter()
-                self.application.stack.set_visible_child_name("status_updated")
-                self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
-                self.application.logger.write("System is up to date")
-                Gdk.threads_leave()
-            elif ("CHECK_APT_ERROR" in output):
+            if "CHECK_APT_ERROR" in output:
                 try:
                     error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
                     if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
@@ -780,7 +801,7 @@ class RefreshThread(threading.Thread):
                 self.application.window.set_sensitive(True)
                 Gdk.threads_leave()
                 return False
-            else:
+            elif len(lines):
                 for line in lines:
                     if "###" in line:
                         update = Update(package=None, input_string=line, source_name=None)
@@ -870,11 +891,7 @@ class RefreshThread(threading.Thread):
                             num_visible = num_visible + 1
 
                 Gdk.threads_enter()
-                if (num_visible == 0):
-                    self.application.stack.set_visible_child_name("status_updated")
-                    self.application.set_status(_("Your system is up to date"), _("Your system is up to date"), "mintupdate-up-to-date", not self.application.settings.get_boolean("hide-systray"))
-                    self.application.logger.write("System is up to date")
-                else:
+                if num_visible:
                     if (num_checked == 0):
                         self.statusString = _("No updates selected")
                     elif (num_checked >= 1):
@@ -889,6 +906,25 @@ class RefreshThread(threading.Thread):
 
                 Gdk.threads_leave()
 
+            is_end_of_life, show_eol_warning, eol_date = self.get_eol_status()
+
+            if not len(lines) or not num_visible:
+                if is_end_of_life:
+                    NO_UPDATES_MSG = _("Your distribution has reached end of life and is no longer supported")
+                    tray_icon = "mintupdate-error"
+                    status_icon = "emblem-important-symbolic"
+                else:
+                    NO_UPDATES_MSG = _("Your system is up to date")
+                    tray_icon = "mintupdate-up-to-date"
+                    status_icon = "object-select-symbolic"
+                Gdk.threads_enter()
+                self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
+                self.application.builder.get_object("image_success_status").set_from_icon_name(status_icon, 96)
+                self.application.stack.set_visible_child_name("status_updated")
+                self.application.set_status(NO_UPDATES_MSG, NO_UPDATES_MSG, tray_icon, not self.application.settings.get_boolean("hide-systray"))
+                self.application.logger.write("System is end of life, no updates available")
+                Gdk.threads_leave()
+
             Gdk.threads_enter()
             self.application.logger.write("Refresh finished")
 
@@ -900,6 +936,23 @@ class RefreshThread(threading.Thread):
             del model
             self.application.window.set_sensitive(True)
             self.application.builder.get_object("paned1").set_position(vpaned_position)
+
+            if show_eol_warning and self.application.settings.get_boolean("warn-about-distribution-eol"):
+                try:
+                    release_name = subprocess.run(["lsb_release", "-d"], stdout=subprocess.PIPE).stdout.decode().split(":", 1)[1].strip()
+                except:
+                    release_name = _("distribution")
+
+                infobar_title = _("DISTRIBUTION END OF LIFE WARNING")
+                infobar_message = "%s\n\n%s %s\n\n%s" % (
+                    _(f"Your {release_name} is only supported until {eol_date.strftime('%x')}."),
+                    _("Your system will remain functional after that date, but the official software repositories will become unavailable along with any updates including security updates."),
+                    _("You should perform an upgrade to or a clean install of a newer version of your distribution before that happens."),
+                    _("For more information visit <a href='https://linuxmint.com'>linuxmint.com</a>."))
+                self.application.show_infobar(infobar_title,
+                                              infobar_message,
+                                              Gtk.MessageType.WARNING,
+                                              callback=self._on_infobar_eol_response)
 
             if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
                 self.application.show_infobar(_("Please set up System Snapshots"),
@@ -988,6 +1041,10 @@ class RefreshThread(threading.Thread):
     def _on_infobar_timeshift_response(self, infobar, response_id):
         infobar.destroy()
         subprocess.Popen(["pkexec", "timeshift-gtk"])
+
+    def _on_infobar_eol_response(self, infobar, response_id):
+        infobar.destroy()
+        self.application.settings.set_boolean("warn-about-distribution-eol", 0)
 
     def get_url_last_modified(self, url):
         try:
