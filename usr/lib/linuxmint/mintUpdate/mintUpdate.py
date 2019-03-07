@@ -535,16 +535,20 @@ class RefreshThread(threading.Thread):
 
     def check_policy(self):
         # Check the presence of the Mint layer
-        p1 = subprocess.Popen(['apt-cache', 'policy'], stdout=subprocess.PIPE)
-        p = p1.communicate()[0]
+        p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output = p.stdout.decode()
+        if p.stderr:
+            error_msg = p.stderr.decode().strip()
+            self.application.logger.write_error(f"APT policy error:\n{error_msg}")
+        else:
+            error_msg = ""
         mint_layer_found = False
-        output = p.decode("utf-8").split('\n')
-        for line in output:
+        for line in output.split("\n"):
             line = line.strip()
             if line.startswith("700") and line.endswith("Packages") and "/upstream" in line:
                 mint_layer_found = True
                 break
-        return mint_layer_found
+        return (mint_layer_found, error_msg)
 
     def run(self):
 
@@ -613,28 +617,25 @@ class RefreshThread(threading.Thread):
                 output = refresh_exception.output.decode("utf-8")
 
             if len(output) > 0 and not "CHECK_APT_ERROR" in output:
-                if not self.check_policy():
+                (mint_layer_found, error_msg) = self.check_policy()
+                if not mint_layer_found:
                     Gdk.threads_enter()
-                    label1 = _("Your APT cache is corrupted.")
+                    label1 = _("Your APT configuration is corrupt.")
                     label2 = _("Do not install or update anything, it could break your operating system!")
                     label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
-                    infobar = Gtk.InfoBar()
-                    infobar.set_message_type(Gtk.MessageType.ERROR)
-                    img = Gtk.Image.new_from_icon_name("dialog-error-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
-                    infobar.get_content_area().pack_start(img,False, False,0)
-                    img.show()
-                    info_label = Gtk.Label()
-                    infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
-                    info_label.set_markup(infobar_message)
-                    infobar.get_content_area().pack_start(info_label,False, False,0)
-                    infobar.add_button(_("OK"), Gtk.ResponseType.OK)
-                    infobar.connect("response", self._on_infobar_mintsources_response)
-                    self.application.builder.get_object("hbox_infobar").pack_start(infobar, True, True,0)
-                    infobar.show_all()
-                    self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s\n%s" % (label1, label2, label3), "mintupdate-error", True)
-                    self.application.logger.write("Error: The APT policy is incorrect!")
+                    msg = _("Your APT configuration is corrupt.")
+                    error_label = _("APT error:")
+                    if error_msg:
+                        error_msg = f"\n\n{error_label}\n{error_msg}"
+                    else:
+                        error_label = ""
+                    self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
+                        msg, Gtk.MessageType.ERROR,
+                        callback=self._on_infobar_mintsources_response)
+                    self.application.set_status(_("Could not refresh the list of updates"), f"{label1}\n{label2}", "mintupdate-error", True)
+                    self.application.logger.write_error("Error: The APT policy is incorrect!")
                     self.application.stack.set_visible_child_name("status_error")
-                    self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s</b>" % (label1, label2, label3))
+                    self.application.builder.get_object("label_error_details").set_markup(f"<b>{label1}\n{label2}\n{label3}{error_msg}</b>")
                     self.application.builder.get_object("label_error_details").show()
                     if not self.application.app_hidden:
                         self.application.window.get_window().set_cursor(None)
