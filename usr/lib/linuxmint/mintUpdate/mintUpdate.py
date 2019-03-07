@@ -784,65 +784,66 @@ class RefreshThread(threading.Thread):
             self.application.window.set_sensitive(True)
             self.application.builder.get_object("paned1").set_position(vpaned_position)
 
-            infobar_title = None
+
+            if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
+                self.application.show_infobar(_("Please set up System Snapshots"),
+                    _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
+                                              Gtk.MessageType.WARNING,
+                                              callback=self._on_infobar_timeshift_response)
+
+
             infobar_message = None
             infobar_message_type = Gtk.MessageType.WARNING
             infobar_callback = self._on_infobar_mintsources_response
+            try:
+                if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
+                    mirror_url = None
 
-            if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
-                infobar_title = _("Please set up System Snapshots")
-                infobar_message = _("If something breaks, snapshots will allow you to restore your system to the previous working condition.")
-                infobar_callback = self._on_infobar_timeshift_response
-            else:
-                try:
-                    if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
-                        mirror_url = None
-
-                        codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
-                        with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
-                            for line in sources_file:
-                                line = line.strip()
-                                if line.startswith("deb ") and "%s main upstream import" % codename in line:
-                                    mirror_url = line.split()[1]
-                                    if mirror_url.endswith("/"):
-                                        mirror_url = mirror_url[:-1]
-                                    break
-                        if mirror_url is None:
-                            # Unable to find the Mint mirror being used..
-                            pass
-                        elif mirror_url == "http://packages.linuxmint.com":
-                            if not self.application.settings.get_boolean("default-repo-is-ok"):
-                                infobar_title = _("Do you want to switch to a local mirror?")
-                                infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
-                                infobar_message_type = Gtk.MessageType.QUESTION
-                        elif not self.application.app_hidden:
-                            # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
-                            mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                            mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
-                            if mirror_timestamp is None:
-                                if mint_timestamp is None:
-                                    # Both default repo and mirror are unreachable, assume there's no Internet connection
-                                    pass
-                                else:
+                    codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
+                    with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
+                        for line in sources_file:
+                            line = line.strip()
+                            if line.startswith("deb ") and "%s main upstream import" % codename in line:
+                                mirror_url = line.split()[1]
+                                if mirror_url.endswith("/"):
+                                    mirror_url = mirror_url[:-1]
+                                break
+                    if mirror_url is None:
+                        # Unable to find the Mint mirror being used..
+                        pass
+                    elif mirror_url == "http://packages.linuxmint.com":
+                        if not self.application.settings.get_boolean("default-repo-is-ok"):
+                            infobar_title = _("Do you want to switch to a local mirror?")
+                            infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
+                            infobar_message_type = Gtk.MessageType.QUESTION
+                    elif not self.application.app_hidden:
+                        # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
+                        mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
+                        mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
+                        if mirror_timestamp is None:
+                            if mint_timestamp is None:
+                                # Both default repo and mirror are unreachable, assume there's no Internet connection
+                                pass
+                            else:
+                                infobar_title = _("Please switch to another mirror")
+                                infobar_message = _("%s is unreachable.") % mirror_url
+                        elif mint_timestamp is not None:
+                            mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
+                            now = datetime.datetime.now()
+                            mint_age = (now - mint_date).days
+                            if (mint_age > 2):
+                                mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
+                                mirror_age = (mint_date - mirror_date).days
+                                if (mirror_age > 2):
                                     infobar_title = _("Please switch to another mirror")
-                                    infobar_message = _("%s is unreachable.") % mirror_url
-                            elif mint_timestamp is not None:
-                                mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
-                                now = datetime.datetime.now()
-                                mint_age = (now - mint_date).days
-                                if (mint_age > 2):
-                                    mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
-                                    mirror_age = (mint_date - mirror_date).days
-                                    if (mirror_age > 2):
-                                        infobar_title = _("Please switch to another mirror")
-                                        infobar_message = ngettext("The last update on %(mirror)s was %(days)d day ago.",
-                                                                   "The last update on %(mirror)s was %(days)d days ago.",
-                                                                   (now - mirror_date).days) % \
-                                                                   {'mirror': mirror_url, 'days': (now - mirror_date).days}
-                except Exception as e:
-                    print(sys.exc_info()[0])
-                    # best effort, just print out the error
-                    print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
+                                    infobar_message = ngettext("The last update on %(mirror)s was %(days)d day ago.",
+                                                                "The last update on %(mirror)s was %(days)d days ago.",
+                                                                (now - mirror_date).days) % \
+                                                                {'mirror': mirror_url, 'days': (now - mirror_date).days}
+            except Exception as e:
+                print(sys.exc_info()[0])
+                # best effort, just print out the error
+                print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
 
             if infobar_message is not None:
                 self.application.show_infobar(infobar_title,
