@@ -620,7 +620,7 @@ class RefreshThread(threading.Thread):
                     label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
                     self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                         _("Your APT cache is corrupted."), Gtk.MessageType.ERROR,
-                        callback=_on_infobar_mintsources_response)
+                        callback=self._on_infobar_mintsources_response)
                     self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s\n%s" % (label1, label2, label3), "mintupdate-error", True)
                     self.application.logger.write("Error: The APT policy is incorrect!")
                     self.application.stack.set_visible_child_name("status_error")
