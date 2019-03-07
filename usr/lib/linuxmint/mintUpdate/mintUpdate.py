@@ -809,8 +809,8 @@ class RefreshThread(threading.Thread):
                     if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
                         mirror_url = None
 
-                        codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
-                        with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
+                        codename = subprocess.run(["lsb_release", "-cs"], stdout=subprocess.PIPE).stdout.decode().strip()
+                        with open("/etc/apt/sources.list.d/official-package-repositories.list", encoding="utf-8") as sources_file:
                             for line in sources_file:
                                 line = line.strip()
                                 if line.startswith("deb ") and "%s main upstream import" % codename in line:
@@ -1307,7 +1307,8 @@ class MintUpdate():
 
             try:
                 # Only support kernel selection in Linux Mint (not LMDE)
-                if (subprocess.check_output("lsb_release -is", shell = True).strip() == b"LinuxMint" and float(subprocess.check_output("lsb_release -rs", shell = True).strip()) >= 13):
+                release_info = subprocess.run(["lsb_release", "-irs"], stdout=subprocess.PIPE).stdout.decode().split("\n")
+                if release_info[0] == "LinuxMint" and float(release_info[1]) >= 13:
                     viewSubmenu.append(kernelMenuItem)
             except Exception as e:
                 print (e)
