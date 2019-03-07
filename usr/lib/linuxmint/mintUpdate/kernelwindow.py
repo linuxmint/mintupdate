@@ -208,7 +208,7 @@ class KernelRow(Gtk.ListBoxRow):
             if self.application.dpkg_locked():
                 self.application.show_dpkg_lock_msg(window)
             else:
-                thread = InstallKernelThread([[version, installed]], self.application)
+                thread = InstallKernelThread([[version, kernel_type, origin, installed]], self.application)
                 thread.start()
                 window.hide()
 
