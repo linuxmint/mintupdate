@@ -618,19 +618,9 @@ class RefreshThread(threading.Thread):
                     label1 = _("Your APT cache is corrupted.")
                     label2 = _("Do not install or update anything, it could break your operating system!")
                     label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
-                    infobar = Gtk.InfoBar()
-                    infobar.set_message_type(Gtk.MessageType.ERROR)
-                    img = Gtk.Image.new_from_icon_name("dialog-error-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
-                    infobar.get_content_area().pack_start(img,False, False,0)
-                    img.show()
-                    info_label = Gtk.Label()
-                    infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another Linux Mint mirror"), _("Your APT cache is corrupted."))
-                    info_label.set_markup(infobar_message)
-                    infobar.get_content_area().pack_start(info_label,False, False,0)
-                    infobar.add_button(_("OK"), Gtk.ResponseType.OK)
-                    infobar.connect("response", self._on_infobar_mintsources_response)
-                    self.application.builder.get_object("hbox_infobar").pack_start(infobar, True, True,0)
-                    infobar.show_all()
+                    self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
+                        _("Your APT cache is corrupted."), Gtk.MessageType.ERROR,
+                        callback=_on_infobar_mintsources_response)
                     self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s\n%s" % (label1, label2, label3), "mintupdate-error", True)
                     self.application.logger.write("Error: The APT policy is incorrect!")
                     self.application.stack.set_visible_child_name("status_error")
@@ -794,15 +784,14 @@ class RefreshThread(threading.Thread):
             self.application.window.set_sensitive(True)
             self.application.builder.get_object("paned1").set_position(vpaned_position)
 
+            infobar_title = None
             infobar_message = None
-            infobar_message_type = Gtk.MessageType.QUESTION
-            infobar_icon_type = "dialog-information-symbolic"
+            infobar_message_type = Gtk.MessageType.WARNING
             infobar_callback = self._on_infobar_mintsources_response
 
             if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
-                infobar_message = "<b>%s</b>\n%s" % (_("Please set up System Snapshots"), _("If something breaks, snapshots will allow you to restore your system to the previous working condition."))
-                infobar_message_type = Gtk.MessageType.WARNING
-                infobar_icon_type = "dialog-warning-symbolic"
+                infobar_title = _("Please set up System Snapshots")
+                infobar_message = _("If something breaks, snapshots will allow you to restore your system to the previous working condition.")
                 infobar_callback = self._on_infobar_timeshift_response
             else:
                 try:
@@ -823,7 +812,9 @@ class RefreshThread(threading.Thread):
                             pass
                         elif mirror_url == "http://packages.linuxmint.com":
                             if not self.application.settings.get_boolean("default-repo-is-ok"):
-                                infobar_message = "<b>%s</b>\n%s" % (_("Do you want to switch to a local mirror?"), _("Local mirrors are usually faster than packages.linuxmint.com."))
+                                infobar_title = _("Do you want to switch to a local mirror?")
+                                infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
+                                infobar_message_type = Gtk.MessageType.QUESTION
                         elif not self.application.app_hidden:
                             # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
                             mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
@@ -833,9 +824,8 @@ class RefreshThread(threading.Thread):
                                     # Both default repo and mirror are unreachable, assume there's no Internet connection
                                     pass
                                 else:
-                                    infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another mirror"), _("%s is unreachable.") % mirror_url)
-                                    infobar_message_type = Gtk.MessageType.WARNING
-                                    infobar_icon_type = "dialog-warning-symbolic"
+                                    infobar_title = _("Please switch to another mirror")
+                                    infobar_message = _("%s is unreachable.") % mirror_url
                             elif mint_timestamp is not None:
                                 mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
                                 now = datetime.datetime.now()
@@ -844,28 +834,21 @@ class RefreshThread(threading.Thread):
                                     mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
                                     mirror_age = (mint_date - mirror_date).days
                                     if (mirror_age > 2):
-                                        infobar_message = "<b>%s</b>\n%s" % (_("Please switch to another mirror"), ngettext("The last update on %(mirror)s was %(days)d day ago.", "The last update on %(mirror)s was %(days)d days ago.", (now - mirror_date).days) % {'mirror': mirror_url, 'days':(now - mirror_date).days})
-                                        infobar_message_type = Gtk.MessageType.WARNING
-                                        infobar_icon_type = "dialog-warning-symbolic"
+                                        infobar_title = _("Please switch to another mirror")
+                                        infobar_message = ngettext("The last update on %(mirror)s was %(days)d day ago.",
+                                                                   "The last update on %(mirror)s was %(days)d days ago.",
+                                                                   (now - mirror_date).days) % \
+                                                                   {'mirror': mirror_url, 'days': (now - mirror_date).days}
                 except Exception as e:
                     print(sys.exc_info()[0])
                     # best effort, just print out the error
                     print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
 
             if infobar_message is not None:
-                infobar = Gtk.InfoBar()
-                infobar.set_message_type(infobar_message_type)
-                img = Gtk.Image.new_from_icon_name(infobar_icon_type, Gtk.IconSize.LARGE_TOOLBAR)
-                infobar.get_content_area().pack_start(img,False, False,0)
-                img.show()
-                info_label = Gtk.Label()
-                info_label.set_markup(infobar_message)
-                info_label.set_line_wrap(True)
-                infobar.get_content_area().pack_start(info_label,False, False,0)
-                infobar.add_button(_("OK"), Gtk.ResponseType.OK)
-                infobar.connect("response", infobar_callback)
-                self.application.builder.get_object("hbox_infobar").pack_start(infobar, True, True,0)
-                infobar.show_all()
+                self.application.show_infobar(infobar_title,
+                                              infobar_message,
+                                              infobar_message_type,
+                                              callback=infobar_callback)
 
             Gdk.threads_leave()
 
