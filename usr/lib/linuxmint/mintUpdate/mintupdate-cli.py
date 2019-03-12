@@ -30,7 +30,7 @@ if __name__ == "__main__":
     parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions and always install new configuration files (unless you also use \"--keep-configuration\" option)")
     parser.add_argument("--install-recommends", action="store_true", help="install recommended packages (use with caution)")
     parser.add_argument("--keep-configuration", action="store_true", default=False, help="always keep local changes in configuration files (use with caution)")
-    parser.add_argument("-v", "--version", action="version", version=subprocess.getoutput("/usr/lib/linuxmint/common/version.py mintupdate"), help="Display the current version")
+    parser.add_argument("-v", "--version", action="version", version="__DEB_VERSION__", help="Display the current version")
 
     args = parser.parse_args()
     try:
