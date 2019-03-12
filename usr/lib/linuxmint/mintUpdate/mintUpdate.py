@@ -26,7 +26,7 @@ gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
 from gi.repository import AppIndicator3 as AppIndicator
 
-from Classes import Update
+from Classes import Update, PRIORITY_UPDATES
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -47,19 +47,98 @@ gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
 
 (UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_SORT_STR_WITH_LEVEL, UPDATE_OBJ) = range(15)
 
-GIGABYTE = 1024 ** 3
-MEGABYTE = 1024 ** 2
-KILOBYTE = 1024
+GIGABYTE = 1000 ** 3
+MEGABYTE = 1000 ** 2
+KILOBYTE = 1000
 
 
 def size_to_string(size):
     if (size >= GIGABYTE):
-        return str(size // GIGABYTE) + _("GB")
+        return "%d %s" % (size // GIGABYTE,  _("GB"))
     if (size >= (MEGABYTE)):
-        return str(size // MEGABYTE) + _("MB")
+        return "%d %s" % (size // MEGABYTE,  _("MB"))
     if (size >= KILOBYTE):
-        return str(size // KILOBYTE) + _("KB")
-    return str(size) + _("B")
+        return "%d %s" % (size // KILOBYTE,  _("KB"))
+    return "%d %s" % (size,  _("B"))
+
+class CacheWatcher(threading.Thread):
+    """ Monitors package cache and dpkg status and runs RefreshThread() on change """
+
+    def __init__(self, application, refresh_frequency=90):
+        threading.Thread.__init__(self)
+        self.application = application
+        self.cachetime = 0
+        self.pkgcache = None
+        self.statustime = 0
+        self.dpkgstatus = None
+        self.paused = False
+        self.refresh_frequency = refresh_frequency
+
+    def run(self):
+        if not self.pkgcache:
+            basedir = self.get_apt_config("Dir")
+            cachedir = self.get_apt_config("Dir::Cache")
+            cachefile = self.get_apt_config("Dir::Cache::pkgcache")
+            self.pkgcache = os.path.join(basedir, cachedir, cachefile)
+            statedir = self.get_apt_config("Dir::State")
+            statefile = self.get_apt_config("Dir::State::status")
+            self.dpkgstatus = os.path.join(basedir, statedir, statefile)
+
+        if not os.path.isfile(self.pkgcache) or not os.path.isfile(self.dpkgstatus):
+            self.application.logger.write("Package cache location not found, disabling cache monitoring")
+            self.pkgcache = None
+
+        self.do_refresh()
+
+        if self.pkgcache:
+            self.update_cachetime()
+            self.loop()
+
+    def loop(self):
+        while True:
+            if not self.paused and self.application.window.get_sensitive():
+                try:
+                    cachetime = os.path.getmtime(self.pkgcache)
+                    statustime = os.path.getmtime(self.dpkgstatus)
+                    if (not cachetime == self.cachetime or not statustime == self.statustime) and \
+                        not self.application.dpkg_locked():
+                        self.cachetime = cachetime
+                        self.statustime = statustime
+                        self.refresh_cache()
+                except:
+                    pass
+            time.sleep(self.refresh_frequency)
+
+    def resume(self):
+        if not self.pkgcache:
+            return
+        self.update_cachetime()
+        self.paused = False
+
+    def pause(self):
+        self.paused = True
+
+    def update_cachetime(self):
+        self.cachetime = os.path.getmtime(self.pkgcache)
+        self.statustime = os.path.getmtime(self.dpkgstatus)
+
+    def refresh_cache(self):
+        self.application.logger.write("Changes to the package cache detected, triggering refresh")
+        self.do_refresh()
+
+    def do_refresh(self):
+        refresh = RefreshThread(self.application)
+        refresh.start()
+
+    @staticmethod
+    def get_apt_config(config_option):
+        output = subprocess.run(["apt-config", "shell", "val", config_option],
+                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
+        try:
+            output = output.decode().partition("val='")[2].partition("'")[0]
+        except:
+            output = ""
+        return output
 
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
@@ -254,58 +333,49 @@ class AutomaticRefreshThread(threading.Thread):
     def __init__(self, application):
         threading.Thread.__init__(self)
         self.application = application
-        self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
 
     def run(self):
-        # Initial refresh (with APT cache refresh)
-        if self.refresh_schedule_enabled:
+        initial_refresh = True
+        settings_prefix = ""
+        refresh_type = "initial"
+        refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
+
+        while refresh_schedule_enabled:
             try:
-                timer = (self.application.settings.get_int("refresh-minutes") * 60) + (self.application.settings.get_int("refresh-hours") * 60 * 60) + (self.application.settings.get_int("refresh-days") * 24 * 60 * 60)
-                timetosleep = int(timer)
+                schedule = {
+                    "minutes": self.application.settings.get_int("%srefresh-minutes" % settings_prefix),
+                    "hours": self.application.settings.get_int("%srefresh-hours" % settings_prefix),
+                    "days": self.application.settings.get_int("%srefresh-days" % settings_prefix)
+                }
+                timetosleep = schedule["minutes"] * 60 + schedule["hours"] * 60 * 60 + schedule["days"] * 24 * 60 * 60
+
                 if (timetosleep == 0):
                     time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
                 else:
-                    self.application.logger.write("Initial refresh will happen in " + str(self.application.settings.get_int("refresh-minutes")) + " minutes, " + str(self.application.settings.get_int("refresh-hours")) + " hours and " + str(self.application.settings.get_int("refresh-days")) + " days")
+                    self.application.logger.write("%s refresh will happen in %d day(s), %d hour(s) and %d minute(s)" %
+                        (refresh_type[0].upper() + refresh_type[1:], schedule["days"], schedule["hours"], schedule["minutes"]))
                     time.sleep(timetosleep)
-                    if not self.refresh_schedule_enabled:
-                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling initial refresh")
+                    if not refresh_schedule_enabled:
+                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling %s refresh" % refresh_type)
                         return
                     if (self.application.app_hidden == True):
-                        self.application.logger.write("MintUpdate is in tray mode, performing initial refresh")
+                        self.application.logger.write("Update Manager is in tray mode, performing %s refresh" % refresh_type)
                         refresh = RefreshThread(self.application, root_mode=True)
                         refresh.start()
+                        while refresh.is_alive():
+                            time.sleep(1)
                     else:
-                        self.application.logger.write("The mintUpdate window is open, skipping initial refresh")
+                        self.application.logger.write("Update Manager window is open, skipping %s refresh" % refresh_type)
             except Exception as e:
                 print (e)
-                self.application.logger.write_error("Exception occurred during the initial refresh: " + str(sys.exc_info()[0]))
+                self.application.logger.write_error("Exception occurred during %s refresh: %s" % (refresh_type, str(sys.exc_info()[0])))
 
-            self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
+            if initial_refresh:
+                initial_refresh = False
+                settings_prefix = "auto"
+                refresh_type = "recurring"
 
-        # Autorefresh (also with APT cache refresh)
-        while(self.refresh_schedule_enabled):
-            try:
-                timer = (self.application.settings.get_int("autorefresh-minutes") * 60) + (self.application.settings.get_int("autorefresh-hours") * 60 * 60) + (self.application.settings.get_int("autorefresh-days") * 24 * 60 * 60)
-                timetosleep = int(timer)
-                if (timetosleep == 0):
-                    time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
-                else:
-                    self.application.logger.write("Recurring refresh will happen in " + str(self.application.settings.get_int("autorefresh-minutes")) + " minutes, " + str(self.application.settings.get_int("autorefresh-hours")) + " hours and " + str(self.application.settings.get_int("autorefresh-days")) + " days")
-                    time.sleep(timetosleep)
-                    if not self.refresh_schedule_enabled:
-                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling recurring refresh")
-                        return
-                    if (self.application.app_hidden == True):
-                        self.application.logger.write("MintUpdate is in tray mode, performing recurring refresh")
-                        refresh = RefreshThread(self.application, root_mode=True)
-                        refresh.start()
-                    else:
-                        self.application.logger.write("The mintUpdate window is open, skipping recurring refresh")
-            except Exception as e:
-                print (e)
-                self.application.logger.write_error("Exception occurred in the recurring refresh thread: " + str(sys.exc_info()[0]))
-
-            self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
+            refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
 
 class InstallThread(threading.Thread):
 
@@ -314,6 +384,7 @@ class InstallThread(threading.Thread):
         self.application = application
         self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
         self.application.window.set_sensitive(False)
+        self.reboot_required = self.application.reboot_required
 
     def run(self):
         try:
@@ -330,6 +401,9 @@ class InstallThread(threading.Thread):
                 if (checked == "true"):
                     installNeeded = True
                     package_update = model.get_value(iter, UPDATE_OBJ)
+                    if package_update.type == "kernel" and \
+                       [True for pkg in package_update.package_names if "-image-" in pkg]:
+                        self.reboot_required = True
                     for package in package_update.package_names:
                         packages.append(package)
                         self.application.logger.write("Will install " + str(package))
@@ -458,7 +532,7 @@ class InstallThread(threading.Thread):
 
                     latest_apt_update = ''
                     update_successful = False
-                    with open("/var/log/apt/history.log") as apt_history:
+                    with open("/var/log/apt/history.log", encoding="utf-8") as apt_history:
                         for line in reversed(list(apt_history)):
                             if "Start-Date" in line:
                                 break
@@ -471,7 +545,12 @@ class InstallThread(threading.Thread):
                             self.application.logger.write("Install failed")
 
                     if update_successful:
-                        if self.application.settings.get_boolean("hide-window-after-update"):
+                        # override CacheWatcher since there's a forced refresh later already
+                        self.application.cache_watcher.update_cachetime()
+
+                        if self.reboot_required:
+                            self.application.reboot_required = True
+                        elif self.application.settings.get_boolean("hide-window-after-update"):
                             Gdk.threads_enter()
                             self.application.app_hidden = True
                             self.application.window.hide()
@@ -557,22 +636,22 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write("Package management system locked by another process, retrying in 60s")
                 time.sleep(60)
 
-        if self.root_mode:
-            while self.application.dpkg_locked():
-                self.application.logger.write("Package management system locked by another process, retrying in 60s")
-                time.sleep(60)
+        self.application.cache_watcher.pause()
 
         Gdk.threads_enter()
         vpaned_position = self.application.builder.get_object("paned1").get_position()
-        for child in self.application.builder.get_object("hbox_infobar").get_children():
+        for child in self.application.infobar.get_children():
             child.destroy()
-
+        if self.application.reboot_required:
+            self.application.show_infobar(_("Reboot required"),
+                _("You have installed updates that require a reboot to take effect, please reboot your system as soon as possible."))
         Gdk.threads_leave()
+
         try:
             if (self.root_mode):
-                self.application.logger.write("Starting refresh (including refreshing the APT cache)")
+                self.application.logger.write("Starting refresh (retrieving lists of updates from remote servers)")
             else:
-                self.application.logger.write("Starting refresh")
+                self.application.logger.write("Starting refresh (local only)")
             Gdk.threads_enter()
             self.application.set_status_message(_("Starting refresh..."))
             self.application.stack.set_visible_child_name("updates_available")
@@ -648,6 +727,8 @@ class RefreshThread(threading.Thread):
             elif ("CHECK_APT_ERROR" in output):
                 try:
                     error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
+                    if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
+                        error_msg += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
                 except:
                     error_msg = ""
                 Gdk.threads_enter()
@@ -764,7 +845,7 @@ class RefreshThread(threading.Thread):
                         self.statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
 
                     self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
-                    self.application.logger.write("Found " + str(num_visible) + " software updates")
+                    self.application.logger.write("Found " + str(num_visible) + " software update(s)")
 
                     if (num_visible >= 1):
                         systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
@@ -784,13 +865,11 @@ class RefreshThread(threading.Thread):
             self.application.window.set_sensitive(True)
             self.application.builder.get_object("paned1").set_position(vpaned_position)
 
-
             if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
                 self.application.show_infobar(_("Please set up System Snapshots"),
                     _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
                                               Gtk.MessageType.WARNING,
                                               callback=self._on_infobar_timeshift_response)
-
 
             infobar_message = None
             infobar_message_type = Gtk.MessageType.WARNING
@@ -852,6 +931,7 @@ class RefreshThread(threading.Thread):
                                               callback=infobar_callback)
 
             Gdk.threads_leave()
+            self.application.cache_watcher.resume()
 
         except Exception as e:
             traceback.print_exc()
@@ -915,10 +995,10 @@ class RefreshThread(threading.Thread):
         return changes
 
     def checkTimeshiftConfiguration(self):
-        if os.path.exists("/etc/timeshift.json"):
+        if os.path.isfile("/etc/timeshift.json"):
             try:
-                data = json.load(open("/etc/timeshift.json"))
-                if data['backup_device_uuid'] is not None and data['backup_device_uuid'] != "":
+                data = json.load(open("/etc/timeshift.json", encoding="utf-8"))
+                if 'backup_device_uuid' in data and data['backup_device_uuid']:
                     return True
             except Exception as e:
                 print("Error while checking Timeshift configuration: ", e)
@@ -927,39 +1007,60 @@ class RefreshThread(threading.Thread):
 class Logger():
 
     def __init__(self):
-        logdir = "/tmp/mintUpdate/"
-        if not os.path.exists(logdir):
-            os.system("mkdir -p " + logdir)
-            os.system("chmod a+rwx " + logdir)
-        self.log = tempfile.NamedTemporaryFile(mode = 'w', prefix = logdir, delete=False)
+        self.logdir = os.path.join(tempfile.gettempdir(), "mintUpdate/")
+        self._create_log()
+        self.hook = None
+
+    def _create_log(self):
+        if not os.path.exists(self.logdir):
+            os.umask(0)
+            os.makedirs(self.logdir)
+        self.log = tempfile.NamedTemporaryFile(mode="w", prefix=self.logdir, delete=False)
         try:
-            os.system("chmod a+rw %s" % self.log.name)
-        except Exception as e:
-            print (e)
-            print(sys.exc_info()[0])
+            os.chmod(self.log.name, 0o666)
+        except:
+            traceback.print_exc()
+
+    def _log_ready(self):
+        if self.log.closed:
+            return False
+        if not os.path.exists(self.log.name):
+            self.log.close()
+            self._create_log()
+        return True
+
+    def _write(self, line):
+        if self._log_ready():
+            self.log.write(line)
+            self.log.flush()
+        if self.hook:
+            self.hook(line)
 
     def write(self, line):
-        try:
-            self.log.writelines("%s ++ %s \n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
-            self.log.flush()
-        except:
-            pass # cause it might be closed already
+        self._write(f"{datetime.datetime.now().strftime('%m.%d@%H:%M')} ++ {line}\n")
 
     def write_error(self, line):
-        try:
-            self.log.writelines("%s -- %s \n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
-            self.log.flush()
-        except:
-            pass # cause it might be closed already
+        self._write(f"{datetime.datetime.now().strftime('%m.%d@%H:%M')} -- {line}\n")
+
+    def read(self):
+        if not os.path.exists(self.log.name):
+            self._create_log()
+            return ""
+        else:
+            with open(self.log.name) as f:
+                return f.read()
 
     def close(self):
-        try:
-            self.log.close()
-        except:
-            pass # cause it might be closed already
+        self.log.close()
 
+    def set_hook(self, callback):
+        self.hook = callback
+
+    def remove_hook(self):
+        self.hook = None
 
 class StatusIcon():
+
     def __init__(self, app):
         self.app = app
         self.icon = AppIndicator.Indicator.new("mintUpdate", "mintupdate", AppIndicator.IndicatorCategory.APPLICATION_STATUS)
@@ -1000,9 +1101,13 @@ class MintUpdate():
     def __init__(self):
         Gdk.threads_init()
         self.app_hidden = True
+        self.information_window_showing = False
+        self.history_window_showing = False
+        self.preferences_window_showing = False
         self.updates_inhibited = False
+        self.reboot_required = False
         self.logger = Logger()
-        self.logger.write("Launching mintUpdate")
+        self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings("com.linuxmint.updates")
         if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
             self.statusIcon = StatusIcon(self)
@@ -1049,6 +1154,9 @@ class MintUpdate():
             updates_page = self.builder.get_object("updates_page")
             self.stack.add_named(updates_page, "updates_available")
             self.stack.set_visible_child_name("updates_available")
+
+            # the infobar container
+            self.infobar = self.builder.get_object("hbox_infobar")
 
             # the treeview
             cr = Gtk.CellRendererToggle()
@@ -1197,7 +1305,7 @@ class MintUpdate():
             rel_edition = 'unknown'
             rel_codename = 'unknown'
             if os.path.exists("/etc/linuxmint/info"):
-                with open("/etc/linuxmint/info", "r") as info:
+                with open("/etc/linuxmint/info", encoding="utf-8") as info:
                     for line in info:
                         line = line.strip()
                         if "EDITION=" in line:
@@ -1291,7 +1399,8 @@ class MintUpdate():
 
             try:
                 # Only support kernel selection in Linux Mint (not LMDE)
-                if (subprocess.check_output("lsb_release -is", shell = True).strip() == b"LinuxMint" and float(subprocess.check_output("lsb_release -rs", shell = True).strip()) >= 13):
+                release_info = subprocess.run(["lsb_release", "-irs"], stdout=subprocess.PIPE).stdout.decode().split("\n")
+                if release_info[0] == "LinuxMint" and float(release_info[1]) >= 13:
                     viewSubmenu.append(kernelMenuItem)
             except Exception as e:
                 print (e)
@@ -1333,6 +1442,7 @@ class MintUpdate():
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if (showWindow == "show"):
+                    self.window.set_sensitive(False)
                     self.window.show_all()
                     self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
                     self.app_hidden = False
@@ -1346,11 +1456,12 @@ class MintUpdate():
 
             self.stack.show_all()
             if self.settings.get_boolean("show-welcome-page"):
+                self.window.set_sensitive(True)
                 self.show_welcome_page()
             else:
                 self.stack.set_visible_child_name("updates_available")
-                refresh = RefreshThread(self)
-                refresh.start()
+                self.cache_watcher = CacheWatcher(self)
+                self.cache_watcher.start()
 
             self.builder.get_object("notebook_details").set_current_page(0)
 
@@ -1389,8 +1500,6 @@ class MintUpdate():
                 self.select_updates(kernel=True)
 
 ######### UTILITY FUNCTIONS #########
-    def hide_window(self, widget, window):
-        window.hide()
 
     def refresh(self):
         refresh = RefreshThread(self)
@@ -1424,6 +1533,29 @@ class MintUpdate():
         dialog.run()
         dialog.destroy()
 
+    def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon="dialog-warning-symbolic", callback=None):
+        infobar = Gtk.InfoBar()
+        infobar.set_message_type(msg_type)
+        if not icon:
+            if msg_type == Gtk.MessageType.WARNING:
+                icon = "dialog-warning-symbolic"
+            elif msg_type == Gtk.MessageType.ERROR:
+                icon = "dialog-error-symbolic"
+            elif msg_type == Gtk.MessageType.QUESTION:
+                icon = "dialog-information-symbolic"
+        if icon:
+            img = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.LARGE_TOOLBAR)
+            infobar.get_content_area().pack_start(img, False, False, 0)
+        info_label = Gtk.Label()
+        info_label.set_line_wrap(True)
+        info_label.set_markup(f"<b>{title}</b>\n{msg}")
+        infobar.get_content_area().pack_start(info_label, False, False, 0)
+        if callback:
+            infobar.add_button(_("OK"), Gtk.ResponseType.OK)
+            infobar.connect("response", callback)
+        infobar.show_all()
+        self.infobar.pack_start(infobar, True, True, 2)
+
 ######### WINDOW/STATUSICON ##########
 
     def close_window(self, window, event):
@@ -1437,7 +1569,7 @@ class MintUpdate():
         self.settings.set_int('window-height', self.window.get_size()[1])
         self.settings.set_int('window-pane-position', self.builder.get_object("paned1").get_position())
 
-######### MENU/TOOLBAR FUNCTIONS ################
+######### MENU/TOOLBAR FUNCTIONS #########
 
     def hide_main_window(self, widget):
         self.window.hide()
@@ -1540,8 +1672,8 @@ class MintUpdate():
         self.builder.get_object("toolbar1").set_sensitive(True)
         self.builder.get_object("menubar1").set_sensitive(True)
         self.updates_inhibited = False
-        refresh = RefreshThread(self)
-        refresh.start()
+        self.cache_watcher = CacheWatcher(self)
+        self.cache_watcher.start()
 
     def show_help(self, button):
         os.system("yelp help:mintupdate/index &")
@@ -1641,10 +1773,16 @@ class MintUpdate():
                 package_update = model.get_value(iter, UPDATE_OBJ)
                 menu = Gtk.Menu()
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore the current update for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, "%s=%s" % (package_update.source_name, package_update.new_version))
+                if package_update.source_name in PRIORITY_UPDATES:
+                    menuItem.set_sensitive(False)
+                else:
+                    menuItem.connect("activate", self.add_to_ignore_list, "%s=%s" % (package_update.source_name, package_update.new_version))
                 menu.append(menuItem)
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore all future updates for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, package_update.source_name)
+                if package_update.source_name in PRIORITY_UPDATES:
+                    menuItem.set_sensitive(False)
+                else:
+                    menuItem.connect("activate", self.add_to_ignore_list, package_update.source_name)
                 menu.append(menuItem)
                 menu.attach_to_widget (widget, None)
                 menu.show_all()
@@ -1657,8 +1795,7 @@ class MintUpdate():
         refresh = RefreshThread(self)
         refresh.start()
 
-
-######### SYSTRAY ####################
+######### SYSTRAY #########
 
     def show_statusicon_menu(self, icon, button, time, menu):
         menu.show_all()
@@ -1687,6 +1824,14 @@ class MintUpdate():
 ######### INFORMATION SCREEN #########
 
     def open_information(self, widget):
+        if self.information_window_showing:
+            return
+        def destroy_window(widget):
+            self.logger.remove_hook()
+            self.information_window_showing = False
+            window.destroy()
+        def update_log(line):
+            textbuffer.insert(textbuffer.get_end_iter(), line)
         gladefile = "/usr/share/linuxmint/mintupdate/information.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -1694,16 +1839,20 @@ class MintUpdate():
         window = builder.get_object("main_window")
         window.set_title(_("Information"))
         window.set_icon_name("mintupdate")
-        builder.get_object("close_button").connect("clicked", self.hide_window, window)
+        textbuffer = builder.get_object("log_textview").get_buffer()
+        window.connect("destroy", destroy_window)
+        builder.get_object("close_button").connect("clicked", destroy_window)
         builder.get_object("processid_label").set_text(str(os.getpid()))
+        textbuffer.set_text(self.logger.read())
         builder.get_object("log_filename").set_text(str(self.logger.log.name))
-        txtbuffer = Gtk.TextBuffer()
-        txtbuffer.set_text(subprocess.check_output("cat " + self.logger.log.name, shell = True).decode("utf-8"))
-        builder.get_object("log_textview").set_buffer(txtbuffer)
+        self.logger.set_hook(update_log)
+        self.information_window_showing = True
 
 ######### HISTORY SCREEN #########
 
     def open_history(self, widget):
+        if self.history_window_showing:
+            return
         gladefile = "/usr/share/linuxmint/mintupdate/history.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -1736,9 +1885,11 @@ class MintUpdate():
         treeview.show()
 
         model = Gtk.TreeStore(str, str, str, str) # (packageName, date, oldVersion, newVersion)
-        if (os.path.exists("/var/log/dpkg.log")):
-            updates = subprocess.check_output("cat /var/log/dpkg.log /var/log/dpkg.log.? 2>/dev/null | egrep \"upgrade\"", shell = True).decode("utf-8")
-            updates = updates.split("\n")
+        if os.path.isfile("/var/log/dpkg.log"):
+            updates = subprocess.run('zgrep " upgrade " -sh /var/log/dpkg.log*',
+                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)\
+                .stdout.decode().split("\n")
+            updates.sort(reverse=True)
             for pkg in updates:
                 values = pkg.split(" ")
                 if len(values) == 6:
@@ -1755,10 +1906,15 @@ class MintUpdate():
                     model.set_value(iter, 2, oldVersion)
                     model.set_value(iter, 3, newVersion)
 
-        model.set_sort_column_id( 1, Gtk.SortType.DESCENDING )
+        # model.set_sort_column_id( 1, Gtk.SortType.DESCENDING )
         treeview.set_model(model)
         del model
-        builder.get_object("button_close").connect("clicked", self.hide_window, window)
+        def destroy_window(widget):
+            self.history_window_showing = False
+            window.destroy()
+        window.connect("destroy", destroy_window)
+        builder.get_object("button_close").connect("clicked", destroy_window)
+        self.history_window_showing = True
 
 ######### HELP/ABOUT/SHORTCUTS/SOURCES SCREEN #########
 
@@ -1775,7 +1931,7 @@ class MintUpdate():
         dlg.set_program_name("mintUpdate")
         dlg.set_comments(_("Update Manager"))
         try:
-            h = open('/usr/share/common-licenses/GPL','r')
+            h = open('/usr/share/common-licenses/GPL', encoding="utf-8")
             s = h.readlines()
             gpl = ""
             for line in s:
@@ -1792,7 +1948,7 @@ class MintUpdate():
         dlg.set_website("http://www.github.com/linuxmint/mintupdate")
         def close(w, res):
             if res == Gtk.ResponseType.CANCEL or res == Gtk.ResponseType.DELETE_EVENT:
-                w.hide()
+                w.destroy()
         dlg.connect("response", close)
         dlg.show()
 
@@ -1819,6 +1975,9 @@ class MintUpdate():
 ######### PREFERENCES SCREEN #########
 
     def open_preferences(self, widget):
+        if self.preferences_window_showing:
+            return
+        self.window.set_sensitive(False)
         gladefile = "/usr/share/linuxmint/mintupdate/preferences.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -1897,12 +2056,14 @@ class MintUpdate():
             iter = model.insert_before(None, None)
             model.set_value(iter, 0, ignored_pkg)
 
-        builder.get_object("pref_button_cancel").connect("clicked", self.hide_window, window)
+        window.connect("destroy", self.close_preferences, window)
+        builder.get_object("pref_button_cancel").connect("clicked", self.close_preferences, window)
         builder.get_object("pref_button_apply").connect("clicked", self.save_preferences, builder)
         builder.get_object("button_add").connect("clicked", self.add_blacklisted_package, treeview_blacklist, window)
         builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
         builder.get_object("button_add").set_always_show_image(True)
         builder.get_object("button_remove").set_always_show_image(True)
+        self.preferences_window_showing = True
 
         window.show_all()
         builder.get_object("refresh_grid").set_visible(refresh_schedule_active)
@@ -1965,7 +2126,7 @@ class MintUpdate():
             self.auto_refresh = AutomaticRefreshThread(self)
             self.auto_refresh.start()
 
-        builder.get_object("main_window").hide()
+        self.close_preferences(widget, builder.get_object("main_window"))
         self.refresh()
 
     def add_blacklisted_package(self, widget, treeview_blacklist, window):
@@ -1995,7 +2156,12 @@ class MintUpdate():
             pkg = model.get_value(iter, UPDATE_CHECKED)
             model.remove(iter)
 
-###### KERNEL FEATURES #####################################
+    def close_preferences(self, widget, window):
+        self.window.set_sensitive(True)
+        self.preferences_window_showing = False
+        window.destroy()
+
+######### KERNEL FEATURES #########
 
     def open_kernels(self, widget):
         kernel_window = KernelWindow(self)
