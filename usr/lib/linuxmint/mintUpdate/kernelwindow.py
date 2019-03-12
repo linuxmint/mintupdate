@@ -9,7 +9,7 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('GdkX11', '3.0') # Needed to get xid
 from gi.repository import Gtk
 import time
-import datetime
+from datetime import datetime
 import locale
 from apt.utils import get_maintenance_end_date
 from Classes import KERNEL_PKG_NAMES, SUPPORTED_KERNEL_TYPES, CONFIGURED_KERNEL_TYPE
@@ -265,11 +265,11 @@ class KernelWindow():
             for distro in distro_info[1:]:
                 distro = distro.split(",")
                 release_date = time.mktime(time.strptime(distro[4], '%Y-%m-%d'))
-                release_date = datetime.datetime.fromtimestamp(release_date)
+                release_date = datetime.fromtimestamp(release_date)
                 support_end = time.mktime(time.strptime(distro[5].rstrip(), '%Y-%m-%d'))
-                support_end = datetime.datetime.fromtimestamp(support_end)
+                support_end = datetime.fromtimestamp(support_end)
                 release_dates[distro[2]] = [release_date, support_end]
-        now = datetime.datetime.now()
+        now = datetime.now()
         hwe_support_duration = {}
 
         try:
