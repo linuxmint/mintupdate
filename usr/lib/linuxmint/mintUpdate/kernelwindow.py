@@ -44,7 +44,7 @@ class InstallKernelThread(threading.Thread):
                 _KERNEL_PKG_NAMES.append("linux-image-unsigned-VERSION-KERNELTYPE") # mainline, remove only
             for name in _KERNEL_PKG_NAMES:
                 name = name.replace("VERSION", version).replace("-KERNELTYPE", kernel_type)
-                if name in self.cache.keys():
+                if name in self.cache:
                     pkg = self.cache[name]
                     if remove:
                         if pkg.is_installed:
@@ -74,21 +74,21 @@ class InstallKernelThread(threading.Thread):
             for name in KERNEL_PKG_NAMES:
                 if "-KERNELTYPE" in name:
                     name = name.replace("VERSION", version).replace("-KERNELTYPE", kernel_type)
-                    if name in self.cache.keys():
+                    if name in self.cache:
                         pkg = self.cache[name]
                         if pkg.is_installed:
                             return True
         return False
 
 class MarkKernelRow(Gtk.ListBoxRow):
-    def __init__(self, version, kernel_type, window):
+    def __init__(self, version_id, supported, version, kernel_type, window):
         Gtk.ListBoxRow.__init__(self)
         self.window = window
         button = Gtk.CheckButton(version + kernel_type, False)
         button.kernel_version = version
         button.kernel_type = kernel_type
         button.connect("toggled", self.on_checked)
-        Gtk.ToggleButton.set_active(button, True)
+        Gtk.ToggleButton.set_active(button, not supported and ACTIVE_KERNEL_VERSION > version_id)
         self.add(button)
 
     def on_checked(self, widget):
@@ -249,8 +249,8 @@ class KernelWindow():
         scrolled_series.pack_start(stack_switcher, True, True, 0)
         kernel_stack_box.pack_start(stack, True, True, 0)
 
-        builder.get_object("button_close").connect("clicked", self.hide_window)
-        self.window.connect("destroy", self.hide_window)
+        builder.get_object("button_close").connect("clicked", self.destroy_window)
+        self.window.connect("destroy", self.destroy_window)
         builder.get_object("button_massremove").connect("clicked", self.show_remove_kernels_window, self.remove_kernels_window)
 
         # Set up the kernel mass removal confirmation window
@@ -292,6 +292,9 @@ class KernelWindow():
                 title = ""
                 if used:
                     title = _("Active")
+                    # ACTIVE_KERNEL_VERSION is used by the MarkKernelRow class
+                    global ACTIVE_KERNEL_VERSION
+                    ACTIVE_KERNEL_VERSION = version_id
                 elif installed:
                     title = _("Installed")
                 if origin == "0":
@@ -365,9 +368,8 @@ class KernelWindow():
         supported_kernels = {}
         for kernel in kernel_list_prelim:
             (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, release, support_duration) = kernel
-            if installed and not used:
-                remove_kernels_listbox.add(MarkKernelRow(version, kernel_type, self))
             support_status = ""
+            newest_supported_in_series = False
             if support_duration and origin == "1":
                 if release in kernel_support_info.keys():
                     support_info = [x for x in kernel_support_info[release] if x[0] == page_label]
@@ -381,12 +383,18 @@ class KernelWindow():
                         if not page_label in supported_kernels[kernel_type]:
                             supported_kernels[kernel_type].append(page_label)
                             support_status = '%s %s' % (_("Supported until"), support_end_str)
+                            newest_supported_in_series = True
                         else:
                             support_status = _("Superseded")
                     elif is_end_of_life:
                         support_status = _("End of Life")
             else:
                 support_status = _("Unsupported")
+            if installed:
+                self.installed_kernels.append((kernel_type, version))
+                if not used:
+                    self.remove_kernels_listbox.add(MarkKernelRow(version_id, newest_supported_in_series, version, kernel_type, self))
+
             kernel_list.append([version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, support_status])
         del(kernel_list_prelim)
         pages_needed_sort.sort(reverse=True)
@@ -433,8 +441,8 @@ class KernelWindow():
 
         self.window.show_all()
 
-    def hide_window(self, widget):
-        self.window.hide()
+    def destroy_window(self, widget):
+        self.window.destroy()
         self.application.window.set_sensitive(True)
 
     def on_continue_clicked(self, widget, main_box):

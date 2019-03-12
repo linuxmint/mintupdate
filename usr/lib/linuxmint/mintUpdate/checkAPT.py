@@ -1,43 +1,35 @@
 #!/usr/bin/python3
 
-import apt
 import codecs
 import fnmatch
 import gettext
 import os
-import platform
 import re
 import sys
-from html.parser import HTMLParser
 import traceback
+from html.parser import HTMLParser
 
+import apt
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, CONFIGURED_KERNEL_TYPE
+from Classes import (CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES,
+                     PRIORITY_UPDATES, Alias, Rule, Update)
 
 gettext.install("mintupdate", "/usr/share/locale")
+
+meta_names = []
 
 class KernelVersion():
 
     def __init__(self, version):
         self.version = version
-        version_array = self.version.replace("-", ".").split(".")
-        self.numeric_versions = []
-        for i in range(4):
-            element = version_array[i]
-            if len(element) == 1:
-                element = "00%s" % element
-            elif len(element) == 2:
-                element = "0%s" % element
-            self.numeric_versions.append(element)
-        self.numeric_representation = ".".join(self.numeric_versions)
-        self.std_version = "%s.%s.%s-%s" % (version_array[0], version_array[1], version_array[2], version_array[3])
-        self.series = "%s.%s.%s" % (version_array[0], version_array[1], version_array[2])
-
-# These updates take priority over other updates.
-# If a new version of these packages is available,
-# nothing else is listed.
-PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
+        self.numeric_versions = self.version.replace("-", ".").split(".")
+        for i, element in enumerate(self.numeric_versions):
+            self.numeric_versions[i] = "0" * (3 - len(element)) + element
+        while len(self.numeric_versions) < 4:
+            self.numeric_versions.append("0" * 3)
+        self.series = tuple(self.numeric_versions[:3])
+        self.shortseries = tuple(self.numeric_versions[:2])
 
 class APTCheck():
 
@@ -104,56 +96,104 @@ class APTCheck():
                 self.add_update(pkg)
 
         # Kernel updates
+        global meta_names
         meta_names = []
-        _metas = [s for s in self.cache.keys() if s.startswith("linux" + CONFIGURED_KERNEL_TYPE)]
+        lts_meta_name = "linux" + CONFIGURED_KERNEL_TYPE
+        _metas = [s for s in self.cache.keys() if s.startswith(lts_meta_name)]
+        if CONFIGURED_KERNEL_TYPE == "-generic":
+            _metas.append("linux-virtual")
         for meta in _metas:
             shortname = meta.split(":")[0]
             if shortname not in meta_names:
                 meta_names.append(shortname)
-
         try:
             # Get the uname version
-            uname_kernel = KernelVersion(platform.release())
+            active_kernel = KernelVersion(os.uname().release)
+
+            # Override installed kernel if not of the configured type
+            try:
+                active_kernel_type = "-" + active_kernel.version.split("-")[-1]
+            except:
+                active_kernel_type = CONFIGURED_KERNEL_TYPE
+            if  active_kernel_type != CONFIGURED_KERNEL_TYPE:
+                active_kernel.series = ("0","0","0")
+
+            # Uncomment for testing:
+            # active_kernel = KernelVersion("4.18.0-0-generic")
 
             # Check if any meta is installed..
-            meta_installed = False
+            meta_candidate_same_series = None
+            meta_candidate_higher_series = None
             for meta_name in meta_names:
                 if meta_name in self.cache:
                     meta = self.cache[meta_name]
-                    if meta.is_installed:
-                        meta_installed = True
-                        return
-
-            # If no meta is installed, try to recommend one
-            if not meta_installed:
-                for meta_name in meta_names:
-                    if meta_name in self.cache:
-                        meta = self.cache[meta_name]
-                        recommended_kernel = KernelVersion(meta.candidate.version)
-                        if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
-                            # This meta version is >= to the uname version, add it as an update
-                            self.add_update(meta, kernel_update=True)
-                            # Return because we only want to add one meta, and we don't want to recommend latest kernels in the series
+                    meta_kernel = KernelVersion(meta.candidate.version)
+                    if (active_kernel.series > meta_kernel.series):
+                        # Meta is lower than the installed kernel series, ignore
+                        continue
+                    else:
+                        if meta.is_installed:
+                            # Meta is already installed, return
                             return
+                        # never install linux-virtual, we only support it being
+                        # installed already
+                        if meta_name == "linux-virtual":
+                            continue
+                        # Meta is not installed, make it a candidate if higher
+                        # than any current candidate
+                        if active_kernel.series == meta_kernel.series:
+                            # same series
+                            if (not meta_candidate_same_series or meta_kernel.numeric_versions >
+                                KernelVersion(meta_candidate_same_series.candidate.version).numeric_versions
+                                ):
+                                meta_candidate_same_series = meta
+                        else:
+                            # higher series
+                            if (not meta_candidate_higher_series or meta_kernel.numeric_versions >
+                                KernelVersion(meta_candidate_higher_series.candidate.version).numeric_versions
+                                ):
+                                meta_candidate_higher_series = meta
 
-            # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
-            max_kernel = uname_kernel
+            # If we're here, no meta was installed
+            if meta_candidate_same_series:
+                # but a candidate of the same series was found, add to updates and return
+                self.add_update(meta_candidate_same_series, kernel_update=True)
+                return
+
+            # If we're here, no matching meta was found
+            if meta_candidate_higher_series:
+                # but we found a higher meta candidate, add it to the list of updates
+                # unless the installed kernel series is lower than the LTS series
+                # for some reason, in the latter case force the LTS meta
+                if meta_candidate_higher_series.name != lts_meta_name:
+                    if lts_meta_name in self.cache:
+                        lts_meta = self.cache[lts_meta_name]
+                        lts_meta_kernel = KernelVersion(lts_meta.candidate.version)
+                        if active_kernel.series < lts_meta_kernel.series:
+                            meta_candidate_higher_series = lts_meta
+                self.add_update(meta_candidate_higher_series, kernel_update=True)
+                return
+
+            # We've gone past all the metas, so we should recommend the latest
+            # kernel on the series we're in
+            max_kernel = active_kernel
             for pkgname in self.cache.keys():
-                match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)%s$' % CONFIGURED_KERNEL_TYPE, pkgname)
+                match = re.match(r'^(?:linux-image-)(\d.+?)%s$' % active_kernel_type, pkgname)
                 if match:
                     kernel = KernelVersion(match.group(1))
-                    if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
+                    if kernel.series == max_kernel.series and kernel.numeric_versions > max_kernel.numeric_versions:
                         max_kernel = kernel
-            if max_kernel.numeric_representation != uname_kernel.numeric_representation:
+            if max_kernel.numeric_versions != active_kernel.numeric_versions:
                 for pkgname in KERNEL_PKG_NAMES:
-                    pkgname = pkgname.replace('VERSION', max_kernel.std_version).replace("-KERNELTYPE", CONFIGURED_KERNEL_TYPE)
+                    pkgname = pkgname.replace('VERSION', max_kernel.version).replace("-KERNELTYPE", active_kernel_type)
                     if pkgname in self.cache:
                         pkg = self.cache[pkgname]
                         if not pkg.is_installed:
                             self.add_update(pkg, kernel_update=True)
+                            return
 
-        except Exception:
-            print(sys.exc_info()[0])
+        except:
+            traceback.print_exc()
 
     def add_update(self, package, kernel_update=False):
 
@@ -223,7 +263,10 @@ class APTCheck():
                 update.display_name = alias.name
                 update.short_description = alias.short_description
                 update.description = alias.description
-            elif update.type == "kernel" and source_name not in ['linux-libc-dev', 'linux-kernel-generic']:
+            elif (update.type == "kernel" and
+                  source_name not in ['linux-libc-dev', 'linux-kernel-generic'] and
+                  (len(update.package_names) >= 3 or update.package_names[0] in meta_names)
+                 ):
                 update.display_name = _("Linux kernel %s") % update.new_version
                 update.short_description = _("The Linux kernel.")
                 update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
@@ -352,7 +395,7 @@ if __name__ == "__main__":
         check.apply_aliases()
         check.clean_descriptions()
         check.serialize_updates()
-        if os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
+        if os.getuid() == 0 and os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
             # Spawn the cache update asynchronously
             # We're using os.system with & here to make sure it's async and detached
             # from the caller (which will die before the child process is finished)
