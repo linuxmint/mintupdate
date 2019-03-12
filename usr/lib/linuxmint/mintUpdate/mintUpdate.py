@@ -1046,10 +1046,10 @@ class Logger():
             self.hook(line)
 
     def write(self, line):
-        self._write(f"{datetime.now().strftime('%m.%d@%H:%M')} ++ {line}\n")
+        self._write(f"{datetime.datetime.now().strftime('%m.%d@%H:%M')} ++ {line}\n")
 
     def write_error(self, line):
-        self._write(f"{datetime.now().strftime('%m.%d@%H:%M')} -- {line}\n")
+        self._write(f"{datetime.datetime.now().strftime('%m.%d@%H:%M')} -- {line}\n")
 
     def read(self):
         if not os.path.exists(self.log.name):
