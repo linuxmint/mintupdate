@@ -61,6 +61,85 @@ def size_to_string(size):
         return str(size // KILOBYTE) + _("KB")
     return str(size) + _("B")
 
+class CacheWatcher(threading.Thread):
+    """ Monitors package cache and dpkg status and runs RefreshThread() on change """
+
+    def __init__(self, application, refresh_frequency=90):
+        threading.Thread.__init__(self)
+        self.application = application
+        self.cachetime = 0
+        self.pkgcache = None
+        self.statustime = 0
+        self.dpkgstatus = None
+        self.paused = False
+        self.refresh_frequency = refresh_frequency
+
+    def run(self):
+        if not self.pkgcache:
+            basedir = self.get_apt_config("Dir")
+            cachedir = self.get_apt_config("Dir::Cache")
+            cachefile = self.get_apt_config("Dir::Cache::pkgcache")
+            self.pkgcache = os.path.join(basedir, cachedir, cachefile)
+            statedir = self.get_apt_config("Dir::State")
+            statefile = self.get_apt_config("Dir::State::status")
+            self.dpkgstatus = os.path.join(basedir, statedir, statefile)
+
+        if not os.path.isfile(self.pkgcache) or not os.path.isfile(self.dpkgstatus):
+            self.application.logger.write("Package cache location not found, disabling cache monitoring")
+            self.pkgcache = None
+
+        self.do_refresh()
+
+        if self.pkgcache:
+            self.update_cachetime()
+            self.loop()
+
+    def loop(self):
+        while True:
+            if not self.paused and self.application.window.get_sensitive():
+                try:
+                    cachetime = os.path.getmtime(self.pkgcache)
+                    statustime = os.path.getmtime(self.dpkgstatus)
+                    if (not cachetime == self.cachetime or not statustime == self.statustime) and \
+                        not self.application.dpkg_locked():
+                        self.cachetime = cachetime
+                        self.statustime = statustime
+                        self.refresh_cache()
+                except:
+                    pass
+            time.sleep(self.refresh_frequency)
+
+    def resume(self):
+        if not self.pkgcache:
+            return
+        self.update_cachetime()
+        self.paused = False
+
+    def pause(self):
+        self.paused = True
+
+    def update_cachetime(self):
+        self.cachetime = os.path.getmtime(self.pkgcache)
+        self.statustime = os.path.getmtime(self.dpkgstatus)
+
+    def refresh_cache(self):
+        self.application.logger.write("Changes to the package cache detected, triggering refresh")
+        self.do_refresh()
+
+    def do_refresh(self):
+        refresh = RefreshThread(self.application)
+        refresh.start()
+
+    @staticmethod
+    def get_apt_config(config_option):
+        output = subprocess.run(["apt-config", "shell", "val", config_option],
+                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
+        try:
+            output = output.decode().partition("val='")[2].partition("'")[0]
+        except:
+            output = ""
+        return output
+
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
         threading.Thread.__init__(self)
@@ -254,58 +333,49 @@ class AutomaticRefreshThread(threading.Thread):
     def __init__(self, application):
         threading.Thread.__init__(self)
         self.application = application
-        self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
 
     def run(self):
-        # Initial refresh (with APT cache refresh)
-        if self.refresh_schedule_enabled:
+        initial_refresh = True
+        settings_prefix = ""
+        refresh_type = "initial"
+        refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
+
+        while refresh_schedule_enabled:
             try:
-                timer = (self.application.settings.get_int("refresh-minutes") * 60) + (self.application.settings.get_int("refresh-hours") * 60 * 60) + (self.application.settings.get_int("refresh-days") * 24 * 60 * 60)
-                timetosleep = int(timer)
+                schedule = {
+                    "minutes": self.application.settings.get_int("%srefresh-minutes" % settings_prefix),
+                    "hours": self.application.settings.get_int("%srefresh-hours" % settings_prefix),
+                    "days": self.application.settings.get_int("%srefresh-days" % settings_prefix)
+                }
+                timetosleep = schedule["minutes"] * 60 + schedule["hours"] * 60 * 60 + schedule["days"] * 24 * 60 * 60
+
                 if (timetosleep == 0):
                     time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
                 else:
-                    self.application.logger.write("Initial refresh will happen in " + str(self.application.settings.get_int("refresh-minutes")) + " minutes, " + str(self.application.settings.get_int("refresh-hours")) + " hours and " + str(self.application.settings.get_int("refresh-days")) + " days")
+                    self.application.logger.write("%s refresh will happen in %d day(s), %d hour(s) and %d minute(s)" %
+                        (refresh_type[0].upper() + refresh_type[1:], schedule["days"], schedule["hours"], schedule["minutes"]))
                     time.sleep(timetosleep)
-                    if not self.refresh_schedule_enabled:
-                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling initial refresh")
+                    if not refresh_schedule_enabled:
+                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling %s refresh" % refresh_type)
                         return
                     if (self.application.app_hidden == True):
-                        self.application.logger.write("MintUpdate is in tray mode, performing initial refresh")
+                        self.application.logger.write("Update Manager is in tray mode, performing %s refresh" % refresh_type)
                         refresh = RefreshThread(self.application, root_mode=True)
                         refresh.start()
+                        while refresh.is_alive():
+                            time.sleep(1)
                     else:
-                        self.application.logger.write("The mintUpdate window is open, skipping initial refresh")
+                        self.application.logger.write("Update Manager window is open, skipping %s refresh" % refresh_type)
             except Exception as e:
                 print (e)
-                self.application.logger.write_error("Exception occurred during the initial refresh: " + str(sys.exc_info()[0]))
+                self.application.logger.write_error("Exception occurred during %s refresh: %s" % (refresh_type, str(sys.exc_info()[0])))
 
-            self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
+            if initial_refresh:
+                initial_refresh = False
+                settings_prefix = "auto"
+                refresh_type = "recurring"
 
-        # Autorefresh (also with APT cache refresh)
-        while(self.refresh_schedule_enabled):
-            try:
-                timer = (self.application.settings.get_int("autorefresh-minutes") * 60) + (self.application.settings.get_int("autorefresh-hours") * 60 * 60) + (self.application.settings.get_int("autorefresh-days") * 24 * 60 * 60)
-                timetosleep = int(timer)
-                if (timetosleep == 0):
-                    time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
-                else:
-                    self.application.logger.write("Recurring refresh will happen in " + str(self.application.settings.get_int("autorefresh-minutes")) + " minutes, " + str(self.application.settings.get_int("autorefresh-hours")) + " hours and " + str(self.application.settings.get_int("autorefresh-days")) + " days")
-                    time.sleep(timetosleep)
-                    if not self.refresh_schedule_enabled:
-                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling recurring refresh")
-                        return
-                    if (self.application.app_hidden == True):
-                        self.application.logger.write("MintUpdate is in tray mode, performing recurring refresh")
-                        refresh = RefreshThread(self.application, root_mode=True)
-                        refresh.start()
-                    else:
-                        self.application.logger.write("The mintUpdate window is open, skipping recurring refresh")
-            except Exception as e:
-                print (e)
-                self.application.logger.write_error("Exception occurred in the recurring refresh thread: " + str(sys.exc_info()[0]))
-
-            self.refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
+            refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
 
 class InstallThread(threading.Thread):
 
@@ -471,6 +541,9 @@ class InstallThread(threading.Thread):
                             self.application.logger.write("Install failed")
 
                     if update_successful:
+                        # override CacheWatcher since there's a forced refresh later already
+                        self.application.cache_watcher.update_cachetime()
+
                         if self.application.settings.get_boolean("hide-window-after-update"):
                             Gdk.threads_enter()
                             self.application.app_hidden = True
@@ -557,10 +630,7 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write("Package management system locked by another process, retrying in 60s")
                 time.sleep(60)
 
-        if self.root_mode:
-            while self.application.dpkg_locked():
-                self.application.logger.write("Package management system locked by another process, retrying in 60s")
-                time.sleep(60)
+        self.application.cache_watcher.pause()
 
         Gdk.threads_enter()
         vpaned_position = self.application.builder.get_object("paned1").get_position()
@@ -570,9 +640,9 @@ class RefreshThread(threading.Thread):
         Gdk.threads_leave()
         try:
             if (self.root_mode):
-                self.application.logger.write("Starting refresh (including refreshing the APT cache)")
+                self.application.logger.write("Starting refresh (retrieving lists of updates from remote servers)")
             else:
-                self.application.logger.write("Starting refresh")
+                self.application.logger.write("Starting refresh (local only)")
             Gdk.threads_enter()
             self.application.set_status_message(_("Starting refresh..."))
             self.application.stack.set_visible_child_name("updates_available")
@@ -868,6 +938,7 @@ class RefreshThread(threading.Thread):
                 infobar.show_all()
 
             Gdk.threads_leave()
+            self.application.cache_watcher.resume()
 
         except Exception as e:
             traceback.print_exc()
@@ -976,6 +1047,7 @@ class Logger():
 
 
 class StatusIcon():
+
     def __init__(self, app):
         self.app = app
         self.icon = AppIndicator.Indicator.new("mintUpdate", "mintupdate", AppIndicator.IndicatorCategory.APPLICATION_STATUS)
@@ -1018,7 +1090,7 @@ class MintUpdate():
         self.app_hidden = True
         self.updates_inhibited = False
         self.logger = Logger()
-        self.logger.write("Launching mintUpdate")
+        self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings("com.linuxmint.updates")
         if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
             self.statusIcon = StatusIcon(self)
@@ -1349,6 +1421,7 @@ class MintUpdate():
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if (showWindow == "show"):
+                    self.window.set_sensitive(False)
                     self.window.show_all()
                     self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
                     self.app_hidden = False
@@ -1362,11 +1435,12 @@ class MintUpdate():
 
             self.stack.show_all()
             if self.settings.get_boolean("show-welcome-page"):
+                self.window.set_sensitive(True)
                 self.show_welcome_page()
             else:
                 self.stack.set_visible_child_name("updates_available")
-                refresh = RefreshThread(self)
-                refresh.start()
+                self.cache_watcher = CacheWatcher(self)
+                self.cache_watcher.start()
 
             self.builder.get_object("notebook_details").set_current_page(0)
 
@@ -1453,7 +1527,7 @@ class MintUpdate():
         self.settings.set_int('window-height', self.window.get_size()[1])
         self.settings.set_int('window-pane-position', self.builder.get_object("paned1").get_position())
 
-######### MENU/TOOLBAR FUNCTIONS ################
+######### MENU/TOOLBAR FUNCTIONS #########
 
     def hide_main_window(self, widget):
         self.window.hide()
@@ -1556,8 +1630,8 @@ class MintUpdate():
         self.builder.get_object("toolbar1").set_sensitive(True)
         self.builder.get_object("menubar1").set_sensitive(True)
         self.updates_inhibited = False
-        refresh = RefreshThread(self)
-        refresh.start()
+        self.cache_watcher = CacheWatcher(self)
+        self.cache_watcher.start()
 
     def show_help(self, button):
         os.system("yelp help:mintupdate/index &")
@@ -1673,8 +1747,7 @@ class MintUpdate():
         refresh = RefreshThread(self)
         refresh.start()
 
-
-######### SYSTRAY ####################
+######### SYSTRAY #########
 
     def show_statusicon_menu(self, icon, button, time, menu):
         menu.show_all()
@@ -2011,7 +2084,7 @@ class MintUpdate():
             pkg = model.get_value(iter, UPDATE_CHECKED)
             model.remove(iter)
 
-###### KERNEL FEATURES #####################################
+######### KERNEL FEATURES #########
 
     def open_kernels(self, widget):
         kernel_window = KernelWindow(self)
