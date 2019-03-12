@@ -44,7 +44,7 @@ class InstallKernelThread(threading.Thread):
                 _KERNEL_PKG_NAMES.append("linux-image-unsigned-VERSION-KERNELTYPE") # mainline, remove only
             for name in _KERNEL_PKG_NAMES:
                 name = name.replace("VERSION", version).replace("-KERNELTYPE", kernel_type)
-                if name in self.cache.keys():
+                if name in self.cache:
                     pkg = self.cache[name]
                     if remove:
                         if pkg.is_installed:
@@ -74,7 +74,7 @@ class InstallKernelThread(threading.Thread):
             for name in KERNEL_PKG_NAMES:
                 if "-KERNELTYPE" in name:
                     name = name.replace("VERSION", version).replace("-KERNELTYPE", kernel_type)
-                    if name in self.cache.keys():
+                    if name in self.cache:
                         pkg = self.cache[name]
                         if pkg.is_installed:
                             return True
