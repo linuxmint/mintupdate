@@ -543,12 +543,11 @@ class InstallThread(threading.Thread):
                             self.application.logger.write("Install finished")
                         else:
                             self.application.logger.write("Install failed")
-                            update_successful = True
 
                     if update_successful:
                         # override CacheWatcher since there's a forced refresh later already
                         self.application.cache_watcher.update_cachetime()
-                      
+
                         if self.reboot_required:
                             self.application.reboot_required = True
                         elif self.application.settings.get_boolean("hide-window-after-update"):
