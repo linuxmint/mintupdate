@@ -262,7 +262,7 @@ class KernelWindow():
         # Get distro release dates for support duration calculation
         self.release_dates = get_release_dates()
 
-        now = datetime.datetime.now()
+        now = datetime.now()
         hwe_support_duration = {}
 
         try:

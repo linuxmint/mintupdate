@@ -652,7 +652,7 @@ class RefreshThread(threading.Thread):
         return (mint_layer_found, error_msg)
 
     @staticmethod
-    def get_eol_status(early_warning_days=90):
+    def get_eol_status():
         """ Checks if distribution has reached end of life (EOL)
 
         Returns:
@@ -660,6 +660,7 @@ class RefreshThread(threading.Thread):
         * show_eol_warning: True if early_warning_days > EOL - now
         * eol_date: datetime object of EOL date
         """
+        early_warning_days = 90
         is_eol = False
         eol_date = None
         show_eol_warning = False
@@ -1044,7 +1045,7 @@ class RefreshThread(threading.Thread):
 
     def _on_infobar_eol_response(self, infobar, response_id):
         infobar.destroy()
-        self.application.settings.set_boolean("warn-about-distribution-eol", 0)
+        self.application.settings.set_boolean("warn-about-distribution-eol", False)
 
     def get_url_last_modified(self, url):
         try:
