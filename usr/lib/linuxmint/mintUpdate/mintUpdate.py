@@ -1533,7 +1533,7 @@ class MintUpdate():
         dialog.run()
         dialog.destroy()
 
-    def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon="dialog-warning-symbolic", callback=None):
+    def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon=None, callback=None):
         infobar = Gtk.InfoBar()
         infobar.set_message_type(msg_type)
         if not icon:
@@ -1545,7 +1545,10 @@ class MintUpdate():
                 icon = "dialog-information-symbolic"
         if icon:
             img = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.LARGE_TOOLBAR)
-            infobar.get_content_area().pack_start(img, False, False, 0)
+        else:
+            img = Gtk.Image.new_from_icon_name("dialog-warning-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
+        infobar.get_content_area().pack_start(img, False, False, 0)
+
         info_label = Gtk.Label()
         info_label.set_line_wrap(True)
         info_label.set_markup(f"<b>{title}</b>\n{msg}")
