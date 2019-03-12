@@ -1,0 +1,53 @@
+#!/usr/bin/python3
+# pylint: disable=E0602
+
+import json
+import os
+import sys
+import subprocess
+
+if not os.getuid() == 0:
+    print("This command needs to be run as root or with sudo.")
+    sys.exit(1)
+
+if len(sys.argv) != 3 or sys.argv[1] not in ("upgrade", "autoremove") or sys.argv[2] not in ("enable", "disable"):
+    print("Bad arguments")
+    sys.exit(1)
+
+# import AUTOMATIONS dict
+with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
+    AUTOMATIONS = json.load(f)
+
+automation_id = sys.argv[1]
+
+def do_enable(_automation_id):
+    (filename, name) = AUTOMATIONS[_automation_id]
+    if not os.path.isfile(filename):
+        if name == "systemd":
+            basename = os.path.basename(filename)
+            subprocess.run(["/bin/systemctl", "start", basename])
+            subprocess.run(["/bin/systemctl", "enable", basename])
+        else:
+            default = "/usr/share/linuxmint/mintupdate/automation/%s.default" % automation_id
+            os.system("cp %s %s" % (default, filename))
+            print("%s %s created." % (name, filename))
+
+def do_disable(_automation_id):
+    (filename, name) = AUTOMATIONS[_automation_id]
+    if os.path.isfile(filename):
+        if name == "systemd":
+            basename = os.path.basename(filename)
+            subprocess.run(["/bin/systemctl", "stop", basename])
+            subprocess.run(["/bin/systemctl", "disable", basename])
+        else:
+            os.system("rm -f %s" % filename)
+            print("%s %s removed." % (name, filename))
+
+if sys.argv[2] == "enable":
+    do_enable(automation_id)
+    if automation_id == "upgrade":
+        do_enable("blacklist")
+    # Enable the cleanup service in case it was disabled manually
+    subprocess.run(["/bin/systemctl", "enable", "mintupdate-automation-cleanup.service"])
+else:
+    do_disable(automation_id)

@@ -1,0 +1,6 @@
+[Unit]
+Description=Update Manager weekly autoremove
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/linuxmint/mintupdate/automation/autoremove.sh

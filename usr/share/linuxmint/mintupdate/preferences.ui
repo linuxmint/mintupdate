@@ -143,8 +143,8 @@
     <property name="vexpand">False</property>
     <property name="modal">True</property>
     <property name="window_position">center</property>
-    <property name="default_width">750</property>
-    <property name="default_height">450</property>
+    <property name="default_width">755</property>
+    <property name="default_height">460</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -276,9 +276,29 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">12</property>
                 <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_top">6</property>
+                    <property name="label" translatable="yes">Automatic Upgrades</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="scale" value="1.1"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkInfoBar">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">24</property>
                     <property name="message_type">warning</property>
                     <child internal-child="action_area">
                       <object class="GtkButtonBox">
@@ -336,20 +356,6 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">When this option is enabled, all updates are applied automatically on a daily basis, as root, via a cron job (/etc/cron.daily/mintupdate).</property>
-                    <property name="wrap">True</property>
-                    <property name="xalign">0</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -357,7 +363,8 @@
                   <object class="GtkLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and /etc/mintupdate.blacklist to blacklist some of them.</property>
+                    <property name="margin_left">24</property>
+                    <property name="label" translatable="yes">With this option all updates are applied automatically on a daily basis, as root, via a cron job. You will be prevented from rebooting or shutting down the system while the update is running to prevent system corruption.</property>
                     <property name="wrap">True</property>
                     <property name="xalign">0</property>
                   </object>
@@ -368,18 +375,69 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkCheckButton" id="auto_updates_checkbox">
-                    <property name="label" translatable="yes">Apply updates automatically</property>
+                  <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="halign">start</property>
-                    <property name="draw_indicator">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">24</property>
+                    <property name="label" translatable="yes">You can edit /etc/cron.daily/mintupdate to fine-tune automatic upgrades and /etc/mintupdate.blacklist to blacklist some of them.</property>
+                    <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="auto_upgrade_checkbox">
+                    <property name="label" translatable="yes">Apply updates automatically</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="margin_left">24</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_top">6</property>
+                    <property name="label" translatable="yes">Automatic Maintenance</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                      <attribute name="scale" value="1.1"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">5</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="auto_autoremove_checkbox">
+                    <property name="label" translatable="yes">Automatic removal of no longer required packages and kernels</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="halign">start</property>
+                    <property name="margin_left">24</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
               </object>
@@ -409,13 +467,34 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">12</property>
+            <property name="spacing">3</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="margin_left">5</property>
+                <property name="label" translatable="yes">It is recommended to set up system snapshots and to apply all available updates. Check the help section for more information.</property>
+                <property name="wrap">True</property>
+                <attributes>
+                  <attribute name="style" value="italic"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="padding">5</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
             <child>
               <object class="GtkGrid" id="grid1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="row_spacing">6</property>
+                <property name="margin_left">5</property>
+                <property name="row_spacing">5</property>
                 <property name="column_spacing">12</property>
+                <property name="row_homogeneous">True</property>
                 <child>
                   <object class="GtkLabel" id="label39">
                     <property name="visible">True</property>
@@ -748,23 +827,84 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">0</property>
+                <property name="padding">8</property>
+                <property name="position">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkCheckButton" id="checkbutton_kernel_visible">
+                <property name="label" translatable="yes">Always show kernel updates</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">It is recommended to set up system snapshots and to apply all available updates. Only hide levels when troubleshooting or trying to identify a regression. Check the help section for more information.</property>
-                <property name="wrap">True</property>
-                <attributes>
-                  <attribute name="style" value="italic"/>
-                </attributes>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="margin_left">5</property>
+                <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbutton_kernel_safe">
+                <property name="label" translatable="yes">Always select kernel updates</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="margin_left">5</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbutton_security_visible">
+                <property name="label" translatable="yes">Always show security updates</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="margin_left">5</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbutton_security_safe">
+                <property name="label" translatable="yes">Always select security updates</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="margin_left">5</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="checkbutton_dist_upgrade">
+                <property name="label" translatable="yes">Include updates which require the installation of new packages or the removal of installed packages</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="margin_left">5</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="padding">10</property>
+                <property name="position">6</property>
               </packing>
             </child>
           </object>
@@ -799,11 +939,12 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
+                <property name="margin_left">5</property>
                 <property name="margin_top">6</property>
                 <property name="label" translatable="yes">Interface</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
-                  <attribute name="scale" value="1.1000000000000001"/>
+                  <attribute name="scale" value="1.1"/>
                 </attributes>
               </object>
               <packing>
@@ -819,7 +960,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="margin_left">24</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -835,7 +975,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="margin_left">24</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -851,7 +990,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="margin_left">24</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -867,7 +1005,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="margin_left">24</property>
-                <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -881,11 +1018,12 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
+                <property name="margin_left">5</property>
                 <property name="margin_top">6</property>
-                <property name="label" translatable="yes">Updates</property>
+                <property name="label" translatable="yes">Auto-refresh</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
-                  <attribute name="scale" value="1.1000000000000001"/>
+                  <attribute name="scale" value="1.1"/>
                 </attributes>
               </object>
               <packing>
@@ -895,14 +1033,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkCheckButton" id="checkbutton_refresh_schedule_enabled">
+                <property name="label" translatable="yes">Enable auto-refresh</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">It is recommended to show and apply all available updates. Only disable the options below when troubleshooting.</property>
-                <property name="wrap">True</property>
-                <attributes>
-                  <attribute name="style" value="italic"/>
-                </attributes>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="margin_left">24</property>
+                <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -911,270 +1048,200 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="checkbutton_dist_upgrade">
-                <property name="label" translatable="yes">Include updates which require the installation of new packages or the removal of installed packages</property>
+              <object class="GtkGrid" id="refresh_grid">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
                 <property name="margin_left">24</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
+                <property name="row_spacing">12</property>
+                <property name="column_spacing">12</property>
+                <child>
+                  <object class="GtkLabel" id="label_refresh">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">First, refresh the list of updates after:</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_autorefresh">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Then, refresh the list of updates every:</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_days">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">days</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_hours">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">hours</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">2</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_minutes">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">minutes</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">3</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="refresh_days">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">center</property>
+                    <property name="width_chars">9</property>
+                    <property name="max_width_chars">2</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="input_purpose">number</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="autorefresh_days">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">center</property>
+                    <property name="width_chars">9</property>
+                    <property name="max_width_chars">2</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="input_purpose">number</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="refresh_hours">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">center</property>
+                    <property name="width_chars">9</property>
+                    <property name="max_width_chars">2</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="input_purpose">number</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">2</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="autorefresh_hours">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">center</property>
+                    <property name="width_chars">9</property>
+                    <property name="max_width_chars">2</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="input_purpose">number</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">2</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="refresh_minutes">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">center</property>
+                    <property name="width_chars">9</property>
+                    <property name="max_width_chars">2</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="input_purpose">number</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">3</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="autorefresh_minutes">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">center</property>
+                    <property name="width_chars">9</property>
+                    <property name="max_width_chars">2</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="input_purpose">number</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">3</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="label" translatable="yes">Note: The list only gets refreshed while the Update Manager window is closed (system tray mode).</property>
+                    <attributes>
+                      <attribute name="style" value="italic"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">3</property>
+                    <property name="width">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">7</property>
               </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="checkbutton_security_visible">
-                <property name="label" translatable="yes">Always show security updates</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="margin_left">24</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">8</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="checkbutton_security_safe">
-                <property name="label" translatable="yes">Always select security updates</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="margin_left">24</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">9</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="checkbutton_kernel_visible">
-                <property name="label" translatable="yes">Always show kernel updates</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="margin_left">24</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">10</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="checkbutton_kernel_safe">
-                <property name="label" translatable="yes">Always select kernel updates</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="margin_left">24</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">11</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-    <style>
-      <class name="view"/>
-    </style>
-  </object>
-  <object class="GtkScrolledWindow" id="page_refresh">
-    <property name="visible">True</property>
-    <property name="can_focus">True</property>
-    <property name="hexpand">True</property>
-    <property name="vexpand">True</property>
-    <property name="border_width">6</property>
-    <property name="hscrollbar_policy">never</property>
-    <property name="vscrollbar_policy">never</property>
-    <property name="shadow_type">in</property>
-    <child>
-      <object class="GtkViewport" id="viewport3">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="border_width">6</property>
-        <child>
-          <object class="GtkGrid" id="grid2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="row_spacing">12</property>
-            <property name="column_spacing">12</property>
-            <child>
-              <object class="GtkLabel" id="label_refresh">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">First, refresh the list of updates after:</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_autorefresh">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Then, refresh the list of updates every:</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_days">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">days</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_hours">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">hours</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_minutes">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">minutes</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="refresh_days">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">center</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="autorefresh_days">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">center</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="refresh_hours">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">center</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="autorefresh_hours">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">center</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="refresh_minutes">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">center</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="autorefresh_minutes">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">center</property>
-                <property name="primary_icon_activatable">False</property>
-                <property name="secondary_icon_activatable">False</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label82">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="label" translatable="yes">Note: The list only gets refreshed while the update manager window is closed (system tray mode).</property>
-                <attributes>
-                  <attribute name="style" value="italic"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-                <property name="width">4</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
         </child>

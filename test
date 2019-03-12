@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 sudo rm -rf /usr/lib/linuxmint/mintUpdate
 sudo cp -R etc /
+sudo cp -R lib /
 sudo cp -R usr /
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 
 mintupdate
-

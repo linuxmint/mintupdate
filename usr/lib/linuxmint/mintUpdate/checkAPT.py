@@ -13,7 +13,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES
+from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, CONFIGURED_KERNEL_TYPE
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -104,63 +104,53 @@ class APTCheck():
                 self.add_update(pkg)
 
         # Kernel updates
-        if self.settings.get_boolean("use-lowlatency-kernels"):
-            kernel_type = "-lowlatency"
-        else:
-            kernel_type = "-generic"
-
         meta_names = []
-        _metas = [s for s in self.cache.keys() if s.startswith("linux" + kernel_type)]
+        _metas = [s for s in self.cache.keys() if s.startswith("linux" + CONFIGURED_KERNEL_TYPE)]
         for meta in _metas:
             shortname = meta.split(":")[0]
             if shortname not in meta_names:
                 meta_names.append(shortname)
 
         try:
-            if self.settings.get_boolean("kernel-updates-are-visible"):
+            # Get the uname version
+            uname_kernel = KernelVersion(platform.release())
 
-                # Get the uname version
-                uname_kernel = KernelVersion(platform.release())
+            # Check if any meta is installed..
+            meta_installed = False
+            for meta_name in meta_names:
+                if meta_name in self.cache:
+                    meta = self.cache[meta_name]
+                    if meta.is_installed:
+                        meta_installed = True
+                        return
 
-                # Check if any meta is installed..
-                meta_installed = False
+            # If no meta is installed, try to recommend one
+            if not meta_installed:
                 for meta_name in meta_names:
                     if meta_name in self.cache:
                         meta = self.cache[meta_name]
-                        if meta.is_installed:
-                            meta_installed = True
+                        recommended_kernel = KernelVersion(meta.candidate.version)
+                        if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
+                            # This meta version is >= to the uname version, add it as an update
+                            self.add_update(meta, kernel_update=True)
+                            # Return because we only want to add one meta, and we don't want to recommend latest kernels in the series
                             return
 
-                # If no meta is installed, try to recommend one
-                if not meta_installed:
-                    for meta_name in meta_names:
-                        if meta_name in self.cache:
-                            meta = self.cache[meta_name]
-                            recommended_kernel = KernelVersion(meta.candidate.version)
-                            if (uname_kernel.numeric_representation <= recommended_kernel.numeric_representation):
-                                # This meta version is >= to the uname version, add it as an update
-                                self.add_update(meta, kernel_update=True)
-                                # Return because we only want to add one meta, and we don't want to recommend latest kernels in the series
-                                return
-
-                # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
-                max_kernel = uname_kernel
-                kernel_type = "-generic"
-                if self.settings.get_boolean("use-lowlatency-kernels"):
-                    kernel_type = "-lowlatency"
-                for pkgname in self.cache.keys():
-                    match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)' + kernel_type + '$', pkgname)
-                    if match:
-                        kernel = KernelVersion(match.group(1))
-                        if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
-                            max_kernel = kernel
-                if max_kernel.numeric_representation != uname_kernel.numeric_representation:
-                    for pkgname in KERNEL_PKG_NAMES:
-                        pkgname = pkgname.replace('VERSION', max_kernel.std_version)
-                        if pkgname in self.cache:
-                            pkg = self.cache[pkgname]
-                            if not pkg.is_installed:
-                                self.add_update(pkg, kernel_update=True)
+            # We've gone past all the metas, so we should recommend the latest kernel on the series we're in
+            max_kernel = uname_kernel
+            for pkgname in self.cache.keys():
+                match = re.match(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)%s$' % CONFIGURED_KERNEL_TYPE, pkgname)
+                if match:
+                    kernel = KernelVersion(match.group(1))
+                    if kernel.numeric_representation > max_kernel.numeric_representation and kernel.series == max_kernel.series:
+                        max_kernel = kernel
+            if max_kernel.numeric_representation != uname_kernel.numeric_representation:
+                for pkgname in KERNEL_PKG_NAMES:
+                    pkgname = pkgname.replace('VERSION', max_kernel.std_version).replace("-KERNELTYPE", CONFIGURED_KERNEL_TYPE)
+                    if pkgname in self.cache:
+                        pkg = self.cache[pkgname]
+                        if not pkg.is_installed:
+                            self.add_update(pkg, kernel_update=True)
 
         except Exception:
             print(sys.exc_info()[0])
@@ -178,7 +168,12 @@ class APTCheck():
 
         # ignore packages blacklisted by the user
         for blacklist in self.settings.get_strv("blacklisted-packages"):
-            if fnmatch.fnmatch(source_name, blacklist):
+            if "=" in blacklist:
+                (bl_pkg, bl_ver) = blacklist.split("=", 1)
+            else:
+                bl_pkg = blacklist
+                bl_ver = None
+            if fnmatch.fnmatch(source_name, bl_pkg) and (not bl_ver or bl_ver == package.candidate.version):
                 return
 
         if source_name in PRIORITY_UPDATES:

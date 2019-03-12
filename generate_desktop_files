@@ -3,9 +3,8 @@
 DOMAIN = "mintupdate"
 PATH = "/usr/share/locale"
 
-import os, gettext, sys
-sys.path.append('/usr/lib/linuxmint/common')
-import additionalfiles
+import os, gettext
+from mintcommon import additionalfiles
 import subprocess
 
 os.environ['LANGUAGE'] = "en_US.UTF-8"
@@ -49,7 +48,7 @@ prefix= """<?xml version="1.0" encoding="UTF-8"?>
   <vendor>Linux Mint</vendor>
   <vendor_url>https://linuxmint.com/</vendor_url>
 
-  <action id="com.linuxmint.updates.enable-automatic-updates">
+  <action id="com.linuxmint.updates.automation">
     <icon_name>mintupdate</icon_name>
 """
 
@@ -59,32 +58,13 @@ suffix = """
       <allow_inactive>no</allow_inactive>
       <allow_active>auth_admin_keep</allow_active>
     </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mintupdate-enable-auto-updates</annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mintupdate-automation</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">false</annotate>
   </action>
-"""
-
-additionalfiles.generate_polkit_policy(DOMAIN, PATH, "usr/share/polkit-1/actions/com.linuxmint.updates.policy", prefix, "Update Manager", suffix)
-
-prefix = """
-    <action id="com.linuxmint.updates.disable-automatic-updates">
-    <icon_name>mintupdate</icon_name>
-"""
-
-suffix= """
-    <defaults>
-      <allow_any>no</allow_any>
-      <allow_inactive>no</allow_inactive>
-      <allow_active>auth_admin_keep</allow_active>
-    </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mintupdate-disable-auto-updates</annotate>
-    <annotate key="org.freedesktop.policykit.exec.allow_gui">false</annotate>
-  </action>
-
 </policyconfig>
 """
 
-additionalfiles.generate_polkit_policy(DOMAIN, PATH, "usr/share/polkit-1/actions/com.linuxmint.updates.policy", prefix, "Update Manager", suffix, append=True)
+additionalfiles.generate_polkit_policy(DOMAIN, PATH, "usr/share/polkit-1/actions/com.linuxmint.updates.policy", prefix, "Update Manager", suffix)
 
 locales = []
 cur_dir = os.getcwd()

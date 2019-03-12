@@ -11,7 +11,7 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernel e gli aggiornamenti del kernel</desc>
+    <desc>Kernel e aggiornamenti del kernel</desc>
   </info>
 
   <title>Aggiornamenti del kernel</title>
@@ -31,7 +31,7 @@
 
     <p>Quando si applica un aggiornamento, si sostituisce la vecchia versione del software con la nuova versione.</p>
 
-    <p>Le cose sono diverse quando si tratta dei kernel. Quando applichi un "aggiornamento del kernel", in realtà non aggiorni il kernel, ma installi un nuovo kernel accanto a quello esistente.</p>
+    <p>Le cose sono diverse quando si tratta dei kernel. Quando applichi un "aggiornamento del kernel", in realtà non lo aggiorni sostituendo il vecchio, ma ne installi uno nuovo accanto a quello esistente.</p>
 
     <p>Ogni volta che si applica un aggiornamento del kernel, si installa un nuovo kernel sul sistema, senza rimuovere i vecchi.</p>
 
@@ -51,9 +51,9 @@
   <section id="kernel3">
     <title>Installazione e rimozione dei kernel</title>
 
-    <p>È possibile installare e rimuovere kernel da Update Manager.</p>
+    <p>È possibile installare e rimuovere kernel dal Gestore Aggiornamenti</p>
 
-    <p>Scegliere "View" -&gt; "Linux Kernels" nel menu.</p>
+    <p>Scegliere "Visualizza" -&gt; "Kernels Linux" nel menu.</p>
 
     <note><p>Non è possibile rimuovere il kernel che è attualmente in uso. Per rimuoverlo, è necessario riavviare e selezionare un kernel diverso per fare il boot.</p></note>
 
@@ -62,13 +62,13 @@
   <section id="kernel4">
     <title>Selezionare un kernel</title>
 
-    <p>È possibile avere più kernel installati, ma è se ne può eseguire solo uno in un certo momento.</p>
+    <p>È possibile avere più kernel installati, ma se ne può eseguire solo uno per volta.</p>
 
     <p>Quando si avvia il computer, la prima pagina che si presenta è chiamata il menu di Grub. Questo menu consente di scegliere i sistemi operativi, ma è possibile anche utilizzare per selezionare un kernel.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>Per selezionare un kernel, scegliere "Opzioni avanzate" nel menu di Grub Si dovrebbero vedere tutti i kernel attualmente installati. Selezionare quello che si desidera utilizzare e il computer verrà avviato con quello.</p>
+    <p>Per selezionare un kernel, scegliere "Opzioni avanzate" nel menu di Grub. Si dovrebbero vedere tutti i kernel attualmente installati. Selezionare quello che si desidera utilizzare e il computer verrà avviato con quello.</p>
 
   </section>
 
@@ -77,13 +77,13 @@
 
     <p>Il kernel include tutti i driver open source e questi di solito funzionano molto bene. Driver proprietari (NVIDIA, AMD, Broadcom... ecc) non sono inclusi e hanno bisogno di compilare se stessi contro ogni kernel installato. Ciò avviene tramite un meccanismo denominato DKMS.</p>
 
-    <p>Se un driver proprietario non è correttamente ricompilato con DKMS per uno dei tuo kernel, non funzionerà correttamente con questo kernel.</p>
+    <p>Se un driver proprietario non è correttamente ricompilato con DKMS per uno dei tuoi kernel, non funzionerà correttamente con tale kernel.</p>
 
-    <p>Dopo l'installazione o rimozione di un kernel, è possibile controllare il tuo status DKMS, per assicurarsi che tutti i driver proprietari sono installati correttamente per ciascuno dei tuoi kernel con il comando seguente:</p>
+    <p>Dopo l'installazione o la rimozione di un kernel, è possibile controllare il tuo stato DKMS, per assicurarsi che tutti i driver proprietari siano installati correttamente per ciascuno dei tuoi kernel con il comando seguente:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>Nuovo kernel della serie diventano solitamente disponibili prima di driver proprietari sostegno tramite DKMS. Se si utilizza driver proprietari, è consigliabile per bastone per gli aggiornamenti del kernel e non installare kernel da serie che sono più recenti rispetto alla serie dei kernel consigliati.</p></note>
+    <note><p>Nuove serie di kernel diventano solitamente disponibili prima che i driver proprietari li supportino tramite DKMS. Se si utilizzano driver proprietari, è consigliabile bloccare gli aggiornamenti del kernel e non installare kernel da serie che sono più recenti rispetto alla serie dei kernel consigliati.</p></note>
 
   </section>
 

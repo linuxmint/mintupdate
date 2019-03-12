@@ -7,7 +7,7 @@
   <vendor>Linux Mint</vendor>
   <vendor_url>https://linuxmint.com/</vendor_url>
 
-  <action id="com.linuxmint.updates.enable-automatic-updates">
+  <action id="com.linuxmint.updates.automation">
     <icon_name>mintupdate</icon_name>
 <message>Update Manager</message>
 <message xml:lang="af">Opdateringsbestuurder</message>
@@ -155,6 +155,7 @@
 <message xml:lang="ur_PK">اپڈیٹ منتظم</message>
 <message xml:lang="vi">Trình Quản lý Cập nhật</message>
 <message xml:lang="vi_VN">Trình Quản lý Cập nhật</message>
+<message xml:lang="zh">更新管理器</message>
 <message xml:lang="zh_CN">更新管理器</message>
 <message xml:lang="zh_HK">更新管理員</message>
 <message xml:lang="zh_TW">更新管理員</message>
@@ -164,169 +165,7 @@
       <allow_inactive>no</allow_inactive>
       <allow_active>auth_admin_keep</allow_active>
     </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mintupdate-enable-auto-updates</annotate>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mintupdate-automation</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">false</annotate>
   </action>
-
-    <action id="com.linuxmint.updates.disable-automatic-updates">
-    <icon_name>mintupdate</icon_name>
-<message>Update Manager</message>
-<message xml:lang="af">Opdateringsbestuurder</message>
-<message xml:lang="am">የማሻሻያ አስተዳዳሪ</message>
-<message xml:lang="ar">مدير التحديث</message>
-<message xml:lang="ar_AR">مدير التحديث</message>
-<message xml:lang="ar_MA">مدير التحديث</message>
-<message xml:lang="ast">Xestor d'anovamientos</message>
-<message xml:lang="az">Yeniləmə İdarəçisi</message>
-<message xml:lang="be">Кіраўнік абнаўленняў</message>
-<message xml:lang="be@latin">Кіраўнік абнаўленняў</message>
-<message xml:lang="bg">Диспечер на актуализациите</message>
-<message xml:lang="bg_BG">Диспечер на актуализациите</message>
-<message xml:lang="bn">আপডেট ব্যবস্থাপক</message>
-<message xml:lang="bn_BD">আপডেট ব্যবস্থাপক</message>
-<message xml:lang="bn_IN">আপডেট ব্যবস্থাপক</message>
-<message xml:lang="bs">Menadžer nadogradnji</message>
-<message xml:lang="ca">Gestor d'actualitzacions</message>
-<message xml:lang="ca@valencia">Gestor d'actualitzacions</message>
-<message xml:lang="ca_ES@valencia">Gestor d'actualitzacions</message>
-<message xml:lang="cs">Správa aktualizací</message>
-<message xml:lang="cs_CZ">Správa aktualizací</message>
-<message xml:lang="csb">Menedżera aktualizacëji</message>
-<message xml:lang="cy">Rheolwr Diweddaru</message>
-<message xml:lang="da">Opdateringshåndtering</message>
-<message xml:lang="de">Aktualisierungsverwaltung</message>
-<message xml:lang="de_CH">Aktualisierungsverwaltung</message>
-<message xml:lang="de_DE">Aktualisierungsverwaltung</message>
-<message xml:lang="el">Διαχειριστής Ενημερώσεων</message>
-<message xml:lang="eo">Ĝisdatiga mastrumilo</message>
-<message xml:lang="es">Administrador de actualizaciones</message>
-<message xml:lang="es_419">Administrador de actualizaciones</message>
-<message xml:lang="es_AR">Administrador de actualizaciones</message>
-<message xml:lang="es_CL">Administrador de actualizaciones</message>
-<message xml:lang="es_CO">Administrador de actualizaciones</message>
-<message xml:lang="es_CR">Administrador de actualizaciones</message>
-<message xml:lang="es_DO">Administrador de actualizaciones</message>
-<message xml:lang="es_EC">Administrador de actualizaciones</message>
-<message xml:lang="es_ES">Administrador de actualizaciones</message>
-<message xml:lang="es_MX">Administrador de actualizaciones</message>
-<message xml:lang="es_NI">Administrador de actualizaciones</message>
-<message xml:lang="es_PA">Administrador de actualizaciones</message>
-<message xml:lang="es_PE">Administrador de actualizaciones</message>
-<message xml:lang="es_PR">Administrador de actualizaciones</message>
-<message xml:lang="es_SV">Administrador de actualizaciones</message>
-<message xml:lang="es_US">Administrador de actualizaciones</message>
-<message xml:lang="es_UY">Administrador de actualizaciones</message>
-<message xml:lang="es_VE">Administrador de actualizaciones</message>
-<message xml:lang="et">Uuendamishaldur</message>
-<message xml:lang="eu">Eguneraketa-kudeatzailea</message>
-<message xml:lang="fa">مدیر به‌روزرسانی</message>
-<message xml:lang="fa_AF">مدیر به‌روزرسانی</message>
-<message xml:lang="fa_IR">مدیر به‌روزرسانی</message>
-<message xml:lang="fi">Päivitysten hallinta</message>
-<message xml:lang="fi_FI">Päivitysten hallinta</message>
-<message xml:lang="fil">Tagapamahala ng Update</message>
-<message xml:lang="fo">Dagføringa fyrisiting</message>
-<message xml:lang="fr">Gestionnaire de mises à jour</message>
-<message xml:lang="fr_CA">Gestionnaire de mises à jour</message>
-<message xml:lang="fr_FR">Gestionnaire de mises à jour</message>
-<message xml:lang="ga">Bainisteoir Nuashonraithe</message>
-<message xml:lang="gd">Manaidsear nan ùrachaidhean</message>
-<message xml:lang="gl">Xestor de actualizacións</message>
-<message xml:lang="gl_ES">Xestor de actualizacións</message>
-<message xml:lang="gv">Reireyder stoo noa</message>
-<message xml:lang="he">מנהל עדכונים</message>
-<message xml:lang="he_IL">מנהל עדכונים</message>
-<message xml:lang="hi">अपडेट मैनेजर</message>
-<message xml:lang="hr">Upravitelj nadopuna</message>
-<message xml:lang="hu">Frissítéskezelő</message>
-<message xml:lang="hu_HU">Frissítéskezelő</message>
-<message xml:lang="ia">Gestor de actualisation</message>
-<message xml:lang="id">Manajer Pembaruan</message>
-<message xml:lang="id_ID">Manajer Pembaruan</message>
-<message xml:lang="is">Uppfærslustjóri</message>
-<message xml:lang="it">Gestore Aggiornamenti</message>
-<message xml:lang="it_IT">Gestore Aggiornamenti</message>
-<message xml:lang="ja">アップデートマネージャ</message>
-<message xml:lang="ja_JP">アップデートマネージャ</message>
-<message xml:lang="jv">Penglola penganyaran</message>
-<message xml:lang="kab">Amsefrak n ileqman</message>
-<message xml:lang="kk">Жаңарту менеджері</message>
-<message xml:lang="km">កម្មវិធី​គ្រប់គ្រង​បច្ចុប្បន្នភាព</message>
-<message xml:lang="km_KH">កម្មវិធី​គ្រប់គ្រង​បច្ចុប្បន្នភាព</message>
-<message xml:lang="ko">업데이트 매니저</message>
-<message xml:lang="ko_KR">업데이트 매니저</message>
-<message xml:lang="ku">Rêveberiya Rojanekirinê</message>
-<message xml:lang="ku_IQ">Rêveberiya Rojanekirinê</message>
-<message xml:lang="ky">Жаңылоо менеджери</message>
-<message xml:lang="lt">Atnaujinimų tvarkytuvė</message>
-<message xml:lang="lt_LT">Atnaujinimų tvarkytuvė</message>
-<message xml:lang="lv">Atjauninājumu pārvaldnieks</message>
-<message xml:lang="lv_LV">Atjauninājumu pārvaldnieks</message>
-<message xml:lang="mk">Менаџер за надградба</message>
-<message xml:lang="mk_MK">Менаџер за надградба</message>
-<message xml:lang="ml">അപ്‌ഡേറ്റ് മാനേജർ</message>
-<message xml:lang="mr">अद्ययावतीकरण प्रबंधक</message>
-<message xml:lang="ms">Pengurus Kemaskini</message>
-<message xml:lang="ms_MY">Pengurus Kemaskini</message>
-<message xml:lang="nb">Oppdateringsbehandler</message>
-<message xml:lang="nb_NO">Oppdateringsbehandler</message>
-<message xml:lang="nds">Aktualisierungsverwaltung</message>
-<message xml:lang="ne">उप्डेट म्यानेजर</message>
-<message xml:lang="nl">Bijwerkbeheer</message>
-<message xml:lang="nl_NL">Bijwerkbeheer</message>
-<message xml:lang="nn">Oppdateringshandsamar</message>
-<message xml:lang="nn_NO">Oppdateringshandsamar</message>
-<message xml:lang="oc">Gestionari de mesas a jorn</message>
-<message xml:lang="pa">ਅੱਪਡੇਟ ਮੈਨੇਜਰ</message>
-<message xml:lang="pl">Menedżer aktualizacji</message>
-<message xml:lang="pl_PL">Menedżer aktualizacji</message>
-<message xml:lang="pt">Gestor de Atualizações</message>
-<message xml:lang="pt_BR">Gerenciador de Atualizações</message>
-<message xml:lang="pt_PT">Gestor de Atualizações</message>
-<message xml:lang="ro">Administrator de actualizări</message>
-<message xml:lang="ro_RO">Administrator de actualizări</message>
-<message xml:lang="ru">Менеджер обновлений</message>
-<message xml:lang="si">යාවත්කාල කිරීම කළමනාකරනය</message>
-<message xml:lang="sk">Správca aktualizácií</message>
-<message xml:lang="sk_SK">Správca aktualizácií</message>
-<message xml:lang="sl">Upravljalnik posodobitev</message>
-<message xml:lang="sl_SI">Upravljalnik posodobitev</message>
-<message xml:lang="so">Agaasime Dalacsiiyaha</message>
-<message xml:lang="sq">Menaxhuesi i Përditësimeve</message>
-<message xml:lang="sr">Управник ажурирања</message>
-<message xml:lang="sr@Latn">Upravnik ažuriranja</message>
-<message xml:lang="sr@cyrillic">Управник ажурирања</message>
-<message xml:lang="sr@ije">Управник ажурирања</message>
-<message xml:lang="sr@ijekavianlatin">Управник ажурирања</message>
-<message xml:lang="sr@latin">Upravnik ažuriranja</message>
-<message xml:lang="sr_RS">Управник ажурирања</message>
-<message xml:lang="sr_RS@latin">Upravnik ažuriranja</message>
-<message xml:lang="sv">Uppdateringshanterare</message>
-<message xml:lang="ta">மேம்பாட்டு  நிர்வகிப்பான்</message>
-<message xml:lang="ta_LK">மேம்பாட்டு  நிர்வகிப்பான்</message>
-<message xml:lang="te">నవీకరణ నిర్వాహకం</message>
-<message xml:lang="tg">Мудири навсозиҳо</message>
-<message xml:lang="th">โปรแกรมจัดการการปรับปรุง</message>
-<message xml:lang="th_TH">โปรแกรมจัดการการปรับปรุง</message>
-<message xml:lang="tl">Tagapamahala ng Update</message>
-<message xml:lang="tr">Güncelleme Yöneticisi</message>
-<message xml:lang="uk">Менеджер оновлень</message>
-<message xml:lang="uk_UA">Менеджер оновлень</message>
-<message xml:lang="ur">اپڈیٹ منتظم</message>
-<message xml:lang="ur_PK">اپڈیٹ منتظم</message>
-<message xml:lang="vi">Trình Quản lý Cập nhật</message>
-<message xml:lang="vi_VN">Trình Quản lý Cập nhật</message>
-<message xml:lang="zh_CN">更新管理器</message>
-<message xml:lang="zh_HK">更新管理員</message>
-<message xml:lang="zh_TW">更新管理員</message>
-
-    <defaults>
-      <allow_any>no</allow_any>
-      <allow_inactive>no</allow_inactive>
-      <allow_active>auth_admin_keep</allow_active>
-    </defaults>
-    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/mintupdate-disable-auto-updates</annotate>
-    <annotate key="org.freedesktop.policykit.exec.allow_gui">false</annotate>
-  </action>
-
 </policyconfig>

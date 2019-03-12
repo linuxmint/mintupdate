@@ -1,0 +1,6 @@
+{
+    "upgrade": ["/etc/cron.daily/mintupdate", "Cron job"],
+    "blacklist": ["/etc/mintupdate.blacklist", "Blacklist"],
+    "autoremove": ["/etc/systemd/system/timers.target.wants/mintupdate-automation-autoremove.timer", "systemd"],
+    "clean": ["/etc/apt/apt.conf.d/99_mintupdate_clean", "apt-daily config"]
+}
