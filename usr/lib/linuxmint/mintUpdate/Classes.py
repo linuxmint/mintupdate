@@ -5,6 +5,11 @@ gettext.install("mintupdate", "/usr/share/locale")
 import html
 from gi.repository import Gio
 
+
+# These updates take priority over other updates.
+# If a new version of these packages is available, nothing else is listed.
+PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
+
 settings = Gio.Settings("com.linuxmint.updates")
 if settings.get_boolean("use-lowlatency-kernels"):
     CONFIGURED_KERNEL_TYPE = "-lowlatency"

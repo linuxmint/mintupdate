@@ -13,7 +13,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, CONFIGURED_KERNEL_TYPE
+from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, CONFIGURED_KERNEL_TYPE, PRIORITY_UPDATES
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -33,11 +33,6 @@ class KernelVersion():
         self.numeric_representation = ".".join(self.numeric_versions)
         self.std_version = "%s.%s.%s-%s" % (version_array[0], version_array[1], version_array[2], version_array[3])
         self.series = "%s.%s.%s" % (version_array[0], version_array[1], version_array[2])
-
-# These updates take priority over other updates.
-# If a new version of these packages is available,
-# nothing else is listed.
-PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
 
 class APTCheck():
 
@@ -352,7 +347,7 @@ if __name__ == "__main__":
         check.apply_aliases()
         check.clean_descriptions()
         check.serialize_updates()
-        if os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
+        if os.getuid() == 0 and os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
             # Spawn the cache update asynchronously
             # We're using os.system with & here to make sure it's async and detached
             # from the caller (which will die before the child process is finished)
