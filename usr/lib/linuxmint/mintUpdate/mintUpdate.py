@@ -14,7 +14,7 @@ import urllib.request
 import proxygsettings
 import subprocess
 import pycurl
-import datetime
+from datetime import datetime
 import configparser
 import traceback
 import setproctitle
@@ -943,11 +943,11 @@ class RefreshThread(threading.Thread):
                                 infobar_title = _("Please switch to another mirror")
                                 infobar_message = _("%s is unreachable.") % mirror_url
                         elif mint_timestamp is not None:
-                            mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
-                            now = datetime.datetime.now()
+                            mint_date = datetime.fromtimestamp(mint_timestamp)
+                            now = datetime.now()
                             mint_age = (now - mint_date).days
                             if (mint_age > 2):
-                                mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
+                                mirror_date = datetime.fromtimestamp(mirror_timestamp)
                                 mirror_age = (mint_date - mirror_date).days
                                 if (mirror_age > 2):
                                     infobar_title = _("Please switch to another mirror")
@@ -1073,10 +1073,10 @@ class Logger():
             self.hook(line)
 
     def write(self, line):
-        self._write(f"{datetime.datetime.now().strftime('%m.%d@%H:%M')} ++ {line}\n")
+        self._write(f"{datetime.now().strftime('%m.%d@%H:%M')} ++ {line}\n")
 
     def write_error(self, line):
-        self._write(f"{datetime.datetime.now().strftime('%m.%d@%H:%M')} -- {line}\n")
+        self._write(f"{datetime.now().strftime('%m.%d@%H:%M')} -- {line}\n")
 
     def read(self):
         if not os.path.exists(self.log.name):
