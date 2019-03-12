@@ -26,7 +26,7 @@ gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
 from gi.repository import AppIndicator3 as AppIndicator
 
-from Classes import Update
+from Classes import Update, PRIORITY_UPDATES
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -1734,10 +1734,16 @@ class MintUpdate():
                 package_update = model.get_value(iter, UPDATE_OBJ)
                 menu = Gtk.Menu()
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore the current update for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, "%s=%s" % (package_update.source_name, package_update.new_version))
+                if package_update.source_name in PRIORITY_UPDATES:
+                    menuItem.set_sensitive(False)
+                else:
+                    menuItem.connect("activate", self.add_to_ignore_list, "%s=%s" % (package_update.source_name, package_update.new_version))
                 menu.append(menuItem)
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore all future updates for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, package_update.source_name)
+                if package_update.source_name in PRIORITY_UPDATES:
+                    menuItem.set_sensitive(False)
+                else:
+                    menuItem.connect("activate", self.add_to_ignore_list, package_update.source_name)
                 menu.append(menuItem)
                 menu.attach_to_widget (widget, None)
                 menu.show_all()

@@ -13,7 +13,7 @@ import traceback
 
 from gi.repository import Gio
 
-from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, CONFIGURED_KERNEL_TYPE
+from Classes import Update, Alias, Rule, KERNEL_PKG_NAMES, CONFIGURED_KERNEL_TYPE, PRIORITY_UPDATES
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -33,11 +33,6 @@ class KernelVersion():
         self.numeric_representation = ".".join(self.numeric_versions)
         self.std_version = "%s.%s.%s-%s" % (version_array[0], version_array[1], version_array[2], version_array[3])
         self.series = "%s.%s.%s" % (version_array[0], version_array[1], version_array[2])
-
-# These updates take priority over other updates.
-# If a new version of these packages is available,
-# nothing else is listed.
-PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
 
 class APTCheck():
 
