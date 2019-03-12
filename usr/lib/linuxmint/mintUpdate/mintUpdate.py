@@ -335,37 +335,59 @@ class AutomaticRefreshThread(threading.Thread):
         self.application = application
 
     def run(self):
+        minute = 60
+        hour = 60 * minute
+        day = 24 * hour
         initial_refresh = True
         settings_prefix = ""
         refresh_type = "initial"
-        refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
 
-        while refresh_schedule_enabled:
+        while self.application.refresh_schedule_enabled:
             try:
                 schedule = {
-                    "minutes": self.application.settings.get_int("%srefresh-minutes" % settings_prefix),
-                    "hours": self.application.settings.get_int("%srefresh-hours" % settings_prefix),
-                    "days": self.application.settings.get_int("%srefresh-days" % settings_prefix)
+                    "minutes": self.application.settings.get_int(f"{settings_prefix}refresh-minutes"),
+                    "hours": self.application.settings.get_int(f"{settings_prefix}refresh-hours"),
+                    "days": self.application.settings.get_int(f"{settings_prefix}refresh-days")
                 }
-                timetosleep = schedule["minutes"] * 60 + schedule["hours"] * 60 * 60 + schedule["days"] * 24 * 60 * 60
+                timetosleep = schedule["minutes"] * minute + schedule["hours"] * hour + schedule["days"] * day
 
-                if (timetosleep == 0):
+                if not timetosleep:
                     time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
                 else:
+                    now = int(time.time())
+                    if not initial_refresh:
+                        refresh_last_run = self.application.settings.get_int("refresh-last-run")
+                        if not refresh_last_run or refresh_last_run > now:
+                            refresh_last_run = now
+                            self.application.settings.set_int("refresh-last-run", now)
+                        time_since_last_refresh = now - refresh_last_run
+                        if time_since_last_refresh > 0:
+                            timetosleep = timetosleep - time_since_last_refresh
+                        # always wait at least 1 minute to be on the safe side
+                        if timetosleep < 60:
+                            timetosleep = 60
+
+                    schedule["days"] = int(timetosleep / day)
+                    schedule["hours"] = int((timetosleep - schedule["days"] * day) / hour)
+                    schedule["minutes"] = int((timetosleep - schedule["days"] * day - schedule["hours"] * hour) / minute)
                     self.application.logger.write("%s refresh will happen in %d day(s), %d hour(s) and %d minute(s)" %
-                        (refresh_type[0].upper() + refresh_type[1:], schedule["days"], schedule["hours"], schedule["minutes"]))
+                        (refresh_type.capitalize(), schedule["days"], schedule["hours"], schedule["minutes"]))
                     time.sleep(timetosleep)
-                    if not refresh_schedule_enabled:
-                        self.application.logger.write("Auto-refresh was disabled in preferences, cancelling %s refresh" % refresh_type)
+                    if not self.application.refresh_schedule_enabled:
+                        self.application.logger.write(f"Auto-refresh disabled in preferences, cancelling {refresh_type} refresh")
                         return
-                    if (self.application.app_hidden == True):
-                        self.application.logger.write("Update Manager is in tray mode, performing %s refresh" % refresh_type)
+                    if self.application.app_hidden:
+                        self.application.logger.write(f"Update Manager is in tray mode, performing {refresh_type} refresh")
                         refresh = RefreshThread(self.application, root_mode=True)
                         refresh.start()
                         while refresh.is_alive():
-                            time.sleep(1)
+                            time.sleep(5)
                     else:
-                        self.application.logger.write("Update Manager window is open, skipping %s refresh" % refresh_type)
+                        if initial_refresh:
+                            self.application.logger.write(f"Update Manager window is open, skipping {refresh_type} refresh")
+                        else:
+                            self.application.logger.write(f"Update Manager window is open, delaying {refresh_type} refresh by 60s")
+                            time.sleep(60)
             except Exception as e:
                 print (e)
                 self.application.logger.write_error("Exception occurred during %s refresh: %s" % (refresh_type, str(sys.exc_info()[0])))
@@ -374,8 +396,8 @@ class AutomaticRefreshThread(threading.Thread):
                 initial_refresh = False
                 settings_prefix = "auto"
                 refresh_type = "recurring"
-
-            refresh_schedule_enabled = self.application.settings.get_boolean("refresh-schedule-enabled")
+        else:
+            self.application.logger.write(f"Auto-refresh disabled in preferences, AutomaticRefreshThread stopped")
 
 class InstallThread(threading.Thread):
 
@@ -694,6 +716,9 @@ class RefreshThread(threading.Thread):
                 output =  subprocess.check_output(refresh_command, shell = True).decode("utf-8")
             except subprocess.CalledProcessError as refresh_exception:
                 output = refresh_exception.output.decode("utf-8")
+
+            if self.root_mode:
+                self.application.settings.set_int("refresh-last-run", int(time.time()))
 
             if len(output) > 0 and not "CHECK_APT_ERROR" in output:
                 (mint_layer_found, error_msg) = self.check_policy()
@@ -1479,6 +1504,7 @@ class MintUpdate():
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
             self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
 
+            self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.auto_refresh = AutomaticRefreshThread(self)
             self.auto_refresh.start()
 
@@ -2050,8 +2076,7 @@ class MintUpdate():
         set_GtkSpinButton("autorefresh_hours", self.settings.get_int("autorefresh-hours"), range_max=23, increment_page=5)
         set_GtkSpinButton("autorefresh_minutes", self.settings.get_int("autorefresh-minutes"), range_max=59, increment_page=10)
 
-        refresh_schedule_active = self.settings.get_boolean("refresh-schedule-enabled")
-        builder.get_object("checkbutton_refresh_schedule_enabled").set_active(refresh_schedule_active)
+        builder.get_object("checkbutton_refresh_schedule_enabled").set_active(self.refresh_schedule_enabled)
         builder.get_object("checkbutton_refresh_schedule_enabled").connect("toggled", self.on_refresh_schedule_toggled, builder)
 
         treeview_blacklist = builder.get_object("treeview_blacklist")
@@ -2080,7 +2105,7 @@ class MintUpdate():
         self.preferences_window_showing = True
 
         window.show_all()
-        builder.get_object("refresh_grid").set_visible(refresh_schedule_active)
+        builder.get_object("refresh_grid").set_visible(self.refresh_schedule_enabled)
 
     def on_refresh_schedule_toggled(self, widget, builder):
         builder.get_object("refresh_grid").set_visible(widget.get_active())
@@ -2134,9 +2159,9 @@ class MintUpdate():
         self.set_automation("upgrade", builder)
         self.set_automation("autoremove", builder)
 
-        refresh_schedule_enabled = builder.get_object("checkbutton_refresh_schedule_enabled").get_active()
-        self.settings.set_boolean('refresh-schedule-enabled', refresh_schedule_enabled)
-        if refresh_schedule_enabled and not self.auto_refresh.is_alive():
+        self.refresh_schedule_enabled = builder.get_object("checkbutton_refresh_schedule_enabled").get_active()
+        self.settings.set_boolean('refresh-schedule-enabled', self.refresh_schedule_enabled)
+        if self.refresh_schedule_enabled and not self.auto_refresh.is_alive():
             self.auto_refresh = AutomaticRefreshThread(self)
             self.auto_refresh.start()
 
