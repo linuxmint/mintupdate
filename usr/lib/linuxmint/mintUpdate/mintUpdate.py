@@ -728,6 +728,8 @@ class RefreshThread(threading.Thread):
             elif ("CHECK_APT_ERROR" in output):
                 try:
                     error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
+                    if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
+                        error_msg += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
                 except:
                     error_msg = ""
                 Gdk.threads_enter()
