@@ -1844,6 +1844,12 @@ class MintUpdate():
     def open_information(self, widget):
         if self.information_window_showing:
             return
+        def destroy_window(widget):
+            self.logger.remove_hook()
+            self.information_window_showing = False
+            window.destroy()
+        def update_log(line):
+            textbuffer.insert(textbuffer.get_end_iter(), line)
         gladefile = "/usr/share/linuxmint/mintupdate/information.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -1851,17 +1857,13 @@ class MintUpdate():
         window = builder.get_object("main_window")
         window.set_title(_("Information"))
         window.set_icon_name("mintupdate")
-        def destroy_window(widget):
-            self.information_window_showing = False
-            window.destroy()
+        textbuffer = builder.get_object("log_textview").get_buffer()
         window.connect("destroy", destroy_window)
         builder.get_object("close_button").connect("clicked", destroy_window)
         builder.get_object("processid_label").set_text(str(os.getpid()))
+        textbuffer.set_text(self.logger.read())
         builder.get_object("log_filename").set_text(str(self.logger.log.name))
-        txtbuffer = Gtk.TextBuffer()
-        with open(self.logger.log.name, encoding="utf-8", errors="ignore") as f:
-            txtbuffer.set_text(f.read())
-        builder.get_object("log_textview").set_buffer(txtbuffer)
+        self.logger.set_hook(update_log)
         self.information_window_showing = True
 
 ######### HISTORY SCREEN #########
