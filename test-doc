@@ -1,0 +1,5 @@
+#!/bin/sh
+
+for f in $(ls doc/man); do
+    gzip -c doc/man/$f | sudo tee /usr/share/man/man8/$f.gz 1>/dev/null
+done
