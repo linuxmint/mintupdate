@@ -47,19 +47,19 @@ gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
 
 (UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_SORT_STR_WITH_LEVEL, UPDATE_OBJ) = range(15)
 
-GIGABYTE = 1024 ** 3
-MEGABYTE = 1024 ** 2
-KILOBYTE = 1024
+GIGABYTE = 1000 ** 3
+MEGABYTE = 1000 ** 2
+KILOBYTE = 1000
 
 
 def size_to_string(size):
     if (size >= GIGABYTE):
-        return str(size // GIGABYTE) + _("GB")
+        return "%d %s" % (size // GIGABYTE,  _("GB"))
     if (size >= (MEGABYTE)):
-        return str(size // MEGABYTE) + _("MB")
+        return "%d %s" % (size // MEGABYTE,  _("MB"))
     if (size >= KILOBYTE):
-        return str(size // KILOBYTE) + _("KB")
-    return str(size) + _("B")
+        return "%d %s" % (size // KILOBYTE,  _("KB"))
+    return "%d %s" % (size,  _("B"))
 
 class CacheWatcher(threading.Thread):
     """ Monitors package cache and dpkg status and runs RefreshThread() on change """
@@ -528,7 +528,7 @@ class InstallThread(threading.Thread):
 
                     latest_apt_update = ''
                     update_successful = False
-                    with open("/var/log/apt/history.log") as apt_history:
+                    with open("/var/log/apt/history.log", encoding="utf-8") as apt_history:
                         for line in reversed(list(apt_history)):
                             if "Start-Date" in line:
                                 break
@@ -846,7 +846,7 @@ class RefreshThread(threading.Thread):
                         self.statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
 
                     self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
-                    self.application.logger.write("Found " + str(num_visible) + " software updates")
+                    self.application.logger.write("Found " + str(num_visible) + " software update(s)")
 
                     if (num_visible >= 1):
                         systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
@@ -871,7 +871,7 @@ class RefreshThread(threading.Thread):
             infobar_icon_type = "dialog-information-symbolic"
             infobar_callback = self._on_infobar_mintsources_response
 
-            if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
+            if self.application.settings.get_boolean("warn-about-timeshift") and not self.checkTimeshiftConfiguration():
                 infobar_message = "<b>%s</b>\n%s" % (_("Please set up System Snapshots"), _("If something breaks, snapshots will allow you to restore your system to the previous working condition."))
                 infobar_message_type = Gtk.MessageType.WARNING
                 infobar_icon_type = "dialog-warning-symbolic"
@@ -882,7 +882,7 @@ class RefreshThread(threading.Thread):
                         mirror_url = None
 
                         codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
-                        with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
+                        with open("/etc/apt/sources.list.d/official-package-repositories.list", encoding="utf-8") as sources_file:
                             for line in sources_file:
                                 line = line.strip()
                                 if line.startswith("deb ") and "%s main upstream import" % codename in line:
@@ -1004,10 +1004,10 @@ class RefreshThread(threading.Thread):
         return changes
 
     def checkTimeshiftConfiguration(self):
-        if os.path.exists("/etc/timeshift.json"):
+        if os.path.isfile("/etc/timeshift.json"):
             try:
-                data = json.load(open("/etc/timeshift.json"))
-                if data['backup_device_uuid'] is not None and data['backup_device_uuid'] != "":
+                data = json.load(open("/etc/timeshift.json", encoding="utf-8"))
+                if 'backup_device_uuid' in data and data['backup_device_uuid']:
                     return True
             except Exception as e:
                 print("Error while checking Timeshift configuration: ", e)
@@ -1090,6 +1090,9 @@ class MintUpdate():
     def __init__(self):
         Gdk.threads_init()
         self.app_hidden = True
+        self.information_window_showing = False
+        self.history_window_showing = False
+        self.preferences_window_showing = False
         self.updates_inhibited = False
         self.logger = Logger()
         self.logger.write("Launching Update Manager")
@@ -1287,7 +1290,7 @@ class MintUpdate():
             rel_edition = 'unknown'
             rel_codename = 'unknown'
             if os.path.exists("/etc/linuxmint/info"):
-                with open("/etc/linuxmint/info", "r") as info:
+                with open("/etc/linuxmint/info", encoding="utf-8") as info:
                     for line in info:
                         line = line.strip()
                         if "EDITION=" in line:
@@ -1481,8 +1484,6 @@ class MintUpdate():
                 self.select_updates(kernel=True)
 
 ######### UTILITY FUNCTIONS #########
-    def hide_window(self, widget, window):
-        window.hide()
 
     def refresh(self):
         refresh = RefreshThread(self)
@@ -1778,6 +1779,8 @@ class MintUpdate():
 ######### INFORMATION SCREEN #########
 
     def open_information(self, widget):
+        if self.information_window_showing:
+            return
         gladefile = "/usr/share/linuxmint/mintupdate/information.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -1785,16 +1788,24 @@ class MintUpdate():
         window = builder.get_object("main_window")
         window.set_title(_("Information"))
         window.set_icon_name("mintupdate")
-        builder.get_object("close_button").connect("clicked", self.hide_window, window)
+        def destroy_window(widget):
+            self.information_window_showing = False
+            window.destroy()
+        window.connect("destroy", destroy_window)
+        builder.get_object("close_button").connect("clicked", destroy_window)
         builder.get_object("processid_label").set_text(str(os.getpid()))
         builder.get_object("log_filename").set_text(str(self.logger.log.name))
         txtbuffer = Gtk.TextBuffer()
-        txtbuffer.set_text(subprocess.check_output("cat " + self.logger.log.name, shell = True).decode("utf-8"))
+        with open(self.logger.log.name, encoding="utf-8", errors="ignore") as f:
+            txtbuffer.set_text(f.read())
         builder.get_object("log_textview").set_buffer(txtbuffer)
+        self.information_window_showing = True
 
 ######### HISTORY SCREEN #########
 
     def open_history(self, widget):
+        if self.history_window_showing:
+            return
         gladefile = "/usr/share/linuxmint/mintupdate/history.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -1827,9 +1838,11 @@ class MintUpdate():
         treeview.show()
 
         model = Gtk.TreeStore(str, str, str, str) # (packageName, date, oldVersion, newVersion)
-        if (os.path.exists("/var/log/dpkg.log")):
-            updates = subprocess.check_output("cat /var/log/dpkg.log /var/log/dpkg.log.? 2>/dev/null | egrep \"upgrade\"", shell = True).decode("utf-8")
-            updates = updates.split("\n")
+        if os.path.isfile("/var/log/dpkg.log"):
+            updates = subprocess.run('zgrep " upgrade " -sh /var/log/dpkg.log*',
+                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)\
+                .stdout.decode().split("\n")
+            updates.sort(reverse=True)
             for pkg in updates:
                 values = pkg.split(" ")
                 if len(values) == 6:
@@ -1846,10 +1859,15 @@ class MintUpdate():
                     model.set_value(iter, 2, oldVersion)
                     model.set_value(iter, 3, newVersion)
 
-        model.set_sort_column_id( 1, Gtk.SortType.DESCENDING )
+        # model.set_sort_column_id( 1, Gtk.SortType.DESCENDING )
         treeview.set_model(model)
         del model
-        builder.get_object("button_close").connect("clicked", self.hide_window, window)
+        def destroy_window(widget):
+            self.history_window_showing = False
+            window.destroy()
+        window.connect("destroy", destroy_window)
+        builder.get_object("button_close").connect("clicked", destroy_window)
+        self.history_window_showing = True
 
 ######### HELP/ABOUT/SHORTCUTS/SOURCES SCREEN #########
 
@@ -1866,7 +1884,7 @@ class MintUpdate():
         dlg.set_program_name("mintUpdate")
         dlg.set_comments(_("Update Manager"))
         try:
-            h = open('/usr/share/common-licenses/GPL','r')
+            h = open('/usr/share/common-licenses/GPL', encoding="utf-8")
             s = h.readlines()
             gpl = ""
             for line in s:
@@ -1883,7 +1901,7 @@ class MintUpdate():
         dlg.set_website("http://www.github.com/linuxmint/mintupdate")
         def close(w, res):
             if res == Gtk.ResponseType.CANCEL or res == Gtk.ResponseType.DELETE_EVENT:
-                w.hide()
+                w.destroy()
         dlg.connect("response", close)
         dlg.show()
 
@@ -1910,6 +1928,9 @@ class MintUpdate():
 ######### PREFERENCES SCREEN #########
 
     def open_preferences(self, widget):
+        if self.preferences_window_showing:
+            return
+        self.window.set_sensitive(False)
         gladefile = "/usr/share/linuxmint/mintupdate/preferences.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
@@ -1988,12 +2009,14 @@ class MintUpdate():
             iter = model.insert_before(None, None)
             model.set_value(iter, 0, ignored_pkg)
 
-        builder.get_object("pref_button_cancel").connect("clicked", self.hide_window, window)
+        window.connect("destroy", self.close_preferences, window)
+        builder.get_object("pref_button_cancel").connect("clicked", self.close_preferences, window)
         builder.get_object("pref_button_apply").connect("clicked", self.save_preferences, builder)
         builder.get_object("button_add").connect("clicked", self.add_blacklisted_package, treeview_blacklist, window)
         builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
         builder.get_object("button_add").set_always_show_image(True)
         builder.get_object("button_remove").set_always_show_image(True)
+        self.preferences_window_showing = True
 
         window.show_all()
         builder.get_object("refresh_grid").set_visible(refresh_schedule_active)
@@ -2056,7 +2079,7 @@ class MintUpdate():
             self.auto_refresh = AutomaticRefreshThread(self)
             self.auto_refresh.start()
 
-        builder.get_object("main_window").hide()
+        self.close_preferences(widget, builder.get_object("main_window"))
         self.refresh()
 
     def add_blacklisted_package(self, widget, treeview_blacklist, window):
@@ -2085,6 +2108,11 @@ class MintUpdate():
         if (iter != None):
             pkg = model.get_value(iter, UPDATE_CHECKED)
             model.remove(iter)
+
+    def close_preferences(self, widget, window):
+        self.window.set_sensitive(True)
+        self.preferences_window_showing = False
+        window.destroy()
 
 ######### KERNEL FEATURES #########
 
