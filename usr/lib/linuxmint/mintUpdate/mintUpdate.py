@@ -953,7 +953,7 @@ class RefreshThread(threading.Thread):
                                                                 "The last update on %(mirror)s was %(days)d days ago.",
                                                                 (now - mirror_date).days) % \
                                                                 {'mirror': mirror_url, 'days': (now - mirror_date).days}
-            except Exception as e:
+            except:
                 print(sys.exc_info()[0])
                 # best effort, just print out the error
                 print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
@@ -967,7 +967,7 @@ class RefreshThread(threading.Thread):
             Gdk.threads_leave()
             self.application.cache_watcher.resume()
 
-        except Exception as e:
+        except:
             traceback.print_exc()
             print("-- Exception occurred in the refresh thread: " + str(sys.exc_info()[0]))
             self.application.logger.write_error("Exception occurred in the refresh thread: " + str(sys.exc_info()[0]))
