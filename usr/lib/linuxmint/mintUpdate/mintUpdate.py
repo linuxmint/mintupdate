@@ -23,7 +23,7 @@ from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
 gi.require_version('GdkX11', '3.0') # Needed to get xid
 gi.require_version('AppIndicator3', '0.1')
-from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango
+from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango, GLib
 from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update, PRIORITY_UPDATES
@@ -822,12 +822,10 @@ class RefreshThread(threading.Thread):
                                 except:
                                     pass
 
-                            if (self.application.settings.get_boolean("show-descriptions")):
-                                # Pango doesn't like & signs, we need to escape them before using the content as markup
-                                shortdesc = shortdesc.replace("& ", "&amp; ")
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name) + "\n%s" % (shortdesc))
+                            if self.application.settings.get_boolean("show-descriptions"):
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>\n{GLib.markup_escape_text(shortdesc)}")
                             else:
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % (update.display_name))
+                                model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>")
 
                             theme = Gtk.IconTheme.get_default()
                             pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
