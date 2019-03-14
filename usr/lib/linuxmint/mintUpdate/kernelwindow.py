@@ -12,6 +12,7 @@ import time
 from datetime import datetime
 import locale
 from apt.utils import get_maintenance_end_date
+from Classes import get_release_dates
 from Classes import KERNEL_PKG_NAMES, SUPPORTED_KERNEL_TYPES, CONFIGURED_KERNEL_TYPE
 
 KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
@@ -259,16 +260,8 @@ class KernelWindow():
         remove_kernels_listbox = builder.get_object("box_list")
 
         # Get distro release dates for support duration calculation
-        release_dates = {}
-        if os.path.isfile("/usr/share/distro-info/ubuntu.csv"):
-            distro_info = open("/usr/share/distro-info/ubuntu.csv", "r").readlines()
-            for distro in distro_info[1:]:
-                distro = distro.split(",")
-                release_date = time.mktime(time.strptime(distro[4], '%Y-%m-%d'))
-                release_date = datetime.fromtimestamp(release_date)
-                support_end = time.mktime(time.strptime(distro[5].rstrip(), '%Y-%m-%d'))
-                support_end = datetime.fromtimestamp(support_end)
-                release_dates[distro[2]] = [release_date, support_end]
+        self.release_dates = get_release_dates()
+
         now = datetime.now()
         hwe_support_duration = {}
 

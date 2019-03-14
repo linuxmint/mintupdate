@@ -21,6 +21,31 @@ KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-KERNELTYPE',
     'linux-modules-VERSION-KERNELTYPE', 'linux-modules-extra-VERSION-KERNELTYPE']
 KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-KERNELTYPE') # Naming convention in 16.04, until 4.15 series
 
+def get_release_dates():
+    """ Get distro release dates for support duration calculation """
+    import os
+    import time
+    from datetime import datetime
+
+    release_dates = {}
+    distro_info = []
+    if os.path.isfile("/usr/share/distro-info/ubuntu.csv"):
+        distro_info += open("/usr/share/distro-info/ubuntu.csv", "r").readlines()
+    if os.path.isfile("/usr/share/distro-info/debian.csv"):
+        distro_info += open("/usr/share/distro-info/debian.csv", "r").readlines()
+    if distro_info:
+        for distro in distro_info[1:]:
+            try:
+                distro = distro.split(",")
+                release_date = time.mktime(time.strptime(distro[4], '%Y-%m-%d'))
+                release_date = datetime.fromtimestamp(release_date)
+                support_end = time.mktime(time.strptime(distro[5].rstrip(), '%Y-%m-%d'))
+                support_end = datetime.fromtimestamp(support_end)
+                release_dates[distro[2]] = [release_date, support_end]
+            except:
+                pass
+    return release_dates
+
 class Rule():
 
     def __init__(self, name, version, level):
