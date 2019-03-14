@@ -1816,13 +1816,14 @@ class MintUpdate():
                 if package_update.source_name in PRIORITY_UPDATES:
                     menuItem.set_sensitive(False)
                 else:
-                    menuItem.connect("activate", self.add_to_ignore_list, "%s=%s" % (package_update.source_name, package_update.new_version))
+                    menuItem.connect("activate", self.add_to_ignore_list,
+                                     f"{package_update.real_source_name}={package_update.new_version}")
                 menu.append(menuItem)
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore all future updates for this package"))
                 if package_update.source_name in PRIORITY_UPDATES:
                     menuItem.set_sensitive(False)
                 else:
-                    menuItem.connect("activate", self.add_to_ignore_list, package_update.source_name)
+                    menuItem.connect("activate", self.add_to_ignore_list, package_update.real_source_name)
                 menu.append(menuItem)
                 menu.attach_to_widget (widget, None)
                 menu.show_all()
