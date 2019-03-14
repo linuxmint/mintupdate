@@ -458,19 +458,11 @@ class KernelWindow():
                     currently_using = _("You are currently using the following kernel:")
                     self.current_label.set_markup("<b>%s %s%s</b>" % (currently_using, label, " (%s)" % support_status if support_status else support_status))
                 if page_label == page:
-                    row = KernelRow(version, pkg_version, kernel_type, label, installed, used, title, installable, origin, support_status, self.window, self.application)
+                    row = KernelRow(version, pkg_version, kernel_type, label, installed, used, title,
+                        installable, origin, support_status, self.window, self.application)
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)
-
-        self.main_stack.add_named(main_box, "main_box")
-
-        if self.application.settings.get_boolean("hide-kernel-update-warning"):
-            self.main_stack.set_visible_child(main_box)
-        else:
-            self.main_stack.set_visible_child(info_box)
-
-        self.window.show_all()
 
     def destroy_window(self, widget):
         self.window.destroy()
