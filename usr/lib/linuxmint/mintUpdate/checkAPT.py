@@ -195,32 +195,38 @@ class APTCheck():
         except:
             traceback.print_exc()
 
-    def add_update(self, package, kernel_update=False):
-
-        if package.name in ['linux-libc-dev', 'linux-kernel-generic']:
-            source_name = package.name
-        elif package.candidate.source_name in ['linux', 'linux-meta', 'linux-hwe', 'linux-hwe-edge']:
-            source_name = "linux-%s" % package.candidate.version
-        elif package.name.startswith("linux-image") or package.name.startswith("linux-headers") or package.name.startswith("linux-modules") or package.name.startswith("linux-tools"):
-            source_name = "linux-%s" % package.candidate.version
-        else:
-            source_name = package.candidate.source_name
-
-        # ignore packages blacklisted by the user
+    def is_blacklisted(self, source_name, version):
         for blacklist in self.settings.get_strv("blacklisted-packages"):
             if "=" in blacklist:
                 (bl_pkg, bl_ver) = blacklist.split("=", 1)
             else:
                 bl_pkg = blacklist
                 bl_ver = None
-            if fnmatch.fnmatch(source_name, bl_pkg) and (not bl_ver or bl_ver == package.candidate.version):
-                return
+            if fnmatch.fnmatch(source_name, bl_pkg) and (not bl_ver or bl_ver == version):
+                return True
+        return False
+
+    def add_update(self, package, kernel_update=False):
+        if package.name in ['linux-libc-dev', 'linux-kernel-generic']:
+            source_name = package.name
+        elif (package.candidate.source_name in ['linux', 'linux-meta', 'linux-hwe', 'linux-hwe-edge'] or
+              (package.name.startswith("linux-image") or
+               package.name.startswith("linux-headers") or
+               package.name.startswith("linux-modules") or
+               package.name.startswith("linux-tools"))):
+            source_name = "linux-%s" % package.candidate.version
+        else:
+            source_name = package.candidate.source_name
+
+        # ignore packages blacklisted by the user
+        if self.is_blacklisted(package.candidate.source_name, package.candidate.version):
+            return
 
         if source_name in PRIORITY_UPDATES:
             if self.priority_updates_available == False and len(self.updates) > 0:
                 self.updates = {}
             self.priority_updates_available = True
-        if (source_name in PRIORITY_UPDATES) or self.priority_updates_available == False:
+        if source_name in PRIORITY_UPDATES or self.priority_updates_available == False:
             if source_name in self.updates:
                 update = self.updates[source_name]
                 update.add_package(package)
@@ -229,7 +235,7 @@ class APTCheck():
 
                 if source_name in self.named_rules.keys():
                     rule = self.named_rules[source_name]
-                    if (rule.match(source_name, update.new_version)):
+                    if rule.match(source_name, update.new_version):
                         update.level = rule.level
                 else:
                     for rule_name in self.wildcard_rules.keys():
