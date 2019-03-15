@@ -1,0 +1,35 @@
+version: 2.0
+
+shared: &shared
+
+    steps:
+
+        - checkout
+
+        - run:
+            name: Prepare environment
+            command: |
+                apt-get update
+                apt-get install --yes locales python3-pytest
+                echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+                locale-gen
+
+        - run:
+            name: Build project
+            command: LC_ALL=en_US.UTF-8 mint-build -i
+
+        - run:
+            name: Run tests
+            command: pytest-3
+
+jobs:
+    "mint19":
+        <<: *shared
+        docker:
+            - image: linuxmintd/mint19-amd64
+
+workflows:
+    version: 2
+    build:
+        jobs:
+            - "mint19"
