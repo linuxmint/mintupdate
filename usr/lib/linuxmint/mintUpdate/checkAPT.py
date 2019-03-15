@@ -29,7 +29,6 @@ class KernelVersion():
         while len(self.numeric_versions) < 4:
             self.numeric_versions.append("0" * 3)
         self.series = tuple(self.numeric_versions[:3])
-        self.shortseries = tuple(self.numeric_versions[:2])
 
 class APTCheck():
 
