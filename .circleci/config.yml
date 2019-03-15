@@ -19,7 +19,7 @@ shared: &shared
             command: LC_ALL=en_US.UTF-8 mint-build -i
 
         - run:
-            name: Run tests
+            name: Run tests 
             command: pytest-3
 
 jobs:
