@@ -317,12 +317,13 @@ class ChangelogRetriever(threading.Thread):
                             changelog = changelog + stripped_change + "\n"
                 else:
                     changelog = source
+                changelog = changelog.split("\n")
                 break
             except:
                 pass
 
         Gdk.threads_enter()
-        self.application.textview_changes.set_text(changelog)
+        self.application.textview_changes.set_text("\n".join(changelog))
         Gdk.threads_leave()
 
 class AutomaticRefreshThread(threading.Thread):
