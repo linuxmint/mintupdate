@@ -46,24 +46,6 @@ def get_release_dates():
                 pass
     return release_dates
 
-class Rule():
-
-    def __init__(self, name, version, level):
-        self.name = name
-        self.version = version
-        self.level = level
-        self.is_wildcard = self.name.startswith("*")
-        if self.is_wildcard:
-            self.name = self.name.replace("*", "")
-
-    def match(self, pkg_name, pkg_version):
-        if (self.version == "*" or self.version == pkg_version):
-            if self.is_wildcard:
-                return self.name in pkg_name
-            else:
-                return pkg_name == self.name
-        return False
-
 class Update():
 
     def __init__(self, package=None, input_string=None, source_name=None):
@@ -115,8 +97,6 @@ class Update():
                             break
                 if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                     self.type = "kernel"
-
-            self.level = 2 # Level 2 by default
         else:
             # Build the class from the input_string
             self.parse(input_string)
@@ -150,8 +130,8 @@ class Update():
         self.main_package_name = pkg.name
 
     def serialize(self):
-        output_string = u"###%d###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
-        (self.level, self.display_name, self.source_name, self.real_source_name,\
+        output_string = u"###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
+        (self.display_name, self.source_name, self.real_source_name,\
          self.main_package_name, ", ".join(self.package_names), self.new_version,\
          self.old_version, self.size, self.type, self.origin, \
          self.short_description, self.description, self.site, self.archive)
@@ -163,11 +143,10 @@ class Update():
         except:
             pass
         values = input_string.split("###")
-        _, level, self.display_name, self.source_name, self.real_source_name,\
+        _, self.display_name, self.source_name, self.real_source_name,\
             self.main_package_name, package_names, self.new_version,\
             self.old_version, size, self.type, self.origin, self.short_description,\
             self.description, self.site, self.archive = values
-        self.level = int(level)
         self.size = int(size)
         for package_name in package_names.split(", "):
             self.package_names.append(package_name)
