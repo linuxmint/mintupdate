@@ -22,10 +22,11 @@ def list_header_func(row, before, user_data):
         row.set_header(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
 
 class InstallKernelThread(threading.Thread):
-    def __init__(self, kernels, application):
+    def __init__(self, kernels, application, kernel_window):
         threading.Thread.__init__(self)
         self.kernels = kernels
         self.application = application
+        self.kernel_window = kernel_window
         self.cache = None
 
     def run(self):
@@ -58,6 +59,38 @@ class InstallKernelThread(threading.Thread):
                     else:
                         pkg_line = "%s\tinstall\n" % name
                         f.write(pkg_line.encode("utf-8"))
+
+                # Clean out left-over meta package
+                if remove:
+                    def kernel_series(version):
+                        return version.replace("-",".").split(".")[:3]
+
+                    last_in_series = True
+                    this_kernel_series = kernel_series(version)
+                    for _type, _version in self.kernel_window.installed_kernels:
+                        if (_type == kernel_type and _version != version and
+                            kernel_series(_version) == this_kernel_series
+                            ):
+                            last_in_series = False
+                    if last_in_series:
+                        meta_names = []
+                        _metas = [s for s in self.cache.keys() if s.startswith("linux" + kernel_type)]
+                        if kernel_type == "-generic":
+                            _metas.append("linux-virtual")
+                        for meta in _metas:
+                            shortname = meta.split(":")[0]
+                            if shortname not in meta_names:
+                                meta_names.append(shortname)
+                        for meta_name in meta_names:
+                            if meta_name in self.cache:
+                                meta = self.cache[meta_name]
+                                if meta.is_installed and \
+                                   kernel_series(meta.candidate.version) == this_kernel_series:
+                                    f.write(("%s\tpurge\n" % meta_name).encode("utf-8"))
+                                    f.write(("%s\tpurge\n" % meta_name.replace("linux-","linux-image-")).encode("utf-8"))
+                                    f.write(("%s\tpurge\n" % meta_name.replace("linux-","linux-headers-")).encode("utf-8"))
+                                    if meta_name == "linux-virtual":
+                                        f.write(("linux-headers-generic\tpurge\n").encode("utf-8"))
             f.flush()
 
         if do_regular:
@@ -99,10 +132,12 @@ class MarkKernelRow(Gtk.ListBoxRow):
             self.window.marked_kernels.remove([widget.kernel_version, widget.kernel_type, None, True])
 
 class KernelRow(Gtk.ListBoxRow):
-    def __init__(self, version, pkg_version, kernel_type, text, installed, used, title, installable, origin, support_status, window, application):
+    def __init__(self, version, pkg_version, kernel_type, text, installed, used, title,
+                 installable, origin, support_status, window, application, kernel_window):
         Gtk.ListBoxRow.__init__(self)
 
         self.application = application
+        self.kernel_window = kernel_window
 
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(vbox)
@@ -209,7 +244,8 @@ class KernelRow(Gtk.ListBoxRow):
             if self.application.dpkg_locked():
                 self.application.show_dpkg_lock_msg(window)
             else:
-                thread = InstallKernelThread([[version, kernel_type, origin, installed]], self.application)
+                thread = InstallKernelThread([[version, kernel_type, origin, installed]],
+                                             self.application, self.kernel_window)
                 thread.start()
                 window.hide()
 
@@ -459,7 +495,7 @@ class KernelWindow():
                     self.current_label.set_markup("<b>%s %s%s</b>" % (currently_using, label, " (%s)" % support_status if support_status else support_status))
                 if page_label == page:
                     row = KernelRow(version, pkg_version, kernel_type, label, installed, used, title,
-                        installable, origin, support_status, self.window, self.application)
+                        installable, origin, support_status, self.window, self.application, self)
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)
@@ -497,7 +533,7 @@ class KernelWindow():
                 self.application.show_dpkg_lock_msg(self.window)
                 self.window.set_sensitive(True)
             else:
-                thread = InstallKernelThread(self.marked_kernels, self.application)
+                thread = InstallKernelThread(self.marked_kernels, self.application, self)
                 thread.start()
                 self.window.hide()
         else:
