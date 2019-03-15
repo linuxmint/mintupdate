@@ -10,7 +10,7 @@ shared: &shared
             name: Prepare environment
             command: |
                 apt-get update
-                apt-get install --yes locales python3-pytest
+                apt-get install --yes locales python3-pytest python3-gi
                 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
                 locale-gen
 
@@ -19,7 +19,7 @@ shared: &shared
             command: LC_ALL=en_US.UTF-8 mint-build -i
 
         - run:
-            name: Run tests 
+            name: Run tests
             command: pytest-3
 
 jobs:
