@@ -23,7 +23,7 @@ shared: &shared
             command: pytest-3
 
 jobs:
-    "mint19":
+    "CI":
         <<: *shared
         docker:
             - image: linuxmintd/mint19-amd64
@@ -32,4 +32,4 @@ workflows:
     version: 2
     build:
         jobs:
-            - "mint19"
+            - "CI"
