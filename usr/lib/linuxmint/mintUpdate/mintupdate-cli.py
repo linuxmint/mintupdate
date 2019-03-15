@@ -22,8 +22,6 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-k", "--only-kernel", action="store_true", help="only include kernel updates")
     group.add_argument("-s", "--only-security", action="store_true", help="only include security updates")
-    group.add_argument("-l", "--only-levels", help="only include certain levels (only use for troubleshooting, list of level numbers, comma-separated)")
-
     parser.add_argument("-i", "--ignore", help="list of updates to ignore (comma-separated). Note: You can also blacklist updates by adding their name to /etc/mintupdate.blacklist.")
     parser.add_argument("-r", "--refresh-cache", action="store_true", help="refresh the APT cache")
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
@@ -57,8 +55,6 @@ if __name__ == "__main__":
                 continue
             elif args.only_security and update.type != "security":
                 continue
-            elif args.only_levels is not None and str(update.level) not in args.only_levels:
-                continue
             elif args.ignore is not None and update.source_name in args.ignore.split(","):
                 continue
             elif update.source_name in blacklisted:
@@ -68,7 +64,7 @@ if __name__ == "__main__":
 
         if args.command == "list":
             for update in updates:
-                print ("%s %-15s %-45s %s" % (update.level, update.type, update.source_name, update.new_version))
+                print ("%-15s %-45s %s" % (update.type, update.source_name, update.new_version))
         elif args.command == "upgrade":
             packages = []
             for update in updates:

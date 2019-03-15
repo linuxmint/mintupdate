@@ -46,7 +46,7 @@ gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
 
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
 
-(UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_SORT_STR_WITH_LEVEL, UPDATE_OBJ) = range(15)
+(UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(12)
 
 GIGABYTE = 1000 ** 3
 MEGABYTE = 1000 ** 2
@@ -145,7 +145,6 @@ class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
         threading.Thread.__init__(self)
         self.source_package = package_update.real_source_name
-        self.level = package_update.level
         self.version = package_update.new_version
         self.origin = package_update.origin
         self.application = application
@@ -718,14 +717,11 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
-            model = Gtk.TreeStore(str, str, GdkPixbuf.Pixbuf, str, str, str, str, int, str, str, str, str, str, str, object)
-            # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_LEVEL_PIX, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_LEVEL_STR,
-            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_SORT_STR_WITH_LEVEL, UPDATE_OBJ
+            model = Gtk.TreeStore(str, str, str, str, str, int, str, str, str, str, str, object)
+            # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
+            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
-            if self.application.settings.get_boolean("show-level-column"):
-                model.set_sort_column_id(UPDATE_SORT_STR_WITH_LEVEL, Gtk.SortType.ASCENDING)
-            else:
-                model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+            model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
 
             Gdk.threads_enter()
             self.application.set_status_message(_("Finding the list of updates..."))
@@ -805,18 +801,15 @@ class RefreshThread(threading.Thread):
                     if "###" in line:
                         update = Update(package=None, input_string=line, source_name=None)
 
-                        level_is_visible = self.application.settings.get_boolean('level%s-is-visible' % str(update.level))
-                        level_is_safe = self.application.settings.get_boolean('level%s-is-safe' % str(update.level))
-
                         if update.type == "kernel":
-                            visible = (level_is_visible or self.application.settings.get_boolean('kernel-updates-are-visible'))
-                            safe = (level_is_safe or self.application.settings.get_boolean('kernel-updates-are-safe'))
+                            visible = self.application.settings.get_boolean('kernel-updates-are-visible')
+                            safe = self.application.settings.get_boolean('kernel-updates-are-safe')
                         elif update.type == "security":
-                            visible = (level_is_visible or self.application.settings.get_boolean('security-updates-are-visible'))
-                            safe = (level_is_safe or self.application.settings.get_boolean('security-updates-are-safe'))
+                            visible = self.application.settings.get_boolean('security-updates-are-visible')
+                            safe = self.application.settings.get_boolean('security-updates-are-safe')
                         else:
-                            visible = level_is_visible
-                            safe = level_is_safe
+                            visible = True
+                            safe = True
 
                         if visible:
                             iter = model.insert_before(None, None)
@@ -847,9 +840,6 @@ class RefreshThread(threading.Thread):
                             else:
                                 model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>")
 
-                            theme = Gtk.IconTheme.get_default()
-                            pixbuf = theme.load_icon("mintupdate-level" + str(update.level), 22, 0)
-
                             origin = update.origin
                             origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
 
@@ -872,18 +862,15 @@ class RefreshThread(threading.Thread):
                                     tooltip = "%s\n%s" % (_("3rd-party update"), origin)
                                     type_sort_key = 4
 
-                            model.set_value(iter, UPDATE_LEVEL_PIX, pixbuf)
                             model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                             model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
                             model.set_value(iter, UPDATE_SOURCE, "%s / %s" % (origin, update.archive))
-                            model.set_value(iter, UPDATE_LEVEL_STR, str(update.level))
                             model.set_value(iter, UPDATE_SIZE, update.size)
                             model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
                             model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % update.type)
                             model.set_value(iter, UPDATE_TYPE, update.type)
                             model.set_value(iter, UPDATE_TOOLTIP, tooltip)
                             model.set_value(iter, UPDATE_SORT_STR, "%d%s" % (type_sort_key, update.display_name))
-                            model.set_value(iter, UPDATE_SORT_STR_WITH_LEVEL, "%d%s%s" % (type_sort_key, str(update.level), update.display_name))
                             model.set_value(iter, UPDATE_OBJ, update)
                             num_visible = num_visible + 1
 
@@ -1262,10 +1249,6 @@ class MintUpdate():
             column_name.set_sort_column_id(UPDATE_DISPLAY_NAME)
             column_name.set_resizable(True)
 
-            column_level = Gtk.TreeViewColumn(_("Level"), Gtk.CellRendererPixbuf(), pixbuf=UPDATE_LEVEL_PIX)
-            column_level.set_sort_column_id(UPDATE_LEVEL_STR)
-            column_level.set_resizable(True)
-
             column_old_version = Gtk.TreeViewColumn(_("Old version"), Gtk.CellRendererText(), text=UPDATE_OLD_VERSION)
             column_old_version.set_sort_column_id(UPDATE_OLD_VERSION)
             column_old_version.set_resizable(True)
@@ -1289,7 +1272,6 @@ class MintUpdate():
             self.treeview.set_tooltip_column(UPDATE_TOOLTIP)
 
             self.treeview.append_column(column_type)
-            self.treeview.append_column(column_level)
             self.treeview.append_column(column_upgrade)
             self.treeview.append_column(column_name)
             self.treeview.append_column(column_old_version)
@@ -1444,12 +1426,6 @@ class MintUpdate():
             typeColumnMenuItem.connect("toggled", self.setVisibleColumn, column_type, "show-type-column")
             visibleColumnsMenu.append(typeColumnMenuItem)
 
-            levelColumnMenuItem = Gtk.CheckMenuItem(_("Level"))
-            levelColumnMenuItem.set_active(self.settings.get_boolean("show-level-column"))
-            column_level.set_visible(self.settings.get_boolean("show-level-column"))
-            levelColumnMenuItem.connect("toggled", self.setVisibleColumn, column_level, "show-level-column")
-            visibleColumnsMenu.append(levelColumnMenuItem)
-
             packageColumnMenuItem = Gtk.CheckMenuItem(_("Package"))
             packageColumnMenuItem.set_active(self.settings.get_boolean("show-package-column"))
             column_name.set_visible(self.settings.get_boolean("show-package-column"))
@@ -1579,15 +1555,7 @@ class MintUpdate():
     def on_key_press_event(self, widget, event):
         ctrl = (event.state & Gdk.ModifierType.CONTROL_MASK)
         if ctrl:
-            if event.keyval == Gdk.KEY_1:
-                self.select_updates(1)
-            elif event.keyval == Gdk.KEY_2:
-                self.select_updates(2)
-            elif event.keyval == Gdk.KEY_3:
-                self.select_updates(3)
-            elif event.keyval == Gdk.KEY_4:
-                self.select_updates(4)
-            elif event.keyval == Gdk.KEY_s:
+            if event.keyval == Gdk.KEY_s:
                 self.select_updates(security=True)
             elif event.keyval == Gdk.KEY_k:
                 self.select_updates(kernel=True)
@@ -1675,11 +1643,6 @@ class MintUpdate():
         state = checkmenuitem.get_active()
         self.settings.set_boolean(key, state)
         column.set_visible(state)
-        if key == "show-level-column":
-            if state:
-                self.treeview.get_model().set_sort_column_id(UPDATE_SORT_STR_WITH_LEVEL, Gtk.SortType.ASCENDING)
-            else:
-                self.treeview.get_model().set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
 
     def setVisibleDescriptions(self, checkmenuitem):
         self.settings.set_boolean("show-descriptions", checkmenuitem.get_active())
@@ -1697,15 +1660,12 @@ class MintUpdate():
     def select_all(self, widget):
         self.select_updates()
 
-    def select_updates(self, level=None, security=False, kernel=False):
+    def select_updates(self, security=False, kernel=False):
         model = self.treeview.get_model()
         iter = model.get_iter_first()
         while (iter != None):
             update =  model.get_value(iter, UPDATE_OBJ)
-            if level is not None:
-                if level == update.level:
-                    model.set_value(iter, UPDATE_CHECKED, "true")
-            elif security:
+            if security:
                 if update.type == "security":
                     model.set_value(iter, UPDATE_CHECKED, "true")
             elif kernel:
@@ -1747,19 +1707,8 @@ class MintUpdate():
 
     def on_welcome_page_finished(self, button):
         self.settings.set_boolean("show-welcome-page", False)
-        self.settings.set_boolean("show-level-column", False)
 
         # Set default configuration
-        self.settings.set_boolean("level1-is-visible", True)
-        self.settings.set_boolean("level2-is-visible", True)
-        self.settings.set_boolean("level3-is-visible", True)
-        self.settings.set_boolean("level4-is-visible", True)
-
-        self.settings.set_boolean("level1-is-safe", True)
-        self.settings.set_boolean("level2-is-safe", True)
-        self.settings.set_boolean("level3-is-safe", True)
-        self.settings.set_boolean("level4-is-safe", True)
-
         self.settings.set_boolean("security-updates-are-visible", True)
         self.settings.set_boolean("kernel-updates-are-visible", True)
         self.settings.set_boolean("security-updates-are-safe", True)
@@ -2102,18 +2051,10 @@ class MintUpdate():
         page_holder.add(stack)
 
         stack.add_titled(builder.get_object("page_options"), "page_options", _("Options"))
-        stack.add_titled(builder.get_object("page_levels"), "page_levels", _("Filters"))
+        stack.add_titled(builder.get_object("page_filters"), "page_filters", _("Filters"))
         stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
         stack.add_titled(builder.get_object("page_auto"), "page_auto", _("Automation"))
 
-        builder.get_object("visible1").set_active(self.settings.get_boolean("level1-is-visible"))
-        builder.get_object("visible2").set_active(self.settings.get_boolean("level2-is-visible"))
-        builder.get_object("visible3").set_active(self.settings.get_boolean("level3-is-visible"))
-        builder.get_object("visible4").set_active(self.settings.get_boolean("level4-is-visible"))
-        builder.get_object("safe1").set_active(self.settings.get_boolean("level1-is-safe"))
-        builder.get_object("safe2").set_active(self.settings.get_boolean("level2-is-safe"))
-        builder.get_object("safe3").set_active(self.settings.get_boolean("level3-is-safe"))
-        builder.get_object("safe4").set_active(self.settings.get_boolean("level4-is-safe"))
         builder.get_object("checkbutton_security_visible").set_active(self.settings.get_boolean("security-updates-are-visible"))
         builder.get_object("checkbutton_security_safe").set_active(self.settings.get_boolean("security-updates-are-safe"))
         builder.get_object("checkbutton_kernel_visible").set_active(self.settings.get_boolean("kernel-updates-are-visible"))
@@ -2190,14 +2131,6 @@ class MintUpdate():
         self.settings.set_boolean('hide-systray', builder.get_object("checkbutton_hide_systray").get_active())
         self.settings.set_boolean('default-repo-is-ok', builder.get_object("checkbutton_default_repo_is_ok").get_active())
         self.settings.set_boolean('warn-about-timeshift', builder.get_object("checkbutton_warning_timeshift").get_active())
-        self.settings.set_boolean('level1-is-visible', builder.get_object("visible1").get_active())
-        self.settings.set_boolean('level2-is-visible', builder.get_object("visible2").get_active())
-        self.settings.set_boolean('level3-is-visible', builder.get_object("visible3").get_active())
-        self.settings.set_boolean('level4-is-visible', builder.get_object("visible4").get_active())
-        self.settings.set_boolean('level1-is-safe', builder.get_object("safe1").get_active())
-        self.settings.set_boolean('level2-is-safe', builder.get_object("safe2").get_active())
-        self.settings.set_boolean('level3-is-safe', builder.get_object("safe3").get_active())
-        self.settings.set_boolean('level4-is-safe', builder.get_object("safe4").get_active())
         self.settings.set_boolean('security-updates-are-visible', builder.get_object("checkbutton_security_visible").get_active())
         self.settings.set_boolean('security-updates-are-safe', builder.get_object("checkbutton_security_safe").get_active())
         self.settings.set_boolean('kernel-updates-are-visible', builder.get_object("checkbutton_kernel_visible").get_active())

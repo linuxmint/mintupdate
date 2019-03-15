@@ -78,6 +78,6 @@ os.chdir(cur_dir)
 for locale in locales:
     os.system("mkdir -p usr/share/help/%s/mintupdate/" % locale)
     os.system("msgunfmt /usr/share/locale/%s/LC_MESSAGES/mintupdate.mo > /tmp/%s.po" % (locale, locale))
-    for page in ["index", "kernels", "levels", "mintupdate-cli", "snapshots", "regressions", "updates"]:
+    for page in ["index", "kernels", "mintupdate-cli", "snapshots", "regressions", "updates"]:
         os.system("xml2po -p /tmp/%(locale)s.po -o usr/share/help/%(locale)s/mintupdate/%(page)s.page usr/share/help/C/mintupdate/%(page)s.page" % {'locale': locale, 'page':page})
     os.system("cp usr/share/help/C/mintupdate/legal.xml usr/share/help/%s/mintupdate/" % locale)
