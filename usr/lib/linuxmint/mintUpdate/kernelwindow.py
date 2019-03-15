@@ -82,11 +82,10 @@ class InstallKernelThread(threading.Thread):
                             if shortname not in meta_names:
                                 meta_names.append(shortname)
                         for meta_name in meta_names:
-                            if meta_name in self.cache.keys():
+                            if meta_name in self.cache:
                                 meta = self.cache[meta_name]
-                                if (meta.is_installed and
-                                    kernel_series(meta.candidate.version) == this_kernel_series
-                                    ):
+                                if meta.is_installed and \
+                                   kernel_series(meta.candidate.version) == this_kernel_series:
                                     f.write(("%s\tpurge\n" % meta_name).encode("utf-8"))
                                     f.write(("%s\tpurge\n" % meta_name.replace("linux-","linux-image-")).encode("utf-8"))
                                     f.write(("%s\tpurge\n" % meta_name.replace("linux-","linux-headers-")).encode("utf-8"))
@@ -133,7 +132,8 @@ class MarkKernelRow(Gtk.ListBoxRow):
             self.window.marked_kernels.remove([widget.kernel_version, widget.kernel_type, None, True])
 
 class KernelRow(Gtk.ListBoxRow):
-    def __init__(self, version, pkg_version, kernel_type, text, installed, used, title, installable, origin, support_status, window, application, kernel_window):
+    def __init__(self, version, pkg_version, kernel_type, text, installed, used, title,
+                 installable, origin, support_status, window, application, kernel_window):
         Gtk.ListBoxRow.__init__(self)
 
         self.application = application
@@ -244,7 +244,8 @@ class KernelRow(Gtk.ListBoxRow):
             if self.application.dpkg_locked():
                 self.application.show_dpkg_lock_msg(window)
             else:
-                thread = InstallKernelThread([[version, kernel_type, origin, installed]], self.application)
+                thread = InstallKernelThread([[version, kernel_type, origin, installed]],
+                                             self.application, self.kernel_window)
                 thread.start()
                 window.hide()
 
@@ -532,7 +533,7 @@ class KernelWindow():
                 self.application.show_dpkg_lock_msg(self.window)
                 self.window.set_sensitive(True)
             else:
-                thread = InstallKernelThread(self.marked_kernels, self.application)
+                thread = InstallKernelThread(self.marked_kernels, self.application, self)
                 thread.start()
                 self.window.hide()
         else:
