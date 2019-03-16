@@ -801,78 +801,65 @@ class RefreshThread(threading.Thread):
                     if "###" in line:
                         update = Update(package=None, input_string=line, source_name=None)
 
-                        if update.type == "kernel":
-                            visible = self.application.settings.get_boolean('kernel-updates-are-visible')
-                            safe = self.application.settings.get_boolean('kernel-updates-are-safe')
-                        elif update.type == "security":
-                            visible = self.application.settings.get_boolean('security-updates-are-visible')
-                            safe = self.application.settings.get_boolean('security-updates-are-safe')
+                        iter = model.insert_before(None, None)
+
+                        model.set_value(iter, UPDATE_CHECKED, "true")
+                        num_checked = num_checked + 1
+                        download_size = download_size + update.size
+
+                        model.row_changed(model.get_path(iter), iter)
+
+                        shortdesc = update.short_description
+                        if len(shortdesc) > 100:
+                            try:
+                                shortdesc = shortdesc[:100]
+                                # Remove the last word.. in case we chomped
+                                # a word containing an &#234; character..
+                                # if we ended up with &.. without the code and ; sign
+                                # pango would fail to set the markup
+                                words = shortdesc.split()
+                                shortdesc = " ".join(words[:-1]) + "..."
+                            except:
+                                pass
+
+                        if self.application.settings.get_boolean("show-descriptions"):
+                            model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>\n{GLib.markup_escape_text(shortdesc)}")
                         else:
-                            visible = True
-                            safe = True
+                            model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>")
 
-                        if visible:
-                            iter = model.insert_before(None, None)
-                            if safe:
-                                model.set_value(iter, UPDATE_CHECKED, "true")
-                                num_checked = num_checked + 1
-                                download_size = download_size + update.size
+                        origin = update.origin
+                        origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
+
+                        type_sort_key = 0 # Used to sort by type
+                        if update.type == "kernel":
+                            tooltip = _("Kernel update")
+                            type_sort_key = 2
+                        elif update.type == "security":
+                            tooltip = _("Security update")
+                            type_sort_key = 1
+                        elif update.type == "unstable":
+                            tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
+                            type_sort_key = 5
+                        else:
+                            if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
+                                tooltip = _("Software update")
+                                type_sort_key = 3
                             else:
-                                model.set_value(iter, UPDATE_CHECKED, "false")
+                                update.type = "3rd-party"
+                                tooltip = "%s\n%s" % (_("3rd-party update"), origin)
+                                type_sort_key = 4
 
-                            model.row_changed(model.get_path(iter), iter)
-
-                            shortdesc = update.short_description
-                            if len(shortdesc) > 100:
-                                try:
-                                    shortdesc = shortdesc[:100]
-                                    # Remove the last word.. in case we chomped
-                                    # a word containing an &#234; character..
-                                    # if we ended up with &.. without the code and ; sign
-                                    # pango would fail to set the markup
-                                    words = shortdesc.split()
-                                    shortdesc = " ".join(words[:-1]) + "..."
-                                except:
-                                    pass
-
-                            if self.application.settings.get_boolean("show-descriptions"):
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>\n{GLib.markup_escape_text(shortdesc)}")
-                            else:
-                                model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>")
-
-                            origin = update.origin
-                            origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
-
-                            type_sort_key = 0 # Used to sort by type
-                            if update.type == "kernel":
-                                tooltip = _("Kernel update")
-                                type_sort_key = 2
-                            elif update.type == "security":
-                                tooltip = _("Security update")
-                                type_sort_key = 1
-                            elif update.type == "unstable":
-                                tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
-                                type_sort_key = 5
-                            else:
-                                if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
-                                    tooltip = _("Software update")
-                                    type_sort_key = 3
-                                else:
-                                    update.type = "3rd-party"
-                                    tooltip = "%s\n%s" % (_("3rd-party update"), origin)
-                                    type_sort_key = 4
-
-                            model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
-                            model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-                            model.set_value(iter, UPDATE_SOURCE, "%s / %s" % (origin, update.archive))
-                            model.set_value(iter, UPDATE_SIZE, update.size)
-                            model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-                            model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % update.type)
-                            model.set_value(iter, UPDATE_TYPE, update.type)
-                            model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                            model.set_value(iter, UPDATE_SORT_STR, "%d%s" % (type_sort_key, update.display_name))
-                            model.set_value(iter, UPDATE_OBJ, update)
-                            num_visible = num_visible + 1
+                        model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
+                        model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
+                        model.set_value(iter, UPDATE_SOURCE, "%s / %s" % (origin, update.archive))
+                        model.set_value(iter, UPDATE_SIZE, update.size)
+                        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
+                        model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % update.type)
+                        model.set_value(iter, UPDATE_TYPE, update.type)
+                        model.set_value(iter, UPDATE_TOOLTIP, tooltip)
+                        model.set_value(iter, UPDATE_SORT_STR, "%d%s" % (type_sort_key, update.display_name))
+                        model.set_value(iter, UPDATE_OBJ, update)
+                        num_visible = num_visible + 1
 
                 Gdk.threads_enter()
                 if num_visible:
@@ -1707,13 +1694,6 @@ class MintUpdate():
 
     def on_welcome_page_finished(self, button):
         self.settings.set_boolean("show-welcome-page", False)
-
-        # Set default configuration
-        self.settings.set_boolean("security-updates-are-visible", True)
-        self.settings.set_boolean("kernel-updates-are-visible", True)
-        self.settings.set_boolean("security-updates-are-safe", True)
-        self.settings.set_boolean("kernel-updates-are-safe", True)
-
         self.builder.get_object("toolbar1").set_sensitive(True)
         self.builder.get_object("menubar1").set_sensitive(True)
         self.updates_inhibited = False
@@ -2051,15 +2031,9 @@ class MintUpdate():
         page_holder.add(stack)
 
         stack.add_titled(builder.get_object("page_options"), "page_options", _("Options"))
-        stack.add_titled(builder.get_object("page_filters"), "page_filters", _("Filters"))
         stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
         stack.add_titled(builder.get_object("page_auto"), "page_auto", _("Automation"))
 
-        builder.get_object("checkbutton_security_visible").set_active(self.settings.get_boolean("security-updates-are-visible"))
-        builder.get_object("checkbutton_security_safe").set_active(self.settings.get_boolean("security-updates-are-safe"))
-        builder.get_object("checkbutton_kernel_visible").set_active(self.settings.get_boolean("kernel-updates-are-visible"))
-        builder.get_object("checkbutton_kernel_safe").set_active(self.settings.get_boolean("kernel-updates-are-safe"))
-        builder.get_object("checkbutton_dist_upgrade").set_active(self.settings.get_boolean("dist-upgrade"))
         builder.get_object("checkbutton_hide_window_after_update").set_active(self.settings.get_boolean("hide-window-after-update"))
         builder.get_object("checkbutton_hide_systray").set_active(self.settings.get_boolean("hide-systray"))
         builder.get_object("checkbutton_default_repo_is_ok").set_active(self.settings.get_boolean("default-repo-is-ok"))
@@ -2131,17 +2105,12 @@ class MintUpdate():
         self.settings.set_boolean('hide-systray', builder.get_object("checkbutton_hide_systray").get_active())
         self.settings.set_boolean('default-repo-is-ok', builder.get_object("checkbutton_default_repo_is_ok").get_active())
         self.settings.set_boolean('warn-about-timeshift', builder.get_object("checkbutton_warning_timeshift").get_active())
-        self.settings.set_boolean('security-updates-are-visible', builder.get_object("checkbutton_security_visible").get_active())
-        self.settings.set_boolean('security-updates-are-safe', builder.get_object("checkbutton_security_safe").get_active())
-        self.settings.set_boolean('kernel-updates-are-visible', builder.get_object("checkbutton_kernel_visible").get_active())
-        self.settings.set_boolean('kernel-updates-are-safe', builder.get_object("checkbutton_kernel_safe").get_active())
         self.settings.set_int('refresh-days', int(builder.get_object("refresh_days").get_value()))
         self.settings.set_int('refresh-hours', int(builder.get_object("refresh_hours").get_value()))
         self.settings.set_int('refresh-minutes', int(builder.get_object("refresh_minutes").get_value()))
         self.settings.set_int('autorefresh-days', int(builder.get_object("autorefresh_days").get_value()))
         self.settings.set_int('autorefresh-hours', int(builder.get_object("autorefresh_hours").get_value()))
         self.settings.set_int('autorefresh-minutes', int(builder.get_object("autorefresh_minutes").get_value()))
-        self.settings.set_boolean('dist-upgrade', builder.get_object("checkbutton_dist_upgrade").get_active())
         blacklist = []
         treeview_blacklist = builder.get_object("treeview_blacklist")
         model = treeview_blacklist.get_model()

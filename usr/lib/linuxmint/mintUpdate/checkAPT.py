@@ -51,7 +51,7 @@ class APTCheck():
                             self.aliases[alias_package] = alias_object
 
     def find_changes(self):
-        self.cache.upgrade(self.settings.get_boolean("dist-upgrade"))
+        self.cache.upgrade(True) # dist-upgrade
         changes = self.cache.get_changes()
 
         self.updates = {}
