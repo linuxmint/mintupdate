@@ -925,7 +925,7 @@ class RefreshThread(threading.Thread):
                                               Gtk.MessageType.WARNING,
                                               callback=self._on_infobar_eol_response)
 
-            if not self.checkTimeshiftConfiguration() and self.application.settings.get_boolean("warn-about-timeshift"):
+            if self.application.settings.get_boolean("warn-about-timeshift") and not self.checkTimeshiftConfiguration():
                 self.application.show_infobar(_("Please set up System Snapshots"),
                     _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
                                               Gtk.MessageType.WARNING,
