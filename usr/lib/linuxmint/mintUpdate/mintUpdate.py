@@ -727,20 +727,20 @@ class RefreshThread(threading.Thread):
             self.application.set_status_message(_("Finding the list of updates..."))
             self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
-            if self.application.app_hidden:
-                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py 2>/dev/null"
-            else:
-                refresh_command = "/usr/lib/linuxmint/mintUpdate/checkAPT.py --use-synaptic %s 2>/dev/null" % self.application.window.get_window().get_xid()
+
+            # Refresh the APT cache
             if self.root_mode:
-                refresh_command = "sudo %s" % refresh_command
+                if self.application.app_hidden:
+                    refresh_command = "sudo /usr/bin/mint-refresh-cache 2>/dev/null"
+                else:
+                    refresh_command = "sudo /usr/bin/mint-refresh-cache --use-synaptic %s 2>/dev/null" % self.application.window.get_window().get_xid()
+                subprocess.run(refresh_command, shell=True)
+                self.application.settings.set_int("refresh-last-run", int(time.time()))
 
             try:
-                output =  subprocess.check_output(refresh_command, shell = True).decode("utf-8")
+                output = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkAPT.py", shell=True).decode("utf-8")
             except subprocess.CalledProcessError as refresh_exception:
                 output = refresh_exception.output.decode("utf-8")
-
-            if self.root_mode:
-                self.application.settings.set_int("refresh-last-run", int(time.time()))
 
             if len(output) > 0 and not "CHECK_APT_ERROR" in output:
                 (mint_layer_found, error_msg) = self.check_policy()
