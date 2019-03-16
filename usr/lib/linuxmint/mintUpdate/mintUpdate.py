@@ -787,7 +787,7 @@ class RefreshThread(threading.Thread):
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
                     "mintupdate-error", True)
-                self.application.logger.write("Error in checkAPT.py, could not refresh the list of updates")
+                self.application.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
                 self.application.stack.set_visible_child_name("status_error")
                 self.application.builder.get_object("label_error_details").set_text(error_msg)
                 self.application.builder.get_object("label_error_details").show()
@@ -864,12 +864,12 @@ class RefreshThread(threading.Thread):
                 Gdk.threads_enter()
                 if num_visible:
                     if (num_checked == 0):
-                        self.statusString = _("No updates selected")
+                        statusString = _("No updates selected")
                     elif (num_checked >= 1):
-                        self.statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
+                        statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
 
-                    self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
-                    self.application.logger.write("Found " + str(num_visible) + " software update(s)")
+                    self.application.set_status(statusString, statusString, "mintupdate-updates-available", True)
+                    self.application.logger.write("Found " + str(num_visible) + " software updates")
 
                     if (num_visible >= 1):
                         systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
@@ -882,18 +882,20 @@ class RefreshThread(threading.Thread):
             if not len(lines) or not num_visible:
                 if is_end_of_life:
                     NO_UPDATES_MSG = _("Your distribution has reached end of life and is no longer supported")
+                    log_msg = "System is end of life, no updates available"
                     tray_icon = "mintupdate-error"
                     status_icon = "emblem-important-symbolic"
                 else:
                     NO_UPDATES_MSG = _("Your system is up to date")
                     tray_icon = "mintupdate-up-to-date"
                     status_icon = "object-select-symbolic"
+                    log_msg = "System is up to date"
                 Gdk.threads_enter()
                 self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
                 self.application.builder.get_object("image_success_status").set_from_icon_name(status_icon, 96)
                 self.application.stack.set_visible_child_name("status_updated")
                 self.application.set_status(NO_UPDATES_MSG, NO_UPDATES_MSG, tray_icon, not self.application.settings.get_boolean("hide-systray"))
-                self.application.logger.write("System is end of life, no updates available")
+                self.application.logger.write(log_msg)
                 Gdk.threads_leave()
 
             Gdk.threads_enter()
@@ -1610,9 +1612,8 @@ class MintUpdate():
 ######### WINDOW/STATUSICON ##########
 
     def close_window(self, window, event):
-        window.hide()
         self.save_window_size()
-        self.app_hidden = True
+        self.hide_main_window(window)
         return True
 
     def save_window_size(self):
