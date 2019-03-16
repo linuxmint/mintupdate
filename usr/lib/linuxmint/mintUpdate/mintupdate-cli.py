@@ -32,9 +32,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     try:
-        check = APTCheck()
         if args.refresh_cache:
-            check.refresh_cache()
+            subprocess.run("sudo /usr/bin/mint-refresh-cache", shell=True)
+        check = APTCheck()
         check.find_changes()
 
         blacklisted = []

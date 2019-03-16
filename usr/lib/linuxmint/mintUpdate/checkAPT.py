@@ -50,20 +50,7 @@ class APTCheck():
                             alias_package = alias_package.strip()
                             self.aliases[alias_package] = alias_object
 
-    def refresh_cache(self):
-        if os.getuid() == 0 :
-            if "--use-synaptic" in sys.argv:
-                window_id = int(sys.argv[2])
-                from subprocess import Popen
-                cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive", "--parent-window-id", "%d" % window_id]
-                comnd = Popen(' '.join(cmd), shell=True)
-                comnd.wait()
-            else:
-                self.cache.update()
-
     def find_changes(self):
-        # Reopen the cache to reflect any updates
-        self.cache.open(None)
         self.cache.upgrade(self.settings.get_boolean("dist-upgrade"))
         changes = self.cache.get_changes()
 
@@ -360,7 +347,6 @@ class APTCheck():
 if __name__ == "__main__":
     try:
         check = APTCheck()
-        check.refresh_cache()
         check.find_changes()
         check.apply_l10n_descriptions()
         check.load_aliases()
