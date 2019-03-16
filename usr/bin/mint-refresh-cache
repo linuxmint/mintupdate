@@ -1,18 +1,18 @@
 #!/usr/bin/python3
-import apt
 import os
 import sys
 
 if __name__ == "__main__":
     if os.getuid() == 0:
-        if "--use-synaptic" in sys.argv:
-            window_id = int(sys.argv[2])
-            from subprocess import Popen
-            cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive", "--parent-window-id", "%d" % window_id]
-            comnd = Popen(' '.join(cmd), shell=True)
-            comnd.wait()
+        if len(sys.argv) > 2 and sys.argv[1] == "--use-synaptic":
+            import subprocess
+            subprocess.run(["/usr/sbin/synaptic", "--hide-main-window",
+                            "--update-at-startup", "--non-interactive",
+                            "--parent-window-id", sys.argv[2]],
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         else:
+            import apt
             cache = apt.Cache()
             cache.update()
     else:
-        print("Error: mint-refresh-cache requires admin priviledges")
+        print("Error: mint-refresh-cache requires admin privileges")
