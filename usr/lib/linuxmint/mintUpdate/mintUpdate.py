@@ -1805,8 +1805,8 @@ class MintUpdate():
         prefix = "\n    • "
         count = len(package_update.package_names)
         packages = "%s%s%s\n%s %s\n\n" % \
-            (ngettext("This update affects the following package on your system:",
-                      "This update affects the following %d packages on your system:" % count,
+            (ngettext("This update affects the following installed package:",
+                      "This update affects the following installed packages:",
                       count),
              prefix,
              prefix.join(sorted(package_update.package_names)),
