@@ -42,9 +42,11 @@ Only include kernel updates
 Only include security updates
 .TP
 \fB-i IGNORE\fR, \fB--ignore IGNORE\fR
-List of updates to ignore (comma-separated).
+List of updates to ignore (comma-separated list of source package names).
 
-Note: You can also blacklist updates by adding their name to /etc/mintupdate.blacklist.
+Note: You can also blacklist updates by adding them to /etc/mintupdate.blacklist, one source package per line.
+
+To ignore a specific version, use the format package=version.
 .TP
 \fB-r\fR, \fB--refresh-cache\fR
 Refresh the APT cache

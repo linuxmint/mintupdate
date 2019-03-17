@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
 import argparse
+import fnmatch
 import os
 import subprocess
 import sys
 import traceback
 
-from Classes import Update
 from checkAPT import APTCheck
 
 # These updates take priority over other updates.
@@ -16,13 +16,24 @@ PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
 
 if __name__ == "__main__":
 
+    def is_blacklisted(blacklisted_packages, source_name, version):
+        for blacklist in blacklisted_packages:
+            if "=" in blacklist:
+                (bl_pkg, bl_ver) = blacklist.split("=", 1)
+            else:
+                bl_pkg = blacklist
+                bl_ver = None
+            if fnmatch.fnmatch(source_name, bl_pkg) and (not bl_ver or bl_ver == version):
+                return True
+        return False
+
     parser = argparse.ArgumentParser(prog="mintupdate-cli")
     parser.add_argument("command", help="command to run (possible commands are: list, upgrade)")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-k", "--only-kernel", action="store_true", help="only include kernel updates")
     group.add_argument("-s", "--only-security", action="store_true", help="only include security updates")
-    parser.add_argument("-i", "--ignore", help="list of updates to ignore (comma-separated). Note: You can also blacklist updates by adding their name to /etc/mintupdate.blacklist.")
+    parser.add_argument("-i", "--ignore", help="list of updates to ignore (comma-separated list of source package names). Note: You can also blacklist updates by adding them to /etc/mintupdate.blacklist, one source package per line. To ignore a specific version, use the format package=version.")
     parser.add_argument("-r", "--refresh-cache", action="store_true", help="refresh the APT cache")
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
     parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions and always install new configuration files (unless you also use \"--keep-configuration\" option)")
@@ -45,6 +56,8 @@ if __name__ == "__main__":
                     if line.startswith("#"):
                         continue
                     blacklisted.append(line)
+        if args.ignore:
+            blacklisted.extend(args.ignore.split(","))
 
         updates = []
         for source_name in sorted(check.updates.keys()):
@@ -55,9 +68,7 @@ if __name__ == "__main__":
                 continue
             elif args.only_security and update.type != "security":
                 continue
-            elif args.ignore is not None and update.source_name in args.ignore.split(","):
-                continue
-            elif update.source_name in blacklisted:
+            elif is_blacklisted(blacklisted, update.real_source_name, update.new_version):
                 continue
             else:
                 updates.append(update)
@@ -85,6 +96,6 @@ if __name__ == "__main__":
             if args.keep_configuration:
                 arguments.extend(["--option", "Dpkg::Options::=--force-confold"])
             subprocess.call(arguments + packages, env=environment)
-    except Exception as error:
+    except:
         traceback.print_exc()
         sys.exit(1)
