@@ -176,7 +176,7 @@
     <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="default_width">755</property>
-    <property name="default_height">460</property>
+    <property name="default_height">540</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -447,7 +447,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="auto_autoremove_title">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
@@ -466,8 +466,38 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkLabel" id="auto_autoremove_label1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">24</property>
+                    <property name="label" translatable="yes">This weekly service removes no longer needed dependencies as well as old kernel updates. It always leaves at least one older kernel installed and never removes manually installed kernels.</property>
+                    <property name="wrap">True</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">7</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="auto_autoremove_label2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">24</property>
+                    <property name="label" translatable="yes">You will be prevented from rebooting or shutting down the system while the maintenance is running to prevent system corruption.</property>
+                    <property name="wrap">True</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">8</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkCheckButton" id="auto_autoremove_checkbox">
-                    <property name="label" translatable="yes">Automatic removal of no longer required packages and kernels</property>
+                    <property name="label" translatable="yes">Enable automatic maintenance</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -478,7 +508,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">7</property>
+                    <property name="position">9</property>
                   </packing>
                 </child>
               </object>
