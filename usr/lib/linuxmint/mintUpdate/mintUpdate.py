@@ -1784,13 +1784,23 @@ class MintUpdate():
     def display_package_list(self, package_update):
         prefix = "\n    • "
         count = len(package_update.package_names)
-        packages = "%s%s%s\n%s %s\n\n" % \
+        installed_size_string = size_to_string(package_update.installed_size)
+        if package_update.installed_size_change:
+            # size_to_string() doesn't support negative numbers so we flip a negative sign here
+            if package_update.installed_size_change < 0:
+                package_update.installed_size_change *= -1
+                sign = "-"
+            else:
+                sign = "+"
+            installed_size_string += f" ({sign}{size_to_string(package_update.installed_size_change)})"
+        packages = "%s%s%s\n%s\n%s\n" % \
             (ngettext("This update affects the following installed package:",
                       "This update affects the following installed packages:",
                       count),
              prefix,
              prefix.join(sorted(package_update.package_names)),
-             _("Total size:"), size_to_string(package_update.size))
+             _("Download size: %s") % size_to_string(package_update.size),
+             _("Installed size: %s") % installed_size_string)
         self.textview_packages.set_text(packages)
 
     def display_package_description(self, package_update):

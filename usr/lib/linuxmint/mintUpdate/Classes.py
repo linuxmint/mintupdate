@@ -55,10 +55,13 @@ class Update():
             self.main_package_name = package.name
             self.package_name = package.name
             self.new_version = package.candidate.version
-            if package.installed is None:
+            self.installed_size = package.candidate.installed_size
+            if not package.is_installed:
                 self.old_version = ""
+                self.installed_size_change = self.installed_size
             else:
                 self.old_version = package.installed.version
+                self.installed_size_change = package.candidate.installed_size - package.installed.installed_size
             self.size = package.candidate.size
             self.real_source_name = package.candidate.source_name
             if source_name is not None:
@@ -69,7 +72,7 @@ class Update():
             self.short_description = package.candidate.raw_description
             self.description = package.candidate.description
             self.archive = ""
-            if (self.new_version != self.old_version):
+            if self.new_version != self.old_version:
                 self.type = "package"
                 self.origin = ""
                 for origin in package.candidate.origins:
@@ -104,6 +107,8 @@ class Update():
     def add_package(self, pkg):
         self.package_names.append(pkg.name)
         self.size += pkg.candidate.size
+        self.installed_size += pkg.candidate.installed_size
+        self.installed_size_change += pkg.candidate.installed_size - pkg.installed.installed_size
         if self.main_package_name is None or pkg.name == self.source_name:
             self.overwrite_main_package(pkg)
             return
@@ -130,11 +135,11 @@ class Update():
         self.main_package_name = pkg.name
 
     def serialize(self):
-        output_string = u"###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
-        (self.display_name, self.source_name, self.real_source_name,\
-         self.main_package_name, ", ".join(self.package_names), self.new_version,\
-         self.old_version, self.size, self.type, self.origin, \
-         self.short_description, self.description, self.site, self.archive)
+        output_string = u"###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
+        (self.display_name, self.source_name, self.real_source_name,
+         self.main_package_name, ", ".join(self.package_names), self.new_version,
+         self.old_version, self.size, self.installed_size, self.installed_size_change,
+         self.type, self.origin, self.short_description, self.description, self.site, self.archive)
         print(output_string.encode('ascii', 'xmlcharrefreplace'))
 
     def parse(self, input_string):
@@ -143,11 +148,14 @@ class Update():
         except:
             pass
         values = input_string.split("###")
-        _, self.display_name, self.source_name, self.real_source_name,\
-            self.main_package_name, package_names, self.new_version,\
-            self.old_version, size, self.type, self.origin, self.short_description,\
-            self.description, self.site, self.archive = values
-        self.size = int(size)
+        (_, self.display_name, self.source_name, self.real_source_name,
+            self.main_package_name, package_names, self.new_version,
+            self.old_version, self.size, self.installed_size, self.installed_size_change,
+            self.type, self.origin, self.short_description,
+            self.description, self.site, self.archive) = values
+        self.size = int(self.size)
+        self.installed_size = int(self.installed_size)
+        self.installed_size_change = int(self.installed_size_change)
         for package_name in package_names.split(", "):
             self.package_names.append(package_name)
 
