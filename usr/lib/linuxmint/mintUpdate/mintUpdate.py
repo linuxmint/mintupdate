@@ -128,8 +128,7 @@ class CacheWatcher(threading.Thread):
         self.do_refresh()
 
     def do_refresh(self):
-        refresh = RefreshThread(self.application)
-        refresh.start()
+        self.application.refresh()
 
     @staticmethod
     def get_apt_config(config_option):
@@ -1549,8 +1548,8 @@ class MintUpdate():
 
 ######### UTILITY FUNCTIONS #########
 
-    def refresh(self):
-        refresh = RefreshThread(self)
+    def refresh(self, root_mode=False):
+        refresh = RefreshThread(self, root_mode=root_mode)
         refresh.start()
 
     def set_status_message(self, message):
@@ -1633,8 +1632,7 @@ class MintUpdate():
 
     def setVisibleDescriptions(self, checkmenuitem):
         self.settings.set_boolean("show-descriptions", checkmenuitem.get_active())
-        refresh = RefreshThread(self)
-        refresh.start()
+        self.refresh()
 
     def clear(self, widget):
         model = self.treeview.get_model()
@@ -1680,8 +1678,7 @@ class MintUpdate():
         if self.dpkg_locked():
             self.show_dpkg_lock_msg(self.window)
         else:
-            refresh = RefreshThread(self, root_mode=True)
-            refresh.start()
+            self.refresh(root_mode=True)
 
     def install(self, widget):
         if self.dpkg_locked():
@@ -1824,8 +1821,7 @@ class MintUpdate():
         blacklist = self.settings.get_strv("blacklisted-packages")
         blacklist.append(pkg)
         self.settings.set_strv("blacklisted-packages", blacklist)
-        refresh = RefreshThread(self)
-        refresh.start()
+        self.refresh()
 
 ######### SYSTRAY #########
 
