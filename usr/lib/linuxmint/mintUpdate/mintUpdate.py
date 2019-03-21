@@ -406,7 +406,11 @@ class InstallThread(threading.Thread):
         self.application.window.set_sensitive(False)
         self.reboot_required = self.application.reboot_required
 
+    def __del__(self):
+        self.application.cache_watcher.resume(False)
+
     def run(self):
+        self.application.cache_watcher.pause()
         try:
             self.application.logger.write("Install requested by user")
             Gdk.threads_enter()
