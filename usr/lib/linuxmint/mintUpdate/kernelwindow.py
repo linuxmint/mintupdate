@@ -32,6 +32,7 @@ class InstallKernelThread(threading.Thread):
     def run(self):
         self.application.window.set_sensitive(False)
         do_regular = False
+        self.application.cache_watcher.pause()
         for (version, kernel_type, origin, remove) in self.kernels:
             if not do_regular:
                 do_regular = True
@@ -98,6 +99,7 @@ class InstallKernelThread(threading.Thread):
             subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log)
             subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
             f.close()
+        self.application.refresh()
         self.cache = None
         self.application.window.set_sensitive(True)
 
