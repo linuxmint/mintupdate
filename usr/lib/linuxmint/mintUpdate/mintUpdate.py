@@ -110,10 +110,11 @@ class CacheWatcher(threading.Thread):
                     pass
             time.sleep(self.refresh_frequency)
 
-    def resume(self):
+    def resume(self, update_cachetime=True):
         if not self.pkgcache:
             return
-        self.update_cachetime()
+        if update_cachetime:
+            self.update_cachetime()
         self.paused = False
 
     def pause(self):
