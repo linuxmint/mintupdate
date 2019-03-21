@@ -632,6 +632,9 @@ class RefreshThread(threading.Thread):
         self.root_mode = root_mode
         self.application = application
 
+    def __del__(self):
+        self.application.cache_watcher.resume()
+
     def check_policy(self):
         # Check the presence of the Mint layer
         p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -992,7 +995,6 @@ class RefreshThread(threading.Thread):
                                               callback=infobar_callback)
 
             Gdk.threads_leave()
-            self.application.cache_watcher.resume()
 
         except:
             traceback.print_exc()
