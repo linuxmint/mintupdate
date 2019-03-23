@@ -579,16 +579,12 @@ class InstallThread(threading.Thread):
                             self.application.window.hide()
                             Gdk.threads_leave()
 
-                        if "mintupdate" in packages or "mint-upgrade-info" in packages:
+                        if [pkg for pkg in self.packages if pkg in PRIORITY_UPDATES]:
                             # Restart
-                            try:
-                                self.application.logger.write("Mintupdate was updated, restarting it...")
-                                self.application.logger.close()
-                            except:
-                                pass #cause we might have closed it already
-
-                            command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
-                            os.system(command)
+                            self.application.logger.write("Mintupdate was updated, restarting it...")
+                            self.application.logger.close()
+                            os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+                            return
 
                         # Refresh
                         Gdk.threads_enter()
@@ -805,6 +801,10 @@ class RefreshThread(threading.Thread):
                 for line in lines:
                     if "###" in line:
                         update = Update(package=None, input_string=line, source_name=None)
+
+                        # Check if self-update is needed
+                        if update.source_name in PRIORITY_UPDATES:
+                            self.application.stack.set_visible_child_name("status_self-update")
 
                         iter = model.insert_before(None, None)
 
@@ -1311,6 +1311,9 @@ class MintUpdate():
             key, mod = Gtk.accelerator_parse("<Control>R")
             refresh_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
 
+            # Self-update page:
+            self.builder.get_object("confirm-self-update").connect("clicked", self.self_update)
+
             menu = Gtk.Menu()
             menuItem3 = Gtk.ImageMenuItem.new_with_label(_("Refresh"))
             image = Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU)
@@ -1336,9 +1339,6 @@ class MintUpdate():
             if os.getenv("XDG_CURRENT_DESKTOP") != "KDE":
                 self.statusIcon.connect('activate', self.on_statusicon_clicked)
                 self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
-
-            self.builder.get_object("image_success_status").set_pixel_size(96)
-            self.builder.get_object("image_error_status").set_pixel_size(96)
 
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
@@ -1512,11 +1512,9 @@ class MintUpdate():
                     self.app_hidden = False
 
             # Status pages
-            status_updated_page = self.builder.get_object("status_updated")
-            self.stack.add_named(status_updated_page, "status_updated")
-
-            status_error_page = self.builder.get_object("status_error")
-            self.stack.add_named(status_error_page, "status_error")
+            self.stack.add_named(self.builder.get_object("status_updated"), "status_updated")
+            self.stack.add_named(self.builder.get_object("status_error"), "status_error")
+            self.stack.add_named(self.builder.get_object("status_self-update"), "status_self-update")
 
             self.stack.show_all()
             if self.settings.get_boolean("show-welcome-page"):
@@ -1699,6 +1697,10 @@ class MintUpdate():
         else:
             install = InstallThread(self)
             install.start()
+
+    def self_update(self, widget):
+        self.select_all(widget)
+        self.install(widget)
 
 ######### WELCOME PAGE FUNCTIONS #######
 
