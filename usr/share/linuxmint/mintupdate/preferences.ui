@@ -87,12 +87,14 @@
               <object class="GtkBox" id="box5">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="spacing">4</property>
                 <child>
                   <object class="GtkButton" id="button_remove">
+                    <property name="label">gtk-remove</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="image">image6</property>
+                    <property name="use_stock">True</property>
                     <property name="always_show_image">True</property>
                   </object>
                   <packing>
@@ -104,10 +106,11 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_add">
+                    <property name="label">gtk-add</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <property name="image">image7</property>
+                    <property name="use_stock">True</property>
                     <property name="always_show_image">True</property>
                   </object>
                   <packing>
@@ -217,10 +220,11 @@
             <property name="spacing">6</property>
             <child>
               <object class="GtkButton" id="pref_button_apply">
-                <property name="label" translatable="yes">Apply</property>
+                <property name="label">gtk-apply</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -231,10 +235,11 @@
             </child>
             <child>
               <object class="GtkButton" id="pref_button_cancel">
-                <property name="label" translatable="yes">Cancel</property>
+                <property name="label">gtk-cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>

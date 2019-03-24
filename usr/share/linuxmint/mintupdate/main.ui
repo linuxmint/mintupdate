@@ -832,11 +832,12 @@
         <property name="baseline_position">top</property>
         <child>
           <object class="GtkButton" id="button_welcome_help">
-            <property name="label" translatable="yes">Help</property>
+            <property name="label">gtk-help</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="can_default">True</property>
             <property name="receives_default">True</property>
+            <property name="use_stock">True</property>
             <property name="always_show_image">True</property>
           </object>
           <packing>
@@ -847,11 +848,12 @@
         </child>
         <child>
           <object class="GtkButton" id="button_welcome_finish">
-            <property name="label" translatable="yes">OK</property>
+            <property name="label">gtk-ok</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="can_default">True</property>
             <property name="receives_default">True</property>
+            <property name="use_stock">True</property>
             <property name="always_show_image">True</property>
           </object>
           <packing>
