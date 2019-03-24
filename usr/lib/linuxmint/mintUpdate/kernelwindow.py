@@ -32,7 +32,7 @@ class InstallKernelThread(threading.Thread):
     def run(self):
         self.application.window.set_sensitive(False)
         do_regular = False
-        for (version, kernel_type, origin, remove) in self.kernels:
+        for kernel in self.kernels:
             if not do_regular:
                 do_regular = True
                 f = tempfile.NamedTemporaryFile()
@@ -42,17 +42,17 @@ class InstallKernelThread(threading.Thread):
                 if not self.cache:
                     self.cache = apt.Cache()
             _KERNEL_PKG_NAMES = KERNEL_PKG_NAMES.copy()
-            if remove:
+            if kernel.installed:
                 _KERNEL_PKG_NAMES.append("linux-image-unsigned-VERSION-KERNELTYPE") # mainline, remove only
             for name in _KERNEL_PKG_NAMES:
-                name = name.replace("VERSION", version).replace("-KERNELTYPE", kernel_type)
+                name = name.replace("VERSION", kernel.version).replace("-KERNELTYPE", kernel.type)
                 if name in self.cache:
                     pkg = self.cache[name]
-                    if remove:
+                    if kernel.installed:
                         if pkg.is_installed:
                             # skip kernel_type independent packages (headers) if another kernel of the
                             # same version but different type is installed
-                            if not kernel_type in name and self.package_needed_by_another_kernel(version, kernel_type):
+                            if not kernel.type in name and self.package_needed_by_another_kernel(kernel.version, kernel.type):
                                 continue
                             pkg_line = "%s\tpurge\n" % name
                             f.write(pkg_line.encode("utf-8"))
@@ -61,21 +61,21 @@ class InstallKernelThread(threading.Thread):
                         f.write(pkg_line.encode("utf-8"))
 
                 # Clean out left-over meta package
-                if remove:
+                if kernel.installed:
                     def kernel_series(version):
                         return version.replace("-",".").split(".")[:3]
 
                     last_in_series = True
-                    this_kernel_series = kernel_series(version)
+                    this_kernel_series = kernel_series(kernel.version)
                     for _type, _version in self.kernel_window.installed_kernels:
-                        if (_type == kernel_type and _version != version and
+                        if (_type == kernel.type and _version != kernel.version and
                             kernel_series(_version) == this_kernel_series
                             ):
                             last_in_series = False
                     if last_in_series:
                         meta_names = []
-                        _metas = [s for s in self.cache.keys() if s.startswith("linux" + kernel_type)]
-                        if kernel_type == "-generic":
+                        _metas = [s for s in self.cache.keys() if s.startswith("linux" + kernel.type)]
+                        if kernel.type == "-generic":
                             _metas.append("linux-virtual")
                         for meta in _metas:
                             shortname = meta.split(":")[0]
@@ -85,7 +85,7 @@ class InstallKernelThread(threading.Thread):
                             if meta_name in self.cache:
                                 meta = self.cache[meta_name]
                                 if meta.is_installed and \
-                                   kernel_series(meta.candidate.version) == this_kernel_series:
+                                    kernel_series(meta.candidate.version) == this_kernel_series:
                                     f.write(("%s\tpurge\n" % meta_name).encode("utf-8"))
                                     f.write(("%s\tpurge\n" % meta_name.replace("linux-","linux-image-")).encode("utf-8"))
                                     f.write(("%s\tpurge\n" % meta_name.replace("linux-","linux-headers-")).encode("utf-8"))
@@ -114,22 +114,32 @@ class InstallKernelThread(threading.Thread):
                             return True
         return False
 
+class Kernel():
+    def __init__(self, version, kernel_type, origin, installed):
+        self.version = version
+        self.type = kernel_type
+        self.origin = origin
+        self.installed = installed
+
 class MarkKernelRow(Gtk.ListBoxRow):
-    def __init__(self, version_id, supported, version, kernel_type, window):
+    def __init__(self, kernel, kernel_list, version_id=None, supported=None):
         Gtk.ListBoxRow.__init__(self)
-        self.window = window
-        button = Gtk.CheckButton(version + kernel_type, False)
-        button.kernel_version = version
-        button.kernel_type = kernel_type
+        self.kernel_list = kernel_list
+        self.kernel = kernel
+        if kernel.installed:
+            action = _("Remove")
+        else:
+            action = _("Install")
+        button = Gtk.CheckButton(f"{action} {kernel.version}{kernel.type}", False)
         button.connect("toggled", self.on_checked)
-        Gtk.ToggleButton.set_active(button, not supported and ACTIVE_KERNEL_VERSION > version_id)
+        Gtk.ToggleButton.set_active(button, not version_id or (not supported and ACTIVE_KERNEL_VERSION > version_id))
         self.add(button)
 
     def on_checked(self, widget):
         if widget.get_active():
-            self.window.marked_kernels.append([widget.kernel_version, widget.kernel_type, None, True])
+            self.kernel_list.append(self.kernel)
         else:
-            self.window.marked_kernels.remove([widget.kernel_version, widget.kernel_type, None, True])
+            self.kernel_list.remove(self.kernel)
 
 class KernelRow(Gtk.ListBoxRow):
     def __init__(self, version, pkg_version, kernel_type, text, installed, used, title,
@@ -203,25 +213,30 @@ class KernelRow(Gtk.ListBoxRow):
             box.pack_start(link, False, False, 2)
 
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        button = Gtk.Button.new_with_label("")
+        button = Gtk.Button()
         Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(button), "text-button")
-        button.set_sensitive(False)
-        button.set_tooltip_text("")
+        kernel = Kernel(version, kernel_type, origin, installed)
+        button.connect("clicked", self.install_kernel, kernel)
+        queuebutton = Gtk.Button()
+        Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(queuebutton), "text-button")
+        queuebutton.connect("clicked", self.queue_kernel, kernel)
         if installed:
             button.set_label(_("Remove"))
-            button.connect("clicked", self.install_kernel, version, installed, window, origin, kernel_type)
+            queuebutton.set_label(_("Queue removal"))
             if used:
                 button.set_tooltip_text(_("This kernel cannot be removed because it is currently in use."))
-            else:
-                button.set_sensitive(True)
+                button.set_sensitive(False)
         else:
             button.set_label(_("Install"))
-            button.connect("clicked", self.install_kernel, version, installed, window, origin, kernel_type)
+            queuebutton.set_label(_("Queue installation"))
             if not installable:
                 button.set_tooltip_text(_("This kernel is not installable."))
-            else:
-                button.set_sensitive(True)
+                button.set_sensitive(False)
+        queuebutton.set_tooltip_text(button.get_tooltip_text())
+        queuebutton.set_sensitive(button.get_sensitive())
+
         button_box.pack_end(button, False, False, 0)
+        button_box.pack_end(queuebutton, False, False, 5)
         hidden_box.pack_start(button_box, False, False, 0)
 
     def show_hide_children(self, widget):
@@ -230,24 +245,31 @@ class KernelRow(Gtk.ListBoxRow):
         else:
             self.revealer.set_reveal_child(True)
 
-    def install_kernel(self, widget, version, installed, window, origin, kernel_type):
-        if installed:
-            message = _("Are you sure you want to remove the %s kernel?") % version
+    def install_kernel(self, widget, kernel):
+        if kernel.installed:
+            message = _("Are you sure you want to remove the %s kernel?") % kernel.version
         else:
-            message = _("Are you sure you want to install the %s kernel?") % version
-        d = Gtk.MessageDialog(window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.INFO, Gtk.ButtonsType.YES_NO, message)
+            message = _("Are you sure you want to install the %s kernel?") % kernel.version
+        d = Gtk.MessageDialog(self.kernel_window.window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                             Gtk.MessageType.INFO, Gtk.ButtonsType.YES_NO, message)
         d.set_default_response(Gtk.ResponseType.NO)
         r = d.run()
         d.hide()
         d.destroy()
         if r == Gtk.ResponseType.YES:
             if self.application.dpkg_locked():
-                self.application.show_dpkg_lock_msg(window)
+                self.application.show_dpkg_lock_msg(self.kernel_window)
             else:
-                thread = InstallKernelThread([[version, kernel_type, origin, installed]],
+                thread = InstallKernelThread([kernel],
                                              self.application, self.kernel_window)
                 thread.start()
-                window.hide()
+                self.kernel_window.window.hide()
+
+    def queue_kernel(self, widget, kernel):
+        widget.set_sensitive(False)
+        if kernel not in self.kernel_window.queued_kernels:
+            self.kernel_window.button_do_queue.set_sensitive(True)
+            self.kernel_window.queued_kernels_listbox.append(MarkKernelRow(kernel, self.kernel_window.queued_kernels))
 
 class KernelWindow():
 
@@ -262,7 +284,6 @@ class KernelWindow():
         self.window.set_title(_("Kernels"))
         main_box = self.builder.get_object("main_vbox")
         info_box = self.builder.get_object("intro_box")
-        self.remove_kernels_window = self.builder.get_object("confirmation_window")
 
         self.main_stack = Gtk.Stack()
         self.main_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
@@ -286,14 +307,24 @@ class KernelWindow():
 
         self.builder.get_object("button_close").connect("clicked", self.destroy_window)
         self.window.connect("destroy", self.destroy_window)
-        self.builder.get_object("button_massremove").connect("clicked", self.show_remove_kernels_window, self.remove_kernels_window)
 
         self.current_label = self.builder.get_object("current_label")
-        self.remove_kernels_listbox = self.builder.get_object("box_list")
 
-        # Set up the kernel mass removal confirmation window
-        self.builder.get_object("b_cancel").connect("clicked", self.on_cancel_clicked, self.remove_kernels_window)
-        self.builder.get_object("b_remove").connect("clicked", self.on_remove_clicked, self.remove_kernels_window)
+        # Set up the kernel mass operation confirmation window and associated buttons
+        self.confirmation_dialog = self.builder.get_object("confirmation_window")
+        self.confirmation_dialog.connect("destroy", self.on_cancel_clicked)
+        self.confirmation_dialog.connect("delete-event", self.on_cancel_clicked)
+        self.builder.get_object("b_confirmation_confirm").connect("clicked", self.on_confirm_clicked)
+        self.builder.get_object("b_confirmation_cancel").connect("clicked", self.on_cancel_clicked)
+        self.confirmation_listbox = self.builder.get_object("confirmation_listbox")
+        self.confirmation_listbox.set_sort_func(self.confirmation_listbox_sort)
+        self.remove_kernels_listbox = []
+        self.queued_kernels_listbox = []
+        self.queued_kernels = []
+        self.button_massremove = self.builder.get_object("button_massremove")
+        self.button_massremove.connect("clicked", self.show_confirmation_dialog, self.remove_kernels_listbox)
+        self.button_do_queue = self.builder.get_object("button_do_queue")
+        self.button_do_queue.connect("clicked", self.show_confirmation_dialog, self.queued_kernels_listbox)
 
         self.initially_configured_kernel_type = CONFIGURED_KERNEL_TYPE
         allow_kernel_type_selection = self.application.settings.get_boolean("allow-kernel-type-selection")
@@ -312,8 +343,7 @@ class KernelWindow():
                 self.application.settings.set_string("selected-kernel-type", CONFIGURED_KERNEL_TYPE)
                 for child in self.stack.get_children():
                     child.destroy()
-                for child in self.remove_kernels_listbox.get_children():
-                    child.destroy()
+                self.remove_kernels_listbox = []
                 self.build_kernels_list()
                 self.stack.show_all()
             self.kernel_type_selector.connect("changed", on_kernel_type_selector_changed)
@@ -390,11 +420,11 @@ class KernelWindow():
                     if not [x for x in hwe_support_duration[release] if x[0] == page_label]:
                         hwe_support_duration[release].append([page_label, support_duration])
 
-                kernel_list_prelim.append([version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, \
+                kernel_list_prelim.append([version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title,
                     installable, origin, release, support_duration])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
-                    pages_needed_sort.append([version_id,page_label])
+                    pages_needed_sort.append([version_id, page_label])
 
         # get kernel support duration
         kernel_support_info = {}
@@ -470,9 +500,13 @@ class KernelWindow():
             if installed:
                 self.installed_kernels.append((kernel_type, version))
                 if not used:
-                    self.remove_kernels_listbox.add(MarkKernelRow(version_id, newest_supported_in_series, version, kernel_type, self))
+                    self.button_massremove.set_sensitive(True)
+                    self.remove_kernels_listbox.append(MarkKernelRow(Kernel(version, kernel_type, origin, installed),
+                                                                            self.marked_kernels, version_id,
+                                                                            newest_supported_in_series))
 
-            kernel_list.append([version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, support_status])
+            kernel_list.append([version_id, version, pkg_version, kernel_type, page_label, label,
+                                installed, used, title, installable, origin, support_status])
         del(kernel_list_prelim)
 
         # add kernels to UI
@@ -518,23 +552,37 @@ class KernelWindow():
     def show_help(self, widget):
         os.system("yelp help:mintupdate/index &")
 
-    def show_remove_kernels_window(self, widget, window):
+    def show_confirmation_dialog(self, widget, kernel_list):
         self.window.set_sensitive(False)
-        window.show_all()
+        for child in self.confirmation_listbox.get_children():
+            self.confirmation_listbox.remove(child)
+        for item in kernel_list:
+            self.confirmation_listbox.add(item)
+        self.confirmation_dialog.set_title(widget.get_label())
+        self.confirmation_dialog.show_all()
 
-    def on_cancel_clicked(self, widget, window):
+    def on_cancel_clicked(self, widget, *args):
+        self.confirmation_dialog.hide()
         self.window.set_sensitive(True)
-        window.hide()
+        return True
 
-    def on_remove_clicked(self, widget, window):
-        window.hide()
-        if self.marked_kernels:
+    def on_confirm_clicked(self, widget):
+        self.confirmation_dialog.hide()
+        if self.confirmation_listbox.get_children():
+            kernel_list = self.confirmation_listbox.get_children()[0].kernel_list
+        else:
+            kernel_list = None
+        if kernel_list:
             if self.application.dpkg_locked():
                 self.application.show_dpkg_lock_msg(self.window)
                 self.window.set_sensitive(True)
             else:
-                thread = InstallKernelThread(self.marked_kernels, self.application, self)
+                thread = InstallKernelThread(kernel_list, self.application, self)
                 thread.start()
                 self.window.hide()
         else:
             self.window.set_sensitive(True)
+
+    @staticmethod
+    def confirmation_listbox_sort(row_1, row_2):
+        return row_1.kernel.version < row_2.kernel.version
