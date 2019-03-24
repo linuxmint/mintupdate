@@ -14,13 +14,14 @@ try:
     signed_kernels = ['']
     local_kernels = {}
     r = re.compile(r'^(?:linux-image-)(?:unsigned-)?(\d.+?)(%s)$' % "|".join(SUPPORTED_KERNEL_TYPES))
-    for pkg in cache:
+    for pkg_name in cache.keys():
         installed = 0
         used = 0
         installable = 0
         pkg_version = ""
-        pkg_match = r.match(pkg.name)
+        pkg_match = r.match(pkg_name)
         if pkg_match:
+            pkg = cache[pkg_name]
             pkg_data = None
             if pkg.candidate:
                 pkg_data = pkg.candidate
