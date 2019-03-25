@@ -222,13 +222,13 @@ class KernelRow(Gtk.ListBoxRow):
         queuebutton.connect("clicked", self.queue_kernel, kernel)
         if installed:
             button.set_label(_("Remove"))
-            queuebutton.set_label(_("Queue removal"))
+            queuebutton.set_label(_("Queue Removal"))
             if used:
                 button.set_tooltip_text(_("This kernel cannot be removed because it is currently in use."))
                 button.set_sensitive(False)
         else:
             button.set_label(_("Install"))
-            queuebutton.set_label(_("Queue installation"))
+            queuebutton.set_label(_("Queue Installation"))
             if not installable:
                 button.set_tooltip_text(_("This kernel is not installable."))
                 button.set_sensitive(False)
@@ -558,7 +558,7 @@ class KernelWindow():
             self.confirmation_listbox.remove(child)
         for item in kernel_list:
             self.confirmation_listbox.add(item)
-        self.confirmation_dialog.set_title(widget.get_label())
+        self.confirmation_dialog.set_title(widget.get_label()[:-1])
         self.confirmation_dialog.show_all()
 
     def on_cancel_clicked(self, widget, *args):
