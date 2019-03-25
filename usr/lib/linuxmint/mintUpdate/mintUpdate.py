@@ -2089,6 +2089,7 @@ class MintUpdate():
         builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
         builder.get_object("button_add").set_always_show_image(True)
         builder.get_object("button_remove").set_always_show_image(True)
+        builder.get_object("export_blacklist_button").connect("clicked", self.export_blacklist)
         self.preferences_window_showing = True
 
         window.show_all()
@@ -2096,6 +2097,13 @@ class MintUpdate():
 
     def on_refresh_schedule_toggled(self, widget, builder):
         builder.get_object("refresh_grid").set_visible(widget.get_active())
+
+    def export_blacklist(self, widget):
+        filename = os.path.join(tempfile.gettempdir(), "mintUpdate/blacklist")
+        blacklist = self.settings.get_strv("blacklisted-packages")
+        with open(filename, "w") as f:
+            f.write("\n".join(blacklist) + "\n")
+        subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "blacklist", "enable"])
 
     @staticmethod
     def set_automation(automation_id, builder):
@@ -2107,7 +2115,7 @@ class MintUpdate():
         elif not active and exists:
             action = "disable"
         if action:
-            subprocess.call(["pkexec", "/usr/bin/mintupdate-automation", automation_id, action])
+            subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", automation_id, action])
 
     def save_preferences(self, widget, builder):
         self.settings.set_boolean('hide-window-after-update', builder.get_object("checkbutton_hide_window_after_update").get_active())
