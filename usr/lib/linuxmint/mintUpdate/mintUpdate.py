@@ -2135,19 +2135,29 @@ class MintUpdate():
 
     def add_blacklisted_package(self, widget, treeview_blacklist, window):
         dialog = Gtk.MessageDialog(window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK, None)
-        dialog.set_markup("<b>" + _("Please specify the name of the update to ignore:") + "</b>")
-        dialog.set_title(_("Ignore an update"))
+        dialog.set_markup(_("Please specify the source package name of the update to ignore (wildcards are supported) and optionally the version:"))
+        dialog.set_title(_("Ignore an Update"))
         dialog.set_icon_name("mintupdate")
-        entry = Gtk.Entry()
-        hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_("Name:")), False, 5, 5)
-        hbox.pack_end(entry, True, True, 0)
-        dialog.vbox.pack_end(hbox, True, True, 0)
+        grid = Gtk.Grid()
+        grid.set_column_spacing(5)
+        grid.set_halign(Gtk.Align.CENTER)
+        name_entry = Gtk.Entry()
+        version_entry = Gtk.Entry()
+        grid.attach(Gtk.Label(_("Name:")), 0, 0, 1, 1)
+        grid.attach(name_entry, 1, 0, 1, 1)
+        grid.attach(Gtk.Label(_("Version:")), 0, 1, 1, 1)
+        grid.attach(version_entry, 1, 1, 1, 1)
+        grid.attach(Gtk.Label(_("(optional)")), 2, 1, 1, 1)
+        dialog.get_content_area().add(grid)
         dialog.show_all()
         if dialog.run() == Gtk.ResponseType.OK:
-            name = entry.get_text()
-            pkg = name.strip()
-            if pkg != '':
+            name = name_entry.get_text().strip()
+            version = version_entry.get_text().strip()
+            if name:
+                if version:
+                    pkg = f"{name}={version}"
+                else:
+                    pkg = name
                 model = treeview_blacklist.get_model()
                 iter = model.insert_before(None, None)
                 model.set_value(iter, 0, pkg)
