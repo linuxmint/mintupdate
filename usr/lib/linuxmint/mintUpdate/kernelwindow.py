@@ -32,6 +32,7 @@ class InstallKernelThread(threading.Thread):
     def run(self):
         self.application.window.set_sensitive(False)
         do_regular = False
+        self.application.cache_watcher.pause()
         for kernel in self.kernels:
             if not do_regular:
                 do_regular = True
@@ -98,6 +99,7 @@ class InstallKernelThread(threading.Thread):
             subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log)
             subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
             f.close()
+        self.application.refresh()
         self.cache = None
         self.application.window.set_sensitive(True)
 
@@ -326,9 +328,18 @@ class KernelWindow():
         self.button_do_queue = self.builder.get_object("button_do_queue")
         self.button_do_queue.connect("clicked", self.show_confirmation_dialog, self.queued_kernels_listbox)
 
+        # Get distro release dates for support duration calculation
+        self.release_dates = get_release_dates()
+
+        # Build kernels list
+        self.allow_kernel_type_selection = False
+        self.build_kernels_list()
+
         self.initially_configured_kernel_type = CONFIGURED_KERNEL_TYPE
-        allow_kernel_type_selection = self.application.settings.get_boolean("allow-kernel-type-selection")
-        if allow_kernel_type_selection:
+        if not self.allow_kernel_type_selection and \
+           self.application.settings.get_boolean("allow-kernel-type-selection"):
+            self.allow_kernel_type_selection = True
+        if self.allow_kernel_type_selection:
             # Set up the kernel type selection dropdown
             self.kernel_type_selector = self.builder.get_object("cb_kernel_type")
             for index, kernel_type in enumerate(SUPPORTED_KERNEL_TYPES):
@@ -348,12 +359,6 @@ class KernelWindow():
                 self.stack.show_all()
             self.kernel_type_selector.connect("changed", on_kernel_type_selector_changed)
 
-        # Get distro release dates for support duration calculation
-        self.release_dates = get_release_dates()
-
-        # Build kernels list
-        self.build_kernels_list()
-
         self.main_stack.add_named(main_box, "main_box")
 
         if self.application.settings.get_boolean("hide-kernel-update-warning"):
@@ -371,8 +376,8 @@ class KernelWindow():
                          parent_center_y - window_size.height / 2)
 
         self.window.show_all()
-        self.builder.get_object("cb_label").set_visible(allow_kernel_type_selection)
-        self.builder.get_object("cb_kernel_type").set_visible(allow_kernel_type_selection)
+        self.builder.get_object("cb_label").set_visible(self.allow_kernel_type_selection)
+        self.builder.get_object("cb_kernel_type").set_visible(self.allow_kernel_type_selection)
 
     def build_kernels_list(self):
         # get list of installed and available kernels from apt
@@ -409,6 +414,7 @@ class KernelWindow():
                     label = version
                 else:
                     label = version + kernel_type
+                    self.allow_kernel_type_selection = True
                 page_label = ".".join(label.replace("-",".").split(".")[:2])
 
                 support_duration = int(support_duration)
