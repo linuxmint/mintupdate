@@ -579,7 +579,7 @@ class InstallThread(threading.Thread):
                             self.application.window.hide()
                             Gdk.threads_leave()
 
-                        if [pkg for pkg in self.packages if pkg in PRIORITY_UPDATES]:
+                        if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
                             # Restart
                             self.application.logger.write("Mintupdate was updated, restarting it...")
                             self.application.logger.close()
@@ -798,12 +798,14 @@ class RefreshThread(threading.Thread):
                 Gdk.threads_leave()
                 return False
             elif len(lines):
+                is_self_update = False
                 for line in lines:
                     if "###" in line:
                         update = Update(package=None, input_string=line, source_name=None)
 
                         # Check if self-update is needed
                         if update.source_name in PRIORITY_UPDATES:
+                            is_self_update = True
                             self.application.stack.set_visible_child_name("status_self-update")
 
                         iter = model.insert_before(None, None)
@@ -868,15 +870,19 @@ class RefreshThread(threading.Thread):
 
                 Gdk.threads_enter()
                 if num_visible:
-                    if (num_checked == 0):
+                    if is_self_update:
+                        self.application.builder.get_object("toolbar1").set_sensitive(False)
+                        self.application.statusbar.set_visible(False)
+                        statusString = _("Update Manager needs to be updated")
+                    elif num_checked == 0:
                         statusString = _("No updates selected")
-                    elif (num_checked >= 1):
+                    elif num_checked >= 1:
                         statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
 
                     self.application.set_status(statusString, statusString, "mintupdate-updates-available", True)
                     self.application.logger.write("Found " + str(num_visible) + " software updates")
 
-                    if (num_visible >= 1):
+                    if num_visible >= 1:
                         systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
                     self.application.statusIcon.set_tooltip_text(systrayString)
 
