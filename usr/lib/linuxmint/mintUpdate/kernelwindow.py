@@ -295,9 +295,18 @@ class KernelWindow():
         self.builder.get_object("b_cancel").connect("clicked", self.on_cancel_clicked, self.remove_kernels_window)
         self.builder.get_object("b_remove").connect("clicked", self.on_remove_clicked, self.remove_kernels_window)
 
+        # Get distro release dates for support duration calculation
+        self.release_dates = get_release_dates()
+
+        # Build kernels list
+        self.allow_kernel_type_selection = False
+        self.build_kernels_list()
+
         self.initially_configured_kernel_type = CONFIGURED_KERNEL_TYPE
-        allow_kernel_type_selection = self.application.settings.get_boolean("allow-kernel-type-selection")
-        if allow_kernel_type_selection:
+        if not self.allow_kernel_type_selection and \
+           self.application.settings.get_boolean("allow-kernel-type-selection"):
+            self.allow_kernel_type_selection = True
+        if self.allow_kernel_type_selection:
             # Set up the kernel type selection dropdown
             self.kernel_type_selector = self.builder.get_object("cb_kernel_type")
             for index, kernel_type in enumerate(SUPPORTED_KERNEL_TYPES):
@@ -318,12 +327,6 @@ class KernelWindow():
                 self.stack.show_all()
             self.kernel_type_selector.connect("changed", on_kernel_type_selector_changed)
 
-        # Get distro release dates for support duration calculation
-        self.release_dates = get_release_dates()
-
-        # Build kernels list
-        self.build_kernels_list()
-
         self.main_stack.add_named(main_box, "main_box")
 
         if self.application.settings.get_boolean("hide-kernel-update-warning"):
@@ -341,8 +344,8 @@ class KernelWindow():
                          parent_center_y - window_size.height / 2)
 
         self.window.show_all()
-        self.builder.get_object("cb_label").set_visible(allow_kernel_type_selection)
-        self.builder.get_object("cb_kernel_type").set_visible(allow_kernel_type_selection)
+        self.builder.get_object("cb_label").set_visible(self.allow_kernel_type_selection)
+        self.builder.get_object("cb_kernel_type").set_visible(self.allow_kernel_type_selection)
 
     def build_kernels_list(self):
         # get list of installed and available kernels from apt
@@ -379,6 +382,7 @@ class KernelWindow():
                     label = version
                 else:
                     label = version + kernel_type
+                    self.allow_kernel_type_selection = True
                 page_label = ".".join(label.replace("-",".").split(".")[:2])
 
                 support_duration = int(support_duration)
