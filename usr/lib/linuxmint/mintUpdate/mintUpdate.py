@@ -1007,7 +1007,10 @@ class RefreshThread(threading.Thread):
 
     def _on_infobar_mintsources_response(self, infobar, response_id):
         infobar.destroy()
-        subprocess.Popen(["pkexec", "mintsources"])
+        if response_id == Gtk.ResponseType.NO:
+            self.application.settings.set_boolean("default-repo-is-ok", True)
+        else:
+            subprocess.Popen(["pkexec", "mintsources"])
 
     def _on_infobar_timeshift_response(self, infobar, response_id):
         infobar.destroy()
@@ -1602,7 +1605,11 @@ class MintUpdate():
         info_label.set_markup(f"<b>{title}</b>\n{msg}")
         infobar.get_content_area().pack_start(info_label, False, False, 0)
         if callback:
-            infobar.add_button(_("OK"), Gtk.ResponseType.OK)
+            if msg_type == Gtk.MessageType.QUESTION:
+                infobar.add_button(_("Yes"), Gtk.ResponseType.YES)
+                infobar.add_button(_("No"), Gtk.ResponseType.NO)
+            else:
+                infobar.add_button(_("OK"), Gtk.ResponseType.OK)
             infobar.connect("response", callback)
         infobar.show_all()
         self.infobar.pack_start(infobar, True, True, 2)
