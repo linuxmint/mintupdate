@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.22.1 -->
 <interface>
-  <requires lib="gtk+" version="3.10"/>
+  <requires lib="gtk+" version="3.18"/>
   <object class="GtkBox" id="intro_box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -416,7 +416,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button_do_queue">
-                <property name="label" translatable="yes">Perform Queued Actions…</property>
+                <property name="label" translatable="yes">Perform Queued Actions</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -431,7 +431,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button_massremove">
-                <property name="label" translatable="yes">Remove Kernels…</property>
+                <property name="label" translatable="yes">Remove Kernels</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>

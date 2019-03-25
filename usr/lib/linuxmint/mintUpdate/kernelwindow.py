@@ -324,8 +324,10 @@ class KernelWindow():
         self.queued_kernels_listbox = []
         self.queued_kernels = []
         self.button_massremove = self.builder.get_object("button_massremove")
+        self.button_massremove.set_label = _("Remove Kernels") + chr(0x2026)
         self.button_massremove.connect("clicked", self.show_confirmation_dialog, self.remove_kernels_listbox)
         self.button_do_queue = self.builder.get_object("button_do_queue")
+        self.button_do_queue.set_label = _("Perform Queued Actions") + chr(0x2026)
         self.button_do_queue.connect("clicked", self.show_confirmation_dialog, self.queued_kernels_listbox)
 
         # Get distro release dates for support duration calculation
