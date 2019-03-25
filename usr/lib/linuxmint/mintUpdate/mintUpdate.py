@@ -738,17 +738,15 @@ class RefreshThread(threading.Thread):
 
             # Refresh the APT cache
             if self.root_mode:
-                if self.application.app_hidden:
-                    refresh_command = "sudo /usr/bin/mint-refresh-cache 2>/dev/null"
-                else:
-                    refresh_command = "sudo /usr/bin/mint-refresh-cache --use-synaptic %s 2>/dev/null" % self.application.window.get_window().get_xid()
-                subprocess.run(refresh_command, shell=True)
+                refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
+                if not self.application.app_hidden:
+                    refresh_command.extend(["--use-synaptic",
+                                            str(self.application.window.get_window().get_xid())])
+                subprocess.run(refresh_command)
                 self.application.settings.set_int("refresh-last-run", int(time.time()))
 
-            try:
-                output = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkAPT.py", shell=True).decode("utf-8")
-            except subprocess.CalledProcessError as refresh_exception:
-                output = refresh_exception.output.decode("utf-8")
+            output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py",
+                                    stdout=subprocess.PIPE).stdout.decode("utf-8")
 
             if len(output) > 0 and not "CHECK_APT_ERROR" in output:
                 (mint_layer_found, error_msg) = self.check_policy()
