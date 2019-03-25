@@ -579,16 +579,12 @@ class InstallThread(threading.Thread):
                             self.application.window.hide()
                             Gdk.threads_leave()
 
-                        if "mintupdate" in packages or "mint-upgrade-info" in packages:
+                        if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
                             # Restart
-                            try:
-                                self.application.logger.write("Mintupdate was updated, restarting it...")
-                                self.application.logger.close()
-                            except:
-                                pass #cause we might have closed it already
-
-                            command = "/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &"
-                            os.system(command)
+                            self.application.logger.write("Mintupdate was updated, restarting it...")
+                            self.application.logger.close()
+                            os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+                            return
 
                         # Refresh
                         Gdk.threads_enter()
@@ -802,9 +798,15 @@ class RefreshThread(threading.Thread):
                 Gdk.threads_leave()
                 return False
             elif len(lines):
+                is_self_update = False
                 for line in lines:
                     if "###" in line:
                         update = Update(package=None, input_string=line, source_name=None)
+
+                        # Check if self-update is needed
+                        if update.source_name in PRIORITY_UPDATES:
+                            is_self_update = True
+                            self.application.stack.set_visible_child_name("status_self-update")
 
                         iter = model.insert_before(None, None)
 
@@ -868,15 +870,19 @@ class RefreshThread(threading.Thread):
 
                 Gdk.threads_enter()
                 if num_visible:
-                    if (num_checked == 0):
+                    if is_self_update:
+                        self.application.builder.get_object("toolbar1").set_sensitive(False)
+                        self.application.statusbar.set_visible(False)
+                        statusString = _("Update Manager needs to be updated")
+                    elif num_checked == 0:
                         statusString = _("No updates selected")
-                    elif (num_checked >= 1):
+                    elif num_checked >= 1:
                         statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
 
                     self.application.set_status(statusString, statusString, "mintupdate-updates-available", True)
                     self.application.logger.write("Found " + str(num_visible) + " software updates")
 
-                    if (num_visible >= 1):
+                    if num_visible >= 1:
                         systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
                     self.application.statusIcon.set_tooltip_text(systrayString)
 
@@ -1311,6 +1317,9 @@ class MintUpdate():
             key, mod = Gtk.accelerator_parse("<Control>R")
             refresh_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
 
+            # Self-update page:
+            self.builder.get_object("confirm-self-update").connect("clicked", self.self_update)
+
             menu = Gtk.Menu()
             menuItem3 = Gtk.ImageMenuItem.new_with_label(_("Refresh"))
             image = Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU)
@@ -1336,9 +1345,6 @@ class MintUpdate():
             if os.getenv("XDG_CURRENT_DESKTOP") != "KDE":
                 self.statusIcon.connect('activate', self.on_statusicon_clicked)
                 self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
-
-            self.builder.get_object("image_success_status").set_pixel_size(96)
-            self.builder.get_object("image_error_status").set_pixel_size(96)
 
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
@@ -1512,11 +1518,9 @@ class MintUpdate():
                     self.app_hidden = False
 
             # Status pages
-            status_updated_page = self.builder.get_object("status_updated")
-            self.stack.add_named(status_updated_page, "status_updated")
-
-            status_error_page = self.builder.get_object("status_error")
-            self.stack.add_named(status_error_page, "status_error")
+            self.stack.add_named(self.builder.get_object("status_updated"), "status_updated")
+            self.stack.add_named(self.builder.get_object("status_error"), "status_error")
+            self.stack.add_named(self.builder.get_object("status_self-update"), "status_self-update")
 
             self.stack.show_all()
             if self.settings.get_boolean("show-welcome-page"):
@@ -1700,6 +1704,10 @@ class MintUpdate():
             install = InstallThread(self)
             install.start()
 
+    def self_update(self, widget):
+        self.select_all(widget)
+        self.install(widget)
+
 ######### WELCOME PAGE FUNCTIONS #######
 
     def on_welcome_page_finished(self, button):
@@ -1814,17 +1822,11 @@ class MintUpdate():
                 package_update = model.get_value(iter, UPDATE_OBJ)
                 menu = Gtk.Menu()
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore the current update for this package"))
-                if package_update.source_name in PRIORITY_UPDATES:
-                    menuItem.set_sensitive(False)
-                else:
-                    menuItem.connect("activate", self.add_to_ignore_list,
-                                     f"{package_update.real_source_name}={package_update.new_version}")
+                menuItem.connect("activate", self.add_to_ignore_list,
+                                    f"{package_update.real_source_name}={package_update.new_version}")
                 menu.append(menuItem)
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore all future updates for this package"))
-                if package_update.source_name in PRIORITY_UPDATES:
-                    menuItem.set_sensitive(False)
-                else:
-                    menuItem.connect("activate", self.add_to_ignore_list, package_update.real_source_name)
+                menuItem.connect("activate", self.add_to_ignore_list, package_update.real_source_name)
                 menu.append(menuItem)
                 menu.attach_to_widget (widget, None)
                 menu.show_all()
