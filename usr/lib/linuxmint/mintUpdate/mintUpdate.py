@@ -1236,11 +1236,11 @@ class MintUpdate():
             column_name.set_sort_column_id(UPDATE_DISPLAY_NAME)
             column_name.set_resizable(True)
 
-            column_old_version = Gtk.TreeViewColumn(_("Old version"), Gtk.CellRendererText(), text=UPDATE_OLD_VERSION)
+            column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(), text=UPDATE_OLD_VERSION)
             column_old_version.set_sort_column_id(UPDATE_OLD_VERSION)
             column_old_version.set_resizable(True)
 
-            column_new_version = Gtk.TreeViewColumn(_("New version"), Gtk.CellRendererText(), text=UPDATE_NEW_VERSION)
+            column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(), text=UPDATE_NEW_VERSION)
             column_new_version.set_sort_column_id(UPDATE_NEW_VERSION)
             column_new_version.set_resizable(True)
 
@@ -1353,13 +1353,13 @@ class MintUpdate():
             if os.path.exists("/usr/bin/timeshift-gtk"):
                 sourcesMenuItem = Gtk.ImageMenuItem()
                 sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU))
-                sourcesMenuItem.set_label(_("System snapshots"))
+                sourcesMenuItem.set_label(_("System Snapshots"))
                 sourcesMenuItem.connect("activate", self.open_timeshift)
                 editSubmenu.append(sourcesMenuItem)
             if os.path.exists("/usr/bin/mintsources"):
                 sourcesMenuItem = Gtk.ImageMenuItem()
                 sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("system-software-install-symbolic", Gtk.IconSize.MENU))
-                sourcesMenuItem.set_label(_("Software sources"))
+                sourcesMenuItem.set_label(_("Software Sources"))
                 sourcesMenuItem.connect("activate", self.open_repositories)
                 editSubmenu.append(sourcesMenuItem)
 
@@ -1391,11 +1391,11 @@ class MintUpdate():
             viewMenu.set_submenu(viewSubmenu)
             historyMenuItem = Gtk.ImageMenuItem()
             historyMenuItem.set_image(Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU))
-            historyMenuItem.set_label(_("History of updates"))
+            historyMenuItem.set_label(_("History of Updates"))
             historyMenuItem.connect("activate", self.open_history)
             kernelMenuItem = Gtk.ImageMenuItem()
             kernelMenuItem.set_image(Gtk.Image.new_from_icon_name("system-run-symbolic", Gtk.IconSize.MENU))
-            kernelMenuItem.set_label(_("Linux kernels"))
+            kernelMenuItem.set_label(_("Linux Kernels"))
             kernelMenuItem.connect("activate", self.open_kernels)
             infoMenuItem = Gtk.ImageMenuItem()
             infoMenuItem.set_image(Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU))
@@ -1403,7 +1403,7 @@ class MintUpdate():
             infoMenuItem.connect("activate", self.open_information)
             visibleColumnsMenuItem = Gtk.ImageMenuItem()
             visibleColumnsMenuItem.set_image(Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU))
-            visibleColumnsMenuItem.set_label(_("Visible columns"))
+            visibleColumnsMenuItem.set_label(_("Visible Columns"))
             visibleColumnsMenu = Gtk.Menu()
             visibleColumnsMenuItem.set_submenu(visibleColumnsMenu)
 
@@ -1419,13 +1419,13 @@ class MintUpdate():
             packageColumnMenuItem.connect("toggled", self.setVisibleColumn, column_name, "show-package-column")
             visibleColumnsMenu.append(packageColumnMenuItem)
 
-            oldVersionColumnMenuItem = Gtk.CheckMenuItem(_("Old version"))
+            oldVersionColumnMenuItem = Gtk.CheckMenuItem(_("Old Version"))
             oldVersionColumnMenuItem.set_active(self.settings.get_boolean("show-old-version-column"))
             column_old_version.set_visible(self.settings.get_boolean("show-old-version-column"))
             oldVersionColumnMenuItem.connect("toggled", self.setVisibleColumn, column_old_version, "show-old-version-column")
             visibleColumnsMenu.append(oldVersionColumnMenuItem)
 
-            newVersionColumnMenuItem = Gtk.CheckMenuItem(_("New version"))
+            newVersionColumnMenuItem = Gtk.CheckMenuItem(_("New Version"))
             newVersionColumnMenuItem.set_active(self.settings.get_boolean("show-new-version-column"))
             column_new_version.set_visible(self.settings.get_boolean("show-new-version-column"))
             newVersionColumnMenuItem.connect("toggled", self.setVisibleColumn, column_new_version, "show-new-version-column")
@@ -1445,7 +1445,7 @@ class MintUpdate():
 
             viewSubmenu.append(visibleColumnsMenuItem)
 
-            descriptionsMenuItem = Gtk.CheckMenuItem(_("Show descriptions"))
+            descriptionsMenuItem = Gtk.CheckMenuItem(_("Show Descriptions"))
             descriptionsMenuItem.set_active(self.settings.get_boolean("show-descriptions"))
             descriptionsMenuItem.connect("toggled", self.setVisibleDescriptions)
             viewSubmenu.append(descriptionsMenuItem)
@@ -1467,7 +1467,7 @@ class MintUpdate():
 
             helpMenuItem = Gtk.ImageMenuItem()
             helpMenuItem.set_image(Gtk.Image.new_from_icon_name("security-high-symbolic", Gtk.IconSize.MENU))
-            helpMenuItem.set_label(_("Welcome screen"))
+            helpMenuItem.set_label(_("Welcome Screen"))
             helpMenuItem.connect("activate", self.show_welcome_page)
             helpSubmenu.append(helpMenuItem)
             if (Gtk.check_version(3,20,0) is None):
@@ -1575,7 +1575,7 @@ class MintUpdate():
     @staticmethod
     def show_dpkg_lock_msg(parent):
         dialog = Gtk.MessageDialog(parent, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-        Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, _("Cannot proceed"))
+        Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, _("Cannot Proceed"))
         dialog.format_secondary_markup(_("Another process is currently using the package management system. Please wait for it to finish and then try again."))
         dialog.set_title(_("Update Manager"))
         dialog.run()
@@ -1891,7 +1891,7 @@ class MintUpdate():
         builder.add_from_file(gladefile)
         window = builder.get_object("main_window")
         window.set_icon_name("mintupdate")
-        window.set_title(_("History of updates"))
+        window.set_title(_("History of Updates"))
 
         treeview = builder.get_object("treeview_history")
         column_date = Gtk.TreeViewColumn(_("Date"), Gtk.CellRendererText(), text=1)
@@ -1900,10 +1900,10 @@ class MintUpdate():
         column_package = Gtk.TreeViewColumn(_("Package"), Gtk.CellRendererText(), text=0)
         column_package.set_sort_column_id(0)
         column_package.set_resizable(True)
-        column_old_version = Gtk.TreeViewColumn(_("Old version"), Gtk.CellRendererText(), text=2)
+        column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(), text=2)
         column_old_version.set_sort_column_id(2)
         column_old_version.set_resizable(True)
-        column_new_version = Gtk.TreeViewColumn(_("New version"), Gtk.CellRendererText(), text=3)
+        column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(), text=3)
         column_new_version.set_sort_column_id(3)
         column_new_version.set_resizable(True)
         treeview.append_column(column_date)
@@ -2058,7 +2058,7 @@ class MintUpdate():
         builder.get_object("checkbutton_refresh_schedule_enabled").connect("toggled", self.on_refresh_schedule_toggled, builder)
 
         treeview_blacklist = builder.get_object("treeview_blacklist")
-        column = Gtk.TreeViewColumn(_("Ignored updates"), Gtk.CellRendererText(), text=0)
+        column = Gtk.TreeViewColumn(_("Ignored Updates"), Gtk.CellRendererText(), text=0)
         column.set_sort_column_id(0)
         column.set_resizable(True)
         treeview_blacklist.append_column(column)
@@ -2136,7 +2136,7 @@ class MintUpdate():
     def add_blacklisted_package(self, widget, treeview_blacklist, window):
         dialog = Gtk.MessageDialog(window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK, None)
         dialog.set_markup("<b>" + _("Please specify the name of the update to ignore:") + "</b>")
-        dialog.set_title(_("Ignore an update"))
+        dialog.set_title(_("Ignore an Update"))
         dialog.set_icon_name("mintupdate")
         entry = Gtk.Entry()
         hbox = Gtk.HBox()
