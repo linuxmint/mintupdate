@@ -634,51 +634,6 @@ class RefreshThread(threading.Thread):
     def __del__(self):
         self.application.cache_watcher.resume()
 
-    def check_policy(self):
-        # Check the presence of the Mint layer
-        p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output = p.stdout.decode()
-        if p.stderr:
-            error_msg = p.stderr.decode().strip()
-            self.application.logger.write_error(f"APT policy error:\n{error_msg}")
-        else:
-            error_msg = ""
-        mint_layer_found = False
-        for line in output.split("\n"):
-            line = line.strip()
-            if line.startswith("700") and line.endswith("Packages") and "/upstream" in line:
-                mint_layer_found = True
-                break
-        return (mint_layer_found, error_msg)
-
-    @staticmethod
-    def get_eol_status():
-        """ Checks if distribution has reached end of life (EOL)
-
-        Returns:
-        * is_eol: True if EOL
-        * show_eol_warning: True if early_warning_days > EOL - now
-        * eol_date: datetime object of EOL date
-        """
-        early_warning_days = 90
-        is_eol = False
-        eol_date = None
-        show_eol_warning = False
-        try:
-            release_dates = get_release_dates()
-            if release_dates and os.path.isfile("/etc/os-release"):
-                with open("/etc/os-release", encoding="utf-8") as f:
-                    release_data = f.readlines()
-                base_release = next((x.split("=",1)[1].strip() for x in release_data if (x.startswith("UBUNTU_CODENAME=")) or x.startswith("DEBIAN_CODENAME=")), None)
-                if base_release in release_dates.keys():
-                    now = datetime.now()
-                    eol_date = release_dates[base_release][1]
-                    is_eol =  now > eol_date
-                    show_eol_warning =  (eol_date - now).days <= early_warning_days
-        except:
-            pass
-        return (is_eol, show_eol_warning, eol_date)
-
     def run(self):
 
         if self.application.updates_inhibited:
@@ -702,14 +657,14 @@ class RefreshThread(threading.Thread):
         Gdk.threads_leave()
 
         try:
-            if (self.root_mode):
+            if self.root_mode:
                 self.application.logger.write("Starting refresh (retrieving lists of updates from remote servers)")
             else:
                 self.application.logger.write("Starting refresh (local only)")
             Gdk.threads_enter()
             self.application.set_status_message(_("Starting refresh..."))
             self.application.stack.set_visible_child_name("updates_available")
-            if (not self.application.app_hidden):
+            if not self.application.app_hidden:
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.application.window.set_sensitive(False)
 
@@ -743,40 +698,11 @@ class RefreshThread(threading.Thread):
             output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py",
                                     stdout=subprocess.PIPE).stdout.decode("utf-8")
 
-            if len(output) > 0 and not "CHECK_APT_ERROR" in output:
-                (mint_layer_found, error_msg) = self.check_policy()
-                if not mint_layer_found:
-                    Gdk.threads_enter()
-                    label1 = _("Your APT configuration is corrupt.")
-                    label2 = _("Do not install or update anything, it could break your operating system!")
-                    label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
-                    msg = _("Your APT configuration is corrupt.")
-                    error_label = _("APT error:")
-                    if error_msg:
-                        error_msg = f"\n\n{error_label}\n{error_msg}"
-                    else:
-                        error_label = ""
-                    self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
-                        msg, Gtk.MessageType.ERROR,
-                        callback=self._on_infobar_mintsources_response)
-                    self.application.set_status(_("Could not refresh the list of updates"), f"{label1}\n{label2}", "mintupdate-error", True)
-                    self.application.logger.write_error("Error: The APT policy is incorrect!")
-                    self.application.stack.set_visible_child_name("status_error")
-                    self.application.builder.get_object("label_error_details").set_markup(f"<b>{label1}\n{label2}\n{label3}{error_msg}</b>")
-                    self.application.builder.get_object("label_error_details").show()
-                    if not self.application.app_hidden:
-                        self.application.window.get_window().set_cursor(None)
-                    self.application.window.set_sensitive(True)
-                    Gdk.threads_leave()
-                    return False
+            # Check presence of Mint layer
+            if len(output) > 0 and not "CHECK_APT_ERROR" in output and not self.check_policy():
+                return False
 
-            lines = output.split("---EOL---")
-
-            # Look at the updates one by one
-            num_visible = 0
-            num_checked = 0
-            download_size = 0
-
+            # Return on error
             if "CHECK_APT_ERROR" in output:
                 try:
                     error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
@@ -797,79 +723,90 @@ class RefreshThread(threading.Thread):
                 self.application.window.set_sensitive(True)
                 Gdk.threads_leave()
                 return False
-            elif len(lines):
+
+            # Look at the updates one by one
+            num_visible = 0
+            num_checked = 0
+            download_size = 0
+            lines = output.split("---EOL---")
+            if len(lines):
                 is_self_update = False
                 for line in lines:
-                    if "###" in line:
-                        update = Update(package=None, input_string=line, source_name=None)
+                    if not "###" in line:
+                        continue
 
-                        # Check if self-update is needed
-                        if update.source_name in PRIORITY_UPDATES:
-                            is_self_update = True
-                            self.application.stack.set_visible_child_name("status_self-update")
+                    # Create update object
+                    update = Update(package=None, input_string=line, source_name=None)
 
-                        iter = model.insert_before(None, None)
+                    # Check if self-update is needed
+                    if update.source_name in PRIORITY_UPDATES:
+                        is_self_update = True
+                        self.application.stack.set_visible_child_name("status_self-update")
 
-                        model.set_value(iter, UPDATE_CHECKED, "true")
-                        num_checked = num_checked + 1
-                        download_size = download_size + update.size
+                    iter = model.insert_before(None, None)
+                    model.row_changed(model.get_path(iter), iter)
 
-                        model.row_changed(model.get_path(iter), iter)
+                    model.set_value(iter, UPDATE_CHECKED, "true")
+                    num_checked += 1
+                    download_size += update.size
 
-                        shortdesc = update.short_description
-                        if len(shortdesc) > 100:
-                            try:
-                                shortdesc = shortdesc[:100]
-                                # Remove the last word.. in case we chomped
-                                # a word containing an &#234; character..
-                                # if we ended up with &.. without the code and ; sign
-                                # pango would fail to set the markup
-                                words = shortdesc.split()
-                                shortdesc = " ".join(words[:-1]) + "..."
-                            except:
-                                pass
+                    shortdesc = update.short_description
+                    if len(shortdesc) > 100:
+                        try:
+                            shortdesc = shortdesc[:100]
+                            # Remove the last word.. in case we chomped
+                            # a word containing an &#234; character..
+                            # if we ended up with &.. without the code and ; sign
+                            # pango would fail to set the markup
+                            words = shortdesc.split()
+                            shortdesc = " ".join(words[:-1]) + "..."
+                        except:
+                            pass
 
-                        if self.application.settings.get_boolean("show-descriptions"):
-                            model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>\n{GLib.markup_escape_text(shortdesc)}")
+                    if self.application.settings.get_boolean("show-descriptions"):
+                        model.set_value(iter, UPDATE_DISPLAY_NAME,
+                                        f"<b>{GLib.markup_escape_text(update.display_name)}</b>\n{GLib.markup_escape_text(shortdesc)}")
+                    else:
+                        model.set_value(iter, UPDATE_DISPLAY_NAME,
+                                        f"<b>{GLib.markup_escape_text(update.display_name)}</b>")
+
+                    origin = update.origin
+                    origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
+
+                    type_sort_key = 0 # Used to sort by type
+                    if update.type == "kernel":
+                        tooltip = _("Kernel update")
+                        type_sort_key = 2
+                    elif update.type == "security":
+                        tooltip = _("Security update")
+                        type_sort_key = 1
+                    elif update.type == "unstable":
+                        tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
+                        type_sort_key = 5
+                    else:
+                        if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
+                            tooltip = _("Software update")
+                            type_sort_key = 3
                         else:
-                            model.set_value(iter, UPDATE_DISPLAY_NAME, f"<b>{GLib.markup_escape_text(update.display_name)}</b>")
+                            update.type = "3rd-party"
+                            tooltip = "%s\n%s" % (_("3rd-party update"), origin)
+                            type_sort_key = 4
 
-                        origin = update.origin
-                        origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
+                    model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
+                    model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
+                    model.set_value(iter, UPDATE_SOURCE, f"{origin} / {update.archive}")
+                    model.set_value(iter, UPDATE_SIZE, update.size)
+                    model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
+                    model.set_value(iter, UPDATE_TYPE_PIX, f"mintupdate-type-{update.type}-symbolic")
+                    model.set_value(iter, UPDATE_TYPE, update.type)
+                    model.set_value(iter, UPDATE_TOOLTIP, tooltip)
+                    model.set_value(iter, UPDATE_SORT_STR, f"{str(type_sort_key)}{update.display_name}")
+                    model.set_value(iter, UPDATE_OBJ, update)
+                    num_visible += 1
 
-                        type_sort_key = 0 # Used to sort by type
-                        if update.type == "kernel":
-                            tooltip = _("Kernel update")
-                            type_sort_key = 2
-                        elif update.type == "security":
-                            tooltip = _("Security update")
-                            type_sort_key = 1
-                        elif update.type == "unstable":
-                            tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
-                            type_sort_key = 5
-                        else:
-                            if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
-                                tooltip = _("Software update")
-                                type_sort_key = 3
-                            else:
-                                update.type = "3rd-party"
-                                tooltip = "%s\n%s" % (_("3rd-party update"), origin)
-                                type_sort_key = 4
-
-                        model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
-                        model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-                        model.set_value(iter, UPDATE_SOURCE, "%s / %s" % (origin, update.archive))
-                        model.set_value(iter, UPDATE_SIZE, update.size)
-                        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-                        model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % update.type)
-                        model.set_value(iter, UPDATE_TYPE, update.type)
-                        model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                        model.set_value(iter, UPDATE_SORT_STR, "%d%s" % (type_sort_key, update.display_name))
-                        model.set_value(iter, UPDATE_OBJ, update)
-                        num_visible = num_visible + 1
-
-                Gdk.threads_enter()
+                # Updates found, update status message
                 if num_visible:
+                    Gdk.threads_enter()
                     if is_self_update:
                         self.application.builder.get_object("toolbar1").set_sensitive(False)
                         self.application.statusbar.set_visible(False)
@@ -877,21 +814,24 @@ class RefreshThread(threading.Thread):
                     elif num_checked == 0:
                         statusString = _("No updates selected")
                     elif num_checked >= 1:
-                        statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
+                        statusString = ngettext("%(selected)d update selected (%(size)s)",
+                                                "%(selected)d updates selected (%(size)s)", num_checked) % \
+                                                {'selected':num_checked, 'size':size_to_string(download_size)}
 
                     self.application.set_status(statusString, statusString, "mintupdate-updates-available", True)
                     self.application.logger.write("Found " + str(num_visible) + " software updates")
 
-                    if num_visible >= 1:
-                        systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
+                    systrayString = ngettext("%d update available",
+                                             "%d updates available", num_visible) % num_visible
                     self.application.statusIcon.set_tooltip_text(systrayString)
+                    Gdk.threads_leave()
 
-                Gdk.threads_leave()
+            # Check for infobars to display
+            self.run_status_checks()
 
-            is_end_of_life, show_eol_warning, eol_date = self.get_eol_status()
-
+            # All done, show status message
             if not len(lines) or not num_visible:
-                if is_end_of_life:
+                if self.is_end_of_life:
                     NO_UPDATES_MSG = _("Your distribution has reached end of life and is no longer supported")
                     log_msg = "System is end of life, no updates available"
                     tray_icon = "mintupdate-error"
@@ -905,116 +845,203 @@ class RefreshThread(threading.Thread):
                 self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
                 self.application.builder.get_object("image_success_status").set_from_icon_name(status_icon, 96)
                 self.application.stack.set_visible_child_name("status_updated")
-                self.application.set_status(NO_UPDATES_MSG, NO_UPDATES_MSG, tray_icon, not self.application.settings.get_boolean("hide-systray"))
+                self.application.set_status(NO_UPDATES_MSG, NO_UPDATES_MSG, tray_icon,
+                                            not self.application.settings.get_boolean("hide-systray"))
                 self.application.logger.write(log_msg)
                 Gdk.threads_leave()
 
-            Gdk.threads_enter()
             self.application.logger.write("Refresh finished")
 
-            # Stop the blinking
+            Gdk.threads_enter()
             self.application.builder.get_object("notebook_details").set_current_page(0)
-            if (not self.application.app_hidden):
+            if not self.application.app_hidden:
                 self.application.window.get_window().set_cursor(None)
             self.application.treeview.set_model(model)
             del model
             self.application.window.set_sensitive(True)
             self.application.builder.get_object("paned1").set_position(vpaned_position)
-
-            if show_eol_warning and self.application.settings.get_boolean("warn-about-distribution-eol"):
-                try:
-                    release_name = subprocess.run(["lsb_release", "-d"], stdout=subprocess.PIPE).stdout.decode().split(":", 1)[1].strip()
-                except:
-                    release_name = _("distribution")
-
-                infobar_title = _("DISTRIBUTION END OF LIFE WARNING")
-                infobar_message = "%s\n\n%s %s\n\n%s" % (
-                    _(f"Your {release_name} is only supported until {eol_date.strftime('%x')}."),
-                    _("Your system will remain functional after that date, but the official software repositories will become unavailable along with any updates including security updates."),
-                    _("You should perform an upgrade to or a clean install of a newer version of your distribution before that happens."),
-                    _("For more information visit <a href='https://linuxmint.com'>linuxmint.com</a>."))
-                self.application.show_infobar(infobar_title,
-                                              infobar_message,
-                                              Gtk.MessageType.WARNING,
-                                              callback=self._on_infobar_eol_response)
-
-            if self.application.settings.get_boolean("warn-about-timeshift") and not self.checkTimeshiftConfiguration():
-                self.application.show_infobar(_("Please set up System Snapshots"),
-                    _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
-                                              Gtk.MessageType.WARNING,
-                                              callback=self._on_infobar_timeshift_response)
-
-            infobar_message = None
-            infobar_message_type = Gtk.MessageType.WARNING
-            infobar_callback = self._on_infobar_mintsources_response
-            try:
-                if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
-                    mirror_url = None
-
-                    codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
-                    with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
-                        for line in sources_file:
-                            line = line.strip()
-                            if line.startswith("deb ") and "%s main upstream import" % codename in line:
-                                mirror_url = line.split()[1]
-                                if mirror_url.endswith("/"):
-                                    mirror_url = mirror_url[:-1]
-                                break
-                    if mirror_url is None:
-                        # Unable to find the Mint mirror being used..
-                        pass
-                    elif mirror_url == "http://packages.linuxmint.com":
-                        if not self.application.settings.get_boolean("default-repo-is-ok"):
-                            infobar_title = _("Do you want to switch to a local mirror?")
-                            infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
-                            infobar_message_type = Gtk.MessageType.QUESTION
-                    elif not self.application.app_hidden:
-                        # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
-                        mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                        mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
-                        if mirror_timestamp is None:
-                            if mint_timestamp is None:
-                                # Both default repo and mirror are unreachable, assume there's no Internet connection
-                                pass
-                            else:
-                                infobar_title = _("Please switch to another mirror")
-                                infobar_message = _("%s is unreachable.") % mirror_url
-                        elif mint_timestamp is not None:
-                            mint_date = datetime.fromtimestamp(mint_timestamp)
-                            now = datetime.now()
-                            mint_age = (now - mint_date).days
-                            if (mint_age > 2):
-                                mirror_date = datetime.fromtimestamp(mirror_timestamp)
-                                mirror_age = (mint_date - mirror_date).days
-                                if (mirror_age > 2):
-                                    infobar_title = _("Please switch to another mirror")
-                                    infobar_message = ngettext("The last update on %(mirror)s was %(days)d day ago.",
-                                                                "The last update on %(mirror)s was %(days)d days ago.",
-                                                                (now - mirror_date).days) % \
-                                                                {'mirror': mirror_url, 'days': (now - mirror_date).days}
-            except:
-                print(sys.exc_info()[0])
-                # best effort, just print out the error
-                print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
-
-            if infobar_message is not None:
-                self.application.show_infobar(infobar_title,
-                                              infobar_message,
-                                              infobar_message_type,
-                                              callback=infobar_callback)
-
             Gdk.threads_leave()
 
         except:
-            traceback.print_exc()
-            print("-- Exception occurred in the refresh thread: " + str(sys.exc_info()[0]))
-            self.application.logger.write_error("Exception occurred in the refresh thread: " + str(sys.exc_info()[0]))
+            print(f"-- Exception occurred in the refresh thread:\n{traceback.format_exc()}")
+            self.application.logger.write_error(f"Exception occurred in the refresh thread: {str(sys.exc_info()[0])}")
             Gdk.threads_enter()
-            self.application.set_status(_("Could not refresh the list of updates"), _("Could not refresh the list of updates"), "mintupdate-error", True)
-            if (not self.application.app_hidden):
+            self.application.set_status(_("Could not refresh the list of updates"),
+                                        _("Could not refresh the list of updates"), "mintupdate-error", True)
+            if not self.application.app_hidden:
                 self.application.window.get_window().set_cursor(None)
             self.application.window.set_sensitive(True)
             self.application.builder.get_object("paned1").set_position(vpaned_position)
+            Gdk.threads_leave()
+
+    def run_status_checks(self):
+        """ Runs various status checks and shows infobars where appropriate """
+        self.is_end_of_life, self.show_eol_warning, self.eol_date = self.get_eol_status()
+        self.eol_check()
+        self.timeshift_check()
+        self.mirror_check()
+
+    def check_policy(self):
+        """ Check the presence of the Mint layer """
+        p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output = p.stdout.decode()
+        if p.stderr:
+            error_msg = p.stderr.decode().strip()
+            self.application.logger.write_error(f"APT policy error:\n{error_msg}")
+        else:
+            error_msg = None
+        mint_layer_found = False
+        for line in output.split("\n"):
+            line = line.strip()
+            if line.startswith("700") and line.endswith("Packages") and "/upstream" in line:
+                mint_layer_found = True
+                break
+        if not mint_layer_found:
+            Gdk.threads_enter()
+            label1 = _("Your APT configuration is corrupt.")
+            label2 = _("Do not install or update anything, it could break your operating system!")
+            label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
+            msg = _("Your APT configuration is corrupt.")
+            error_label = _("APT error:")
+            if error_msg:
+                error_msg = f"\n\n{error_label}\n{error_msg}"
+            else:
+                error_label = ""
+            self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
+                msg, Gtk.MessageType.ERROR,
+                callback=self._on_infobar_mintsources_response)
+            self.application.set_status(_("Could not refresh the list of updates"), f"{label1}\n{label2}", "mintupdate-error", True)
+            self.application.logger.write_error("Error: The APT policy is incorrect!")
+            self.application.stack.set_visible_child_name("status_error")
+            self.application.builder.get_object("label_error_details").set_markup(f"<b>{label1}\n{label2}\n{label3}{error_msg}</b>")
+            self.application.builder.get_object("label_error_details").show()
+            if not self.application.app_hidden:
+                self.application.window.get_window().set_cursor(None)
+            self.application.window.set_sensitive(True)
+            Gdk.threads_leave()
+        return mint_layer_found
+
+    @staticmethod
+    def get_eol_status():
+        """ Checks if distribution has reached end of life (EOL)
+
+        Returns:
+        * is_eol: True if EOL
+        * show_eol_warning: True if early_warning_days > EOL - now
+        * eol_date: datetime object of EOL date
+        """
+        early_warning_days = 90
+        is_eol = False
+        eol_date = None
+        show_eol_warning = False
+        try:
+            release_dates = get_release_dates()
+            if release_dates and os.path.isfile("/etc/os-release"):
+                with open("/etc/os-release", encoding="utf-8") as f:
+                    release_data = f.readlines()
+                base_release = next((x.split("=",1)[1].strip() for x in release_data
+                                     if (x.startswith("UBUNTU_CODENAME=")) or x.startswith("DEBIAN_CODENAME=")), None)
+                if base_release in release_dates.keys():
+                    now = datetime.now()
+                    eol_date = release_dates[base_release][1]
+                    is_eol =  now > eol_date
+                    show_eol_warning =  (eol_date - now).days <= early_warning_days
+        except:
+            pass
+        return (is_eol, show_eol_warning, eol_date)
+
+    def eol_check(self):
+        """ End of Life notification """
+        if self.show_eol_warning and self.application.settings.get_boolean("warn-about-distribution-eol"):
+            try:
+                release_name = subprocess.run(["lsb_release", "-d"], stdout=subprocess.PIPE).stdout.decode().split(":", 1)[1].strip()
+            except:
+                release_name = _("distribution")
+
+            infobar_title = _("DISTRIBUTION END OF LIFE WARNING")
+            infobar_message = "%s\n\n%s %s\n\n%s" % (
+                _(f"Your {release_name} is only supported until {self.eol_date.strftime('%x')}."),
+                _("Your system will remain functional after that date, but the official software repositories will become unavailable along with any updates including security updates."),
+                _("You should perform an upgrade to or a clean install of a newer version of your distribution before that happens."),
+                _("For more information visit <a href='https://linuxmint.com'>linuxmint.com</a>."))
+            Gdk.threads_enter()
+            self.application.show_infobar(infobar_title,
+                                          infobar_message,
+                                          Gtk.MessageType.WARNING,
+                                          callback=self._on_infobar_eol_response)
+            Gdk.threads_leave()
+
+
+    def timeshift_check(self):
+        """ Timeshift setup notification """
+        if self.application.settings.get_boolean("warn-about-timeshift") and not self.checkTimeshiftConfiguration():
+            Gdk.threads_enter()
+            self.application.show_infobar(_("Please set up System Snapshots"),
+                _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
+                Gtk.MessageType.WARNING, callback=self._on_infobar_timeshift_response)
+            Gdk.threads_leave()
+
+    def mirror_check(self):
+        """ Mirror-related notifications """
+        infobar_message = None
+        infobar_message_type = Gtk.MessageType.WARNING
+        infobar_callback = self._on_infobar_mintsources_response
+        try:
+            if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
+                mirror_url = None
+
+                codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
+                with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
+                    for line in sources_file:
+                        line = line.strip()
+                        if line.startswith("deb ") and f"{codename} main upstream import" in line:
+                            mirror_url = line.split()[1]
+                            if mirror_url.endswith("/"):
+                                mirror_url = mirror_url[:-1]
+                            break
+                if mirror_url is None:
+                    # Unable to find the Mint mirror being used..
+                    pass
+                elif mirror_url == "http://packages.linuxmint.com":
+                    if not self.application.settings.get_boolean("default-repo-is-ok"):
+                        infobar_title = _("Do you want to switch to a local mirror?")
+                        infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
+                        infobar_message_type = Gtk.MessageType.QUESTION
+                elif not self.application.app_hidden:
+                    # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
+                    mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
+                    mirror_timestamp = self.get_url_last_modified(f"{mirror_url}/db/version")
+                    if mirror_timestamp is None:
+                        if mint_timestamp is None:
+                            # Both default repo and mirror are unreachable, assume there's no Internet connection
+                            pass
+                        else:
+                            infobar_title = _("Please switch to another mirror")
+                            infobar_message = _("%s is unreachable.") % mirror_url
+                    elif mint_timestamp is not None:
+                        mint_date = datetime.fromtimestamp(mint_timestamp)
+                        now = datetime.now()
+                        mint_age = (now - mint_date).days
+                        if (mint_age > 2):
+                            mirror_date = datetime.fromtimestamp(mirror_timestamp)
+                            mirror_age = (mint_date - mirror_date).days
+                            if (mirror_age > 2):
+                                infobar_title = _("Please switch to another mirror")
+                                infobar_message = ngettext("The last update on %(mirror)s was %(days)d day ago.",
+                                                            "The last update on %(mirror)s was %(days)d days ago.",
+                                                            (now - mirror_date).days) % \
+                                                            {'mirror': mirror_url, 'days': (now - mirror_date).days}
+        except:
+            print(sys.exc_info()[0])
+            # best effort, just print out the error
+            print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
+
+        if infobar_message:
+            Gdk.threads_enter()
+            self.application.show_infobar(infobar_title,
+                                            infobar_message,
+                                            infobar_message_type,
+                                            callback=infobar_callback)
             Gdk.threads_leave()
 
     def _on_infobar_mintsources_response(self, infobar, response_id):
