@@ -110,10 +110,11 @@ class CacheWatcher(threading.Thread):
                     pass
             time.sleep(self.refresh_frequency)
 
-    def resume(self):
-        if not self.pkgcache:
+    def resume(self, update_cachetime=True):
+        if not self.paused or not self.pkgcache:
             return
-        self.update_cachetime()
+        if update_cachetime:
+            self.update_cachetime()
         self.paused = False
 
     def pause(self):
@@ -405,7 +406,11 @@ class InstallThread(threading.Thread):
         self.application.window.set_sensitive(False)
         self.reboot_required = self.application.reboot_required
 
+    def __del__(self):
+        self.application.cache_watcher.resume(False)
+
     def run(self):
+        self.application.cache_watcher.pause()
         try:
             self.application.logger.write("Install requested by user")
             Gdk.threads_enter()
@@ -631,6 +636,9 @@ class RefreshThread(threading.Thread):
         self.root_mode = root_mode
         self.application = application
 
+    def __del__(self):
+        self.application.cache_watcher.resume()
+
     def check_policy(self):
         # Check the presence of the Mint layer
         p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -787,7 +795,7 @@ class RefreshThread(threading.Thread):
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
                     "mintupdate-error", True)
-                self.application.logger.write("Error in checkAPT.py, could not refresh the list of updates")
+                self.application.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
                 self.application.stack.set_visible_child_name("status_error")
                 self.application.builder.get_object("label_error_details").set_text(error_msg)
                 self.application.builder.get_object("label_error_details").show()
@@ -864,12 +872,12 @@ class RefreshThread(threading.Thread):
                 Gdk.threads_enter()
                 if num_visible:
                     if (num_checked == 0):
-                        self.statusString = _("No updates selected")
+                        statusString = _("No updates selected")
                     elif (num_checked >= 1):
-                        self.statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
+                        statusString = ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_checked) % {'selected':num_checked, 'size':size_to_string(download_size)}
 
-                    self.application.set_status(self.statusString, self.statusString, "mintupdate-updates-available", True)
-                    self.application.logger.write("Found " + str(num_visible) + " software update(s)")
+                    self.application.set_status(statusString, statusString, "mintupdate-updates-available", True)
+                    self.application.logger.write("Found " + str(num_visible) + " software updates")
 
                     if (num_visible >= 1):
                         systrayString = ngettext("%d update available", "%d updates available", num_visible) % num_visible
@@ -882,18 +890,20 @@ class RefreshThread(threading.Thread):
             if not len(lines) or not num_visible:
                 if is_end_of_life:
                     NO_UPDATES_MSG = _("Your distribution has reached end of life and is no longer supported")
+                    log_msg = "System is end of life, no updates available"
                     tray_icon = "mintupdate-error"
                     status_icon = "emblem-important-symbolic"
                 else:
                     NO_UPDATES_MSG = _("Your system is up to date")
                     tray_icon = "mintupdate-up-to-date"
                     status_icon = "object-select-symbolic"
+                    log_msg = "System is up to date"
                 Gdk.threads_enter()
                 self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
                 self.application.builder.get_object("image_success_status").set_from_icon_name(status_icon, 96)
                 self.application.stack.set_visible_child_name("status_updated")
                 self.application.set_status(NO_UPDATES_MSG, NO_UPDATES_MSG, tray_icon, not self.application.settings.get_boolean("hide-systray"))
-                self.application.logger.write("System is end of life, no updates available")
+                self.application.logger.write(log_msg)
                 Gdk.threads_leave()
 
             Gdk.threads_enter()
@@ -991,7 +1001,6 @@ class RefreshThread(threading.Thread):
                                               callback=infobar_callback)
 
             Gdk.threads_leave()
-            self.application.cache_watcher.resume()
 
         except:
             traceback.print_exc()
@@ -1007,7 +1016,10 @@ class RefreshThread(threading.Thread):
 
     def _on_infobar_mintsources_response(self, infobar, response_id):
         infobar.destroy()
-        subprocess.Popen(["pkexec", "mintsources"])
+        if response_id == Gtk.ResponseType.NO:
+            self.application.settings.set_boolean("default-repo-is-ok", True)
+        else:
+            subprocess.Popen(["pkexec", "mintsources"])
 
     def _on_infobar_timeshift_response(self, infobar, response_id):
         infobar.destroy()
@@ -1602,7 +1614,11 @@ class MintUpdate():
         info_label.set_markup(f"<b>{title}</b>\n{msg}")
         infobar.get_content_area().pack_start(info_label, False, False, 0)
         if callback:
-            infobar.add_button(_("OK"), Gtk.ResponseType.OK)
+            if msg_type == Gtk.MessageType.QUESTION:
+                infobar.add_button(_("Yes"), Gtk.ResponseType.YES)
+                infobar.add_button(_("No"), Gtk.ResponseType.NO)
+            else:
+                infobar.add_button(_("OK"), Gtk.ResponseType.OK)
             infobar.connect("response", callback)
         infobar.show_all()
         self.infobar.pack_start(infobar, True, True, 2)
@@ -1610,9 +1626,8 @@ class MintUpdate():
 ######### WINDOW/STATUSICON ##########
 
     def close_window(self, window, event):
-        window.hide()
         self.save_window_size()
-        self.app_hidden = True
+        self.hide_main_window(window)
         return True
 
     def save_window_size(self):
@@ -2135,19 +2150,29 @@ class MintUpdate():
 
     def add_blacklisted_package(self, widget, treeview_blacklist, window):
         dialog = Gtk.MessageDialog(window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK, None)
-        dialog.set_markup("<b>" + _("Please specify the name of the update to ignore:") + "</b>")
+        dialog.set_markup(_("Please specify the source package name of the update to ignore (wildcards are supported) and optionally the version:"))
         dialog.set_title(_("Ignore an Update"))
         dialog.set_icon_name("mintupdate")
-        entry = Gtk.Entry()
-        hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_("Name:")), False, 5, 5)
-        hbox.pack_end(entry, True, True, 0)
-        dialog.vbox.pack_end(hbox, True, True, 0)
+        grid = Gtk.Grid()
+        grid.set_column_spacing(5)
+        grid.set_halign(Gtk.Align.CENTER)
+        name_entry = Gtk.Entry()
+        version_entry = Gtk.Entry()
+        grid.attach(Gtk.Label(_("Name:")), 0, 0, 1, 1)
+        grid.attach(name_entry, 1, 0, 1, 1)
+        grid.attach(Gtk.Label(_("Version:")), 0, 1, 1, 1)
+        grid.attach(version_entry, 1, 1, 1, 1)
+        grid.attach(Gtk.Label(_("(optional)")), 2, 1, 1, 1)
+        dialog.get_content_area().add(grid)
         dialog.show_all()
         if dialog.run() == Gtk.ResponseType.OK:
-            name = entry.get_text()
-            pkg = name.strip()
-            if pkg != '':
+            name = name_entry.get_text().strip()
+            version = version_entry.get_text().strip()
+            if name:
+                if version:
+                    pkg = f"{name}={version}"
+                else:
+                    pkg = name
                 model = treeview_blacklist.get_model()
                 iter = model.insert_before(None, None)
                 model.set_value(iter, 0, pkg)
