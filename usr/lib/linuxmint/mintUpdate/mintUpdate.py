@@ -110,10 +110,11 @@ class CacheWatcher(threading.Thread):
                     pass
             time.sleep(self.refresh_frequency)
 
-    def resume(self):
-        if not self.pkgcache:
+    def resume(self, update_cachetime=True):
+        if not self.paused or not self.pkgcache:
             return
-        self.update_cachetime()
+        if update_cachetime:
+            self.update_cachetime()
         self.paused = False
 
     def pause(self):
@@ -405,7 +406,11 @@ class InstallThread(threading.Thread):
         self.application.window.set_sensitive(False)
         self.reboot_required = self.application.reboot_required
 
+    def __del__(self):
+        self.application.cache_watcher.resume(False)
+
     def run(self):
+        self.application.cache_watcher.pause()
         try:
             self.application.logger.write("Install requested by user")
             Gdk.threads_enter()
@@ -630,6 +635,9 @@ class RefreshThread(threading.Thread):
         threading.Thread.__init__(self)
         self.root_mode = root_mode
         self.application = application
+
+    def __del__(self):
+        self.application.cache_watcher.resume()
 
     def check_policy(self):
         # Check the presence of the Mint layer
@@ -993,7 +1001,6 @@ class RefreshThread(threading.Thread):
                                               callback=infobar_callback)
 
             Gdk.threads_leave()
-            self.application.cache_watcher.resume()
 
         except:
             traceback.print_exc()
