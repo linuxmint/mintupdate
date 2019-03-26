@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 import apt
 import subprocess
 import os
@@ -324,9 +326,9 @@ class KernelWindow():
         self.queued_kernels_listbox = []
         self.queued_kernels = []
         self.button_massremove = self.builder.get_object("button_massremove")
-        self.button_massremove.connect("clicked", self.show_confirmation_dialog, self.remove_kernels_listbox)
+        self.button_massremove.connect("clicked", self.show_confirmation_dialog, _("Remove Kernels"), self.remove_kernels_listbox)
         self.button_do_queue = self.builder.get_object("button_do_queue")
-        self.button_do_queue.connect("clicked", self.show_confirmation_dialog, self.queued_kernels_listbox)
+        self.button_do_queue.connect("clicked", self.show_confirmation_dialog, _("Perform Queued Actions"), self.queued_kernels_listbox)
 
         # Get distro release dates for support duration calculation
         self.release_dates = get_release_dates()
@@ -558,13 +560,13 @@ class KernelWindow():
     def show_help(self, widget):
         os.system("yelp help:mintupdate/index &")
 
-    def show_confirmation_dialog(self, widget, kernel_list):
+    def show_confirmation_dialog(self, widget, title, kernel_list):
         self.window.set_sensitive(False)
         for child in self.confirmation_listbox.get_children():
             self.confirmation_listbox.remove(child)
         for item in kernel_list:
             self.confirmation_listbox.add(item)
-        self.confirmation_dialog.set_title(widget.get_label()[:-1])
+        self.confirmation_dialog.set_title(title)
         self.confirmation_dialog.show_all()
 
     def on_cancel_clicked(self, widget, *args):
