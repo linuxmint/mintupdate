@@ -631,6 +631,7 @@ class RefreshThread(threading.Thread):
         self.root_mode = root_mode
         self.application = application
         self.running = False
+        self.is_self_update = False
 
     def __del__(self):
         if not self.running:
@@ -744,7 +745,6 @@ class RefreshThread(threading.Thread):
             download_size = 0
             lines = output.split("---EOL---")
             if len(lines):
-                self.is_self_update = False
                 for line in lines:
                     if not "###" in line:
                         continue
