@@ -648,8 +648,14 @@ class RefreshThread(threading.Thread):
         if not self.is_self_update:
             self.application.toolbar.set_sensitive(True)
         Gdk.threads_leave()
+        self.application.refreshing = False
 
     def run(self):
+        if self.application.refreshing:
+            return False
+
+        self.application.refreshing = True
+
         if self.application.updates_inhibited:
             self.application.logger.write("Updates are inhibited, skipping refresh")
             return False
@@ -1215,6 +1221,7 @@ class MintUpdate():
         self.preferences_window_showing = False
         self.updates_inhibited = False
         self.reboot_required = False
+        self.refreshing = False
         self.logger = Logger()
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings("com.linuxmint.updates")
