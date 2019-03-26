@@ -588,7 +588,7 @@ class InstallThread(threading.Thread):
 
                         # Refresh
                         Gdk.threads_enter()
-                        self.application.set_status(_("Checking for updates"), _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
+                        self.application.set_status("", _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
                         self.application.window.get_window().set_cursor(None)
                         self.application.window.set_sensitive(True)
                         Gdk.threads_leave()
@@ -630,11 +630,32 @@ class RefreshThread(threading.Thread):
         threading.Thread.__init__(self)
         self.root_mode = root_mode
         self.application = application
+        self.running = False
+        self.is_self_update = False
 
     def __del__(self):
+        if not self.running:
+            return
         self.application.cache_watcher.resume()
+        Gdk.threads_enter()
+        self.application.status_refreshing_spinner.stop()
+        # Make sure we're never stuck on the status_refreshing page:
+        if self.application.stack.get_visible_child_name() == "status_refreshing":
+            self.application.stack.set_visible_child_name("updates_available")
+        # Reset cursor
+        if not self.application.app_hidden:
+            self.application.window.get_window().set_cursor(None)
+        self.application.paned.set_position(self.vpaned_position)
+        if not self.is_self_update:
+            self.application.toolbar.set_sensitive(True)
+        Gdk.threads_leave()
+        self.application.refreshing = False
 
     def run(self):
+        if self.application.refreshing:
+            return False
+
+        self.application.refreshing = True
 
         if self.application.updates_inhibited:
             self.application.logger.write("Updates are inhibited, skipping refresh")
@@ -645,10 +666,11 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write("Package management system locked by another process, retrying in 60s")
                 time.sleep(60)
 
+        self.running = True
         self.application.cache_watcher.pause()
 
         Gdk.threads_enter()
-        vpaned_position = self.application.builder.get_object("paned1").get_position()
+        self.vpaned_position = self.application.paned.get_position()
         for child in self.application.infobar.get_children():
             child.destroy()
         if self.application.reboot_required:
@@ -662,17 +684,18 @@ class RefreshThread(threading.Thread):
             else:
                 self.application.logger.write("Starting refresh (local only)")
             Gdk.threads_enter()
-            self.application.set_status_message(_("Starting refresh..."))
-            self.application.stack.set_visible_child_name("updates_available")
+            # Switch to status_refreshing page
+            self.application.status_refreshing_spinner.start()
+            self.application.stack.set_visible_child_name("status_refreshing")
             if not self.application.app_hidden:
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
-            self.application.window.set_sensitive(False)
+            self.application.toolbar.set_sensitive(False)
+
 
             # Starts the blinking
             self.application.statusIcon.set_from_icon_name("mintupdate-checking")
             self.application.statusIcon.set_tooltip_text(_("Checking for updates"))
             self.application.statusIcon.set_visible(not self.application.settings.get_boolean("hide-systray"))
-            self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
             model = Gtk.TreeStore(str, str, str, str, str, int, str, str, str, str, str, object)
@@ -680,11 +703,6 @@ class RefreshThread(threading.Thread):
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
             model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
-
-            Gdk.threads_enter()
-            self.application.set_status_message(_("Finding the list of updates..."))
-            self.application.builder.get_object("paned1").set_position(vpaned_position)
-            Gdk.threads_leave()
 
             # Refresh the APT cache
             if self.root_mode:
@@ -718,9 +736,6 @@ class RefreshThread(threading.Thread):
                 self.application.stack.set_visible_child_name("status_error")
                 self.application.builder.get_object("label_error_details").set_text(error_msg)
                 self.application.builder.get_object("label_error_details").show()
-                if (not self.application.app_hidden):
-                    self.application.window.get_window().set_cursor(None)
-                self.application.window.set_sensitive(True)
                 Gdk.threads_leave()
                 return False
 
@@ -730,7 +745,6 @@ class RefreshThread(threading.Thread):
             download_size = 0
             lines = output.split("---EOL---")
             if len(lines):
-                is_self_update = False
                 for line in lines:
                     if not "###" in line:
                         continue
@@ -740,7 +754,7 @@ class RefreshThread(threading.Thread):
 
                     # Check if self-update is needed
                     if update.source_name in PRIORITY_UPDATES:
-                        is_self_update = True
+                        self.is_self_update = True
                         Gdk.threads_enter()
                         self.application.stack.set_visible_child_name("status_self-update")
                         Gdk.threads_leave()
@@ -809,8 +823,7 @@ class RefreshThread(threading.Thread):
                 # Updates found, update status message
                 if num_visible:
                     Gdk.threads_enter()
-                    if is_self_update:
-                        self.application.builder.get_object("toolbar1").set_sensitive(False)
+                    if self.is_self_update:
                         self.application.statusbar.set_visible(False)
                         statusString = _("Update Manager needs to be updated")
                     elif num_checked == 0:
@@ -856,12 +869,8 @@ class RefreshThread(threading.Thread):
 
             Gdk.threads_enter()
             self.application.builder.get_object("notebook_details").set_current_page(0)
-            if not self.application.app_hidden:
-                self.application.window.get_window().set_cursor(None)
             self.application.treeview.set_model(model)
             del model
-            self.application.window.set_sensitive(True)
-            self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
         except:
@@ -870,10 +879,6 @@ class RefreshThread(threading.Thread):
             Gdk.threads_enter()
             self.application.set_status(_("Could not refresh the list of updates"),
                                         _("Could not refresh the list of updates"), "mintupdate-error", True)
-            if not self.application.app_hidden:
-                self.application.window.get_window().set_cursor(None)
-            self.application.window.set_sensitive(True)
-            self.application.builder.get_object("paned1").set_position(vpaned_position)
             Gdk.threads_leave()
 
     def run_status_checks(self):
@@ -921,9 +926,6 @@ class RefreshThread(threading.Thread):
             self.application.stack.set_visible_child_name("status_error")
             self.application.builder.get_object("label_error_details").set_markup(f"<b>{label1}\n{label2}\n{label3}{error_msg}</b>")
             self.application.builder.get_object("label_error_details").show()
-            if not self.application.app_hidden:
-                self.application.window.get_window().set_cursor(None)
-            self.application.window.set_sensitive(True)
             Gdk.threads_leave()
         return mint_layer_found
 
@@ -1219,6 +1221,7 @@ class MintUpdate():
         self.preferences_window_showing = False
         self.updates_inhibited = False
         self.reboot_required = False
+        self.refreshing = False
         self.logger = Logger()
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings("com.linuxmint.updates")
@@ -1254,10 +1257,14 @@ class MintUpdate():
             accel_group = Gtk.AccelGroup()
             self.window.add_accel_group(accel_group)
 
+            self.toolbar = self.builder.get_object("toolbar1")
+            self.menubar = self.builder.get_object("menubar1")
+
             self.notebook_details = self.builder.get_object("notebook_details")
             self.textview_packages = self.builder.get_object("textview_packages").get_buffer()
             self.textview_description = self.builder.get_object("textview_description").get_buffer()
             self.textview_changes = self.builder.get_object("textview_changes").get_buffer()
+            self.paned = self.builder.get_object("paned1")
 
             # Welcome page
             welcome_page = self.builder.get_object("welcome_page")
@@ -1268,7 +1275,6 @@ class MintUpdate():
             # Updates page
             updates_page = self.builder.get_object("updates_page")
             self.stack.add_named(updates_page, "updates_available")
-            self.stack.set_visible_child_name("updates_available")
 
             # the infobar container
             self.infobar = self.builder.get_object("hbox_infobar")
@@ -1354,6 +1360,10 @@ class MintUpdate():
             # Self-update page:
             self.builder.get_object("confirm-self-update").connect("clicked", self.self_update)
 
+            # Refreshing page spinner:
+            self.status_refreshing_spinner = self.builder.get_object("status_refreshing_spinner")
+
+            # Tray icon menu
             menu = Gtk.Menu()
             menuItem3 = Gtk.ImageMenuItem.new_with_label(_("Refresh"))
             image = Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU)
@@ -1380,6 +1390,7 @@ class MintUpdate():
                 self.statusIcon.connect('activate', self.on_statusicon_clicked)
                 self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
 
+            # Main window menu
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
             fileMenu.set_submenu(fileSubmenu)
@@ -1538,37 +1549,35 @@ class MintUpdate():
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
 
-            self.builder.get_object("menubar1").append(fileMenu)
-            self.builder.get_object("menubar1").append(editMenu)
-            self.builder.get_object("menubar1").append(viewMenu)
-            self.builder.get_object("menubar1").append(helpMenu)
-
-            if len(sys.argv) > 1:
-                showWindow = sys.argv[1]
-                if (showWindow == "show"):
-                    self.window.set_sensitive(False)
-                    self.window.show_all()
-                    self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
-                    self.app_hidden = False
+            self.menubar.append(fileMenu)
+            self.menubar.append(editMenu)
+            self.menubar.append(viewMenu)
+            self.menubar.append(helpMenu)
 
             # Status pages
             self.stack.add_named(self.builder.get_object("status_updated"), "status_updated")
             self.stack.add_named(self.builder.get_object("status_error"), "status_error")
             self.stack.add_named(self.builder.get_object("status_self-update"), "status_self-update")
-
+            self.stack.add_named(self.builder.get_object("status_refreshing"), "status_refreshing")
+            self.stack.set_visible_child_name("status_refreshing")
             self.stack.show_all()
+
+            if len(sys.argv) > 1:
+                showWindow = sys.argv[1]
+                if showWindow == "show":
+                    self.window.show_all()
+                    self.app_hidden = False
+
             if self.settings.get_boolean("show-welcome-page"):
-                self.window.set_sensitive(True)
                 self.show_welcome_page()
             else:
-                self.stack.set_visible_child_name("updates_available")
                 self.cache_watcher = CacheWatcher(self)
                 self.cache_watcher.start()
 
             self.builder.get_object("notebook_details").set_current_page(0)
 
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
-            self.builder.get_object("paned1").set_position(self.settings.get_int('window-pane-position'))
+            self.paned.set_position(self.settings.get_int('window-pane-position'))
 
             self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.auto_refresh = AutomaticRefreshThread(self)
@@ -1669,7 +1678,7 @@ class MintUpdate():
     def save_window_size(self):
         self.settings.set_int('window-width', self.window.get_size()[0])
         self.settings.set_int('window-height', self.window.get_size()[1])
-        self.settings.set_int('window-pane-position', self.builder.get_object("paned1").get_position())
+        self.settings.set_int('window-pane-position', self.paned.get_position())
 
 ######### MENU/TOOLBAR FUNCTIONS #########
 
@@ -1747,8 +1756,8 @@ class MintUpdate():
 
     def on_welcome_page_finished(self, button):
         self.settings.set_boolean("show-welcome-page", False)
-        self.builder.get_object("toolbar1").set_sensitive(True)
-        self.builder.get_object("menubar1").set_sensitive(True)
+        self.toolbar.set_sensitive(True)
+        self.menubar.set_sensitive(True)
         self.updates_inhibited = False
         self.cache_watcher = CacheWatcher(self)
         self.cache_watcher.start()
@@ -1761,8 +1770,8 @@ class MintUpdate():
         self.stack.set_visible_child_name("welcome")
         self.set_status(_("Welcome to the Update Manager"), _("Welcome to the Update Manager"), "mintupdate-updates-available", True)
         self.set_status_message("")
-        self.builder.get_object("toolbar1").set_sensitive(False)
-        self.builder.get_object("menubar1").set_sensitive(False)
+        self.toolbar.set_sensitive(False)
+        self.menubar.set_sensitive(False)
 
 ######### TREEVIEW/SELECTION FUNCTIONS #######
 
