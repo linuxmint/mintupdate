@@ -2118,8 +2118,7 @@ class MintUpdate():
             iter = model.insert_before(None, None)
             model.set_value(iter, 0, ignored_pkg)
 
-        window.connect("destroy", self.close_preferences, window)
-        builder.get_object("pref_button_cancel").connect("clicked", self.close_preferences, window)
+        window.connect("destroy", self.save_preferences, builder)
         builder.get_object("pref_button_apply").connect("clicked", self.save_preferences, builder)
         builder.get_object("button_add").connect("clicked", self.add_blacklisted_package, treeview_blacklist, window)
         builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
@@ -2143,7 +2142,7 @@ class MintUpdate():
 
     @staticmethod
     def set_automation(automation_id, builder):
-        active = builder.get_object("auto_%s_checkbox" % automation_id).get_active()
+        active = builder.get_object(f"auto_{automation_id}_checkbox").get_active()
         exists = os.path.isfile(AUTOMATIONS[automation_id][0])
         action = None
         if active and not exists:
@@ -2154,6 +2153,7 @@ class MintUpdate():
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", automation_id, action])
 
     def save_preferences(self, widget, builder):
+        # Options
         self.settings.set_boolean('hide-window-after-update', builder.get_object("checkbutton_hide_window_after_update").get_active())
         self.settings.set_boolean('hide-systray', builder.get_object("checkbutton_hide_systray").get_active())
         self.settings.set_boolean('warn-about-timeshift', builder.get_object("checkbutton_warning_timeshift").get_active())
@@ -2163,26 +2163,19 @@ class MintUpdate():
         self.settings.set_int('autorefresh-days', int(builder.get_object("autorefresh_days").get_value()))
         self.settings.set_int('autorefresh-hours', int(builder.get_object("autorefresh_hours").get_value()))
         self.settings.set_int('autorefresh-minutes', int(builder.get_object("autorefresh_minutes").get_value()))
-        blacklist = []
-        treeview_blacklist = builder.get_object("treeview_blacklist")
-        model = treeview_blacklist.get_model()
-        iter = model.get_iter_first()
-        while iter is not None:
-            pkg = model.get_value(iter, UPDATE_CHECKED)
-            iter = model.iter_next(iter)
-            blacklist.append(pkg)
-        self.settings.set_strv("blacklisted-packages", blacklist)
-
-        self.set_automation("upgrade", builder)
-        self.set_automation("autoremove", builder)
-
         self.refresh_schedule_enabled = builder.get_object("checkbutton_refresh_schedule_enabled").get_active()
         self.settings.set_boolean('refresh-schedule-enabled', self.refresh_schedule_enabled)
         if self.refresh_schedule_enabled and not self.auto_refresh.is_alive():
             self.auto_refresh = AutomaticRefreshThread(self)
             self.auto_refresh.start()
 
-        self.close_preferences(widget, builder.get_object("main_window"))
+        # Automation
+        self.set_automation("upgrade", builder)
+        self.set_automation("autoremove", builder)
+
+        window = builder.get_object("main_window")
+        window.disconnect_by_func(self.save_preferences)
+        self.close_preferences(widget, window)
         self.refresh()
 
     def add_blacklisted_package(self, widget, treeview_blacklist, window):
@@ -2210,16 +2203,25 @@ class MintUpdate():
                     pkg = f"{name}={version}"
                 else:
                     pkg = name
+                # Update GUI
                 model = treeview_blacklist.get_model()
                 iter = model.insert_before(None, None)
                 model.set_value(iter, 0, pkg)
+                # Update settings
+                blacklist = self.settings.get_strv("blacklisted-packages")
+                blacklist.append(pkg)
+                self.settings.set_strv("blacklisted-packages", blacklist)
         dialog.destroy()
 
     def remove_blacklisted_package(self, widget, treeview_blacklist):
         selection = treeview_blacklist.get_selection()
         (model, iter) = selection.get_selected()
         if (iter != None):
-            pkg = model.get_value(iter, UPDATE_CHECKED)
+            # Update settings
+            blacklist = self.settings.get_strv("blacklisted-packages")
+            blacklist.remove(model.get_value(iter, UPDATE_CHECKED))
+            self.settings.set_strv("blacklisted-packages", blacklist)
+            # Update GUI
             model.remove(iter)
 
     def close_preferences(self, widget, window):
