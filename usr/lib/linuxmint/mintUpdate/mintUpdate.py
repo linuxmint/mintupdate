@@ -741,7 +741,9 @@ class RefreshThread(threading.Thread):
                     # Check if self-update is needed
                     if update.source_name in PRIORITY_UPDATES:
                         is_self_update = True
+                        Gdk.threads_enter()
                         self.application.stack.set_visible_child_name("status_self-update")
+                        Gdk.threads_leave()
 
                     iter = model.insert_before(None, None)
                     model.row_changed(model.get_path(iter), iter)
