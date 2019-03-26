@@ -699,7 +699,7 @@ class RefreshThread(threading.Thread):
                                     stdout=subprocess.PIPE).stdout.decode("utf-8")
 
             # Check presence of Mint layer
-            if len(output) > 0 and not "CHECK_APT_ERROR" in output and not self.check_policy():
+            if len(output) > 0 and not "CHECK_APT_ERROR" in output and not self.policy_check():
                 return False
 
             # Return on error
@@ -900,7 +900,7 @@ class RefreshThread(threading.Thread):
                 break
         return (mint_layer_found, error_msg)
 
-    def policy_check(self)
+    def policy_check(self):
         (mint_layer_found, error_msg) = self.check_policy()
         if not mint_layer_found:
             Gdk.threads_enter()
