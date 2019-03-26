@@ -677,7 +677,6 @@ class RefreshThread(threading.Thread):
             else:
                 self.application.logger.write("Starting refresh (local only)")
             Gdk.threads_enter()
-            self.application.set_status_message(_("Starting refresh..."))
             # Switch to status_refreshing page
             self.application.status_refreshing_spinner.start()
             self.application.stack.set_visible_child_name("status_refreshing")
@@ -697,10 +696,6 @@ class RefreshThread(threading.Thread):
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
             model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
-
-            Gdk.threads_enter()
-            self.application.set_status_message(_("Finding the list of updates..."))
-            Gdk.threads_leave()
 
             # Refresh the APT cache
             if self.root_mode:
@@ -1552,23 +1547,23 @@ class MintUpdate():
             self.menubar.append(viewMenu)
             self.menubar.append(helpMenu)
 
+            # Status pages
+            self.stack.add_named(self.builder.get_object("status_updated"), "status_updated")
+            self.stack.add_named(self.builder.get_object("status_error"), "status_error")
+            self.stack.add_named(self.builder.get_object("status_self-update"), "status_self-update")
+            self.stack.add_named(self.builder.get_object("status_refreshing"), "status_refreshing")
+            self.stack.set_visible_child_name("status_refreshing")
+            self.stack.show_all()
+
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if showWindow == "show":
                     self.window.show_all()
                     self.app_hidden = False
 
-            # Status pages
-            self.stack.add_named(self.builder.get_object("status_updated"), "status_updated")
-            self.stack.add_named(self.builder.get_object("status_error"), "status_error")
-            self.stack.add_named(self.builder.get_object("status_self-update"), "status_self-update")
-            self.stack.add_named(self.builder.get_object("status_refreshing"), "status_refreshing")
-            self.stack.show_all()
-
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
             else:
-                self.stack.set_visible_child_name("updates_available")
                 self.cache_watcher = CacheWatcher(self)
                 self.cache_watcher.start()
 
