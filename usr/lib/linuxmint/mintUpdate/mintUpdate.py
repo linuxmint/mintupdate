@@ -896,6 +896,10 @@ class RefreshThread(threading.Thread):
             if line.startswith("700") and line.endswith("Packages") and "/upstream" in line:
                 mint_layer_found = True
                 break
+        return (mint_layer_found, error_msg)
+
+    def policy_check(self)
+        (mint_layer_found, error_msg) = self.check_policy()
         if not mint_layer_found:
             Gdk.threads_enter()
             label1 = _("Your APT configuration is corrupt.")
