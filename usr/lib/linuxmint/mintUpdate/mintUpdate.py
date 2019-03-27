@@ -134,7 +134,8 @@ class CacheWatcher(threading.Thread):
     @staticmethod
     def get_apt_config(config_option):
         output = subprocess.run(["apt-config", "shell", "val", config_option],
-                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
+                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+                    env={"LC_ALL": "C"}).stdout
         try:
             output = output.decode().partition("val='")[2].partition("'")[0]
         except:
@@ -885,7 +886,7 @@ class RefreshThread(threading.Thread):
 
     def check_policy(self):
         """ Check the presence of the Mint layer """
-        p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={"LC_ALL": "C"})
         output = p.stdout.decode()
         if p.stderr:
             error_msg = p.stderr.decode().strip()
