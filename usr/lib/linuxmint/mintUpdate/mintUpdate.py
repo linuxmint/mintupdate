@@ -142,21 +142,19 @@ class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
         threading.Thread.__init__(self)
         self.application = application
-        self.pkg_name = package_update.package_names[0]
+        self.pkg = package_update
 
     def run(self):
-        Gdk.threads_enter()
-        self.application.textview_changes.set_text(_("Downloading changelog..."))
-        Gdk.threads_leave()
-
-        changelog = None
-        if self.pkg_name:
-            changelog = apt_changelog.get_changelog(self.pkg_name)
-        if not changelog:
-            changelog = _("No changelog available")
+        if not self.pkg.changelog and self.pkg.package_names[0]:
+            Gdk.threads_enter()
+            self.application.textview_changes.set_text(_("Downloading changelog..."))
+            Gdk.threads_leave()
+            self.pkg.changelog = apt_changelog.get_changelog(self.pkg.package_names[0])
+        if not self.pkg.changelog:
+            self.pkg.changelog = _("No changelog available")
 
         Gdk.threads_enter()
-        self.application.textview_changes.set_text(changelog)
+        self.application.textview_changes.set_text(self.pkg.changelog)
         Gdk.threads_leave()
 
 class AutomaticRefreshThread(threading.Thread):

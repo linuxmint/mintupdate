@@ -49,6 +49,7 @@ def get_release_dates():
 class Update():
 
     def __init__(self, package=None, input_string=None, source_name=None):
+        self.changelog = None
         self.package_names = []
         if package is not None:
             self.package_names.append(package.name)
