@@ -1782,9 +1782,11 @@ class MintUpdate():
         column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(), text=2)
         column_old_version.set_sort_column_id(2)
         column_old_version.set_resizable(True)
+        column_old_version.set_max_width(300)
         column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(), text=3)
         column_new_version.set_sort_column_id(3)
         column_new_version.set_resizable(True)
+        column_new_version.set_max_width(300)
         treeview.append_column(column_date)
         treeview.append_column(column_package)
         treeview.append_column(column_old_version)
@@ -1793,7 +1795,6 @@ class MintUpdate():
         treeview.set_reorderable(False)
         treeview.set_search_column(0)
         treeview.set_enable_search(True)
-        treeview.show()
 
         model = Gtk.TreeStore(str, str, str, str) # (packageName, date, oldVersion, newVersion)
         if os.path.isfile("/var/log/dpkg.log"):
@@ -1819,12 +1820,61 @@ class MintUpdate():
 
         # model.set_sort_column_id( 1, Gtk.SortType.DESCENDING )
         treeview.set_model(model)
+
+        def show_changelog(parent, package_name):
+            def on_key_press_event(widget, event):
+                if event.keyval == Gdk.KEY_Escape or \
+                event.keyval == Gdk.KEY_Return or \
+                event.keyval == Gdk.KEY_KP_Enter:
+                    widget.destroy()
+
+            window = Gtk.Window()
+            window.set_transient_for(parent)
+            window.set_default_size(500, 500)
+            window.set_icon_name("mintupdate")
+            window.set_title(_("Changelog for %s") % package_name)
+            box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+            box.set_border_width(12)
+            box.set_spacing(12)
+            box.set_hexpand(True)
+            scrolled_window = Gtk.ScrolledWindow()
+            scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+            scrolled_window.set_hexpand(True)
+            scrolled_window.set_propagate_natural_width(True)
+            scrolled_window.set_min_content_width(500)
+            output_box = Gtk.TextView()
+            output_box.set_editable(False)
+            output_box.set_monospace(True)
+            output_box.set_hexpand(True)
+            output_box.set_hexpand(False)
+            output_box.set_right_margin(scrolled_window.get_vscrollbar().get_preferred_width().natural_width)
+            scrolled_window.add(output_box)
+            box.pack_start(scrolled_window, True, True, 0)
+            window.add(box)
+            window.connect("key-press-event", on_key_press_event)
+
+            if package_name:
+                changelog = apt_changelog.get_changelog(package_name)
+            if not changelog:
+                changelog = _("No changelog available")
+            output_box.get_buffer().set_text(changelog)
+            window.show_all()
+
+        def on_click(widget, event, model, parent):
+            if event.button == 3: # right click
+                path, _, _, _ = widget.get_path_at_pos(int(event.x), int(event.y))
+                package_name = model.get_value(model.get_iter(path), 0)
+                show_changelog(parent, package_name)
+
+        treeview.connect('button-release-event' , on_click, model, window)
+
         del model
         def destroy_window(widget):
             self.history_window_showing = False
             window.destroy()
         window.connect("destroy", destroy_window)
         builder.get_object("button_close").connect("clicked", destroy_window)
+        window.show_all()
         self.history_window_showing = True
 
 ######### HELP/ABOUT/SHORTCUTS/SOURCES SCREEN #########
