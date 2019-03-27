@@ -640,7 +640,7 @@ class RefreshThread(threading.Thread):
         Gdk.threads_enter()
         self.application.status_refreshing_spinner.stop()
         # Make sure we're never stuck on the status_refreshing page:
-        if self.application.stack.get_visible_child_name() == "updates_available":
+        if self.application.stack.get_visible_child_name() == "status_refreshing":
             self.application.stack.set_visible_child_name("updates_available")
         # Reset cursor
         if not self.application.app_hidden:
