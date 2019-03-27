@@ -22,9 +22,8 @@ import setproctitle
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
-gi.require_version('GdkX11', '3.0') # Needed to get xid
 gi.require_version('AppIndicator3', '0.1')
-from gi.repository import Gtk, Gdk, GdkPixbuf, GdkX11, Gio, Pango, GLib
+from gi.repository import Gtk, Gdk, Gio, GLib
 from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update, PRIORITY_UPDATES, get_release_dates
