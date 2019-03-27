@@ -860,7 +860,7 @@ class RefreshThread(threading.Thread):
                 self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
                 self.application.builder.get_object("image_success_status").set_from_icon_name(status_icon, 96)
                 self.application.stack.set_visible_child_name("status_updated")
-                self.application.set_status(NO_UPDATES_MSG, NO_UPDATES_MSG, tray_icon,
+                self.application.set_status("", NO_UPDATES_MSG, tray_icon,
                                             not self.application.settings.get_boolean("hide-systray"))
                 self.application.logger.write(log_msg)
                 Gdk.threads_leave()
@@ -1697,11 +1697,12 @@ class MintUpdate():
 
     def clear(self, widget):
         model = self.treeview.get_model()
-        iter = model.get_iter_first()
-        while (iter != None):
-            model.set_value(iter, 0, "false")
-            iter = model.iter_next(iter)
-        self.set_status_message(_("No updates selected"))
+        if len(model):
+            iter = model.get_iter_first()
+            while (iter != None):
+                model.set_value(iter, 0, "false")
+                iter = model.iter_next(iter)
+            self.set_status_message(_("No updates selected"))
 
     def select_all(self, widget):
         self.select_updates()
