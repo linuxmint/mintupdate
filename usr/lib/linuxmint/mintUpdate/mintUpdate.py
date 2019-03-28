@@ -1697,11 +1697,12 @@ class MintUpdate():
 
     def clear(self, widget):
         model = self.treeview.get_model()
-        iter = model.get_iter_first()
-        while (iter != None):
-            model.set_value(iter, 0, "false")
-            iter = model.iter_next(iter)
-        self.set_status_message(_("No updates selected"))
+        if len(model):
+            iter = model.get_iter_first()
+            while (iter != None):
+                model.set_value(iter, 0, "false")
+                iter = model.iter_next(iter)
+            self.set_status_message(_("No updates selected"))
 
     def select_all(self, widget):
         self.select_updates()
