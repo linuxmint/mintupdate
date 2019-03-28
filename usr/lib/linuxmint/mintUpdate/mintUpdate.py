@@ -588,7 +588,7 @@ class InstallThread(threading.Thread):
 
                         # Refresh
                         Gdk.threads_enter()
-                        self.application.set_status(_("Checking for updates"), _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
+                        self.application.set_status("", _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
                         self.application.window.get_window().set_cursor(None)
                         self.application.window.set_sensitive(True)
                         Gdk.threads_leave()
