@@ -978,10 +978,11 @@ class RefreshThread(threading.Thread):
                                           callback=self._on_infobar_eol_response)
             Gdk.threads_leave()
 
-
     def timeshift_check(self):
         """ Timeshift setup notification """
-        if self.application.settings.get_boolean("warn-about-timeshift") and not self.checkTimeshiftConfiguration():
+        if self.application.settings.get_boolean("warn-about-timeshift") and \
+           os.path.exists("/usr/bin/timeshift-gtk") and \
+           not self.checkTimeshiftConfiguration():
             Gdk.threads_enter()
             self.application.show_infobar(_("Please set up System Snapshots"),
                 _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
