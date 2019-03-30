@@ -2082,7 +2082,6 @@ class MintUpdate():
 
         builder.get_object("checkbutton_hide_window_after_update").set_active(self.settings.get_boolean("hide-window-after-update"))
         builder.get_object("checkbutton_hide_systray").set_active(self.settings.get_boolean("hide-systray"))
-        builder.get_object("checkbutton_default_repo_is_ok").set_active(self.settings.get_boolean("default-repo-is-ok"))
         builder.get_object("checkbutton_warning_timeshift").set_active(self.settings.get_boolean("warn-about-timeshift"))
         builder.get_object("auto_upgrade_checkbox").set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
         builder.get_object("auto_autoremove_checkbox").set_active(os.path.isfile(AUTOMATIONS["autoremove"][0]))
@@ -2157,7 +2156,6 @@ class MintUpdate():
     def save_preferences(self, widget, builder):
         self.settings.set_boolean('hide-window-after-update', builder.get_object("checkbutton_hide_window_after_update").get_active())
         self.settings.set_boolean('hide-systray', builder.get_object("checkbutton_hide_systray").get_active())
-        self.settings.set_boolean('default-repo-is-ok', builder.get_object("checkbutton_default_repo_is_ok").get_active())
         self.settings.set_boolean('warn-about-timeshift', builder.get_object("checkbutton_warning_timeshift").get_active())
         self.settings.set_int('refresh-days', int(builder.get_object("refresh_days").get_value()))
         self.settings.set_int('refresh-hours', int(builder.get_object("refresh_hours").get_value()))
