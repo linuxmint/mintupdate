@@ -1,14 +1,16 @@
 #!/usr/bin/python3
 
+import configparser
+import gettext
+import os
+import tempfile
+from subprocess import PIPE, Popen
+
 import gi
 gi.require_version('Gtk', '3.0')
-gi.require_version('GdkX11', '3.0')
-from gi.repository import Gtk, GdkPixbuf, GdkX11
-import gettext
-import tempfile
-from subprocess import Popen, PIPE
-import os, apt, time
-import configparser
+from gi.repository import Gtk
+
+import apt
 
 gettext.install("mintupdate", "/usr/share/locale")
 
