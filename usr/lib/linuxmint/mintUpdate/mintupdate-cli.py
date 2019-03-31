@@ -8,11 +8,7 @@ import sys
 import traceback
 
 from checkAPT import APTCheck
-
-# These updates take priority over other updates.
-# If a new version of these packages is available,
-# nothing else is listed. These packages are also always listed.
-PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
+from Classes import PRIORITY_UPDATES
 
 if __name__ == "__main__":
 
