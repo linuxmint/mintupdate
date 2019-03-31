@@ -204,20 +204,14 @@ class APTCheck():
 
     def serialize_updates(self):
         # Print updates
-        for source_name in sorted(self.updates.keys()):
-            update = self.updates[source_name]
-            update.serialize()
-
-    def list_updates(self):
-        # Print updates
-        for source_name in sorted(self.updates.keys()):
+        for source_name in self.updates.keys():
             update = self.updates[source_name]
             update.serialize()
 
     def apply_aliases(self):
         for source_name in self.updates.keys():
             update = self.updates[source_name]
-            if source_name in self.aliases.keys():
+            if source_name in self.aliases:
                 alias = self.aliases[source_name]
                 update.display_name = alias.name
                 update.short_description = alias.short_description
@@ -247,7 +241,7 @@ class APTCheck():
                     if line.startswith("Package: "):
                         try:
                             pkgname = line.replace("Package: ", "")
-                            if pkgname in self.updates.keys():
+                            if pkgname in self.updates:
                                 update = self.updates[pkgname]
                                 j = 2 # skip md5 line after package name line
                                 while True:
