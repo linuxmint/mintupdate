@@ -46,6 +46,33 @@ def get_release_dates():
                 pass
     return release_dates
 
+class KernelVersion():
+
+    def __init__(self, version):
+        field_length = 3
+        self.version = version
+        self.version_id = []
+        version_id = self.version.replace("-", ".").split(".")
+        # Check if mainline rc kernel to ensure proper sorting vs mainline release kernels
+        suffix = next((x for x in version_id if x.startswith("rc")), None)
+        if not suffix:
+            suffix = "z"
+        # Copy numeric parts from version_id to self.version_id and fill up to field_length
+        for element in version_id:
+            if element.isnumeric():
+                self.version_id.append("0" * (field_length - len(element)) + element)
+        # Installed kernels always have len(self.version_id) >= 4 at this point,
+        # create missing parts for not installed mainline kernels:
+        while len(self.version_id) < 3:
+            self.version_id.append("0" * field_length)
+        if len(self.version_id) == 3:
+            self.version_id.append(f"{''.join((x[:field_length - 2].lstrip('0') + x[field_length - 2:] for x in self.version_id))}{suffix}")
+        elif len(self.version_id[3]) == 6:
+            # installed release mainline kernel, add suffix for sorting
+            self.version_id[3] += suffix
+        self.series = tuple(self.version_id[:3])
+        self.shortseries = tuple(self.version_id[:2])
+
 class Update():
 
     def __init__(self, package=None, input_string=None, source_name=None):
