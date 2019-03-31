@@ -1,23 +1,21 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 
-import apt
-import subprocess
+import locale
 import os
+import subprocess
 import tempfile
 import threading
+from datetime import datetime
+
 import gi
 gi.require_version('Gtk', '3.0')
-gi.require_version('GdkX11', '3.0') # Needed to get xid
 from gi.repository import Gtk
-import time
-from datetime import datetime
-import locale
-from apt.utils import get_maintenance_end_date
-from Classes import get_release_dates
-from Classes import KERNEL_PKG_NAMES, SUPPORTED_KERNEL_TYPES, CONFIGURED_KERNEL_TYPE
 
-KERNEL_INFO_DIR = "/usr/share/mint-kernel-info"
+import apt
+from apt.utils import get_maintenance_end_date
+
+from Classes import (CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES,
+                     SUPPORTED_KERNEL_TYPES, get_release_dates)
 
 def list_header_func(row, before, user_data):
     if before and not row.get_header():
