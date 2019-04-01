@@ -9,17 +9,29 @@ from datetime import datetime
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
-import apt
 from apt.utils import get_maintenance_end_date
 
 from Classes import (CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES,
                      SUPPORTED_KERNEL_TYPES, get_release_dates)
 
+
 def list_header_func(row, before, user_data):
     if before and not row.get_header():
         row.set_header(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+
+class RefreshKernelsThread(threading.Thread):
+    """ Get list of installed and available kernels via checkKernels.py """
+    def __init__(self, application):
+        threading.Thread.__init__(self)
+        self.application = application
+
+    def run(self):
+        kernels = subprocess.run(["/usr/lib/linuxmint/mintUpdate/checkKernels.py", CONFIGURED_KERNEL_TYPE],
+            stdout=subprocess.PIPE).stdout.decode()
+        self.application.build_kernels_list(kernels)
+        self.application.refresh_kernels_list_done()
 
 class InstallKernelThread(threading.Thread):
     def __init__(self, kernels, application, kernel_window):
@@ -291,6 +303,10 @@ class KernelWindow():
         self.main_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.window.add(self.main_stack)
 
+        # status_refreshing page
+        self.main_stack.add_named(self.builder.get_object("status_refreshing"), "status_refreshing")
+        self.status_refreshing_spinner = self.builder.get_object("status_refreshing_spinner")
+
         # Setup the kernel warning page
         self.main_stack.add_named(info_box, "info_box")
         self.builder.get_object("button_continue").connect("clicked", self.on_continue_clicked, main_box)
@@ -331,10 +347,7 @@ class KernelWindow():
         # Get distro release dates for support duration calculation
         self.release_dates = get_release_dates()
 
-        # Build kernels list
         self.allow_kernel_type_selection = False
-        self.build_kernels_list()
-
         self.initially_configured_kernel_type = CONFIGURED_KERNEL_TYPE
         if not self.allow_kernel_type_selection and \
            self.application.settings.get_boolean("allow-kernel-type-selection"):
@@ -352,11 +365,7 @@ class KernelWindow():
                 global CONFIGURED_KERNEL_TYPE
                 CONFIGURED_KERNEL_TYPE = "-" + widget.get_active_text()
                 self.application.settings.set_string("selected-kernel-type", CONFIGURED_KERNEL_TYPE)
-                for child in self.stack.get_children():
-                    child.destroy()
-                self.remove_kernels_listbox = []
-                self.build_kernels_list()
-                self.stack.show_all()
+                self.refresh_kernels_list()
             self.kernel_type_selector.connect("changed", on_kernel_type_selector_changed)
 
         self.main_stack.add_named(main_box, "main_box")
@@ -379,13 +388,27 @@ class KernelWindow():
         self.builder.get_object("cb_label").set_visible(self.allow_kernel_type_selection)
         self.builder.get_object("cb_kernel_type").set_visible(self.allow_kernel_type_selection)
 
-    def build_kernels_list(self):
-        # get list of installed and available kernels from apt
+        # Build kernels list
+        self.refresh_kernels_list()
+
+    def refresh_kernels_list(self):
+        self.status_refreshing_spinner.start()
+        self.main_stack.set_visible_child_name("status_refreshing")
+        self.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
+        self.remove_kernels_listbox.clear()
+        for child in self.stack.get_children():
+            child.destroy()
+        RefreshKernelsThread(self).start()
+
+    def refresh_kernels_list_done(self):
+        self.stack.show_all()
+        self.window.get_window().set_cursor(None)
+        self.main_stack.set_visible_child_name("main_box")
+        self.status_refreshing_spinner.stop()
+
+    def build_kernels_list(self, kernels):
         now = datetime.now()
         hwe_support_duration = {}
-
-        kernels = subprocess.run(["/usr/lib/linuxmint/mintUpdate/checkKernels.py", CONFIGURED_KERNEL_TYPE],
-            stdout=subprocess.PIPE).stdout.decode()
         kernels = kernels.split("\n")
         kernels.sort()
         kernel_list_prelim = []
