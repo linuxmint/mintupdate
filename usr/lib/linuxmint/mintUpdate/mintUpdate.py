@@ -1629,7 +1629,6 @@ class MintUpdate():
         dialog.destroy()
 
     def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon=None, callback=None):
-        window_size = self.window.get_size()
         infobar = Gtk.InfoBar()
         infobar.set_margin_bottom(2)
         infobar.set_message_type(msg_type)
@@ -1659,7 +1658,6 @@ class MintUpdate():
             infobar.connect("response", callback)
         infobar.show_all()
         self.infobar.pack_start(infobar, True, True, 0)
-        self.window.resize(window_size.width, window_size.height)
 
 ######### WINDOW/STATUSICON ##########
 
