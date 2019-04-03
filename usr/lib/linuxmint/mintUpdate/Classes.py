@@ -52,6 +52,7 @@ class Update():
         self.package_names = []
         if package is not None:
             self.package_names.append(package.name)
+            self.source_packages = {f"{package.candidate.source_name}={package.candidate.source_version}"}
             self.main_package_name = package.name
             self.package_name = package.name
             self.new_version = package.candidate.version
@@ -103,6 +104,7 @@ class Update():
 
     def add_package(self, pkg):
         self.package_names.append(pkg.name)
+        self.source_packages.add(f"{pkg.candidate.source_name}={pkg.candidate.source_version}")
         self.size += pkg.candidate.size
         if self.main_package_name is None or pkg.name == self.source_name:
             self.overwrite_main_package(pkg)
@@ -130,10 +132,10 @@ class Update():
         self.main_package_name = pkg.name
 
     def serialize(self):
-        output_string = u"###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
-        (self.display_name, self.source_name, self.real_source_name,\
-         self.main_package_name, ", ".join(self.package_names), self.new_version,\
-         self.old_version, self.size, self.type, self.origin, \
+        output_string = u"###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
+        (self.display_name, self.source_name, self.real_source_name, ", ".join(self.source_packages),
+         self.main_package_name, ", ".join(self.package_names), self.new_version,
+         self.old_version, self.size, self.type, self.origin,
          self.short_description, self.description, self.site, self.archive)
         print(output_string.encode('ascii', 'xmlcharrefreplace'))
 
@@ -142,14 +144,14 @@ class Update():
             input_string = html.unescape(input_string)
         except:
             pass
-        values = input_string.split("###")
-        _, self.display_name, self.source_name, self.real_source_name,\
-            self.main_package_name, package_names, self.new_version,\
-            self.old_version, size, self.type, self.origin, self.short_description,\
-            self.description, self.site, self.archive = values
+        values = input_string.split("###")[1:]
+        (self.display_name, self.source_name, self.real_source_name, source_packages,
+         self.main_package_name, package_names, self.new_version,
+         self.old_version, size, self.type, self.origin, self.short_description,
+         self.description, self.site, self.archive) = values
         self.size = int(size)
-        for package_name in package_names.split(", "):
-            self.package_names.append(package_name)
+        self.package_names = package_names.split(", ")
+        self.source_packages = source_packages.split(", ")
 
 class Alias():
     def __init__(self, name, short_description, description):

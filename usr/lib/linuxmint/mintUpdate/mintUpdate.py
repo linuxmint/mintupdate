@@ -1856,19 +1856,21 @@ class MintUpdate():
                 package_update = model.get_value(iter, UPDATE_OBJ)
                 menu = Gtk.Menu()
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore the current update for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list,
-                                    f"{package_update.real_source_name}={package_update.new_version}")
+                menuItem.connect("activate", self.add_to_ignore_list, package_update.source_packages, False)
                 menu.append(menuItem)
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore all future updates for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, package_update.real_source_name)
+                menuItem.connect("activate", self.add_to_ignore_list, package_update.source_packages, True)
                 menu.append(menuItem)
                 menu.attach_to_widget (widget, None)
                 menu.show_all()
                 menu.popup(None, None, None, None, event.button, event.time)
 
-    def add_to_ignore_list(self, widget, pkg):
+    def add_to_ignore_list(self, widget, source_packages, versioned):
         blacklist = self.settings.get_strv("blacklisted-packages")
-        blacklist.append(pkg)
+        for source_package in source_packages:
+            if not versioned:
+                source_package = source_package.split("=")[0]
+            blacklist.append(source_package)
         self.settings.set_strv("blacklisted-packages", blacklist)
         self.refresh()
 
