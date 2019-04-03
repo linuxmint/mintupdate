@@ -198,6 +198,7 @@ class APTCheck():
             package.candidate.source_name.startswith("linux-signed") or
             [True for flavor in SUPPORTED_KERNEL_TYPES if package.candidate.source_name.startswith(f"linux{flavor}")]
            ):
+            kernel_update = True
             source_name = f"linux-{source_version}"
         else:
             source_name = package.candidate.source_name
@@ -214,6 +215,11 @@ class APTCheck():
             if source_name in self.updates:
                 update = self.updates[source_name]
                 update.add_package(package)
+                # Adjust update.old_version for kernel updates to try and
+                # match the kernel, not the meta
+                if kernel_update and package.is_installed and not \
+                   "-" in update.old_version and "-" in package.installed.version:
+                    update.old_version = package.installed.version
             else:
                 update = Update(package, source_name=source_name)
                 self.updates[source_name] = update
