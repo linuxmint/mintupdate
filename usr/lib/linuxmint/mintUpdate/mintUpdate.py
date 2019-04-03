@@ -407,6 +407,10 @@ class InstallThread(threading.Thread):
 
     def __del__(self):
         self.application.cache_watcher.resume(False)
+        Gdk.threads_enter()
+        self.application.window.get_window().set_cursor(None)
+        self.application.window.set_sensitive(True)
+        Gdk.threads_leave()
 
     def run(self):
         self.application.cache_watcher.pause()
@@ -587,32 +591,11 @@ class InstallThread(threading.Thread):
                             return
 
                         # Refresh
-                        Gdk.threads_enter()
-                        self.application.set_status("", _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
-                        self.application.window.get_window().set_cursor(None)
-                        self.application.window.set_sensitive(True)
-                        Gdk.threads_leave()
-                        refresh = RefreshThread(self.application)
-                        refresh.start()
+                        self.application.refresh()
                     else:
                         Gdk.threads_enter()
                         self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
-                        self.application.window.get_window().set_cursor(None)
-                        self.application.window.set_sensitive(True)
                         Gdk.threads_leave()
-
-                else:
-                    # Stop the blinking but don't refresh
-                    Gdk.threads_enter()
-                    self.application.window.get_window().set_cursor(None)
-                    self.application.window.set_sensitive(True)
-                    Gdk.threads_leave()
-            else:
-                # Stop the blinking but don't refresh
-                Gdk.threads_enter()
-                self.application.window.get_window().set_cursor(None)
-                self.application.window.set_sensitive(True)
-                Gdk.threads_leave()
 
         except Exception as e:
             print (e)
@@ -620,8 +603,6 @@ class InstallThread(threading.Thread):
             Gdk.threads_enter()
             self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
             self.application.logger.write_error("Could not install security updates")
-            self.application.window.get_window().set_cursor(None)
-            self.application.window.set_sensitive(True)
             Gdk.threads_leave()
 
 class RefreshThread(threading.Thread):
@@ -691,11 +672,8 @@ class RefreshThread(threading.Thread):
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.application.toolbar.set_sensitive(False)
 
-
             # Starts the blinking
-            self.application.statusIcon.set_from_icon_name("mintupdate-checking")
-            self.application.statusIcon.set_tooltip_text(_("Checking for updates"))
-            self.application.statusIcon.set_visible(not self.application.settings.get_boolean("hide-systray"))
+            self.application.set_status("", _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
             Gdk.threads_leave()
 
             model = Gtk.TreeStore(str, str, str, str, str, int, str, str, str, str, str, object)
@@ -1229,9 +1207,6 @@ class MintUpdate():
             self.statusIcon = StatusIcon(self)
         else:
             self.statusIcon = Gtk.StatusIcon()
-        self.statusIcon.set_from_icon_name("mintupdate-checking")
-        self.statusIcon.set_tooltip_text (_("Checking for updates"))
-        self.statusIcon.set_visible(not self.settings.get_boolean("hide-systray"))
 
         #Set the Glade file
         gladefile = "/usr/share/linuxmint/mintupdate/main.ui"
