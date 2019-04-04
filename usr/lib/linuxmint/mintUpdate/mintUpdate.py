@@ -594,15 +594,15 @@ class InstallThread(threading.Thread):
                         self.application.refresh()
                     else:
                         Gdk.threads_enter()
-                        self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
+                        self.application.set_status(_("Could not install the updates"), _("Could not install the updates"), "mintupdate-error", True)
                         Gdk.threads_leave()
 
         except Exception as e:
             print (e)
             self.application.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
             Gdk.threads_enter()
-            self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
-            self.application.logger.write_error("Could not install security updates")
+            self.application.set_status(_("Could not install the updates"), _("Could not install the updates"), "mintupdate-error", True)
+            self.application.logger.write_error("Could not install the updates")
             Gdk.threads_leave()
 
 class RefreshThread(threading.Thread):
@@ -707,7 +707,7 @@ class RefreshThread(threading.Thread):
                 except:
                     error_msg = ""
                 Gdk.threads_enter()
-                self.application.set_status(_("Could not refresh the list of updates"),
+                self.application.set_status_icon(
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
                     "mintupdate-error", True)
                 self.application.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
@@ -798,25 +798,21 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
+                Gdk.threads_enter()
+                self.application.treeview.set_model(model)
+                Gdk.threads_leave()
+
                 # Updates found, update status message
                 if num_visible:
+                    self.application.logger.write("Found " + str(num_visible) + " software updates")
                     Gdk.threads_enter()
                     if self.is_self_update:
-                        self.application.statusbar.set_visible(False)
-                        statusString = _("Update Manager needs to be updated")
-                    elif num_checked == 0:
-                        statusString = _("No updates selected")
-                    elif num_checked >= 1:
-                        statusString = ngettext("%(selected)d update selected (%(size)s)",
-                                                "%(selected)d updates selected (%(size)s)", num_checked) % \
-                                                {'selected':num_checked, 'size':size_to_string(download_size)}
-
-                    self.application.set_status(statusString, statusString, "mintupdate-updates-available", True)
-                    self.application.logger.write("Found " + str(num_visible) + " software updates")
-
-                    systrayString = ngettext("%d update available",
-                                             "%d updates available", num_visible) % num_visible
-                    self.application.statusIcon.set_tooltip_text(systrayString)
+                        self.application.set_status_icon(_("Update Manager needs to be updated"), "mintupdate-updates-available", True)
+                    else:
+                        tooltip = ngettext("%d update available",
+                                           "%d updates available", num_visible) % num_visible
+                        self.application.set_status_icon(tooltip, "mintupdate-updates-available", True)
+                        self.application.set_status_message_selected()
                     Gdk.threads_leave()
 
             # Check for infobars to display
@@ -838,8 +834,8 @@ class RefreshThread(threading.Thread):
                 self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
                 self.application.builder.get_object("image_success_status").set_from_icon_name(status_icon, 96)
                 self.application.stack.set_visible_child_name("status_updated")
-                self.application.set_status("", NO_UPDATES_MSG, tray_icon,
-                                            not self.application.settings.get_boolean("hide-systray"))
+                self.application.set_status_icon(NO_UPDATES_MSG, tray_icon,
+                                                 not self.application.settings.get_boolean("hide-systray"))
                 self.application.logger.write(log_msg)
                 Gdk.threads_leave()
 
@@ -847,16 +843,13 @@ class RefreshThread(threading.Thread):
 
             Gdk.threads_enter()
             self.application.builder.get_object("notebook_details").set_current_page(0)
-            self.application.treeview.set_model(model)
-            del model
             Gdk.threads_leave()
 
         except:
             print(f"-- Exception occurred in the refresh thread:\n{traceback.format_exc()}")
             self.application.logger.write_error(f"Exception occurred in the refresh thread: {str(sys.exc_info()[0])}")
             Gdk.threads_enter()
-            self.application.set_status(_("Could not refresh the list of updates"),
-                                        _("Could not refresh the list of updates"), "mintupdate-error", True)
+            self.application.set_status_icon(_("Could not refresh the list of updates"), "mintupdate-error", True)
             Gdk.threads_leave()
 
     def run_status_checks(self):
@@ -899,7 +892,7 @@ class RefreshThread(threading.Thread):
             self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                 msg, Gtk.MessageType.ERROR,
                 callback=self._on_infobar_mintsources_response)
-            self.application.set_status(_("Could not refresh the list of updates"), f"{label1}\n{label2}", "mintupdate-error", True)
+            self.application.set_status_icon(f"{label1}\n{label2}", "mintupdate-error", True)
             self.application.logger.write_error("Error: The APT policy is incorrect!")
             self.application.stack.set_visible_child_name("status_error")
             self.application.builder.get_object("label_error_details").set_markup(f"<b>{label1}\n{label2}\n{label3}{error_msg}</b>")
@@ -1204,9 +1197,9 @@ class MintUpdate():
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings("com.linuxmint.updates")
         if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
-            self.statusIcon = StatusIcon(self)
+            self.status_icon = StatusIcon(self)
         else:
-            self.statusIcon = Gtk.StatusIcon()
+            self.status_icon = Gtk.StatusIcon()
 
         #Set the Glade file
         gladefile = "/usr/share/linuxmint/mintupdate/main.ui"
@@ -1362,8 +1355,8 @@ class MintUpdate():
             menu.append(menuItem)
 
             if os.getenv("XDG_CURRENT_DESKTOP") != "KDE":
-                self.statusIcon.connect('activate', self.on_statusicon_clicked)
-                self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
+                self.status_icon.connect('activate', self.on_statusicon_clicked)
+                self.status_icon.connect('popup-menu', self.show_statusicon_menu, menu)
 
             # Main window menu
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
@@ -1584,14 +1577,41 @@ class MintUpdate():
         refresh = RefreshThread(self, root_mode=root_mode)
         refresh.start()
 
+    def set_status_icon(self, tooltip, icon, visible):
+        self.status_icon.set_from_icon_name(icon)
+        self.status_icon.set_tooltip_text(tooltip)
+        self.status_icon.set_visible(visible)
+
     def set_status_message(self, message):
         self.statusbar.push(self.context_id, message)
 
+    def set_status_message_selected(self):
+        model = self.treeview.get_model()
+        if not len(model):
+            return
+        tree_iter = model.get_iter_first()
+        download_size = 0
+        num_selected = 0
+        while tree_iter:
+            checked = model.get_value(tree_iter, UPDATE_CHECKED)
+            if (checked == "true"):
+                size = model.get_value(tree_iter, UPDATE_SIZE)
+                download_size += size
+                num_selected += 1
+            tree_iter = model.iter_next(tree_iter)
+
+        if not num_selected:
+            statusString = _("No updates selected")
+        else:
+            statusString = ngettext("%(selected)d update selected (%(size)s)",
+                                    "%(selected)d updates selected (%(size)s)", num_selected) % \
+                                    {'selected':num_selected, 'size':size_to_string(download_size)}
+
+        self.set_status_message(statusString)
+
     def set_status(self, message, tooltip, icon, visible):
         self.set_status_message(message)
-        self.statusIcon.set_from_icon_name(icon)
-        self.statusIcon.set_tooltip_text(tooltip)
-        self.statusIcon.set_visible(visible)
+        self.set_status_icon(tooltip, icon, visible)
 
     @staticmethod
     def dpkg_locked():
@@ -1696,20 +1716,7 @@ class MintUpdate():
             else:
                 model.set_value(iter, UPDATE_CHECKED, "true")
             iter = model.iter_next(iter)
-        iter = model.get_iter_first()
-        download_size = 0
-        num_selected = 0
-        while (iter != None):
-            checked = model.get_value(iter, UPDATE_CHECKED)
-            if (checked == "true"):
-                size = model.get_value(iter, UPDATE_SIZE)
-                download_size = download_size + size
-                num_selected = num_selected + 1
-            iter = model.iter_next(iter)
-        if num_selected == 0:
-            self.set_status_message(_("No updates selected"))
-        else:
-            self.set_status_message(ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
+        self.set_status_message_selected()
 
     def force_refresh(self, widget):
         if self.dpkg_locked():
@@ -1744,8 +1751,7 @@ class MintUpdate():
     def show_welcome_page(self, widget=None):
         self.updates_inhibited = True
         self.stack.set_visible_child_name("welcome")
-        self.set_status(_("Welcome to the Update Manager"), _("Welcome to the Update Manager"), "mintupdate-updates-available", True)
-        self.set_status_message("")
+        self.set_status_icon(_("Welcome to the Update Manager"), "mintupdate-updates-available", True)
         self.toolbar.set_sensitive(False)
         self.menubar.set_sensitive(False)
 
@@ -1771,21 +1777,7 @@ class MintUpdate():
                 model.set_value(iter, UPDATE_CHECKED, "false")
             else:
                 model.set_value(iter, UPDATE_CHECKED, "true")
-
-        iter = model.get_iter_first()
-        download_size = 0
-        num_selected = 0
-        while (iter != None):
-            checked = model.get_value(iter, UPDATE_CHECKED)
-            if (checked == "true"):
-                size = model.get_value(iter, UPDATE_SIZE)
-                download_size = download_size + size
-                num_selected = num_selected + 1
-            iter = model.iter_next(iter)
-        if num_selected == 0:
-            self.set_status_message(_("No updates selected"))
-        else:
-            self.set_status_message(ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
+        self.set_status_message_selected()
 
     def display_selected_package(self, selection):
         try:
