@@ -21,8 +21,8 @@ def test_kernel_version_series_comparison():
     version1 = KernelVersion ("4.8.0-2-generic")
     version2 = KernelVersion ("4.15.0-43-generic")
     version3 = KernelVersion ("4.15.0-44-generic")
-    assert version1.numeric_versions < version2.numeric_versions
-    assert version2.numeric_versions < version3.numeric_versions
+    assert version1.version_id < version2.version_id
+    assert version2.version_id < version3.version_id
     assert version1.series < version2.series
     assert version2.series == version3.series
 

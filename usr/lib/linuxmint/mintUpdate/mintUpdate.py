@@ -479,9 +479,9 @@ class InstallThread(threading.Thread):
                                     treeview.set_model(model)
                                     treeview.show()
                                     scrolledWindow.add(treeview)
-                                    dialog.vbox.pack_start(label, False, False, 0)
-                                    dialog.vbox.pack_start(scrolledWindow, True, True, 0)
-                                    dialog.vbox.set_border_width(6)
+                                    dialog.get_content_area().pack_start(label, False, False, 0)
+                                    dialog.get_content_area().pack_start(scrolledWindow, True, True, 0)
+                                    dialog.get_content_area().set_border_width(6)
 
                                 if len(installations) > 0:
                                     # Installations
@@ -508,8 +508,8 @@ class InstallThread(threading.Thread):
                                     treeview.set_model(model)
                                     treeview.show()
                                     scrolledWindow.add(treeview)
-                                    dialog.vbox.pack_start(label, False, False, 0)
-                                    dialog.vbox.pack_start(scrolledWindow, True, True, 0)
+                                    dialog.get_content_area().pack_start(label, False, False, 0)
+                                    dialog.get_content_area().pack_start(scrolledWindow, True, True, 0)
 
                                 dialog.show_all()
                                 if dialog.run() == Gtk.ResponseType.OK:
@@ -1630,6 +1630,7 @@ class MintUpdate():
 
     def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon=None, callback=None):
         infobar = Gtk.InfoBar()
+        infobar.set_margin_bottom(2)
         infobar.set_message_type(msg_type)
         if not icon:
             if msg_type == Gtk.MessageType.WARNING:
@@ -1656,7 +1657,7 @@ class MintUpdate():
                 infobar.add_button(_("OK"), Gtk.ResponseType.OK)
             infobar.connect("response", callback)
         infobar.show_all()
-        self.infobar.pack_start(infobar, True, True, 2)
+        self.infobar.pack_start(infobar, True, True, 0)
 
 ######### WINDOW/STATUSICON ##########
 

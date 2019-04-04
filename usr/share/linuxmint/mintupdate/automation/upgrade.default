@@ -7,5 +7,5 @@ ARGUMENTS=
 #
 ln -s /usr/share/linuxmint/mintupdate/automation/99-mintupdate-temporary.pkla /etc/polkit-1/localauthority/90-mandatory.d/99-mintupdate-temporary.pkla
 echo "\n-- Automatic Upgrade $(date):\n" >> /var/log/mintupdate.log
-systemd-inhibit --why="Performing automatic updates" --who="Update Manager" --what=shutdown --mode=block /usr/bin/mintupdate-cli $ARGUMENTS --refresh-cache --yes >> /var/log/mintupdate.log 2>&1
+systemd-inhibit --why="Performing automatic updates" --who="Update Manager" --what=shutdown --mode=block /usr/bin/mintupdate-cli upgrade $ARGUMENTS --refresh-cache --yes >> /var/log/mintupdate.log 2>&1
 rm -f /etc/polkit-1/localauthority/90-mandatory.d/99-mintupdate-temporary.pkla
