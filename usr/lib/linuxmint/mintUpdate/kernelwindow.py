@@ -408,8 +408,6 @@ class KernelWindow():
                     ACTIVE_KERNEL_VERSION = version_id
                 elif installed:
                     title = _("Installed")
-                if origin == "0":
-                    title += " (local)"
 
                 installable = (installable == "1")
                 if kernel_type == CONFIGURED_KERNEL_TYPE:
