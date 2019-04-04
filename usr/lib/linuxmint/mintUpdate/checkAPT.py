@@ -13,7 +13,7 @@ import apt
 from gi.repository import Gio
 
 from Classes import (CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES,
-                     PRIORITY_UPDATES, Alias, KernelVersion, Update)
+                     PRIORITY_UPDATES, SUPPORTED_KERNEL_TYPES, Alias, KernelVersion, Update)
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -51,12 +51,11 @@ class APTCheck():
                 self.add_update(pkg)
 
         # Kernel updates
-        global meta_names
-        meta_names = []
         lts_meta_name = "linux" + CONFIGURED_KERNEL_TYPE
         _metas = [s for s in self.cache.keys() if s.startswith(lts_meta_name)]
         if CONFIGURED_KERNEL_TYPE == "-generic":
             _metas.append("linux-virtual")
+        global meta_names
         for meta in _metas:
             shortname = meta.split(":")[0]
             if shortname not in meta_names:
@@ -161,15 +160,35 @@ class APTCheck():
                 return True
         return False
 
+    def get_kernel_version_from_meta_package(self, pkg):
+        for dependency in pkg.dependencies:
+            if not dependency.target_versions or not dependency.rawtype == "Depends":
+                return None
+            deppkg = dependency.target_versions[0]
+            if deppkg.source_name in ("linux", "linux-signed"):
+                return deppkg.source_version
+            if deppkg.source_name.startswith("linux-meta"):
+                return self.get_kernel_version_from_meta_package(deppkg)
+        return None
+
     def add_update(self, package, kernel_update=False):
-        if package.name in ['linux-libc-dev', 'linux-kernel-generic']:
-            source_name = package.name
-        elif (package.candidate.source_name in ['linux', 'linux-meta', 'linux-hwe', 'linux-hwe-edge'] or
-              (package.name.startswith("linux-image") or
-               package.name.startswith("linux-headers") or
-               package.name.startswith("linux-modules") or
-               package.name.startswith("linux-tools"))):
-            source_name = "linux-%s" % package.candidate.version
+        source_version = package.candidate.version
+        # Change version of kernel meta packages to that of the actual kernel
+        # for grouping with related updates
+        if package.candidate.source_name.startswith("linux-meta"):
+            _source_version = self.get_kernel_version_from_meta_package(package.candidate)
+            if _source_version:
+                source_version = _source_version
+
+        # Change source name of kernel packages for grouping with related updates
+        if (package.candidate.source_name == "linux" or
+            package.candidate.source_name.startswith("linux-hwe") or
+            package.candidate.source_name.startswith("linux-meta") or
+            package.candidate.source_name.startswith("linux-signed") or
+            [True for flavor in SUPPORTED_KERNEL_TYPES if package.candidate.source_name.startswith(f"linux{flavor}")]
+           ):
+            kernel_update = True
+            source_name = f"linux-{source_version}"
         else:
             source_name = package.candidate.source_name
 
@@ -178,18 +197,24 @@ class APTCheck():
             return
 
         if source_name in PRIORITY_UPDATES:
-            if self.priority_updates_available == False and len(self.updates) > 0:
-                self.updates = {}
+            if not self.priority_updates_available and len(self.updates) > 0:
+                self.updates.clear()
             self.priority_updates_available = True
-        if source_name in PRIORITY_UPDATES or self.priority_updates_available == False:
+        if not self.priority_updates_available:
             if source_name in self.updates:
                 update = self.updates[source_name]
                 update.add_package(package)
+                # Adjust update.old_version for kernel updates to try and
+                # match the kernel, not the meta
+                if kernel_update and package.is_installed and not \
+                   "-" in update.old_version and "-" in package.installed.version:
+                    update.old_version = package.installed.version
             else:
                 update = Update(package, source_name=source_name)
                 self.updates[source_name] = update
             if kernel_update:
                 update.type = "kernel"
+        update.new_version = source_version
 
     def serialize_updates(self):
         # Print updates
