@@ -1,9 +1,12 @@
 #!/usr/bin/python3
-import apt
-import sys
 import os
 import re
-from Classes import CONFIGURED_KERNEL_TYPE, SUPPORTED_KERNEL_TYPES
+import sys
+
+import apt
+
+from Classes import (CONFIGURED_KERNEL_TYPE, SUPPORTED_KERNEL_TYPES,
+                     KernelVersion)
 
 if len(sys.argv) > 1 and sys.argv[1] in SUPPORTED_KERNEL_TYPES:
     CONFIGURED_KERNEL_TYPE = sys.argv[1]
@@ -48,24 +51,16 @@ try:
             signed_kernels.append(full_version)
             if full_version == current_version:
                 used = 1
+
+            # provide a representation of the version which helps sorting the kernels
+            versions = KernelVersion(pkg_version).version_id
+
             if not pkg_data.origins[0].origin:
                 origin = 0
             elif pkg_data.origins[0].origin == 'Ubuntu':
                 origin = 1
             else:
                 origin = 2
-
-            # provide a representation of the version which helps sorting the kernels
-            version_array = pkg_version.replace("-", ".").split(".")
-            versions = []
-            for element in version_array:
-                if len(element) == 1:
-                    element = "00%s" % element
-                elif len(element) == 2:
-                    element = "0%s" % element
-                versions.append(element)
-
-            signed_kernels.append(version)
 
             archive = pkg_data.origins[0].archive
 

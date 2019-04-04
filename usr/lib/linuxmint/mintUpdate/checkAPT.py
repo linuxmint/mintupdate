@@ -13,22 +13,11 @@ import apt
 from gi.repository import Gio
 
 from Classes import (CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES,
-                     PRIORITY_UPDATES, Alias, Update)
+                     PRIORITY_UPDATES, Alias, KernelVersion, Update)
 
 gettext.install("mintupdate", "/usr/share/locale")
 
 meta_names = []
-
-class KernelVersion():
-
-    def __init__(self, version):
-        self.version = version
-        self.numeric_versions = self.version.replace("-", ".").split(".")
-        for i, element in enumerate(self.numeric_versions):
-            self.numeric_versions[i] = "0" * (3 - len(element)) + element
-        while len(self.numeric_versions) < 4:
-            self.numeric_versions.append("0" * 3)
-        self.series = tuple(self.numeric_versions[:3])
 
 class APTCheck():
 
@@ -109,14 +98,14 @@ class APTCheck():
                         # than any current candidate
                         if active_kernel.series == meta_kernel.series:
                             # same series
-                            if (not meta_candidate_same_series or meta_kernel.numeric_versions >
-                                KernelVersion(meta_candidate_same_series.candidate.version).numeric_versions
+                            if (not meta_candidate_same_series or meta_kernel.version_id >
+                                KernelVersion(meta_candidate_same_series.candidate.version).version_id
                                 ):
                                 meta_candidate_same_series = meta
                         else:
                             # higher series
-                            if (not meta_candidate_higher_series or meta_kernel.numeric_versions >
-                                KernelVersion(meta_candidate_higher_series.candidate.version).numeric_versions
+                            if (not meta_candidate_higher_series or meta_kernel.version_id >
+                                KernelVersion(meta_candidate_higher_series.candidate.version).version_id
                                 ):
                                 meta_candidate_higher_series = meta
 
@@ -147,9 +136,9 @@ class APTCheck():
                 match = re.match(r'^(?:linux-image-)(\d.+?)%s$' % active_kernel_type, pkgname)
                 if match:
                     kernel = KernelVersion(match.group(1))
-                    if kernel.series == max_kernel.series and kernel.numeric_versions > max_kernel.numeric_versions:
+                    if kernel.series == max_kernel.series and kernel.version_id > max_kernel.version_id:
                         max_kernel = kernel
-            if max_kernel.numeric_versions != active_kernel.numeric_versions:
+            if max_kernel.version_id != active_kernel.version_id:
                 for pkgname in KERNEL_PKG_NAMES:
                     pkgname = pkgname.replace('VERSION', max_kernel.version).replace("-KERNELTYPE", active_kernel_type)
                     if pkgname in self.cache:
