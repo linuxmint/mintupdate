@@ -479,9 +479,9 @@ class InstallThread(threading.Thread):
                                     treeview.set_model(model)
                                     treeview.show()
                                     scrolledWindow.add(treeview)
-                                    dialog.vbox.pack_start(label, False, False, 0)
-                                    dialog.vbox.pack_start(scrolledWindow, True, True, 0)
-                                    dialog.vbox.set_border_width(6)
+                                    dialog.get_content_area().pack_start(label, False, False, 0)
+                                    dialog.get_content_area().pack_start(scrolledWindow, True, True, 0)
+                                    dialog.get_content_area().set_border_width(6)
 
                                 if len(installations) > 0:
                                     # Installations
@@ -508,8 +508,8 @@ class InstallThread(threading.Thread):
                                     treeview.set_model(model)
                                     treeview.show()
                                     scrolledWindow.add(treeview)
-                                    dialog.vbox.pack_start(label, False, False, 0)
-                                    dialog.vbox.pack_start(scrolledWindow, True, True, 0)
+                                    dialog.get_content_area().pack_start(label, False, False, 0)
+                                    dialog.get_content_area().pack_start(scrolledWindow, True, True, 0)
 
                                 dialog.show_all()
                                 if dialog.run() == Gtk.ResponseType.OK:
