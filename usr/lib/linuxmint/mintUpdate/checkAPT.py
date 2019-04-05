@@ -200,7 +200,7 @@ class APTCheck():
             if not self.priority_updates_available and len(self.updates) > 0:
                 self.updates.clear()
             self.priority_updates_available = True
-        if not self.priority_updates_available:
+        if source_name in PRIORITY_UPDATES or not self.priority_updates_available:
             if source_name in self.updates:
                 update = self.updates[source_name]
                 update.add_package(package)
@@ -214,7 +214,7 @@ class APTCheck():
                 self.updates[source_name] = update
             if kernel_update:
                 update.type = "kernel"
-        update.new_version = source_version
+            update.new_version = source_version
 
     def serialize_updates(self):
         # Print updates
