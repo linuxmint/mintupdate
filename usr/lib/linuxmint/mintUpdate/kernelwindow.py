@@ -530,7 +530,7 @@ class KernelWindow():
                 (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, support_status) = kernel
                 if used:
                     currently_using = _("You are currently using the following kernel:")
-                    self.current_label.set_markup("<b>%s %s%s</b>" % (currently_using, label, " (%s)" % support_status if support_status else support_status))
+                    self.current_label.set_markup(f"<b>{currently_using} {label}{kernel_type}{f' ({support_status})' if support_status else ''}</b>")
                 if page_label == page:
                     row = KernelRow(version, pkg_version, kernel_type, label, installed, used, title,
                         installable, origin, support_status, self.window, self.application, self)
