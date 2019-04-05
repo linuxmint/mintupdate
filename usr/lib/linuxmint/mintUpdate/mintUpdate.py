@@ -735,6 +735,7 @@ class RefreshThread(threading.Thread):
                         self.is_self_update = True
                         Gdk.threads_enter()
                         self.application.stack.set_visible_child_name("status_self-update")
+                        self.application.statusbar.set_visible(False)
                         Gdk.threads_leave()
 
                     iter = model.insert_before(None, None)
