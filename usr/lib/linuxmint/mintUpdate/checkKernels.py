@@ -6,11 +6,12 @@ import sys
 import apt
 
 from Classes import (CONFIGURED_KERNEL_TYPE, SUPPORTED_KERNEL_TYPES,
-                     KernelVersion)
+                     KernelVersion, get_release_dates)
 
 if len(sys.argv) > 1 and sys.argv[1] in SUPPORTED_KERNEL_TYPES:
     CONFIGURED_KERNEL_TYPE = sys.argv[1]
 
+release_dates = None
 try:
     current_version = os.uname().release
     cache = apt.Cache()
@@ -65,7 +66,24 @@ try:
             archive = pkg_data.origins[0].archive
 
             # get support duration
-            if pkg_data.record.has_key("Supported") and pkg_data.record["Supported"]:
+            supported_tag = pkg_data.record.get("Supported")
+            if not supported_tag and origin == 1 and not "-proposed" in pkg_data.origins[0].archive:
+                # Workaround for Ubuntu releasing kernels by copying straight from
+                # -proposed and only adding the Supported tag shortly after.
+                # To avoid user confusion in the time in-between we just assume
+                # that all Ubuntu kernels in all pockets but -proposed are supported
+                # and generate the supported tag based on the distro support duration
+                if not release_dates:
+                    release_dates = get_release_dates()
+                distro = pkg.candidate.origins[0].archive.split("-")[0]
+                if distro in release_dates:
+                    distro_lifetime = (release_dates[distro][1].year - release_dates[distro][0].year) * 12 +\
+                                      release_dates[distro][1].month - release_dates[distro][0].month
+                    if distro_lifetime >= 12:
+                        supported_tag = f"{distro_lifetime // 12}y"
+                    else:
+                        supported_tag = f"{distro_lifetime}m"
+            if supported_tag:
                 if pkg_data.record["Supported"].endswith("y"):
                     # override support duration for HWE kernels in LTS releases,
                     # these will be handled by the kernel window
