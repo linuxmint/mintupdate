@@ -615,6 +615,7 @@ class RefreshThread(threading.Thread):
         self.is_self_update = False
 
     def __del__(self):
+        self.application.refreshing = False
         if not self.running:
             return
         self.application.cache_watcher.resume()
@@ -630,7 +631,6 @@ class RefreshThread(threading.Thread):
         if not self.is_self_update:
             self.application.toolbar.set_sensitive(True)
         Gdk.threads_leave()
-        self.application.refreshing = False
 
     def run(self):
         if self.application.refreshing:
