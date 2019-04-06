@@ -11,7 +11,7 @@ from checkAPT import *
 
 # Test if the distribution EOL date is found
 def test_eol_is_found():
-    (is_eol, show_eol_warning, eol_date) = RefreshThread.get_eol_status()
+    (is_eol, show_eol_warning, eol_date) = MintUpdate.get_eol_status()
     assert isinstance(eol_date, datetime)
     assert eol_date
     assert eol_date.year > 2010
