@@ -954,20 +954,19 @@ class Infobars:
         infobar.show_all()
         self.infobar.pack_start(infobar, True, True, 0)
 
-    def remove_infobar(self, id):
+    def remove_infobar(self, infobar_id):
          for child in self.infobar.get_children():
-            if child.id == id or id == "all":
+            if child.id == infobar_id:
                 child.destroy()
 
-    def infobar_is_shown(self, id):
+    def infobar_is_shown(self, infobar_id):
         for child in self.infobar.get_children():
-            if child.id == id:
+            if child.id == infobar_id:
                 return True
         return False
 
     def run_status_checks(self):
         """ Runs various status checks and shows infobars where appropriate """
-        # self.remove_infobars("all")
         self.eol_check()
         self.timeshift_check()
         self.mirror_check()
@@ -1023,7 +1022,7 @@ class Infobars:
         infobar_id = "mintsources"
         self.remove_infobar(infobar_id)
 
-        def get_url_last_modified():
+        def get_url_last_modified(url):
             try:
                 c = pycurl.Curl()
                 c.setopt(pycurl.URL, url)
