@@ -652,11 +652,6 @@ class RefreshThread(threading.Thread):
 
         Gdk.threads_enter()
         self.vpaned_position = self.application.paned.get_position()
-        for child in self.application.infobar.get_children():
-            child.destroy()
-        if self.application.reboot_required:
-            self.application.show_infobar(_("Reboot required"),
-                _("You have installed updates that require a reboot to take effect, please reboot your system as soon as possible."))
         Gdk.threads_leave()
 
         try:
@@ -817,11 +812,11 @@ class RefreshThread(threading.Thread):
                     Gdk.threads_leave()
 
             # Check for infobars to display
-            self.run_status_checks()
+            self.application.infobars.run_status_checks()
 
             # All done, show status message
             if not len(lines) or not num_visible:
-                if self.is_end_of_life:
+                if self.application.is_end_of_life:
                     NO_UPDATES_MSG = _("Your distribution has reached end of life and is no longer supported")
                     log_msg = "System is end of life, no updates available"
                     tray_icon = "mintupdate-error"
@@ -852,13 +847,6 @@ class RefreshThread(threading.Thread):
             self.application.set_status_icon(_("Could not refresh the list of updates"), "mintupdate-error")
             Gdk.threads_leave()
 
-    def run_status_checks(self):
-        """ Runs various status checks and shows infobars where appropriate """
-        self.is_end_of_life, self.show_eol_warning, self.eol_date = self.get_eol_status()
-        self.eol_check()
-        self.timeshift_check()
-        self.mirror_check()
-
     def check_policy(self):
         """ Check the presence of the Mint layer """
         p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={"LC_ALL": "C"})
@@ -879,7 +867,6 @@ class RefreshThread(threading.Thread):
     def policy_check(self):
         (mint_layer_found, error_msg) = self.check_policy()
         if not mint_layer_found:
-            Gdk.threads_enter()
             label1 = _("Your APT configuration is corrupt.")
             label2 = _("Do not install or update anything, it could break your operating system!")
             label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
@@ -889,173 +876,19 @@ class RefreshThread(threading.Thread):
                 error_msg = f"\n\n{error_label}\n{error_msg}"
             else:
                 error_label = ""
-            self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
+            Gdk.threads_enter()
+            self.application.infobars.show_infobar("mintsources",
+                _("Please switch to another Linux Mint mirror"),
                 msg, Gtk.MessageType.ERROR,
+                callback=self.application.infobars._on_infobar_mintsources_response)
             self.application.set_status_icon(f"{label1}\n{label2}", "mintupdate-error")
             self.application.logger.write_error("Error: The APT policy is incorrect!")
             self.application.stack.set_visible_child_name("status_error")
-            self.application.builder.get_object("label_error_details").set_markup(f"<b>{label1}\n{label2}\n{label3}{error_msg}</b>")
+            self.application.builder.get_object("label_error_details").set_markup(
+                f"<b>{label1}\n{label2}\n{label3}{error_msg}</b>")
             self.application.builder.get_object("label_error_details").show()
             Gdk.threads_leave()
         return mint_layer_found
-
-    @staticmethod
-    def get_eol_status():
-        """ Checks if distribution has reached end of life (EOL)
-
-        Returns:
-        * is_eol: True if EOL
-        * show_eol_warning: True if early_warning_days > EOL - now
-        * eol_date: datetime object of EOL date
-        """
-        early_warning_days = 90
-        is_eol = False
-        eol_date = None
-        show_eol_warning = False
-        try:
-            release_dates = get_release_dates()
-            if release_dates and os.path.isfile("/etc/os-release"):
-                with open("/etc/os-release", encoding="utf-8") as f:
-                    release_data = f.readlines()
-                base_release = next((x.split("=",1)[1].strip() for x in release_data
-                                     if (x.startswith("UBUNTU_CODENAME=")) or x.startswith("DEBIAN_CODENAME=")), None)
-                if base_release in release_dates.keys():
-                    now = datetime.now()
-                    eol_date = release_dates[base_release][1]
-                    is_eol =  now > eol_date
-                    show_eol_warning =  (eol_date - now).days <= early_warning_days
-        except:
-            pass
-        return (is_eol, show_eol_warning, eol_date)
-
-    def eol_check(self):
-        """ End of Life notification """
-        if self.show_eol_warning and self.application.settings.get_boolean("warn-about-distribution-eol"):
-            try:
-                release_name = subprocess.run(["lsb_release", "-d"], stdout=subprocess.PIPE).stdout.decode().split(":", 1)[1].strip()
-            except:
-                release_name = _("distribution")
-
-            infobar_title = _("DISTRIBUTION END OF LIFE WARNING")
-            infobar_message = "%s\n\n%s %s\n\n%s" % (
-                _(f"Your {release_name} is only supported until {self.eol_date.strftime('%x')}."),
-                _("Your system will remain functional after that date, but the official software repositories will become unavailable along with any updates including security updates."),
-                _("You should perform an upgrade to or a clean install of a newer version of your distribution before that happens."),
-                _("For more information visit <a href='https://linuxmint.com'>linuxmint.com</a>."))
-            Gdk.threads_enter()
-            self.application.show_infobar(infobar_title,
-                                          infobar_message,
-                                          Gtk.MessageType.WARNING,
-                                          callback=self._on_infobar_eol_response)
-            Gdk.threads_leave()
-
-    def timeshift_check(self):
-        """ Timeshift setup notification """
-        if self.application.settings.get_boolean("warn-about-timeshift") and \
-           os.path.exists("/usr/bin/timeshift-gtk") and \
-           not self.checkTimeshiftConfiguration():
-            Gdk.threads_enter()
-            self.application.show_infobar(_("Please set up System Snapshots"),
-                _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
-                Gtk.MessageType.WARNING, callback=self._on_infobar_timeshift_response)
-            Gdk.threads_leave()
-
-    def mirror_check(self):
-        """ Mirror-related notifications """
-        infobar_message = None
-        infobar_message_type = Gtk.MessageType.WARNING
-        infobar_callback = self._on_infobar_mintsources_response
-        try:
-            if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
-                mirror_url = None
-
-                codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
-                with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
-                    for line in sources_file:
-                        line = line.strip()
-                        if line.startswith("deb ") and f"{codename} main upstream import" in line:
-                            mirror_url = line.split()[1]
-                            if mirror_url.endswith("/"):
-                                mirror_url = mirror_url[:-1]
-                            break
-                if mirror_url is None:
-                    # Unable to find the Mint mirror being used..
-                    pass
-                elif mirror_url == "http://packages.linuxmint.com":
-                    if not self.application.settings.get_boolean("default-repo-is-ok"):
-                        infobar_title = _("Do you want to switch to a local mirror?")
-                        infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
-                        infobar_message_type = Gtk.MessageType.QUESTION
-                elif not self.application.app_hidden:
-                    # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
-                    mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                    mirror_timestamp = self.get_url_last_modified(f"{mirror_url}/db/version")
-                    if mirror_timestamp is None:
-                        if mint_timestamp is None:
-                            # Both default repo and mirror are unreachable, assume there's no Internet connection
-                            pass
-                        else:
-                            infobar_title = _("Please switch to another mirror")
-                            infobar_message = _("%s is unreachable.") % mirror_url
-                    elif mint_timestamp is not None:
-                        mint_date = datetime.fromtimestamp(mint_timestamp)
-                        now = datetime.now()
-                        mint_age = (now - mint_date).days
-                        if (mint_age > 2):
-                            mirror_date = datetime.fromtimestamp(mirror_timestamp)
-                            mirror_age = (mint_date - mirror_date).days
-                            if (mirror_age > 2):
-                                infobar_title = _("Please switch to another mirror")
-                                infobar_message = ngettext("The last update on %(mirror)s was %(days)d day ago.",
-                                                            "The last update on %(mirror)s was %(days)d days ago.",
-                                                            (now - mirror_date).days) % \
-                                                            {'mirror': mirror_url, 'days': (now - mirror_date).days}
-        except:
-            print(sys.exc_info()[0])
-            # best effort, just print out the error
-            print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
-
-        if infobar_message:
-            Gdk.threads_enter()
-            self.application.show_infobar(infobar_title,
-                                            infobar_message,
-                                            infobar_message_type,
-                                            callback=infobar_callback)
-            Gdk.threads_leave()
-
-    def _on_infobar_mintsources_response(self, infobar, response_id):
-        infobar.destroy()
-        if response_id == Gtk.ResponseType.NO:
-            self.application.settings.set_boolean("default-repo-is-ok", True)
-        else:
-            subprocess.Popen(["pkexec", "mintsources"])
-
-    def _on_infobar_timeshift_response(self, infobar, response_id):
-        infobar.destroy()
-        subprocess.Popen(["pkexec", "timeshift-gtk"])
-
-    def _on_infobar_eol_response(self, infobar, response_id):
-        infobar.destroy()
-        self.application.settings.set_boolean("warn-about-distribution-eol", False)
-
-    def get_url_last_modified(self, url):
-        try:
-            c = pycurl.Curl()
-            c.setopt(pycurl.URL, url)
-            c.setopt(pycurl.CONNECTTIMEOUT, 5)
-            c.setopt(pycurl.TIMEOUT, 30)
-            c.setopt(pycurl.FOLLOWLOCATION, 1)
-            c.setopt(pycurl.NOBODY, 1)
-            c.setopt(pycurl.OPT_FILETIME, 1)
-            c.perform()
-            filetime = c.getinfo(pycurl.INFO_FILETIME)
-            if filetime < 0:
-                return None
-            else:
-                return filetime
-        except Exception as e:
-            print (e)
-            return None
 
     def checkDependencies(self, changes, cache):
         foundSomething = False
@@ -1075,19 +908,219 @@ class RefreshThread(threading.Thread):
                     except Exception as e:
                         print (e)
                         pass # don't know why we get these..
-        if (foundSomething):
+        if foundSomething:
             changes = self.checkDependencies(changes, cache)
         return changes
 
-    def checkTimeshiftConfiguration(self):
-        if os.path.isfile("/etc/timeshift.json"):
-            try:
-                data = json.load(open("/etc/timeshift.json", encoding="utf-8"))
-                if 'backup_device_uuid' in data and data['backup_device_uuid']:
-                    return True
-            except Exception as e:
-                print("Error while checking Timeshift configuration: ", e)
+class Infobars:
+
+    def __init__(self, application):
+        self.application = application
+        self.infobar = self.application.builder.get_object("hbox_infobar")
+
+    def show_infobar(self, infobar_id, title, msg, msg_type=Gtk.MessageType.WARNING,
+                     icon=None, callback=None):
+        if self.infobar_is_shown(infobar_id):
+            return
+        infobar = Gtk.InfoBar()
+        infobar.id = infobar_id
+        infobar.set_margin_bottom(2)
+        infobar.set_message_type(msg_type)
+        if not icon:
+            if msg_type == Gtk.MessageType.WARNING:
+                icon = "dialog-warning-symbolic"
+            elif msg_type == Gtk.MessageType.ERROR:
+                icon = "dialog-error-symbolic"
+            elif msg_type == Gtk.MessageType.QUESTION:
+                icon = "dialog-information-symbolic"
+        if icon:
+            img = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.LARGE_TOOLBAR)
+        else:
+            img = Gtk.Image.new_from_icon_name("dialog-warning-symbolic",
+                                               Gtk.IconSize.LARGE_TOOLBAR)
+        infobar.get_content_area().pack_start(img, False, False, 0)
+
+        info_label = Gtk.Label()
+        info_label.set_line_wrap(True)
+        info_label.set_markup(f"<b>{title}</b>\n{msg}")
+        infobar.get_content_area().pack_start(info_label, False, False, 0)
+        if callback:
+            if msg_type == Gtk.MessageType.QUESTION:
+                infobar.add_button(_("Yes"), Gtk.ResponseType.YES)
+                infobar.add_button(_("No"), Gtk.ResponseType.NO)
+            else:
+                infobar.add_button(_("OK"), Gtk.ResponseType.OK)
+            infobar.connect("response", callback)
+        infobar.show_all()
+        self.infobar.pack_start(infobar, True, True, 0)
+
+    def remove_infobar(self, id):
+         for child in self.infobar.get_children():
+            if child.id == id or id == "all":
+                child.destroy()
+
+    def infobar_is_shown(self, id):
+        for child in self.infobar.get_children():
+            if child.id == id:
+                return True
         return False
+
+    def run_status_checks(self):
+        """ Runs various status checks and shows infobars where appropriate """
+        # self.remove_infobars("all")
+        self.eol_check()
+        self.timeshift_check()
+        self.mirror_check()
+        self.reboot_required_check()
+
+    def reboot_required_check(self):
+        infobar_id = "reboot_required"
+        if not self.application.reboot_required or self.infobar_is_shown(infobar_id):
+            return
+        self.application.infobars.show_infobar(infobar_id, _("Reboot required"),
+            _("You have installed updates that require a reboot to take effect, please reboot your system as soon as possible."))
+
+    def eol_check(self):
+        """ End of Life notification """
+        infobar_id = "eol"
+        if self.application.show_eol_warning and \
+           self.application.settings.get_boolean("warn-about-distribution-eol"):
+            if self.infobar_is_shown(infobar_id):
+                return
+            try:
+                release_name = subprocess.run(["lsb_release", "-d"], stdout=subprocess.PIPE).stdout.decode().split(":", 1)[1].strip()
+            except:
+                release_name = _("distribution")
+            infobar_message = "%s\n\n%s %s\n\n%s" % (
+                _(f"Your {release_name} is only supported until {self.application.eol_date.strftime('%x')}."),
+                _("Your system will remain functional after that date, but the official software repositories will become unavailable along with any updates including security updates."),
+                _("You should perform an upgrade to or a clean install of a newer version of your distribution before that happens."),
+                _("For more information visit <a href='https://linuxmint.com'>linuxmint.com</a>."))
+            self.show_infobar(infobar_id,
+                              _("DISTRIBUTION END OF LIFE WARNING"),
+                              infobar_message,
+                              Gtk.MessageType.WARNING,
+                              callback=self._on_infobar_eol_response)
+        else:
+            self.remove_infobar(infobar_id)
+
+    def timeshift_check(self, *args):
+        """ Timeshift setup notification """
+        infobar_id = "timeshift"
+        if self.application.settings.get_boolean("warn-about-timeshift") and \
+           os.path.exists("/usr/bin/timeshift-gtk") and \
+           not checkTimeshiftConfiguration():
+            if self.infobar_is_shown(infobar_id):
+                return
+            self.show_infobar(infobar_id, _("Please set up System Snapshots"),
+                _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
+                Gtk.MessageType.WARNING, callback=self._on_infobar_timeshift_response)
+        else:
+            self.remove_infobar(infobar_id)
+
+    def mirror_check(self):
+        """ Mirror-related notifications """
+        infobar_id = "mintsources"
+        self.remove_infobar(infobar_id)
+
+        def get_url_last_modified():
+            try:
+                c = pycurl.Curl()
+                c.setopt(pycurl.URL, url)
+                c.setopt(pycurl.CONNECTTIMEOUT, 5)
+                c.setopt(pycurl.TIMEOUT, 30)
+                c.setopt(pycurl.FOLLOWLOCATION, 1)
+                c.setopt(pycurl.NOBODY, 1)
+                c.setopt(pycurl.OPT_FILETIME, 1)
+                c.perform()
+                filetime = c.getinfo(pycurl.INFO_FILETIME)
+                if filetime < 0:
+                    return None
+                else:
+                    return filetime
+            except Exception as e:
+                print (e)
+                return None
+
+        try:
+            if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
+                infobar_message = None
+                infobar_message_type = Gtk.MessageType.WARNING
+                infobar_callback = self._on_infobar_mintsources_response
+                mirror_url = None
+                codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
+                with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
+                    for line in sources_file:
+                        line = line.strip()
+                        if line.startswith("deb ") and f"{codename} main upstream import" in line:
+                            mirror_url = line.split()[1]
+                            if mirror_url.endswith("/"):
+                                mirror_url = mirror_url[:-1]
+                            break
+                if mirror_url == "http://packages.linuxmint.com":
+                    if not self.application.settings.get_boolean("default-repo-is-ok"):
+                        infobar_title = _("Do you want to switch to a local mirror?")
+                        infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
+                        infobar_message_type = Gtk.MessageType.QUESTION
+                elif not self.application.app_hidden:
+                    # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
+                    mint_timestamp = get_url_last_modified("http://packages.linuxmint.com/db/version")
+                    mirror_timestamp = get_url_last_modified(f"{mirror_url}/db/version")
+                    if not mirror_timestamp:
+                        if not mint_timestamp:
+                            # Both default repo and mirror are unreachable, assume there's no Internet connection
+                            pass
+                        else:
+                            infobar_title = _("Please switch to another mirror")
+                            infobar_message = _("%s is unreachable.") % mirror_url
+                    elif mint_timestamp:
+                        mint_date = datetime.fromtimestamp(mint_timestamp)
+                        now = datetime.now()
+                        mint_age = (now - mint_date).days
+                        if (mint_age > 2):
+                            mirror_date = datetime.fromtimestamp(mirror_timestamp)
+                            mirror_age = (mint_date - mirror_date).days
+                            if (mirror_age > 2):
+                                infobar_title = _("Please switch to another mirror")
+                                infobar_message = ngettext("The last update on %(mirror)s was %(days)d day ago.",
+                                                           "The last update on %(mirror)s was %(days)d days ago.",
+                                                           (now - mirror_date).days) % \
+                                                           {'mirror': mirror_url, 'days': (now - mirror_date).days}
+                if infobar_message:
+                    self.show_infobar(infobar_id,
+                                    infobar_title,
+                                    infobar_message,
+                                    infobar_message_type,
+                                    callback=infobar_callback)
+        except:
+            print(sys.exc_info()[0])
+            # best effort, just print out the error
+            print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
+
+    def _on_infobar_mintsources_response(self, infobar, response_id):
+        infobar.destroy()
+        if response_id == Gtk.ResponseType.NO:
+            self.application.settings.set_boolean("default-repo-is-ok", True)
+        else:
+            subprocess.Popen(["pkexec", "mintsources"])
+
+    def _on_infobar_timeshift_response(self, infobar, response_id):
+        infobar.destroy()
+        subprocess.Popen(["pkexec", "timeshift-gtk"])
+
+    def _on_infobar_eol_response(self, infobar, response_id):
+        infobar.destroy()
+        self.application.settings.set_boolean("warn-about-distribution-eol", False)
+
+def checkTimeshiftConfiguration():
+    if os.path.isfile("/etc/timeshift.json"):
+        try:
+            data = json.load(open("/etc/timeshift.json", encoding="utf-8"))
+            if 'backup_device_uuid' in data and data['backup_device_uuid']:
+                return True
+        except Exception as e:
+            print("Error while checking Timeshift configuration: ", e)
+    return False
 
 class Logger():
 
@@ -1218,6 +1251,9 @@ class MintUpdate():
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.stack.set_transition_duration(175)
 
+        # Get distribution end of life status
+        self.is_end_of_life, self.show_eol_warning, self.eol_date = self.get_eol_status()
+
         try:
             self.window.set_title(_("Update Manager"))
 
@@ -1246,8 +1282,8 @@ class MintUpdate():
             updates_page = self.builder.get_object("updates_page")
             self.stack.add_named(updates_page, "updates_available")
 
-            # the infobar container
-            self.infobar = self.builder.get_object("hbox_infobar")
+            # initialize the Infobars object
+            self.infobars = Infobars(self)
 
             # the treeview
             cr = Gtk.CellRendererToggle()
@@ -1621,6 +1657,36 @@ class MintUpdate():
         self.set_status_message(message)
         self.set_status_icon(tooltip, icon)
 
+
+    @staticmethod
+    def get_eol_status():
+        """ Checks if distribution has reached end of life (EOL)
+
+        Returns:
+        * is_eol: True if EOL
+        * show_eol_warning: True if early_warning_days > EOL - now
+        * eol_date: datetime object of EOL date
+        """
+        early_warning_days = 90
+        is_eol = False
+        eol_date = None
+        show_eol_warning = False
+        try:
+            release_dates = get_release_dates()
+            if release_dates and os.path.isfile("/etc/os-release"):
+                with open("/etc/os-release", encoding="utf-8") as f:
+                    release_data = f.readlines()
+                base_release = next((x.split("=",1)[1].strip() for x in release_data
+                                    if (x.startswith("UBUNTU_CODENAME=")) or x.startswith("DEBIAN_CODENAME=")), None)
+                if base_release in release_dates.keys():
+                    now = datetime.now()
+                    eol_date = release_dates[base_release][1]
+                    is_eol =  now > eol_date
+                    show_eol_warning =  (eol_date - now).days <= early_warning_days
+        except:
+            pass
+        return (is_eol, show_eol_warning, eol_date)
+
     @staticmethod
     def dpkg_locked():
         """ Returns True if a process has a handle on /var/lib/dpkg/lock (no check for write lock) """
@@ -1639,37 +1705,6 @@ class MintUpdate():
         dialog.set_title(_("Update Manager"))
         dialog.run()
         dialog.destroy()
-
-    def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon=None, callback=None):
-        infobar = Gtk.InfoBar()
-        infobar.set_margin_bottom(2)
-        infobar.set_message_type(msg_type)
-        if not icon:
-            if msg_type == Gtk.MessageType.WARNING:
-                icon = "dialog-warning-symbolic"
-            elif msg_type == Gtk.MessageType.ERROR:
-                icon = "dialog-error-symbolic"
-            elif msg_type == Gtk.MessageType.QUESTION:
-                icon = "dialog-information-symbolic"
-        if icon:
-            img = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.LARGE_TOOLBAR)
-        else:
-            img = Gtk.Image.new_from_icon_name("dialog-warning-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
-        infobar.get_content_area().pack_start(img, False, False, 0)
-
-        info_label = Gtk.Label()
-        info_label.set_line_wrap(True)
-        info_label.set_markup(f"<b>{title}</b>\n{msg}")
-        infobar.get_content_area().pack_start(info_label, False, False, 0)
-        if callback:
-            if msg_type == Gtk.MessageType.QUESTION:
-                infobar.add_button(_("Yes"), Gtk.ResponseType.YES)
-                infobar.add_button(_("No"), Gtk.ResponseType.NO)
-            else:
-                infobar.add_button(_("OK"), Gtk.ResponseType.OK)
-            infobar.connect("response", callback)
-        infobar.show_all()
-        self.infobar.pack_start(infobar, True, True, 0)
 
 ######### WINDOW/STATUSICON ##########
 
