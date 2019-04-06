@@ -2050,21 +2050,31 @@ class MintUpdate():
         window.show_all()
         window.present()
 
+######### KERNEL FEATURES #########
+
+    def open_kernels(self, widget):
+        kernel_window = KernelWindow(self)
+
 ######### PREFERENCES SCREEN #########
 
     def open_preferences(self, widget):
-        if self.preferences_window_showing:
-            return
-        self.window.set_sensitive(False)
-        gladefile = "/usr/share/linuxmint/mintupdate/preferences.ui"
-        builder = Gtk.Builder()
-        builder.set_translation_domain("mintupdate")
-        builder.add_from_file(gladefile)
-        window = builder.get_object("main_window")
-        window.set_title(_("Preferences"))
-        window.set_icon_name("mintupdate")
+        if not self.preferences_window_showing:
+            Preferences(self)
 
-        switch_container = builder.get_object("switch_container")
+class Preferences:
+
+    def __init__(self, application):
+        self.application = application
+        self.settings = self.application.settings
+        self.refresh_required = False
+        self.application.window.set_sensitive(False)
+        self.application.preferences_window_showing = True
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("mintupdate")
+        self.builder.add_from_file("/usr/share/linuxmint/mintupdate/preferences.ui")
+        self.window = self.builder.get_object("main_window")
+
+        switch_container = self.builder.get_object("switch_container")
         stack = Gtk.Stack()
         stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         stack.set_transition_duration(150)
@@ -2073,42 +2083,31 @@ class MintUpdate():
         switch_container.pack_start(stack_switcher, True, True, 0)
         stack_switcher.set_halign(Gtk.Align.CENTER)
 
-        page_holder = builder.get_object("page_container")
+        page_holder = self.builder.get_object("page_container")
         page_holder.add(stack)
 
-        stack.add_titled(builder.get_object("page_options"), "page_options", _("Options"))
-        stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
-        stack.add_titled(builder.get_object("page_auto"), "page_auto", _("Automation"))
+        stack.add_titled(self.builder.get_object("page_options"), "page_options", _("Options"))
+        stack.add_titled(self.builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
+        stack.add_titled(self.builder.get_object("page_auto"), "page_auto", _("Automation"))
 
-        builder.get_object("checkbutton_hide_window_after_update").set_active(self.settings.get_boolean("hide-window-after-update"))
-        builder.get_object("checkbutton_hide_systray").set_active(self.settings.get_boolean("hide-systray"))
-        builder.get_object("checkbutton_warning_timeshift").set_active(self.settings.get_boolean("warn-about-timeshift"))
-        builder.get_object("auto_upgrade_checkbox").set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
-        builder.get_object("auto_autoremove_checkbox").set_active(os.path.isfile(AUTOMATIONS["autoremove"][0]))
+        # Initialize widgets and callbacks on Options page
+        self.initialize_widget("checkbutton_hide_window_after_update", "hide-window-after-update")
+        self.initialize_widget("checkbutton_hide_systray", "hide-systray", additional_callback=self.application.toggle_status_icon)
+        self.initialize_widget("checkbutton_warning_timeshift", "warn-about-timeshift", additional_callback=self.application.infobars.timeshift_check)
+        self.initialize_widget("checkbutton_refresh_schedule_enabled", "refresh-schedule-enabled", additional_callback=self.on_refresh_schedule_toggled)
+        self.initialize_widget("refresh_days", "refresh-days")
+        self.initialize_widget("refresh_hours", "refresh-hours")
+        self.initialize_widget("refresh_minutes", "refresh-minutes")
+        self.initialize_widget("autorefresh_days", "autorefresh-days")
+        self.initialize_widget("autorefresh_hours", "autorefresh-hours")
+        self.initialize_widget("autorefresh_minutes", "autorefresh-minutes")
 
-        def set_GtkSpinButton(name, value, range_min=0, range_max=1, increment_step=1, increment_page=10):
-            obj = builder.get_object(name)
-            obj.set_range(range_min, range_max)
-            obj.set_increments(increment_step, increment_page)
-            obj.set_value(value)
-
-        set_GtkSpinButton("refresh_days", self.settings.get_int("refresh-days"), range_max=99, increment_page=2)
-        set_GtkSpinButton("refresh_hours", self.settings.get_int("refresh-hours"), range_max=23, increment_page=5)
-        set_GtkSpinButton("refresh_minutes", self.settings.get_int("refresh-minutes"), range_max=59, increment_page=10)
-        set_GtkSpinButton("autorefresh_days", self.settings.get_int("autorefresh-days"), range_max=99, increment_page=2)
-        set_GtkSpinButton("autorefresh_hours", self.settings.get_int("autorefresh-hours"), range_max=23, increment_page=5)
-        set_GtkSpinButton("autorefresh_minutes", self.settings.get_int("autorefresh-minutes"), range_max=59, increment_page=10)
-
-        builder.get_object("checkbutton_refresh_schedule_enabled").set_active(self.refresh_schedule_enabled)
-        builder.get_object("checkbutton_refresh_schedule_enabled").connect("toggled", self.on_refresh_schedule_toggled, builder)
-
-        treeview_blacklist = builder.get_object("treeview_blacklist")
+        # Initialize Blacklist page
+        treeview_blacklist = self.builder.get_object("treeview_blacklist")
         column = Gtk.TreeViewColumn(_("Ignored Updates"), Gtk.CellRendererText(), text=0)
         column.set_sort_column_id(0)
         column.set_resizable(True)
         treeview_blacklist.append_column(column)
-        treeview_blacklist.set_headers_clickable(True)
-        treeview_blacklist.set_reorderable(False)
         treeview_blacklist.show()
         model = Gtk.TreeStore(str)
         model.set_sort_column_id( 0, Gtk.SortType.ASCENDING )
@@ -2117,21 +2116,50 @@ class MintUpdate():
         for ignored_pkg in blacklist:
             iter = model.insert_before(None, None)
             model.set_value(iter, 0, ignored_pkg)
+        self.builder.get_object("button_add").connect("clicked", self.add_blacklisted_package, treeview_blacklist)
+        self.builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
 
-        window.connect("destroy", self.save_preferences, builder)
-        builder.get_object("pref_button_apply").connect("clicked", self.save_preferences, builder)
-        builder.get_object("button_add").connect("clicked", self.add_blacklisted_package, treeview_blacklist, window)
-        builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
-        builder.get_object("button_add").set_always_show_image(True)
-        builder.get_object("button_remove").set_always_show_image(True)
-        builder.get_object("export_blacklist_button").connect("clicked", self.export_blacklist)
-        self.preferences_window_showing = True
+        # Initialize Automation page
+        for automation_id in ("upgrade", "autoremove"):
+            self.initialize_automation(automation_id)
+        self.builder.get_object("export_blacklist_button").connect("clicked", self.export_blacklist)
 
-        window.show_all()
-        builder.get_object("refresh_grid").set_visible(self.refresh_schedule_enabled)
+        self.window.connect("destroy", self.close)
+        self.builder.get_object("pref_button_apply").connect("clicked", self.close)
 
-    def on_refresh_schedule_toggled(self, widget, builder):
-        builder.get_object("refresh_grid").set_visible(widget.get_active())
+        self.window.show_all()
+        self.builder.get_object("refresh_grid").set_visible(self.application.refresh_schedule_enabled)
+
+    def initialize_widget(self, widget_id, setting, additional_callback=None):
+        widget = self.builder.get_object(widget_id)
+        # Set value
+        if isinstance(widget, Gtk.CheckButton):
+            event = "toggled"
+            widget.set_active(self.settings.get_boolean(setting))
+        elif isinstance(widget, Gtk.SpinButton):
+            event = "value-changed"
+            widget.set_value(self.settings.get_int(setting))
+        # Connect callbacks
+        widget.connect(event, self.on_setting_toggled, setting)
+        if additional_callback:
+            widget.connect(event, additional_callback)
+
+    def initialize_automation(self, automation_id):
+        widget = self.builder.get_object(f"auto_{automation_id}_checkbox")
+        widget.set_active(os.path.isfile(AUTOMATIONS[automation_id][0]))
+        widget.connect("toggled", self.set_automation, automation_id)
+
+    def on_setting_toggled(self, widget, setting):
+        if isinstance(widget, Gtk.CheckButton):
+            self.settings.set_boolean(setting, widget.get_active())
+        elif isinstance(widget, Gtk.SpinButton):
+            self.settings.set_int(setting, int(widget.get_value()))
+
+    def on_refresh_schedule_toggled(self, widget):
+        self.application.refresh_schedule_enabled = widget.get_active()
+        self.builder.get_object("refresh_grid").set_visible(self.application.refresh_schedule_enabled)
+        if self.application.refresh_schedule_enabled and not self.application.auto_refresh.is_alive():
+            self.application.auto_refresh.start()
 
     def export_blacklist(self, widget):
         filename = os.path.join(tempfile.gettempdir(), "mintUpdate/blacklist")
@@ -2141,8 +2169,8 @@ class MintUpdate():
         subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "blacklist", "enable"])
 
     @staticmethod
-    def set_automation(automation_id, builder):
-        active = builder.get_object(f"auto_{automation_id}_checkbox").get_active()
+    def set_automation(widget, automation_id):
+        active = widget.get_active()
         exists = os.path.isfile(AUTOMATIONS[automation_id][0])
         action = None
         if active and not exists:
@@ -2151,35 +2179,11 @@ class MintUpdate():
             action = "disable"
         if action:
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", automation_id, action])
+        widget.set_active(os.path.isfile(AUTOMATIONS[automation_id][0]))
 
-    def save_preferences(self, widget, builder):
-        # Options
-        self.settings.set_boolean('hide-window-after-update', builder.get_object("checkbutton_hide_window_after_update").get_active())
-        self.settings.set_boolean('hide-systray', builder.get_object("checkbutton_hide_systray").get_active())
-        self.settings.set_boolean('warn-about-timeshift', builder.get_object("checkbutton_warning_timeshift").get_active())
-        self.settings.set_int('refresh-days', int(builder.get_object("refresh_days").get_value()))
-        self.settings.set_int('refresh-hours', int(builder.get_object("refresh_hours").get_value()))
-        self.settings.set_int('refresh-minutes', int(builder.get_object("refresh_minutes").get_value()))
-        self.settings.set_int('autorefresh-days', int(builder.get_object("autorefresh_days").get_value()))
-        self.settings.set_int('autorefresh-hours', int(builder.get_object("autorefresh_hours").get_value()))
-        self.settings.set_int('autorefresh-minutes', int(builder.get_object("autorefresh_minutes").get_value()))
-        self.refresh_schedule_enabled = builder.get_object("checkbutton_refresh_schedule_enabled").get_active()
-        self.settings.set_boolean('refresh-schedule-enabled', self.refresh_schedule_enabled)
-        if self.refresh_schedule_enabled and not self.auto_refresh.is_alive():
-            self.auto_refresh = AutomaticRefreshThread(self)
-            self.auto_refresh.start()
-
-        # Automation
-        self.set_automation("upgrade", builder)
-        self.set_automation("autoremove", builder)
-
-        window = builder.get_object("main_window")
-        window.disconnect_by_func(self.save_preferences)
-        self.close_preferences(widget, window)
-        self.refresh()
-
-    def add_blacklisted_package(self, widget, treeview_blacklist, window):
-        dialog = Gtk.MessageDialog(window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK, None)
+    def add_blacklisted_package(self, widget, treeview_blacklist):
+        dialog = Gtk.MessageDialog(self.window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                   Gtk.MessageType.QUESTION, Gtk.ButtonsType.OK, None)
         dialog.set_markup(_("Please specify the source package name of the update to ignore (wildcards are supported) and optionally the version:"))
         dialog.set_title(_("Ignore an Update"))
         dialog.set_icon_name("mintupdate")
@@ -2212,6 +2216,7 @@ class MintUpdate():
                 blacklist.append(pkg)
                 self.settings.set_strv("blacklisted-packages", blacklist)
         dialog.destroy()
+        self.refresh_required = True
 
     def remove_blacklisted_package(self, widget, treeview_blacklist):
         selection = treeview_blacklist.get_selection()
@@ -2223,16 +2228,15 @@ class MintUpdate():
             self.settings.set_strv("blacklisted-packages", blacklist)
             # Update GUI
             model.remove(iter)
+        self.refresh_required = True
 
-    def close_preferences(self, widget, window):
-        self.window.set_sensitive(True)
-        self.preferences_window_showing = False
-        window.destroy()
-
-######### KERNEL FEATURES #########
-
-    def open_kernels(self, widget):
-        kernel_window = KernelWindow(self)
+    def close(self, widget):
+        self.window.disconnect_by_func(self.close)
+        self.application.window.set_sensitive(True)
+        self.application.preferences_window_showing = False
+        if self.refresh_required:
+            self.application.refresh()
+        self.window.destroy()
 
 if __name__ == "__main__":
     MintUpdate()
