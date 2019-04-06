@@ -2179,7 +2179,7 @@ class Preferences:
             action = "disable"
         if action:
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", automation_id, action])
-        widget.set_active(os.path.isfile(AUTOMATIONS[automation_id][0]))
+            widget.set_active(os.path.isfile(AUTOMATIONS[automation_id][0]))
 
     def add_blacklisted_package(self, widget, treeview_blacklist):
         dialog = Gtk.MessageDialog(self.window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
