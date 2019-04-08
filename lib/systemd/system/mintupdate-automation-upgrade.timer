@@ -1,0 +1,10 @@
+[Unit]
+Description=Update Manager automatic upgrades
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target
