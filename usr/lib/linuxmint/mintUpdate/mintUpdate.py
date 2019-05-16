@@ -630,6 +630,7 @@ class RefreshThread(threading.Thread):
         self.application.paned.set_position(self.vpaned_position)
         if not self.is_self_update:
             self.application.toolbar.set_sensitive(True)
+            self.application.menubar.set_sensitive(True)
         Gdk.threads_leave()
 
     def run(self):
@@ -671,6 +672,7 @@ class RefreshThread(threading.Thread):
             if not self.application.app_hidden:
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.application.toolbar.set_sensitive(False)
+            self.application.menubar.set_sensitive(False)
 
             # Starts the blinking
             self.application.set_status("", _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
