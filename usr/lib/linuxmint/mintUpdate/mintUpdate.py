@@ -614,7 +614,8 @@ class RefreshThread(threading.Thread):
         self.running = False
         self.is_self_update = False
 
-    def __del__(self):
+    def cleanup(self):
+        # cleanup when finished refreshing
         self.application.refreshing = False
         if not self.running:
             return
@@ -637,18 +638,18 @@ class RefreshThread(threading.Thread):
         if self.application.refreshing:
             return False
 
-        self.application.refreshing = True
-
         if self.application.updates_inhibited:
             self.application.logger.write("Updates are inhibited, skipping refresh")
             return False
+
+        self.application.refreshing = True
+        self.running = True
 
         if self.root_mode:
             while self.application.dpkg_locked():
                 self.application.logger.write("Package management system locked by another process, retrying in 60s")
                 time.sleep(60)
 
-        self.running = True
         self.application.cache_watcher.pause()
 
         Gdk.threads_enter()
@@ -698,6 +699,7 @@ class RefreshThread(threading.Thread):
 
             # Check presence of Mint layer
             if len(output) > 0 and not "CHECK_APT_ERROR" in output and not self.policy_check():
+                self.cleanup()
                 return False
 
             # Return on error
@@ -717,6 +719,7 @@ class RefreshThread(threading.Thread):
                 self.application.builder.get_object("label_error_details").set_text(error_msg)
                 self.application.builder.get_object("label_error_details").show()
                 Gdk.threads_leave()
+                self.cleanup()
                 return False
 
             # Look at the updates one by one
@@ -861,6 +864,9 @@ class RefreshThread(threading.Thread):
             self.application.set_status(_("Could not refresh the list of updates"),
                                         _("Could not refresh the list of updates"), "mintupdate-error", True)
             Gdk.threads_leave()
+
+        finally:
+            self.cleanup()
 
     def run_status_checks(self):
         """ Runs various status checks and shows infobars where appropriate """
