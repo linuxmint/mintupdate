@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 
-import os, sys
+import subprocess, sys
 
 if len(sys.argv) != 3:
     print("Missing arguments!")
     sys.exit(1)
 
 codename = sys.argv[1]
-window_id = int(sys.argv[2])
-command = "/usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py %s %s" % (codename, window_id)
-os.system(command)
+window_id = sys.argv[2]
+subprocess.run(["/usr/lib/linuxmint/mintUpdate/rel_upgrade_root.py", codename, window_id])

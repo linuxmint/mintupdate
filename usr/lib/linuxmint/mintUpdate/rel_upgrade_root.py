@@ -30,17 +30,15 @@ if os.path.exists(blacklist_filename):
 # STEP 1: UPDATE APT SOURCES
 #---------------------------
 if os.path.exists("/etc/apt/sources.list.d/official-source-repositories.list"):
-    os.system("rm -f /etc/apt/sources.list.d/official-source-repositories.list")
+    subprocess.run(["rm", "-f", "/etc/apt/sources.list.d/official-source-repositories.list"])
 
-os.system("cp %s /etc/apt/sources.list.d/official-package-repositories.list" % sources_list)
+subprocess.run(["cp", sources_list, "/etc/apt/sources.list.d/official-package-repositories.list"])
 
 # STEP 2: UPDATE APT CACHE
 #-------------------------
 
 cache = apt.Cache()
-cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive", "--parent-window-id", "%d" % window_id]
-comnd = subprocess.Popen(' '.join(cmd), shell=True)
-returnCode = comnd.wait()
+subprocess.run(["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive", "--parent-window-id", "%d" % window_id])
 
 # STEP 3: INSTALL MINT UPDATES
 #--------------------------------
@@ -76,15 +74,14 @@ for pkg in changes:
 cmd.append("--set-selections-file")
 cmd.append("%s" % f.name)
 f.flush()
-comnd = subprocess.Popen(' '.join(cmd), shell=True)
-returnCode = comnd.wait()
+subprocess.run(cmd)
 
 # STEP 4: UPDATE GRUB
 #--------------------
 
 try:
-    subprocess.call("update-grub")
+    subprocess.run(["update-grub"])
     if os.path.exists("/usr/share/ubuntu-system-adjustments/systemd/adjust-grub-title"):
-        subprocess.call("/usr/share/ubuntu-system-adjustments/systemd/adjust-grub-title")
+        subprocess.run(["/usr/share/ubuntu-system-adjustments/systemd/adjust-grub-title"])
 except Exception as detail:
     syslog.syslog("Couldn't update grub: %s" % detail)
