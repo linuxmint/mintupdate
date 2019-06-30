@@ -1,3 +1,178 @@
+mintupdate (5.4.8) tina; urgency=medium
+
+  [ gm10 ]
+  * Prevent extraneous blank lines on error status (#443)
+  * Fix Gtk.MessageDialog "transient parent" issues (#449)
+  * Kernelwindow: center on main window (#458)
+  * kernelwindow: Reverse sort Remove old kernels (#450)
+  * checkWarnings.py: Fix indentation, coding style (#466)
+
+  [ Clement Lefebvre ]
+  * CheckWarnings: Fix package names appearing more than once
+
+  [ gm10 ]
+  * Allow blacklisting a specific version (#421)
+
+  [ Clement Lefebvre ]
+  * l10n: Rephrase msgids for blacklist options
+
+  [ gm10 ]
+  * Fix "Hide after applying updates" option (#430)
+  * Fix "Always show kernel updates" behaviour (#428)
+  * Handle dpkg lock via fuser, remove existing process based detection code (#446)
+  * Preferences and automation rework (#416)
+
+  [ Clement Lefebvre ]
+  * Small fixes to the previous commit
+
+  [ gm10 ]
+  * kernelwindow: Support installed kernels of different types (#434)
+
+  [ Clement Lefebvre ]
+  * Inject the app version during the build
+  * Remove unused import
+  * Fix generate_desktop_files
+
+  [ gm10 ]
+  * Revert remaining part of f0829ac04b559a76fed0639bf5590f80bd78bd8d, which is incompatible with my kernel window patches (#480)
+  * Add issue templates
+  * Automatically refresh Update Manager when the package cache is changed (#441)
+  * Point to "apt update" on release information change (#453)
+  * Assorted fixes (#454)
+  * checkAPT: Only run mintinstall-update-pkgcache when root (#445)
+  * Add manual pages (#468)
+  * Prevent right-click blacklisting PRIORITY_UPDATES (#473)
+  * Fix lsb_release calls (#477)
+  * Rewrite Logger (#475)
+
+  [ Clement Lefebvre ]
+  * Fix datetime.now() calls
+
+  [ gm10 ]
+  * Add simple reboot notification for kernel updates (#478)
+
+  [ Clement Lefebvre ]
+  * Remove debug and indentation leftover
+
+  [ gm10 ]
+  * Information window use new Logger.read function (#476)
+  * Refactor information window for compatibility with current Gtk version, also make read-only. (#486)
+  * alias kernel updates only if meta or at least 3 packages in update (#464)
+  * Fix root refresh creating root owned files and on LMDE ignoring settings (#472)
+  * Always show all applicable infobars, and all infobars to use show_infobar function (#479)
+
+  [ Clement Lefebvre ]
+  * Fix infobar icon
+
+  [ gm10 ]
+  * Rework kernel/meta recommendation logic (#456)
+  * Remove old kernels: Only pre-select kernels older than the current one (#482)
+  * APT policy check: Reword error message when Mint layer wasn't found, (#483)
+  * Preferences: Run recurring refresh timer based on last refresh time, (#462)
+  * Change datetime import
+  * Change kernelwindow.py as well
+  * Properly escape markup in updates listing (#489)
+  * Drop unnecessary except variables (#488)
+  * Add distribution end of life warning and status (#459)
+  * Kernelwindow: Add optional kernel flavour selector (#457)
+  * Add Packages tab and move package listing from descriptions tab there (#467)
+  * Fix generic blacklisting of kernel packages (#490)
+
+  [ Clement Lefebvre ]
+  * Revert "Fix root refresh creating root owned files and on LMDE ignoring settings (#472)"
+
+  [ gm10 ]
+  * Fix changelog retrieval in last commit (#491)
+  * Kernelwindow: Automatically remove left-over meta-packages (#455)
+
+  [ Clement Lefebvre ]
+  * Remove levels (#492)
+  * Add CI and dummy test (#493)
+  * Split APT cache refresh away from checkAPT (#496)
+
+  [ gm10 ]
+  * Remove count from package list to avoid launchpad translation issues (#494)
+
+  [ Clement Lefebvre ]
+  * Remove obsolete options
+  * l10n: Update POT
+
+  [ gm10 ]
+  * Improve mint-refresh-cache (#497)
+
+  [ Clement Lefebvre ]
+  * Fix checkbox alignments in preferences.ui
+  * Improve timeshift check
+
+  [ gm10 ]
+  * Fix logging errors and make small optimizations (#498)
+  * Fix checkWarnings still using removed dist-upgrade setting (#500)
+  * Preferences: Blacklist add separate version entry and descriptive labels (#502)
+  * CacheWatcher pause/resume changes in interaction with refresh and install threads (#505)
+  * Kernel window: Greatly speed up load times (#508)
+  * Change question-type infobars to Yes/No buttons (#513)
+  * Kernel window: Automatically show flavour selector while multiple flavours are installed (#512)
+  * Normalize capitalization according to GNOME style guidelines (#514)
+  * Kernel window: Add support for queueing actions (#509)
+  * Simplify refresh subprocesses commands, do not  spawn a shell, do not use deprecated method (#503)
+  * Add root_mode argument to refresh method, point all but one RefreshThread usages to this method (#506)
+  * Blacklisting: Add user blacklist export button to preferences, (#499)
+  * Preferences: Add description to automatic maintenance option (#501)
+  * Add self-update status page (#507)
+  * Refactor RefreshThread to make it more readable (#517)
+  * Kernel window: Ellipsis handling (#518)
+  * Run apt-config and apt-cache with LC_ALL=C (#521)
+  * Check if timeshift exists in timeshift_check() (#523)
+  * Drop checkbutton_default_repo_is_ok (#524)
+  * Remove unnecessary gi imports (#522)
+  * kernels.ui: flavour > flavor (#529)
+  * InstallThread: Don't hardcode MessageDialog default component names (#536)
+  * Infobars: Only pad below (#533)
+  * mintupdate-cli: Don't define PRIORITY_UPDATES, import from Classes.py (#531)
+  * Drop "(local)" tag from non-repository installed kernels, it's not really relevant information and wasn't localized, anyway (#527)
+  * kernelwindow.py: Remove unused imports, variable and execute permissions (#526)
+  * Fix automatic upgrades default configuration (#530)
+  * KernelVersion rework: (#525)
+  * checkAPT.py assorted fixes: Drop unused function, fix .keys() usage, remove unnecessary sorting (#528)
+  * checkAPT: Rework source name grouping for kernel-type updates (#534)
+  * checkAPT: Fix two bugs in add_update (#538)
+  * Kernelwindow: Assume Ubuntu kernels in the non -proposed pockets are supported even when Supported tag is missing (#539)
+  * Kernelwindow: Show kernel flavour in currently using label (#537)
+
+  [ Clement Lefebvre ]
+  * Remove mintupdate-autoremove cron job
+
+  [ gm10 ]
+  * Blacklist: Allow right-click blacklisting of multiple source packages grouped as a single update
+
+  [ Clement Lefebvre ]
+  * Fix mistake in previous commit
+
+  [ gm10 ]
+  * Automatic upgrades use systemd instead of cron
+  * Kernelwindow: Show refreshing status page and watch cursor while checkKernels.py is running
+  * Add status_refreshing page, no longer make the whole GUI insensitive during refresh, only the toolbar, more refactoring of RefreshThread and a little of MintUpdate
+  * Remove status message when no updates
+  * Remove redundant instances of setting refreshing status, fix status message not getting set/cleared when RefreshThread runs, and clean up redundancy in InstallThread
+  * Fix hiding the statusbar during self-update having gotten lost
+  * Fix RefreshThread status not always updating
+
+  [ Clement Lefebvre ]
+  * Self update: Change msgid and use a symbolic icon
+  * Refresh: Make menubar insensitive
+  * Fix stuck spinning page
+  * Preferences: Use xapp.GSettingsWidgets
+  * l10n: Update POT
+
+  [ JosephMcc ]
+  * prefs: Fix up the spacing in the spin button layout (#546)
+
+  [ Clement Lefebvre ]
+  * Rel-upgrade-root: Use subprocess module
+  * l10n: Fix msgids
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 30 Jun 2019 15:40:51 +0200
+
 mintupdate (5.4.7) tessa; urgency=medium
 
   * Release upgrade: Switch to pkexec
