@@ -810,7 +810,7 @@ class RefreshThread(threading.Thread):
                     Gdk.threads_enter()
                     if self.is_self_update:
                         self.application.statusbar.set_visible(False)
-                        statusString = _("Update Manager needs to be updated")
+                        statusString = ""
                     elif num_checked == 0:
                         statusString = _("No updates selected")
                     elif num_checked >= 1:
@@ -956,10 +956,10 @@ class RefreshThread(threading.Thread):
 
             infobar_title = _("DISTRIBUTION END OF LIFE WARNING")
             infobar_message = "%s\n\n%s %s\n\n%s" % (
-                _(f"Your {release_name} is only supported until {self.eol_date.strftime('%x')}."),
+                _("Your version of Linux Mint is only supported until %s.") % self.eol_date.strftime('%x'),
                 _("Your system will remain functional after that date, but the official software repositories will become unavailable along with any updates including security updates."),
                 _("You should perform an upgrade to or a clean install of a newer version of your distribution before that happens."),
-                _("For more information visit <a href='https://linuxmint.com'>linuxmint.com</a>."))
+                _("For more information visit %s.") % "<a href='https://www.linuxmint.com'>https://www.linuxmint.com</a>")
             Gdk.threads_enter()
             self.application.show_infobar(infobar_title,
                                           infobar_message,

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-17 18:46+0100\n"
+"POT-Creation-Date: 2019-06-30 11:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -686,10 +686,6 @@ msgstr ""
 msgid "3rd-party update"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
-msgid "Update Manager needs to be updated"
-msgstr ""
-
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1720
@@ -755,8 +751,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:959
 #, python-format
-msgid ""
-"Your {release_name} is only supported until {self.eol_date.strftime('%x')}."
+msgid "Your version of Linux Mint is only supported until %s."
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:960
@@ -773,8 +768,8 @@ msgid ""
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:962
-msgid ""
-"For more information visit <a href='https://linuxmint.com'>linuxmint.com</a>."
+#, python-format
+msgid "For more information visit %s."
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:976
@@ -1035,93 +1030,93 @@ msgstr ""
 msgid "Refresh the list of updates automatically"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2102
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2104
 msgid "days"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2103
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2105
 msgid "hours"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2104
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2106
 msgid "minutes"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2105
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2107
 msgid "First, refresh the list of updates after:"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2109
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2111
 msgid "Then, refresh the list of updates every:"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2120
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2154
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2126
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2160
 msgid "Ignored Updates"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2149
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
 msgid "Automatic Updates"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2149
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
 msgid "This option is run as root on a daily basis"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2150
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2184
 msgid "Apply updates automatically"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2154
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2188
 msgid "Export blacklist to /etc/mintupdate.blacklist"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2155
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
 msgid "Click this button for automatic updates to use your current blacklist."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2158
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
 msgid "Automatic Maintenance"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2158
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
 msgid "This option is run as root on a weekly basis"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2159
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2193
 msgid "Remove obsolete kernels and dependencies"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2163
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2197
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2216
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2217
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
 msgid "Ignore an Update"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2225
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
 msgid "Name:"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
 msgid "Version:"
 msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2229
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2263
 msgid "(optional)"
 msgstr ""
 
