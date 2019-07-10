@@ -7,22 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-12-03 14:12+0000\n"
-"PO-Revision-Date: 2016-04-08 15:21+0000\n"
-"Last-Translator: Launchpad Translations Administrators <Unknown>\n"
+"POT-Creation-Date: 2019-06-30 11:02+0200\n"
+"PO-Revision-Date: 2019-06-30 09:37+0000\n"
+"Last-Translator: Piet Coppens <Unknown>\n"
 "Language-Team: Esperanto <eo@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
-"X-Generator: Launchpad (build 18837)\n"
+"X-Launchpad-Export-Date: 2019-07-10 08:22+0000\n"
+"X-Generator: Launchpad (build 19007)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
 #: usr/share/help/C/mintupdate/regressions.page:10(name)
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:10(name)
-#: usr/share/help/C/mintupdate/levels.page:10(name)
 #: usr/share/help/C/mintupdate/kernels.page:10(name)
 #: usr/share/help/C/mintupdate/index.page:9(name)
 msgid "Linux Mint"
@@ -32,37 +31,38 @@ msgstr "Linukso Minto"
 #: usr/share/help/C/mintupdate/snapshots.page:11(email)
 #: usr/share/help/C/mintupdate/regressions.page:11(email)
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:11(email)
-#: usr/share/help/C/mintupdate/levels.page:11(email)
 #: usr/share/help/C/mintupdate/kernels.page:11(email)
 #: usr/share/help/C/mintupdate/index.page:10(email)
 msgid "root@linuxmint.com"
-msgstr ""
+msgstr "root@linuxmint.com"
 
 #: usr/share/help/C/mintupdate/updates.page:16(desc)
 msgid "There are different types of updates"
-msgstr ""
+msgstr "Estas malsamaj tipoj de ĝisdatigoj"
 
 #: usr/share/help/C/mintupdate/updates.page:19(title)
 msgid "The different types of updates"
-msgstr ""
+msgstr "La malsamaj tipoj de ĝisdatigoj"
 
 #: usr/share/help/C/mintupdate/updates.page:21(p)
 msgid "There are different types of updates:"
-msgstr ""
+msgstr "Estas malsamaj tipoj de ĝisdatigoj:"
 
 #: usr/share/help/C/mintupdate/updates.page:24(p)
 msgid ""
 "'Software updates' are updates which fix bugs (or also sometimes which bring "
 "new features)."
 msgstr ""
+"'Programaraj ĝisdatigoj' estas ĝisdatigoj, kiuj riparas cimojn (aŭ ankaŭ "
+"kelkfoje, kiuj alportas novajn eblojn)."
 
 #: usr/share/help/C/mintupdate/updates.page:25(p)
 msgid "'Security updates' are updates which patch vulnerabilities."
-msgstr ""
+msgstr "'Sekurecaj ĝisdatigoj' estas ĝisdatigoj, kiuj flikas vundeblojn."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
-msgstr ""
+msgstr "'Kernaj ĝisdatigoj' prezentas la instaladon de pli nova kerno."
 
 #: usr/share/help/C/mintupdate/updates.page:29(p)
 msgid ""
@@ -72,12 +72,19 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
+"Sekureco estas gravega, sed ankaŭ tre teknika. Vundeblecoj ne ĉiam tuŝas "
+"vian komputilon kaj povas esti sufiĉe malfacilaj por kompreni. Plej multaj "
+"homoj tute ne ilin komprenas kaj siaj personaj komputiloj estas malofte "
+"elmetitaj al riskoj. Tamen sekurecaj rompoj fojfoje havas terurajn "
+"konsekvencojn, do ĉiam estas rekomendite preni ilin seriozaj."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
+"Programaraj ĝisdatigoj ne estas same gravaj. Ili alportas cimoriparojn aŭ "
+"plibonigojn,  kiuj ne rilatas al sekureco."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -88,33 +95,43 @@ msgid ""
 "of view, but also prone to regressions which can be hard to fix for novice "
 "users."
 msgstr ""
+"En Linukso Minto kernaj ĝisdatigoj alportas kaj sekurecajn flikojn kaj "
+"cimoriparojn (kaj fojfoje eĉ novajn eblojn), kaj ili influas kritikajn "
+"partojn de la operaciumo. Ĉi tio igas kernajn ĝisdatigojn gravaj de sekureca "
+"vidpunkto, sed ankaŭ emaj al regresoj, kiuj estas problemaj por ripari fare "
+"de komencantaj uzantoj."
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
 msgstr ""
+"Kiam vi alfrontas seriozan regreson, restaŭru la lastan sistem-momentfoton."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
-#: usr/share/linuxmint/mintupdate/main.ui.h:15
+#: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "System snapshots"
-msgstr ""
+msgstr "Momentfotoj de la sistemo"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"Timeshift, la utilaĵo por fari momentfotojn de la sistemo, disponeblas en "
+"ĉiuj versioj de Linukso Minto."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"Ĝi uzeblas por krei momentfotojn permane, sed ankaŭ por aŭtomatigi sistem-"
+"momentfotojn."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
 msgstr ""
+"Linukso Minto rekomendas aŭtomatigon de ĉiutagaj kaj praŝargaj momentfotoj."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -122,31 +139,40 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Se ĝisdatigo, eraro, cimo aŭ malbonintenca programo fuŝas ion sur via "
+"komputilo, tiam vi povas restaŭri la operaciumon ekde iu ajn momentfoto kaj "
+"tiumaniere nuligi la problemon, kvazaŭ tio neniam okazis."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
+"Sistem-momentfotoj nur ampleksas la operaciumon mem. Ili ne inkluzivas aŭ "
+"tuŝas viajn personajn datumojn."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
-msgstr ""
+msgstr "Kiam ĝisdatigo fuŝas ion, tio nomiĝas \"regreso\"."
 
 #: usr/share/help/C/mintupdate/regressions.page:19(title)
 msgid "Software regressions"
-msgstr ""
+msgstr "Programaraj regresoj"
 
 #: usr/share/help/C/mintupdate/regressions.page:21(p)
 msgid ""
 "Updates keep your computer safe, eliminate bugs and even sometimes add new "
 "features to your operating system."
 msgstr ""
+"Ĝisdatigoj tenas vian komputilon sekure, forigas cimojn kaj eĉ kelkfoje "
+"aldonas novajn eblojn al via operaciumo."
 
 #: usr/share/help/C/mintupdate/regressions.page:23(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions'."
 msgstr ""
+"Bedaŭrinde ili ankaŭ fojfoje enkondukas novajn atentindaĵojn nomitajn "
+"'regresoj'."
 
 #: usr/share/help/C/mintupdate/regressions.page:25(p)
 msgid ""
@@ -155,21 +181,27 @@ msgid ""
 "skilled developers are, they can't always predict every possible situation "
 "or test on every possible hardware specification."
 msgstr ""
+"Regresoj estas tre kutimaj en la programara sektoro. Ili estas nedisigeble "
+"ligitaj al programado. Kodoŝanĝoj povas okazigi regresojn. Kiom ajn spertaj "
+"estas la programistoj, ili ne kapablas ĉiam prognozi ĉiun eblan situacion aŭ "
+"testi sur ĉiu ebla aparatara specifo."
 
 #: usr/share/help/C/mintupdate/regressions.page:27(p)
 msgid ""
 "When a regression happens, it breaks something which worked well before."
-msgstr ""
+msgstr "Kiam regreso okazas, ĝi fuŝas ion, kio funkciis bone antaŭe."
 
 #: usr/share/help/C/mintupdate/regressions.page:29(p)
 msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
-msgstr ""
+msgstr "Kelkfoje ne vere gravas, sed kelkfoje gravegas."
 
 #: usr/share/help/C/mintupdate/regressions.page:31(p)
 msgid ""
 "It depends on what part of the operating system is affected and whether or "
 "not you're able to work around it or to fix it."
 msgstr ""
+"Tio dependas de, kiu parto de la operaciumo estas tuŝata, kaj ĉu ja aŭ ne vi "
+"kapablas provizore solvi la problemon aŭ ripari ĝin."
 
 #: usr/share/help/C/mintupdate/regressions.page:33(p)
 msgid ""
@@ -177,348 +209,129 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
+"Ni diru, ke la pdf-dokumentrigardilo ne plu kapablas presi. Nu, tio estas "
+"aĉa... , sed ĝi ne estas same problema, kiel, se via retkonekto ĉesis "
+"funkcii, aŭ se vi subite ne plu kapablis praŝargi la komputilon aŭ ensaluti."
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
 "In the latter case, it can be very problematic if you're not experienced "
 "with Linux and you don't know how to troubleshoot."
 msgstr ""
+"En la lasta kazo povas esti ege problema, se vi ne estas spertulo pri "
+"Linukso kaj ne scipovas kiel problemsolvi."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
-msgstr ""
+msgstr "Ĝisdatigado ekde la komanda linio"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "Uzo de mintupdate-cli"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
+"La ĝisdatiga mastrumilo provizas komand-linian utilaĵon nomitan \"mintupdate-"
+"cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
 "If you are experienced with Linux, you can use this tool in your scripts or "
 "your cron jobs to automate the installation of software updates."
 msgstr ""
+"Se vi estas spertulo pri Linukso, vi povas uzi ĉi tiun ilon en viaj skriptoj "
+"aŭ viaj cron-taskoj por aŭtomatigi la instaladon de programaraj ĝisdatigoj."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
-msgstr ""
+msgstr "Listigado de ĝisdatigoj"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
-msgstr ""
+msgstr "Eblas uzi la \"list\"-komandon por listigi ĝisdatigojn:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
-msgid ""
-"You can use -l to only show updates for certain levels (when "
-"troubleshooting)."
-msgstr ""
+msgid "You can use -s to only show the security updates."
+msgstr "Eblas uzi -s por nur montri la sekurecajn ĝisdatigojn."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
-msgid "You can use -s to only show the security updates."
-msgstr ""
+msgid "You can use -k to only show the kernel updates."
+msgstr "Eblas uzi -k por nur montri la kernajn ĝisdatigojn."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
-msgid "You can use -k to only show the kernel updates."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
 msgid "For instance, the following command lists all security updates:"
-msgstr ""
+msgstr "Ekzemple la sekva komando listigas ĉiujn sekurecajn ĝisdatigojn:"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:39(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:45(title)
 msgid "Applying updates"
-msgstr ""
+msgstr "Aplikado de ĝisdatigoj"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:47(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr ""
+"Eblas uzi la \"upgrade\"-komandon por apliki ĝisdatigojn, uzante la samajn "
+"opciojn."
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "Ekzemple la sekva komando aplikas kernajn ĝisdatigojn:"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
 msgstr ""
+"Rimarku la argumenton -r, kiu estis aldonita por reŝargi la kaŝmemoron."
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:57(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"Por pliaj informoj pri mintupdate-cli kaj plena list de argumentoj, tajpu:"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:57(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:33(None)
-#: usr/share/help/C/mintupdate/levels.page:55(None)
-msgid ""
-"@@image: 'figures/mintupdate-level1.svg'; "
-"md5=4721d1b8ee24af8a530de2567ed1221c"
-msgstr ""
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:38(None)
-#: usr/share/help/C/mintupdate/levels.page:73(None)
-msgid ""
-"@@image: 'figures/mintupdate-level2.svg'; "
-"md5=3166f49269a73d52075b41dfde52ac87"
-msgstr ""
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:43(None)
-#: usr/share/help/C/mintupdate/levels.page:82(None)
-msgid ""
-"@@image: 'figures/mintupdate-level3.svg'; "
-"md5=7f94f299af95a42e73759eb4676e2319"
-msgstr ""
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:48(None)
-#: usr/share/help/C/mintupdate/levels.page:93(None)
-msgid ""
-"@@image: 'figures/mintupdate-level4.svg'; "
-"md5=9e9eb80679d932ccce1db26618475908"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:16(desc)
-msgid ""
-"Use update levels when troubleshooting, to identify which update is "
-"responsible for a regression."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:19(title)
-msgid "Update levels"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:21(p)
-msgid ""
-"Critical regressions happen very rarely. When they do, restore your system "
-"with the latest system snapshot and tell the Linux Mint development team "
-"about the regression."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:23(p)
-msgid ""
-"The Linux Mint team will want to know which update is responsible for the "
-"regression."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:25(p)
-msgid ""
-"If you are faced with a long list of updates and you're not sure where to "
-"look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:27(p)
-msgid ""
-"Updates are given a level indicating how much of an impact they have on the "
-"operating system."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:29(p)
-msgid "There are 4 levels:"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:34(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:10
-msgid "Minimal"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:35(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:15
-msgid "No impact on the system or other applications."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:39(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:11
-msgid "Normal"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:40(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:16
-msgid "Default level. Usually low impact on the system."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:44(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:12
-msgid "Large"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:45(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:17
-msgid "Impact on multiple applications."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:49(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:13
-msgid "Sensitive"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:50(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:18
-msgid "Impact on sensitive parts of the system."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:55(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
-"Level 1"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:57(p)
-msgid ""
-"Level 1 updates are updates which only affect their own software and have no "
-"impact on the rest of the system."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:59(p)
-msgid "They're usually updates for single applications. For instance:"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:62(p)
-msgid "The calculator"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:63(p)
-msgid "The PDF reader"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:64(p)
-msgid "The text editor"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:65(p)
-msgid "The media player"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:68(p)
-msgid ""
-"Regressions in these updates usually only affect the software they're "
-"updating, not the operating system itself."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:73(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
-"Level 2"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:75(p)
-msgid ""
-"This is the default level, so the vast majority of updates are level 2."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:77(p)
-msgid ""
-"These updates aren't known to impact large areas or sensitive parts of the "
-"system, but they're not guaranteed to only affect their own software either."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:82(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
-"Level 3"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:84(p)
-msgid ""
-"Level 3 updates are updates which not only affect themselves but also have "
-"an impact on other applications."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:86(p)
-msgid ""
-"Typical examples of level 3 updates are GTK, DBUS, etc... A regression in "
-"these updates wouldn't stop your computer from booting properly, but it "
-"could impact many applications."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:88(p)
-msgid ""
-"Desktop environments are also level 3 updates. If a critical regression "
-"happens in Cinnamon, you might be unable to log in."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:93(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
-"Level 4"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:95(p)
-msgid ""
-"Level 4 updates are updates which affect sensitive parts of the operating "
-"system such as:"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:98(p)
-msgid "The boot sequence"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:99(p)
-msgid "The display manager (login screen, session management)"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:100(p)
-msgid "The kernel (hardware support)"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:101(p)
-msgid "The drivers (networking, NVIDIA/AMD)"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/levels.page:102(p)
-msgid "The display (Xorg, mesa)"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr ""
+msgstr "Kernoj kaj kernaj ĝisdatigoj"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
-#: usr/share/help/C/mintupdate/index.page:41(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
+#: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Kernel updates"
-msgstr ""
+msgstr "Kernaj ĝisdatigoj"
 
 #: usr/share/help/C/mintupdate/kernels.page:21(p)
 msgid ""
 "The kernel is the central part of the operating system. Among other things, "
 "it is responsible for hardware support."
 msgstr ""
+"La kerno estas la centra parto de la operaciumo. Interalie ĝi respondecas "
+"pri aparatara subteno."
 
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
-msgstr ""
+msgstr "De sekureca vidpunkto gravas apliki kernajn ĝisdatigojn."
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -526,22 +339,28 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
+"Tamen kerna regreso povus influi vian eblecon konekti al interreto, startigi "
+"vian fenestrilon aŭ eĉ praŝargi la operaciumon."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
 msgstr ""
+"Pro tiu kialo gravas singardi dum aplikado de kernaj ĝisdatigoj kaj ankaŭ "
+"gravas scii kiel ilin malfari, kiam okazas problemo."
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
-msgstr ""
+msgstr "Pluraj kernoj povas esti instalitaj"
 
 #: usr/share/help/C/mintupdate/kernels.page:34(p)
 msgid ""
 "When you apply an update, you replace the old version of the software with "
 "the new version."
 msgstr ""
+"Kiam vi aplikas ĝisdatigon, vi anstataŭigas la malnovan version de la "
+"programaro per la nova versio."
 
 #: usr/share/help/C/mintupdate/kernels.page:36(p)
 msgid ""
@@ -549,59 +368,70 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
+"La situacio malsamas, kiam temas pri kernoj. Kiam vi aplikas \"kernan "
+"ĝisdatigon\", vi fakte ne ĝisdatigas la kernon, sed vi instalas novan kernon "
+"laŭlonge de tiu, kiu jam ekzistas."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
 "Every time you apply a kernel update, you install a new kernel on the "
 "system, without removing the old ones."
 msgstr ""
+"Ĉiufoje, kiam vi aplikas kernan ĝisdatigon, vi instalas novan kernon sur la "
+"sistemo, sen forigi la malnovajn."
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
-msgstr ""
+msgstr "Kiam vi praŝargas, la komputilo elektas la plej lastan."
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
-msgstr ""
+msgstr "Identigado de la nuna kerno"
 
 #: usr/share/help/C/mintupdate/kernels.page:47(p)
 msgid ""
 "If you want to know which kernel you are currently using, open a terminal "
 "and type:"
 msgstr ""
+"Se vi deziras ekscii, kiun kernon vi nun uzadas, malfermu terminalon kaj "
+"tajpu:"
 
 #: usr/share/help/C/mintupdate/kernels.page:49(screen)
 #, no-wrap
 msgid "uname -a"
-msgstr ""
+msgstr "uname -a"
 
 #: usr/share/help/C/mintupdate/kernels.page:54(title)
 msgid "Installing and removing kernels"
-msgstr ""
+msgstr "Instalado kaj forigado de kernoj"
 
 #: usr/share/help/C/mintupdate/kernels.page:56(p)
 msgid "You can install and remove kernels from the Update Manager."
-msgstr ""
+msgstr "Eblas instali kaj forigi kernojn ekde la ĝisdatiga mastrumilo."
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr ""
+msgstr "Elektu \"Vidi\" -&gt; \"Linuksaj kernoj\" en la menuo."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
 "You cannot remove the kernel you are currently using. To remove it, you need "
 "to reboot and select a different kernel to boot with."
 msgstr ""
+"Ne eblas forigi la kernon, kiun vi nun uzadas. Por forigi ĝin, vi bezonas "
+"denove praŝargi kaj elekti malsaman kernon, per kiu vi deziras praŝargi."
 
 #: usr/share/help/C/mintupdate/kernels.page:65(title)
 msgid "Selecting a kernel"
-msgstr ""
+msgstr "Elektado de kerno"
 
 #: usr/share/help/C/mintupdate/kernels.page:67(p)
 msgid ""
 "You can have multiple kernels installed, but you can only run one kernel at "
 "a time."
 msgstr ""
+"Eblas, ke pluraj kernoj estas instalitaj, sed ĉiumomente eblas ruli nur unu "
+"kernon."
 
 #: usr/share/help/C/mintupdate/kernels.page:69(p)
 msgid ""
@@ -609,6 +439,9 @@ msgid ""
 "This menu allows you to choose operating systems but you can also use it to "
 "select a kernel."
 msgstr ""
+"Kiam vi praŝargas la komputilon, la tute unua ekrano nomiĝas la Grub-menuo. "
+"Ĉi tiu menuo permesas al vi elekti operaciumojn, sed ankaŭ eblas uzi ĝin por "
+"elekti kernon."
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -616,6 +449,9 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
+"Se vi havas nur unu operaciumon instalitan, via praŝarga ordo eble "
+"preterpasas la Grub-menuon. Por tiam aperigi la Grub-menuon, praŝargu la "
+"komputilon kaj daŭre premadu la maldekstran <key>majuskligan</key> klavon."
 
 #: usr/share/help/C/mintupdate/kernels.page:73(p)
 msgid ""
@@ -623,10 +459,13 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
+"Por elekti kernon, elektu \"Opcioj por spertuloj\" en la Grub-menuo. Tiam vi "
+"vidos ĉiujn kernojn nun instalitajn. Elektu tiun, kiun vi deziras uzi, kaj "
+"via komputilo praŝargos per tiu."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
-msgstr ""
+msgstr "Kontrolo de DKMS-stato"
 
 #: usr/share/help/C/mintupdate/kernels.page:80(p)
 msgid ""
@@ -635,12 +474,19 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
+"La kerno inkluzivas ĉiujn malfermitkodajn pelilojn kaj ĉi tiuj kutime "
+"funkcias bonege. Komercaj peliloj (NVIDIA, AMD, Broadcom...ktp) ne estas "
+"inkluditaj kaj ili devas esti kompilitaj, tio estas: programtradukitaj, por "
+"ĉiu kerno, kiun vi instalas. Ĉi tio okazas per mekanismo nomita DKMS (: "
+"Dinamika Kernomodula Subteno)."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
+"Se komerca pelilo ne estas konvene denove tradukita per DKMS por unu el viaj "
+"kernoj, ĝi ne funkcios korekte kun tiu kerno."
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -648,11 +494,14 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
+"Post instalado aŭ forigado de kerno vi povas kontroli vian DKMS-staton por "
+"certiĝi, ke ĉiuj komercaj peliloj estas konvene instalitaj por ĉiu el viaj "
+"kernoj per jena komando:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
 msgid "dkms status"
-msgstr ""
+msgstr "dkms status"
 
 #: usr/share/help/C/mintupdate/kernels.page:88(p)
 msgid ""
@@ -661,10 +510,14 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
+"Novaj kernaj serioj kutime iĝas disponeblaj antaŭ, ke komercaj peliloj ilin "
+"subtenas per DKMS. Se vi uzadas komercajn pelilojn, tiam estas rekomendite "
+"algluiĝi al kernaj ĝisdatigoj kaj ne instali kernojn el serioj, kiuj estas "
+"pli novaj ol la serioj de la rekomenditaj  kernoj."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
-msgstr ""
+msgstr "Malfari kernan ĝisdatigon"
 
 #: usr/share/help/C/mintupdate/kernels.page:95(p)
 msgid ""
@@ -672,12 +525,16 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
+"Se io ne funkcias pri la lasta kerno, kiun vi instalis (aŭ la lasta kerna "
+"ĝisdatigo), denove praŝargu, elektu la kernon, kiun vi uzadis antaŭe, forigu "
+"la novan kernon kaj praŝargu denove."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:970
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:974
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1805 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1175
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1237
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2007 generate_desktop_files:25
 msgid "Update Manager"
 msgstr "Ĝisdatiga mastrumilo"
 
@@ -686,18 +543,24 @@ msgid ""
 "The Update Manager provides your operating system with software and security "
 "updates."
 msgstr ""
+"La ĝisdatiga mastrumilo provizas programaron kaj sekurecajn ĝisdatigojn al "
+"via operaciumo."
 
 #: usr/share/help/C/mintupdate/index.page:22(p)
 msgid ""
 "Updates are important because they keep your computer safe, eliminate bugs "
 "and can even add new features to your operating system."
 msgstr ""
+"Ĝisdatigoj gravas, ĉar ili tenas vian komputilon sekure, forigas cimojn kaj "
+"povas eĉ aldoni novajn eblojn al via operaciumo."
 
 #: usr/share/help/C/mintupdate/index.page:24(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
 msgstr ""
+"Bedaŭrinde ili ankaŭ fojfoje enkondukas novajn atentindaĵojn nomitajn "
+"'regresoj', kiuj povas fuŝi aĵojn, kiuj bone funkciis antaŭe."
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
@@ -705,34 +568,30 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Por teni vian komputilon sekure kaj en bone funkcianta stato estas "
+"rekomendite apliki ĉiujn disponeblajn ĝisdatigojn kaj agordi sistem-"
+"momentfotojn tiel, ke vi povos restaŭri vian sistemon, se iu problemo okazas."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
-msgstr ""
+msgstr "Bazaj konceptoj"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
 msgstr ""
-
-#: usr/share/help/C/mintupdate/index.page:35(title)
-msgid "Troubleshooting"
-msgstr ""
+"Ĉi tiu sekcio klarigas la bazajn konceptojn pri programaraj ĝisdatigoj."
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
-msgid "This section explains update levels."
-msgstr ""
+msgid "This section explains kernel updates."
+msgstr "Ĉi tiu sekcio klarigas kernajn ĝisdatigojn."
+
+#: usr/share/help/C/mintupdate/index.page:41(title)
+msgid "Advanced techniques"
+msgstr "Porspertulaj teknikoj"
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
-msgid "This section explains kernel updates."
-msgstr ""
-
-#: usr/share/help/C/mintupdate/index.page:47(title)
-msgid "Advanced techniques"
-msgstr ""
-
-#: usr/share/help/C/mintupdate/index.page:49(p)
 msgid "This section explains advanced techniques."
-msgstr ""
+msgstr "Ĉi tiu sekcio klarigas porspertulajn teknikojn."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: usr/share/help/C/mintupdate/index.page:0(None)
@@ -742,19 +601,20 @@ msgstr ""
 "  Ignatius881 https://launchpad.net/~icg837\n"
 "  Kristjan SCHMIDT https://launchpad.net/~kristjan-eo\n"
 "  Michael Moroni https://launchpad.net/~airon90\n"
+"  Piet Coppens https://launchpad.net/~piet-coppens\n"
 "  Travis Ray https://launchpad.net/~coldredgay\n"
 "  revjohndoe https://launchpad.net/~rev-johndoe"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:232
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #, python-format
 msgid "Linux kernel %s"
-msgstr ""
+msgstr "Linuksa kerno %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:233
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 msgid "The Linux kernel."
-msgstr ""
+msgstr "La Linuksa kerno."
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:234
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -765,616 +625,798 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
+"La Linuksa kerno respondecas pri subteno de aparataro kaj peliloj. Rimarku, "
+"ke ĉi tiu ĝisdatigo ne forigos vian ekzistantan kernon. Vi ankoraŭ kapablos "
+"praŝargi kun la nuna kerno elektante la porspertulajn opciojn en via "
+"praŝarga menuo. Tamen bonvolu singardi.. kernaj regresoj povas influi vian "
+"eblecon konekti al interreto aŭ ensaluti grafike. DKMS-moduloj estas "
+"programtradukitaj por la plej lastaj kernoj instalitaj sur via komputilo. Se "
+"vi uzadas komercajn pelilojn kaj deziras uzi pli malnovan kernon, vi bezonos "
+"unue forigi la novan."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:158
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "Remove"
-msgstr ""
+msgstr "Forigi"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
-msgid "This kernel cannot be removed because it is currently in use."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:165
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:150
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "Install"
-msgstr ""
+msgstr "Instali"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:168
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
+msgid "Queue Removal"
+msgstr "Forigo de atendovico"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
+msgid "This kernel cannot be removed because it is currently in use."
+msgstr "Ne eblas forigi ĉi tiun kernon, ĉar ĝi estas uzata nun."
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:249
+msgid "Queue Installation"
+msgstr "Instalado de atendovico"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:251
 msgid "This kernel is not installable."
-msgstr ""
+msgstr "Ĉi tiu kerno ne estas instalebla."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:182
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:268
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi deziras forigi la %s-kernon?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:184
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi deziras instali la %s-kernon?"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:204
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:302
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 msgid "Kernels"
-msgstr ""
+msgstr "Kernoj"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:347
+msgid "Remove Kernels"
+msgstr "Forigi kernojn"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:349
+msgid "Perform Queued Actions"
+msgstr "Plenumi agojn el atendovico"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:430
 msgid "Active"
-msgstr ""
+msgstr "Aktiva"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:435
 msgid "Installed"
-msgstr ""
+msgstr "Instalita"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Supported until"
-msgstr ""
+msgstr "Subtenata ĝis"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:526
 msgid "Superseded"
-msgstr ""
+msgstr "Anstataŭigita"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:528
 msgid "End of Life"
-msgstr ""
+msgstr "Fino de vivo"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:530
 msgid "Unsupported"
-msgstr ""
+msgstr "Nesubtenata"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 msgid "You are currently using the following kernel:"
-msgstr ""
+msgstr "Vi nun uzadas la sekvan kernon:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:54
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
 msgid "GB"
 msgstr "GB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:56
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:60
 msgid "MB"
 msgstr "MB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:62
 msgid "KB"
 msgstr "KB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:59
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:63
 msgid "B"
 msgstr "B"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:161
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:244
 msgid "Downloading changelog..."
 msgstr "Elŝutanta ŝanĝoprotokolon..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:174
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:257
 msgid "No changelog available"
 msgstr "Neniu disponebla ŝanĝoprotokolo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:338
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:456
 msgid "This upgrade will trigger additional changes"
 msgstr "Ĉi tiu promocio ekagigos aldonajn ŝanĝojn"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:465
 msgid "The following packages will be removed:"
-msgstr ""
+msgstr "Sekvaj pakaĵoj estos forigitaj:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:376
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:494
 msgid "The following packages will be installed:"
-msgstr ""
+msgstr "Sekvaj pakaĵoj estos instalitaj:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:419
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:537
 msgid "Installing updates"
 msgstr "Instalanta ĝisdatigojn"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1015
-msgid "Checking for updates"
-msgstr "Kontrolanta pri ĝidatigoj"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:502
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:598
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
 msgid "Could not install the security updates"
 msgstr "Ne eblis instali la sekurecajn ĝisdatigojn"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:546
-msgid "Starting refresh..."
-msgstr "Startiganta aktualigo..."
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
+msgid "Reboot required"
+msgstr "Restartigo postulata"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:580
-msgid "Another application is using APT"
-msgstr "Alia aplikaĵo estas uzanta APT"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:589
-msgid "Finding the list of updates..."
-msgstr "Trovanta la liston pri ĝisdatigoj..."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:607
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
-msgid "Your APT cache is corrupted."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:608
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 msgid ""
-"Do not install or update anything, it could break your operating system!"
+"You have installed updates that require a reboot to take effect, please "
+"reboot your system as soon as possible."
 msgstr ""
+"Vi instalis ĝisdatigojn, kiuj postulas efektiviĝon de restartigo; bonvolu "
+"restartigi vian sistemon kiel eble plej baldaŭ."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:609
-msgid ""
-"To switch to a different Linux Mint mirror and solve this problem, click OK."
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
+msgid "Checking for updates"
+msgstr "Kontrolanta pri ĝidatigoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
-msgid "Please switch to another Linux Mint mirror"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:711
+msgid "Run 'apt update' in a terminal window to address this"
+msgstr "Rulu 'apt update' en fenestro de terminalo por ĉi tion trakti"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:852
-#: usr/share/linuxmint/mintupdate/main.ui.h:19
-msgid "OK"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:864
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:716
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:865
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:866
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:912
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
-msgstr ""
+msgstr "Ne eblis aktualigi la liston de ĝisdatigoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:755
-#: usr/share/linuxmint/mintupdate/main.ui.h:6
-msgid "Your system is up to date"
-msgstr "Via sistemo estas ĝisdatiga"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:720
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:779
 msgid "Kernel update"
-msgstr ""
+msgstr "Kerna ĝisdatigo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:723
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:782
 msgid "Security update"
-msgstr ""
+msgstr "Sekureca ĝisdatigo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:726
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:785
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
 msgstr ""
+"Nestabila programaro. Apliku ĉi tiun ĝisdatigon nur por helpi programistojn "
+"ĉe beta-testado de nova programaro."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:730
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:789
 msgid "Software update"
-msgstr ""
+msgstr "Programara ĝisdatigo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
 msgid "3rd-party update"
-msgstr ""
+msgstr "Ĝisdatigo de ekstera liveranto"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1487
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1720
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1796
 msgid "No updates selected"
 msgstr "Neniuj ĝisdatigoj estas elektitaj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:761
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:817
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1798
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(selected)d ĝisdatigo elektita (%(size)s)"
+msgstr[1] "%(selected)d ĝisdatigoj elektitaj (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:767
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:824
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ĝisdatigo disponebla"
+msgstr[1] "%d ĝisdatigoj disponeblaj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
-msgid "Please set up System Snapshots"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:835
+msgid "Your distribution has reached end of life and is no longer supported"
+msgstr "Via distribuo atingis vivofinon kaj ne plu estas subtenata"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:840
+#: usr/share/linuxmint/mintupdate/main.ui.h:8
+msgid "Your system is up to date"
+msgstr "Via sistemo estas ĝisdatiga"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:900
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
+msgid "Your APT configuration is corrupt."
+msgstr "Viaj APT-agordoj estas difektitaj."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:901
+msgid ""
+"Do not install or update anything, it could break your operating system!"
+msgstr "Ne instalu aŭ ĝisdatigu ion ajn, ĝi povus fuŝi vian operaciumon!"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
+msgid ""
+"To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Por ŝalti al malsama Linukso-Minto-spegulservilo kaj solvi ĉi tiun "
+"problemon, alklaku Bone."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:904
+msgid "APT error:"
+msgstr "APT-eraro:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:909
+msgid "Please switch to another Linux Mint mirror"
+msgstr "Bonvolu ŝalti al alia Linukso-Minto-spegulservilo"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:955
+msgid "distribution"
+msgstr "distribuo"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:957
+msgid "DISTRIBUTION END OF LIFE WARNING"
+msgstr "AVERTO PRI VIVOFINO DE DISTRIBUO"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:959
+#, python-format
+msgid "Your version of Linux Mint is only supported until %s."
+msgstr "Via versio de Linukso Minto estas nur subtenata ĝis %s."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:960
+msgid ""
+"Your system will remain functional after that date, but the official "
+"software repositories will become unavailable along with any updates "
+"including security updates."
+msgstr ""
+"Via sistemo restos funkcia post tiu dato, sed la oficialaj programaraj "
+"deponejoj ne plu disponeblos. Nek plu disponeblos ĝisdatigoj inkluzive de "
+"sekurecaj ĝisdatigoj."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:961
+msgid ""
+"You should perform an upgrade to or a clean install of a newer version of "
+"your distribution before that happens."
+msgstr ""
+"Antaŭ, ke tio okazas, agu jene: promociu al pli nova versio de via distribuo "
+"aŭ malplenigu diskon kaj reinstalu pli novan version de via distribuo."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:962
+#, python-format
+msgid "For more information visit %s."
+msgstr "Por pli da informoj bonvolu viziti %s."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:976
+msgid "Please set up System Snapshots"
+msgstr "Bonvolu agordi sistem-momentfotojn"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
 msgstr ""
+"Se io fuŝiĝas, momentfotoj permesos al vi restaŭri vian sistemon al la "
+"antaŭa funkcianta stato."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1004
 msgid "Do you want to switch to a local mirror?"
-msgstr ""
+msgstr "Ĉu vi deziras ŝalti al loka spegulservilo?"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1005
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr ""
+msgstr "Lokaj spegulserviloj kutime pli rapidas ol packages.linuxmint.com."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1016
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1026
 msgid "Please switch to another mirror"
-msgstr ""
+msgstr "Bonvolu ŝalti al alia spegulservilo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1017
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s neatingeblas."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "La lasta ĝisdatigo sur %(mirror)s estis antaŭ %(days)d tago."
+msgstr[1] "La lasta ĝisdatigo sur %(mirror)s estis antaŭ %(days)d tagoj."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1180
 msgid "Exit"
-msgstr ""
+msgstr "Eliri"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1270
 msgid "Upgrade"
 msgstr "Promocii"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1063
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1275
 msgid "Name"
-msgstr ""
+msgstr "Nomo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1067
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1249
-msgid "Level"
-msgstr "Nivelo"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1071
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1751
-msgid "Old version"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1946
+msgid "Old Version"
 msgstr "Malnova versio"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1075
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1267
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1754
-msgid "New version"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1283
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1473
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1949
+msgid "New Version"
 msgstr "Nova versio"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1273
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1485
 msgid "Size"
 msgstr "Grando"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1083
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1243
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1455
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1295
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1479
 msgid "Origin"
 msgstr "Origino"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1139
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1353
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "Aktualigi"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1724
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1447
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1915
 msgid "Information"
 msgstr "Informo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1149
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1183
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1395
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2062
 msgid "Preferences"
 msgstr "Agordoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1368
 msgid "Quit"
-msgstr ""
+msgstr "Eliri"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1379
 msgid "_File"
 msgstr "_Dosiero"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1384
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr "Fermi"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1178
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1390
 msgid "_Edit"
 msgstr "R_edakti"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1195
-msgid "Software sources"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1401
+msgid "System Snapshots"
+msgstr "Momentfotoj de la sistemo"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1407
+msgid "Software Sources"
 msgstr "Programaraj fontoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1430
 #, python-format
 msgid "Upgrade to %s"
-msgstr ""
+msgstr "Promocii al %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1222
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1434
 msgid "_View"
 msgstr "_Vidi"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1742
-msgid "History of updates"
-msgstr "Kronologio de ĝisdatigoj"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1439
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1937
+msgid "History of Updates"
+msgstr "Historio de ĝisdatigoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1231
-msgid "Linux kernels"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1443
+msgid "Linux Kernels"
+msgstr "Linuksaj kernoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
-msgid "Visible columns"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1451
+msgid "Visible Columns"
 msgstr "Videblaj kolumnoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1748
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1943
 msgid "Package"
 msgstr "Pakaĵo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
-msgid "Show descriptions"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1493
+msgid "Show Descriptions"
+msgstr "Montri priskribojn"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
-msgid "Select"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "Vakigi"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
-msgid "All updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
-msgid "Level 1 updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
-msgid "Level 2 updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
-msgid "Level 3 updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
-msgid "Level 4 updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1509
 msgid "_Help"
 msgstr "_Helpo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
-msgid "Welcome screen"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1515
+msgid "Welcome Screen"
+msgstr "Bonvena ekrano"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1367
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1520
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Fulmoklavoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1373
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1526
 msgid "Contents"
-msgstr ""
+msgstr "Enhavo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1380
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1533
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2005
 msgid "About"
 msgstr "Pri"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
-#: usr/share/linuxmint/mintupdate/main.ui.h:9
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1619
+msgid "Cannot Proceed"
+msgstr "Ne eblas daŭrigi"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
+msgid ""
+"Another process is currently using the package management system. Please "
+"wait for it to finish and then try again."
+msgstr ""
+"Alia procezo nun uzas la pakaĵan mastrumilon. Bonvolu atendi ĝis, kiam ĝi "
+"finiĝos, kaj tiam provu denove."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1648
+msgid "Yes"
+msgstr "Jes"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1649
+msgid "No"
+msgstr "Ne"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1651
+#: usr/share/linuxmint/mintupdate/main.ui.h:22
+msgid "OK"
+msgstr "Bone"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1757
+#: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid "Welcome to the Update Manager"
-msgstr ""
+msgstr "Bonvenon al la Ĝisdatiga mastrumilo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1666
-msgid "Packages included in this update:"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1836
+msgid "This update affects the following installed package:"
+msgid_plural "This update affects the following installed packages:"
+msgstr[0] "Ĉi tiu ĝisdatigo tuŝas la sekvan instalitan pakaĵon:"
+msgstr[1] "Ĉi tiu ĝisdatigo tuŝas la sekvajn instalitajn pakaĵojn:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
-msgid "Ignore updates for this package"
-msgstr "Malatenti ĝisdatigojn por ĉi tiu pakaĵo"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
+msgid "Total size:"
+msgstr "Totala grando:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1745
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1854
+msgid "Ignore the current update for this package"
+msgstr "Malatentu la nunan ĝisdatigon por ĉi tiu pakaĵo"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1857
+msgid "Ignore all future updates for this package"
+msgstr "Malatentu ĉiujn estontajn ĝisdatigojn por ĉi tiu pakaĵo"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1940
 msgid "Date"
 msgstr "Dato"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2078
 msgid "Options"
-msgstr ""
+msgstr "Agordoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
-msgid "Levels"
-msgstr "Niveloj"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
-msgid "Auto-refresh"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2079
 msgid "Blacklist"
-msgstr ""
+msgstr "Nigralisto"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
-msgid "Auto-upgrade"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
+msgid "Automation"
+msgstr "Aŭtomatigo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1922
-msgid "Ignored updates"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2086
+msgid "Interface"
+msgstr "Fasado"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1993
-msgid "Please specify the name of the update to ignore:"
-msgstr ""
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2087
+msgid "Hide the update manager after applying updates"
+msgstr "Kaŝi la ĝisdatigan mastrumilon post aplikado de ĝisdatigoj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
-msgid "Ignore an update"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2088
+msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
+"Nur montri taskopletan piktogramon, kiam ĝisdatigoj disponeblas aŭ ĉe eraroj"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1998
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2089
+msgid "Show a warning if system snapshots are not set up"
+msgstr "Montri averton, se sistem-momentfotoj ne estas agorditaj"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2091
+msgid "Auto-refresh"
+msgstr "Aŭtomata aktualigo"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2092
+msgid "Refresh the list of updates automatically"
+msgstr "Aktualigi la liston de ĝisdatigoj aŭtomate"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2104
+msgid "days"
+msgstr "tagoj"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2105
+msgid "hours"
+msgstr "horoj"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2106
+msgid "minutes"
+msgstr "minutoj"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2107
+msgid "First, refresh the list of updates after:"
+msgstr "Unue aktualigu la liston de ĝisdatigoj post:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2111
+msgid "Then, refresh the list of updates every:"
+msgstr "Tiam aktualigu la liston de ĝisdatigoj ĉiun:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2154
+msgid ""
+"Note: The list only gets refreshed while the Update Manager window is closed "
+"(system tray mode)."
+msgstr ""
+"Komento: La listo estas nur aktualigita dum la fenestro de Ĝisdatiga "
+"mastrumilo estas fermita (taskopleta reĝimo)."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2160
+msgid "Ignored Updates"
+msgstr "Malatentitaj ĝisdatigoj"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
+msgid "Automatic Updates"
+msgstr "Aŭtomataj ĝisdatigoj"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
+msgid "This option is run as root on a daily basis"
+msgstr "Ĉi tiu opcio estas rulita kiel ĉefuzanto ĉiutage"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2184
+msgid "Apply updates automatically"
+msgstr "Apliki ĝisdatigojn aŭtomate"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2188
+msgid "Export blacklist to /etc/mintupdate.blacklist"
+msgstr "Elporti nigran liston al /etc/mintupdate.blacklist"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
+msgid ""
+"Click this button for automatic updates to use your current blacklist."
+msgstr ""
+"Alklaku ĉi-butonon, por ke aŭtomataj ĝisdatigoj uzu vian nunan nigran liston."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
+msgid "Automatic Maintenance"
+msgstr "Aŭtomata funkciteno"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
+msgid "This option is run as root on a weekly basis"
+msgstr "Ĉi tiu opcio estas rulita kiel ĉefuzanto ĉiusemajne"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2193
+msgid "Remove obsolete kernels and dependencies"
+msgstr "Forigi malaktualajn kernojn kaj devigajn programopartojn"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2197
+msgid ""
+"This option always leaves at least one older kernel installed and never "
+"removes manually installed kernels."
+msgstr ""
+"Ĉi tiu opcio ĉiam lasas almenaŭ unu pli malnovan kernon instalatan kaj "
+"neniam forigas permane instalitajn kernojn."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
+msgid ""
+"Please specify the source package name of the update to ignore (wildcards "
+"are supported) and optionally the version:"
+msgstr ""
+"Bonvolu specifi la fontpakan nomon de la malatentota ĝisdatigo (ĵokeroj "
+"estas subtenataj) kaj eventuale la version:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
+msgid "Ignore an Update"
+msgstr "Malatenti ĝisdatigon"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
 msgid "Name:"
-msgstr ""
+msgstr "Nomo:"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:21
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+msgid "Version:"
+msgstr "Versio"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2263
+msgid "(optional)"
+msgstr "(nedeviga)"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:23
 msgid "System Upgrade"
-msgstr ""
+msgstr "Sistempromocio"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:33
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:35
 msgid "Introduction"
-msgstr ""
+msgstr "Enkonduko"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:37
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:39
 msgid ""
 "Your system is missing critical components. A package corresponding to your "
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
+"Al via sistemo mankas kritikaj moduloj. Pakaĵo responda al via eldono de "
+"Linukso Minto provizu la virtualan pakaĵon 'mint-info' kaj la dosieron "
+"/etc/linuxmint/info."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:50
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:52
 msgid "No upgrades were found."
-msgstr ""
+msgstr "Ne promocioj estis trovitaj."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:59
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:61
 msgid "A new version of Linux Mint is available!"
-msgstr ""
+msgstr "Nova versio de Linukso Minto disponeblas!"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:69
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:71
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
 msgstr ""
+"Promocio estis trovita, sed ĝi ankoraŭ ne disponeblas por la %s-eldono."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:78
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:80
 msgid "Release notes"
-msgstr ""
+msgstr "Eldonaj notoj"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:85
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:87
 msgid ""
 "Please read the release notes before upgrading. They explain all the known "
 "issues, workarounds and solutions associated with the new version."
 msgstr ""
+"Bonvolu legi la eldonajn notojn antaŭ ol promocii. Ili klarigas ĉiujn "
+"konatajn atentindaĵojn kaj (provizorajn) solvojn pri la nova versio."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:89
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:91
 #, python-format
 msgid "Release notes for %s"
-msgstr ""
+msgstr "Eldonaj notoj por %s"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:92
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:94
 msgid "Click on the link to open the release notes."
-msgstr ""
+msgstr "Alklaku la ligilon por malfermi la eldonajn notojn."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:100
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:102
 msgid "New features"
-msgstr ""
+msgstr "Novaj trajtoj"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:107
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:109
 msgid "Please look at the new features introduced in the new version."
-msgstr ""
+msgstr "Bonvolu rigardi la novajn trajtojn enkondukitajn en la nova versio."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:111
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:113
 #, python-format
 msgid "New features in %s"
-msgstr ""
+msgstr "Novaj trajtoj en %s"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:114
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:116
 msgid "Click on the link to browse the new features."
-msgstr ""
+msgstr "Alklaku la ligilon por foliumi la novajn trajtojn."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:122
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:124
 msgid "Requirements"
-msgstr ""
+msgstr "Postuloj"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:132
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:134
 #, python-format
 msgid "The package %s needs to be installed before upgrading."
-msgstr ""
+msgstr "Necesas instali pakaĵon %s antaŭ ol promocii."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:136
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:138
 #, python-format
 msgid "Install %s"
-msgstr ""
+msgstr "Instali %s"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:141
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:143
 msgid "Click on the button to install the missing package."
-msgstr ""
+msgstr "Alklaku la butonon por instali la mankantan pakaĵon."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:155
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:157
 msgid ""
 "New releases provide bug fixes and new features but they also sometimes "
 "introduce new issues. Upgrading always represents a risk. Your data is safe "
 "but new issues can potentially affect your operating system."
 msgstr ""
+"Novaj eldonoj provizas cimoriparojn kaj novajn eblojn, sed fojfoje ili ankaŭ "
+"enkonduki novajn atentindaĵojn. Promocii ĉiam prezentas riskon. Viaj datumoj "
+"estas sendanĝeraj, sed eble novaj atentindaĵoj tuŝas vian operaciumon."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:159
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:161
 #, python-format
 msgid "I understand the risk. I want to upgrade to %s."
-msgstr ""
+msgstr "Mi komprenas la riskon. Mi deziras promocii al %s."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:169
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:171
 msgid "Summary"
-msgstr ""
+msgstr "Resumo"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:256
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:258
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
 msgstr ""
+"Via operaciumo estis sukcese promociita. Bonvolu denove praŝargi vian "
+"komputilon por efektivigi ĉiujn ŝanĝojn."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:259
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:261
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
 msgstr ""
+"Promociado ne sukcesis. Certiĝu, ke vi estas konektita al interreto kaj "
+"provu denove promocii."
 
-#: generate_desktop_files:27
+#: generate_desktop_files:26
 msgid "Show and install available updates"
 msgstr "Montri kaj instali disponeblajn ĝisdatigojn"
 
-#: usr/bin/mint-release-upgrade-root:16
-msgid "Please enter your password to perform the upgrade"
-msgstr ""
-
 #: usr/share/linuxmint/mintupdate/information.ui.h:1
-msgid "Log file:"
-msgstr "Protokola dosiero:"
-
-#: usr/share/linuxmint/mintupdate/information.ui.h:2
 msgid "Process ID:"
 msgstr "Proceza ID:"
 
+#: usr/share/linuxmint/mintupdate/information.ui.h:2
+msgid "Log file:"
+msgstr "Protokola dosiero:"
+
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:1
 msgid "Warning!"
-msgstr ""
+msgstr "Averto!"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:2
 msgid "Proceed with caution"
-msgstr ""
+msgstr "Daŭrigu singarde"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
+"Instalado de nova kerno fojfoje okazigas problemojn, speciale se vi uzadas "
+"komercajn pelilojn."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
 msgid "These issues include:"
-msgstr ""
+msgstr "Ĉi tiuj atentindaĵoj inkluzivas:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
 msgid ""
@@ -1383,10 +1425,14 @@ msgid ""
 "- Black screen on startup\n"
 "- Random system freeze"
 msgstr ""
+"- Ne sendrata reto (aŭ eterreto)\n"
+"- Ne video-plirapidigo\n"
+"- Nigra ekrano dum starto\n"
+"- Hazarda sistemfrostigo"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "If you face any of these issues, don't panic:"
-msgstr ""
+msgstr "Se vi alfrontas iun el ĉi tiuj atentindaĵoj, ne panikiĝu:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:10
 msgid ""
@@ -1396,36 +1442,54 @@ msgid ""
 "- Select an older kernel.\n"
 "- After the computer boots with the older kernel, uninstall the new one."
 msgstr ""
+"- Denove praŝargu.\n"
+"- Premadu la majuskligan klavon por videbligi la praŝargan menuon.\n"
+"- En la praŝarga menuo elektu la linion, kiu komencas per 'Porspertulaj "
+"opcioj'.\n"
+"- Elektu pli malnovan kernon.\n"
+"- Post praŝargo de la komputilo per la pli malnova kerno malinstalu la novan."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
-msgstr ""
+msgstr "Ne montri ĉi tiun mesaĝon denove"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:16
-#: usr/share/linuxmint/mintupdate/main.ui.h:18
+#: usr/share/linuxmint/mintupdate/main.ui.h:21
 msgid "Help"
-msgstr ""
+msgstr "Helpo"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
-msgstr ""
+msgstr "Daŭrigi"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
-msgid "Remove old kernels..."
-msgstr ""
+msgid "Kernel flavor:"
+msgstr "Kerna gusto:"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
-msgid "Cancel"
-msgstr ""
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
+msgid "Perform Queued Actions..."
+msgstr "Plenumi agojn el atendovico..."
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
-msgid "Remove selected kernels"
-msgstr ""
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
+msgid "Remove Kernels..."
+msgstr "Forigi kernojn..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:23
-msgid "Select the kernels you want to remove:"
-msgstr ""
+msgid "Cancel"
+msgstr "Nuligi"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:24
+msgid "Apply"
+msgstr "Apliki"
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:25
+msgid "Please confirm the following actions:"
+msgstr "Bonvolu konfirmi la sekvajn agojn:"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Vakigi"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
@@ -1437,202 +1501,109 @@ msgstr "Elekti ĉiujn"
 msgid "Install Updates"
 msgstr "Instali ĝisdatigojn"
 
+#: usr/share/linuxmint/mintupdate/main.ui.h:6
+msgid "A new version of the Update Manager is available"
+msgstr "Nova versio de la ĝisdatiga mastrumilo disponeblas"
+
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:14
+msgid "Update and Restart"
+msgstr "Ĝisdatigi kaj restartigi"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Description"
 msgstr "Priskribo"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:8
+#: usr/share/linuxmint/mintupdate/main.ui.h:10
+msgid "Packages"
+msgstr "Pakaĵoj"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Changelog"
 msgstr "Ŝanĝoprotokolo"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:10
+#: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid ""
 "This tool provides your operating system with software and security updates."
 msgstr ""
+"Ĉi tiu ilo provizas al via operaciumo programarajn kaj sekurecajn "
+"ĝisdatigojn."
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:12
+#: usr/share/linuxmint/mintupdate/main.ui.h:14
+msgid "Security updates"
+msgstr "Sekurecaj ĝisdatigoj"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:13
-msgid "Software updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/main.ui.h:14
-msgid "Apply software updates to fix bugs in your computer."
-msgstr ""
+"Apliki sekurecajn ĝisdatigojn por fliki vulnereblojn kaj teni vian "
+"komputilon sekure."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
+msgid "Software updates"
+msgstr "Programaraj ĝisdatigoj"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:17
+msgid "Apply software updates to fix bugs in your computer."
+msgstr "Apliki programarajn ĝisdatigojn por ripari cimojn en via komputilo."
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Agordu sistem-momentfotojn por vin protekti kontraŭ eraroj kaj regresoj. Se "
+"io fuŝiĝas, tiam simple restaŭru la lastan momentfoton."
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:17
+#: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid ""
 "Linux Mint recommends to set up automated system snapshots and to apply all "
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linukso Minto rekomendas agordi aŭtomatigitajn sistem-momentfotojn kaj "
+"apliki ĉiujn disponeblajn ĝisdatigojn. Ĉi-maniere via komputilo estas ĉiam "
+"sendanĝera kaj vi povas reiri pri horo kaj ripari de iu ajn ebla regreso."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
-msgid "Apply"
+msgid ""
+"Packages listed here will never receive updates. Use this option to block "
+"updates that you know cause issues on your system."
 msgstr ""
+"Ĉi tie listigitaj pakoj neniam ricevos ĝisdatigojn. Uzu ĉi-opcion por bloki "
+"ĝisdatigojn, kiuj, kiel vi scias, okazigas atentindaĵojn sur via sistemo."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid ""
+"It is recommended to add packages to the blacklist by right-clicking them in "
+"the updates listing."
+msgstr ""
+"Estas rekomendite aldoni pakojn al la nigra listo per dekstre-alklako al ili "
+"en la listado de ĝisdatigoj."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:4
-msgid ""
-"When this option is enabled, all updates are applied automatically on a "
-"daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:5
-msgid ""
-"You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
-"/etc/mintupdate.blacklist to blacklist some of them."
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:6
-msgid "Apply updates automatically"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:7
-msgid "Impact level"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:8
-msgid "Selected"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:9
-msgid "Visible"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:19
-msgid ""
-"It is recommended to set up system snapshots and to apply all available "
-"updates. Only hide levels when troubleshooting or trying to identify a "
-"regression. Check the help section for more information."
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:20
-msgid "Interface"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:21
-msgid "Hide the update manager after applying updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:22
-msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:23
-msgid "Show a warning if system snapshots are not set up"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:24
-msgid "Don't suggest switching to a local mirror"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:25
-msgid "Updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:26
-msgid ""
-"It is recommended to show and apply all available updates. Only disable the "
-"options below when troubleshooting."
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:27
-msgid ""
-"Include updates which require the installation of new packages or the "
-"removal of installed packages"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:28
-msgid "Always show security updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:29
-msgid "Always select security updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:30
-msgid "Always show kernel updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:31
-msgid "Always select kernel updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:32
-msgid "First, refresh the list of updates after:"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:33
-msgid "Then, refresh the list of updates every:"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:34
-msgid "days"
-msgstr "tagoj"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:35
-msgid "hours"
-msgstr "horoj"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:36
-msgid "minutes"
-msgstr "minutoj"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:37
-msgid ""
-"Note: The list only gets refreshed while the update manager window is closed "
-"(system tray mode)."
-msgstr ""
-"Notu: la listo nur aktualiĝas kiam la fenestro de la ĝisdatiga mastrumilo "
-"estas fermita (taskopleta reĝimo)."
+"Ĉertiĝu, ke viaj sistem-momentfotoj estas dece agorditaj antaŭ ol uzi ĉi "
+"tiun opcion."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "Fenestro"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "Elektado"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
-msgid "Select level 1 updates"
-msgstr ""
+msgid "Select Security Updates"
+msgstr "Elekti sekurecajn ĝisdatigojn"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
-msgid "Select level 2 updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:10
-msgid "Select level 3 updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:11
-msgid "Select level 4 updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:12
-msgid "Select security updates"
-msgstr ""
-
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:13
-msgid "Select kernel updates"
-msgstr ""
+msgid "Select Kernel Updates"
+msgstr "Elekti kernajn ĝisdatigojn"
 
 #~ msgid "Checking the connection to the Internet..."
 #~ msgstr "Kontrolanta la konekton al Interreto..."
@@ -1645,6 +1616,12 @@ msgstr ""
 
 #~ msgid "Could not download safety rules"
 #~ msgstr "Ne eblis elŝuti sekurgajn regulojn"
+
+#~ msgid "Level"
+#~ msgstr "Nivelo"
+
+#~ msgid "Levels"
+#~ msgstr "Niveloj"
 
 #~ msgid ""
 #~ "Note: The dist-upgrade option, in addition to performing the function of "
@@ -1688,6 +1665,12 @@ msgstr ""
 
 #~ msgid "Error"
 #~ msgstr "Eraro"
+
+#~ msgid "Old version"
+#~ msgstr "Malnova versio"
+
+#~ msgid "New version"
+#~ msgstr "Nova versio"
 
 #~ msgid "Package name:"
 #~ msgstr "Pakaĵnomo:"
@@ -1737,8 +1720,17 @@ msgstr ""
 #~ msgid "Please enter your password to start mintUpdate"
 #~ msgstr "Bonvolu enigi via pasvorto por startigi mintĜisdatigon"
 
+#~ msgid "Another application is using APT"
+#~ msgstr "Alia aplikaĵo estas uzanta APT"
+
+#~ msgid "Finding the list of updates..."
+#~ msgstr "Trovanta la liston pri ĝisdatigoj..."
+
 #~ msgid "Please wait, this can take some time"
 #~ msgstr "Bonvole atendu, necesas iom da tempo"
+
+#~ msgid "Starting refresh..."
+#~ msgstr "Startiganta aktualigo..."
 
 #~ msgid "Could not refresh the list of packages"
 #~ msgstr "Ne eblis aktualigi la liston de pakaĵoj"
@@ -1808,5 +1800,14 @@ msgstr ""
 #~ msgid "Startup delay (in seconds):"
 #~ msgstr "Startiga prokrasto (en sekundoj):"
 
+#~ msgid "History of updates"
+#~ msgstr "Kronologio de ĝisdatigoj"
+
 #~ msgid "All available upgrades for this package will be ignored."
 #~ msgstr "Ĉiuj disponeblaj ĝisdatigoj por ĉi tiu pakaĵo estos malatentata."
+
+#~ msgid "Software sources"
+#~ msgstr "Programaraj fontoj"
+
+#~ msgid "Visible columns"
+#~ msgstr "Videblaj kolumnoj"

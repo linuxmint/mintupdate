@@ -7,22 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2018-12-03 14:12+0000\n"
-"PO-Revision-Date: 2018-12-04 19:33+0000\n"
+"POT-Creation-Date: 2019-06-30 11:02+0200\n"
+"PO-Revision-Date: 2019-06-30 10:43+0000\n"
 "Last-Translator: spacy01 <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2018-12-11 11:49+0000\n"
-"X-Generator: Launchpad (build 18837)\n"
+"X-Launchpad-Export-Date: 2019-07-10 08:21+0000\n"
+"X-Generator: Launchpad (build 19007)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
 #: usr/share/help/C/mintupdate/regressions.page:10(name)
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:10(name)
-#: usr/share/help/C/mintupdate/levels.page:10(name)
 #: usr/share/help/C/mintupdate/kernels.page:10(name)
 #: usr/share/help/C/mintupdate/index.page:9(name)
 msgid "Linux Mint"
@@ -32,7 +31,6 @@ msgstr "Линукс Минт"
 #: usr/share/help/C/mintupdate/snapshots.page:11(email)
 #: usr/share/help/C/mintupdate/regressions.page:11(email)
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:11(email)
-#: usr/share/help/C/mintupdate/levels.page:11(email)
 #: usr/share/help/C/mintupdate/kernels.page:11(email)
 #: usr/share/help/C/mintupdate/index.page:10(email)
 msgid "root@linuxmint.com"
@@ -111,8 +109,7 @@ msgstr ""
 "последната снимка."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
-#: usr/share/linuxmint/mintupdate/main.ui.h:15
+#: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "System snapshots"
 msgstr "Снимки на системата"
 
@@ -262,347 +259,68 @@ msgid "mintupdate-cli list"
 msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
-msgid ""
-"You can use -l to only show updates for certain levels (when "
-"troubleshooting)."
-msgstr ""
-"Може да използвате -l за да видите актуализациите от дадено ниво (при "
-"отстраняване на проблеми)."
-
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -s to only show the security updates."
 msgstr ""
 "Може да използвате -s за да видите само актуализациите по сигурността."
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
 msgstr "Може да използвате -k за да видите актуализациите на ядрото."
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:39(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
 msgstr ""
 "Например, следната команда ще покаже списък с всички актуализации по "
 "сигурността:"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:41(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:39(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
 msgstr "mintupdate-cli list -s"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:47(title)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:45(title)
 msgid "Applying updates"
 msgstr "Прилагане на актуализациите"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:47(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr ""
 "Може да използваш командата \"upgrade\", за да приложиш актуализациите, може "
 "да ползваш и някои опции"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:51(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
 msgstr ""
 "Например, следната команда ще приложни всички актуализации на ядрото:"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:53(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
 msgstr "sudo mintupdate-cli upgrade -r -k"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
 msgstr "Аргумента -r се добавя за да се освежи кеша."
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:57(p)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
 "Повече информация за mintupdate-cli  и за пълен списък с команди, въведете:"
 
-#: usr/share/help/C/mintupdate/mintupdate-cli.page:59(screen)
+#: usr/share/help/C/mintupdate/mintupdate-cli.page:57(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
 msgstr "mintupdate-cli -h"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:33(None)
-#: usr/share/help/C/mintupdate/levels.page:55(None)
-msgid ""
-"@@image: 'figures/mintupdate-level1.svg'; "
-"md5=4721d1b8ee24af8a530de2567ed1221c"
-msgstr ""
-"@@image: 'figures/mintupdate-level1.svg'; "
-"md5=4721d1b8ee24af8a530de2567ed1221c"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:38(None)
-#: usr/share/help/C/mintupdate/levels.page:73(None)
-msgid ""
-"@@image: 'figures/mintupdate-level2.svg'; "
-"md5=3166f49269a73d52075b41dfde52ac87"
-msgstr ""
-"@@image: 'figures/mintupdate-level2.svg'; "
-"md5=3166f49269a73d52075b41dfde52ac87"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:43(None)
-#: usr/share/help/C/mintupdate/levels.page:82(None)
-msgid ""
-"@@image: 'figures/mintupdate-level3.svg'; "
-"md5=7f94f299af95a42e73759eb4676e2319"
-msgstr ""
-"@@image: 'figures/mintupdate-level3.svg'; "
-"md5=7f94f299af95a42e73759eb4676e2319"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: usr/share/help/C/mintupdate/levels.page:48(None)
-#: usr/share/help/C/mintupdate/levels.page:93(None)
-msgid ""
-"@@image: 'figures/mintupdate-level4.svg'; "
-"md5=9e9eb80679d932ccce1db26618475908"
-msgstr ""
-"@@image: 'figures/mintupdate-level4.svg'; "
-"md5=9e9eb80679d932ccce1db26618475908"
-
-#: usr/share/help/C/mintupdate/levels.page:16(desc)
-msgid ""
-"Use update levels when troubleshooting, to identify which update is "
-"responsible for a regression."
-msgstr ""
-"Използвайте нивата на актуализации при откриване на проблеми, за да "
-"определите коя актуализация е отговорна за регресия."
-
-#: usr/share/help/C/mintupdate/levels.page:19(title)
-msgid "Update levels"
-msgstr "Нива на актуализации"
-
-#: usr/share/help/C/mintupdate/levels.page:21(p)
-msgid ""
-"Critical regressions happen very rarely. When they do, restore your system "
-"with the latest system snapshot and tell the Linux Mint development team "
-"about the regression."
-msgstr ""
-"Критични регресии се случват много рядко. Когато се случи, възстановете "
-"системата си от последната снимка и кажете на екипа разработчици на Линукс "
-"Минт за регресията."
-
-#: usr/share/help/C/mintupdate/levels.page:23(p)
-msgid ""
-"The Linux Mint team will want to know which update is responsible for the "
-"regression."
-msgstr ""
-"Екипа на Линукс Минт ще иска да знае коя актуализация е отговорна за "
-"регресията."
-
-#: usr/share/help/C/mintupdate/levels.page:25(p)
-msgid ""
-"If you are faced with a long list of updates and you're not sure where to "
-"look, click on \"View\"-&gt;\"Visible Columns\"-&gt;\"Levels\"."
-msgstr ""
-"Ако се сблъскате с дълъг списък от актуализации и не сте сигурни къде да "
-"гледате, цъкнете на \"Преглед\"-&gt;\"Видими колони\"-&gt;\"Нива\"."
-
-#: usr/share/help/C/mintupdate/levels.page:27(p)
-msgid ""
-"Updates are given a level indicating how much of an impact they have on the "
-"operating system."
-msgstr ""
-"На актуализациите е дадено ниво, обозначаващо какво въздействие оказват на "
-"операционната система."
-
-#: usr/share/help/C/mintupdate/levels.page:29(p)
-msgid "There are 4 levels:"
-msgstr "Има 4 нива:"
-
-#: usr/share/help/C/mintupdate/levels.page:34(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:10
-msgid "Minimal"
-msgstr "Минимално"
-
-#: usr/share/help/C/mintupdate/levels.page:35(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:15
-msgid "No impact on the system or other applications."
-msgstr "Нямат въздействие върху системата или други приложения"
-
-#: usr/share/help/C/mintupdate/levels.page:39(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:11
-msgid "Normal"
-msgstr "Нормално"
-
-#: usr/share/help/C/mintupdate/levels.page:40(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:16
-msgid "Default level. Usually low impact on the system."
-msgstr "Стандартното ниво. Обикновено въздействието е слабо."
-
-#: usr/share/help/C/mintupdate/levels.page:44(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:12
-msgid "Large"
-msgstr "Голямо"
-
-#: usr/share/help/C/mintupdate/levels.page:45(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:17
-msgid "Impact on multiple applications."
-msgstr "Въздействие върху множество приложения."
-
-#: usr/share/help/C/mintupdate/levels.page:49(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:13
-msgid "Sensitive"
-msgstr "Чувствително"
-
-#: usr/share/help/C/mintupdate/levels.page:50(p)
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:18
-msgid "Impact on sensitive parts of the system."
-msgstr "Въздействие върху чувствителни части на системата."
-
-#: usr/share/help/C/mintupdate/levels.page:55(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
-"Level 1"
-msgstr ""
-"<media type=\"image\" src=\"figures/mintupdate-level1.svg\" height=\"40\"/> "
-"Ниво 1"
-
-#: usr/share/help/C/mintupdate/levels.page:57(p)
-msgid ""
-"Level 1 updates are updates which only affect their own software and have no "
-"impact on the rest of the system."
-msgstr ""
-"Актуализациите от ниво 1 въздействат само на техния собствен софтуер, и "
-"нямат въздействие върху останалата операционна система."
-
-#: usr/share/help/C/mintupdate/levels.page:59(p)
-msgid "They're usually updates for single applications. For instance:"
-msgstr ""
-"Обикновено това са актуализации на самостоятелни приложения. Например:"
-
-#: usr/share/help/C/mintupdate/levels.page:62(p)
-msgid "The calculator"
-msgstr "Колкулатор"
-
-#: usr/share/help/C/mintupdate/levels.page:63(p)
-msgid "The PDF reader"
-msgstr "PDF четец"
-
-#: usr/share/help/C/mintupdate/levels.page:64(p)
-msgid "The text editor"
-msgstr "Текстов редактор"
-
-#: usr/share/help/C/mintupdate/levels.page:65(p)
-msgid "The media player"
-msgstr "Мултимедиен плеър"
-
-#: usr/share/help/C/mintupdate/levels.page:68(p)
-msgid ""
-"Regressions in these updates usually only affect the software they're "
-"updating, not the operating system itself."
-msgstr ""
-"Регресиите в тези актуализации обичайно имат ефект само върху софтуера, "
-"който актуализират, не и върху самата операционна система."
-
-#: usr/share/help/C/mintupdate/levels.page:73(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
-"Level 2"
-msgstr ""
-"<media type=\"image\" src=\"figures/mintupdate-level2.svg\" height=\"40\"/> "
-"Ниво 2"
-
-#: usr/share/help/C/mintupdate/levels.page:75(p)
-msgid ""
-"This is the default level, so the vast majority of updates are level 2."
-msgstr "Това е стандартното ниво, болшинството актуализации са ниво 2."
-
-#: usr/share/help/C/mintupdate/levels.page:77(p)
-msgid ""
-"These updates aren't known to impact large areas or sensitive parts of the "
-"system, but they're not guaranteed to only affect their own software either."
-msgstr ""
-"За тези актуализации се знае че не засягат големи части или чувствителни "
-"части от системата, но няма гаранция че засягат само техния софтуер."
-
-#: usr/share/help/C/mintupdate/levels.page:82(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
-"Level 3"
-msgstr ""
-"<media type=\"image\" src=\"figures/mintupdate-level3.svg\" height=\"40\"/> "
-"Ниво 3"
-
-#: usr/share/help/C/mintupdate/levels.page:84(p)
-msgid ""
-"Level 3 updates are updates which not only affect themselves but also have "
-"an impact on other applications."
-msgstr ""
-"Актуализациите ниво 3 не само засягат сами себе си, но също така и други "
-"приложения."
-
-#: usr/share/help/C/mintupdate/levels.page:86(p)
-msgid ""
-"Typical examples of level 3 updates are GTK, DBUS, etc... A regression in "
-"these updates wouldn't stop your computer from booting properly, but it "
-"could impact many applications."
-msgstr ""
-"Типични примери за актуализации ниво 3 са GTK, DBUS и т.н.. Регресиите в "
-"тези актуализации няма да попречат на компютъра да стартира, но може да "
-"засегнат много приложения."
-
-#: usr/share/help/C/mintupdate/levels.page:88(p)
-msgid ""
-"Desktop environments are also level 3 updates. If a critical regression "
-"happens in Cinnamon, you might be unable to log in."
-msgstr ""
-"Актуализациите на работната среда също са ниво 3. Ако има критична регресия "
-"в Cinnamon, може би няма да може да се впишете."
-
-#: usr/share/help/C/mintupdate/levels.page:93(title)
-msgid ""
-"<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
-"Level 4"
-msgstr ""
-"<media type=\"image\" src=\"figures/mintupdate-level4.svg\" height=\"40\"/> "
-"Ниво 4"
-
-#: usr/share/help/C/mintupdate/levels.page:95(p)
-msgid ""
-"Level 4 updates are updates which affect sensitive parts of the operating "
-"system such as:"
-msgstr ""
-"Актуализациите ниво 4 засягат чувствителни части от операционната система, "
-"като:"
-
-#: usr/share/help/C/mintupdate/levels.page:98(p)
-msgid "The boot sequence"
-msgstr "Последователността за стартиране"
-
-#: usr/share/help/C/mintupdate/levels.page:99(p)
-msgid "The display manager (login screen, session management)"
-msgstr "Мениджъра на екрана (екрана за вписване, упревлението на сесии)"
-
-#: usr/share/help/C/mintupdate/levels.page:100(p)
-msgid "The kernel (hardware support)"
-msgstr "Ядрото (поддръжката на хардуер)"
-
-#: usr/share/help/C/mintupdate/levels.page:101(p)
-msgid "The drivers (networking, NVIDIA/AMD)"
-msgstr "Дрейверите (мрежата, NVIDIA/AMD)"
-
-#: usr/share/help/C/mintupdate/levels.page:102(p)
-msgid "The display (Xorg, mesa)"
-msgstr "Дисплея (Xorg, mesa)"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
 msgstr "Ядра и актуализации на ядрото"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
-#: usr/share/help/C/mintupdate/index.page:41(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1350
+#: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Kernel updates"
 msgstr "Актуализации на ядрото"
 
@@ -812,10 +530,11 @@ msgstr ""
 "премахни новото ядро и отново рестартирай."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:970
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:974
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1805 generate_desktop_files:26
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1175
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1237
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2007 generate_desktop_files:25
 msgid "Update Manager"
 msgstr "Диспечер на актуализациите"
 
@@ -863,23 +582,15 @@ msgstr ""
 "Тази секция обяснява основната концепция, свързана с актуализациите на "
 "софтуер."
 
-#: usr/share/help/C/mintupdate/index.page:35(title)
-msgid "Troubleshooting"
-msgstr "Отстраняване на грешки"
-
 #: usr/share/help/C/mintupdate/index.page:37(p)
-msgid "This section explains update levels."
-msgstr "Този раздел обяснява нивата на актуализации."
-
-#: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains kernel updates."
 msgstr "Тази секция обяснява актуализациите за ядрото"
 
-#: usr/share/help/C/mintupdate/index.page:47(title)
+#: usr/share/help/C/mintupdate/index.page:41(title)
 msgid "Advanced techniques"
 msgstr "Техники за напреднали"
 
-#: usr/share/help/C/mintupdate/index.page:49(p)
+#: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains advanced techniques."
 msgstr "Тази секция обяснява техниките за напреднали"
 
@@ -890,22 +601,23 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Emil Pavlov https://launchpad.net/~emil-p-pavlov\n"
 "  Milen Georgiev https://launchpad.net/~milen-e\n"
-"  Miroslav E. Hadzhiev (Хаджиев) https://launchpad.net/~xtigyro\n"
+"  Miroslav Hadzhiev https://launchpad.net/~xtigyro\n"
 "  Ve4ernik https://launchpad.net/~ve4ernik\n"
 "  Vilian Atmadzhov https://launchpad.net/~vilian-atmadzhov\n"
+"  Zi https://launchpad.net/~jung-i\n"
 "  spacy01 https://launchpad.net/~spacy00001\n"
 "  Адмирал АнимЕ https://launchpad.net/~aeternus-arcis"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:232
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Линукс ядро %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:233
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 msgid "The Linux kernel."
 msgstr "Линукс ядрото."
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:234
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -925,178 +637,166 @@ msgstr ""
 "ядра, инсталирани на компютъра. Ако ползвате затворени драйвери и искате да "
 "ползвате старото ядро, първо трябва да махнете новото."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:158
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "Remove"
 msgstr "Премахване"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:161
-msgid "This kernel cannot be removed because it is currently in use."
-msgstr "Ядрото не може да бъде премахното, защото в момента се използва."
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:165
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:150
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "Install"
 msgstr "Инсталиране"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:168
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
+msgid "Queue Removal"
+msgstr "Премахване на опашката"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
+msgid "This kernel cannot be removed because it is currently in use."
+msgstr "Ядрото не може да бъде премахното, защото в момента се използва."
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:249
+msgid "Queue Installation"
+msgstr "Инсталиране на опашката"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:251
 msgid "This kernel is not installable."
 msgstr "Това ядро не е за инсталиране."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:182
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:268
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
 msgstr "Сигурни ли сте, че искате да премахнете ядрото %s"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:184
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "Сигурни ли сте, че искате да инсталирате ядрото %s"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:204
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:302
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 msgid "Kernels"
 msgstr "Ядра"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:347
+msgid "Remove Kernels"
+msgstr "Премахване на ядра"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:349
+msgid "Perform Queued Actions"
+msgstr "Действия с опашката"
+
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:430
 msgid "Active"
 msgstr "Активен"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:435
 msgid "Installed"
 msgstr "Инсталирано"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:358
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Supported until"
-msgstr "Поддръка до"
+msgstr "Поддръжка до"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:360
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:526
 msgid "Superseded"
 msgstr "Заменен"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:362
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:528
 msgid "End of Life"
 msgstr "Край на живота"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:364
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:530
 msgid "Unsupported"
 msgstr "Не се поддържа"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 msgid "You are currently using the following kernel:"
 msgstr "В момента използвате следното ядро:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:54
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
 msgid "GB"
 msgstr "ГБ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:56
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:60
 msgid "MB"
 msgstr "МБ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:62
 msgid "KB"
 msgstr "КБ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:59
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:63
 msgid "B"
 msgstr "Б"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:161
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:244
 msgid "Downloading changelog..."
 msgstr "Изтегляне на списък с промените..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:174
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:257
 msgid "No changelog available"
 msgstr "Списъкът с промените не е достъпен"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:338
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:456
 msgid "This upgrade will trigger additional changes"
 msgstr "Тази актуализация ще предизвика допълнителни промени"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:465
 msgid "The following packages will be removed:"
 msgstr "Следните пакети ще бъдат премахнати:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:376
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:494
 msgid "The following packages will be installed:"
 msgstr "Следните пакети ще бъдат инсталирани:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:419
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:537
 msgid "Installing updates"
 msgstr "Инсталиране на обновявания"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:554
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1015
-msgid "Checking for updates"
-msgstr "Проверка за актуализации"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:502
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:598
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
 msgid "Could not install the security updates"
 msgstr "Актуализациите по сигурността не могат да бъдат инсталирани"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:546
-msgid "Starting refresh..."
-msgstr "Започване на опресняването..."
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
+msgid "Reboot required"
+msgstr "Изисква се рестарт"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:580
-msgid "Another application is using APT"
-msgstr "Друго приложение използва APT"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:589
-msgid "Finding the list of updates..."
-msgstr "Търсене на списъка с актуализациите..."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:607
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
-msgid "Your APT cache is corrupted."
-msgstr "Вашият APT  кеш е поврефен"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:608
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 msgid ""
-"Do not install or update anything, it could break your operating system!"
+"You have installed updates that require a reboot to take effect, please "
+"reboot your system as soon as possible."
 msgstr ""
-"Не инсталирайте или обновявайте нищо, възможно е да повредите операционната "
-"система!"
+"Инсталирахте актуализации, изискващи рестарт, за да бъдат активирани. Моля "
+"рестартирайте възможно най-скоро."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:609
-msgid ""
-"To switch to a different Linux Mint mirror and solve this problem, click OK."
-msgstr ""
-"За да превключите на различно огледало и да решите проблема, натиснете ОК."
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
+msgid "Checking for updates"
+msgstr "Проверка за актуализации"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:616
-msgid "Please switch to another Linux Mint mirror"
-msgstr "Моля превключи на друго огледало"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:711
+msgid "Run 'apt update' in a terminal window to address this"
+msgstr "За дас е справите с това, изпълнете 'apt update' в терминал."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:852
-#: usr/share/linuxmint/mintupdate/main.ui.h:19
-msgid "OK"
-msgstr "OK"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:864
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:716
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:865
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:866
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:912
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
 msgstr "Списъка с актуализации не може да се опресни"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:644
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:755
-#: usr/share/linuxmint/mintupdate/main.ui.h:6
-msgid "Your system is up to date"
-msgstr "Системата Ви е актуализирана"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:720
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:779
 msgid "Kernel update"
 msgstr "Актуализация на ядро"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:723
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:782
 msgid "Security update"
 msgstr "Актуализация по сигурността"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:726
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:785
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1104,42 +804,114 @@ msgstr ""
 "Нестабилен софтуер. Приложете тези актуализации, само ако помагате на "
 "разработчиците с тестове."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:730
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:789
 msgid "Software update"
 msgstr "Обновяване на софтуер"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:734
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
 msgid "3rd-party update"
 msgstr "Актуализации от 3-ти страни"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:759
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1487
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1720
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1796
 msgid "No updates selected"
 msgstr "Няма избрани актуализации"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:761
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:817
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1798
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
 msgstr[0] "избрана е %(selected)d актуализация (%(size)s)"
 msgstr[1] "избрани са %(selected)d актуализации (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:767
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:824
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
 msgstr[0] "Налична е %d актуализация"
 msgstr[1] "Налични са %d актуализации"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:835
+msgid "Your distribution has reached end of life and is no longer supported"
+msgstr ""
+"Вашата дистрибуция е достигнала края на живота си и вече не се поддържа"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:840
+#: usr/share/linuxmint/mintupdate/main.ui.h:8
+msgid "Your system is up to date"
+msgstr "Системата Ви е актуализирана"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:900
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
+msgid "Your APT configuration is corrupt."
+msgstr "Вашата APT конфигурация е повредена."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:901
+msgid ""
+"Do not install or update anything, it could break your operating system!"
+msgstr ""
+"Не инсталирайте или обновявайте нищо, възможно е да повредите операционната "
+"система!"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
+msgid ""
+"To switch to a different Linux Mint mirror and solve this problem, click OK."
+msgstr ""
+"За да превключите на различно огледало и да решите проблема, натиснете ОК."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:904
+msgid "APT error:"
+msgstr "APT грешка:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:909
+msgid "Please switch to another Linux Mint mirror"
+msgstr "Моля превключи на друго огледало"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:955
+msgid "distribution"
+msgstr "дистрибуция"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:957
+msgid "DISTRIBUTION END OF LIFE WARNING"
+msgstr "ПРЕДУПРЕЖДЕНИЕ ЗА КРАЙ НА ЖИВОТ НА ДИСТРИБУЦИЯТА"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:959
+#, python-format
+msgid "Your version of Linux Mint is only supported until %s."
+msgstr "Вашата версия на Линук Минт ще се поддържа само до %s."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:960
+msgid ""
+"Your system will remain functional after that date, but the official "
+"software repositories will become unavailable along with any updates "
+"including security updates."
+msgstr ""
+"Системата Ви ще продължи да функционира и след тази дата, но официалните "
+"софтуерни хранилища и актуализации ще станат недостъпни и няма да получавате "
+"никакви актуализации, включително и по сигурността."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:961
+msgid ""
+"You should perform an upgrade to or a clean install of a newer version of "
+"your distribution before that happens."
+msgstr ""
+"Налага се да актуализирате или инсталирате нова версията на дистрибуцията, "
+"преди това да се случи."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:962
+#, python-format
+msgid "For more information visit %s."
+msgstr "За повече информация посетете %s."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:976
 msgid "Please set up System Snapshots"
 msgstr "Моля настройте системните снимки"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:790
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
 msgid ""
 "If something breaks, snapshots will allow you to restore your system to the "
 "previous working condition."
@@ -1147,266 +919,365 @@ msgstr ""
 "Ако нещо се счупи, снимките ще ви позволят да възстановите системата си до "
 "предишното работещо състояние."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1004
 msgid "Do you want to switch to a local mirror?"
 msgstr "Искате ли да превключите на местно огледало?"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1005
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr "Местните огледала са обикновено по-бързи от packages.linuxmint.com."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1016
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1026
 msgid "Please switch to another mirror"
 msgstr "Моля, превключете на друго огледало"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1017
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s е недостижим."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
 msgstr[0] "Последната актуализация от %(mirror)s беше преди %(days)d ден."
 msgstr[1] "Последната актуализация от %(mirror)s беше преди %(days)d дни."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1180
 msgid "Exit"
 msgstr "Изход"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1270
 msgid "Upgrade"
 msgstr "Надграждане"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1063
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1275
 msgid "Name"
 msgstr "Име"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1067
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1249
-msgid "Level"
-msgstr "Ниво"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1071
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1261
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1751
-msgid "Old version"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1946
+msgid "Old Version"
 msgstr "Стара версия"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1075
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1267
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1754
-msgid "New version"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1283
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1473
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1949
+msgid "New Version"
 msgstr "Нова версия"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1273
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1485
 msgid "Size"
 msgstr "Размер"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1083
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1243
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1455
 msgid "Type"
 msgstr "Вид"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1295
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1479
 msgid "Origin"
 msgstr "Произход"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1139
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1353
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "Опресняване"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1724
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1447
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1915
 msgid "Information"
 msgstr "Сведения"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1149
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1183
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1395
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2062
 msgid "Preferences"
 msgstr "Предпочитания"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1368
 msgid "Quit"
 msgstr "Изход"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1167
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1379
 msgid "_File"
 msgstr "_Файл"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1384
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr "Затваряне"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1178
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1390
 msgid "_Edit"
 msgstr "_Редактиране"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1195
-msgid "Software sources"
-msgstr "Софтуерни източници"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1401
+msgid "System Snapshots"
+msgstr "Системни снимки"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1407
+msgid "Software Sources"
+msgstr "Източници на софтуер"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1430
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Надграждане до %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1222
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1434
 msgid "_View"
 msgstr "_Изглед"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1742
-msgid "History of updates"
-msgstr "Хронология на актуализациите"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1439
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1937
+msgid "History of Updates"
+msgstr "История на актуализациите"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1231
-msgid "Linux kernels"
-msgstr "Linux ядра"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1443
+msgid "Linux Kernels"
+msgstr "Линукс ядра"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1239
-msgid "Visible columns"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1451
+msgid "Visible Columns"
 msgstr "Видими колони"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1748
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1943
 msgid "Package"
 msgstr "Пакет"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
-msgid "Show descriptions"
-msgstr "Показване на описания"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1493
+msgid "Show Descriptions"
+msgstr "Покажи описания"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1304
-msgid "Select"
-msgstr "Избор"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
-#: usr/share/linuxmint/mintupdate/main.ui.h:1
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
-msgid "Clear"
-msgstr "Изчистване"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
-msgid "All updates"
-msgstr "Всички обновления"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1320
-msgid "Level 1 updates"
-msgstr "Оновления от първо ниво"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1326
-msgid "Level 2 updates"
-msgstr "Оновления от второ ниво"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1332
-msgid "Level 3 updates"
-msgstr "Оновления от трето ниво"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1338
-msgid "Level 4 updates"
-msgstr "Оновления от четвърто ниво"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1344
-#: usr/share/linuxmint/mintupdate/main.ui.h:11
-msgid "Security updates"
-msgstr "Актуализации за сигурността"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1356
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1509
 msgid "_Help"
 msgstr "_Помощ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
-msgid "Welcome screen"
-msgstr "Начален екран"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1515
+msgid "Welcome Screen"
+msgstr "Приветстващ екран"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1367
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1520
 msgid "Keyboard Shortcuts"
 msgstr "Клавишни комбинации"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1373
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1526
 msgid "Contents"
 msgstr "Съдържание"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1380
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1803
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1533
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2005
 msgid "About"
 msgstr "За програмата"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
-#: usr/share/linuxmint/mintupdate/main.ui.h:9
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1619
+msgid "Cannot Proceed"
+msgstr "Не може да се продължи"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
+msgid ""
+"Another process is currently using the package management system. Please "
+"wait for it to finish and then try again."
+msgstr ""
+"В момента друг процес използва системният мениджър на пакети. Моля, "
+"изчакайте да завърши и опитайте отново."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1648
+msgid "Yes"
+msgstr "Да"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1649
+msgid "No"
+msgstr "Не"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1651
+#: usr/share/linuxmint/mintupdate/main.ui.h:22
+msgid "OK"
+msgstr "OK"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1757
+#: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid "Welcome to the Update Manager"
 msgstr "Добре дошли в мениджъра на актуализациите"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1666
-msgid "Packages included in this update:"
-msgstr "Пакети, включени в тази актуализация"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1836
+msgid "This update affects the following installed package:"
+msgid_plural "This update affects the following installed packages:"
+msgstr[0] "Тази актуализация засяга следния инсталиран пакет:"
+msgstr[1] "Тази актуализация засяга следните инсталирани пакети:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
-msgid "Ignore updates for this package"
-msgstr "Пренебрегване на актуализациите на този пакет"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
+msgid "Total size:"
+msgstr "Общ размер:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1745
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1854
+msgid "Ignore the current update for this package"
+msgstr "Игнорирайте текущата актуализация за този пакет"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1857
+msgid "Ignore all future updates for this package"
+msgstr "Игнорирайте всички бъдещи актуализации за този пакет"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1940
 msgid "Date"
 msgstr "Дата"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1877
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2078
 msgid "Options"
 msgstr "Опции"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1878
-msgid "Levels"
-msgstr "Нива"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
-msgid "Auto-refresh"
-msgstr "Автоматично опресняване"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1880
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2079
 msgid "Blacklist"
 msgstr "Черен списък"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1881
-msgid "Auto-upgrade"
-msgstr "Автоматично надстройване"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
+msgid "Automation"
+msgstr "Автоматизация"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1922
-msgid "Ignored updates"
-msgstr "Пренебрегнати обновления"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2086
+msgid "Interface"
+msgstr "Интерфейс"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1993
-msgid "Please specify the name of the update to ignore:"
-msgstr "Моля, определете името на актуализацията за пропускане:"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2087
+msgid "Hide the update manager after applying updates"
+msgstr "Скриване на мениджъра след прилагане на актуализациите"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
-msgid "Ignore an update"
-msgstr "Пренебрегване на обновление"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2088
+msgid "Only show a tray icon when updates are available or in case of errors"
+msgstr ""
+"Показвай иконка на лентата само когато има актуализации, или при грешка"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1998
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2089
+msgid "Show a warning if system snapshots are not set up"
+msgstr "Покажи предупреждение, ако системните снимки не са настроени"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2091
+msgid "Auto-refresh"
+msgstr "Автоматично опресняване"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2092
+msgid "Refresh the list of updates automatically"
+msgstr "Автоматично освежаване на списъка с актуализации"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2104
+msgid "days"
+msgstr "дни"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2105
+msgid "hours"
+msgstr "часа"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2106
+msgid "minutes"
+msgstr "минути"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2107
+msgid "First, refresh the list of updates after:"
+msgstr "Първо обновяване на списъка с актуализации след:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2111
+msgid "Then, refresh the list of updates every:"
+msgstr "След това, обновяване на списъка с актуализации на всеки:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2154
+msgid ""
+"Note: The list only gets refreshed while the Update Manager window is closed "
+"(system tray mode)."
+msgstr ""
+"Забележка: Списъкът се обновява само докато мениджърът на актуализациите е "
+"затворен (скрит в панела с иконка)."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2160
+msgid "Ignored Updates"
+msgstr "Игнорирани актуализации"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
+msgid "Automatic Updates"
+msgstr "Автоматични актуализации"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
+msgid "This option is run as root on a daily basis"
+msgstr "Тази опция се стартира като администратор ежедневно"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2184
+msgid "Apply updates automatically"
+msgstr "Прилагане на актуализациите автоматично"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2188
+msgid "Export blacklist to /etc/mintupdate.blacklist"
+msgstr "Изнасяне на черния списък до  /etc/mintupdate.blacklist"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
+msgid ""
+"Click this button for automatic updates to use your current blacklist."
+msgstr ""
+"Натиснете бутона за автоматично актуализиране, за да използвате този черен "
+"списък."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
+msgid "Automatic Maintenance"
+msgstr "Автоматична поддръжка"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
+msgid "This option is run as root on a weekly basis"
+msgstr "Тази опция се стартира като администратор ежедневно"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2193
+msgid "Remove obsolete kernels and dependencies"
+msgstr "Премахване на остарели ядра и зависимости"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2197
+msgid ""
+"This option always leaves at least one older kernel installed and never "
+"removes manually installed kernels."
+msgstr ""
+"Тази опция винаги оставя поне едно по-старо ядро, и никога не премахва ръчно "
+"инсталирани ядра."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
+msgid ""
+"Please specify the source package name of the update to ignore (wildcards "
+"are supported) and optionally the version:"
+msgstr ""
+"Моля посочете името на пакета източник за игнориране (има поддръжка на "
+"wildcards), а по желание и версията\""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
+msgid "Ignore an Update"
+msgstr "Игнориране на актуализация"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
 msgid "Name:"
 msgstr "Име:"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:21
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+msgid "Version:"
+msgstr "Версия:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2263
+msgid "(optional)"
+msgstr "(по избор)"
+
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:23
 msgid "System Upgrade"
 msgstr "Надграждане на системата"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:33
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:35
 msgid "Introduction"
 msgstr "Въведение"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:37
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:39
 msgid ""
 "Your system is missing critical components. A package corresponding to your "
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
@@ -1416,24 +1287,24 @@ msgstr ""
 "версия на Линукс Минт се предоставят от виртуалния пакет 'mint-meta-info' и "
 "файла /etc/linuxmint/info."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:50
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:52
 msgid "No upgrades were found."
 msgstr "Нама налични актуализации"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:59
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:61
 msgid "A new version of Linux Mint is available!"
 msgstr "Налична е нова версия на Линукс Минт!"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:69
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:71
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
 msgstr "Има надграждане, но то не е още налично за версия %s."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:78
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:80
 msgid "Release notes"
 msgstr "Бележки към изданието"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:85
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:87
 msgid ""
 "Please read the release notes before upgrading. They explain all the known "
 "issues, workarounds and solutions associated with the new version."
@@ -1441,51 +1312,51 @@ msgstr ""
 "Моля прочетете бележките преди на надграждате. Те обясняват всички известни "
 "проблеми и решения, свързани с новата версия."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:89
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:91
 #, python-format
 msgid "Release notes for %s"
 msgstr "Бележки към %s"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:92
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:94
 msgid "Click on the link to open the release notes."
 msgstr "Щракнете на връзката, за да отворите бележките."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:100
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:102
 msgid "New features"
 msgstr "Нови възможности"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:107
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:109
 msgid "Please look at the new features introduced in the new version."
 msgstr "Моля разгледайте новите възможности, представени в новата версия."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:111
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:113
 #, python-format
 msgid "New features in %s"
 msgstr "Нови възможности в %s"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:114
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:116
 msgid "Click on the link to browse the new features."
 msgstr "Щракнете на връзката, за да разгледате новите възможности."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:122
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:124
 msgid "Requirements"
 msgstr "Изисквания"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:132
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:134
 #, python-format
 msgid "The package %s needs to be installed before upgrading."
 msgstr "Пакета %s тряба да бъде инсталиран преди надграждането."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:136
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:138
 #, python-format
 msgid "Install %s"
 msgstr "Инсталиране на %s"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:141
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:143
 msgid "Click on the button to install the missing package."
 msgstr "Щракнете на копчето, за да инсталирате липсващия пакет."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:155
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:157
 msgid ""
 "New releases provide bug fixes and new features but they also sometimes "
 "introduce new issues. Upgrading always represents a risk. Your data is safe "
@@ -1496,16 +1367,16 @@ msgstr ""
 "данни не са под риск, но потенциални проблеми могат да засегнат Вашата "
 "операционна система."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:159
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:161
 #, python-format
 msgid "I understand the risk. I want to upgrade to %s."
 msgstr "Разбирам риска и искам да надградя до %s."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:169
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:171
 msgid "Summary"
 msgstr "Обобщение"
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:256
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:258
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
@@ -1513,7 +1384,7 @@ msgstr ""
 "Вашата операционна система беше надградена успешно. Моля рестартирайте, за "
 "да приложите промените."
 
-#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:259
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:261
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
@@ -1521,21 +1392,17 @@ msgstr ""
 "Надграждането не успя. Убедете се че сте свързани с интернет и опитайте "
 "отново."
 
-#: generate_desktop_files:27
+#: generate_desktop_files:26
 msgid "Show and install available updates"
 msgstr "Показване и инсталиране на наличните актуализации"
 
-#: usr/bin/mint-release-upgrade-root:16
-msgid "Please enter your password to perform the upgrade"
-msgstr "Моля, въведете паролата си, за да извършите надграждането"
-
 #: usr/share/linuxmint/mintupdate/information.ui.h:1
-msgid "Log file:"
-msgstr "Файл-дневник:"
-
-#: usr/share/linuxmint/mintupdate/information.ui.h:2
 msgid "Process ID:"
 msgstr "Идентификатор на процеса:"
+
+#: usr/share/linuxmint/mintupdate/information.ui.h:2
+msgid "Log file:"
+msgstr "Файл-дневник:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:1
 msgid "Warning!"
@@ -1593,7 +1460,7 @@ msgid "Do not show this message again"
 msgstr "Без повторно показване на съобщението"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:16
-#: usr/share/linuxmint/mintupdate/main.ui.h:18
+#: usr/share/linuxmint/mintupdate/main.ui.h:21
 msgid "Help"
 msgstr "Помощ"
 
@@ -1602,21 +1469,33 @@ msgid "Continue"
 msgstr "Продължи"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
-msgid "Remove old kernels..."
-msgstr "Премахване на стари ядра..."
+msgid "Kernel flavor:"
+msgstr "Вид на ядрото:"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:19
+msgid "Perform Queued Actions..."
+msgstr "Извършване на действия по опашката..."
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
+msgid "Remove Kernels..."
+msgstr "Премахване на ядра..."
+
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
 msgid "Cancel"
 msgstr "Отмени"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
-msgid "Remove selected kernels"
-msgstr "Премахване на избрани ядра"
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:24
+msgid "Apply"
+msgstr "Приложи"
 
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
-msgid "Select the kernels you want to remove:"
-msgstr "Изберете ядрата, които искате да премахните:"
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:25
+msgid "Please confirm the following actions:"
+msgstr "Моля, потвърдете следните действия"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:1
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
+msgid "Clear"
+msgstr "Изчистване"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
@@ -1628,39 +1507,54 @@ msgstr "Избиране на всичко"
 msgid "Install Updates"
 msgstr "Инсталиране актуализациите"
 
+#: usr/share/linuxmint/mintupdate/main.ui.h:6
+msgid "A new version of the Update Manager is available"
+msgstr "Налична е нова версия на мениджъра на актуализациите"
+
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:14
+msgid "Update and Restart"
+msgstr "Обновяване и рестартиране"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Description"
 msgstr "Описание"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:8
+#: usr/share/linuxmint/mintupdate/main.ui.h:10
+msgid "Packages"
+msgstr "Пакети"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Changelog"
 msgstr "Дневник на промените"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:10
+#: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid ""
 "This tool provides your operating system with software and security updates."
 msgstr ""
 "Този инструмент снабдява операционната система с актуализации за софтуера и "
 "по сигурността."
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:12
+#: usr/share/linuxmint/mintupdate/main.ui.h:14
+msgid "Security updates"
+msgstr "Актуализации за сигурността"
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
 "Приложете актуализациите по сигурността, за да закърпите уязвимости и за да "
 "запазите компютъра си сигурен."
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:13
+#: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid "Software updates"
 msgstr "Софтуерни актуализации"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:14
+#: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "Apply software updates to fix bugs in your computer."
 msgstr ""
 "Приложете софтуерните актуализации за да поправите бъгове във вашия компютър"
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:16
+#: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
@@ -1668,7 +1562,7 @@ msgstr ""
 "Настройте системни снимки за да се защитите от грешки и регресии. Ако нещо "
 "се счупи, просто възстановете от последната снимка."
 
-#: usr/share/linuxmint/mintupdate/main.ui.h:17
+#: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid ""
 "Linux Mint recommends to set up automated system snapshots and to apply all "
 "available updates. This way, your computer is always secure and you can go "
@@ -1680,8 +1574,21 @@ msgstr ""
 "регресия."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
-msgid "Apply"
-msgstr "Приложи"
+msgid ""
+"Packages listed here will never receive updates. Use this option to block "
+"updates that you know cause issues on your system."
+msgstr ""
+"Пакетите в списъка никога няма да бъдат актуализирани. Използвайте тази "
+"опция, за да блокирате актуализации, за които знаете че предизвикват "
+"проблеми."
+
+#: usr/share/linuxmint/mintupdate/preferences.ui.h:2
+msgid ""
+"It is recommended to add packages to the blacklist by right-clicking them in "
+"the updates listing."
+msgstr ""
+"Препоръчително е да добавяте пакети в черния списък, като цъкнете с десен "
+"бутон върху тях, в списъка с актуализации."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
@@ -1690,135 +1597,6 @@ msgid ""
 msgstr ""
 "Убедете се че системните снимки за правилно зададени, преди да използвате "
 "тази опция."
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:4
-msgid ""
-"When this option is enabled, all updates are applied automatically on a "
-"daily basis, as root, via a cron job (/etc/cron.daily/mintupdate)."
-msgstr ""
-"Когато тази опция е включена, всички актуализации ще се прилагат "
-"автоматично, ежедневно, като администратор чрез cron job "
-"(/etc/cron.daily/mintupdate)."
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:5
-msgid ""
-"You can edit /etc/cron.daily/mintupdate to fine tune automatic updates and "
-"/etc/mintupdate.blacklist to blacklist some of them."
-msgstr ""
-"Може да редактирате /etc/cron.daily/mintupdate, за по-фина настройка на "
-"автоматичните актуализации и /etc/mintupdate.blacklist за да забраните някои "
-"от тях."
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:6
-msgid "Apply updates automatically"
-msgstr "Прилагане на актуализациите автоматично"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:7
-msgid "Impact level"
-msgstr "Ниво на въздействие"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:8
-msgid "Selected"
-msgstr "Избрани"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:9
-msgid "Visible"
-msgstr "Видими"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:19
-msgid ""
-"It is recommended to set up system snapshots and to apply all available "
-"updates. Only hide levels when troubleshooting or trying to identify a "
-"regression. Check the help section for more information."
-msgstr ""
-"Препоръчително е да зададете системни снимки и да прилагате всички налични "
-"актуализации. Само скрийте нива, когато отстранявате грешки или опитвате да "
-"идентифицирате регресия. Проверете раздела с помощ за повече информация."
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:20
-msgid "Interface"
-msgstr "Интерфейс"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:21
-msgid "Hide the update manager after applying updates"
-msgstr "Скриване на мениджъра след прилагане на актуализациите"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:22
-msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr ""
-"Показвай иконка на лентата само когато има актуализации, или при грешка"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:23
-msgid "Show a warning if system snapshots are not set up"
-msgstr "Покажи предупреждение, ако системните снимки не са настроени"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:24
-msgid "Don't suggest switching to a local mirror"
-msgstr "Не ми прегладай да превключвам да местно огледало"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:25
-msgid "Updates"
-msgstr "Актуализации"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:26
-msgid ""
-"It is recommended to show and apply all available updates. Only disable the "
-"options below when troubleshooting."
-msgstr ""
-"Препоръчително е да показвате и прилагате всички налични актуализации. "
-"Изключвайте опциите по-долу, когато отстранявате грешки."
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:27
-msgid ""
-"Include updates which require the installation of new packages or the "
-"removal of installed packages"
-msgstr ""
-"Включва актуализации, които изискват инсталацията на нови пакети или "
-"премахването на вече инсталирани пакети."
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:28
-msgid "Always show security updates"
-msgstr "Винаги показвай актуализациите по сигурността"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:29
-msgid "Always select security updates"
-msgstr "Винаги избирай актуализациите по сигурността"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:30
-msgid "Always show kernel updates"
-msgstr "Винаги показвай актуализации за ядрото"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:31
-msgid "Always select kernel updates"
-msgstr "Винаги избирай актуализациите на ядрото"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:32
-msgid "First, refresh the list of updates after:"
-msgstr "Първо обновяване на списъка с актуализации след:"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:33
-msgid "Then, refresh the list of updates every:"
-msgstr "След това, обновяване на списъка с актуализации на всеки:"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:34
-msgid "days"
-msgstr "дни"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:35
-msgid "hours"
-msgstr "часа"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:36
-msgid "minutes"
-msgstr "минути"
-
-#: usr/share/linuxmint/mintupdate/preferences.ui.h:37
-msgid ""
-"Note: The list only gets refreshed while the update manager window is closed "
-"(system tray mode)."
-msgstr ""
-"Бележка: Списъците се актуализират само когато мениджърът за актуализации е "
-"затворен (т.е. е само в режим на показване в системния жлеб)"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
@@ -1829,37 +1607,21 @@ msgid "Selection"
 msgstr "Селекция"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
-msgid "Select level 1 updates"
-msgstr "Избор на актуализации от първо ниво"
-
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
-msgid "Select level 2 updates"
-msgstr "Избор на актуализации от второ ниво"
-
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:10
-msgid "Select level 3 updates"
-msgstr "Избор на актуализации от трето ниво"
-
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:11
-msgid "Select level 4 updates"
-msgstr "Избор на актуализации от четвърто ниво"
-
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:12
-msgid "Select security updates"
+msgid "Select Security Updates"
 msgstr "Избор на актуализации по сигурността"
 
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:13
-msgid "Select kernel updates"
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
+msgid "Select Kernel Updates"
 msgstr "Избор на актуализации на ядрото"
 
 #~ msgid "Update is complete"
 #~ msgstr "Актуализацията е завършена"
 
-#~ msgid "Yes"
-#~ msgstr "Да"
+#~ msgid "Level"
+#~ msgstr "Ниво"
 
-#~ msgid "No"
-#~ msgstr "Не"
+#~ msgid "Levels"
+#~ msgstr "Нива"
 
 #~ msgid "Status"
 #~ msgstr "Състояние"
@@ -1872,6 +1634,9 @@ msgstr "Избор на актуализации на ядрото"
 
 #~ msgid "Please wait, this can take some time"
 #~ msgstr "Моля, изчакайте, това може да отнеме известно време"
+
+#~ msgid "Starting refresh..."
+#~ msgstr "Започване на опресняването..."
 
 #~ msgid "Checking the connection to the Internet..."
 #~ msgstr "Проверка на връзката с Интернет..."
@@ -1887,6 +1652,9 @@ msgstr "Избор на актуализации на ядрото"
 
 #~ msgid "Could not refresh the list of packages"
 #~ msgstr "Списъкът с пакетите не може да бъде опреснен"
+
+#~ msgid "Another application is using APT"
+#~ msgstr "Друго приложение използва APT"
 
 #~ msgid "Auto-Refresh"
 #~ msgstr "Автоматично опресняване"
@@ -1952,14 +1720,29 @@ msgstr "Избор на актуализации на ядрото"
 #~ msgid "Please enter a package name:"
 #~ msgstr "Моля, въведете името на пакета:"
 
+#~ msgid "History of updates"
+#~ msgstr "Хронология на актуализациите"
+
 #~ msgid "Log file"
 #~ msgstr "Файл-дневник"
+
+#~ msgid "Old version"
+#~ msgstr "Стара версия"
+
+#~ msgid "New version"
+#~ msgstr "Нова версия"
 
 #~ msgid "Warnings"
 #~ msgstr "Предупреждения"
 
 #~ msgid "Extra Info"
 #~ msgstr "Допълнителна информация"
+
+#~ msgid "Software sources"
+#~ msgstr "Софтуерни източници"
+
+#~ msgid "Visible columns"
+#~ msgstr "Видими колони"
 
 #~ msgid "Software Updates"
 #~ msgstr "Софтуерни актуализации"
@@ -1976,6 +1759,9 @@ msgstr "Избор на актуализации на ядрото"
 #~ msgstr ""
 #~ "достъпни са %(recommended)d препоръчни актуализации, %(ignored)d ще бъдат "
 #~ "пропуснати"
+
+#~ msgid "Finding the list of updates..."
+#~ msgstr "Търсене на списъка с актуализациите..."
 
 #~ msgid "Safe packages. Not tested but believed to be safe."
 #~ msgstr "Безопасни пакети. Не са тествани, но са считани за безопасни."
