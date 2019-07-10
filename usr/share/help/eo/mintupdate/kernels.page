@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Kernoj kaj kernaj ĝisdatigoj</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Kernaj ĝisdatigoj</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>La kerno estas la centra parto de la operaciumo. Interalie ĝi respondecas pri aparatara subteno.</p>
 
-  <note><p>In Linux Mint, kernel updates bring both security patches and bug fixes (and sometimes even new features), and they impact critical parts of the operating system. This makes kernel updates important from a security point of view, but also prone to regressions which can be hard to fix for novice users.</p></note>
+  <note><p>En Linukso Minto kernaj ĝisdatigoj alportas kaj sekurecajn flikojn kaj cimoriparojn (kaj fojfoje eĉ novajn eblojn), kaj ili influas kritikajn partojn de la operaciumo. Ĉi tio igas kernajn ĝisdatigojn gravaj de sekureca vidpunkto, sed ankaŭ emaj al regresoj, kiuj estas problemaj por ripari fare de komencantaj uzantoj.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>De sekureca vidpunkto gravas apliki kernajn ĝisdatigojn.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Tamen kerna regreso povus influi vian eblecon konekti al interreto, startigi vian fenestrilon aŭ eĉ praŝargi la operaciumon.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Pro tiu kialo gravas singardi dum aplikado de kernaj ĝisdatigoj kaj ankaŭ gravas scii kiel ilin malfari, kiam okazas problemo.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Pluraj kernoj povas esti instalitaj</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Kiam vi aplikas ĝisdatigon, vi anstataŭigas la malnovan version de la programaro per la nova versio.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>La situacio malsamas, kiam temas pri kernoj. Kiam vi aplikas "kernan ĝisdatigon", vi fakte ne ĝisdatigas la kernon, sed vi instalas novan kernon laŭlonge de tiu, kiu jam ekzistas.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Ĉiufoje, kiam vi aplikas kernan ĝisdatigon, vi instalas novan kernon sur la sistemo, sen forigi la malnovajn.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Kiam vi praŝargas, la komputilo elektas la plej lastan.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Identigado de la nuna kerno</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Se vi deziras ekscii, kiun kernon vi nun uzadas, malfermu terminalon kaj tajpu:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Instalado kaj forigado de kernoj</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Eblas instali kaj forigi kernojn ekde la ĝisdatiga mastrumilo.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>Elektu "Vidi" -&gt; "Linuksaj kernoj" en la menuo.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Ne eblas forigi la kernon, kiun vi nun uzadas. Por forigi ĝin, vi bezonas denove praŝargi kaj elekti malsaman kernon, per kiu vi deziras praŝargi.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Elektado de kerno</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Eblas, ke pluraj kernoj estas instalitaj, sed ĉiumomente eblas ruli nur unu kernon.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Kiam vi praŝargas la komputilon, la tute unua ekrano nomiĝas la Grub-menuo. Ĉi tiu menuo permesas al vi elekti operaciumojn, sed ankaŭ eblas uzi ĝin por elekti kernon.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Por elekti kernon, elektu "Opcioj por spertuloj" en la Grub-menuo. Tiam vi vidos ĉiujn kernojn nun instalitajn. Elektu tiun, kiun vi deziras uzi, kaj via komputilo praŝargos per tiu.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Kontrolo de DKMS-stato</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>La kerno inkluzivas ĉiujn malfermitkodajn pelilojn kaj ĉi tiuj kutime funkcias bonege. Komercaj peliloj (NVIDIA, AMD, Broadcom...ktp) ne estas inkluditaj kaj ili devas esti kompilitaj, tio estas: programtradukitaj, por ĉiu kerno, kiun vi instalas. Ĉi tio okazas per mekanismo nomita DKMS (: Dinamika Kernomodula Subteno).</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Se komerca pelilo ne estas konvene denove tradukita per DKMS por unu el viaj kernoj, ĝi ne funkcios korekte kun tiu kerno.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Post instalado aŭ forigado de kerno vi povas kontroli vian DKMS-staton por certiĝi, ke ĉiuj komercaj peliloj estas konvene instalitaj por ĉiu el viaj kernoj per jena komando:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Novaj kernaj serioj kutime iĝas disponeblaj antaŭ, ke komercaj peliloj ilin subtenas per DKMS. Se vi uzadas komercajn pelilojn, tiam estas rekomendite algluiĝi al kernaj ĝisdatigoj kaj ne instali kernojn el serioj, kiuj estas pli novaj ol la serioj de la rekomenditaj  kernoj.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Malfari kernan ĝisdatigon</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Se io ne funkcias pri la lasta kerno, kiun vi instalis (aŭ la lasta kerna ĝisdatigo), denove praŝargu, elektu la kernon, kiun vi uzadis antaŭe, forigu la novan kernon kaj praŝargu denove.</p>
 
   </section>
 

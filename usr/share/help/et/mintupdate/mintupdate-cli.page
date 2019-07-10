@@ -11,28 +11,28 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Uuendamine käsurealt</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Kasutades programmi mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Uuenduste haldur sisaldab käsurea tööriista nimega "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Kui sa oled kogenud Linuxi kasutaja, saad seda tööriista kasutada cron-i skriptides, et automatiseerida tarkvarauuendused.</p>
 
   <section id="tool1">
 
   <title>Uuenduste nimekiri</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Võid kasutada "list" käsku uuenduste loetelu nägemiseks:</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>-s võtmega näidatakse ainult turvauuendusi.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>-k võtmega näidatakse ainult kerneli uuendusi.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Järgmine käsk näiteks kuvab kõik turvauuendused.</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,15 +42,15 @@
 
   <title>Uuenduste rakendamine</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Võid kasutada "upgrade" käsku, et paigaldada uuendused samade valikute abil.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Näiteks järgmine käsk paigaldab kerneli uuendused:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Märgata võiks -r argumenti, mis lisati puhvri värskendamiseks.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Et saada rohkem infot mintupdate-cli kohta ja täielik võtmete loetelu, kirjuta:</p>
 
   <screen>mintupdate-cli -h</screen>
 
