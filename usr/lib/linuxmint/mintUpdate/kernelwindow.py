@@ -374,11 +374,6 @@ class KernelWindow():
 
         self.main_stack.add_named(main_box, "main_box")
 
-        if self.application.settings.get_boolean("hide-kernel-update-warning"):
-            self.main_stack.set_visible_child_name("status_refreshing")
-        else:
-            self.main_stack.set_visible_child(info_box)
-
         # Center on main window
         window_size = self.window.get_size()
         parent_size = self.application.window.get_size()
@@ -392,8 +387,10 @@ class KernelWindow():
         self.builder.get_object("cb_label").set_visible(self.allow_kernel_type_selection)
         self.builder.get_object("cb_kernel_type").set_visible(self.allow_kernel_type_selection)
 
-        # Build kernels list
-        self.refresh_kernels_list()
+        if self.application.settings.get_boolean("hide-kernel-update-warning"):
+            self.refresh_kernels_list()
+        else:
+            self.main_stack.set_visible_child(info_box)
 
     def refresh_kernels_list(self):
         self.status_refreshing_spinner.start()
@@ -572,7 +569,7 @@ class KernelWindow():
         self.application.window.set_sensitive(True)
 
     def on_continue_clicked(self, widget, main_box):
-        self.main_stack.set_visible_child(main_box)
+        self.refresh_kernels_list()
 
     def on_info_checkbox_toggled(self, widget):
         self.application.settings.set_boolean("hide-kernel-update-warning", widget.get_active())
