@@ -399,10 +399,12 @@ class KernelWindow():
         RefreshKernelsThread(self).start()
 
     def refresh_kernels_list_done(self):
+        Gdk.threads_enter()
         self.stack.show_all()
         self.window.get_window().set_cursor(None)
         self.main_stack.set_visible_child_name("main_box")
         self.status_refreshing_spinner.stop()
+        Gdk.threads_leave()
 
     def build_kernels_list(self, kernels):
         now = datetime.now()
@@ -525,7 +527,9 @@ class KernelWindow():
             if installed:
                 self.installed_kernels.append((kernel_type, version))
                 if not used:
+                    Gdk.threads_enter()
                     self.button_massremove.set_sensitive(True)
+                    Gdk.threads_leave()
                     self.remove_kernels_listbox.append(MarkKernelRow(Kernel(version, kernel_type, origin, installed),
                                                                             self.marked_kernels, version_id,
                                                                             newest_supported_in_series))
@@ -535,6 +539,7 @@ class KernelWindow():
         del(kernel_list_prelim)
 
         # add kernels to UI
+        Gdk.threads_enter()
         pages_needed_sort.sort(reverse=True)
         for page in pages_needed_sort:
             page = page[1]
@@ -558,6 +563,7 @@ class KernelWindow():
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)
+        Gdk.threads_leave()
 
     def destroy_window(self, widget):
         self.window.destroy()
