@@ -190,7 +190,6 @@ class KernelRow(Gtk.ListBoxRow):
             label.set_margin_start(6)
             label.props.xalign = 0.5
             label.set_markup("<i>%s</i>" % title)
-            Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(label), "dim-label")
             hbox.set_center_widget(label)
 
         if support_status:
@@ -232,11 +231,9 @@ class KernelRow(Gtk.ListBoxRow):
 
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         button = Gtk.Button()
-        Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(button), "text-button")
         kernel = Kernel(version, kernel_type, origin, installed)
         button.connect("clicked", self.install_kernel, kernel)
         queuebutton = Gtk.Button()
-        Gtk.StyleContext.add_class(Gtk.Widget.get_style_context(queuebutton), "text-button")
         queuebutton.connect("clicked", self.queue_kernel, kernel)
         if installed:
             button.set_label(_("Remove"))
