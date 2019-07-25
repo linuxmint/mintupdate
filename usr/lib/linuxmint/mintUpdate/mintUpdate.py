@@ -1213,10 +1213,6 @@ class MintUpdate():
         self.logger = Logger()
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings("com.linuxmint.updates")
-        if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
-            self.statusIcon = StatusIcon(self)
-        else:
-            self.statusIcon = Gtk.StatusIcon()
 
         #Set the Glade file
         gladefile = "/usr/share/linuxmint/mintupdate/main.ui"
@@ -1232,6 +1228,13 @@ class MintUpdate():
         self.builder.get_object("stack_container").pack_start(self.stack, True, True, 0)
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.stack.set_transition_duration(175)
+
+        if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
+            self.statusIcon = StatusIcon(self)
+        else:
+            self.statusIcon = Gtk.StatusIcon()
+
+        self.set_status("", _("Checking for updates"), "mintupdate-checking", not self.settings.get_boolean("hide-systray"))
 
         try:
             self.window.set_title(_("Update Manager"))
