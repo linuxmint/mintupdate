@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-06-30 11:02+0200\n"
-"PO-Revision-Date: 2019-06-30 10:43+0000\n"
+"POT-Creation-Date: 2019-07-20 11:26+0200\n"
+"PO-Revision-Date: 2019-07-24 12:16+0000\n"
 "Last-Translator: spacy01 <Unknown>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2019-07-10 08:21+0000\n"
-"X-Generator: Launchpad (build 19007)\n"
+"X-Launchpad-Export-Date: 2019-07-28 09:28+0000\n"
+"X-Generator: Launchpad (build 19010)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -638,79 +638,79 @@ msgstr ""
 "ползвате старото ядро, първо трябва да махнете новото."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
 msgid "Remove"
 msgstr "Премахване"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:150
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
 msgid "Install"
 msgstr "Инсталиране"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:243
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
 msgid "Queue Removal"
 msgstr "Премахване на опашката"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr "Ядрото не може да бъде премахното, защото в момента се използва."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:249
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 msgid "Queue Installation"
 msgstr "Инсталиране на опашката"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:251
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "This kernel is not installable."
 msgstr "Това ядро не е за инсталиране."
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:268
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
 msgstr "Сигурни ли сте, че искате да премахнете ядрото %s"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:270
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:267
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "Сигурни ли сте, че искате да инсталирате ядрото %s"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:302
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 msgid "Kernels"
 msgstr "Ядра"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:347
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
 msgid "Remove Kernels"
 msgstr "Премахване на ядра"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:349
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 msgid "Perform Queued Actions"
 msgstr "Действия с опашката"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:430
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:426
 msgid "Active"
 msgstr "Активен"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:435
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:431
 msgid "Installed"
 msgstr "Инсталирано"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:519
 msgid "Supported until"
 msgstr "Поддръжка до"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:526
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:522
 msgid "Superseded"
 msgstr "Заменен"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:528
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:524
 msgid "End of Life"
 msgstr "Край на живота"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:530
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:526
 msgid "Unsupported"
 msgstr "Не се поддържа"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:558
 msgid "You are currently using the following kernel:"
 msgstr "В момента използвате следното ядро:"
 
@@ -1512,8 +1512,8 @@ msgid "A new version of the Update Manager is available"
 msgstr "Налична е нова версия на мениджъра на актуализациите"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
-msgid "Update and Restart"
-msgstr "Обновяване и рестартиране"
+msgid "Apply the Update"
+msgstr "Приложи обновлението"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Description"
