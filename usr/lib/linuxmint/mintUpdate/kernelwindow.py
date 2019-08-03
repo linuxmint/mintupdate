@@ -415,6 +415,9 @@ class KernelWindow():
         pages_needed = []
         pages_needed_sort = []
         self.marked_kernels = []
+        # ACTIVE_KERNEL_VERSION is used by the MarkKernelRow class
+        global ACTIVE_KERNEL_VERSION
+        ACTIVE_KERNEL_VERSION = "0"
         for kernel in kernels:
             values = kernel.split('###')
             if len(values) == 11:
@@ -424,8 +427,6 @@ class KernelWindow():
                 title = ""
                 if used:
                     title = _("Active")
-                    # ACTIVE_KERNEL_VERSION is used by the MarkKernelRow class
-                    global ACTIVE_KERNEL_VERSION
                     ACTIVE_KERNEL_VERSION = version_id
                 elif installed:
                     title = _("Installed")
