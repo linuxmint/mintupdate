@@ -80,9 +80,9 @@ try:
                     distro_lifetime = (release_dates[distro][1].year - release_dates[distro][0].year) * 12 +\
                                       release_dates[distro][1].month - release_dates[distro][0].month
                     if distro_lifetime >= 12:
-                        supported_tag = f"{distro_lifetime // 12}y"
+                        supported_tag = "%sy" % (distro_lifetime // 12)
                     else:
-                        supported_tag = f"{distro_lifetime}m"
+                        supported_tag = "%sm" % distro_lifetime
             if supported_tag:
                 if pkg_data.record["Supported"].endswith("y"):
                     # override support duration for HWE kernels in LTS releases,

@@ -185,10 +185,10 @@ class APTCheck():
             package.candidate.source_name.startswith("linux-hwe") or
             package.candidate.source_name.startswith("linux-meta") or
             package.candidate.source_name.startswith("linux-signed") or
-            [True for flavor in SUPPORTED_KERNEL_TYPES if package.candidate.source_name.startswith(f"linux{flavor}")]
+            [True for flavor in SUPPORTED_KERNEL_TYPES if package.candidate.source_name.startswith("linux%s" % flavor)]
            ):
             kernel_update = True
-            source_name = f"linux-{source_version}"
+            source_name = "linux-%s" % source_version
         else:
             source_name = package.candidate.source_name
 

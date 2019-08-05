@@ -28,9 +28,9 @@ def do_enable(_automation_id):
             subprocess.run(["/bin/systemctl", "start", basename])
             subprocess.run(["/bin/systemctl", "enable", basename])
         else:
-            default = f"/usr/share/linuxmint/mintupdate/automation/{_automation_id}.default"
-            os.system(f"cp {default} {filename}")
-            print(f"{name} {filename} created.")
+            default = "/usr/share/linuxmint/mintupdate/automation/%s.default" % _automation_id
+            os.system("cp %s %s" % (default, filename))
+            print("%s %s created." % (name, filename))
             if sys.argv[1] == "blacklist":
                 add_user_blacklist(filename)
 
@@ -42,8 +42,8 @@ def do_disable(_automation_id):
             subprocess.run(["/bin/systemctl", "stop", basename])
             subprocess.run(["/bin/systemctl", "disable", basename])
         else:
-            os.system(f"rm -f {filename}")
-            print(f"{name} {filename} removed.")
+            os.system("rm -f %s" % filename)
+            print("%s %s removed." % (name, filename))
 
 def add_user_blacklist(outfile):
     import tempfile

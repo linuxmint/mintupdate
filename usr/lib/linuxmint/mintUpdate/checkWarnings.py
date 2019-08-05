@@ -31,7 +31,7 @@ try:
         if (not depcache.marked_keep(pkg) and
             (depcache.marked_install(pkg) or depcache.marked_upgrade(pkg)) and
             not pkg.name in selection and
-            not f"{pkg.name}:{pkg.architecture}" in selection and
+            not "%s:%s" % (pkg.name, pkg.architecture) in selection and
             not pkg.name in packages_to_install
             ):
             packages_to_install.append(pkg.name)
@@ -39,7 +39,7 @@ try:
             packages_to_remove.append(pkg.name)
     installations = ' '.join(packages_to_install)
     removals = ' '.join(packages_to_remove)
-    print(f"{installations}###{removals}")
+    print("%s###%s" % (installations, removals))
 except Exception as e:
     print(e)
     print(sys.exc_info()[0])

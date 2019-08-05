@@ -66,7 +66,7 @@ class KernelVersion():
         while len(self.version_id) < 3:
             self.version_id.append("0" * field_length)
         if len(self.version_id) == 3:
-            self.version_id.append(f"{''.join((x[:field_length - 2].lstrip('0') + x[field_length - 2:] for x in self.version_id))}{suffix}")
+            self.version_id.append("%s%s" % (''.join((x[:field_length - 2].lstrip('0') + x[field_length - 2:] for x in self.version_id)), suffix))
         elif len(self.version_id[3]) == 6:
             # installed release mainline kernel, add suffix for sorting
             self.version_id[3] += suffix
@@ -79,7 +79,7 @@ class Update():
         self.package_names = []
         if package is not None:
             self.package_names.append(package.name)
-            self.source_packages = {f"{package.candidate.source_name}={package.candidate.source_version}"}
+            self.source_packages = {"%s=%s" % (package.candidate.source_name, package.candidate.source_version)}
             self.main_package_name = package.name
             self.package_name = package.name
             self.new_version = package.candidate.version
@@ -131,7 +131,7 @@ class Update():
 
     def add_package(self, pkg):
         self.package_names.append(pkg.name)
-        self.source_packages.add(f"{pkg.candidate.source_name}={pkg.candidate.source_version}")
+        self.source_packages.add("%s=%s" % (pkg.candidate.source_name, pkg.candidate.source_version))
         self.size += pkg.candidate.size
         if self.main_package_name is None or pkg.name == self.source_name:
             self.overwrite_main_package(pkg)

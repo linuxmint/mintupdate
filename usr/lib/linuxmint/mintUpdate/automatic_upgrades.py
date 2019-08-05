@@ -7,7 +7,7 @@ import time
 optionsfile = "/etc/mintupdate-automatic-upgrades.conf"
 logfile = "/var/log/mintupdate.log"
 log = open(logfile, "a")
-log.write(f"\n-- Automatic Upgrade starting {time.strftime('%a %d %b %Y %H:%M:%S %Z')}:\n")
+log.write("\n-- Automatic Upgrade starting %s:\n" % time.strftime('%a %d %b %Y %H:%M:%S %Z'))
 log.flush()
 
 pkla_source = "/usr/share/linuxmint/mintupdate/automation/99-mintupdate-temporary.pkla"

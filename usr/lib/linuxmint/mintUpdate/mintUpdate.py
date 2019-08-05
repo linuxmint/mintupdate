@@ -343,9 +343,9 @@ class AutomaticRefreshThread(threading.Thread):
         while self.application.refresh_schedule_enabled:
             try:
                 schedule = {
-                    "minutes": self.application.settings.get_int(f"{settings_prefix}refresh-minutes"),
-                    "hours": self.application.settings.get_int(f"{settings_prefix}refresh-hours"),
-                    "days": self.application.settings.get_int(f"{settings_prefix}refresh-days")
+                    "minutes": self.application.settings.get_int("%srefresh-minutes" % settings_prefix),
+                    "hours": self.application.settings.get_int("%srefresh-hours" % settings_prefix),
+                    "days": self.application.settings.get_int("%srefresh-days" % settings_prefix)
                 }
                 timetosleep = schedule["minutes"] * minute + schedule["hours"] * hour + schedule["days"] * day
 
@@ -372,19 +372,19 @@ class AutomaticRefreshThread(threading.Thread):
                         (refresh_type.capitalize(), schedule["days"], schedule["hours"], schedule["minutes"]))
                     time.sleep(timetosleep)
                     if not self.application.refresh_schedule_enabled:
-                        self.application.logger.write(f"Auto-refresh disabled in preferences, cancelling {refresh_type} refresh")
+                        self.application.logger.write("Auto-refresh disabled in preferences, cancelling %s refresh" % refresh_type)
                         return
                     if self.application.app_hidden:
-                        self.application.logger.write(f"Update Manager is in tray mode, performing {refresh_type} refresh")
+                        self.application.logger.write("Update Manager is in tray mode, performing %s refresh" % refresh_type)
                         refresh = RefreshThread(self.application, root_mode=True)
                         refresh.start()
                         while refresh.is_alive():
                             time.sleep(5)
                     else:
                         if initial_refresh:
-                            self.application.logger.write(f"Update Manager window is open, skipping {refresh_type} refresh")
+                            self.application.logger.write("Update Manager window is open, skipping %s refresh" % refresh_type)
                         else:
-                            self.application.logger.write(f"Update Manager window is open, delaying {refresh_type} refresh by 60s")
+                            self.application.logger.write("Update Manager window is open, delaying %s refresh by 60s" % refresh_type)
                             time.sleep(60)
             except Exception as e:
                 print (e)
@@ -395,7 +395,7 @@ class AutomaticRefreshThread(threading.Thread):
                 settings_prefix = "auto"
                 refresh_type = "recurring"
         else:
-            self.application.logger.write(f"Auto-refresh disabled in preferences, AutomaticRefreshThread stopped")
+            self.application.logger.write("Auto-refresh disabled in preferences, AutomaticRefreshThread stopped")
 
 class InstallThread(threading.Thread):
 
@@ -766,10 +766,10 @@ class RefreshThread(threading.Thread):
 
                     if self.application.settings.get_boolean("show-descriptions"):
                         model.set_value(iter, UPDATE_DISPLAY_NAME,
-                                        f"<b>{GLib.markup_escape_text(update.display_name)}</b>\n{GLib.markup_escape_text(shortdesc)}")
+                                        "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.display_name), GLib.markup_escape_text(shortdesc)))
                     else:
                         model.set_value(iter, UPDATE_DISPLAY_NAME,
-                                        f"<b>{GLib.markup_escape_text(update.display_name)}</b>")
+                                        "<b>%s</b>" % GLib.markup_escape_text(update.display_name))
 
                     origin = update.origin
                     origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
@@ -795,13 +795,13 @@ class RefreshThread(threading.Thread):
 
                     model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                     model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-                    model.set_value(iter, UPDATE_SOURCE, f"{origin} / {update.archive}")
+                    model.set_value(iter, UPDATE_SOURCE, "%s / %s" % (origin, update.archive))
                     model.set_value(iter, UPDATE_SIZE, update.size)
                     model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-                    model.set_value(iter, UPDATE_TYPE_PIX, f"mintupdate-type-{update.type}-symbolic")
+                    model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % update.type)
                     model.set_value(iter, UPDATE_TYPE, update.type)
                     model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                    model.set_value(iter, UPDATE_SORT_STR, f"{str(type_sort_key)}{update.display_name}")
+                    model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.display_name))
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
@@ -859,8 +859,8 @@ class RefreshThread(threading.Thread):
             Gdk.threads_leave()
 
         except:
-            print(f"-- Exception occurred in the refresh thread:\n{traceback.format_exc()}")
-            self.application.logger.write_error(f"Exception occurred in the refresh thread: {str(sys.exc_info()[0])}")
+            print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
+            self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
             Gdk.threads_enter()
             self.application.set_status(_("Could not refresh the list of updates"),
                                         _("Could not refresh the list of updates"), "mintupdate-error", True)
@@ -882,7 +882,7 @@ class RefreshThread(threading.Thread):
         output = p.stdout.decode()
         if p.stderr:
             error_msg = p.stderr.decode().strip()
-            self.application.logger.write_error(f"APT policy error:\n{error_msg}")
+            self.application.logger.write_error("APT policy error:\n%s" % error_msg)
         else:
             error_msg = None
         mint_layer_found = False
@@ -903,16 +903,16 @@ class RefreshThread(threading.Thread):
             msg = _("Your APT configuration is corrupt.")
             error_label = _("APT error:")
             if error_msg:
-                error_msg = f"\n\n{error_label}\n{error_msg}"
+                error_msg = "\n\n%s\n%s" % (error_label, error_msg)
             else:
                 error_label = ""
             self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                 msg, Gtk.MessageType.ERROR,
                 callback=self._on_infobar_mintsources_response)
-            self.application.set_status(_("Could not refresh the list of updates"), f"{label1}\n{label2}", "mintupdate-error", True)
+            self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s" % (label1, label2), "mintupdate-error", True)
             self.application.logger.write_error("Error: The APT policy is incorrect!")
             self.application.stack.set_visible_child_name("status_error")
-            self.application.builder.get_object("label_error_details").set_markup(f"<b>{label1}\n{label2}\n{label3}{error_msg}</b>")
+            self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
             self.application.builder.get_object("label_error_details").show()
             Gdk.threads_leave()
         return mint_layer_found
@@ -991,7 +991,7 @@ class RefreshThread(threading.Thread):
                 with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
                     for line in sources_file:
                         line = line.strip()
-                        if line.startswith("deb ") and f"{codename} main upstream import" in line:
+                        if line.startswith("deb ") and "%s main upstream import" % codename in line:
                             mirror_url = line.split()[1]
                             if mirror_url.endswith("/"):
                                 mirror_url = mirror_url[:-1]
@@ -1007,7 +1007,7 @@ class RefreshThread(threading.Thread):
                 elif not self.application.app_hidden:
                     # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
                     mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                    mirror_timestamp = self.get_url_last_modified(f"{mirror_url}/db/version")
+                    mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
                     if mirror_timestamp is None:
                         if mint_timestamp is None:
                             # Both default repo and mirror are unreachable, assume there's no Internet connection
@@ -1140,10 +1140,10 @@ class Logger():
             self.hook(line)
 
     def write(self, line):
-        self._write(f"{datetime.now().strftime('%m.%d@%H:%M')} ++ {line}\n")
+        self._write("%s ++ %s\n" % (datetime.now().strftime('%m.%d@%H:%M'), line))
 
     def write_error(self, line):
-        self._write(f"{datetime.now().strftime('%m.%d@%H:%M')} -- {line}\n")
+        self._write("%s -- %s\n" % (datetime.now().strftime('%m.%d@%H:%M'), line))
 
     def read(self):
         if not os.path.exists(self.log.name):
@@ -1644,7 +1644,7 @@ class MintUpdate():
 
         info_label = Gtk.Label()
         info_label.set_line_wrap(True)
-        info_label.set_markup(f"<b>{title}</b>\n{msg}")
+        info_label.set_markup("<b>%s</b>\n%s" % (title, msg))
         infobar.get_content_area().pack_start(info_label, False, False, 0)
         if callback:
             if msg_type == Gtk.MessageType.QUESTION:
@@ -2271,7 +2271,7 @@ class MintUpdate():
             version = version_entry.get_text().strip()
             if name:
                 if version:
-                    pkg = f"{name}={version}"
+                    pkg = "%s=%s" % (name, version)
                 else:
                     pkg = name
                 model = treeview_blacklist.get_model()

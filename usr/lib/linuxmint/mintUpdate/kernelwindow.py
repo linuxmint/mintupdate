@@ -148,7 +148,7 @@ class MarkKernelRow(Gtk.ListBoxRow):
             action = _("Remove")
         else:
             action = _("Install")
-        button = Gtk.CheckButton(f"{action} {kernel.version}{kernel.type}", False)
+        button = Gtk.CheckButton("%s %s%s" % (action, kernel.version, kernel.type), False)
         button.connect("toggled", self.on_checked)
         Gtk.ToggleButton.set_active(button, not version_id or (not supported and ACTIVE_KERNEL_VERSION > version_id))
         self.add(button)
@@ -557,7 +557,7 @@ class KernelWindow():
                 (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, support_status) = kernel
                 if used:
                     currently_using = _("You are currently using the following kernel:")
-                    self.current_label.set_markup(f"<b>{currently_using} {label}{kernel_type}{f' ({support_status})' if support_status else ''}</b>")
+                    self.current_label.set_markup("<b>%s %s%s%s</b>" % (currently_using, label, kernel_type, ' (%s)' % support_status if support_status else ''))
                 if page_label == page:
                     row = KernelRow(version, pkg_version, kernel_type, label, installed, used, title,
                         installable, origin, support_status, self.window, self.application, self)
