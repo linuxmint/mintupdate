@@ -1191,7 +1191,7 @@ class StatusIcon():
         self.icon.set_icon(name)
 
     def set_tooltip_text(self, text):
-        pass # appindicator doesn't support that
+        self.icon.set_title(text)
 
     def set_visible(self, visible):
         if visible:
