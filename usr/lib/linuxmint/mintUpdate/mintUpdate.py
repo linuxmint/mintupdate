@@ -1161,7 +1161,7 @@ class Logger():
     def remove_hook(self):
         self.hook = None
 
-class StatusIcon():
+class AppIndicatorIcon():
 
     def __init__(self, app):
         self.app = app
@@ -1172,7 +1172,7 @@ class StatusIcon():
         self.menu = Gtk.Menu()
         item = Gtk.MenuItem()
         item.set_label(_("Update Manager"))
-        item.connect("activate", self.app.on_statusicon_clicked)
+        item.connect("activate", self.app.on_appindicator_activated)
         self.menu.append(item)
 
         item = Gtk.MenuItem()
@@ -1197,6 +1197,21 @@ class StatusIcon():
             self.icon.set_status(AppIndicator.IndicatorStatus.ACTIVE)
         else:
             self.icon.set_status(AppIndicator.IndicatorStatus.PASSIVE)
+
+class XAppStatusIcon():
+
+    def __init__(self, app):
+        self.app = app
+        self.icon = XApp.StatusIcon()
+
+    def set_from_icon_name(self, name):
+        self.icon.set_icon_name(name)
+
+    def set_tooltip_text(self, text):
+        self.icon.set_tooltip_text(text)
+
+    def set_visible(self, visible):
+        self.icon.set_visible(visible)
 
 class MintUpdate():
 
@@ -1226,13 +1241,6 @@ class MintUpdate():
         self.builder.get_object("stack_container").pack_start(self.stack, True, True, 0)
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.stack.set_transition_duration(175)
-
-        if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
-            self.statusIcon = StatusIcon(self)
-        else:
-            self.statusIcon = Gtk.StatusIcon()
-
-        self.set_status("", _("Checking for updates"), "mintupdate-checking", not self.settings.get_boolean("hide-systray"))
 
         try:
             self.window.set_title(_("Update Manager"))
@@ -1371,10 +1379,17 @@ class MintUpdate():
             menuItem.set_image(image)
             menuItem.connect('activate', self.quit_from_systray)
             menu.append(menuItem)
+            menu.show_all()
 
-            if os.getenv("XDG_CURRENT_DESKTOP") != "KDE":
-                self.statusIcon.connect('activate', self.on_statusicon_clicked)
-                self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
+            if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
+                # KDE Plasma no longer supports Gtk.StatusIcon and doesn't yet support XApp.StatusIcon
+                self.statusIcon = AppIndicatorIcon(self)
+            else:
+                self.statusIcon = XAppStatusIcon(self)
+                self.statusIcon.icon.connect('button-press-event', self.on_statusicon_pressed)
+                self.statusIcon.icon.connect('button-release-event', self.on_statusicon_released, menu)
+
+            self.set_status("", _("Checking for updates"), "mintupdate-checking", not self.settings.get_boolean("hide-systray"))
 
             # Main window menu
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
@@ -1871,19 +1886,40 @@ class MintUpdate():
 
 ######### SYSTRAY #########
 
-    def show_statusicon_menu(self, icon, button, time, menu):
-        menu.show_all()
-        menu.popup(None, None, None, None, button, time)
-
-    def app_hidden(self):
-        return not self.window.get_visible()
-
-    def on_statusicon_clicked(self, widget):
+    def on_appindicator_activated(self, widget):
         if self.window.is_active():
             self.save_window_size()
             self.window.hide()
         else:
             self.window.present()
+
+    def on_statusicon_pressed(self, widget, x, y, button, time, position):
+        if button == 1:
+            if self.window.is_active():
+                self.save_window_size()
+                self.window.hide()
+            else:
+                self.window.present()
+
+    def on_statusicon_released(self, icon, x, y, button, time, position, menu):
+        if button == 3:
+            if position == -1:
+                # The position and coordinates are unknown. This is the
+                # case when the XAppStatusIcon fallbacks as a Gtk.StatusIcon
+                menu.popup(None, None, None, None, button, time)
+            else:
+                def position_menu_cb(menu, pointer_x, pointer_y, user_data):
+                    [x, y, position] = user_data;
+                    if (position == Gtk.PositionType.BOTTOM):
+                        y = y - menu.get_allocation().height;
+                    if (position == Gtk.PositionType.RIGHT):
+                        x = x - menu.get_allocation().width;
+                    return (x, y, False)
+                device = Gdk.Display.get_default().get_device_manager().get_client_pointer()
+                menu.popup_for_device(device, None, None, position_menu_cb, [x, y, position], button, time)
+
+    def app_hidden(self):
+        return not self.window.get_visible()
 
     def quit_from_systray(self, widget, data = None):
         if data:
