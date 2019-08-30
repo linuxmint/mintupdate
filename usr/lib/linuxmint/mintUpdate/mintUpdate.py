@@ -374,7 +374,7 @@ class AutomaticRefreshThread(threading.Thread):
                     if not self.application.refresh_schedule_enabled:
                         self.application.logger.write("Auto-refresh disabled in preferences, cancelling %s refresh" % refresh_type)
                         return
-                    if self.application.app_hidden:
+                    if self.application.app_hidden():
                         self.application.logger.write("Update Manager is in tray mode, performing %s refresh" % refresh_type)
                         refresh = RefreshThread(self.application, root_mode=True)
                         refresh.start()
@@ -580,7 +580,6 @@ class InstallThread(threading.Thread):
                             self.application.reboot_required = True
                         elif self.application.settings.get_boolean("hide-window-after-update"):
                             Gdk.threads_enter()
-                            self.application.app_hidden = True
                             self.application.window.hide()
                             Gdk.threads_leave()
 
@@ -627,7 +626,7 @@ class RefreshThread(threading.Thread):
         if self.application.stack.get_visible_child_name() == "status_refreshing":
             self.application.stack.set_visible_child_name("updates_available")
         # Reset cursor
-        if not self.application.app_hidden:
+        if not self.application.app_hidden():
             self.application.window.get_window().set_cursor(None)
         self.application.paned.set_position(self.vpaned_position)
         if not self.is_self_update:
@@ -671,7 +670,7 @@ class RefreshThread(threading.Thread):
             # Switch to status_refreshing page
             self.application.status_refreshing_spinner.start()
             self.application.stack.set_visible_child_name("status_refreshing")
-            if not self.application.app_hidden:
+            if not self.application.app_hidden():
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.application.toolbar.set_sensitive(False)
             self.application.menubar.set_sensitive(False)
@@ -689,7 +688,7 @@ class RefreshThread(threading.Thread):
             # Refresh the APT cache
             if self.root_mode:
                 refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
-                if not self.application.app_hidden:
+                if not self.application.app_hidden():
                     refresh_command.extend(["--use-synaptic",
                                             str(self.application.window.get_window().get_xid())])
                 subprocess.run(refresh_command)
@@ -1004,7 +1003,7 @@ class RefreshThread(threading.Thread):
                         infobar_title = _("Do you want to switch to a local mirror?")
                         infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
                         infobar_message_type = Gtk.MessageType.QUESTION
-                elif not self.application.app_hidden:
+                elif not self.application.app_hidden():
                     # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
                     mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
                     mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
@@ -1203,7 +1202,6 @@ class MintUpdate():
 
     def __init__(self):
         Gdk.threads_init()
-        self.app_hidden = True
         self.information_window_showing = False
         self.history_window_showing = False
         self.preferences_window_showing = False
@@ -1553,8 +1551,7 @@ class MintUpdate():
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if showWindow == "show":
-                    self.window.show_all()
-                    self.app_hidden = False
+                    self.window.present()
 
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
@@ -1672,7 +1669,6 @@ class MintUpdate():
 
     def hide_main_window(self, widget):
         self.window.hide()
-        self.app_hidden = True
 
     def setVisibleColumn(self, checkmenuitem, column, key):
         state = checkmenuitem.get_active()
@@ -1879,13 +1875,15 @@ class MintUpdate():
         menu.show_all()
         menu.popup(None, None, None, None, button, time)
 
+    def app_hidden(self):
+        return not self.window.get_visible()
+
     def on_statusicon_clicked(self, widget):
-        if (self.app_hidden):
-            self.window.show_all()
-        else:
-            self.window.hide()
+        if self.window.is_active():
             self.save_window_size()
-        self.app_hidden = not self.app_hidden
+            self.window.hide()
+        else:
+            self.window.present()
 
     def quit_from_systray(self, widget, data = None):
         if data:
