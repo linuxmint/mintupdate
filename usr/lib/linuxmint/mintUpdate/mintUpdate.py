@@ -1237,7 +1237,6 @@ class MintUpdate():
         try:
             self.window.set_title(_("Update Manager"))
 
-            vbox = self.builder.get_object("vbox_main")
             self.window.set_icon_name("mintupdate")
 
             accel_group = Gtk.AccelGroup()
@@ -1547,6 +1546,9 @@ class MintUpdate():
             self.stack.add_named(self.builder.get_object("status_refreshing"), "status_refreshing")
             self.stack.set_visible_child_name("status_refreshing")
             self.stack.show_all()
+
+            vbox = self.builder.get_object("vbox_main")
+            vbox.show_all()
 
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
