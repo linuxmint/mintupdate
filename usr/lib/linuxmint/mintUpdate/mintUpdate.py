@@ -1892,7 +1892,8 @@ class MintUpdate():
     def show_statusicon_menu(self, icon, x, y, time, button, menu):
         def position_menu_cb(menu, pointer_x, pointer_y, user_data):
             [x, y] = user_data;
-            return (x, y, False)
+            height = menu.get_allocation().height
+            return (x, y - height, False)
         menu.show_all()
         device = Gdk.Display.get_default().get_device_manager().get_client_pointer()
         menu.popup_for_device(device, None, None, position_menu_cb, [x, y], button, time)
