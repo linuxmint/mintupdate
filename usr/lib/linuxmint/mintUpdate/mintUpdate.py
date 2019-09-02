@@ -1184,7 +1184,7 @@ class AppIndicatorIcon():
         self.icon.set_menu(self.menu)
 
     def cb_exit(self, w, data):
-        self.app.quit_from_systray(None, None)
+        self.app.quit(None, None)
 
     def set_from_icon_name(self, name):
         self.icon.set_icon(name)
@@ -1245,7 +1245,6 @@ class MintUpdate():
         try:
             self.window.set_title(_("Update Manager"))
 
-            vbox = self.builder.get_object("vbox_main")
             self.window.set_icon_name("mintupdate")
 
             accel_group = Gtk.AccelGroup()
@@ -1377,7 +1376,7 @@ class MintUpdate():
             menuItem = Gtk.ImageMenuItem.new_with_label(_("Quit"))
             image = Gtk.Image.new_from_icon_name("application-exit-symbolic", Gtk.IconSize.MENU)
             menuItem.set_image(image)
-            menuItem.connect('activate', self.quit_from_systray)
+            menuItem.connect('activate', self.quit)
             menu.append(menuItem)
             menu.show_all()
 
@@ -1397,11 +1396,19 @@ class MintUpdate():
             fileMenu.set_submenu(fileSubmenu)
             closeMenuItem = Gtk.ImageMenuItem()
             closeMenuItem.set_image(Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU))
-            closeMenuItem.set_label(_("Close"))
+            closeMenuItem.set_label(_("Close window"))
             closeMenuItem.connect("activate", self.hide_main_window)
             key, mod = Gtk.accelerator_parse("<Control>W")
             closeMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             fileSubmenu.append(closeMenuItem)
+            fileSubmenu.append(Gtk.SeparatorMenuItem())
+            quitMenuItem = Gtk.ImageMenuItem.new_with_label(_("Quit"))
+            image = Gtk.Image.new_from_icon_name("application-exit-symbolic", Gtk.IconSize.MENU)
+            quitMenuItem.set_image(image)
+            quitMenuItem.connect('activate', self.quit)
+            key, mod = Gtk.accelerator_parse("<Control>Q")
+            quitMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            fileSubmenu.append(quitMenuItem)
 
             editMenu = Gtk.MenuItem.new_with_mnemonic(_("_Edit"))
             editSubmenu = Gtk.Menu()
@@ -1562,6 +1569,9 @@ class MintUpdate():
             self.stack.add_named(self.builder.get_object("status_refreshing"), "status_refreshing")
             self.stack.set_visible_child_name("status_refreshing")
             self.stack.show_all()
+
+            vbox = self.builder.get_object("vbox_main")
+            vbox.show_all()
 
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
@@ -1921,9 +1931,9 @@ class MintUpdate():
                 device = Gdk.Display.get_default().get_device_manager().get_client_pointer()
                 menu.popup_for_device(device, None, None, position_menu_cb, [x, y, position], button, time)
 
-    def quit_from_systray(self, widget, data = None):
-        if data:
-            data.set_visible(False)
+    def quit(self, widget, data = None):
+        if self.window:
+            self.window.hide()
         try:
             self.logger.write("Exiting - requested by user")
             self.logger.close()
