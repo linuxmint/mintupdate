@@ -1385,8 +1385,8 @@ class MintUpdate():
                 self.statusIcon = AppIndicatorIcon(self)
             else:
                 self.statusIcon = XAppStatusIcon(self)
-                self.statusIcon.icon.connect('left-click', self.on_statusicon_clicked)
-                self.statusIcon.icon.connect('right-click', self.show_statusicon_menu, menu)
+                self.statusIcon.icon.connect('button-press-event', self.on_statusicon_clicked)
+                self.statusIcon.icon.connect('button-release-event', self.show_statusicon_menu, menu)
             # else:
             #     self.statusIcon = Gtk.StatusIcon()
             #     self.statusIcon.connect('activate', self.on_statusicon_clicked)
@@ -1889,25 +1889,29 @@ class MintUpdate():
 
 ######### SYSTRAY #########
 
-    def show_statusicon_menu(self, icon, x, y, time, button, menu):
-        def position_menu_cb(menu, pointer_x, pointer_y, user_data):
-            [x, y] = user_data;
-            height = menu.get_allocation().height
-            return (x, y - height, False)
-        menu.show_all()
-        device = Gdk.Display.get_default().get_device_manager().get_client_pointer()
-        menu.popup_for_device(device, None, None, position_menu_cb, [x, y], button, time)
-
+    def show_statusicon_menu(self, icon, x, y, button, time, position, menu):
+        if button == 3:
+            def position_menu_cb(menu, pointer_x, pointer_y, user_data):
+                [x, y, position] = user_data;
+                if (position == Gtk.PositionType.BOTTOM):
+                    y = y - menu.get_allocation().height;
+                if (position == Gtk.PositionType.RIGHT):
+                    x = x - menu.get_allocation().width;
+                return (x, y, False)
+            menu.show_all()
+            device = Gdk.Display.get_default().get_device_manager().get_client_pointer()
+            menu.popup_for_device(device, None, None, position_menu_cb, [x, y, position], button, time)
 
     def app_hidden(self):
         return not self.window.get_visible()
 
-    def on_statusicon_clicked(self, widget, x, y, time, button):
-        if self.window.is_active():
-            self.save_window_size()
-            self.window.hide()
-        else:
-            self.window.present()
+    def on_statusicon_clicked(self, widget, x, y, button, time, position):
+        if button == 1:
+            if self.window.is_active():
+                self.save_window_size()
+                self.window.hide()
+            else:
+                self.window.present()
 
     def quit_from_systray(self, widget, data = None):
         if data:
