@@ -600,8 +600,8 @@ class InstallThread(threading.Thread):
 
         except Exception as e:
             print (e)
-            self.application.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
             Gdk.threads_enter()
+            self.application.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
             self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
             self.application.logger.write_error("Could not install security updates")
             Gdk.threads_leave()
@@ -675,8 +675,6 @@ class RefreshThread(threading.Thread):
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.application.toolbar.set_sensitive(False)
             self.application.menubar.set_sensitive(False)
-
-            # Starts the blinking
             self.application.set_status("", _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
             Gdk.threads_leave()
 
@@ -818,12 +816,11 @@ class RefreshThread(threading.Thread):
                                                 "%(selected)d updates selected (%(size)s)", num_checked) % \
                                                 {'selected':num_checked, 'size':size_to_string(download_size)}
 
-                    self.application.set_status(statusString, statusString, "mintupdate-updates-available", True)
                     self.application.logger.write("Found " + str(num_visible) + " software updates")
 
                     systrayString = ngettext("%d update available",
                                              "%d updates available", num_visible) % num_visible
-                    self.application.statusIcon.set_tooltip_text(systrayString)
+                    self.application.set_status(statusString, systrayString, "mintupdate-updates-available", True)
                     Gdk.threads_leave()
 
             # Check for infobars to display
@@ -860,8 +857,8 @@ class RefreshThread(threading.Thread):
 
         except:
             print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
-            self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
             Gdk.threads_enter()
+            self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
             self.application.set_status(_("Could not refresh the list of updates"),
                                         _("Could not refresh the list of updates"), "mintupdate-error", True)
             Gdk.threads_leave()
@@ -1229,13 +1226,6 @@ class MintUpdate():
         self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
         self.stack.set_transition_duration(175)
 
-        if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
-            self.statusIcon = StatusIcon(self)
-        else:
-            self.statusIcon = Gtk.StatusIcon()
-
-        self.set_status("", _("Checking for updates"), "mintupdate-checking", not self.settings.get_boolean("hide-systray"))
-
         try:
             self.window.set_title(_("Update Manager"))
 
@@ -1350,33 +1340,6 @@ class MintUpdate():
 
             # Refreshing page spinner:
             self.status_refreshing_spinner = self.builder.get_object("status_refreshing_spinner")
-
-            # Tray icon menu
-            menu = Gtk.Menu()
-            menuItem3 = Gtk.ImageMenuItem.new_with_label(_("Refresh"))
-            image = Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU)
-            menuItem3.set_image(image)
-            menuItem3.connect('activate', self.force_refresh)
-            menu.append(menuItem3)
-            menuItem2 = Gtk.ImageMenuItem.new_with_label(_("Information"))
-            image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
-            menuItem2.set_image(image)
-            menuItem2.connect('activate', self.open_information)
-            menu.append(menuItem2)
-            menuItem4 = Gtk.ImageMenuItem.new_with_label(_("Preferences"))
-            image = Gtk.Image.new_from_icon_name("preferences-other-symbolic", Gtk.IconSize.MENU)
-            menuItem4.set_image(image)
-            menuItem4.connect('activate', self.open_preferences)
-            menu.append(menuItem4)
-            menuItem = Gtk.ImageMenuItem.new_with_label(_("Quit"))
-            image = Gtk.Image.new_from_icon_name("application-exit-symbolic", Gtk.IconSize.MENU)
-            menuItem.set_image(image)
-            menuItem.connect('activate', self.quit_from_systray)
-            menu.append(menuItem)
-
-            if os.getenv("XDG_CURRENT_DESKTOP") != "KDE":
-                self.statusIcon.connect('activate', self.on_statusicon_clicked)
-                self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
 
             # Main window menu
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
@@ -1556,24 +1519,51 @@ class MintUpdate():
                     self.window.show_all()
                     self.app_hidden = False
 
+            self.builder.get_object("notebook_details").set_current_page(0)
+
+            self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
+            self.paned.set_position(self.settings.get_int('window-pane-position'))
+
+            if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
+                self.statusIcon = StatusIcon(self)
+            else:
+                # Tray icon menu
+                menu = Gtk.Menu()
+                menuItem3 = Gtk.ImageMenuItem.new_with_label(_("Refresh"))
+                image = Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU)
+                menuItem3.set_image(image)
+                menuItem3.connect('activate', self.force_refresh)
+                menu.append(menuItem3)
+                menuItem2 = Gtk.ImageMenuItem.new_with_label(_("Information"))
+                image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
+                menuItem2.set_image(image)
+                menuItem2.connect('activate', self.open_information)
+                menu.append(menuItem2)
+                menuItem4 = Gtk.ImageMenuItem.new_with_label(_("Preferences"))
+                image = Gtk.Image.new_from_icon_name("preferences-other-symbolic", Gtk.IconSize.MENU)
+                menuItem4.set_image(image)
+                menuItem4.connect('activate', self.open_preferences)
+                menu.append(menuItem4)
+                menuItem = Gtk.ImageMenuItem.new_with_label(_("Quit"))
+                image = Gtk.Image.new_from_icon_name("application-exit-symbolic", Gtk.IconSize.MENU)
+                menuItem.set_image(image)
+                menuItem.connect('activate', self.quit_from_systray)
+                menu.append(menuItem)
+                self.statusIcon = Gtk.StatusIcon()
+                self.statusIcon.connect('activate', self.on_statusicon_clicked)
+                self.statusIcon.connect('popup-menu', self.show_statusicon_menu, menu)
+
+            self.set_status("", _("Checking for updates"), "mintupdate-checking", not self.settings.get_boolean("hide-systray"))
+
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
             else:
                 self.cache_watcher = CacheWatcher(self)
                 self.cache_watcher.start()
 
-            self.builder.get_object("notebook_details").set_current_page(0)
-
-            self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
-            self.paned.set_position(self.settings.get_int('window-pane-position'))
-
             self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.auto_refresh = AutomaticRefreshThread(self)
             self.auto_refresh.start()
-
-            Gdk.threads_enter()
-            Gtk.main()
-            Gdk.threads_leave()
 
         except Exception as e:
             print (e)
@@ -2301,3 +2291,4 @@ class MintUpdate():
 
 if __name__ == "__main__":
     MintUpdate()
+    Gtk.main()
