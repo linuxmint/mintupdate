@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-07-20 11:26+0200\n"
-"PO-Revision-Date: 2018-12-04 08:54+0000\n"
+"PO-Revision-Date: 2019-08-03 09:49+0000\n"
 "Last-Translator: Dorian Baciu <Unknown>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2019-07-28 09:29+0000\n"
-"X-Generator: Launchpad (build 19010)\n"
+"X-Launchpad-Export-Date: 2019-09-14 11:00+0000\n"
+"X-Generator: Launchpad (build 19048)\n"
 "Language: Romanian\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -671,7 +671,7 @@ msgstr "Instalează"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
 msgid "Queue Removal"
-msgstr ""
+msgstr "Eliminare coadă"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "This kernel cannot be removed because it is currently in use."
@@ -680,7 +680,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 msgid "Queue Installation"
-msgstr ""
+msgstr "Instalare coadă"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "This kernel is not installable."
@@ -703,11 +703,11 @@ msgstr "Nuclee"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
 msgid "Remove Kernels"
-msgstr ""
+msgstr "Ștergere nuclee"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 msgid "Perform Queued Actions"
-msgstr ""
+msgstr "Efectuare acțiuni în coadă"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:426
 msgid "Active"
@@ -784,13 +784,15 @@ msgstr "Nu s-au putut instala actualizările de securitate"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
 msgid "Reboot required"
-msgstr ""
+msgstr "Repornire necesară"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 msgid ""
 "You have installed updates that require a reboot to take effect, please "
 "reboot your system as soon as possible."
 msgstr ""
+"Ați instalat actualizări care necesită o repornire pentru a avea efect. Vă "
+"rugăm să reporniți sistemul cât mai curând posibil."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
 msgid "Checking for updates"
@@ -799,6 +801,7 @@ msgstr "Se caută actualizări"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:711
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr ""
+"Rulați 'apt update' într-o fereastră de terminal pentru a aborda acest lucru"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:716
@@ -860,7 +863,7 @@ msgstr[2] "%d de actualizări disponibile"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:835
 msgid "Your distribution has reached end of life and is no longer supported"
-msgstr ""
+msgstr "Distribuția ta a ajuns la sfârșitul vieții și nu mai este acceptată"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:840
 #: usr/share/linuxmint/mintupdate/main.ui.h:8
@@ -870,7 +873,7 @@ msgstr "Sistemul este actualizat"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:900
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
 msgid "Your APT configuration is corrupt."
-msgstr ""
+msgstr "Configurația ta APT este coruptă"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:901
 msgid ""
@@ -887,7 +890,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:904
 msgid "APT error:"
-msgstr ""
+msgstr "Eroare APT"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:909
 msgid "Please switch to another Linux Mint mirror"
@@ -895,16 +898,16 @@ msgstr "Treceți la un alt sait alternativ Linux Mint"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:955
 msgid "distribution"
-msgstr ""
+msgstr "distribuție"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:957
 msgid "DISTRIBUTION END OF LIFE WARNING"
-msgstr ""
+msgstr "AVERTISMENT DE DISTRIBUIRE A DURATEI DE VIAȚĂ"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:959
 #, python-format
 msgid "Your version of Linux Mint is only supported until %s."
-msgstr ""
+msgstr "Versiunea dvs. de Linux Mint este acceptată numai până la %s."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:960
 msgid ""
@@ -912,17 +915,22 @@ msgid ""
 "software repositories will become unavailable along with any updates "
 "including security updates."
 msgstr ""
+"Sistemul dvs. va rămâne funcțional după această dată, dar depozitele de "
+"software oficiale vor deveni indisponibile împreună cu orice actualizări, "
+"inclusiv actualizări de securitate."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:961
 msgid ""
 "You should perform an upgrade to or a clean install of a newer version of "
 "your distribution before that happens."
 msgstr ""
+"Ar trebui să efectuați o actualizare sau o instalare curată a unei versiuni "
+"mai noi a distribuției dvs. înainte de a se întâmpla acest lucru."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:962
 #, python-format
 msgid "For more information visit %s."
-msgstr ""
+msgstr "Pentru mai multe informații, vizitați %s."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:976
 msgid "Please set up System Snapshots"
@@ -980,13 +988,13 @@ msgstr "Nume"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1946
 msgid "Old Version"
-msgstr ""
+msgstr "Versiune veche"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1283
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1473
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1949
 msgid "New Version"
-msgstr ""
+msgstr "Versiune nouă"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1485
@@ -1043,11 +1051,11 @@ msgstr "_Editare"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1401
 msgid "System Snapshots"
-msgstr ""
+msgstr "Instantanee de sistem."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1407
 msgid "Software Sources"
-msgstr ""
+msgstr "Surse pentru aplicații (software)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1430
 #, python-format
@@ -1061,15 +1069,15 @@ msgstr "_Vizualizare"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1439
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1937
 msgid "History of Updates"
-msgstr ""
+msgstr "Istoricul actualizărilor"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1443
 msgid "Linux Kernels"
-msgstr ""
+msgstr "Nuclee Linux"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1451
 msgid "Visible Columns"
-msgstr ""
+msgstr "Coloane vizibile"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1943
@@ -1078,7 +1086,7 @@ msgstr "Pachet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1493
 msgid "Show Descriptions"
-msgstr ""
+msgstr "Afișare Descrieri"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1509
 msgid "_Help"
@@ -1086,7 +1094,7 @@ msgstr "_Ajutor"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1515
 msgid "Welcome Screen"
-msgstr ""
+msgstr "Bun venit"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1520
 msgid "Keyboard Shortcuts"
@@ -1103,13 +1111,15 @@ msgstr "Despre"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1619
 msgid "Cannot Proceed"
-msgstr ""
+msgstr "Nu se poate continua"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
 msgstr ""
+"Un alt proces utilizează în prezent sistemul de management al pachetelor. "
+"Așteptați să se termine și apoi încercați din nou."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1648
 msgid "Yes"
@@ -1132,20 +1142,21 @@ msgstr "Bine ați venit la Administratorul de actualizări"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1836
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Această actualizare afectează următorul pachet instalat:"
+msgstr[1] "Această actualizare afectează următoarele pachete instalate:"
+msgstr[2] "Această actualizare afectează următorul pachet instalat:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
 msgid "Total size:"
-msgstr ""
+msgstr "Dimensiune totală:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1854
 msgid "Ignore the current update for this package"
-msgstr ""
+msgstr "Ignorare actualizarea curentă pentru acest pachet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1857
 msgid "Ignore all future updates for this package"
-msgstr ""
+msgstr "Ignorare toate actualizările viitoare pentru acest pachet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1940
 msgid "Date"
@@ -1161,7 +1172,7 @@ msgstr "Lista neagră"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 msgid "Automation"
-msgstr ""
+msgstr "Automatizare"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2086
 msgid "Interface"
@@ -1187,7 +1198,7 @@ msgstr "Auto-reîncărcare"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2092
 msgid "Refresh the list of updates automatically"
-msgstr ""
+msgstr "Reîmprospătarea listei actualizărilor automate"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2104
 msgid "days"
@@ -1214,18 +1225,20 @@ msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
 msgstr ""
+"Notă: lista se actualizează numai în timp ce fereastra Administrator de "
+"actualizări este închisă (modul tavă sistem)."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2160
 msgid "Ignored Updates"
-msgstr ""
+msgstr "Actualizări ignorate"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
 msgid "Automatic Updates"
-msgstr ""
+msgstr "Actualizări automate"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
 msgid "This option is run as root on a daily basis"
-msgstr ""
+msgstr "Această opțiune se execută ca rădăcină pe o bază zilnică"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2184
 msgid "Apply updates automatically"
@@ -1233,40 +1246,46 @@ msgstr "Aplică automat actualizările"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2188
 msgid "Export blacklist to /etc/mintupdate.blacklist"
-msgstr ""
+msgstr "Export listă neagră la /etc/mintupdate.blacklist"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
 msgid ""
 "Click this button for automatic updates to use your current blacklist."
 msgstr ""
+"Clic pe acest buton pentru actualizări automate, folosind lista ta neagră "
+"curentă."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
 msgid "Automatic Maintenance"
-msgstr ""
+msgstr "Mentenanță automată"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
 msgid "This option is run as root on a weekly basis"
-msgstr ""
+msgstr "Această opțiune se execută ca rădăcină pe o bază săptămânală"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2193
 msgid "Remove obsolete kernels and dependencies"
-msgstr ""
+msgstr "Eliminare nucleele și dependențele învechite"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2197
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
 msgstr ""
+"Această opțiune lasă întotdeauna cel puțin un nucleu mai vechi instalat și "
+"nu înlătură niciodată nucleele instalate manual."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
 msgstr ""
+"Vă rugăm să specificați numele pachetului sursă al actualizării care trebuie "
+"ignorat (asteriscurile sunt acceptate) și opțional versiunea:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
 msgid "Ignore an Update"
-msgstr ""
+msgstr "Ignorare o actualizare"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
 msgid "Name:"
@@ -1274,11 +1293,11 @@ msgstr "Nume:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
 msgid "Version:"
-msgstr ""
+msgstr "Versiune:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2263
 msgid "(optional)"
-msgstr ""
+msgstr "(opțional)"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:23
 msgid "System Upgrade"
@@ -1484,15 +1503,15 @@ msgstr "Continuă"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
 msgid "Kernel flavor:"
-msgstr ""
+msgstr "Nucleu"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 msgid "Perform Queued Actions..."
-msgstr ""
+msgstr "Efectuare acțiuni în coadă ..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Remove Kernels..."
-msgstr ""
+msgstr "Ștergere nuclee"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:23
 msgid "Cancel"
@@ -1504,7 +1523,7 @@ msgstr "Aplică"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:25
 msgid "Please confirm the following actions:"
-msgstr ""
+msgstr "Confirmați următoarele acțiuni:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1523,11 +1542,11 @@ msgstr "Instalare actualizări"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "A new version of the Update Manager is available"
-msgstr ""
+msgstr "O nouă versiune a Administratorului de actualizări este disponibilă"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
 msgid "Apply the Update"
-msgstr ""
+msgstr "Aplică actualizarea"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Description"
@@ -1535,7 +1554,7 @@ msgstr "Descriere"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:10
 msgid "Packages"
-msgstr ""
+msgstr "Pachete"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Changelog"
@@ -1593,12 +1612,17 @@ msgid ""
 "Packages listed here will never receive updates. Use this option to block "
 "updates that you know cause issues on your system."
 msgstr ""
+"Pachetele enumerate aici nu vor primi niciodată actualizări. Utilizați "
+"această opțiune pentru a bloca actualizările despre care știți că apar "
+"probleme pe sistemul dvs."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:2
 msgid ""
 "It is recommended to add packages to the blacklist by right-clicking them in "
 "the updates listing."
 msgstr ""
+"Este recomandat să adăugați pachete la lista neagră făcând clic dreapta pe "
+"ele în lista de actualizări."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
@@ -1618,11 +1642,11 @@ msgstr "Selecție"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select Security Updates"
-msgstr ""
+msgstr "Selectare actualizări de securitate"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select Kernel Updates"
-msgstr ""
+msgstr "Selectare actualizări nuclee"
 
 #~ msgid "Safe?"
 #~ msgstr "Sigur?"
