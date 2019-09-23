@@ -872,7 +872,6 @@ class RefreshThread(threading.Thread):
         """ Runs various status checks and shows infobars where appropriate """
         self.is_end_of_life, self.show_eol_warning, self.eol_date = self.get_eol_status()
         self.eol_check()
-        self.timeshift_check()
         self.mirror_check()
 
     def check_policy(self):
@@ -966,17 +965,6 @@ class RefreshThread(threading.Thread):
                                           callback=self._on_infobar_eol_response)
             Gdk.threads_leave()
 
-    def timeshift_check(self):
-        """ Timeshift setup notification """
-        if self.application.settings.get_boolean("warn-about-timeshift") and \
-           os.path.exists("/usr/bin/timeshift-gtk") and \
-           not self.checkTimeshiftConfiguration():
-            Gdk.threads_enter()
-            self.application.show_infobar(_("Please set up System Snapshots"),
-                _("If something breaks, snapshots will allow you to restore your system to the previous working condition."),
-                Gtk.MessageType.WARNING, callback=self._on_infobar_timeshift_response)
-            Gdk.threads_leave()
-
     def mirror_check(self):
         """ Mirror-related notifications """
         infobar_message = None
@@ -1047,10 +1035,6 @@ class RefreshThread(threading.Thread):
         else:
             subprocess.Popen(["pkexec", "mintsources"])
 
-    def _on_infobar_timeshift_response(self, infobar, response_id):
-        infobar.destroy()
-        subprocess.Popen(["pkexec", "timeshift-gtk"])
-
     def _on_infobar_eol_response(self, infobar, response_id):
         infobar.destroy()
         self.application.settings.set_boolean("warn-about-distribution-eol", False)
@@ -1095,16 +1079,6 @@ class RefreshThread(threading.Thread):
         if (foundSomething):
             changes = self.checkDependencies(changes, cache)
         return changes
-
-    def checkTimeshiftConfiguration(self):
-        if os.path.isfile("/etc/timeshift.json"):
-            try:
-                data = json.load(open("/etc/timeshift.json", encoding="utf-8"))
-                if 'backup_device_uuid' in data and data['backup_device_uuid']:
-                    return True
-            except Exception as e:
-                print("Error while checking Timeshift configuration: ", e)
-        return False
 
 class Logger():
 
@@ -2133,7 +2107,6 @@ class MintUpdate():
         section = page.add_section(_("Interface"))
         section.add_row(GSettingsSwitch(_("Hide the update manager after applying updates"), "com.linuxmint.updates", "hide-window-after-update"))
         section.add_row(GSettingsSwitch(_("Only show a tray icon when updates are available or in case of errors"), "com.linuxmint.updates", "hide-systray"))
-        section.add_row(GSettingsSwitch(_("Show a warning if system snapshots are not set up"), "com.linuxmint.updates", "warn-about-timeshift"))
 
         section = page.add_section(_("Auto-refresh"))
         switch = GSettingsSwitch(_("Refresh the list of updates automatically"), "com.linuxmint.updates", "refresh-schedule-enabled")
