@@ -1083,6 +1083,7 @@ class AppIndicatorIcon():
         item.set_label(_("Update Manager"))
         item.connect("activate", self.app.on_appindicator_activated)
         self.menu.append(item)
+        self.icon.set_secondary_activate_target(item)
 
         item = Gtk.MenuItem()
         item.set_label(_("Exit"))
@@ -1109,9 +1110,9 @@ class AppIndicatorIcon():
 
 class XAppStatusIcon():
 
-    def __init__(self, app):
-        self.app = app
+    def __init__(self, menu):
         self.icon = XApp.StatusIcon()
+        self.icon.set_secondary_menu(menu)
 
     def set_from_icon_name(self, name):
         self.icon.set_icon_name(name)
@@ -1293,9 +1294,8 @@ class MintUpdate():
                 # KDE Plasma no longer supports Gtk.StatusIcon and doesn't yet support XApp.StatusIcon
                 self.statusIcon = AppIndicatorIcon(self)
             else:
-                self.statusIcon = XAppStatusIcon(self)
-                self.statusIcon.icon.connect('button-press-event', self.on_statusicon_pressed)
-                self.statusIcon.icon.connect('button-release-event', self.on_statusicon_released, menu)
+                self.statusIcon = XAppStatusIcon(menu)
+                self.statusIcon.icon.connect('activate', self.on_statusicon_activated)
 
             self.set_status("", _("Checking for updates"), "mintupdate-checking", not self.settings.get_boolean("hide-systray"))
 
@@ -1808,37 +1808,30 @@ class MintUpdate():
     def app_hidden(self):
         return not self.window.get_visible()
 
-    def on_appindicator_activated(self, widget):
+    def tray_activate(self, time=0):
         if self.window.is_active():
             self.save_window_size()
             self.window.hide()
         else:
-            self.window.present()
-
-    def on_statusicon_pressed(self, widget, x, y, button, time, position):
-        if button == 1:
-            if self.window.is_active():
-                self.save_window_size()
-                self.window.hide()
-            else:
+            if not self.window.get_visible():
                 self.window.present()
-
-    def on_statusicon_released(self, icon, x, y, button, time, position, menu):
-        if button == 3:
-            if position == -1:
-                # The position and coordinates are unknown. This is the
-                # case when the XAppStatusIcon fallbacks as a Gtk.StatusIcon
-                menu.popup(None, None, None, None, button, time)
             else:
-                def position_menu_cb(menu, pointer_x, pointer_y, user_data):
-                    [x, y, position] = user_data;
-                    if (position == Gtk.PositionType.BOTTOM):
-                        y = y - menu.get_allocation().height;
-                    if (position == Gtk.PositionType.RIGHT):
-                        x = x - menu.get_allocation().width;
-                    return (x, y, False)
-                device = Gdk.Display.get_default().get_device_manager().get_client_pointer()
-                menu.popup_for_device(device, None, None, position_menu_cb, [x, y, position], button, time)
+                # When there is more than one monitor, either gtk or
+                # window managers (I've seen this in cinnamon, mate, xfce)
+                # get confused if the mintupdate window is topmost on one
+                # monitor, but the current focus is actually a window in
+                # another monitor.  Focusing makes sure this window will
+                # become 'active' for purposes of the hiding code above.
+
+                self.window.get_window().raise_()
+                self.window.get_window().focus(time)
+
+    def on_appindicator_activated(self, widget):
+        self.tray_activate()
+
+    def on_statusicon_activated(self, icon, button, time):
+        if button == Gdk.BUTTON_PRIMARY:
+            self.tray_activate(time)
 
     def quit(self, widget, data = None):
         if self.window:
