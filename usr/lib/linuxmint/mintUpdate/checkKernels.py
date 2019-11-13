@@ -84,15 +84,15 @@ try:
                     else:
                         supported_tag = "%sm" % distro_lifetime
             if supported_tag:
-                if pkg_data.record["Supported"].endswith("y"):
+                if supported_tag.endswith("y"):
                     # override support duration for HWE kernels in LTS releases,
                     # these will be handled by the kernel window
                     if "-hwe" in pkg_data.source_name:
                         support_duration = -1
                     else:
-                        support_duration = int(pkg_data.record["Supported"][:-1]) * 12
-                elif pkg_data.record["Supported"].endswith("m"):
-                    support_duration = int(pkg_data.record["Supported"][:-1])
+                        support_duration = int(supported_tag[:-1]) * 12
+                elif supported_tag.endswith("m"):
+                    support_duration = int(supported_tag[:-1])
                 else:
                     # unexpected support tag
                     support_duration = 0
