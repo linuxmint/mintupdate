@@ -1,3 +1,29 @@
+mintupdate (5.5.5) tricia; urgency=medium
+
+  [ Clement Lefebvre ]
+  * Indicator: Add support for tooltip
+
+  [ Michael Webster ]
+  * Simplify hiding/showing the main window, and make behavior more (#565)
+  * mintUpdate.py: Fix visibility of menu items in the window.
+  * mintUpdate.py: Add a way to terminate mintupdate from the window's file menu.
+
+  [ Clement Lefebvre ]
+  * Implement support for XAppStatusIcon (#567)
+  * Remove timeshift check
+  * Remove distribution EOL checks
+
+  [ MrBesen ]
+  * Fixed typo (#577)
+
+  [ Michael Webster ]
+  * mintUpdate.py: Improve reliability of window raising when clicking the status icon.
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 13 Nov 2019 13:04:11 +0100
+
 mintupdate (5.5.4) tina; urgency=medium
 
   * Remove Python 3.6 code
