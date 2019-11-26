@@ -11,28 +11,28 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>コマンドラインからアップデートします</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>「mintupdate-cli」コマンドを使用します</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>アップデートマネージャは「mintupdate-cli」と呼ばれるコマンドラインユーティリティを提供します。</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Linuxの経験がある場合は、スクリプトまたはcronジョブでこのツールを使用して、ソフトウェアアップデートのインストールを自動化できます。</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>アップデートの一覧を表示</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>「list」コマンドを使用して、アップデートの一覧を表示できます。</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>「-s」オプションを使うと、セキュリティアップデートのみを表示できます。</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>「-k」オプションを使うと、カーネルアップデートのみを表示できます。</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>例えば、次のコマンドはすべてのセキュリティアップデートの一覧を表示します。</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -40,17 +40,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>アップデートの適用</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>同じオプションを使用して、「アップグレード」コマンドにてアップデートを適用できます。</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>例えば、次のコマンドはカーネルアップデートを適用します。</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>キャッシュを更新するために追加された「-r」オプションに注意してください。</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>「mintupdate-cli」コマンド、および、そのオプションの使い方などの詳細を表示させるには、次を入力してください。</p>
 
   <screen>mintupdate-cli -h</screen>
 

@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>カーネルとカーネルアップデート</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>カーネルアップデート</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>カーネルは、オペレーティングシステムの中心部分で、ハードウェアのサポートを担当しています。</p>
 
-  <note><p>In Linux Mint, kernel updates bring both security patches and bug fixes (and sometimes even new features), and they impact critical parts of the operating system. This makes kernel updates important from a security point of view, but also prone to regressions which can be hard to fix for novice users.</p></note>
+  <note><p>Linux Mintでは、カーネルアップデートによりセキュリティパッチとバグ修正の両方（および場合によっては新機能）が提供され、オペレーティングシステムの重要な部分に影響します。 カーネルアップデートはセキュリティの観点から重要ですが、初心者ユーザには修正が難しいリグレッション（回帰: アップデートしたことで何かが壊れること）が発生しやすくなります。</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>セキュリティの観点から、カーネルアップデートを適用することが重要です。</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>ただし、カーネルのリグレッション（回帰）は、インターネットへの接続、デスクトップ環境の起動、さらにはオペレーティングシステムの起動に影響を及ぼす可能性があります。</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>このため、カーネルの更新を適用するときは注意し、問題が発生した場合に元に戻す方法を知ることが重要です。</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>複数のカーネルをインストールできます</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>アップデートを適用すると、古いバージョンのソフトウェアが新しいバージョンに置き換えられます。</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>カーネルに関しては状況が異なります。 「カーネル更新」を適用すると、実際にカーネルを更新するのではなく、既存のカーネルと一緒に新しいカーネルをインストールします。</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>カーネルアップデートを適用するたびに、古いカーネルを削除せずに、システムに新しいカーネルをインストールします。</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>ブート時に、コンピューターは最新のものを選択します。</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>現在のカーネルを特定します</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>現在使用しているカーネルを知りたい場合は、ターミナルを開いて次のように入力します:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>カーネルのインストールと削除</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>アップデートマネージャにてカーネルをインストールおよび削除できます。</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>メニューにて「表示」 -&gt; 「Linuxカーネル」を選択します。</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>現在使用しているカーネルを削除することはできません。削除するには、再起動して、起動する別のカーネルを選択する必要があります。</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>カーネルの選択</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>複数のカーネルをインストールできますが、一度に実行できるカーネルは1つだけです。</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>コンピュータを起動すると、最初の画面はGrubメニューと呼ばれます。このメニューでは、オペレーティングシステムを選択できますが、カーネルの選択にも使用できます。</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>カーネルを選択するには、Grubメニューで「Advanced options」を選択します。現在インストールされているすべてのカーネルが表示されます。使用するものを選択すると、コンピュータはそのカーネルで起動します。</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>DKMSステータスの確認</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>カーネルにはすべてのオープンソースドライバーが含まれており、これらは通常非常にうまく機能します。プロプライエタリドライバー（独自のドライバー: NVIDIA、AMD、Broadcomなど）は含まれていないため、インストールするすべてのカーネルに対してコンパイルする必要があります。これは、DKMSと呼ばれるメカニズムを介して行われます。</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>プロプライエタリドライバー（独自のドライバー）が、カーネルの1つに対してDKMSで適切に再コンパイルされない場合、そのカーネルでは正しく機能しません。</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>カーネルをインストールまたは削除した後に、次のコマンドを使用して、DKMSステータスを確認することで、カーネルごとにすべてのプロプライエタリドライバー（独自のドライバー）が正しくインストールされているかを確認できます:</p>
 
-    <screen>dkms status</screen>
+    <screen>DKMSステータス</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>通常、プロプライエタリドライバー（独自のドライバー）がDKMSを介してサポートされる前に、新しいカーネルシリーズは利用可能になります。プロプライエタリドライバーを使用している場合は、カーネルアップデートにて、推奨される一連のカーネルより新しいシリーズのカーネルをインストールしないことをお勧めします。</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>カーネルアップデートを元に戻します</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>インストールした最新のカーネル（または最新のカーネルアップデート）で動作しない場合は、再起動し、以前使用していたカーネルを選択し、新しいカーネルを削除してから再起動します。</p>
 
   </section>
 
