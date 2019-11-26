@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: https://launchpad.net/~linuxmint-translation-team-"
 "japanese\n"
-"POT-Creation-Date: 2019-07-20 11:26+0200\n"
-"PO-Revision-Date: 2017-04-23 02:55+0000\n"
-"Last-Translator: Hiroshi Tagawa <Unknown>\n"
+"POT-Creation-Date: 2019-11-13 13:01+0100\n"
+"PO-Revision-Date: 2019-08-20 02:49+0000\n"
+"Last-Translator: ichro furuya <Unknown>\n"
 "Language-Team: Japanese <https://launchpad.net/~linuxmint-translation-team-"
 "japanese>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2019-07-28 09:28+0000\n"
-"X-Generator: Launchpad (build 19010)\n"
+"X-Launchpad-Export-Date: 2019-11-26 15:53+0000\n"
+"X-Generator: Launchpad (build c597c3229eb023b1e626162d5947141bf7befb13)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -40,29 +40,29 @@ msgstr "root@linuxmint.com"
 
 #: usr/share/help/C/mintupdate/updates.page:16(desc)
 msgid "There are different types of updates"
-msgstr ""
+msgstr "アップデートにはさまざまな種類があります"
 
 #: usr/share/help/C/mintupdate/updates.page:19(title)
 msgid "The different types of updates"
-msgstr ""
+msgstr "さまざまな種類のアップデート"
 
 #: usr/share/help/C/mintupdate/updates.page:21(p)
 msgid "There are different types of updates:"
-msgstr ""
+msgstr "アップデートにはさまざまな種類があります:"
 
 #: usr/share/help/C/mintupdate/updates.page:24(p)
 msgid ""
 "'Software updates' are updates which fix bugs (or also sometimes which bring "
 "new features)."
-msgstr ""
+msgstr "「ソフトウェアアップデート」は、バグを修正したり、新しい機能を追加するアップデートです。"
 
 #: usr/share/help/C/mintupdate/updates.page:25(p)
 msgid "'Security updates' are updates which patch vulnerabilities."
-msgstr ""
+msgstr "「セキュリティアップデート」は、セキュリティの脆弱性にパッチを当てるアップデートです。"
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
-msgstr ""
+msgstr "「カーネルアップデート」は、新しいカーネルをインストールすることです。"
 
 #: usr/share/help/C/mintupdate/updates.page:29(p)
 msgid ""
@@ -72,12 +72,15 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
+"セキュリティは非常に重要ですが、非常に技術的なことです。脆弱性は常にコンピューターに影響を与えるわけではありませんし、理解するのは難しいです。ほとんどの人"
+"はまったく理解していません。また、パソコンが危険にさらされることもめったにありません。とはいえ、セキュリティ侵害は悲惨な結果を招く可能性があるため、常に真"
+"剣に受け止めることをお勧めします。"
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
-msgstr ""
+msgstr "ソフトウェアアップデートはそれほど重要ではありません。セキュリティに関係しないバグ修正や改善が行われます。"
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -88,32 +91,37 @@ msgid ""
 "of view, but also prone to regressions which can be hard to fix for novice "
 "users."
 msgstr ""
+"Linux "
+"Mintでは、カーネルアップデートによりセキュリティパッチとバグ修正の両方（および場合によっては新機能）が提供され、オペレーティングシステムの重要な部分に"
+"影響します。 カーネルアップデートはセキュリティの観点から重要ですが、初心者ユーザには修正が難しいリグレッション（回帰: "
+"アップデートしたことで何かが壊れること）が発生しやすくなります。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
-msgstr ""
+msgstr "アップデートしたことで何かが壊れた場合は、最新のシステムスナップショットをリストア（復元）してください。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "System snapshots"
-msgstr ""
+msgstr "システムスナップショット"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"システムスナップショットのユーティリティであるタイムシフト(Timeshift)は、Linux Mintのすべてのバージョンで使用できます。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
-msgstr ""
+msgstr "スナップショットを手動で作成するために使用できますが、システムスナップショットを自動化することにも使用できます。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
-msgstr ""
+msgstr "Linux Mintでは、毎日のスナップショットとブート時のスナップショットの自動化を推奨しています。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -121,31 +129,33 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"アップデート、誤操作、バグ、または悪意のあるプログラムがコンピューター上の何かを壊した場合、スナップショットからオペレーティングシステムを復元することがで"
+"きます。それにより、発生したことがないかのように問題を解決できます。"
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
-msgstr ""
+msgstr "システムスナップショットは、オペレーティングシステム自体のみを対象としており、あなたの個人データを含んでいません。また、影響しません。"
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
-msgstr ""
+msgstr "アップデートして何かが壊れることを「リグレッション（回帰）」と呼びます。"
 
 #: usr/share/help/C/mintupdate/regressions.page:19(title)
 msgid "Software regressions"
-msgstr ""
+msgstr "ソフトウェアのリグレッション（回帰）"
 
 #: usr/share/help/C/mintupdate/regressions.page:21(p)
 msgid ""
 "Updates keep your computer safe, eliminate bugs and even sometimes add new "
 "features to your operating system."
-msgstr ""
+msgstr "アップデートにより、コンピューターが安全に保たれ、バグがなくなり、オペレーティングシステムに新しい機能が追加されたりします。"
 
 #: usr/share/help/C/mintupdate/regressions.page:23(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions'."
-msgstr ""
+msgstr "残念ながら、それは時々「リグレッション（回帰）」と呼ばれる新しい問題を発生させます。"
 
 #: usr/share/help/C/mintupdate/regressions.page:25(p)
 msgid ""
@@ -154,21 +164,24 @@ msgid ""
 "skilled developers are, they can't always predict every possible situation "
 "or test on every possible hardware specification."
 msgstr ""
+"ソフトウェア業界では、リグレッション（回帰）が非常に一般的です。（それは、不具合を解消しようとして新しい不具合を生むことです。）それはソフトウェア開発に固"
+"有のものです。ソースコードの変更はリグレッションを引き起こす可能性があります。開発者がどれだけ熟練していても、考えられるすべての状況を常に予測したり、考え"
+"られるすべてのハードウェア仕様をテストしたりすることはできません。"
 
 #: usr/share/help/C/mintupdate/regressions.page:27(p)
 msgid ""
 "When a regression happens, it breaks something which worked well before."
-msgstr ""
+msgstr "リグレッション（回帰）が発生すると、以前に機能していた何かが壊れます。"
 
 #: usr/share/help/C/mintupdate/regressions.page:29(p)
 msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
-msgstr ""
+msgstr "時々それは本当に重要ではありませんが、時にはそれは非常に重要です。"
 
 #: usr/share/help/C/mintupdate/regressions.page:31(p)
 msgid ""
 "It depends on what part of the operating system is affected and whether or "
 "not you're able to work around it or to fix it."
-msgstr ""
+msgstr "それは、オペレーティングシステムのどの部分が影響を受けているか、そしてそれを回避したり修正したりできるかどうかに依存します。"
 
 #: usr/share/help/C/mintupdate/regressions.page:33(p)
 msgid ""
@@ -176,114 +189,117 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
+"例えば、PDFリーダーは印刷できなくなりました。まあ、それは迷惑です...しかし、ネットワーク接続が機能しなくなった場合や、突然コンピュータを起動したり、"
+"ログインできなかったりした場合ほど問題はありません。"
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
 "In the latter case, it can be very problematic if you're not experienced "
 "with Linux and you don't know how to troubleshoot."
-msgstr ""
+msgstr "後者の場合、Linuxの経験がなく、トラブルシューティングの方法がわからない場合は、非常に問題になる可能性があります。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
-msgstr ""
+msgstr "コマンドラインからアップデートします"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "「mintupdate-cli」コマンドを使用します"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
-msgstr ""
+msgstr "アップデートマネージャは「mintupdate-cli」と呼ばれるコマンドラインユーティリティを提供します。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
 "If you are experienced with Linux, you can use this tool in your scripts or "
 "your cron jobs to automate the installation of software updates."
 msgstr ""
+"Linuxの経験がある場合は、スクリプトまたはcronジョブでこのツールを使用して、ソフトウェアアップデートのインストールを自動化できます。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
-msgstr ""
+msgstr "アップデートの一覧を表示"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
-msgstr ""
+msgstr "「list」コマンドを使用して、アップデートの一覧を表示できます。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "「-s」オプションを使うと、セキュリティアップデートのみを表示できます。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr ""
+msgstr "「-k」オプションを使うと、カーネルアップデートのみを表示できます。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
-msgstr ""
+msgstr "例えば、次のコマンドはすべてのセキュリティアップデートの一覧を表示します。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:45(title)
 msgid "Applying updates"
-msgstr ""
+msgstr "アップデートの適用"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
-msgstr ""
+msgstr "同じオプションを使用して、「アップグレード」コマンドにてアップデートを適用できます。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "例えば、次のコマンドはカーネルアップデートを適用します。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
-msgstr ""
+msgstr "キャッシュを更新するために追加された「-r」オプションに注意してください。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
-msgstr ""
+msgstr "「mintupdate-cli」コマンド、および、そのオプションの使い方などの詳細を表示させるには、次を入力してください。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:57(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr ""
+msgstr "カーネルとカーネルアップデート"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Kernel updates"
-msgstr ""
+msgstr "カーネルアップデート"
 
 #: usr/share/help/C/mintupdate/kernels.page:21(p)
 msgid ""
 "The kernel is the central part of the operating system. Among other things, "
 "it is responsible for hardware support."
-msgstr ""
+msgstr "カーネルは、オペレーティングシステムの中心部分で、ハードウェアのサポートを担当しています。"
 
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
-msgstr ""
+msgstr "セキュリティの観点から、カーネルアップデートを適用することが重要です。"
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -291,22 +307,24 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
+"ただし、カーネルのリグレッション（回帰）は、インターネットへの接続、デスクトップ環境の起動、さらにはオペレーティングシステムの起動に影響を及ぼす可能性があ"
+"ります。"
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
-msgstr ""
+msgstr "このため、カーネルの更新を適用するときは注意し、問題が発生した場合に元に戻す方法を知ることが重要です。"
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
-msgstr ""
+msgstr "複数のカーネルをインストールできます"
 
 #: usr/share/help/C/mintupdate/kernels.page:34(p)
 msgid ""
 "When you apply an update, you replace the old version of the software with "
 "the new version."
-msgstr ""
+msgstr "アップデートを適用すると、古いバージョンのソフトウェアが新しいバージョンに置き換えられます。"
 
 #: usr/share/help/C/mintupdate/kernels.page:36(p)
 msgid ""
@@ -314,59 +332,61 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
+"カーネルに関しては状況が異なります。 "
+"「カーネル更新」を適用すると、実際にカーネルを更新するのではなく、既存のカーネルと一緒に新しいカーネルをインストールします。"
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
 "Every time you apply a kernel update, you install a new kernel on the "
 "system, without removing the old ones."
-msgstr ""
+msgstr "カーネルアップデートを適用するたびに、古いカーネルを削除せずに、システムに新しいカーネルをインストールします。"
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
-msgstr ""
+msgstr "ブート時に、コンピューターは最新のものを選択します。"
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
-msgstr ""
+msgstr "現在のカーネルを特定します"
 
 #: usr/share/help/C/mintupdate/kernels.page:47(p)
 msgid ""
 "If you want to know which kernel you are currently using, open a terminal "
 "and type:"
-msgstr ""
+msgstr "現在使用しているカーネルを知りたい場合は、ターミナルを開いて次のように入力します:"
 
 #: usr/share/help/C/mintupdate/kernels.page:49(screen)
 #, no-wrap
 msgid "uname -a"
-msgstr ""
+msgstr "uname -a"
 
 #: usr/share/help/C/mintupdate/kernels.page:54(title)
 msgid "Installing and removing kernels"
-msgstr ""
+msgstr "カーネルのインストールと削除"
 
 #: usr/share/help/C/mintupdate/kernels.page:56(p)
 msgid "You can install and remove kernels from the Update Manager."
-msgstr ""
+msgstr "アップデートマネージャにてカーネルをインストールおよび削除できます。"
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr ""
+msgstr "メニューにて「表示」 -&gt; 「Linuxカーネル」を選択します。"
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
 "You cannot remove the kernel you are currently using. To remove it, you need "
 "to reboot and select a different kernel to boot with."
-msgstr ""
+msgstr "現在使用しているカーネルを削除することはできません。削除するには、再起動して、起動する別のカーネルを選択する必要があります。"
 
 #: usr/share/help/C/mintupdate/kernels.page:65(title)
 msgid "Selecting a kernel"
-msgstr ""
+msgstr "カーネルの選択"
 
 #: usr/share/help/C/mintupdate/kernels.page:67(p)
 msgid ""
 "You can have multiple kernels installed, but you can only run one kernel at "
 "a time."
-msgstr ""
+msgstr "複数のカーネルをインストールできますが、一度に実行できるカーネルは1つだけです。"
 
 #: usr/share/help/C/mintupdate/kernels.page:69(p)
 msgid ""
@@ -374,6 +394,8 @@ msgid ""
 "This menu allows you to choose operating systems but you can also use it to "
 "select a kernel."
 msgstr ""
+"コンピュータを起動すると、最初の画面はGrubメニューと呼ばれます。このメニューでは、オペレーティングシステムを選択できますが、カーネルの選択にも使用でき"
+"ます。"
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -381,6 +403,8 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
+"オペレーティングシステムが1つしかインストールされていない場合、ブートシーケンスでGrubメニューがスキップされる場合があります。Grubメニューを強制的"
+"に表示するには、コンピュータを起動し、左の <key>Shift</key> キーを押し続けます。"
 
 #: usr/share/help/C/mintupdate/kernels.page:73(p)
 msgid ""
@@ -388,10 +412,12 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
+"カーネルを選択するには、Grubメニューで「Advanced "
+"options」を選択します。現在インストールされているすべてのカーネルが表示されます。使用するものを選択すると、コンピュータはそのカーネルで起動します。"
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
-msgstr ""
+msgstr "DKMSステータスの確認"
 
 #: usr/share/help/C/mintupdate/kernels.page:80(p)
 msgid ""
@@ -400,12 +426,16 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
+"カーネルにはすべてのオープンソースドライバーが含まれており、これらは通常非常にうまく機能します。プロプライエタリドライバー（独自のドライバー: "
+"NVIDIA、AMD、Broadcomなど）は含まれていないため、インストールするすべてのカーネルに対してコンパイルする必要があります。これは、DKMSと"
+"呼ばれるメカニズムを介して行われます。"
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
+"プロプライエタリドライバー（独自のドライバー）が、カーネルの1つに対してDKMSで適切に再コンパイルされない場合、そのカーネルでは正しく機能しません。"
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -413,11 +443,13 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
+"カーネルをインストールまたは削除した後に、次のコマンドを使用して、DKMSステータスを確認することで、カーネルごとにすべてのプロプライエタリドライバー（独"
+"自のドライバー）が正しくインストールされているかを確認できます:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
 msgid "dkms status"
-msgstr ""
+msgstr "DKMSステータス"
 
 #: usr/share/help/C/mintupdate/kernels.page:88(p)
 msgid ""
@@ -426,10 +458,12 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
+"通常、プロプライエタリドライバー（独自のドライバー）がDKMSを介してサポートされる前に、新しいカーネルシリーズは利用可能になります。プロプライエタリドラ"
+"イバーを使用している場合は、カーネルアップデートにて、推奨される一連のカーネルより新しいシリーズのカーネルをインストールしないことをお勧めします。"
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
-msgstr ""
+msgstr "カーネルアップデートを元に戻します"
 
 #: usr/share/help/C/mintupdate/kernels.page:95(p)
 msgid ""
@@ -437,13 +471,15 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
+"インストールした最新のカーネル（または最新のカーネルアップデート）で動作しない場合は、再起動し、以前使用していたカーネルを選択し、新しいカーネルを削除して"
+"から再起動します。"
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1175
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1237
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1621
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2007 generate_desktop_files:25
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1083
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1156
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1956 generate_desktop_files:25
 msgid "Update Manager"
 msgstr "アップデートマネージャ"
 
@@ -451,19 +487,19 @@ msgstr "アップデートマネージャ"
 msgid ""
 "The Update Manager provides your operating system with software and security "
 "updates."
-msgstr ""
+msgstr "アップデートマネージャは、オペレーティングシステムにソフトウェアアップデートとセキュリティアップデートを提供します。"
 
 #: usr/share/help/C/mintupdate/index.page:22(p)
 msgid ""
 "Updates are important because they keep your computer safe, eliminate bugs "
 "and can even add new features to your operating system."
-msgstr ""
+msgstr "アップデートは、コンピュータを安全に保ち、バグをなくし、オペレーティングシステムに新しい機能を追加することもできるため、重要です。"
 
 #: usr/share/help/C/mintupdate/index.page:24(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
-msgstr ""
+msgstr "残念ながら、それらはまた、「リグレッション（回帰）」と呼ばれる新しい問題を発生させることがあります。"
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
@@ -471,26 +507,28 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"コンピュータを安全で良好な動作状態に保つために、利用可能なすべてのアップデートを適用し、システムスナップショットを使えるように設定して、何か問題が発生した"
+"場合にシステムを復元できるようにすることをお勧めします。"
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
-msgstr ""
+msgstr "コアコンセプト（主な概念）"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
-msgstr ""
+msgstr "このセクションでは、ソフトウェアアップデートに関連するコアコンセプト（主な概念）について説明します。"
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains kernel updates."
-msgstr ""
+msgstr "このセクションでは、カーネルアップデートについて説明します。"
 
 #: usr/share/help/C/mintupdate/index.page:41(title)
 msgid "Advanced techniques"
-msgstr ""
+msgstr "高度なテクニック"
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains advanced techniques."
-msgstr ""
+msgstr "このセクションでは、高度なテクニックについて説明します。"
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: usr/share/help/C/mintupdate/index.page:0(None)
@@ -507,6 +545,7 @@ msgstr ""
 "  Takeshi Fujiwara https://launchpad.net/~takeshi-d\n"
 "  Toshiya TSURU https://launchpad.net/~turutosiya\n"
 "  dan domina https://launchpad.net/~dandomina\n"
+"  ichro furuya https://launchpad.net/~furuya\n"
 "  lindwurm https://launchpad.net/~lindwurm\n"
 "  luyikei https://launchpad.net/~luyikei\n"
 "  mumeiyamibito https://launchpad.net/~mumeiyamibito\n"
@@ -516,11 +555,11 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #, python-format
 msgid "Linux kernel %s"
-msgstr ""
+msgstr "Linuxカーネル %s"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 msgid "The Linux kernel."
-msgstr ""
+msgstr "Linuxカーネル。"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 msgid ""
@@ -533,6 +572,11 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
+"Linuxカーネルは、ハードウェアとドライバーのサポートを担当します。カーネルアップデートでは、既存のカーネルは削除されないことに注意してください。ブート"
+"メニューで詳細オプションを選択することにより、現在のカーネルでブートすることができます。ただし、注意してください。カーネルのリグレッション（回帰）は、イン"
+"ターネットに接続したり、グラフィカルにログインしたりする能力に影響を与える可能性があります。DKMSモジュールは、コンピュータにインストールされている最新"
+"のカーネル用にコンパイルされます。プロプライエタリドライバー（独自のドライバー）を使用していて、古いカーネルを使用する場合は、最初に新しいカーネルを削除す"
+"る必要があります。"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
@@ -546,15 +590,15 @@ msgstr "インストール"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
 msgid "Queue Removal"
-msgstr ""
+msgstr "キュー（待機中）の削除"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "This kernel cannot be removed because it is currently in use."
-msgstr ""
+msgstr "このカーネルは現在使用中のため削除できません。"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 msgid "Queue Installation"
-msgstr ""
+msgstr "キュー（待機中）のインストール"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "This kernel is not installable."
@@ -563,12 +607,12 @@ msgstr "このカーネルはインストールできません。"
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
-msgstr ""
+msgstr "%s カーネルを削除してもよろしいですか？"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:267
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
-msgstr ""
+msgstr "%s カーネルをインストールしてもよろしいですか？"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
@@ -577,39 +621,39 @@ msgstr "カーネル"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
 msgid "Remove Kernels"
-msgstr ""
+msgstr "カーネルを削除します"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 msgid "Perform Queued Actions"
-msgstr ""
+msgstr "待機中のアクションを実行します"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:426
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:429
 msgid "Active"
-msgstr ""
+msgstr "アクティブ"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:431
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:432
 msgid "Installed"
 msgstr "インストール済"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:519
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 msgid "Supported until"
-msgstr ""
+msgstr "サポート期間"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:522
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Superseded"
-msgstr ""
+msgstr "置き換えられました"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:524
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:525
 msgid "End of Life"
-msgstr ""
+msgstr "終わり"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:526
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:527
 msgid "Unsupported"
-msgstr ""
+msgstr "サポートされていません"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:558
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 msgid "You are currently using the following kernel:"
-msgstr ""
+msgstr "現在使用中のカーネル:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
 msgid "GB"
@@ -637,508 +681,453 @@ msgstr "更新履歴はありません"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:456
 msgid "This upgrade will trigger additional changes"
-msgstr "このアップグレードには追加の変更が必要です"
+msgstr "このアップグレードにより、追加の変更がトリガーされます"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:465
 msgid "The following packages will be removed:"
-msgstr ""
+msgstr "以下のパッケージが削除されます:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:494
 msgid "The following packages will be installed:"
-msgstr ""
+msgstr "以下のパッケージがインストールされます:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:537
 msgid "Installing updates"
 msgstr "アップデートをインストールしています"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:598
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:605
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:597
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:604
 msgid "Could not install the security updates"
 msgstr "セキュリティアップデートをインストールできませんでした"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:660
 msgid "Reboot required"
-msgstr ""
+msgstr "再起動が必要です"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
 msgid ""
 "You have installed updates that require a reboot to take effect, please "
 "reboot your system as soon as possible."
-msgstr ""
+msgstr "有効にするには再起動が必要なアップデートをインストールしました。できるだけ早くシステムを再起動してください。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:679
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1300
 msgid "Checking for updates"
 msgstr "アップデートを確認しています"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:711
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:710
 msgid "Run 'apt update' in a terminal window to address this"
-msgstr ""
+msgstr "これに対処するには、端末で「apt update」を実行します"
 
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:714
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:716
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:865
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:866
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:912
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:855
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:856
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:899
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
-msgstr ""
+msgstr "アップデートのリストを更新できませんでした"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:779
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Kernel update"
-msgstr ""
+msgstr "カーネルアップデート"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:782
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:781
 msgid "Security update"
-msgstr ""
+msgstr "セキュリティアップデート"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:785
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:784
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
-msgstr "安定動作が保証されていないソフトウェア。新しいソフトウェアの開発者によるベータテストに利用するときのみ、更新を適用してください。"
+msgstr "不安定なソフトウェア。このアップデートは、開発者が新しいソフトウェアをベータテストするのを助けるためにのみ適用してください。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:789
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "Software update"
 msgstr "ソフトウェアアップデート"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:793
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:792
 msgid "3rd-party update"
-msgstr ""
+msgstr "サードパーティのアップデート"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1720
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1796
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:814
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1653
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1729
 msgid "No updates selected"
 msgstr "アップデートが選択されていません"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:817
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1722
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1798
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1731
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(selected)d 個のアップデートが選択されました（サイズ %(size)s ）"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:824
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d 個のアップデートが利用可能"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:835
-msgid "Your distribution has reached end of life and is no longer supported"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:840
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 #: usr/share/linuxmint/mintupdate/main.ui.h:8
 msgid "Your system is up to date"
 msgstr "このシステムは最新の状態です"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:900
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:887
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:890
 msgid "Your APT configuration is corrupt."
-msgstr ""
+msgstr "APT設定が破損しています。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:901
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:888
 msgid ""
 "Do not install or update anything, it could break your operating system!"
-msgstr ""
+msgstr "インストールやアップデートは一切行わないで下さい。オペレーションシステムを破壊する恐れがあります!"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
-msgstr ""
+msgstr "この問題を解決するには、別のLinux Mintミラーに切り替えて、[OK]をクリックします。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:904
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "APT error:"
-msgstr ""
+msgstr "APTエラー:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:909
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:896
 msgid "Please switch to another Linux Mint mirror"
-msgstr "他のLinux Mintミラーサーバーに変更してください"
+msgstr "別のLinux Mintミラーに切り替えてください"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:955
-msgid "distribution"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:957
-msgid "DISTRIBUTION END OF LIFE WARNING"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:959
-#, python-format
-msgid "Your version of Linux Mint is only supported until %s."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:960
-msgid ""
-"Your system will remain functional after that date, but the official "
-"software repositories will become unavailable along with any updates "
-"including security updates."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:961
-msgid ""
-"You should perform an upgrade to or a clean install of a newer version of "
-"your distribution before that happens."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:962
-#, python-format
-msgid "For more information visit %s."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:976
-msgid "Please set up System Snapshots"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:977
-msgid ""
-"If something breaks, snapshots will allow you to restore your system to the "
-"previous working condition."
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1004
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:930
 msgid "Do you want to switch to a local mirror?"
-msgstr "近くのミラーサーバーに変更しますか？"
+msgstr "近くのローカルミラーに切り替えますか？"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1005
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:931
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr ""
+msgstr "通常、ローカルミラーは packages.linuxmint.com よりも高速です。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1016
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1026
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:942
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:952
 msgid "Please switch to another mirror"
-msgstr "他のミラーサーバーに変更してください"
+msgstr "別のミラーに切り替えてください"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1017
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:943
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s に到達できません。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:953
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(mirror)s の最後の更新は、 %(days)d 日前でした。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1180
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1089
 msgid "Exit"
 msgstr "終了"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1270
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
 msgid "Upgrade"
 msgstr "アップグレード"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1275
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1193
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1279
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1946
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1197
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1399
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1895
 msgid "Old Version"
-msgstr ""
+msgstr "旧バージョン"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1283
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1473
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1949
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1201
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1405
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1898
 msgid "New Version"
-msgstr ""
+msgstr "新バージョン"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1287
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1485
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1417
 msgid "Size"
 msgstr "サイズ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1291
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1455
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1387
 msgid "Type"
-msgstr ""
+msgstr "タイプ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1295
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1479
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1411
 msgid "Origin"
 msgstr "提供元"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1353
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1271
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
-msgstr "更新"
+msgstr "再読込"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1358
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1447
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1915
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1276
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1379
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1864
 msgid "Information"
 msgstr "情報"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1395
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2062
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1327
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2011
 msgid "Preferences"
 msgstr "設定"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1368
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1286
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
 msgid "Quit"
-msgstr ""
+msgstr "終了"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1379
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1303
 msgid "_File"
 msgstr "ファイル (_F)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1384
-#: usr/share/linuxmint/mintupdate/history.ui.h:1
-#: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
-#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
-msgid "Close"
-msgstr "閉じる"
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
+msgid "Close window"
+msgstr ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1390
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1322
 msgid "_Edit"
 msgstr "編集 (_E)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1401
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1333
 msgid "System Snapshots"
-msgstr ""
+msgstr "システムスナップショット"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1407
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1339
 msgid "Software Sources"
-msgstr ""
+msgstr "ソフトウェアソース"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1430
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
 #, python-format
 msgid "Upgrade to %s"
-msgstr ""
+msgstr "%s にアップグレード"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1434
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1366
 msgid "_View"
 msgstr "表示 (_V)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1439
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1937
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1371
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1886
 msgid "History of Updates"
-msgstr ""
+msgstr "アップデートの履歴"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1443
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1375
 msgid "Linux Kernels"
-msgstr ""
+msgstr "Linuxカーネル"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1451
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1383
 msgid "Visible Columns"
-msgstr ""
+msgstr "表示項目"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1943
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1393
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
 msgid "Package"
 msgstr "パッケージ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1493
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1425
 msgid "Show Descriptions"
-msgstr ""
+msgstr "説明を表示"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1509
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1441
 msgid "_Help"
 msgstr "ヘルプ (_H)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1515
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1447
 msgid "Welcome Screen"
-msgstr ""
+msgstr "ようこそ画面"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1520
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1452
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "キーボードショートカット"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1526
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1458
 msgid "Contents"
-msgstr ""
+msgstr "機能の説明"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1533
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2005
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1465
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1954
 msgid "About"
-msgstr "情報"
+msgstr "このアプリケーションについて"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1619
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
 msgid "Cannot Proceed"
-msgstr ""
+msgstr "続行できません"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1554
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
-msgstr ""
+msgstr "現在、別のプロセスがパッケージ管理システムを使用しています。終了するまで待ってから、もう一度試してください。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1648
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1582
 msgid "Yes"
 msgstr "はい"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1649
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1583
 msgid "No"
 msgstr "いいえ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1651
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1585
 #: usr/share/linuxmint/mintupdate/main.ui.h:22
 msgid "OK"
 msgstr "OK"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1757
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid "Welcome to the Update Manager"
-msgstr ""
+msgstr "アップデートマネージャへようこそ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1836
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1769
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "このアップデートは、インストールされている次のパッケージに影響します:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1774
 msgid "Total size:"
-msgstr ""
+msgstr "合計サイズ:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1854
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1787
 msgid "Ignore the current update for this package"
-msgstr ""
+msgstr "このパッケージの現在のアップデートを無視します"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1857
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1790
 msgid "Ignore all future updates for this package"
-msgstr ""
+msgstr "このパッケージの今後のアップデートをすべて無視します"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1940
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1889
 msgid "Date"
 msgstr "日付"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2078
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2027
 msgid "Options"
 msgstr "オプション"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2028
 msgid "Blacklist"
-msgstr ""
+msgstr "ブラックリスト"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 msgid "Automation"
-msgstr ""
+msgstr "自動化"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2086
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2035
 msgid "Interface"
-msgstr ""
+msgstr "インタフェース"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2087
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2036
 msgid "Hide the update manager after applying updates"
-msgstr ""
+msgstr "アップデートを適用した後、アップデートマネージャを非表示にします"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2088
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2037
 msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr "アップデートがある場合とエラーが発生した場合にのみトレイアイコンを表示する"
+msgstr "アップデートが利用可能な場合、またはエラーが発生した場合にのみトレイアイコンを表示します"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2089
-msgid "Show a warning if system snapshots are not set up"
-msgstr ""
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2091
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2039
 msgid "Auto-refresh"
-msgstr ""
+msgstr "自動更新"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2092
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2040
 msgid "Refresh the list of updates automatically"
-msgstr ""
+msgstr "アップデートのリストを自動的に更新します"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2104
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2052
 msgid "days"
-msgstr "日"
+msgstr "月日"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2105
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2053
 msgid "hours"
 msgstr "時間"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2106
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2054
 msgid "minutes"
 msgstr "分"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2107
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2055
 msgid "First, refresh the list of updates after:"
-msgstr "最初にアップデートリストを更新するまでの時間："
+msgstr "まず、アップデートの後にアップデートのリストを更新します:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2111
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2059
 msgid "Then, refresh the list of updates every:"
-msgstr "以降、次の頻度でアップデートリストを更新する："
+msgstr "次に、アップデートのリストを次の間隔で更新します:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2154
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2102
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
-msgstr ""
+msgstr "注: リストは、アップデートマネージャが閉じている間のみ更新されます（システムトレイモード）。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2160
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2108
 msgid "Ignored Updates"
-msgstr ""
+msgstr "無視されたアップデート"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2131
 msgid "Automatic Updates"
-msgstr ""
+msgstr "自動アップデート"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2131
 msgid "This option is run as root on a daily basis"
-msgstr ""
+msgstr "このオプションは、rootとして毎日実行されます"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2184
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2132
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "アップデートを自動的に適用します"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2188
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2136
 msgid "Export blacklist to /etc/mintupdate.blacklist"
-msgstr ""
+msgstr "ブラックリストを /etc/mintupdate.blacklist にエクスポートします"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2137
 msgid ""
 "Click this button for automatic updates to use your current blacklist."
-msgstr ""
+msgstr "現在のブラックリストを使用する自動アップデートを行うには、このボタンをクリックします。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2140
 msgid "Automatic Maintenance"
-msgstr ""
+msgstr "自動メンテナンス"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2192
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2140
 msgid "This option is run as root on a weekly basis"
-msgstr ""
+msgstr "このオプションは、rootとして毎週実行されます"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2193
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2141
 msgid "Remove obsolete kernels and dependencies"
-msgstr ""
+msgstr "使われなくなったカーネルと依存関係を削除します"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2197
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2145
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
-msgstr ""
+msgstr "このオプションでは、常に少なくとも1つの古いカーネルがインストールされたままになり、手動でインストールされたカーネルは削除されません。"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2198
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
-msgstr ""
+msgstr "無視するアップデートのソースパッケージ名（ワイルドカードがサポートされています）およびオプションでバージョンを指定してください:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2199
 msgid "Ignore an Update"
-msgstr ""
+msgstr "アップデートを無視します"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2207
 msgid "Name:"
 msgstr "名前:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2209
 msgid "Version:"
-msgstr ""
+msgstr "バージョン:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2263
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2211
 msgid "(optional)"
-msgstr ""
+msgstr "(オプション)"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:23
 msgid "System Upgrade"
@@ -1146,7 +1135,7 @@ msgstr "システムアップグレード"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:35
 msgid "Introduction"
-msgstr ""
+msgstr "はじめに"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:39
 msgid ""
@@ -1154,73 +1143,75 @@ msgid ""
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
+"システムに重要なコンポーネントがありません。Linux Mintのエディションに対応するパッケージは、仮想パッケージ「mint-info」とファイル "
+"/etc/linuxmint/info を提供する必要があります。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:52
 msgid "No upgrades were found."
-msgstr ""
+msgstr "アップグレードは見つかりませんでした。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:61
 msgid "A new version of Linux Mint is available!"
-msgstr ""
+msgstr "Linux Mintの新しいバージョンが利用可能です！"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:71
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
-msgstr ""
+msgstr "アップグレードが見つかりましたが %s のエディションではまだ利用できません。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:80
 msgid "Release notes"
-msgstr ""
+msgstr "リリースノート"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:87
 msgid ""
 "Please read the release notes before upgrading. They explain all the known "
 "issues, workarounds and solutions associated with the new version."
-msgstr ""
+msgstr "アップグレードする前にリリースノートをお読みください。新しいバージョンに関連するすべての既知の問題、回避策、解決策について説明します。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:91
 #, python-format
 msgid "Release notes for %s"
-msgstr ""
+msgstr "%s のリリースノート"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:94
 msgid "Click on the link to open the release notes."
-msgstr ""
+msgstr "リンクをクリックしてリリースノートを開きます。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:102
 msgid "New features"
-msgstr ""
+msgstr "新機能"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:109
 msgid "Please look at the new features introduced in the new version."
-msgstr ""
+msgstr "新バージョンで導入された新機能をご覧ください。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:113
 #, python-format
 msgid "New features in %s"
-msgstr ""
+msgstr "%s の新機能"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:116
 msgid "Click on the link to browse the new features."
-msgstr ""
+msgstr "リンクをクリックして、新しい機能を参照します。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:124
 msgid "Requirements"
-msgstr ""
+msgstr "必要条件"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:134
 #, python-format
 msgid "The package %s needs to be installed before upgrading."
-msgstr ""
+msgstr "パッケージ %s はアップグレードする前にインストールする必要があります。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:138
 #, python-format
 msgid "Install %s"
-msgstr ""
+msgstr "%s をインストール"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:143
 msgid "Click on the button to install the missing package."
-msgstr ""
+msgstr "ボタンをクリックして、不足しているパッケージをインストールします。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:157
 msgid ""
@@ -1228,35 +1219,44 @@ msgid ""
 "introduce new issues. Upgrading always represents a risk. Your data is safe "
 "but new issues can potentially affect your operating system."
 msgstr ""
+"新しいリリースはバグ修正と新機能を提供しますが、時には新しい問題を起こすこともあります。アップグレードには常にリスクが伴います。データは安全ですが、新しい"
+"問題がオペレーティングシステムに影響を及ぼす可能性があります。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:161
 #, python-format
 msgid "I understand the risk. I want to upgrade to %s."
-msgstr ""
+msgstr "リスクを理解して、%s にアップグレードします。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:171
 msgid "Summary"
-msgstr ""
+msgstr "概要"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:258
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
-msgstr ""
+msgstr "オペレーティングシステムが正常にアップグレードされました。すべての変更を有効にするには、コンピューターを再起動してください。"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:261
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
-msgstr ""
+msgstr "アップグレードは失敗しました。インターネットに接続していることを確認して、もう一度アップグレードしてください。"
 
 #: generate_desktop_files:26
 msgid "Show and install available updates"
 msgstr "利用可能なアップデートを表示してインストールします"
 
+#: usr/share/linuxmint/mintupdate/history.ui.h:1
+#: usr/share/linuxmint/mintupdate/information.ui.h:3
+#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
+#: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
+msgid "Close"
+msgstr "閉じる"
+
 #: usr/share/linuxmint/mintupdate/information.ui.h:1
 msgid "Process ID:"
-msgstr "プロセス ID:"
+msgstr "プロセスID:"
 
 #: usr/share/linuxmint/mintupdate/information.ui.h:2
 msgid "Log file:"
@@ -1264,21 +1264,21 @@ msgstr "ログファイル:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:1
 msgid "Warning!"
-msgstr ""
+msgstr "警告！"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:2
 msgid "Proceed with caution"
-msgstr ""
+msgstr "注意して進めてください"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
-msgstr ""
+msgstr "特にプロプライエタリドライバー（独自のドライバー）を使用している場合は、新しいカーネルをインストールすると問題が発生することがあります。"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
 msgid "These issues include:"
-msgstr ""
+msgstr "これらの問題は次のとおりです:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
 msgid ""
@@ -1287,10 +1287,14 @@ msgid ""
 "- Black screen on startup\n"
 "- Random system freeze"
 msgstr ""
+"- Wi-Fi（またはイーサネット）がありません\n"
+"- ビデオアクセラレーションがありません\n"
+"- 起動時に黒い画面になります\n"
+"- 時々、システムがフリーズします"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "If you face any of these issues, don't panic:"
-msgstr ""
+msgstr "これらの問題に直面しても、パニックにならないでください:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:10
 msgid ""
@@ -1300,10 +1304,15 @@ msgid ""
 "- Select an older kernel.\n"
 "- After the computer boots with the older kernel, uninstall the new one."
 msgstr ""
+"1. 再起動します。\n"
+"2. Shiftキーを押したままにして、ブートメニューを表示します。\n"
+"3. ブートメニューで、「Advanced options」で始まる行を選択します。\n"
+"4. 古いカーネルを選択します。\n"
+"5. コンピュータが古いカーネルで起動した後、新しいカーネルをアンインストールします。"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
-msgstr ""
+msgstr "次からこのメッセージを表示しません"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
@@ -1312,31 +1321,31 @@ msgstr "ヘルプ"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
-msgstr ""
+msgstr "続ける"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
 msgid "Kernel flavor:"
-msgstr ""
+msgstr "カーネルフレーバー:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 msgid "Perform Queued Actions..."
-msgstr ""
+msgstr "待機中のアクションを実行..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Remove Kernels..."
-msgstr ""
+msgstr "カーネルを削除..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:23
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:24
 msgid "Apply"
-msgstr ""
+msgstr "適用"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:25
 msgid "Please confirm the following actions:"
-msgstr ""
+msgstr "以下のアクションを確認してください:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1355,11 +1364,11 @@ msgstr "アップデートをインストール"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "A new version of the Update Manager is available"
-msgstr ""
+msgstr "アップデートマネージャの新しいバージョンが利用可能です"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
 msgid "Apply the Update"
-msgstr ""
+msgstr "アップデートを適用します"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Description"
@@ -1367,7 +1376,7 @@ msgstr "説明"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:10
 msgid "Packages"
-msgstr ""
+msgstr "パッケージ"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Changelog"
@@ -1376,30 +1385,32 @@ msgstr "更新履歴"
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid ""
 "This tool provides your operating system with software and security updates."
-msgstr "このツールはお使いのOSにソフトウェアとセキュリティのアップデートを提供します。"
+msgstr "このツールは、オペレーティングシステムにソフトウェアとセキュリティのアップデートを提供します。"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Security updates"
-msgstr ""
+msgstr "セキュリティアップデート"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
-msgstr ""
+msgstr "セキュリティアップデートを適用してセキュリティでの脆弱性（セキュリティホール）にパッチを当て、コンピュータを安全に保ちます。"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid "Software updates"
-msgstr ""
+msgstr "ソフトウェアアップデート"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "Apply software updates to fix bugs in your computer."
-msgstr ""
+msgstr "ソフトウェアアップデートを適用して、コンピュータのバグを修正します。"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"システムのスナップショットを設定して、誤操作やリグレッション（アップデートで発生するかもしれない問題）から身を守れます。何かが壊れた場合は、最後のスナップ"
+"ショットを復元するだけです。"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid ""
@@ -1407,40 +1418,45 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux "
+"Mintでは、自動システムスナップショットを設定し、利用可能なすべてのアップデートを適用することをお勧めします。これにより、コンピュータは常に安全で、時間"
+"をさかのぼって潜在的なリグレッションから回復できます。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid ""
 "Packages listed here will never receive updates. Use this option to block "
 "updates that you know cause issues on your system."
 msgstr ""
+"ここにリストされているパッケージは、アップデートを受け取りません。このオプションを使用して、システムの問題の原因であることがわかっているアップデートをブロ"
+"ックします。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:2
 msgid ""
 "It is recommended to add packages to the blacklist by right-clicking them in "
 "the updates listing."
-msgstr ""
+msgstr "アップデートのリストでパッケージを右クリックして、ブラックリストにパッケージを追加することをお勧めします。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
-msgstr ""
+msgstr "このオプションを使用する前に、システムのスナップショットが適切に設定されていることを確認してください。"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "ウィンドウ"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "選択"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select Security Updates"
-msgstr ""
+msgstr "セキュリティアップデートを選択"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select Kernel Updates"
-msgstr ""
+msgstr "カーネルアップデートを選択"
 
 #~ msgid "Starting refresh..."
 #~ msgstr "更新を開始しています..."
