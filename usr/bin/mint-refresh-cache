@@ -11,8 +11,12 @@ if __name__ == "__main__":
                             "--parent-window-id", sys.argv[2]],
                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         else:
-            import apt
-            cache = apt.Cache()
-            cache.update()
+            try:
+                import apt
+                cache = apt.Cache()
+                cache.update()
+            except Exception as e:
+                print("Error: mint-refresh-cache could not update the cache.")
+                print(e)
     else:
         print("Error: mint-refresh-cache requires admin privileges")
