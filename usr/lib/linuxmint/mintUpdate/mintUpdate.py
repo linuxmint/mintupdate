@@ -48,6 +48,8 @@ gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
 
 (UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(12)
 
+BLACKLIST_PKG_NAME = 0
+
 GIGABYTE = 1000 ** 3
 MEGABYTE = 1000 ** 2
 KILOBYTE = 1000
@@ -426,7 +428,7 @@ class InstallThread(threading.Thread):
             iter = model.get_iter_first()
             while (iter != None):
                 checked = model.get_value(iter, UPDATE_CHECKED)
-                if (checked == "true"):
+                if (checked):
                     installNeeded = True
                     package_update = model.get_value(iter, UPDATE_OBJ)
                     if package_update.type == "kernel" and \
@@ -679,7 +681,7 @@ class RefreshThread(threading.Thread):
             self.application.set_status("", _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
             Gdk.threads_leave()
 
-            model = Gtk.TreeStore(str, str, str, str, str, int, str, str, str, str, str, object)
+            model = Gtk.TreeStore(bool, str, str, str, str, int, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
@@ -746,7 +748,7 @@ class RefreshThread(threading.Thread):
                     iter = model.insert_before(None, None)
                     model.row_changed(model.get_path(iter), iter)
 
-                    model.set_value(iter, UPDATE_CHECKED, "true")
+                    model.set_value(iter, UPDATE_CHECKED, True)
                     num_checked += 1
                     download_size += update.size
 
@@ -1185,8 +1187,10 @@ class MintUpdate():
             # the treeview
             cr = Gtk.CellRendererToggle()
             cr.connect("toggled", self.toggled)
+            cr.set_property("activatable", True)
+
             column_upgrade = Gtk.TreeViewColumn(_("Upgrade"), cr)
-            column_upgrade.set_cell_data_func(cr, self.celldatafunction_checkbox)
+            column_upgrade.add_attribute(cr, "active", UPDATE_CHECKED)
             column_upgrade.set_sort_column_id(UPDATE_CHECKED)
             column_upgrade.set_resizable(True)
 
@@ -1237,10 +1241,10 @@ class MintUpdate():
             self.window.connect("delete_event", self.close_window)
 
             # Install Updates button
-            install_button = self.builder.get_object("tool_apply")
-            install_button.connect("clicked", self.install)
+            self.install_button = self.builder.get_object("tool_apply")
+            self.install_button.connect("clicked", self.install)
             key, mod = Gtk.accelerator_parse("<Control>I")
-            install_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            self.install_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
 
             # Clear button
             clear_button = self.builder.get_object("tool_clear")
@@ -1604,6 +1608,26 @@ class MintUpdate():
     def hide_main_window(self, widget):
         self.window.hide()
 
+    def update_installable_state(self):
+        model = self.treeview.get_model()
+
+        iter = model.get_iter_first()
+        download_size = 0
+        num_selected = 0
+        while (iter != None):
+            checked = model.get_value(iter, UPDATE_CHECKED)
+            if (checked):
+                size = model.get_value(iter, UPDATE_SIZE)
+                download_size = download_size + size
+                num_selected = num_selected + 1
+            iter = model.iter_next(iter)
+        if num_selected == 0:
+            self.install_button.set_sensitive(False)
+            self.set_status_message(_("No updates selected"))
+        else:
+            self.install_button.set_sensitive(True)
+            self.set_status_message(ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
+
     def setVisibleColumn(self, checkmenuitem, column, key):
         state = checkmenuitem.get_active()
         self.settings.set_boolean(key, state)
@@ -1618,9 +1642,10 @@ class MintUpdate():
         if len(model):
             iter = model.get_iter_first()
             while (iter != None):
-                model.set_value(iter, 0, "false")
+                model.set_value(iter, 0, False)
                 iter = model.iter_next(iter)
-            self.set_status_message(_("No updates selected"))
+
+        self.update_installable_state()
 
     def select_all(self, widget):
         self.select_updates()
@@ -1632,27 +1657,15 @@ class MintUpdate():
             update =  model.get_value(iter, UPDATE_OBJ)
             if security:
                 if update.type == "security":
-                    model.set_value(iter, UPDATE_CHECKED, "true")
+                    model.set_value(iter, UPDATE_CHECKED, True)
             elif kernel:
                 if update.type == "kernel":
-                    model.set_value(iter, UPDATE_CHECKED, "true")
+                    model.set_value(iter, UPDATE_CHECKED, True)
             else:
-                model.set_value(iter, UPDATE_CHECKED, "true")
+                model.set_value(iter, UPDATE_CHECKED, True)
             iter = model.iter_next(iter)
-        iter = model.get_iter_first()
-        download_size = 0
-        num_selected = 0
-        while (iter != None):
-            checked = model.get_value(iter, UPDATE_CHECKED)
-            if (checked == "true"):
-                size = model.get_value(iter, UPDATE_SIZE)
-                download_size = download_size + size
-                num_selected = num_selected + 1
-            iter = model.iter_next(iter)
-        if num_selected == 0:
-            self.set_status_message(_("No updates selected"))
-        else:
-            self.set_status_message(ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
+
+        self.update_installable_state()
 
     def force_refresh(self, widget):
         if self.dpkg_locked():
@@ -1694,14 +1707,6 @@ class MintUpdate():
 
 ######### TREEVIEW/SELECTION FUNCTIONS #######
 
-    def celldatafunction_checkbox(self, column, cell, model, iter, data):
-        cell.set_property("activatable", True)
-        checked = model.get_value(iter, UPDATE_CHECKED)
-        if (checked == "true"):
-            cell.set_property("active", True)
-        else:
-            cell.set_property("active", False)
-
     def treeview_row_activated(self, treeview, path, view_column):
         self.toggled(None, path)
 
@@ -1709,26 +1714,9 @@ class MintUpdate():
         model = self.treeview.get_model()
         iter = model.get_iter(path)
         if (iter != None):
-            checked = model.get_value(iter, UPDATE_CHECKED)
-            if (checked == "true"):
-                model.set_value(iter, UPDATE_CHECKED, "false")
-            else:
-                model.set_value(iter, UPDATE_CHECKED, "true")
+            model.set_value(iter, UPDATE_CHECKED, (not model.get_value(iter, UPDATE_CHECKED)))
 
-        iter = model.get_iter_first()
-        download_size = 0
-        num_selected = 0
-        while (iter != None):
-            checked = model.get_value(iter, UPDATE_CHECKED)
-            if (checked == "true"):
-                size = model.get_value(iter, UPDATE_SIZE)
-                download_size = download_size + size
-                num_selected = num_selected + 1
-            iter = model.iter_next(iter)
-        if num_selected == 0:
-            self.set_status_message(_("No updates selected"))
-        else:
-            self.set_status_message(ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
+        self.update_installable_state()
 
     def display_selected_package(self, selection):
         try:
@@ -2105,20 +2093,20 @@ class MintUpdate():
 
         # Blacklist
         treeview_blacklist = builder.get_object("treeview_blacklist")
-        column = Gtk.TreeViewColumn(_("Ignored Updates"), Gtk.CellRendererText(), text=0)
-        column.set_sort_column_id(0)
+        column = Gtk.TreeViewColumn(_("Ignored Updates"), Gtk.CellRendererText(), text=BLACKLIST_PKG_NAME)
+        column.set_sort_column_id(BLACKLIST_PKG_NAME)
         column.set_resizable(True)
         treeview_blacklist.append_column(column)
         treeview_blacklist.set_headers_clickable(True)
         treeview_blacklist.set_reorderable(False)
         treeview_blacklist.show()
-        model = Gtk.TreeStore(str)
-        model.set_sort_column_id( 0, Gtk.SortType.ASCENDING )
+        model = Gtk.TreeStore(str) # BLACKLIST_PKG_NAME
+        model.set_sort_column_id(BLACKLIST_PKG_NAME, Gtk.SortType.ASCENDING )
         treeview_blacklist.set_model(model)
         blacklist = self.settings.get_strv("blacklisted-packages")
         for ignored_pkg in blacklist:
             iter = model.insert_before(None, None)
-            model.set_value(iter, 0, ignored_pkg)
+            model.set_value(iter, BLACKLIST_PKG_NAME, ignored_pkg)
         builder.get_object("button_add").connect("clicked", self.add_blacklisted_package, treeview_blacklist, window)
         builder.get_object("button_remove").connect("clicked", self.remove_blacklisted_package, treeview_blacklist)
         builder.get_object("button_add").set_always_show_image(True)
@@ -2188,7 +2176,7 @@ class MintUpdate():
         model = treeview_blacklist.get_model()
         iter = model.get_iter_first()
         while iter is not None:
-            pkg = model.get_value(iter, UPDATE_CHECKED)
+            pkg = model.get_value(iter, BLACKLIST_PKG_NAME)
             iter = model.iter_next(iter)
             blacklist.append(pkg)
         self.settings.set_strv("blacklisted-packages", blacklist)
@@ -2221,7 +2209,7 @@ class MintUpdate():
                     pkg = name
                 model = treeview_blacklist.get_model()
                 iter = model.insert_before(None, None)
-                model.set_value(iter, 0, pkg)
+                model.set_value(iter, BLACKLIST_PKG_NAME, pkg)
         dialog.destroy()
         self.save_blacklist(treeview_blacklist)
 
@@ -2229,7 +2217,7 @@ class MintUpdate():
         selection = treeview_blacklist.get_selection()
         (model, iter) = selection.get_selected()
         if (iter != None):
-            pkg = model.get_value(iter, UPDATE_CHECKED)
+            pkg = model.get_value(iter, BLACKLIST_PKG_NAME)
             model.remove(iter)
         self.save_blacklist(treeview_blacklist)
 
