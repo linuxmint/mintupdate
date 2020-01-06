@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-11-13 13:01+0100\n"
-"PO-Revision-Date: 2019-12-05 15:21+0000\n"
-"Last-Translator: Piotr Strębski <strebski@gmail.com>\n"
+"PO-Revision-Date: 2019-12-14 22:02+0000\n"
+"Last-Translator: Kacper Paczos <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2019-12-11 11:49+0000\n"
-"X-Generator: Launchpad (build c597c3229eb023b1e626162d5947141bf7befb13)\n"
+"X-Launchpad-Export-Date: 2020-01-06 09:57+0000\n"
+"X-Generator: Launchpad (build bceb5ef013b87ef7aafe0755545ceb689ca7ac60)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -60,7 +60,7 @@ msgstr ""
 #: usr/share/help/C/mintupdate/updates.page:25(p)
 msgid "'Security updates' are updates which patch vulnerabilities."
 msgstr ""
-"'Poprawki bezpieczeństwa' są aktualizacjami łatającymi luki w "
+"'Poprawki bezpieczeństwa' są aktualizacjami łatającymi podatności w "
 "zabezpieczeniach."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
@@ -75,12 +75,12 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
-"Bezpieczeństwo jest bardzo ważne, ale jest kwestią ściśle techniczną. Luki w "
-"zabezpieczeniach nie zawsze dotykają twojego komputera, a zrozumienie ich "
-"może być trudne. Większość ludzi wcale ich nie rozumie, ale ich komputery "
-"rzadko są zagrożone.  Trzeba jednak mieć świadomość, że naruszenie "
-"bezpieczeństwa może mieć poważne konsekwencje - zaleca się więc, by zawsze "
-"traktować je poważnie."
+"Bezpieczeństwo jest bardzo ważne, ale jest kwestią ściśle techniczną. Luki "
+"zabezpieczeń nie zawsze dotykają twojego komputera, a ich zrozumienie może "
+"być trudne. Większość ludzi wcale ich nie rozumie, a ich komputery rzadko są "
+"zagrożone.  Trzeba jednak mieć świadomość, że naruszenie bezpieczeństwa może "
+"mieć poważne konsekwencje dlatego zaleca się, by zawsze traktować je "
+"poważnie."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
@@ -239,8 +239,8 @@ msgstr "Użyj interfejsu wiersza poleceń mintupdate"
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
-"Menedżer aktualizacji dostarcza narzędzie wiersza poleceń nazywane "
-"„mintupdate-cli\"."
+"Menedżer aktualizacji zapewnia narzędzie wiersza poleceń o nazwie "
+"\"mintupdate-cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
@@ -266,16 +266,16 @@ msgstr "lista interfejsu wiersza poleceń mintupdate"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid "You can use -s to only show the security updates."
-msgstr "Możesz użyć -s, by tylko pokazać aktualizacje bezpieczeństwa."
+msgstr "Możesz użyć -s, aby pokazać wyłącznie aktualizacje bezpieczeństwa."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr "Możesz użyć -s, by tylko pokazać aktualizacje jądra."
+msgstr "Możesz użyć -s, aby pokazać wyłącznie aktualizacje jądra."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
 msgstr ""
-"Dla przykładu następująca komenda wylistuje wszystkie aktualizacje "
+"Dla przykładu, następująca komenda wypisze wszystkie aktualizacje "
 "bezpieczeństwa:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(screen)
@@ -296,7 +296,7 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr "Dla przykładu następująca komenda zastosuje aktualizacje jądra:"
+msgstr "Dla przykładu, następująca komenda zastosuje aktualizacje jądra:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
@@ -306,7 +306,7 @@ msgstr "sudo mintupdate-cli upgrade -r -k"
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
 msgstr ""
-"Zwróć uwagę na argument -r dodany w celu odświeżenia pamięci podręcznej."
+"Zwróć uwagę na argument -r, dodany w celu odświeżenia pamięci podręcznej."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid ""
@@ -314,7 +314,7 @@ msgid ""
 "type:"
 msgstr ""
 "By uzyskać więcej informacji o interfejsie poleceń mintupdate i kompletną "
-"listę argumentów wpisz:"
+"listę argumentów, wpisz:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:57(screen)
 #, no-wrap
@@ -342,7 +342,7 @@ msgstr ""
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
 msgstr ""
-"Patrząc od strony bezpieczeństwa, ważnym jest by stosować aktualizacje jądra."
+"Patrząc od strony bezpieczeństwa, ważne jest stosowanie aktualizacji jądra."
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -358,9 +358,8 @@ msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
 msgstr ""
-"Dlatego też ważne jest by zachować rozwagę przy stosowaniu aktualizacji "
-"jądra systemu oraz by widzieć jak te aktualizacje cofnąć gdyby coś poszło "
-"nie tak."
+"Dlatego też ważne jest, by zachować rozwagę przy stosowaniu aktualizacji "
+"jądra systemu oraz wiedzieć, jak wycofać zmiany, gdyby coś poszło nie tak."
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
@@ -371,7 +370,7 @@ msgid ""
 "When you apply an update, you replace the old version of the software with "
 "the new version."
 msgstr ""
-"Gdy stosujesz aktualizację zastępujesz starą wersję oprogramowania nową."
+"Gdy stosujesz aktualizację, zastępujesz starą wersję oprogramowania nową."
 
 #: usr/share/help/C/mintupdate/kernels.page:36(p)
 msgid ""
@@ -379,8 +378,8 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
-"Inaczej jest z jądrami systemu. Gdy instalujesz \"aktualizację jądra\" tak "
-"naprawdę nie aktualizujesz istniejącego jądra systemu a instalujesz nowe "
+"Inaczej jest z jądrami systemu. Gdy instalujesz \"aktualizację jądra\", tak "
+"naprawdę nie aktualizujesz istniejącego jądra systemu, a instalujesz nowe "
 "obok niego."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
@@ -1088,7 +1087,8 @@ msgstr "Witamy w menedżerze aktualizacji"
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "Ta aktualizacja ma wpływ na zainstalowany pakiet:"
-msgstr[1] "Ta aktualizacja ma wpływ na zainstalowane pakiety:"
+msgstr[1] "Ta aktualizacja ma wpływ na następujące zainstalowane pakiety:"
+msgstr[2] "Ta aktualizacja ma wpływ na następujące zainstalowane pakiety:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1774
 msgid "Total size:"
