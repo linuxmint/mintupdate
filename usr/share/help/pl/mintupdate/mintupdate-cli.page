@@ -16,7 +16,7 @@
 
   <title>Użyj interfejsu wiersza poleceń mintupdate</title>
 
-    <p>Menedżer aktualizacji dostarcza narzędzie wiersza poleceń nazywane „mintupdate-cli".</p>
+    <p>Menedżer aktualizacji zapewnia narzędzie wiersza poleceń o nazwie "mintupdate-cli".</p>
 
     <p>Jeśli jesteś doświadczonym użytkownikiem Linuxa, możesz użyć tego narzędzia w swoich skryptach lub zadaniach cron, aby zautomatyzować instalację aktualizacji oprogramowania.</p>
 
@@ -28,11 +28,11 @@
 
   <screen>lista interfejsu wiersza poleceń mintupdate</screen>
 
-  <p>Możesz użyć -s, by tylko pokazać aktualizacje bezpieczeństwa.</p>
+  <p>Możesz użyć -s, aby pokazać wyłącznie aktualizacje bezpieczeństwa.</p>
 
-  <p>Możesz użyć -s, by tylko pokazać aktualizacje jądra.</p>
+  <p>Możesz użyć -s, aby pokazać wyłącznie aktualizacje jądra.</p>
 
-  <p>Dla przykładu następująca komenda wylistuje wszystkie aktualizacje bezpieczeństwa:</p>
+  <p>Dla przykładu, następująca komenda wypisze wszystkie aktualizacje bezpieczeństwa:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -44,13 +44,13 @@
 
   <p>Możesz użyć polecenia "upgrade", aby zastosować aktualizacje używając tych samych opcji.</p>
 
-  <p>Dla przykładu następująca komenda zastosuje aktualizacje jądra:</p>
+  <p>Dla przykładu, następująca komenda zastosuje aktualizacje jądra:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Zwróć uwagę na argument -r dodany w celu odświeżenia pamięci podręcznej.</p>
+  <p>Zwróć uwagę na argument -r, dodany w celu odświeżenia pamięci podręcznej.</p>
 
-  <p>By uzyskać więcej informacji o interfejsie poleceń mintupdate i kompletną listę argumentów wpisz:</p>
+  <p>By uzyskać więcej informacji o interfejsie poleceń mintupdate i kompletną listę argumentów, wpisz:</p>
 
   <screen>mintupdate-cli -h</screen>
 
