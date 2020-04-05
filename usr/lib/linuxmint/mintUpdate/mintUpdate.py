@@ -19,6 +19,7 @@ from datetime import datetime
 import configparser
 import traceback
 import setproctitle
+from gettext import ngettext
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
