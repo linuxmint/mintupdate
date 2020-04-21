@@ -1437,7 +1437,7 @@ class MintUpdate():
             try:
                 # Only support kernel selection in Linux Mint (not LMDE)
                 release_info = subprocess.run(["lsb_release", "-irs"], stdout=subprocess.PIPE).stdout.decode().split("\n")
-                if release_info[0] == "LinuxMint" and float(release_info[1]) >= 13:
+                if release_info[0].lower() == "linuxmint" and float(release_info[1]) >= 13:
                     viewSubmenu.append(kernelMenuItem)
             except Exception as e:
                 print (e)
