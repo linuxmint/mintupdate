@@ -10,7 +10,7 @@ from gi.repository import Gio
 # If a new version of these packages is available, nothing else is listed.
 PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
 
-settings = Gio.Settings("com.linuxmint.updates")
+settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
 SUPPORTED_KERNEL_TYPES = ["-generic", "-lowlatency", "-aws", "-azure", "-gcp", "-kvm", "-oem", "-oracle"]
 KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-KERNELTYPE', 'linux-image-VERSION-KERNELTYPE', \

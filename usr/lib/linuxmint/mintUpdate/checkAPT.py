@@ -22,7 +22,7 @@ meta_names = []
 class APTCheck():
 
     def __init__(self):
-        self.settings = Gio.Settings("com.linuxmint.updates")
+        self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
         self.cache = apt.Cache()
         self.priority_updates_available = False
 
