@@ -1,5 +1,6 @@
 [Unit]
 Description=Update Manager automatic upgrades
+After=network-online.target
 
 [Service]
 Type=oneshot
