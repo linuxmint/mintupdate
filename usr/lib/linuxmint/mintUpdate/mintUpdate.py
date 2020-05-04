@@ -537,7 +537,7 @@ class InstallThread(threading.Thread):
 
                 if proceed:
                     Gdk.threads_enter()
-                    self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing", True)
+                    self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
                     Gdk.threads_leave()
                     self.application.logger.write("Ready to launch synaptic")
                     f = tempfile.NamedTemporaryFile()
@@ -597,14 +597,14 @@ class InstallThread(threading.Thread):
                         self.application.refresh()
                     else:
                         Gdk.threads_enter()
-                        self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
+                        self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
                         Gdk.threads_leave()
 
         except Exception as e:
             print (e)
             self.application.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
             Gdk.threads_enter()
-            self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error", True)
+            self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
             self.application.logger.write_error("Could not install security updates")
             Gdk.threads_leave()
 
@@ -679,7 +679,7 @@ class RefreshThread(threading.Thread):
             self.application.menubar.set_sensitive(False)
 
             # Starts the blinking
-            self.application.set_status("", _("Checking for updates"), "mintupdate-checking", not self.application.settings.get_boolean("hide-systray"))
+            self.application.set_status("", _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
             Gdk.threads_leave()
 
             model = Gtk.TreeStore(bool, str, str, str, str, int, str, str, str, str, str, object)
@@ -716,7 +716,7 @@ class RefreshThread(threading.Thread):
                 Gdk.threads_enter()
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
-                    "mintupdate-error", True)
+                    "mintupdate-error-symbolic", True)
                 self.application.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
                 self.application.stack.set_visible_child_name("status_error")
                 self.application.builder.get_object("label_error_details").set_text(error_msg)
@@ -820,7 +820,7 @@ class RefreshThread(threading.Thread):
                                                 "%(selected)d updates selected (%(size)s)", num_checked) % \
                                                 {'selected':num_checked, 'size':size_to_string(download_size)}
 
-                    self.application.set_status(statusString, statusString, "mintupdate-updates-available", True)
+                    self.application.set_status(statusString, statusString, "mintupdate-updates-available-symbolic", True)
                     self.application.logger.write("Found " + str(num_visible) + " software updates")
 
                     systrayString = ngettext("%d update available",
@@ -838,7 +838,7 @@ class RefreshThread(threading.Thread):
                 self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
                 self.application.builder.get_object("image_success_status").set_from_icon_name("object-select-symbolic", 96)
                 self.application.stack.set_visible_child_name("status_updated")
-                self.application.set_status("", NO_UPDATES_MSG, "mintupdate-up-to-date",
+                self.application.set_status("", NO_UPDATES_MSG, "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
                 self.application.logger.write("System is up to date")
                 Gdk.threads_leave()
@@ -856,7 +856,7 @@ class RefreshThread(threading.Thread):
             self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
             Gdk.threads_enter()
             self.application.set_status(_("Could not refresh the list of updates"),
-                                        _("Could not refresh the list of updates"), "mintupdate-error", True)
+                                        _("Could not refresh the list of updates"), "mintupdate-error-symbolic", True)
             Gdk.threads_leave()
 
         finally:
@@ -899,7 +899,7 @@ class RefreshThread(threading.Thread):
             self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                 msg, Gtk.MessageType.ERROR,
                 callback=self._on_infobar_mintsources_response)
-            self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s" % (label1, label2), "mintupdate-error", True)
+            self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
             self.application.logger.write_error("Error: The APT policy is incorrect!")
             self.application.stack.set_visible_child_name("status_error")
             self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
@@ -1302,7 +1302,7 @@ class MintUpdate():
                 self.statusIcon = XAppStatusIcon(menu)
                 self.statusIcon.icon.connect('activate', self.on_statusicon_activated)
 
-            self.set_status("", _("Checking for updates"), "mintupdate-checking", not self.settings.get_boolean("hide-systray"))
+            self.set_status("", _("Checking for updates"), "mintupdate-checking-symbolic", not self.settings.get_boolean("hide-systray"))
 
             # Main window menu
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
@@ -1701,7 +1701,7 @@ class MintUpdate():
     def show_welcome_page(self, widget=None):
         self.updates_inhibited = True
         self.stack.set_visible_child_name("welcome")
-        self.set_status(_("Welcome to the Update Manager"), _("Welcome to the Update Manager"), "mintupdate-updates-available", True)
+        self.set_status(_("Welcome to the Update Manager"), _("Welcome to the Update Manager"), "mintupdate-updates-available-symbolic", True)
         self.set_status_message("")
         self.toolbar.set_sensitive(False)
         self.menubar.set_sensitive(False)
