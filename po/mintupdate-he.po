@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-11-13 13:01+0100\n"
-"PO-Revision-Date: 2016-12-11 07:27+0000\n"
-"Last-Translator: Elad Hen <eladhen2@gmail.com>\n"
+"PO-Revision-Date: 2020-04-29 06:58+0000\n"
+"Last-Translator: Rony Alaluf <Unknown>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2020-01-06 09:57+0000\n"
-"X-Generator: Launchpad (build bceb5ef013b87ef7aafe0755545ceb689ca7ac60)\n"
+"X-Launchpad-Export-Date: 2020-05-11 10:53+0000\n"
+"X-Generator: Launchpad (build fbdff7602bd10fb883bf7e2ddcc7fd5a16f60398)\n"
+"Language: he\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -38,11 +39,11 @@ msgstr "root@linuxmint.com"
 
 #: usr/share/help/C/mintupdate/updates.page:16(desc)
 msgid "There are different types of updates"
-msgstr ""
+msgstr "יש סוגים שונים של עדכונים"
 
 #: usr/share/help/C/mintupdate/updates.page:19(title)
 msgid "The different types of updates"
-msgstr ""
+msgstr "הסוגים השונים של העדכונים"
 
 #: usr/share/help/C/mintupdate/updates.page:21(p)
 msgid "There are different types of updates:"
@@ -71,12 +72,18 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
+"אבטחה היא מאוד חשובה אבל גם מאוד טכנית. חולשות לא תמיד משפיעות על המחשב והן "
+"יכולות להיות קשות להבנה. רוב האנשים לא מבינים אותן בכלל והמחשבים שלהם כמעט "
+"לא בסכנה. עם זאת, לפרצת אבטחה יכולות להיות השלכות חמורות, אז זה תמיד חשוב "
+"לקחת אותן ברצינות."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
+"עדכוני תכנה לא חשובים באותה מידה. הם מספקים תיקוני באגים ושיפורים שלא קשורים "
+"לאבטחה."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -88,35 +95,37 @@ msgid ""
 "users."
 msgstr ""
 "בלינוקס מינט, עדכוני ליבה מביאים גם עדכוני אבטחה וגם תיקוני באגים (ולעתים "
-"אפילו תכונות חדשות), והם משפיעים על חלקםי קריטיים ממערכת ההפעלה. מסיבה זאת "
-"עדכוני ליבה הם חשובים מנקודת המבט של אבטחה, אך יש בהם סכנה לרגרסיות שעשויות "
+"אפילו תכונות חדשות), והם משפיעים על חלקים קריטיים ממערכת ההפעלה. מסיבה זאת "
+"עדכוני ליבה הם חשובים מנקודת המבט של אבטחה, אך יש בהם סכנה לנסיגות שעשויות "
 "להיות לא פשוטות לתיקון עבור משתמשים מתחילים."
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
-msgstr ""
+msgstr "כאשר קרתה נסיגה רצינית, שחזר/י את תמונת המערכת האחרונה."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "System snapshots"
-msgstr ""
+msgstr "תמונות מערכת"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
-msgstr ""
+msgstr "Timeshift, תכנת תמונות המערכת, זמינה בכל הגרסאות של Linux Mint."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"ניתן להשתמש בה כדי ליצור תמונות ידנית אבל גם כדי ליצור תמונות מערכת באופן "
+"אוטומטי."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
-msgstr ""
+msgstr "Linux Mint ממליץ לבצע אוטומציה של תמונות יומיות ובעת הפעלה."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -124,31 +133,37 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"עם עדכון, טעות, תקל או תכנה בעלת כוונות רעות שוברת משהו במחשבך, ניתן לשחזר "
+"את מערכת ההפעלה מכל תמונה, ולבטל את הבעיה כאילו שהיא מעולם לא קרתה."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
+"תמונות מערכת מכסים רק את מערכת ההפעלה עצמה. הם לא כוללים או משפיעים על המידע "
+"האישי שלך."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
-msgstr ""
+msgstr "כאשר עדכון שובר משהו, זה נקרא \"נסיגה\" (\"regression\")."
 
 #: usr/share/help/C/mintupdate/regressions.page:19(title)
 msgid "Software regressions"
-msgstr ""
+msgstr "נסיגות תכנה"
 
 #: usr/share/help/C/mintupdate/regressions.page:21(p)
 msgid ""
 "Updates keep your computer safe, eliminate bugs and even sometimes add new "
 "features to your operating system."
 msgstr ""
+"עדכונים שומרים על המחשב שלך בטוח, מתקנים באגים ולפעמים אפילו מוסיפים תכונות "
+"חדשות למערכת ההפעלה."
 
 #: usr/share/help/C/mintupdate/regressions.page:23(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions'."
-msgstr ""
+msgstr "אבל לצערנו הם לפעמים יוצרים בעיות שנקראות \"נסיגות\"."
 
 #: usr/share/help/C/mintupdate/regressions.page:25(p)
 msgid ""
@@ -157,21 +172,26 @@ msgid ""
 "skilled developers are, they can't always predict every possible situation "
 "or test on every possible hardware specification."
 msgstr ""
+"נסיגות הן מאוד נפוצות בתעשיית התכנה. הן חלק מפיתוח תכנות. שינויי קוד יכול "
+"לגרום לנסיגות. לא משנה כמה מנוסים המפתחים, הם לא יכולים תמיד לצפות כל מצב "
+"אפשרי או לבדוק בכל שילוב חומרה."
 
 #: usr/share/help/C/mintupdate/regressions.page:27(p)
 msgid ""
 "When a regression happens, it breaks something which worked well before."
-msgstr ""
+msgstr "כאשר נסיגה קוראת, היא שוברת משהו שעבד טוב לפני כן."
 
 #: usr/share/help/C/mintupdate/regressions.page:29(p)
 msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
-msgstr ""
+msgstr "לפעמים זה אפילו לא משנה, אבל לפעמים זה משנה מאוד."
 
 #: usr/share/help/C/mintupdate/regressions.page:31(p)
 msgid ""
 "It depends on what part of the operating system is affected and whether or "
 "not you're able to work around it or to fix it."
 msgstr ""
+"זה תלוי באיזה חלק של מערכת ההפעלה מושפע והאם את/ה מסוגל/ת לעקוף אותו או לתקן "
+"אותו."
 
 #: usr/share/help/C/mintupdate/regressions.page:33(p)
 msgid ""
@@ -179,114 +199,124 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
+"לדוגמה, קורה ה-PDFים לא מסוגל להדפיס. טוב, זה מעצבן... אבל זה לא בעייתי "
+"באותה רמה של למשל חיבור הרשת הפסיק לעבוד או אם פתאום המחשב לא עלה מלכתחילה."
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
 "In the latter case, it can be very problematic if you're not experienced "
 "with Linux and you don't know how to troubleshoot."
 msgstr ""
+"במקרה המאוחר יותר, זה יכול להיות מאוד בעייתי אם את/ה לא מנוסה בלינוקס ואת/ה "
+"לא יודע איך לדבג."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
-msgstr ""
+msgstr "עדכון משורת הפקודה"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "בעזרת mintupdate-cli"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
-msgstr ""
+msgstr "מנהל העדכונים מספק תוכנת שורת-פקודה שנקראת \"mintupdate-cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
 "If you are experienced with Linux, you can use this tool in your scripts or "
 "your cron jobs to automate the installation of software updates."
 msgstr ""
+"אם יש לך ניסיון עם לינוקס, את/ה יכול/ה להשתמש בכלי זה בסקריפטים או cron jobs "
+"כדי לעשות אוטומציה של התקנת עדכונים."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
-msgstr ""
+msgstr "מציג עדכונים"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
-msgstr ""
+msgstr "ניתן להשתמש בפקודה \"list\" כדי להציג את העדכונים:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "ניתן להשתמש ב- -s כדי להציג עדכוני אבטחה בלבד."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr ""
+msgstr "ניתן להשתמש ב- -k כדי להציג עדכוני קרנל בלבד."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
-msgstr ""
+msgstr "לדוגמה, הפקודה הבאה מציגה את כל עדכוני האבטחה:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:45(title)
 msgid "Applying updates"
-msgstr ""
+msgstr "החלת עדכונים"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr ""
+"כאשר משתמשים באותן אפשרויות, ניתן להשתמש בפקודה \"upgrade\" כדי להחיל "
+"עדכונים."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "לדוגמה: הפקודה הבאה מחילה עדכוני קרנל:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
-msgstr ""
+msgstr "יש לשים לב לארגומנט ה- -r, שמרענן את המטמון."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
-msgstr ""
+msgstr "בשביל עוד מידע על mintupdate-cli ולרשימה מלאה של אפשרויות, הקלד/י:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:57(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr ""
+msgstr "קרנלים ועדכוני קרנל"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Kernel updates"
-msgstr ""
+msgstr "עדכוני קרנל"
 
 #: usr/share/help/C/mintupdate/kernels.page:21(p)
 msgid ""
 "The kernel is the central part of the operating system. Among other things, "
 "it is responsible for hardware support."
 msgstr ""
+"הקרנל (Kernel) הוא החלק המרכזי של מערכת ההפעלה. בין היתר, הוא אחראי לתמיכה "
+"בחומרה."
 
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
-msgstr ""
+msgstr "מסיבות אבטחה, מומלץ להתקין עדכוני קרנל."
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -294,22 +324,26 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
+"אך נסיגת קרנל יכולה להשפיע על היכולת שלך להתחבר לאינטרנט, להתחיל את סביבת "
+"העבודה שלך או אפילו להעלות את מערכת ההפעלה."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
 msgstr ""
+"מסיבה זו צריך להיזהר כאשר מחילים עדכוני קרנל ולדעת כיצד לבטל אותם כאשר הם "
+"משתבשים."
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
-msgstr ""
+msgstr "ניתן להתקין מספר קרנלים"
 
 #: usr/share/help/C/mintupdate/kernels.page:34(p)
 msgid ""
 "When you apply an update, you replace the old version of the software with "
 "the new version."
-msgstr ""
+msgstr "כאשר מחילים עדכון, הגרסה הישנה של התוכנה מתחלפת בגרסה החדשה שלה."
 
 #: usr/share/help/C/mintupdate/kernels.page:36(p)
 msgid ""
@@ -317,59 +351,65 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
+"זה שונה בקרנלים. כאשר מחילים \"עדכון קרנל\", לא באמת מעדכנים את הקרנל, אלא "
+"הגרסה החדשה שלו מותקנת לצד הגרסה הישנה."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
 "Every time you apply a kernel update, you install a new kernel on the "
 "system, without removing the old ones."
 msgstr ""
+"כאשר מעדכנים את הקרנל, מותקן קרנל חדש במערכת בלי מחיקה של הקרנלים הישנים."
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
-msgstr ""
+msgstr "כאשר המחשב מופעל, נבחר הקרנל הכי עדכני."
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
-msgstr ""
+msgstr "זיהוי הקרנל הנוכחי"
 
 #: usr/share/help/C/mintupdate/kernels.page:47(p)
 msgid ""
 "If you want to know which kernel you are currently using, open a terminal "
 "and type:"
-msgstr ""
+msgstr "כדי לבדוק איזה קרנל פעיל כרגע, פתח/י מסוף והקלד/י:"
 
 #: usr/share/help/C/mintupdate/kernels.page:49(screen)
 #, no-wrap
 msgid "uname -a"
-msgstr ""
+msgstr "uname -a"
 
 #: usr/share/help/C/mintupdate/kernels.page:54(title)
 msgid "Installing and removing kernels"
-msgstr ""
+msgstr "התקנת והסרת קרנלים"
 
 #: usr/share/help/C/mintupdate/kernels.page:56(p)
 msgid "You can install and remove kernels from the Update Manager."
-msgstr ""
+msgstr "ניתן להסיר קרנלים ממנהל העדכונים."
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr ""
+msgstr "בחר \"View\" -&gt; \"Linux Kernels\" בתפריט."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
 "You cannot remove the kernel you are currently using. To remove it, you need "
 "to reboot and select a different kernel to boot with."
 msgstr ""
+"לא ניתן להסיר את הקרנל שכרגע בשימוש. כדי להסיר אותו, צריך לאתחל ולבחור "
+"להשתמש בקרנל אחר."
 
 #: usr/share/help/C/mintupdate/kernels.page:65(title)
 msgid "Selecting a kernel"
-msgstr ""
+msgstr "בחירת קרנל"
 
 #: usr/share/help/C/mintupdate/kernels.page:67(p)
 msgid ""
 "You can have multiple kernels installed, but you can only run one kernel at "
 "a time."
 msgstr ""
+"ניתן להתקין מספר קרנלים במקביל, אך רק אחד מהם יכול לרוץ בכל זמן שהוא."
 
 #: usr/share/help/C/mintupdate/kernels.page:69(p)
 msgid ""
@@ -377,6 +417,8 @@ msgid ""
 "This menu allows you to choose operating systems but you can also use it to "
 "select a kernel."
 msgstr ""
+"כאשר המחשב מופעל, המסך הראשון נקרא תפריט ה-Grub. תפריט זה מאפשר לבחור בין "
+"מערכות הפעלה, אבל ניתן גם לבחור דרכו קרנל."
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -384,6 +426,9 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
+"אם יש רק מערכת הפעלה אחת מותקנת, יכול להיות שתהליך ה-boot ידלג על תפריט ה-"
+"Grub. כדי להציג את התפריט למרות זאת, התחל את המחשב ולחץ על כפתור ה-"
+"<key>Shift</key>."
 
 #: usr/share/help/C/mintupdate/kernels.page:73(p)
 msgid ""
@@ -391,10 +436,12 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
+"כדי לבחור קרנל, בחר \"Advanced options\" בתפריט Grub. אמורים להופיע כל "
+"הקרנלים שמותקנים כרגע. בחר/י באיזה מהם להשתמש והמחשב יעלה איתו."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
-msgstr ""
+msgstr "בדיקת מצב ה-DKMS"
 
 #: usr/share/help/C/mintupdate/kernels.page:80(p)
 msgid ""
@@ -403,12 +450,17 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
+"הקרנל כולל את כל ההתקנים בקוד פתוח והם בדרך כלל עובדים מאוד טוב. התקנים "
+"קנייניים (NVIDIA, AMD, Broadcom, כו') לא כלולים והם צריכים לקמפל את עצמם מול "
+"כל קרנל שאתה מתקין. זה נעשה דרך מכניקה שנקראת DKMS."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
+"אם התקן קנייני לא מקומפל מחדש כמו שצריך עם DKMS לאחד מהקרנלים שלך, הוא לא "
+"יתפקד בצורה תקינה עם אותו קרנל."
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -416,11 +468,14 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
+"לאחר שמתקינים או מסירים קרנל, את/ה יכול/ה לבדוק את מצב ה-DKMS, את/ה יכול/ה "
+"לוודא שכל ההתקנים הקנייניים מותקנים בצורה תקינה בשביל כל אחד מהקרנלים שלך עם "
+"הפקודה הבאה:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
 msgid "dkms status"
-msgstr ""
+msgstr "dkms status"
 
 #: usr/share/help/C/mintupdate/kernels.page:88(p)
 msgid ""
@@ -429,10 +484,13 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
+"סדרות קרנל חדשות בדרך כלל זמינות לפני שהתקנים קנייניים תומכים בהם דרך DKMS. "
+"אם את/ה משתמש/ת בהתקנים קנייניים, מומלץ להישאר עם עדכוני קרנל ולא להתקין "
+"קרנלים מסדרות שהם חדשות מסדרת הקרנלים המומלצת."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
-msgstr ""
+msgstr "ביטול עדכון קרנל"
 
 #: usr/share/help/C/mintupdate/kernels.page:95(p)
 msgid ""
@@ -440,6 +498,8 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
+"אם משהו לא עובד עם הקרנל החדש ביותר שהתקנת (או מהעדכון הכי חדש), אתחל, בחר "
+"את הקרנל שהיה בשימוש לפני, הסר את הקרנל החדש ואתחל שוב."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
@@ -448,25 +508,29 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1956 generate_desktop_files:25
 msgid "Update Manager"
-msgstr "מנהל עדכונים"
+msgstr "מנהל העדכונים"
 
 #: usr/share/help/C/mintupdate/index.page:20(p)
 msgid ""
 "The Update Manager provides your operating system with software and security "
 "updates."
-msgstr ""
+msgstr "מנהל העדכונים מספק למערכת ההפעלה שלך עדכוני תכנה ואבטחה."
 
 #: usr/share/help/C/mintupdate/index.page:22(p)
 msgid ""
 "Updates are important because they keep your computer safe, eliminate bugs "
 "and can even add new features to your operating system."
 msgstr ""
+"עדכונים הם חשובים מכיוון שהם שומרים על המחשב שלך בטוח, מתקנים באגים ואפילו "
+"יכולים להוסיף תכונות חדשות למערכת ההפעלה."
 
 #: usr/share/help/C/mintupdate/index.page:24(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
 msgstr ""
+"לצערנו הם לפעמים גם יוצרים בעיות חדשות שנקראות 'נסיגות', שיכולות לשבור דברים "
+"שעבדו טוב לפני כן."
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
@@ -474,26 +538,28 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"כדי לשמור על מחשבך בטוח, מומלץ להתקין את כל העדכונים ולהפעיל תמונות מערכת, "
+"כך שתוכל/י לשחזר את המערכת במקרה שמשהו ישתבש."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
-msgstr ""
+msgstr "עקרונות יסוד"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
-msgstr ""
+msgstr "חלק זה מסביר את עקרונות היסוד הנוגעים לעדכוני מערכת."
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains kernel updates."
-msgstr ""
+msgstr "חלק זה מסביר עדכוני קרנל."
 
 #: usr/share/help/C/mintupdate/index.page:41(title)
 msgid "Advanced techniques"
-msgstr ""
+msgstr "טכניקות מתקדמות"
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains advanced techniques."
-msgstr ""
+msgstr "חלק זה מסביר טכניקות מתקדמות."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: usr/share/help/C/mintupdate/index.page:0(None)
@@ -506,6 +572,7 @@ msgstr ""
 "  Keren A. https://launchpad.net/~kerena\n"
 "  Liel Fridman https://launchpad.net/~lielft-deactivatedaccount\n"
 "  Ohadcn https://launchpad.net/~ohadcn\n"
+"  Rony Alaluf https://launchpad.net/~rony321\n"
 "  Yaron https://launchpad.net/~sh-yaron\n"
 "  elyashiv https://launchpad.net/~elyashi-horovitz\n"
 "  p1483240 https://launchpad.net/~p1483240sad-deactivatedaccount\n"
@@ -514,11 +581,11 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #, python-format
 msgid "Linux kernel %s"
-msgstr ""
+msgstr "קרנל לינוקס %s"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 msgid "The Linux kernel."
-msgstr ""
+msgstr "קרנל הלינוקס."
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 msgid ""
@@ -531,95 +598,101 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
+"הלינוקס קרנל אחראי על תמיכה בחומרה ובהתקנים. שים/י לב שהעדכון לא ימחק את "
+"הקרנל הקיים. את/ה עדיין תוכל/י להפעיל את המחשב עם הקרנל הנוכחי ע\"י בחירת "
+"advanced options בתפריט ה-boot. אך אנה היזהר/י.. נסיגות קרנל יכולות להשפיע "
+"על יכולתך להתחבר לאינטרנט או להיכנס למשתמש גרפית. מודולי DKMS מקומפלים "
+"לגרסאות הכי מעודכנות של קרנלים שמותקנים במחשב שלך. אם את/ה משתמש/ת בהתקנים "
+"קנייניים והינך רוצה להשתמש בקרנל ישן יותר, את/ה תצטרך/י למחוק את החדש קודם."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
 msgid "Remove"
-msgstr ""
+msgstr "הסר"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:150
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
 msgid "Install"
-msgstr ""
+msgstr "התקן"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
 msgid "Queue Removal"
-msgstr ""
+msgstr "תזמן הסרה"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "This kernel cannot be removed because it is currently in use."
-msgstr ""
+msgstr "לא ניתן להסיר את הקרנל הזה מכיוון שהוא בשימוש."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 msgid "Queue Installation"
-msgstr ""
+msgstr "תזמן התקנה"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "This kernel is not installable."
-msgstr ""
+msgstr "לא ניתן להתקין את קרנל זה."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
-msgstr ""
+msgstr "בטוח להסיר את קרנל %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:267
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
-msgstr ""
+msgstr "בטוח להתקין את קרנל %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 msgid "Kernels"
-msgstr ""
+msgstr "קרנלים"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
 msgid "Remove Kernels"
-msgstr ""
+msgstr "הסר קרנלים"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 msgid "Perform Queued Actions"
-msgstr ""
+msgstr "בצע פעולות מתוזמנות"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:429
 msgid "Active"
-msgstr ""
+msgstr "פעיל"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:432
 msgid "Installed"
-msgstr ""
+msgstr "מותקן"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 msgid "Supported until"
-msgstr ""
+msgstr "נתמך עד"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Superseded"
-msgstr ""
+msgstr "מושהה"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:525
 msgid "End of Life"
-msgstr ""
+msgstr "סוף החיים"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:527
 msgid "Unsupported"
-msgstr ""
+msgstr "לא נתמך"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 msgid "You are currently using the following kernel:"
-msgstr ""
+msgstr "משתמש כרגע בקרנל הבא:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
 msgid "GB"
-msgstr "GB"
+msgstr "ג\"ב"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:60
 msgid "MB"
-msgstr "MB"
+msgstr "מ\"ב"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:62
 msgid "KB"
-msgstr "KB"
+msgstr "ק\"ב"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:63
 msgid "B"
@@ -631,7 +704,7 @@ msgstr "מוריד את רשימת השינויים..."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:257
 msgid "No changelog available"
-msgstr "אין קובץ changelog"
+msgstr "רשימת השינויים לא זמינה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:456
 msgid "This upgrade will trigger additional changes"
@@ -639,15 +712,15 @@ msgstr "עדכון זה מצריך ביצוע שינויים נוספים במע
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:465
 msgid "The following packages will be removed:"
-msgstr ""
+msgstr "החבילות הבאות יוסרו:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:494
 msgid "The following packages will be installed:"
-msgstr ""
+msgstr "החבילות הבאות יותקנו:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:537
 msgid "Installing updates"
-msgstr "התקנת עדכונים"
+msgstr "מתקין עדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:597
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:604
@@ -656,13 +729,15 @@ msgstr "לא ניתן להתקין את עדכוני האבטחה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:660
 msgid "Reboot required"
-msgstr ""
+msgstr "נדרש אתחול"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
 msgid ""
 "You have installed updates that require a reboot to take effect, please "
 "reboot your system as soon as possible."
 msgstr ""
+"התקנת עדכונים שזקוקים להפעלה מחדש כדי להיכנס לתוקף, אנה אתחל/י את המערכת "
+"בהקדם האפשרי."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1300
@@ -671,7 +746,7 @@ msgstr "מחפש עדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:710
 msgid "Run 'apt update' in a terminal window to address this"
-msgstr ""
+msgstr "הצץ 'apt update' במסוף כדי לטפל בזה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:714
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
@@ -680,11 +755,11 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:899
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
-msgstr ""
+msgstr "לא ניתן לעדכן את רשימת העדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Kernel update"
-msgstr ""
+msgstr "עדכון קרנל"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:781
 msgid "Security update"
@@ -695,14 +770,15 @@ msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
 msgstr ""
+"תכנה לא יציבה. החל את עדכון זה רק כדי לעזור למפתחים לבדוק תכנות beta חדשות."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "Software update"
-msgstr ""
+msgstr "עדכון תכנה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:792
 msgid "3rd-party update"
-msgstr ""
+msgstr "עדכון צד שלישי"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:814
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
@@ -717,15 +793,15 @@ msgstr "לא נבחרו עדכונים"
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "נבחר עדכון %(selected)d (%(size)s)"
+msgstr[1] "נבחרו %(selected)d עדכונים (%(size)s)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "עדכון %d זמין"
+msgstr[1] "זמינים %d עדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 #: usr/share/linuxmint/mintupdate/main.ui.h:8
@@ -735,54 +811,54 @@ msgstr "המערכת שלך מעודכנת"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:887
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:890
 msgid "Your APT configuration is corrupt."
-msgstr ""
+msgstr "קונפיגורציית ה-APT שלך פגומה."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:888
 msgid ""
 "Do not install or update anything, it could break your operating system!"
-msgstr ""
+msgstr "אל תתקין/ני או תעדכן/ני שום דבר, המערכת עלולה להיהרס!"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
-msgstr ""
+msgstr "כדי להחליף למראת Linux Mint אחרת ולפתור את הבעיה, לחץ 'בסדר'."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "APT error:"
-msgstr ""
+msgstr "שגיאת APT:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:896
 msgid "Please switch to another Linux Mint mirror"
-msgstr ""
+msgstr "נא להחליף למראת Linux Mint אחרת"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:930
 msgid "Do you want to switch to a local mirror?"
-msgstr ""
+msgstr "האם להחליף למראה לוקאלית?"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:931
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr ""
+msgstr "מראות לוקאליות בדרך כלל מהירות יותר מ-packages.linuxmint.com."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:942
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:952
 msgid "Please switch to another mirror"
-msgstr ""
+msgstr "נא להחליף למראה אחרת"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:943
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "לא ניתן לגשת אל %s."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:953
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "העדכון האחרון ב-%(mirror)s היה לפני יום %(days)d."
+msgstr[1] "העדכון האחרון ב-%(mirror)s היה לפני %(days)d ימים."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1089
 msgid "Exit"
-msgstr ""
+msgstr "צא"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
 msgid "Upgrade"
@@ -790,19 +866,19 @@ msgstr "שדרג"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1193
 msgid "Name"
-msgstr ""
+msgstr "שם"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1197
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1399
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1895
 msgid "Old Version"
-msgstr ""
+msgstr "גרסה ישנה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1201
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1405
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1898
 msgid "New Version"
-msgstr ""
+msgstr "גרסה חדשה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1417
@@ -812,7 +888,7 @@ msgstr "נפח"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1387
 msgid "Type"
-msgstr ""
+msgstr "סוג"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1411
@@ -840,15 +916,15 @@ msgstr "העדפות"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1286
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
 msgid "Quit"
-msgstr ""
+msgstr "צא"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1303
 msgid "_File"
-msgstr "קובץ"
+msgstr "_קובץ"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
 msgid "Close window"
-msgstr ""
+msgstr "סגור חלון"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1322
 msgid "_Edit"
@@ -856,16 +932,16 @@ msgstr "_עריכה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1333
 msgid "System Snapshots"
-msgstr ""
+msgstr "תמונות מערכת"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1339
 msgid "Software Sources"
-msgstr ""
+msgstr "מקורות תוכנה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
 #, python-format
 msgid "Upgrade to %s"
-msgstr ""
+msgstr "שדרג אל %s"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1366
 msgid "_View"
@@ -874,15 +950,15 @@ msgstr "_תצוגה"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1371
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1886
 msgid "History of Updates"
-msgstr ""
+msgstr "היסטוריית עדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1375
 msgid "Linux Kernels"
-msgstr ""
+msgstr "קרנלי לינוקס"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1383
 msgid "Visible Columns"
-msgstr ""
+msgstr "עמודות מוצגות"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1393
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
@@ -891,7 +967,7 @@ msgstr "חבילה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1425
 msgid "Show Descriptions"
-msgstr ""
+msgstr "הצג תיאורים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1441
 msgid "_Help"
@@ -899,15 +975,15 @@ msgstr "_עזרה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1447
 msgid "Welcome Screen"
-msgstr ""
+msgstr "מסך קבלה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1452
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "קיצורי מקלדת"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1458
 msgid "Contents"
-msgstr ""
+msgstr "תוכן עניינים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1465
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1954
@@ -916,13 +992,15 @@ msgstr "אודות"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
 msgid "Cannot Proceed"
-msgstr ""
+msgstr "לא ניתן להמשיך"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1554
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
 msgstr ""
+"תהליך אחר משתמש כרגע במערכת ניהול החבילות. אנה חכה/י שהתהליך יסתיים ונסה/י "
+"שוב."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1582
 msgid "Yes"
@@ -935,30 +1013,30 @@ msgstr "לא"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1585
 #: usr/share/linuxmint/mintupdate/main.ui.h:22
 msgid "OK"
-msgstr ""
+msgstr "בסדר"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid "Welcome to the Update Manager"
-msgstr ""
+msgstr "ברוך הבא למנהל העדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1769
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "העדכון משפיע על החבילה המותקנת הבאה:"
+msgstr[1] "העדכון משפיע על החבילות המותקנות הבאות:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1774
 msgid "Total size:"
-msgstr ""
+msgstr "גודל כולל:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1787
 msgid "Ignore the current update for this package"
-msgstr ""
+msgstr "התעלם מהעדכון הנוכחי לחבילה זו"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1790
 msgid "Ignore all future updates for this package"
-msgstr ""
+msgstr "התעלם מכל העדכונים העתידיים לחבילה זו"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1889
 msgid "Date"
@@ -966,35 +1044,35 @@ msgstr "תאריך"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2027
 msgid "Options"
-msgstr ""
+msgstr "אפשרויות"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2028
 msgid "Blacklist"
-msgstr ""
+msgstr "רשימה שחורה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 msgid "Automation"
-msgstr ""
+msgstr "אוטומציה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2035
 msgid "Interface"
-msgstr ""
+msgstr "ממשק"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2036
 msgid "Hide the update manager after applying updates"
-msgstr ""
+msgstr "החבא את מנהל העדכונים לאחר החלת עדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2037
 msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr ""
+msgstr "הצג אייקון במגש המערכת רק כאשר זמינים עדכונים או כאשר קרתה שגיאה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2039
 msgid "Auto-refresh"
-msgstr ""
+msgstr "רענון אוטומטי"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2040
 msgid "Refresh the list of updates automatically"
-msgstr ""
+msgstr "רענן את רשימת העדכונים אוטומטית"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2052
 msgid "days"
@@ -1010,90 +1088,94 @@ msgstr "דקות"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2055
 msgid "First, refresh the list of updates after:"
-msgstr ""
+msgstr "קודם, רענן את רשימת העדכונים אחרי:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2059
 msgid "Then, refresh the list of updates every:"
-msgstr ""
+msgstr "ולאחר מכן, רענן את רשימת העדכונים כל:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2102
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
-msgstr ""
+msgstr "הארה: הרשימה מתרעננת רק בזמן שמנהל העדכונים סגור (מצב מגש מערכת)."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2108
 msgid "Ignored Updates"
-msgstr ""
+msgstr "עדכונים שמתעלמים מהם"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2131
 msgid "Automatic Updates"
-msgstr ""
+msgstr "עדכונים אוטומטיים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2131
 msgid "This option is run as root on a daily basis"
-msgstr ""
+msgstr "אפשרות זאת רצה כ-root על בסיס יומי"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2132
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "התקן עדכונים אוטומטית"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2136
 msgid "Export blacklist to /etc/mintupdate.blacklist"
-msgstr ""
+msgstr "יצא רשימה שחורה אל /etc/mintupdate.blacklist"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2137
 msgid ""
 "Click this button for automatic updates to use your current blacklist."
-msgstr ""
+msgstr "לחץ על כפתור זה כדי שעדכונים אוטומטיים ישתמשו ברשימה השחורה."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2140
 msgid "Automatic Maintenance"
-msgstr ""
+msgstr "תחזוקה אוטומטית"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2140
 msgid "This option is run as root on a weekly basis"
-msgstr ""
+msgstr "אפשרות זו רצה כ-root על בסיס שבועי"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2141
 msgid "Remove obsolete kernels and dependencies"
-msgstr ""
+msgstr "הסר קרנלים ישנים ותומכות לא נחוצות"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2145
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
 msgstr ""
+"אפשרות זו תמיד משאירה לפחות קרנל ישן אחד מותקן ולעולם לא מוחקת קרנלים "
+"שהותקנו ידנית."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2198
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
 msgstr ""
+"אנה ציין/י את שם חבילת המקור של העדכון שיש להתעלם ממנו (wildcards נתמכים) "
+"ואפשרי את הגרסה:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2199
 msgid "Ignore an Update"
-msgstr ""
+msgstr "התעלם מעדכון"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2207
 msgid "Name:"
-msgstr ""
+msgstr "שם:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2209
 msgid "Version:"
-msgstr ""
+msgstr "גרסה:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2211
 msgid "(optional)"
-msgstr ""
+msgstr "(אפשרי)"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:23
 msgid "System Upgrade"
-msgstr ""
+msgstr "שדרוג מערכת"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:35
 msgid "Introduction"
-msgstr ""
+msgstr "הקדמה"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:39
 msgid ""
@@ -1101,73 +1183,77 @@ msgid ""
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
+"חסרות למערכת רכיבים קריטיים. חבילה שתואמת את הגרסה שלך של Linux Mint אמורה "
+"לספק את החבילה הוירטואלית 'mint-info' ואת הקובץ /etc/linuxmint/info."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:52
 msgid "No upgrades were found."
-msgstr ""
+msgstr "לא נמצאו עדכונים."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:61
 msgid "A new version of Linux Mint is available!"
-msgstr ""
+msgstr "זמינה גרסה חדשה של Linux Mint!"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:71
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
-msgstr ""
+msgstr "נמצא שדרוג אך הוא לא זמין לגרסת ה-%s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:80
 msgid "Release notes"
-msgstr ""
+msgstr "הארות שחרור"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:87
 msgid ""
 "Please read the release notes before upgrading. They explain all the known "
 "issues, workarounds and solutions associated with the new version."
 msgstr ""
+"אנה קרא/י את הערות השחרור לפני השדרוג. הם מסבירים את כל הבעיות, עיקופים "
+"ופתרונות הקשורים לגרסה החדשה."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:91
 #, python-format
 msgid "Release notes for %s"
-msgstr ""
+msgstr "הערות שחרור ל-%s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:94
 msgid "Click on the link to open the release notes."
-msgstr ""
+msgstr "לחץ/י על הקישור כדי לפתוח את הערות השחרור."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:102
 msgid "New features"
-msgstr ""
+msgstr "תכונות חדשות"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:109
 msgid "Please look at the new features introduced in the new version."
-msgstr ""
+msgstr "אנה הבט בתכונות החדשות שנוספו בגרסה זו."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:113
 #, python-format
 msgid "New features in %s"
-msgstr ""
+msgstr "תכונות חדשות ב-%s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:116
 msgid "Click on the link to browse the new features."
-msgstr ""
+msgstr "לחץ/י על הקישור כדי לעיין בתכונות החדשות."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:124
 msgid "Requirements"
-msgstr ""
+msgstr "דרישות"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:134
 #, python-format
 msgid "The package %s needs to be installed before upgrading."
-msgstr ""
+msgstr "החבילה %s צריכה להיות מותקנת לפני שדרוג."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:138
 #, python-format
 msgid "Install %s"
-msgstr ""
+msgstr "התקן %s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:143
 msgid "Click on the button to install the missing package."
-msgstr ""
+msgstr "לחץ על הכפתור כדי להתקין את החבילה החסרה."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:157
 msgid ""
@@ -1175,27 +1261,31 @@ msgid ""
 "introduce new issues. Upgrading always represents a risk. Your data is safe "
 "but new issues can potentially affect your operating system."
 msgstr ""
+"גרסאות חדשות מספקות תיקוני באגים ותכונות חדשות אבל לפעמים הן גם מוסיפות "
+"בעיות. שדרוג תמיד מציג סכנה. המידע שלך בטוח אבל יכול להיות שבעיות חדשות "
+"ישפיעו על המערכת שלך."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:161
 #, python-format
 msgid "I understand the risk. I want to upgrade to %s."
-msgstr ""
+msgstr "אני מבין/נה את הסיכון. אני רוצה לעדכן ל-%s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:171
 msgid "Summary"
-msgstr ""
+msgstr "סיכום"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:258
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
 msgstr ""
+"מערכת ההפעלה עודכנה בהצלחה. אנה אתחל/י את המחשב כדי שהשינויים יכנסו לפעולה."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:261
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
-msgstr ""
+msgstr "העדכון נכשל. וודא שהינך מחובר/ת לאינטרנט ונסה/י לעדכן שוב."
 
 #: generate_desktop_files:26
 msgid "Show and install available updates"
@@ -1218,21 +1308,23 @@ msgstr "קובץ רישומים:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:1
 msgid "Warning!"
-msgstr ""
+msgstr "אזהרה!"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:2
 msgid "Proceed with caution"
-msgstr ""
+msgstr "המשך בזהירות"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
+"התקנת קרנל חדש יכולה לגרום לבעיות לפעמים, במיוחד אם את/ה משתמש/ת בהתקנים "
+"קנייניים."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
 msgid "These issues include:"
-msgstr ""
+msgstr "בעיות אלה כוללות:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
 msgid ""
@@ -1241,10 +1333,14 @@ msgid ""
 "- Black screen on startup\n"
 "- Random system freeze"
 msgstr ""
+"- אין אינטרנט (חוטי או אלחוטי)\n"
+"- אין האצת וידאו\n"
+"- מסך שחור בעת הפעלה\n"
+"- קיפאונות מערכת אקראיים"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "If you face any of these issues, don't panic:"
-msgstr ""
+msgstr "אם את/ה נתקל/ת בבעיות הבאות, בלי פניקה:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:10
 msgid ""
@@ -1254,43 +1350,48 @@ msgid ""
 "- Select an older kernel.\n"
 "- After the computer boots with the older kernel, uninstall the new one."
 msgstr ""
+"- אתחל.\n"
+"- לחץ והחזק את כפתור ה-Shift כדי להציג את תפריט ה-boot.\n"
+"- בתפריט ה-boot, בחר את השורה שרשום בה 'Advanced options'.\n"
+"- בחר קרנל ישן יותר.\n"
+"- לאחר שהמחשב עולה עם הקרנל הישן, הסר את החדש."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
-msgstr ""
+msgstr "אל תציג הודעה זו שוב"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
 msgid "Help"
-msgstr ""
+msgstr "עזרה"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
-msgstr ""
+msgstr "המשך"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
 msgid "Kernel flavor:"
-msgstr ""
+msgstr "טעם קרנל:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 msgid "Perform Queued Actions..."
-msgstr ""
+msgstr "בצע פעולות מתוזמנות..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Remove Kernels..."
-msgstr ""
+msgstr "הסר קרנלים..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:23
 msgid "Cancel"
-msgstr ""
+msgstr "בטל"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:24
 msgid "Apply"
-msgstr ""
+msgstr "החל"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:25
 msgid "Please confirm the following actions:"
-msgstr ""
+msgstr "אנה אשר את הפעולות הבאות:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1305,15 +1406,15 @@ msgstr "בחר הכל"
 #: usr/share/linuxmint/mintupdate/main.ui.h:4
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:4
 msgid "Install Updates"
-msgstr "התקנת עדכונים"
+msgstr "התקן עדכונים"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "A new version of the Update Manager is available"
-msgstr ""
+msgstr "זמינה גרסה חדשה של מנהל העדכונים"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
 msgid "Apply the Update"
-msgstr ""
+msgstr "החל את העדכון"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Description"
@@ -1321,39 +1422,41 @@ msgstr "תיאור"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:10
 msgid "Packages"
-msgstr ""
+msgstr "חבילות"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Changelog"
-msgstr "יומן שינויים"
+msgstr "רשימת שינויים"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid ""
 "This tool provides your operating system with software and security updates."
-msgstr ""
+msgstr "כלי זה מספק עדכוני תכנה ואבטחה למערכת ההפעלה שלך."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Security updates"
-msgstr ""
+msgstr "עדכוני אבטחה"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
-msgstr ""
+msgstr "החל עדכוני אבטחה כדי לתקן חולשות ולשמור על המחשב בטוח."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid "Software updates"
-msgstr ""
+msgstr "עדכוני תכנה"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "Apply software updates to fix bugs in your computer."
-msgstr ""
+msgstr "החל עדכוני תכנה כדי לתקן תקלים במחשב."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"הגדר/י תמונות מערכת כדי להגן על עצמך מטעויות ומנסיגות. אם משהו נשבר פשוט "
+"משחזרים את התמונה האחרונה."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid ""
@@ -1361,40 +1464,46 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint ממליץ להפעיל יצירת תמונות מערכת אוטומטית ולהתקין את כל העדכונים. "
+"כך, המחשב שלך תמיד מאובטח ואת/ה תמיד יכול/ה לחזור אחורה בזמן ולהתאושש מכל "
+"נסיגה אפשרית."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid ""
 "Packages listed here will never receive updates. Use this option to block "
 "updates that you know cause issues on your system."
 msgstr ""
+"חבילות שרשומות פה לא יקבלו עדכונים. השתמש/י באפשרות זו כדי לחסום עדכונים "
+"שאת/ה יודע/ת שגורמים לבעיות במערכת."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:2
 msgid ""
 "It is recommended to add packages to the blacklist by right-clicking them in "
 "the updates listing."
 msgstr ""
+"מומלץ להוסיף חבילות לרשימה השחורה ע\"י לחיצה ימנית עליהם ברשימת העדכונים."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
-msgstr ""
+msgstr "וודא שתמונות המערכת שלך מוגדרות נכון לפני שימוש באפשרות זו."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "חלון"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "בחירה"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select Security Updates"
-msgstr ""
+msgstr "בחר עדכוני אבטחה"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select Kernel Updates"
-msgstr ""
+msgstr "בחר עדכוני קרנל"
 
 #~ msgid "Please wait, this can take some time"
 #~ msgstr "אנא המתן..."
