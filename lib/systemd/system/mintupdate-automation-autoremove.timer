@@ -3,7 +3,8 @@ Description=Update Manager weekly autoremove
 
 [Timer]
 OnCalendar=weekly
-RandomizedDelaySec=30m
+OnStartupSec=180m
+RandomizedDelaySec=60m
 Persistent=true
 
 [Install]

@@ -3,7 +3,8 @@ Description=Update Manager automatic upgrades
 
 [Timer]
 OnCalendar=daily
-RandomizedDelaySec=30m
+OnStartupSec=60m
+RandomizedDelaySec=60m
 Persistent=true
 
 [Install]
