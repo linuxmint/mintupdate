@@ -11,26 +11,26 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Atualizar a partir da linha de comando</desc>
+    <desc>Atualizações através da linha de comandos</desc>
   </info>
 
-  <title>A utilizar mintupdate-cli</title>
+  <title>Utilizar mintupdate-cli</title>
 
-    <p>O gestor de atualizações oferece um utilitário de linha de comando chamado "mintupdate-cli".</p>
+    <p>O gestor de atualizações disponibiliza um utilitário de linha de comandos chamado "mintupdate-cli".</p>
 
-    <p>Se você é experiente com o Linux, pode utilizar esta ferramenta no seu script ou suas tarefas cron para automatizar a instalação de atualizações de programas.</p>
+    <p>Se você é experiente com o Linux, pode utilizar esta ferramenta nos seus scripts ou tarefas cron para automatizar a instalação de atualizações de programas.</p>
 
   <section id="tool1">
 
   <title>Listar atualizações</title>
 
-  <p>Pode utilizar o comando ¨list" para listar as atualizações:</p>
+  <p>Pode utilizar o comando "list" para listar as atualizações:</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>Pode utilizar -s para mostrar somente as atualizações de segurança.</p>
+  <p>Pode utilizar -s para apenas mostrar as atualizações de segurança.</p>
 
-  <p>Pode utilizar -k para mostrar somente atualizações de kernel.</p>
+  <p>Pode utilizar -k para apenas mostrar as atualizações de kernel.</p>
 
   <p>Por exemplo, o comando seguinte lista todas as atualizações de segurança:</p>
 
@@ -48,9 +48,9 @@
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note o argumento -r, que foi adicionado para atualizar a cache.</p>
+  <p>Note que o argumento -r foi adicionado para recarregar a cache.</p>
 
-  <p>Para mais informações sobre o mintupdate-cli e uma lista completa de argumentos, escreva:</p>
+  <p>Para mais informações sobre mintupdate-cli e a lista completa de argumentos, digite:</p>
 
   <screen>mintupdate-cli -h</screen>
 

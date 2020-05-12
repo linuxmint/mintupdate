@@ -5,7 +5,7 @@
     <link type="guide" xref="index#advanced"/>
 
     <credit type="author">
-      <name>Mint GNU/Linux</name>
+      <name>Linux Mint</name>
       <email>root@linuxmint.com</email>
     </credit>
 
@@ -16,9 +16,9 @@
 
   <title>Usando mintupdate-cli</title>
 
-    <p>O gerenciador de atualização prover um utilitário de linha de comando chamado "mintupdate-cli".</p>
+    <p>O gerenciador de atualização fornece um utilitário de linha de comando chamado "mintupdate-cli".</p>
 
-    <p>Se você é experiente com o Linux, você pode usar esta ferramenta in seu script ou suas tarefas cron para automatizar a instalação de softwares de atualização.</p>
+    <p>Se você é experiente com o Linux, você pode usar esta ferramenta em seu script ou em suas tarefas cron para automatizar a instalação de atualizações de software .</p>
 
   <section id="tool1">
 
@@ -28,9 +28,9 @@
 
   <screen>mintupdate-cli list</screen>
 
-  <p>Você pode usar -s para somente mostrar as atualizações de segurança.</p>
+  <p>Você pode usar -s para mostrar somente as atualizações de segurança.</p>
 
-  <p>Você pode usar -k para somente mostrar atualizações de kernel.</p>
+  <p>Você pode usar -k para mostrar apenas atualizações do kernel.</p>
 
   <p>Por exemplo, o comando a seguir lista todas as atualizações de segurança</p>
 
@@ -48,9 +48,9 @@
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note o argumento -r, qual foi adicionado para atualizar o cache.</p>
+  <p>Note o argumento -r,  ele foi adicionado para que o cache fosse atualizado.</p>
 
-  <p>Para mais informações no mintupdate-cli e uma completa lista de argumentos, escreva:</p>
+  <p>Para mais informações sobre o mintupdate-cli e uma lista  completa de argumentos, digite:</p>
 
   <screen>mintupdate-cli -h</screen>
 

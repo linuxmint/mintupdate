@@ -11,28 +11,28 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>עדכון משורת הפקודה</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>בעזרת mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>מנהל העדכונים מספק תוכנת שורת-פקודה שנקראת "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>אם יש לך ניסיון עם לינוקס, את/ה יכול/ה להשתמש בכלי זה בסקריפטים או cron jobs כדי לעשות אוטומציה של התקנת עדכונים.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>מציג עדכונים</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>ניתן להשתמש בפקודה "list" כדי להציג את העדכונים:</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>ניתן להשתמש ב- -s כדי להציג עדכוני אבטחה בלבד.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>ניתן להשתמש ב- -k כדי להציג עדכוני קרנל בלבד.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>לדוגמה, הפקודה הבאה מציגה את כל עדכוני האבטחה:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -40,17 +40,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>החלת עדכונים</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>כאשר משתמשים באותן אפשרויות, ניתן להשתמש בפקודה "upgrade" כדי להחיל עדכונים.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>לדוגמה: הפקודה הבאה מחילה עדכוני קרנל:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>יש לשים לב לארגומנט ה- -r, שמרענן את המטמון.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>בשביל עוד מידע על mintupdate-cli ולרשימה מלאה של אפשרויות, הקלד/י:</p>
 
   <screen>mintupdate-cli -h</screen>
 
