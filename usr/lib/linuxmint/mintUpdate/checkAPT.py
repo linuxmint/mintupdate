@@ -210,7 +210,15 @@ class APTCheck():
                    "-" in update.old_version and "-" in package.installed.version:
                     update.old_version = package.installed.version
             else:
-                update = Update(package, source_name=source_name)
+                short_description = None
+                # Get the short_description from the source package
+                if not kernel_update and package.name != source_name:
+                    try:
+                        short_description = self.cache[source_name].candidate.raw_description
+                    except:
+                        pass
+
+                update = Update(package, source_name=source_name, short_description=short_description)
                 self.updates[source_name] = update
             if kernel_update:
                 update.type = "kernel"
