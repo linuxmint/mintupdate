@@ -212,11 +212,8 @@ class APTCheck():
             else:
                 short_description = None
                 # Get the short_description from the source package
-                if not kernel_update and package.name != source_name:
-                    try:
-                        short_description = self.cache[source_name].candidate.raw_description
-                    except:
-                        pass
+                if not kernel_update and package.name != source_name and self.cache.has_key(source_name):
+                    short_description = self.cache[source_name].candidate.raw_description
 
                 update = Update(package, source_name=source_name, short_description=short_description)
                 self.updates[source_name] = update
