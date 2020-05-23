@@ -661,7 +661,7 @@ class RefreshThread(threading.Thread):
             child.destroy()
         if self.application.reboot_required:
             self.application.show_infobar(_("Reboot required"),
-                _("You have installed updates that require a reboot to take effect, please reboot your system as soon as possible."))
+                _("You have installed updates that require a reboot to take effect, please reboot your system as soon as possible."), icon="system-reboot-symbolic")
         Gdk.threads_leave()
 
         try:
