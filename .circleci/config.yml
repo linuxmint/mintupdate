@@ -26,7 +26,7 @@ jobs:
     "CI":
         <<: *shared
         docker:
-            - image: linuxmintd/mint19.3-amd64
+            - image: linuxmintd/mint20-amd64
 
 workflows:
     version: 2
