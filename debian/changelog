@@ -1,3 +1,20 @@
+mintupdate (5.6.6) ulyana; urgency=medium
+
+  [ felipecespedes ]
+  * Show right description for grouped updates
+  * avoid the try-except block for validating package in the cache
+
+  [ NikoKrause ]
+  * Change "Reboot required" icon in infobar
+
+  [ Clement Lefebvre ]
+  * tests: Remove call to obsolete get_eol_status()
+  * CI: Target Mint 20
+  * Revert "avoid the try-except block for validating package in the cache"
+  * Revert "Show right description for grouped updates"
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 06 Jun 2020 15:14:42 +0100
+
 mintupdate (5.6.5) ulyana; urgency=medium
 
   * l10n: Generate files
