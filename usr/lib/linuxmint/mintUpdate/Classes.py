@@ -75,7 +75,7 @@ class KernelVersion():
 
 class Update():
 
-    def __init__(self, package=None, input_string=None, source_name=None, short_description=None):
+    def __init__(self, package=None, input_string=None, source_name=None):
         self.package_names = []
         if package is not None:
             self.package_names.append(package.name)
@@ -94,10 +94,7 @@ class Update():
             else:
                 self.source_name = self.real_source_name
             self.display_name = self.source_name
-            if short_description is not None:
-                self.short_description = short_description
-            else:
-                self.short_description = package.candidate.raw_description
+            self.short_description = package.candidate.raw_description
             self.description = package.candidate.description
             self.archive = ""
             if (self.new_version != self.old_version):
