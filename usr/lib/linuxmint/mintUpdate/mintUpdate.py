@@ -599,6 +599,11 @@ class InstallThread(threading.Thread):
                         Gdk.threads_enter()
                         self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
                         Gdk.threads_leave()
+                        self.application.refresh()
+                        if self.application.settings.get_boolean("hide-window-after-update"):
+                            Gdk.threads_enter()
+                            self.application.window.hide()
+                            Gdk.threads_leave()
 
         except Exception as e:
             print (e)
@@ -607,6 +612,11 @@ class InstallThread(threading.Thread):
             self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
             self.application.logger.write_error("Could not install security updates")
             Gdk.threads_leave()
+            self.application.refresh()
+            if self.application.settings.get_boolean("hide-window-after-update"):
+                Gdk.threads_enter()
+                self.application.window.hide()
+                Gdk.threads_leave()
 
 class RefreshThread(threading.Thread):
 
