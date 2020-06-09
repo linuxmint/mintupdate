@@ -36,7 +36,7 @@ with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
 try:
     os.system("killall -q mintUpdate")
 except Exception as e:
-    print (e
+    print (e)
     print(sys.exc_info()[0])
 
 setproctitle.setproctitle("mintUpdate")
