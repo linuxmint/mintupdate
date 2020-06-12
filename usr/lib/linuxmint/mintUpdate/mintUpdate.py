@@ -19,7 +19,6 @@ from datetime import datetime
 import configparser
 import traceback
 import setproctitle
-from gettext import ngettext
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -41,9 +40,6 @@ except Exception as e:
     print(sys.exc_info()[0])
 
 setproctitle.setproctitle("mintUpdate")
-
-# i18n
-gettext.install("mintupdate", "/usr/share/locale", names="ngettext")
 
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
 
@@ -816,15 +812,15 @@ class RefreshThread(threading.Thread):
                     elif num_checked == 0:
                         statusString = _("No updates selected")
                     elif num_checked >= 1:
-                        statusString = ngettext("%(selected)d update selected (%(size)s)",
+                        statusString = gettext.dngettext("mintupdate", "%(selected)d update selected (%(size)s)",
                                                 "%(selected)d updates selected (%(size)s)", num_checked) % \
                                                 {'selected':num_checked, 'size':size_to_string(download_size)}
 
                     self.application.set_status(statusString, statusString, "mintupdate-updates-available-symbolic", True)
                     self.application.logger.write("Found " + str(num_visible) + " software updates")
 
-                    systrayString = ngettext("%d update available",
-                                             "%d updates available", num_visible) % num_visible
+                    systrayString = gettext.dngettext("mintupdate", "%d update available",
+                                             "%d updates available", num_visible) % num_visible;
                     self.application.statusIcon.set_tooltip_text(systrayString)
                     Gdk.threads_leave()
 
@@ -953,7 +949,7 @@ class RefreshThread(threading.Thread):
                             mirror_age = (mint_date - mirror_date).days
                             if (mirror_age > 2):
                                 infobar_title = _("Please switch to another mirror")
-                                infobar_message = ngettext("The last update on %(mirror)s was %(days)d day ago.",
+                                infobar_message = gettext.dngettext("mintupdate", "The last update on %(mirror)s was %(days)d day ago.",
                                                             "The last update on %(mirror)s was %(days)d days ago.",
                                                             (now - mirror_date).days) % \
                                                             {'mirror': mirror_url, 'days': (now - mirror_date).days}
@@ -1627,7 +1623,7 @@ class MintUpdate():
             self.set_status_message(_("No updates selected"))
         else:
             self.install_button.set_sensitive(True)
-            self.set_status_message(ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
+            self.set_status_message(gettext.dngettext("mintupdate", "%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
 
     def setVisibleColumn(self, checkmenuitem, column, key):
         state = checkmenuitem.get_active()
@@ -1755,7 +1751,7 @@ class MintUpdate():
         prefix = "\n    • "
         count = len(package_update.package_names)
         packages = "%s%s%s\n%s %s\n\n" % \
-            (ngettext("This update affects the following installed package:",
+            (gettext.dngettext("mintupdate", "This update affects the following installed package:",
                       "This update affects the following installed packages:",
                       count),
              prefix,
