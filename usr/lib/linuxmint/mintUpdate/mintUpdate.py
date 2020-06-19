@@ -77,31 +77,19 @@ class CacheWatcher(threading.Thread):
         threading.Thread.__init__(self)
         self.application = application
         self.cachetime = 0
-        self.pkgcache = None
         self.statustime = 0
-        self.dpkgstatus = None
         self.paused = False
         self.refresh_frequency = refresh_frequency
+        self.pkgcache = "/var/cache/apt/pkgcache.bin"
+        self.dpkgstatus = "/var/lib/dpkg/status"
 
     def run(self):
-        if not self.pkgcache:
-            basedir = self.get_apt_config("Dir")
-            cachedir = self.get_apt_config("Dir::Cache")
-            cachefile = self.get_apt_config("Dir::Cache::pkgcache")
-            self.pkgcache = os.path.join(basedir, cachedir, cachefile)
-            statedir = self.get_apt_config("Dir::State")
-            statefile = self.get_apt_config("Dir::State::status")
-            self.dpkgstatus = os.path.join(basedir, statedir, statefile)
-
-        if not os.path.isfile(self.pkgcache) or not os.path.isfile(self.dpkgstatus):
-            self.application.logger.write("Package cache location not found, disabling cache monitoring")
-            self.pkgcache = None
-
-        self.do_refresh()
-
-        if self.pkgcache:
+        self.refresh_cache()
+        if os.path.isfile(self.pkgcache) and os.path.isfile(self.dpkgstatus):
             self.update_cachetime()
             self.loop()
+        else:
+            self.application.logger.write("Package cache location not found, disabling cache monitoring")
 
     def loop(self):
         while True:
@@ -119,7 +107,7 @@ class CacheWatcher(threading.Thread):
             time.sleep(self.refresh_frequency)
 
     def resume(self, update_cachetime=True):
-        if not self.paused or not self.pkgcache:
+        if not self.paused:
             return
         if update_cachetime:
             self.update_cachetime()
@@ -129,26 +117,13 @@ class CacheWatcher(threading.Thread):
         self.paused = True
 
     def update_cachetime(self):
-        self.cachetime = os.path.getmtime(self.pkgcache)
-        self.statustime = os.path.getmtime(self.dpkgstatus)
+        if os.path.isfile(self.pkgcache) and os.path.isfile(self.dpkgstatus):
+            self.cachetime = os.path.getmtime(self.pkgcache)
+            self.statustime = os.path.getmtime(self.dpkgstatus)
 
     def refresh_cache(self):
         self.application.logger.write("Changes to the package cache detected, triggering refresh")
-        self.do_refresh()
-
-    def do_refresh(self):
         self.application.refresh()
-
-    @staticmethod
-    def get_apt_config(config_option):
-        output = subprocess.run(["apt-config", "shell", "val", config_option],
-                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
-                    env={"LC_ALL": "C"}).stdout
-        try:
-            output = output.decode().partition("val='")[2].partition("'")[0]
-        except:
-            output = ""
-        return output
 
 class ChangelogRetriever(threading.Thread):
     def __init__(self, package_update, application):
