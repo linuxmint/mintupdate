@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-11-13 13:01+0100\n"
-"PO-Revision-Date: 2018-07-28 12:09+0000\n"
-"Last-Translator: Knez <Unknown>\n"
+"PO-Revision-Date: 2020-05-28 15:14+0000\n"
+"Last-Translator: Saša Marjanović <Unknown>\n"
 "Language-Team: Serbian Latin <sr@latin@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2020-05-11 10:53+0000\n"
-"X-Generator: Launchpad (build fbdff7602bd10fb883bf7e2ddcc7fd5a16f60398)\n"
+"X-Launchpad-Export-Date: 2020-06-24 10:02+0000\n"
+"X-Generator: Launchpad (build 1cbd0aa39df153c901321817f9b57cf3f232b507)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -26,7 +26,7 @@ msgstr ""
 #: usr/share/help/C/mintupdate/kernels.page:10(name)
 #: usr/share/help/C/mintupdate/index.page:9(name)
 msgid "Linux Mint"
-msgstr "Linux Mint"
+msgstr "Linuks Mint"
 
 #: usr/share/help/C/mintupdate/updates.page:11(email)
 #: usr/share/help/C/mintupdate/snapshots.page:11(email)
@@ -35,35 +35,36 @@ msgstr "Linux Mint"
 #: usr/share/help/C/mintupdate/kernels.page:11(email)
 #: usr/share/help/C/mintupdate/index.page:10(email)
 msgid "root@linuxmint.com"
-msgstr ""
+msgstr "root@linuxmint.com"
 
 #: usr/share/help/C/mintupdate/updates.page:16(desc)
 msgid "There are different types of updates"
-msgstr ""
+msgstr "Postoje različite vrste ažuriranja"
 
 #: usr/share/help/C/mintupdate/updates.page:19(title)
 msgid "The different types of updates"
-msgstr ""
+msgstr "Različite vrste ažuriranja"
 
 #: usr/share/help/C/mintupdate/updates.page:21(p)
 msgid "There are different types of updates:"
-msgstr "Postoje različite vrste ispravki:"
+msgstr "Postoje različite vrste ažuriranja:"
 
 #: usr/share/help/C/mintupdate/updates.page:24(p)
 msgid ""
 "'Software updates' are updates which fix bugs (or also sometimes which bring "
 "new features)."
 msgstr ""
-"'Ažuriranja softvera' su ispravke koje rešavaju greške (ili koje ponekad "
-"donose nove funkcije)"
+"'Ažuriranja softvera' su ažuriranja koja ispravljaju greške (ili koja takođe "
+"ponekada donose nove funkcije)."
 
 #: usr/share/help/C/mintupdate/updates.page:25(p)
 msgid "'Security updates' are updates which patch vulnerabilities."
 msgstr ""
+"'Sigurnosna ažuriranja' su ažuriranja koja donose zakrpe za ranjivosti."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
-msgstr ""
+msgstr "'Ažuriranja kernela' predstavljaju instalaciju novijeg kernela."
 
 #: usr/share/help/C/mintupdate/updates.page:29(p)
 msgid ""
@@ -73,12 +74,19 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
+"Bezbednost je veoma važna, ali takođe pripada tehničkoj sferi. Ranjivosti ne "
+"utiču uvek na Vaš računar i ponekad se mogu veoma teško razumeti. Većina ih "
+"uopšte ne razume i njihovi personalni računari su retko izloženi riziku. I "
+"pored toga, bezbednosni propusti mogu da imaju veoma ozbiljne posledice, "
+"tako da se uvek preporučuje da se uzmu za ozbiljno."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
+"Ažuriranja softvera nisu toliko važna. Ona donose ispravke greški ili "
+"poboljšanja koja nisu vezana za bezbednost."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -89,32 +97,45 @@ msgid ""
 "of view, but also prone to regressions which can be hard to fix for novice "
 "users."
 msgstr ""
+"U Linuks Mintu, ažuriranja kernela donose kako sigurnosne zakrpe tako i "
+"ispravke grešaka (a ponekada čak i nove funkcije), i ona imaju uticaj na "
+"kritične delove operativnog sistema. Ovo čini ažuriranja kernela bitnim sa "
+"tačke gledišta bezbednosti, ali su takođe sklone regresijama, koje početnici "
+"teško mogu da isprave."
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
 msgstr ""
+"Kada se suočite sa ozbiljnom regresijom, vratite sistem u prethodno stanje "
+"iz poslednjeg snimka stanja sistema."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "System snapshots"
-msgstr ""
+msgstr "Snimci stanja sistema"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"Timeshift, sistemski alat za pravljenje snimaka stanja sistema, je dostupan "
+"u svim verzijama Linuks Minta."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"On se može koristiti za ručno pravljenje snimaka stanja sistema, ali takođe "
+"i za automatizaciju snimanja stanja sistema."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
 msgstr ""
+"Linuks Mint preporučuje automatizaciju dnevnih snimaka stanja sistema i onih "
+"prilikom podizanja sistema."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -122,31 +143,40 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Ukoliko neko ažuriranje, greška, greška u programu ili zlonamerni program "
+"pokvari nešto na Vašem računaru, možete vratiti operativni sistem u "
+"prethodno stanje iz bilo kog snimka stanja sistema, čime se taj problem "
+"poništava, kao da ga nikada nije ni bilo."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
+"Snimci stanja sistema obuhvataju jedino sam operativni sistem. Oni ne "
+"uključuju ili utiču na Vaše lične podatke."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
-msgstr ""
+msgstr "Kada neko ažuriranje pokvari nešto, to nazivamo \"regresija\"."
 
 #: usr/share/help/C/mintupdate/regressions.page:19(title)
 msgid "Software regressions"
-msgstr ""
+msgstr "Regresije softvera"
 
 #: usr/share/help/C/mintupdate/regressions.page:21(p)
 msgid ""
 "Updates keep your computer safe, eliminate bugs and even sometimes add new "
 "features to your operating system."
 msgstr ""
+"Ažuriranja održavaju Vaš računar sigurnim, uklanjaju greške u programima i "
+"ponekada čak dodaju i nove funkcije Vašem operativnom sistemu."
 
 #: usr/share/help/C/mintupdate/regressions.page:23(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions'."
 msgstr ""
+"Nažalost, ona ponekada donose i nove probleme, koji se nazivaju 'regresije'."
 
 #: usr/share/help/C/mintupdate/regressions.page:25(p)
 msgid ""
@@ -155,21 +185,29 @@ msgid ""
 "skilled developers are, they can't always predict every possible situation "
 "or test on every possible hardware specification."
 msgstr ""
+"Regresije su veoma uobičajene u industriji softvera. One su svojstvene "
+"razvoju softvera. Promene u programskom kodu mogu da prouzrokuju regresije. "
+"Bez obzira na znanje koje programeri poseduju, oni ne mogu uvek da predvide "
+"svaku moguću situaciju ili da testiraju softver na svakoj mogućoj vrsti "
+"hardvera."
 
 #: usr/share/help/C/mintupdate/regressions.page:27(p)
 msgid ""
 "When a regression happens, it breaks something which worked well before."
 msgstr ""
+"Kada se dogodi regresija, ona kvari nešto što je ranije dobro radilo."
 
 #: usr/share/help/C/mintupdate/regressions.page:29(p)
 msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
-msgstr ""
+msgstr "Ponekada to nije zaista bitno, ali je ponekada veoma bitno."
 
 #: usr/share/help/C/mintupdate/regressions.page:31(p)
 msgid ""
 "It depends on what part of the operating system is affected and whether or "
 "not you're able to work around it or to fix it."
 msgstr ""
+"Sve zavisi od toga koji je deo operativnog sistema pogođen regresijom i da "
+"li možete da je zaobiđete ili popravite."
 
 #: usr/share/help/C/mintupdate/regressions.page:33(p)
 msgid ""
@@ -177,114 +215,133 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
+"Recimo, program za čitanje PDF-a više ne može da štampa. Eto, to ume da "
+"iznervira... ali to nije toliko veliki problem kao kada bi Vaša mrežna "
+"konekcija prestala da radi ili kada iznenada ne biste mogli da podignete "
+"sistem na računaru ili da se prijavite na sistem."
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
 "In the latter case, it can be very problematic if you're not experienced "
 "with Linux and you don't know how to troubleshoot."
 msgstr ""
+"U potonjem slučaju to može predstavljati veliki problem, ukoliko nemate "
+"iskustva sa Linuksom i ne znate kako da rešite problem."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
-msgstr ""
+msgstr "Ažuriranje sa komandne linije"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:19(title)
 msgid "Using mintupdate-cli"
-msgstr ""
+msgstr "Korišćenje mintupdate-cli"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
+"Menadžer ažuriranja pruža mogućnost korišćenja alatke komandne linije koja "
+"se naziva \"mintupdate-cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
 "If you are experienced with Linux, you can use this tool in your scripts or "
 "your cron jobs to automate the installation of software updates."
 msgstr ""
+"Ukoliko imate iskustva sa Linuksom, možete da iskoristite ovaj alat u Vašim "
+"skriptama ili ``cron job`` servise da biste automatizovali instalaciju "
+"ažuriranja softvera."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
-msgstr ""
+msgstr "Spisak ažuriranja"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
 msgstr ""
+"Možete da iskoristite komandu \"list\" da biste izlistali spisak ažuriranja:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "Možete da koristite -s za prikaz samo bezbednosnih ažuriranja."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr ""
+msgstr "Možete da koristite -k za prikaz samo ažuriranja kernela."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
-msgstr ""
+msgstr "Na primer, sledeća komanda izlistava sva bezbednosna ažuriranja:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:45(title)
 msgid "Applying updates"
-msgstr ""
+msgstr "Primenjujem ažuriranja"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(p)
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr ""
+"Možete da koristite komandu \"upgrade\" da biste primenili ažuriranja, "
+"korišćenjem istih opcija."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "Na primer, sledeća komanda primenjuje ažuriranja kernela:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
-msgstr ""
+msgstr "Obratite pažnju na argument -r, koji je dodat da bi se osvežio keš."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"Za više informacija o mintupdate-cli i kompletnom spisku argumenata, "
+"otkucajte:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:57(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr ""
+msgstr "Kerneli i ažuriranja kernela"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Kernel updates"
-msgstr ""
+msgstr "Ažuriranja kernela"
 
 #: usr/share/help/C/mintupdate/kernels.page:21(p)
 msgid ""
 "The kernel is the central part of the operating system. Among other things, "
 "it is responsible for hardware support."
 msgstr ""
+"Kernel je središnji deo operativnog sistema. Između ostalog, odgovoran je za "
+"podršku hardvera."
 
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
 msgstr ""
+"Sa tačke gledišta bezbednosti, važno je primenjivati ažuriranja kernela."
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -292,22 +349,29 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
+"Međutim, regresija kernela bi mogla uticati na Vašu sposobnos da se povežete "
+"na internet, da pokrenete Vaše radno okruženje ili čak da podignete "
+"operativni sistem."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
 msgstr ""
+"Iz tog razloga, važno je biti oprezan kada se primenjuju ažuriranja kernela "
+"i znati kako da se vratiti na prethodnu verziju kada nešto pođe naopako."
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
-msgstr ""
+msgstr "Moguće je instalirati više različitih verzija kernela"
 
 #: usr/share/help/C/mintupdate/kernels.page:34(p)
 msgid ""
 "When you apply an update, you replace the old version of the software with "
 "the new version."
 msgstr ""
+"Kada primenjujete neko ažuriranje, time zamenjujete staru verziju softvera "
+"novom."
 
 #: usr/share/help/C/mintupdate/kernels.page:36(p)
 msgid ""
@@ -315,59 +379,72 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
+"Ali, kada se radi o kernelima, stvari su drugačije. Kada primenite "
+"\"ažuriranje kernela\", zapravo ne ažurirate kernel, već instalirate novi "
+"kernel pored već postojećeg."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
 "Every time you apply a kernel update, you install a new kernel on the "
 "system, without removing the old ones."
 msgstr ""
+"Svaki put kada primenite ažuriranje kernela, Vi instalirate novi kernel na "
+"sistem, bez uklanjanja starih kernela."
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
 msgstr ""
+"Prilikom pokretanja sistema, računar bira najsvežiju verziju kernela."
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
-msgstr ""
+msgstr "Utvrđivanje aktuelnog kernela"
 
 #: usr/share/help/C/mintupdate/kernels.page:47(p)
 msgid ""
 "If you want to know which kernel you are currently using, open a terminal "
 "and type:"
 msgstr ""
+"Ukoliko želite da znate koji kernel trenutno koristite, otvorite terminal i "
+"ukucajte:"
 
 #: usr/share/help/C/mintupdate/kernels.page:49(screen)
 #, no-wrap
 msgid "uname -a"
-msgstr ""
+msgstr "uname -a"
 
 #: usr/share/help/C/mintupdate/kernels.page:54(title)
 msgid "Installing and removing kernels"
-msgstr ""
+msgstr "Instalacija i uklanjanje kernela"
 
 #: usr/share/help/C/mintupdate/kernels.page:56(p)
 msgid "You can install and remove kernels from the Update Manager."
-msgstr ""
+msgstr "Kernele možete da instalirate i uklonite iz Menadžera ažuriranja."
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr ""
+msgstr "Izaberite \"Pregled\" -&gt; \"Linuks Kerneli\" u meniju."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
 "You cannot remove the kernel you are currently using. To remove it, you need "
 "to reboot and select a different kernel to boot with."
 msgstr ""
+"Ne možete da uklonite kernel koji trenutno koristite. Da biste ga uklonili, "
+"morate da ponovo pokrenete računar i izaberete neki drugi kernel kojim ćete "
+"pokrenuti sistem."
 
 #: usr/share/help/C/mintupdate/kernels.page:65(title)
 msgid "Selecting a kernel"
-msgstr ""
+msgstr "Biranje kernela"
 
 #: usr/share/help/C/mintupdate/kernels.page:67(p)
 msgid ""
 "You can have multiple kernels installed, but you can only run one kernel at "
 "a time."
 msgstr ""
+"Možete da imate više instaliranih kernela, ali možete da koristite samo "
+"jedan u datom trenutku."
 
 #: usr/share/help/C/mintupdate/kernels.page:69(p)
 msgid ""
@@ -375,6 +452,9 @@ msgid ""
 "This menu allows you to choose operating systems but you can also use it to "
 "select a kernel."
 msgstr ""
+"Kada pokrenete računar, prvi ekran koji vidite se naziva Grub meni. Ovaj "
+"meni Vam omogućava da izaberete operativni sistem, ali ga takođe možete "
+"iskoristiti da izaberete neki kernel."
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -382,6 +462,10 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
+"Ukoliko imate instaliran samo jedan operativni sistem, Vaša sekvenca "
+"pokretanja sistema može da preskoči Grub meni. Da biste primorali "
+"prikazivanje Grub menija, pokrenite računar i držite pritisnut levi "
+"<key>Shift</key> taster."
 
 #: usr/share/help/C/mintupdate/kernels.page:73(p)
 msgid ""
@@ -389,10 +473,13 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
+"Da biste izabrali neki kernel, izaberite \"Advanced options\" u Grub meniju. "
+"Trebalo bi da vidite sve kernele koji su trenutno instalirani. Izaberite "
+"onaj koji želite da koristite i Vaš računar će pokrenuti upravo taj kernel."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
-msgstr ""
+msgstr "Provera statusa DKMS"
 
 #: usr/share/help/C/mintupdate/kernels.page:80(p)
 msgid ""
@@ -401,12 +488,19 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
+"Kernel sadržava sve upravljačke programe (``driver``) otvorenog koda i oni "
+"obično rade odlično. Vlasnički upravljački programi (NVIDIA, AMD, "
+"Broadcom...itd.) nisu obuhvaćeni i moraju se kompajlirati prema svakom "
+"kernelu koji instalirate. Ovo se čini preko mehanizma koji se naziva DKMS."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
+"Ukoliko vlasnički upravljački program nije pravilno prekompajliran preko "
+"DKMS-a za neki od Vaših kernela, on neće funkcionisati ispravno sa tim "
+"kernelom."
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -414,11 +508,14 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
+"Posle instalacije ili uklanjanja kernela, možete da proverite Vaš DKMS "
+"status, da biste bili sigurni da su svi vlasnički upravljački programi "
+"pravilno istalirani za svaki od Vaših kernela, sledećom komandom:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
 msgid "dkms status"
-msgstr ""
+msgstr "dkms status"
 
 #: usr/share/help/C/mintupdate/kernels.page:88(p)
 msgid ""
@@ -427,10 +524,15 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
+"Nova serija kernela obično bude dostupna pre nego što tu seriju počnu da "
+"podržavaju vlasnički upravljački programi preko DKMS-a. Ukoliko koristite "
+"vlasničke upravljačke programe, preporučuje se da se držite ažuriranja "
+"kernela i da ne instalirate one kernele koji su iz serije koje su novije od "
+"serije preporučenih kernela."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
-msgstr ""
+msgstr "Vraćanje verzije ažuriranog kernela"
 
 #: usr/share/help/C/mintupdate/kernels.page:95(p)
 msgid ""
@@ -438,6 +540,10 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
+"Ukoliko nešto ne radi sa najnovijim kernelom koji ste instalirali (ili "
+"najnovijim ažuriranjem kernela), ponovo pokrenite računar, izaberite onaj "
+"kernel koji ste prethodno koristili, uklonite novi kernel i opet ponovo "
+"pokrenite računar."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1079
@@ -446,25 +552,32 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1956 generate_desktop_files:25
 msgid "Update Manager"
-msgstr "Upravnik ažuriranja"
+msgstr "Menadžer ažuriranja"
 
 #: usr/share/help/C/mintupdate/index.page:20(p)
 msgid ""
 "The Update Manager provides your operating system with software and security "
 "updates."
 msgstr ""
+"Menadžer ažuriranja obezbeđuje Vašem operativnom sistemu ažuriranja softvera "
+"i bezbednosna ažuriranja."
 
 #: usr/share/help/C/mintupdate/index.page:22(p)
 msgid ""
 "Updates are important because they keep your computer safe, eliminate bugs "
 "and can even add new features to your operating system."
 msgstr ""
+"Ažuriranja su važna, zato što održavaju bezbednost Vašeg računara, eliminišu "
+"programske greške i čak mogu da dodaju nove funkcije Vašem operativnom "
+"sistemu."
 
 #: usr/share/help/C/mintupdate/index.page:24(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
 msgstr ""
+"Nažalost, ona ponekada uvode i nove probleme koji se nazivaju 'regresije', "
+"što može da pokvari stvari koje su ranije dobro radile."
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
@@ -472,26 +585,32 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Da biste održavali Vaš računar bezbednim i u dobrom radnom stanju, "
+"preporučuje se da primenjujete sva dostupna ažuriranja i da postavite "
+"snimanja stanja sistema, tako da Vaš sistem možete da vratite u prethodno "
+"stanje u slučaju da nešto pođe naopako."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
-msgstr ""
+msgstr "Ključni koncepti"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
 msgstr ""
+"Ovaj odeljak objašnjava ključne koncepte koji se odnose na ažuriranje "
+"softvera."
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains kernel updates."
-msgstr ""
+msgstr "Ovaj odeljak objašnjava ažuraranje kernela."
 
 #: usr/share/help/C/mintupdate/index.page:41(title)
 msgid "Advanced techniques"
-msgstr ""
+msgstr "Napredne tehnike"
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains advanced techniques."
-msgstr ""
+msgstr "Ovaj odeljak objašnjava napredne tehnike."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: usr/share/help/C/mintupdate/index.page:0(None)
@@ -499,6 +618,7 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Knez https://launchpad.net/~knezev87\n"
+"  Saša Marjanović https://launchpad.net/~cy6ernaut\n"
 "  Vuk Hidalgo https://launchpad.net/~eoladil\n"
 "  Zlatan Vasović https://launchpad.net/~zlatan.\n"
 "  Željko Šarić https://launchpad.net/~stereo.advance"
@@ -506,11 +626,11 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #, python-format
 msgid "Linux kernel %s"
-msgstr ""
+msgstr "Linuks kernel %s"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 msgid "The Linux kernel."
-msgstr ""
+msgstr "Linuks kernel."
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 msgid ""
@@ -523,83 +643,92 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
+"Linuks kernel je odgovoran za podršku hardvera i upravljačkih programa. "
+"Napominjemo da ovo ažuriranje neće ukloniti Vaš postojeći kernel. I dalje "
+"ćete moći da pokrećete sistem sa trenutnim kernelom tako što ćete izabrati "
+"napredne opcije u Vašem meniju pokretanja sistema. Ipak, budite obazrivi... "
+"regresije u kernelu mogu da utiču na Vašu mogućnost da se povežete na "
+"internet ili da se prijavite na sistem u grafičkom okruženju. DKMS moduli su "
+"kompajlirani za najnovije kernele koji su instalirani na Vašem računaru. "
+"Ukoliko koristite vlasničke upravljačke programe i želite da koristite neki "
+"stariji kernel, moraćete najpre da ukloniti novi kernel."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
 msgid "Remove"
-msgstr ""
+msgstr "Ukloni"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:150
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
 msgid "Install"
-msgstr ""
+msgstr "Instaliraj"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
 msgid "Queue Removal"
-msgstr ""
+msgstr "Stavi u red čekanja za uklanjanje"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "This kernel cannot be removed because it is currently in use."
-msgstr ""
+msgstr "Ovaj kernel ne može biti uklonjen zato što je trenutno u upotrebi."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 msgid "Queue Installation"
-msgstr ""
+msgstr "Stavi u red čekanja za instalaciju"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "This kernel is not installable."
-msgstr ""
+msgstr "Ovaj kernel se ne može instalirati"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
-msgstr ""
+msgstr "Da li ste sigurni da želite da uklonite kernel %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:267
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
-msgstr ""
+msgstr "Da li ste sigurni da želite da instalirate kernel %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 msgid "Kernels"
-msgstr ""
+msgstr "Kerneli"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
 msgid "Remove Kernels"
-msgstr ""
+msgstr "Ukloni kernele"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 msgid "Perform Queued Actions"
-msgstr ""
+msgstr "Izvrši akcije na čekanju"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:429
 msgid "Active"
-msgstr ""
+msgstr "Aktivan"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:432
 msgid "Installed"
-msgstr ""
+msgstr "Instaliran"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 msgid "Supported until"
-msgstr ""
+msgstr "Podržan do"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Superseded"
-msgstr ""
+msgstr "Prevaziđen"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:525
 msgid "End of Life"
-msgstr ""
+msgstr "Kraj životnog veka"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:527
 msgid "Unsupported"
-msgstr ""
+msgstr "Nepodržan"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 msgid "You are currently using the following kernel:"
-msgstr ""
+msgstr "Trenutno koristite sledeći kernel:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:58
 msgid "GB"
@@ -627,15 +756,15 @@ msgstr "Nema dostupnog spiska promena"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:456
 msgid "This upgrade will trigger additional changes"
-msgstr "Ova nadogradnja uzrokuje dodatne promene"
+msgstr "Ovo ažuriranje će izazvati dodatne promene"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:465
 msgid "The following packages will be removed:"
-msgstr ""
+msgstr "Sledeći paketi će biti uklonjeni:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:494
 msgid "The following packages will be installed:"
-msgstr ""
+msgstr "Sledeći paketi će biti instalirani:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:537
 msgid "Installing updates"
@@ -644,26 +773,28 @@ msgstr "Instaliranje ažuriranja"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:597
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:604
 msgid "Could not install the security updates"
-msgstr "Instaliranje sigurnosnih zakrpa nije moguće"
+msgstr "Nisam mogao da instaliram bezbednosna ažuriranja"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:660
 msgid "Reboot required"
-msgstr ""
+msgstr "Potrebno je ponovo pokrenanje računara"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
 msgid ""
 "You have installed updates that require a reboot to take effect, please "
 "reboot your system as soon as possible."
 msgstr ""
+"Instalirali ste ažuriranja koja zahtevaju ponovo pokretanje računara, "
+"pokrenite ponovo Vaš računar što je pre moguće."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1300
 msgid "Checking for updates"
-msgstr "Proveravanje ažuriranja"
+msgstr "Proveravam da li ima ažuriranja"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:710
 msgid "Run 'apt update' in a terminal window to address this"
-msgstr ""
+msgstr "Pokrenite 'apt update' u prozoru terminala da biste rešili ovo"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:714
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:715
@@ -672,36 +803,38 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:899
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
-msgstr ""
+msgstr "Nisam mogao da osvežim spisak ažuriranja"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Kernel update"
-msgstr ""
+msgstr "Ažuriranje kernela"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:781
 msgid "Security update"
-msgstr ""
+msgstr "Bezbednosno ažuriranje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:784
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
 msgstr ""
+"Nestabilan softver. Ovo ažuriranje primenite jedino da pomognete "
+"programerima da testiraju novi softver u beta-verziji."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "Software update"
-msgstr ""
+msgstr "Ažuriranje softvera"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:792
 msgid "3rd-party update"
-msgstr ""
+msgstr "Ažuriranja za treće strane"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:814
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1653
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1729
 msgid "No updates selected"
-msgstr "Ažuriranja nisu odabrana"
+msgstr "Nije izabrano ni jedno ažuriranje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
@@ -709,92 +842,99 @@ msgstr "Ažuriranja nisu odabrana"
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(selected)d ažuriranje izabrano (%(size)s)"
+msgstr[1] "%(selected)d ažuriranja izabrano (%(size)s)"
+msgstr[2] "%(selected)d ažuriranja izabrano (%(size)s)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ažuriranje dostupno"
+msgstr[1] "%d ažuriranja dostupna"
+msgstr[2] "%d ažuriranja dostupna"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:834
 #: usr/share/linuxmint/mintupdate/main.ui.h:8
 msgid "Your system is up to date"
-msgstr "Vaš sistem je ažuriran"
+msgstr "Vaš sistem je ažuran"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:887
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:890
 msgid "Your APT configuration is corrupt."
-msgstr ""
+msgstr "Vaša APT konfiguracije je oštećena."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:888
 msgid ""
 "Do not install or update anything, it could break your operating system!"
 msgstr ""
+"Nemojte instalirati ili ažurirati bilo šta, to bi moglo da pokvari Vaš "
+"operativni sistem!"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Da biste se prebacili na drugi preslikani server Linuks Minta i rešili ovaj "
+"problem, kliknite na OK."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "APT error:"
-msgstr ""
+msgstr "APT greška:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:896
 msgid "Please switch to another Linux Mint mirror"
-msgstr ""
+msgstr "Prebacite se na drugi preslikani server Linuks Minta"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:930
 msgid "Do you want to switch to a local mirror?"
-msgstr ""
+msgstr "Da li želite da se prebacite na lokalni preslikani server?"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:931
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr ""
+msgstr "Lokalni preslikani serveri su obično brži od packages.linuxmint.com."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:942
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:952
 msgid "Please switch to another mirror"
-msgstr ""
+msgstr "Prebacite se na drugi preslikani server"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:943
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s je nedostupan."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:953
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Poslednje ažuriranje na %(mirror)s je bilo pre %(days)d dan."
+msgstr[1] "Poslednje ažuriranje na %(mirror)s je bilo pre %(days)d dana."
+msgstr[2] "Poslednje ažuriranje na %(mirror)s je bilo pre %(days)d dana."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1089
 msgid "Exit"
-msgstr ""
+msgstr "Izađi"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
 msgid "Upgrade"
-msgstr "Nadogradi"
+msgstr "Ažuriraj"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1193
 msgid "Name"
-msgstr ""
+msgstr "Naziv"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1197
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1399
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1895
 msgid "Old Version"
-msgstr ""
+msgstr "Stara verzija"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1201
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1405
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1898
 msgid "New Version"
-msgstr ""
+msgstr "Nova verzija"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1205
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1417
@@ -804,7 +944,7 @@ msgstr "Veličina"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1387
 msgid "Type"
-msgstr ""
+msgstr "Vrsta"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1213
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1411
@@ -827,12 +967,12 @@ msgstr "Informacije"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1327
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2011
 msgid "Preferences"
-msgstr "Podešavanja"
+msgstr "Preferencije"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1286
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1314
 msgid "Quit"
-msgstr ""
+msgstr "Prekini"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1303
 msgid "_File"
@@ -840,7 +980,7 @@ msgstr "_Datoteka"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1308
 msgid "Close window"
-msgstr ""
+msgstr "Zatvori prozor"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1322
 msgid "_Edit"
@@ -848,16 +988,16 @@ msgstr "_Uredi"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1333
 msgid "System Snapshots"
-msgstr ""
+msgstr "Snimci sistema"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1339
 msgid "Software Sources"
-msgstr ""
+msgstr "Izvori softvera"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1362
 #, python-format
 msgid "Upgrade to %s"
-msgstr ""
+msgstr "Nadogradi na %s"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1366
 msgid "_View"
@@ -866,15 +1006,15 @@ msgstr "_Pregled"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1371
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1886
 msgid "History of Updates"
-msgstr ""
+msgstr "Istorija ažuriranja"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1375
 msgid "Linux Kernels"
-msgstr ""
+msgstr "Linuks kerneli"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1383
 msgid "Visible Columns"
-msgstr ""
+msgstr "Vidljive _kolone"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1393
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
@@ -883,7 +1023,7 @@ msgstr "Paket"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1425
 msgid "Show Descriptions"
-msgstr ""
+msgstr "Prikaži opise"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1441
 msgid "_Help"
@@ -891,15 +1031,15 @@ msgstr "_Pomoć"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1447
 msgid "Welcome Screen"
-msgstr ""
+msgstr "Ekran dobrodošlice"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1452
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Prečice sa tastaure"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1458
 msgid "Contents"
-msgstr ""
+msgstr "Sadržaji"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1465
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1954
@@ -908,49 +1048,52 @@ msgstr "O programu"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
 msgid "Cannot Proceed"
-msgstr ""
+msgstr "Ne mogu da nastavim dalje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1554
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
 msgstr ""
+"Neki drugi proces trenutno koristi sistem za upravljanje paketima. Sačekajte "
+"da završi i zatim pokušajte ponovo."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1582
 msgid "Yes"
-msgstr ""
+msgstr "Da"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1583
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1585
 #: usr/share/linuxmint/mintupdate/main.ui.h:22
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid "Welcome to the Update Manager"
-msgstr ""
+msgstr "Dobrodošli u Menadžer ažuriranja"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1769
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ovo ažuriranje ima uticaja na sledeći instalirani paket:"
+msgstr[1] "Ovo ažuriranje ima uticaja na sledeće instalirane pakete:"
+msgstr[2] "Ovo ažuriranje ima uticaja na sledeće instalirane pakete:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1774
 msgid "Total size:"
-msgstr ""
+msgstr "Ukupna veličina:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1787
 msgid "Ignore the current update for this package"
-msgstr ""
+msgstr "Ignoriši trenutno ažuriranje za ovaj paket"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1790
 msgid "Ignore all future updates for this package"
-msgstr ""
+msgstr "Ignoriši sva buduća ažuriranja za ovaj paket"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1889
 msgid "Date"
@@ -958,35 +1101,37 @@ msgstr "Datum"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2027
 msgid "Options"
-msgstr ""
+msgstr "Opcije"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2028
 msgid "Blacklist"
-msgstr ""
+msgstr "Crna lista"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 msgid "Automation"
-msgstr ""
+msgstr "Automatizacija"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2035
 msgid "Interface"
-msgstr ""
+msgstr "Interfejs"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2036
 msgid "Hide the update manager after applying updates"
-msgstr ""
+msgstr "Sakrij Menadžer ažuriranja posle instaliranja ažuriranja"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2037
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
+"Prikaži ikonu u sistemskoj traci samo kada su ažuriranja dostupna ili u "
+"slučaju grešaka"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2039
 msgid "Auto-refresh"
-msgstr ""
+msgstr "Automatsko osvežavanje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2040
 msgid "Refresh the list of updates automatically"
-msgstr ""
+msgstr "Osveži spisak ažuriranja automatski"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2052
 msgid "days"
@@ -994,7 +1139,7 @@ msgstr "dana"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2053
 msgid "hours"
-msgstr "sati"
+msgstr "časova"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2054
 msgid "minutes"
@@ -1002,90 +1147,98 @@ msgstr "minuta"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2055
 msgid "First, refresh the list of updates after:"
-msgstr ""
+msgstr "Najpre, osveži spisak ažuriranja posle:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2059
 msgid "Then, refresh the list of updates every:"
-msgstr ""
+msgstr "Zatim, osveži spisak ažuriranja svakih:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2102
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
 msgstr ""
+"Napomena: ovaj spisak se osvežava samo dok je prozor Menadžera ažuriranja "
+"zatvoren (režim sistemske trake)."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2108
 msgid "Ignored Updates"
-msgstr ""
+msgstr "Ignorisana ažuriranja"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2131
 msgid "Automatic Updates"
-msgstr ""
+msgstr "Automatska ažuriranja"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2131
 msgid "This option is run as root on a daily basis"
-msgstr ""
+msgstr "Ova opcija se pokreće kao root svakodnevno"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2132
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "Primeni ažuriranja automatski"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2136
 msgid "Export blacklist to /etc/mintupdate.blacklist"
-msgstr ""
+msgstr "Izvezi crnu listu u /etc/mintupdate.blacklist"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2137
 msgid ""
 "Click this button for automatic updates to use your current blacklist."
 msgstr ""
+"Kliknite na ovo dugme da bi automatska ažuriranja koristila Vašu trenutnu "
+"crnu listu."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2140
 msgid "Automatic Maintenance"
-msgstr ""
+msgstr "Automatsko održavanje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2140
 msgid "This option is run as root on a weekly basis"
-msgstr ""
+msgstr "Ova opcija se pokreće kao root svake sedmice"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2141
 msgid "Remove obsolete kernels and dependencies"
-msgstr ""
+msgstr "Ukloni zastarele kernele i njihove zavisnosti"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2145
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
 msgstr ""
+"Ova opcija uvek ostavlja najmanje jedan stariji kernel koji je instaliran i "
+"nikada ne uklanja ručno instalirane kernele."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2198
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
 msgstr ""
+"Navedite naziv izvornog paketa ažuriranja koji treba ignorisati (podržani su "
+"zamenski znakovi) i, opcionalno, verziju:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2199
 msgid "Ignore an Update"
-msgstr ""
+msgstr "Ignoriši ažuriranje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2207
 msgid "Name:"
-msgstr ""
+msgstr "Naziv:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2209
 msgid "Version:"
-msgstr ""
+msgstr "Verzija:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2211
 msgid "(optional)"
-msgstr ""
+msgstr "(opcionalno)"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:23
 msgid "System Upgrade"
-msgstr ""
+msgstr "Nadogradnja sistema"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:35
 msgid "Introduction"
-msgstr ""
+msgstr "Uvod"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:39
 msgid ""
@@ -1093,73 +1246,79 @@ msgid ""
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
+"Vašem sistemu nedostaju kritične komponente. Paket koji odgovara Vašem "
+"izdanju Linuks Minta bi trebao da omogući virtuelni paket 'mint-info' i "
+"datoteku /etc/linuxmint/info."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:52
 msgid "No upgrades were found."
-msgstr ""
+msgstr "Nisu pronađene nikakve nadogradnje."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:61
 msgid "A new version of Linux Mint is available!"
-msgstr ""
+msgstr "Nova verzija Linuks Minta je dostupna!"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:71
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
-msgstr ""
+msgstr "Pronađena je nadogradnja, ali još uvek nije dostupna za ediciju %s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:80
 msgid "Release notes"
-msgstr ""
+msgstr "Napomene uz izdanje"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:87
 msgid ""
 "Please read the release notes before upgrading. They explain all the known "
 "issues, workarounds and solutions associated with the new version."
 msgstr ""
+"Pročitajte napomene uz izdanje pre same nadogradnje. One objašnjavaju sve "
+"poznate probleme, načine njihovog zaobilaženja i rešenja koja su povezana sa "
+"novom verzijom."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:91
 #, python-format
 msgid "Release notes for %s"
-msgstr ""
+msgstr "Napomene uz izdanje za %s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:94
 msgid "Click on the link to open the release notes."
-msgstr ""
+msgstr "Kliknite na link da biste otvorili napomene uz izdanje."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:102
 msgid "New features"
-msgstr ""
+msgstr "Nove funkcije"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:109
 msgid "Please look at the new features introduced in the new version."
-msgstr ""
+msgstr "Pogledajte nove funkcije koje su uvedene u novoj verziji."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:113
 #, python-format
 msgid "New features in %s"
-msgstr ""
+msgstr "Nove funkcije u %s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:116
 msgid "Click on the link to browse the new features."
-msgstr ""
+msgstr "Kliknite na link da biste pretražili nove funkcije."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:124
 msgid "Requirements"
-msgstr ""
+msgstr "Neophodno"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:134
 #, python-format
 msgid "The package %s needs to be installed before upgrading."
-msgstr ""
+msgstr "Paket %s mora biti instaliran pre nadogradnje."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:138
 #, python-format
 msgid "Install %s"
-msgstr ""
+msgstr "Instaliraj %s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:143
 msgid "Click on the button to install the missing package."
-msgstr ""
+msgstr "Kliknite na dugme da instalirate nedostajući paket."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:157
 msgid ""
@@ -1167,27 +1326,35 @@ msgid ""
 "introduce new issues. Upgrading always represents a risk. Your data is safe "
 "but new issues can potentially affect your operating system."
 msgstr ""
+"Nova izdanja obezbeđuju ispravke grešaka i nove funkcije u programima, ali "
+"ponekada donose i nove probleme. Nadogradnja uvek predstavlja rizik. Vaši "
+"podaci su bezbedni, ali nova izdanja mogu potencijalno da utiču na Vaš "
+"operativni sistem."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:161
 #, python-format
 msgid "I understand the risk. I want to upgrade to %s."
-msgstr ""
+msgstr "Razumem rizik. Želim da nadogradim na %s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:171
 msgid "Summary"
-msgstr ""
+msgstr "Pregled"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:258
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
 msgstr ""
+"Vaš operativni sistem je uspešno nadograđen. Ponovo pokrenite računar da bi "
+"sve izmene stupile na snagu."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:261
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
 msgstr ""
+"Nadogradnja nije uspela. Uverite se da ste povezani na internet i ponovo "
+"pokušajte nadogradnju."
 
 #: generate_desktop_files:26
 msgid "Show and install available updates"
@@ -1198,7 +1365,7 @@ msgstr "Prikaži i instaliraj dostupna ažuriranja"
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:21
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
-msgstr "Zatvorite"
+msgstr "Zatvori"
 
 #: usr/share/linuxmint/mintupdate/information.ui.h:1
 msgid "Process ID:"
@@ -1206,25 +1373,27 @@ msgstr "ID procesa:"
 
 #: usr/share/linuxmint/mintupdate/information.ui.h:2
 msgid "Log file:"
-msgstr "Datoteka dnevnika:"
+msgstr "Datoteka evidencije:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:1
 msgid "Warning!"
-msgstr ""
+msgstr "Upozorenje!"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:2
 msgid "Proceed with caution"
-msgstr ""
+msgstr "Nastavite uz oprez"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
+"Instalacija novog kernela ponekad može da prouzrokuje probleme, naročito "
+"ukoliko koristite vlasničke upravljačke programe."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
 msgid "These issues include:"
-msgstr ""
+msgstr "Ovi problemi uključuju:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
 msgid ""
@@ -1233,10 +1402,14 @@ msgid ""
 "- Black screen on startup\n"
 "- Random system freeze"
 msgstr ""
+"- Nema bežične veze (ili žične veze) na internet\n"
+"- Nema video akceleracije\n"
+"- Crni ekran prilikom pokretanja računara\n"
+"- Nasumično kočenje sistema"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "If you face any of these issues, don't panic:"
-msgstr ""
+msgstr "Ukoliko se suočite sa ovim problemima, nemojte da paničite:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:10
 msgid ""
@@ -1246,53 +1419,61 @@ msgid ""
 "- Select an older kernel.\n"
 "- After the computer boots with the older kernel, uninstall the new one."
 msgstr ""
+"- Ponovo pokrenite računar.\n"
+"- Pritisnite i zadržite taster Shift da bi meni pokretanja sistema bio "
+"prikazan.\n"
+"- U meniju pokretanja sistema, izaberite liniju koja počinje sa 'Advanced "
+"options'.\n"
+"- Izaberite neki stariji kernel.\n"
+"- Pošto se sistem na računaru podigne preko starijeg kernela, deinstalirajte "
+"novi kernel."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
-msgstr ""
+msgstr "Ne prikazuj više ovu poruku"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
 msgid "Help"
-msgstr ""
+msgstr "Pomoć"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
-msgstr ""
+msgstr "Nastavi"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
 msgid "Kernel flavor:"
-msgstr ""
+msgstr "Podvrsta kernela:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 msgid "Perform Queued Actions..."
-msgstr ""
+msgstr "Izvrši akcije koje su u redu za izvršenje..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Remove Kernels..."
-msgstr ""
+msgstr "Ukloni kernele..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:23
 msgid "Cancel"
-msgstr ""
+msgstr "Otkaži"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:24
 msgid "Apply"
-msgstr ""
+msgstr "Primeni"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:25
 msgid "Please confirm the following actions:"
-msgstr ""
+msgstr "Potvrdite sledeće akcije:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
 msgid "Clear"
-msgstr "Očisti"
+msgstr "Obriši"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
-msgstr "Odaberi sve"
+msgstr "Izaberi sve"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:4
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:4
@@ -1301,11 +1482,11 @@ msgstr "Instaliraj ažuriranja"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "A new version of the Update Manager is available"
-msgstr ""
+msgstr "Nova verzija Menadžera ažuriranja je dostupna"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
 msgid "Apply the Update"
-msgstr ""
+msgstr "Primeni ažuriranje"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Description"
@@ -1313,39 +1494,48 @@ msgstr "Opis"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:10
 msgid "Packages"
-msgstr ""
+msgstr "Paketi"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "Changelog"
-msgstr "Dnevnik izmena"
+msgstr "Spisak promena"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid ""
 "This tool provides your operating system with software and security updates."
 msgstr ""
+"Ovaj alat pruža Vašem operativnom sistemu ažuriranja softvera i bezbednosna "
+"ažuriranja."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Security updates"
-msgstr ""
+msgstr "Bezbednosna ažuriranja"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
+"Primeni bezbednosna ažuriranja da bi ranjivosti bile zakrpljene, a Vaš "
+"računar bezbedan."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid "Software updates"
-msgstr ""
+msgstr "Ažuriranja softvera"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "Apply software updates to fix bugs in your computer."
 msgstr ""
+"Primeni ažuriranja softvera da bi greške u programima na Vašem računaru bile "
+"ispravljene."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Postavite snimke stanja sistema da biste se zaštitili od grešaka i "
+"regresija. Ukoliko se nešto pokvari, jednostavno vratite sistem u prethodno "
+"stanje iz poslednjeg snimka stanja sistema."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid ""
@@ -1353,40 +1543,51 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linuks Mint preporučuje postavljanje automatizovanog snimanja stanja sistema "
+"i primenjivanje svih dostupnih ažuriranja. Na ovaj način Vaš računar će uvek "
+"biti bezbedan i možete se vratiti u prošlost i oporaviti sistem od bilo "
+"kakve potencijalne regresije."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid ""
 "Packages listed here will never receive updates. Use this option to block "
 "updates that you know cause issues on your system."
 msgstr ""
+"Paketi koji su navedeni u ovom spisku nikada neće dobijati ažuriranja. "
+"Koristite ovu opciju da blokirate ažuriranja za koja znate da dovode do "
+"problema na Vašem sistemu."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:2
 msgid ""
 "It is recommended to add packages to the blacklist by right-clicking them in "
 "the updates listing."
 msgstr ""
+"Preporučuje se da dodate pakete na crnu listu tako što ćete kliknuti desnim "
+"tasterom miša na njih u spisku dostupnih ažuriranja."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Uverite se da su snimci stanja Vašeg sitema pravilno konfigurisani pre nego "
+"što budete koristili ovu opciju."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
-msgstr ""
+msgstr "Prozor"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:5
 msgid "Selection"
-msgstr ""
+msgstr "Izbor"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select Security Updates"
-msgstr ""
+msgstr "Izaberite bezbednosna ažuriranja"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select Kernel Updates"
-msgstr ""
+msgstr "Izaberite ažuriranja kernela"
 
 #~ msgid "Software Updates"
 #~ msgstr "Ažuriranja softvera"
