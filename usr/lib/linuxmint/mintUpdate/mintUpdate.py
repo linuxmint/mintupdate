@@ -821,6 +821,17 @@ class RefreshThread(threading.Thread):
                 self.application.set_status("", NO_UPDATES_MSG, "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
                 self.application.logger.write("System is up to date")
+
+                self.application.builder.get_object("tool_clear").set_sensitive(False)
+                self.application.builder.get_object("tool_select_all").set_sensitive(False)
+                self.application.builder.get_object("tool_apply").set_sensitive(False)
+
+                Gdk.threads_leave()
+            else:
+                Gdk.threads_enter()
+                self.application.builder.get_object("tool_clear").set_sensitive(True)
+                self.application.builder.get_object("tool_select_all").set_sensitive(True)
+                self.application.builder.get_object("tool_apply").set_sensitive(True)
                 Gdk.threads_leave()
 
             self.application.logger.write("Refresh finished")
