@@ -16,81 +16,81 @@
 
   <title>कर्नेल अपडेट</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>कर्नेल ऑपरेटिंग सिस्टम का केंद्रीय भाग है। इसके बहुत से कार्यों में हार्डवेयर समर्थन भी सम्मिलित है।</p>
 
-  <note><p>In Linux Mint, kernel updates bring both security patches and bug fixes (and sometimes even new features), and they impact critical parts of the operating system. This makes kernel updates important from a security point of view, but also prone to regressions which can be hard to fix for novice users.</p></note>
+  <note><p>लिनक्स मिंट में कर्नेल अपडेट ऑपरेटिंग सिस्टम के मुख्य भागों हेतु आवश्यक सुरक्षा पैच व समस्या समाधान (नई विशेषताएँ आदि) करती हैं। अतः कर्नेल अपडेट सुरक्षा के लिए अहम होती हैं परंतु इनके द्वारा नवीन उपयोक्ता की दृष्टि से जटिल दोष उत्पन्न होने के संभावना बढ़ जाती है।</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>सुरक्षा की दृष्टि से कर्नेल अपडेट लागू करना आवश्यक होता है।</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>हालाँकि कर्नेल दोष इंटरनेट अभिगम, डेस्कटॉप वातावरण आरंभ या ऑपरेटिंग सिस्टम आरंभ जैसे कार्यों को प्रभावित कर सकता है।</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>अतः कर्नेल अपडेट सावधानीपूर्वक लागू करें व समस्या होने पर अपडेट पूर्ववत करने हेतु तैयार रहें।</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>एकाधिक कर्नेल इंस्टॉल करना संभव है</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>अपडेट लागू करने पर, नवीन संस्करण सॉफ्टवेयर के पुराने संस्करण का स्थान ले लेता है।</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>कर्नेल प्रक्रिया भिन्न होती है। "कर्नेल अपडेट" लागू करने पर कर्नल अपडेट नहीं होता है बल्कि नवीन कर्नेल पुराने के साथ इंस्टॉल होता है।</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>प्रत्येक कर्नेल अपडेट लागू होने पर पुराने संस्करण हटाए बिना ही सिस्टम पर नवीन कर्नेल इंस्टॉल होता है।</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>आरंभ के दौरान कंप्यूटर नवीन संस्करण का चयन करता है।</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>वर्तमान कर्नेल पहचानना</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>वर्तमान कर्नेल पहचानने हेतु टर्मिनल में टाइप करें :</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>कर्नेल इंस्टॉल व हटाना</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>अपडेट प्रबंधक द्वारा कर्नेल इंस्टॉल करें या हटाएँ।</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>मेन्यू से "देखें" -&gt; "लिनक्स कर्नेल" चुनें।</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>कार्यरत कर्नेल हटाना संभव नहीं है। इसे हटाने हेतु सिस्टम पुनः आरंभ कर उपयोग हेतु अन्य कर्नेल चुनें।</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>कर्नेल चयन</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>एकाधिक कर्नेल इंस्टॉल करना संभव है परंतु उपयोग केवल एक ही होगा।</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>कंप्यूटर आरंभ पर दृश्यमान प्राथमिक स्क्रीन Grub मेन्यू कहलाती है। इस मेन्यू द्वारा आप ऑपरेटिंग सिस्टम के अलावा कर्नेल भी चुन सकते हैं।</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>कर्नेल चयन हेतु Grub मेन्यू से "विस्तृत विकल्प" चुनें। अब सभी इंस्टॉल कर्नेल दृश्यमान होंगे। उपयोग हेतु कर्नेल चयन कर व कंप्यूटर द्वारा यहीं कार्यरत होगा।</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>डीकेएमएस स्थिति जाँच</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>कर्नेल में उचित कार्यक्षमता युक्त सभी मुक्त-स्रोत ड्राइवर होते हैं। अमुक्त ड्राइवर (एनवीडिया, एएमडी, ब्रॉडकॉम...इत्यादि) को प्रत्येक कर्नेल इंस्टॉल के साथ संयोजित करना होता है। यह डीकेएमएस कार्यप्रणाली द्वारा किया जाता है।</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>कर्नेल हेतु डीकेएमएस द्वारा अमुक्त ड्राइवर संयोजित न होने पर, यह कर्नेल के साथ उचित रूप से कार्य नहीं करेगा।</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>कर्नेल इंस्टॉल या हटाने उपरांत निम्नलिखित कमांड द्वारा डीकेएमएस स्थिति जाँचकर सुनिश्चित करें कि सभी अमुक्त ड्राइवर कर्नेल हेतु उचित रुप से इंस्टॉल हैं:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>अमुक्त ड्राइवर हेतु डीकेएमएस समर्थन से पहले ही नवीन कर्नेल श्रृंखला उपलब्ध हो जाती है। यदि आप मुक्त ड्राइवर उपयोग कर रहे हैं केवल कर्नेल अपडेट करें व बिना परामर्श के नवीन श्रृंखला के कर्नेल इंस्टॉल न करें।</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>कर्नेल अपडेट पूर्ववत करना</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>नवीनतम कर्नेल इंस्टॉल (या कर्नेल अपडेट) उपरांत समस्या होने पर, सिस्टम पुनः आरंभ कर पिछला प्रयुक्त कर्नेल चयन करें, नवीन कर्नेल हटाएँ व पुनः आरंभ करें।</p>
 
   </section>
 

@@ -14,25 +14,25 @@
     <desc>कमांड लाइन से अपडेट करना</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>mintupdate-cli उपयोग</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>अपडेट प्रबंधक में सम्मिलित कमांड लाइन साधन "mintupdate-cli" है ।</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>अनुभवी लिनक्स उपयोक्ता इस साधन में स्क्रिप्ट या cron कार्यों द्वारा सॉफ्टवेयर अपडेट स्वतः ही इंस्टॉल कर सकते हैं।</p>
 
   <section id="tool1">
 
   <title>अपडेट सूचीबद्घ करना</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>"list" कमांड द्वारा अपडेट सूचीबद्ध करें :</p>
 
-  <screen>mintupdate-cli list</screen>
+  <screen>mintupdate-cli सूची</screen>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>केवल सुरक्षा अपडेट दिखने हेतु कमांड में -s संलग्न करें।</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>केवल कर्नेल अपडेट दिखने हेतु कमांड में -k संलग्न करें।</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>निम्नलिखित कमांड द्वारा सभी सुरक्षा अपडेट सूचीबद्ध होंगी :</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,15 +42,15 @@
 
   <title>अपडेट लागू करना</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>समान विकल्प उपयोग कर आप "upgrade" कमांड द्वारा अपडेट लागू कर सकते हैं।</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>निम्नलिखित कमांड द्वारा सभी कर्नेल अपडेट लागू होंगी :</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>-r मानदंड संलग्न कर कैश रिफ्रेश करें।</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>mintupdate-cli हेतु अधिक जानकारी व संपूर्ण मानदंड सूची हेतु टाइप करें :</p>
 
   <screen>mintupdate-cli -h</screen>
 

@@ -18,7 +18,7 @@
 
   <p>核心是作業系統的心臟，也為其提供硬體支援。</p>
 
-  <note><p>在 Linux Mint，核心更新通常會一併修正安全及軟體問題 (有時也會增加一些新功能)，而其過程會修改系統的重要部分。以安全性方面來講，核心更新非常重要；但若造成「退步」問題，初學者會難於修復。</p></note>
+  <note><p>在 Linux Mint，核心更新通常會一併修正安全性及軟體問題（有時更帶來新功能），過程中會更動系統的關鍵部份。以安全性而言，核心更新非常重要；但若造成效能倒退，初學者將更難以排除。</p></note>
 
   <p>依系統安全而言，核心更新非常重要。</p>
 
@@ -42,7 +42,7 @@
   <section id="kernel2">
     <title>辨識目前使用的核心</title>
 
-    <p>若您欲知道目前使用的核心版本，可以開啟終端機輸入：</p>
+    <p>欲了解目前使用的核心版本，請開啟終端機輸入：</p>
 
     <screen>uname -a</screen>
 
@@ -60,7 +60,7 @@
   </section>
 
   <section id="kernel4">
-    <title>選擇核心</title>
+    <title>選取一個核心</title>
 
     <p>您可以安裝多個不同版本的核心，但同時只能使用一個。</p>
 
@@ -68,7 +68,7 @@
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>欲選擇核心，請點 Grub 開機選單 的「進階選項」，就可看到目前安裝的所有版本核心，並選一個您要使用的。</p>
+    <p>欲選取核心，選擇 Grub 開機選單 的「進階選項」，就可看到目前安裝的所有版本核心，並選一個您要使用的。</p>
 
   </section>
 
