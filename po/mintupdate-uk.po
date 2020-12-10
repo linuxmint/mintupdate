@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-11-13 13:01+0100\n"
-"PO-Revision-Date: 2019-11-14 16:48+0000\n"
-"Last-Translator: Mykola Tkach <Stuartlittle1970@gmail.com>\n"
+"PO-Revision-Date: 2020-06-29 15:41+0000\n"
+"Last-Translator: Mykola Tkach <chistomov@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2020-06-24 10:02+0000\n"
-"X-Generator: Launchpad (build 1cbd0aa39df153c901321817f9b57cf3f232b507)\n"
+"X-Launchpad-Export-Date: 2020-12-10 10:21+0000\n"
+"X-Generator: Launchpad (build 4853cb86c14c5a9e513816c8a61121c639b30835)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -54,13 +54,13 @@ msgid ""
 "'Software updates' are updates which fix bugs (or also sometimes which bring "
 "new features)."
 msgstr ""
-"'Менеджер оновлень' встановлює оновлення, які виправляють помилки (а також "
+"'Упорядник оновлень' встановлює оновлення, які виправляють помилки (а також "
 "іноді додають нові можливості)."
 
 #: usr/share/help/C/mintupdate/updates.page:25(p)
 msgid "'Security updates' are updates which patch vulnerabilities."
 msgstr ""
-"'Менеджер оновлень' встановлює оновлення, які виправляють вразливості."
+"'Упорядник оновлень' встановлює оновлення, які виправляють вразливості."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
@@ -119,8 +119,8 @@ msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
-"Timeshift, інструмент для створення знімків системи, доступний в усіх "
-"версіях Linux Mint."
+"Timeshift, знаряддя для створення знімків системи, доступний в усіх версіях "
+"Linux Mint."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
@@ -141,8 +141,8 @@ msgid ""
 "cancelling the problem as if it never happened."
 msgstr ""
 "Якщо оновлення, помилка, помилка програми або шкідлива програма пошкодить що-"
-"небудь на Вашому комп'ютері, Ви можете відновити операційну систему з любого "
-"знімка, таким чином скасувати проблему, ніби її взагалі не було."
+"небудь на Вашому комп'ютері, Ви можете відновити операційну систему з будь-"
+"якого знімка, таким чином скасувати проблему, ніби її взагалі не було."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
@@ -235,7 +235,8 @@ msgstr "Використання mintupdate-cli"
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
 msgstr ""
-"Менеджер оновлень надає засіб командного рядку під назвою \"mintupdate-cli\"."
+"Упорядник оновлень надає засіб командного рядку під назвою \"mintupdate-"
+"cli\"."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
@@ -341,9 +342,9 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
-"Однак регресія ядра може вплинути на Вашу здатність під’єднання до Інтернет, "
-"запуску стільничного середовища або навіть на завантаження операційної "
-"системи."
+"Однак регресія ядра може вплинути на Вашу здатність під’єднуватися до "
+"Інтернет, запуск стільничного середовища або навіть на завантаження "
+"операційної системи."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
@@ -372,7 +373,7 @@ msgid ""
 "alongside the existing one."
 msgstr ""
 "Інша річ, коли справа доходить до ядра. При застосуванні \"kernel update\", "
-"Ви насправді не оновите ядро, а встановите нове ядро ​​поряд з вже існуючим."
+"Ви насправді не оновите ядро, а встановите нове ядро ​​поряд з вже наявним."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
@@ -410,7 +411,7 @@ msgstr "Встановлення та вилучення ядра"
 #: usr/share/help/C/mintupdate/kernels.page:56(p)
 msgid "You can install and remove kernels from the Update Manager."
 msgstr ""
-"Ви можете встановити і вилучити ядра використовуючи менеджер оновлень."
+"Ви можете встановити і вилучити ядра використовуючи упорядник оновлень."
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
@@ -451,7 +452,7 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
-"Якщо в Вас встановлена лише одна операційна система, послідовність "
+"Якщо у Вас встановлена лише одна операційна система, послідовність "
 "завантаження може пропустити меню Grub. Для відображення меню Grub, "
 "перезавантажте комп’ютер, натисніть та утримуйте лівий <key>Shift</key>."
 
@@ -538,15 +539,15 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1956 generate_desktop_files:25
 msgid "Update Manager"
-msgstr "Менеджер оновлень"
+msgstr "Керування оновленнями"
 
 #: usr/share/help/C/mintupdate/index.page:20(p)
 msgid ""
 "The Update Manager provides your operating system with software and security "
 "updates."
 msgstr ""
-"Менеджер оновлень забезпечує Вашу операційну систему оновленнями програмного "
-"забезпечення та безпеки системи."
+"Упорядник оновлень забезпечує Вашу операційну систему оновленнями "
+"програмного забезпечення та безпеки системи."
 
 #: usr/share/help/C/mintupdate/index.page:22(p)
 msgid ""
@@ -571,7 +572,7 @@ msgid ""
 "can restore your system in case something goes wrong."
 msgstr ""
 "Щоб зберегти свій комп'ютер у безпеці та гарному робочому стані, "
-"рекомендується застосувати всі доступні оновлення та настроїти системні "
+"рекомендується застосувати усі доступні оновлення та налаштувати системні "
 "знімки, щоб ви могли відновити Вашу систему у випадку, помилки."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
@@ -634,8 +635,8 @@ msgid ""
 "to remove the new one first."
 msgstr ""
 "Ядро Linux відповідає за підтримку устаткування і драйверів. Зверніть увагу, "
-"що це оновлення не призведе до вилучення існуючого ядра. Ви можете запустити "
-"існуюче ядро, вибравши додаткові опції в меню завантаження. Будь ласка, "
+"що це оновлення не призведе до вилучення наявного ядра. Ви можете запустити "
+"наявне ядро, вибравши додаткові опції в меню завантаження. Будь ласка, "
 "будьте обережні регресія ядра може вплинути на можливість під’єднання до "
 "Інтернет або запуск графічного середовища. Модулі DKMS складаються для "
 "останніх версій ядер, встановлених на комп'ютері. Якщо Ви використовуєте "
@@ -774,8 +775,8 @@ msgid ""
 "You have installed updates that require a reboot to take effect, please "
 "reboot your system as soon as possible."
 msgstr ""
-"Встановлено оновлення, які потребують перезавантаження, щоб зміни вступили в "
-"силу, будь ласка, перезавантажте систему як можна швидше."
+"Встановлено оновлення, які потребують перезавантаження, щоб зміни набули "
+"сили, будь ласка, перезавантажте систему як можна швидше."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1300
@@ -1065,7 +1066,7 @@ msgstr "OK"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid "Welcome to the Update Manager"
-msgstr "Ласкаво просимо у Менеджер Оновлень"
+msgstr "Ласкаво просимо в Упорядник Оновлень"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1769
 msgid "This update affects the following installed package:"
@@ -1096,7 +1097,7 @@ msgstr "Параметри"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2028
 msgid "Blacklist"
-msgstr "Чорний список"
+msgstr "Чорний перелік"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 msgid "Automation"
@@ -1108,13 +1109,13 @@ msgstr "Зовнішній вигляд"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2036
 msgid "Hide the update manager after applying updates"
-msgstr "Приховати менеджер оновлень після застосування оновлення"
+msgstr "Приховати упорядник оновлень після застосування оновлення"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2037
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
-"Показувати піктограму у лотку лише, коли доступні оновлення або в разі "
-"помилок"
+"Показувати піктограму у системній таці лише, коли доступні оновлення або в "
+"разі помилок"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2039
 msgid "Auto-refresh"
@@ -1149,7 +1150,7 @@ msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
 msgstr ""
-"Нотатка: Перелік оновлюється лише тоді, коли вікно менеджера оновлень "
+"Нотатка: Перелік оновлюється лише тоді, коли вікно упорядника оновлень "
 "закрито (режим системної таці)."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2108
@@ -1392,7 +1393,7 @@ msgid ""
 "- Random system freeze"
 msgstr ""
 "- Відсутній Wi-Fi (або  Ethernet)\n"
-"- Відсутнє відео-прискорення\n"
+"- Відсутнє відео-пришвидшення\n"
 "- Чорний екран при запуску\n"
 "- Випадкові зависання системи"
 
@@ -1414,7 +1415,7 @@ msgstr ""
 "- У меню завантаження виберіть пункт 'Додаткові параметри'.\n"
 "- Виберіть старіше ядро.\n"
 "- Після того, як комп'ютер завантажиться, використовуючи старе ядро, "
-"видаліть нове ядро."
+"вилучіть нове ядро."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
@@ -1470,7 +1471,7 @@ msgstr "Встановити оновлення"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "A new version of the Update Manager is available"
-msgstr "Доступна нова версія менеджера оновлень"
+msgstr "Доступна нова версія упорядника оновлень"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
 msgid "Apply the Update"
@@ -1531,7 +1532,7 @@ msgid ""
 "back in time and recover from any potential regression."
 msgstr ""
 "Linux Mint рекомендує встановлювати автоматичні знімки системи та "
-"застосовувати всі наявні оновлення. Таким чином, ваш комп'ютер завжди у "
+"застосовувати усі наявні оновлення. Таким чином, ваш комп'ютер завжди у "
 "безпеці, і ви можете відновитись після будь-якої потенційної регресії."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
