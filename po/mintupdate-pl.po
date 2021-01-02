@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-11-13 13:01+0100\n"
-"PO-Revision-Date: 2020-11-05 21:31+0000\n"
+"PO-Revision-Date: 2020-12-14 11:30+0000\n"
 "Last-Translator: Paweł Pańczyk <pawelppanczyk@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2020-12-10 10:21+0000\n"
-"X-Generator: Launchpad (build 4853cb86c14c5a9e513816c8a61121c639b30835)\n"
+"X-Launchpad-Export-Date: 2021-01-02 14:09+0000\n"
+"X-Generator: Launchpad (build 34b3ffd45c9543b7f7aa5aa313925241e9e7ca3f)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -669,7 +669,7 @@ msgstr "Zainstaluj"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
 msgid "Queue Removal"
-msgstr "Usuwanie kolejki"
+msgstr "Usuń z kolejki instalacji"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "This kernel cannot be removed because it is currently in use."
@@ -677,7 +677,7 @@ msgstr "To jądro nie może zostać usunięte, ponieważ jest w użyciu."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 msgid "Queue Installation"
-msgstr "Instalacja kolejki"
+msgstr "Dodaj do kolejki instalacji"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "This kernel is not installable."
@@ -704,7 +704,7 @@ msgstr "Usuń jądra"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 msgid "Perform Queued Actions"
-msgstr "Wykonywanie Kolejki Działań"
+msgstr "Wykonaj kolejkę działań"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:429
 msgid "Active"
@@ -781,16 +781,15 @@ msgstr "Instalacja aktualizacji bezpieczeństwa nie powiodła się"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:660
 msgid "Reboot required"
-msgstr "Konieczne ponowne uruchomienie komputera"
+msgstr "Wymagane ponowne uruchomienie komputera"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
 msgid ""
 "You have installed updates that require a reboot to take effect, please "
 "reboot your system as soon as possible."
 msgstr ""
-"Zostały zainstalowane aktualizacje wymagające ponownego uruchomienia, aby "
-"wprowadzić je w życie. Proszę, uruchom ponownie komputer, tak szybko, jak to "
-"możliwe."
+"Aby zastosować zainstalowane aktualizacje, wymagane jest ponowne "
+"uruchomienie. Uruchom komputer ponownie tak szybko, jak to możliwe."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1300
@@ -1062,8 +1061,8 @@ msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
 msgstr ""
-"Inny proces obecnie korzysta z systemu zarządzania pakietami. Proszę "
-"poczekać, aż skończy, a następnie spróbuj ponownie."
+"Inny proces korzysta obecnie z systemu zarządzania pakietami. Zaczekaj, aż "
+"skończy, a następnie spróbuj ponownie."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1582
 msgid "Yes"
@@ -1412,7 +1411,7 @@ msgid ""
 "- Black screen on startup\n"
 "- Random system freeze"
 msgstr ""
-"- Brak wifi (lub połączenia sieciowe)\n"
+"- Brak WiFi (lub połączenia sieciowego)\n"
 "- Brak akceleracji grafiki\n"
 "- Czarny ekran przy uruchamianiu systemu\n"
 "- Losowe zawieszanie systemu"
@@ -1549,10 +1548,10 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
-"Linux Mint zaleca ustawienie automatycznych migawek systemu oraz stosowanie "
-"wszystkich aktualizacji. Tym sposobem Twój system jest zawsze bezpieczny, a "
-"Ty masz możliwość wycofania zmian i przywrócenia poprzedniego stanu z "
-"jakiejkolwiek potencjalnej regresji."
+"Linux Mint zaleca ustawienie automatycznych migawek systemu oraz "
+"instalowanie wszystkich aktualizacji. Dzięki temu twój system będzie zawsze "
+"bezpieczny, a ty będziesz mieć możliwość wycofania zmian i przywrócenia "
+"poprzedniego stanu z jakiejkolwiek potencjalnej regresji."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid ""
