@@ -225,7 +225,7 @@ class KernelRow(Gtk.ListBoxRow):
             link.set_line_wrap(True)
             box.pack_start(link, False, False, 2)
             link = Gtk.Label()
-            link.set_markup("<a href='https://people.canonical.com/~ubuntu-security/cve/pkg/linux.html'>CVE Tracker</a>")
+            link.set_markup("<a href='https://people.canonical.com/~ubuntu-security/cve/pkg/linux'>CVE Tracker</a>")
             link.set_line_wrap(True)
             box.pack_start(link, False, False, 2)
 
