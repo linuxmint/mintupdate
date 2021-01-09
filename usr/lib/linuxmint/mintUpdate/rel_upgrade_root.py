@@ -17,15 +17,48 @@ codename = sys.argv[1]
 window_id = int(sys.argv[2])
 sources_list = "/usr/share/mint-upgrade-info/%s/official-package-repositories.list" % codename
 blacklist_filename = "/usr/share/mint-upgrade-info/%s/blacklist" % codename
+additions_filename = "/usr/share/mint-upgrade-info/%s/additions" % codename
+removals_filename = "/usr/share/mint-upgrade-info/%s/removals" % codename
 
 if not os.path.exists(sources_list):
     print("Unrecognized release: %s" % codename)
     sys.exit(1)
 
-blacklist = []
-if os.path.exists(blacklist_filename):
-    blacklist_file = open(blacklist_filename, 'r')
-    blacklist = [line.strip() for line in blacklist_file.readlines()]
+
+def install_packages(packages):
+    if len(packages) > 0:
+        cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id, "-o", "Synaptic::closeZvt=true"]
+        f = tempfile.NamedTemporaryFile()
+        for package in packages:
+            pkg_line = "%s\tinstall\n" % package
+            f.write(pkg_line.encode("utf-8"))
+        cmd.append("--set-selections-file")
+        cmd.append("%s" % f.name)
+        f.flush()
+        subprocess.run(cmd)
+
+def remove_packages(packages):
+    if len(packages) > 0:
+        cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id, "-o", "Synaptic::closeZvt=true"]
+        f = tempfile.NamedTemporaryFile()
+        for package in packages:
+            pkg_line = "%s\tdeinstall\n" % package
+            f.write(pkg_line.encode("utf-8"))
+        cmd.append("--set-selections-file")
+        cmd.append("%s" % f.name)
+        f.flush()
+        subprocess.run(cmd)
+
+def file_to_list(filename):
+    returned_list = []
+    if os.path.exists(filename):
+        with open(filename, 'r') as file_handle:
+            for line in file_handle:
+                line = line.strip()
+                if line == "" or line.startswith("#"):
+                    continue
+                returned_list.append(line)
+    return returned_list
 
 # STEP 1: UPDATE APT SOURCES
 #---------------------------
@@ -50,9 +83,9 @@ cache.open(None)
 cache.upgrade(dist_upgrade)
 changes = cache.get_changes()
 
-cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id, "-o", "Synaptic::closeZvt=true"]
-f = tempfile.NamedTemporaryFile()
+blacklist = file_to_list(blacklist_filename)
 
+packages = []
 for pkg in changes:
     if (pkg.is_installed and pkg.marked_upgrade):
         package = pkg.name
@@ -68,15 +101,23 @@ for pkg in changes:
                 for origin in pkg.candidate.origins:
                     if origin.origin == "linuxmint":
                         if origin.component != "romeo" and package != "linux-kernel-generic":
-                            pkg_line = "%s\tinstall\n" % package
-                            f.write(pkg_line.encode("utf-8"))
+                            packages.append(package)
 
-cmd.append("--set-selections-file")
-cmd.append("%s" % f.name)
-f.flush()
-subprocess.run(cmd)
+install_packages(packages)
 
-# STEP 4: UPDATE GRUB
+# STEP 4: ADD PACKAGES
+#---------------------
+
+additions = file_to_list(additions_filename)
+install_packages(additions)
+
+# STEP 5: REMOVE PACKAGES
+#------------------------
+
+removals = file_to_list(removals_filename)
+remove_packages(removals)
+
+# STEP 6: UPDATE GRUB
 #--------------------
 
 try:
