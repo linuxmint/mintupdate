@@ -202,6 +202,8 @@ class Assistant:
             self.vbox_meta.hide()
             if self.check_button.get_active():
                 self.assistant.set_page_complete(self.vbox_prerequesites, True)
+            else:
+                self.assistant.set_page_complete(self.vbox_prerequesites, False)
 
     def show_message(self, icon, msg):
         vbox_content = Gtk.HBox()
