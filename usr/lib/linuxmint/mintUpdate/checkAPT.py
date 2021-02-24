@@ -7,7 +7,7 @@ import os
 import re
 import sys
 import traceback
-from html.parser import HTMLParser
+import html
 
 import apt
 from gi.repository import Gio
@@ -247,8 +247,6 @@ class APTCheck():
                         fd = codecs.open(os.path.join("/var/lib/apt/lists", file), "r", "utf-8")
                         super_buffer += fd.readlines()
 
-                parser = HTMLParser()
-
                 i = 0
                 while i < len(super_buffer):
                     line = super_buffer[i].strip()
@@ -269,7 +267,7 @@ class APTCheck():
                                             # clean short description
                                             value = line
                                             try:
-                                                value = parser.unescape(value)
+                                                value = html.unescape(value)
                                             except:
                                                 print ("Unable to unescape '%s'" % value)
                                             # Remove "Description-xx: " prefix
@@ -291,7 +289,7 @@ class APTCheck():
                                         description = "\n" + line
                                         try:
                                             try:
-                                                description = parser.unescape(description)
+                                                description = html.unescape(description)
                                             except:
                                                 print ("Unable to unescape '%s'" % description)
                                             dlines = description.split("\n")
