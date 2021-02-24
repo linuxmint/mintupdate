@@ -1671,6 +1671,7 @@ class MintUpdate():
         else:
             install = InstallThread(self)
             install.start()
+            self.settings.set_int("install-last-run", int(time.time()))
 
     def self_update(self, widget):
         self.select_all(widget)
