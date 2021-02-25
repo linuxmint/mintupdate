@@ -785,32 +785,34 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
+            # Updates found, update status message
+            if num_visible > 0:
+                # logs
+                self.application.logger.write("Found " + str(num_visible) + " software updates")
+                Gdk.threads_enter()
+                # widgets
+                if self.is_self_update:
+                    self.application.stack.set_visible_child_name("status_self-update")
+                    self.application.statusbar.set_visible(False)
+                    statusString = ""
+                else:
+                    statusString = gettext.ngettext("%(selected)d update selected (%(size)s)",
+                                            "%(selected)d updates selected (%(size)s)", num_visible) % \
+                                            {'selected':num_visible, 'size':size_to_string(download_size)}
 
-                # Updates found, update status message
-                if num_visible:
-                    Gdk.threads_enter()
-                    if self.is_self_update:
-                        self.application.stack.set_visible_child_name("status_self-update")
-                        self.application.statusbar.set_visible(False)
-                        statusString = ""
-                    else:
-                        statusString = gettext.ngettext("%(selected)d update selected (%(size)s)",
-                                                "%(selected)d updates selected (%(size)s)", num_visible) % \
-                                                {'selected':num_visible, 'size':size_to_string(download_size)}
+                self.application.set_status(statusString, statusString, "mintupdate-updates-available-symbolic", True)
 
-                    self.application.set_status(statusString, statusString, "mintupdate-updates-available-symbolic", True)
-                    self.application.logger.write("Found " + str(num_visible) + " software updates")
+                systrayString = gettext.ngettext("%d update available",
+                                         "%d updates available", num_visible) % num_visible;
+                self.application.statusIcon.set_tooltip_text(systrayString)
 
-                    systrayString = gettext.ngettext("%d update available",
-                                             "%d updates available", num_visible) % num_visible;
-                    self.application.statusIcon.set_tooltip_text(systrayString)
-                    Gdk.threads_leave()
+                self.application.builder.get_object("tool_clear").set_sensitive(True)
+                self.application.builder.get_object("tool_select_all").set_sensitive(True)
+                self.application.builder.get_object("tool_apply").set_sensitive(True)
+                Gdk.threads_leave()
+            else:
+                self.application.logger.write("System is up to date")
 
-            # Check for infobars to display
-            self.run_status_checks()
-
-            # All done, show status message
-            if not len(lines) or not num_visible:
                 Gdk.threads_enter()
                 NO_UPDATES_MSG = _("Your system is up to date")
                 self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
@@ -818,27 +820,23 @@ class RefreshThread(threading.Thread):
                 self.application.stack.set_visible_child_name("status_updated")
                 self.application.set_status("", NO_UPDATES_MSG, "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
-                self.application.logger.write("System is up to date")
 
                 self.application.builder.get_object("tool_clear").set_sensitive(False)
                 self.application.builder.get_object("tool_select_all").set_sensitive(False)
                 self.application.builder.get_object("tool_apply").set_sensitive(False)
 
                 Gdk.threads_leave()
-            else:
-                Gdk.threads_enter()
-                self.application.builder.get_object("tool_clear").set_sensitive(True)
-                self.application.builder.get_object("tool_select_all").set_sensitive(True)
-                self.application.builder.get_object("tool_apply").set_sensitive(True)
-                Gdk.threads_leave()
-
-            self.application.logger.write("Refresh finished")
 
             Gdk.threads_enter()
             self.application.builder.get_object("notebook_details").set_current_page(0)
             self.application.treeview.set_model(model)
             del model
             Gdk.threads_leave()
+
+            # Check whether to display the mirror infobar
+            self.mirror_check()
+
+            self.application.logger.write("Refresh finished")
 
         except:
             print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
@@ -850,10 +848,6 @@ class RefreshThread(threading.Thread):
 
         finally:
             self.cleanup()
-
-    def run_status_checks(self):
-        """ Runs various status checks and shows infobars where appropriate """
-        self.mirror_check()
 
     def check_policy(self):
         """ Check the presence of the Mint layer """
