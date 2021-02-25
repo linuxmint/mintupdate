@@ -623,6 +623,10 @@ class RefreshThread(threading.Thread):
 
         if self.application.updates_inhibited:
             self.application.logger.write("Updates are inhibited, skipping refresh")
+            Gdk.threads_enter()
+            if not self.application.window.get_visible():
+                self.application.window.present()
+            Gdk.threads_leave()
             return False
 
         self.application.refreshing = True
