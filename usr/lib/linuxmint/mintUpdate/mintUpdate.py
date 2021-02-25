@@ -711,7 +711,6 @@ class RefreshThread(threading.Thread):
 
             # Look at the updates one by one
             num_visible = 0
-            num_checked = 0
             download_size = 0
             lines = output.split("---EOL---")
             if len(lines):
@@ -725,16 +724,11 @@ class RefreshThread(threading.Thread):
                     # Check if self-update is needed
                     if update.source_name in PRIORITY_UPDATES:
                         self.is_self_update = True
-                        Gdk.threads_enter()
-                        self.application.stack.set_visible_child_name("status_self-update")
-                        self.application.statusbar.set_visible(False)
-                        Gdk.threads_leave()
 
                     iter = model.insert_before(None, None)
                     model.row_changed(model.get_path(iter), iter)
 
                     model.set_value(iter, UPDATE_CHECKED, True)
-                    num_checked += 1
                     download_size += update.size
 
                     shortdesc = update.short_description
@@ -791,18 +785,18 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
+
                 # Updates found, update status message
                 if num_visible:
                     Gdk.threads_enter()
                     if self.is_self_update:
+                        self.application.stack.set_visible_child_name("status_self-update")
                         self.application.statusbar.set_visible(False)
                         statusString = ""
-                    elif num_checked == 0:
-                        statusString = _("No updates selected")
-                    elif num_checked >= 1:
+                    else:
                         statusString = gettext.ngettext("%(selected)d update selected (%(size)s)",
-                                                "%(selected)d updates selected (%(size)s)", num_checked) % \
-                                                {'selected':num_checked, 'size':size_to_string(download_size)}
+                                                "%(selected)d updates selected (%(size)s)", num_visible) % \
+                                                {'selected':num_visible, 'size':size_to_string(download_size)}
 
                     self.application.set_status(statusString, statusString, "mintupdate-updates-available-symbolic", True)
                     self.application.logger.write("Found " + str(num_visible) + " software updates")
