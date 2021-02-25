@@ -685,10 +685,13 @@ class RefreshThread(threading.Thread):
             if os.getenv("MINTUPDATE_TEST") == None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
             else:
-                output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
+                if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
+                    output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
+                else:
+                    output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/updates.test", shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
 
             # Check presence of Mint layer
-            if len(output) > 0 and not "CHECK_APT_ERROR" in output and not self.policy_check():
+            if len(output) > 0 and not "CHECK_APT_ERROR" in output and (not self.apt_policy_is_fine()):
                 self.cleanup()
                 return False
 
@@ -789,37 +792,29 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
+            Gdk.threads_enter()
             # Updates found, update status message
             if num_visible > 0:
-                # logs
-                self.application.logger.write("Found " + str(num_visible) + " software updates")
-                Gdk.threads_enter()
-                # widgets
+                self.application.logger.write("Found %d software updates" % num_visible)
                 if is_self_update:
                     self.application.stack.set_visible_child_name("status_self-update")
                     self.application.statusbar.set_visible(False)
-                    statusString = ""
+                    status_string = ""
                 else:
-                    statusString = gettext.ngettext("%(selected)d update selected (%(size)s)",
+                    status_string = gettext.ngettext("%(selected)d update selected (%(size)s)",
                                             "%(selected)d updates selected (%(size)s)", num_visible) % \
                                             {'selected':num_visible, 'size':size_to_string(download_size)}
                     self.application.builder.get_object("tool_clear").set_sensitive(True)
                     self.application.builder.get_object("tool_select_all").set_sensitive(True)
                     self.application.builder.get_object("tool_apply").set_sensitive(True)
-
                 systray_tooltip = gettext.ngettext("%d update available", "%d updates available", num_visible) % num_visible
-                self.application.set_status(statusString, systray_tooltip, "mintupdate-updates-available-symbolic", True)
-
-                Gdk.threads_leave()
+                self.application.set_status(status_string, systray_tooltip, "mintupdate-updates-available-symbolic", True)
             else:
                 self.application.logger.write("System is up to date")
-                Gdk.threads_enter()
                 self.application.stack.set_visible_child_name("status_updated")
                 self.application.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
-                Gdk.threads_leave()
 
-            Gdk.threads_enter()
             self.application.builder.get_object("notebook_details").set_current_page(0)
             self.application.treeview.set_model(model)
             del model
@@ -858,9 +853,9 @@ class RefreshThread(threading.Thread):
                 break
         return (mint_layer_found, error_msg)
 
-    def policy_check(self):
+    def apt_policy_is_fine(self):
         (mint_layer_found, error_msg) = self.check_policy()
-        if not mint_layer_found:
+        if os.getenv("MINTUPDATE_TEST") == "layer-error" or not mint_layer_found:
             Gdk.threads_enter()
             label1 = _("Your APT configuration is corrupt.")
             label2 = _("Do not install or update anything, it could break your operating system!")
@@ -880,7 +875,8 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
             self.application.builder.get_object("label_error_details").show()
             Gdk.threads_leave()
-        return mint_layer_found
+            return False
+        return True
 
     def mirror_check(self):
         """ Mirror-related notifications """
