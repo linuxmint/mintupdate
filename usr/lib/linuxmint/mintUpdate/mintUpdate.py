@@ -595,7 +595,6 @@ class RefreshThread(threading.Thread):
         self.root_mode = root_mode
         self.application = application
         self.running = False
-        self.is_self_update = False
 
     def cleanup(self):
         # cleanup when finished refreshing
@@ -612,9 +611,8 @@ class RefreshThread(threading.Thread):
         if not self.application.app_hidden():
             self.application.window.get_window().set_cursor(None)
         self.application.paned.set_position(self.vpaned_position)
-        if not self.is_self_update:
-            self.application.toolbar.set_sensitive(True)
-            self.application.menubar.set_sensitive(True)
+        self.application.toolbar.set_sensitive(True)
+        self.application.menubar.set_sensitive(True)
         Gdk.threads_leave()
 
     def run(self):
@@ -661,6 +659,9 @@ class RefreshThread(threading.Thread):
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.application.toolbar.set_sensitive(False)
             self.application.menubar.set_sensitive(False)
+            self.application.builder.get_object("tool_clear").set_sensitive(False)
+            self.application.builder.get_object("tool_select_all").set_sensitive(False)
+            self.application.builder.get_object("tool_apply").set_sensitive(False)
 
             # Starts the blinking
             self.application.set_status("", _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
@@ -714,6 +715,7 @@ class RefreshThread(threading.Thread):
             # Look at the updates one by one
             num_visible = 0
             download_size = 0
+            is_self_update = False
             lines = output.split("---EOL---")
             if len(lines):
                 for line in lines:
@@ -725,7 +727,7 @@ class RefreshThread(threading.Thread):
 
                     # Check if self-update is needed
                     if update.source_name in PRIORITY_UPDATES:
-                        self.is_self_update = True
+                        is_self_update = True
 
                     iter = model.insert_before(None, None)
                     model.row_changed(model.get_path(iter), iter)
@@ -793,7 +795,7 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write("Found " + str(num_visible) + " software updates")
                 Gdk.threads_enter()
                 # widgets
-                if self.is_self_update:
+                if is_self_update:
                     self.application.stack.set_visible_child_name("status_self-update")
                     self.application.statusbar.set_visible(False)
                     statusString = ""
@@ -801,6 +803,9 @@ class RefreshThread(threading.Thread):
                     statusString = gettext.ngettext("%(selected)d update selected (%(size)s)",
                                             "%(selected)d updates selected (%(size)s)", num_visible) % \
                                             {'selected':num_visible, 'size':size_to_string(download_size)}
+                    self.application.builder.get_object("tool_clear").set_sensitive(True)
+                    self.application.builder.get_object("tool_select_all").set_sensitive(True)
+                    self.application.builder.get_object("tool_apply").set_sensitive(True)
 
                 self.application.set_status(statusString, statusString, "mintupdate-updates-available-symbolic", True)
 
@@ -808,9 +813,6 @@ class RefreshThread(threading.Thread):
                                          "%d updates available", num_visible) % num_visible;
                 self.application.statusIcon.set_tooltip_text(systrayString)
 
-                self.application.builder.get_object("tool_clear").set_sensitive(True)
-                self.application.builder.get_object("tool_select_all").set_sensitive(True)
-                self.application.builder.get_object("tool_apply").set_sensitive(True)
                 Gdk.threads_leave()
             else:
                 self.application.logger.write("System is up to date")
@@ -822,11 +824,6 @@ class RefreshThread(threading.Thread):
                 self.application.stack.set_visible_child_name("status_updated")
                 self.application.set_status("", NO_UPDATES_MSG, "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
-
-                self.application.builder.get_object("tool_clear").set_sensitive(False)
-                self.application.builder.get_object("tool_select_all").set_sensitive(False)
-                self.application.builder.get_object("tool_apply").set_sensitive(False)
-
                 Gdk.threads_leave()
 
             Gdk.threads_enter()
