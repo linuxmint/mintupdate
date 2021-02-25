@@ -1,0 +1,18 @@
+#!/bin/bash
+
+display_usage() {
+    echo "Usage: test-case testname"
+    echo -e "test names:"
+    echo -e "    - updates"
+    echo -e "    - self-update"
+    echo -e "    - up-to-date"
+    echo -e "    - error"
+}
+
+if [  $# -le 0 ]
+then
+    display_usage
+    exit 1
+fi
+
+MINTUPDATE_TEST=$1 ./test

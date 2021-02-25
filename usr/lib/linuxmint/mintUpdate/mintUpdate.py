@@ -681,8 +681,10 @@ class RefreshThread(threading.Thread):
                 subprocess.run(refresh_command)
                 self.application.settings.set_int("refresh-last-run", int(time.time()))
 
-            output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py",
-                                    stdout=subprocess.PIPE).stdout.decode("utf-8")
+            if os.getenv("MINTUPDATE_TEST") == None:
+                output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
+            else:
+                output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
 
             # Check presence of Mint layer
             if len(output) > 0 and not "CHECK_APT_ERROR" in output and not self.policy_check():
