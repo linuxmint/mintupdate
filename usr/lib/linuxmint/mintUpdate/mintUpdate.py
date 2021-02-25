@@ -807,22 +807,15 @@ class RefreshThread(threading.Thread):
                     self.application.builder.get_object("tool_select_all").set_sensitive(True)
                     self.application.builder.get_object("tool_apply").set_sensitive(True)
 
-                self.application.set_status(statusString, statusString, "mintupdate-updates-available-symbolic", True)
-
-                systrayString = gettext.ngettext("%d update available",
-                                         "%d updates available", num_visible) % num_visible;
-                self.application.statusIcon.set_tooltip_text(systrayString)
+                systray_tooltip = gettext.ngettext("%d update available", "%d updates available", num_visible) % num_visible
+                self.application.set_status(statusString, systray_tooltip, "mintupdate-updates-available-symbolic", True)
 
                 Gdk.threads_leave()
             else:
                 self.application.logger.write("System is up to date")
-
                 Gdk.threads_enter()
-                NO_UPDATES_MSG = _("Your system is up to date")
-                self.application.builder.get_object("label_success").set_text(NO_UPDATES_MSG)
-                self.application.builder.get_object("image_success_status").set_from_icon_name("object-select-symbolic", 96)
                 self.application.stack.set_visible_child_name("status_updated")
-                self.application.set_status("", NO_UPDATES_MSG, "mintupdate-up-to-date-symbolic",
+                self.application.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
                 Gdk.threads_leave()
 
