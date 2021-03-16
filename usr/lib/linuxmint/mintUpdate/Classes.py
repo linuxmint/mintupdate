@@ -116,7 +116,7 @@ class Update():
                     if origin.origin == "Debian" and '-Security' in origin.label:
                         self.type = "security"
                         break
-                    if source_name in ["firefox", "thunderbird"]:
+                    if source_name in ["firefox", "thunderbird", "chromium"]:
                         self.type = "security"
                         break
                     if origin.origin == "linuxmint":
