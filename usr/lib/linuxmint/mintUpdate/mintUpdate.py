@@ -690,24 +690,47 @@ class RefreshThread(threading.Thread):
                 else:
                     output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/updates.test", shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
 
-            # Check presence of Mint layer
-            if len(output) > 0 and not "CHECK_APT_ERROR" in output and (not self.apt_policy_is_fine()):
-                self.cleanup()
-                return False
+            error_found = False
 
             # Return on error
             if "CHECK_APT_ERROR" in output:
+                error_found = True
+                self.application.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
                 try:
                     error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
                     if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
                         error_msg += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
                 except:
                     error_msg = ""
+
+            # Check presence of Mint layer
+            (mint_layer_found, error_msg) = self.check_policy()
+            if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not mint_layer_found):
+                error_found = True
+                self.application.logger.write_error("Error: The APT policy is incorrect!")
+
+                label1 = _("Your APT configuration is corrupt.")
+                label2 = _("Do not install or update anything, it could break your operating system!")
+                label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
+
+                msg = _("Your APT configuration is corrupt.")
+                error_label = _("APT error:")
+                if error_msg:
+                    error_msg = "\n\n%s\n%s" % (error_label, error_msg)
+                else:
+                    error_label = ""
+                self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
+                    msg, Gtk.MessageType.ERROR,
+                    callback=self._on_infobar_mintsources_response)
+                self.application.set_status(_("Could not refresh the list of updates"),
+                    "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
+                self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
+
+            if error_found:
                 Gdk.threads_enter()
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
                     "mintupdate-error-symbolic", True)
-                self.application.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
                 self.application.stack.set_visible_child_name("status_error")
                 self.application.builder.get_object("label_error_details").set_text(error_msg)
                 self.application.builder.get_object("label_error_details").show()
@@ -852,31 +875,6 @@ class RefreshThread(threading.Thread):
                 mint_layer_found = True
                 break
         return (mint_layer_found, error_msg)
-
-    def apt_policy_is_fine(self):
-        (mint_layer_found, error_msg) = self.check_policy()
-        if os.getenv("MINTUPDATE_TEST") == "layer-error" or not mint_layer_found:
-            Gdk.threads_enter()
-            label1 = _("Your APT configuration is corrupt.")
-            label2 = _("Do not install or update anything, it could break your operating system!")
-            label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
-            msg = _("Your APT configuration is corrupt.")
-            error_label = _("APT error:")
-            if error_msg:
-                error_msg = "\n\n%s\n%s" % (error_label, error_msg)
-            else:
-                error_label = ""
-            self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
-                msg, Gtk.MessageType.ERROR,
-                callback=self._on_infobar_mintsources_response)
-            self.application.set_status(_("Could not refresh the list of updates"), "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
-            self.application.logger.write_error("Error: The APT policy is incorrect!")
-            self.application.stack.set_visible_child_name("status_error")
-            self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
-            self.application.builder.get_object("label_error_details").show()
-            Gdk.threads_leave()
-            return False
-        return True
 
     def mirror_check(self):
         """ Mirror-related notifications """
