@@ -16,7 +16,7 @@ import urllib.request
 import proxygsettings
 import subprocess
 import pycurl
-from datetime import datetime
+import datetime
 import configparser
 import traceback
 import setproctitle
@@ -27,7 +27,7 @@ gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, Gdk, Gio, GLib
 from gi.repository import AppIndicator3 as AppIndicator
 
-from Classes import Update, PRIORITY_UPDATES
+from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
 
 # import AUTOMATIONS dict
@@ -742,6 +742,7 @@ class RefreshThread(threading.Thread):
             num_visible = 0
             download_size = 0
             is_self_update = False
+            tracker = UpdateTracker(self.application.settings)
             lines = output.split("---EOL---")
             if len(lines):
                 for line in lines:
@@ -750,6 +751,7 @@ class RefreshThread(threading.Thread):
 
                     # Create update object
                     update = Update(package=None, input_string=line, source_name=None)
+                    tracker.update(update)
 
                     # Check if self-update is needed
                     if update.source_name in PRIORITY_UPDATES:
@@ -814,6 +816,8 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.display_name))
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
+
+            tracker.record()
 
             Gdk.threads_enter()
             # Updates found, update status message
@@ -914,11 +918,11 @@ class RefreshThread(threading.Thread):
                             infobar_title = _("Please switch to another mirror")
                             infobar_message = _("%s is unreachable.") % mirror_url
                     elif mint_timestamp is not None:
-                        mint_date = datetime.fromtimestamp(mint_timestamp)
-                        now = datetime.now()
+                        mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
+                        now = datetime.datetime.now()
                         mint_age = (now - mint_date).days
                         if (mint_age > 2):
-                            mirror_date = datetime.fromtimestamp(mirror_timestamp)
+                            mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
                             mirror_age = (mint_date - mirror_date).days
                             if (mirror_age > 2):
                                 infobar_title = _("Please switch to another mirror")
@@ -1020,10 +1024,10 @@ class Logger():
             self.hook(line)
 
     def write(self, line):
-        self._write("%s ++ %s\n" % (datetime.now().strftime('%m.%d@%H:%M'), line))
+        self._write("%s ++ %s\n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
 
     def write_error(self, line):
-        self._write("%s -- %s\n" % (datetime.now().strftime('%m.%d@%H:%M'), line))
+        self._write("%s -- %s\n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
 
     def read(self):
         if not os.path.exists(self.log.name):

@@ -4,7 +4,10 @@ import gettext
 gettext.install("mintupdate", "/usr/share/locale")
 import html
 from gi.repository import Gio
-
+import json
+import os
+import time
+import datetime
 
 # These updates take priority over other updates.
 # If a new version of these packages is available, nothing else is listed.
@@ -21,12 +24,10 @@ CONFIGURED_KERNEL_TYPE = settings.get_string("selected-kernel-type")
 if CONFIGURED_KERNEL_TYPE not in SUPPORTED_KERNEL_TYPES:
     CONFIGURED_KERNEL_TYPE = "-generic"
 
+CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
+
 def get_release_dates():
     """ Get distro release dates for support duration calculation """
-    import os
-    import time
-    from datetime import datetime
-
     release_dates = {}
     distro_info = []
     if os.path.isfile("/usr/share/distro-info/ubuntu.csv"):
@@ -38,9 +39,9 @@ def get_release_dates():
             try:
                 distro = distro.split(",")
                 release_date = time.mktime(time.strptime(distro[4], '%Y-%m-%d'))
-                release_date = datetime.fromtimestamp(release_date)
+                release_date = datetime.datetime.fromtimestamp(release_date)
                 support_end = time.mktime(time.strptime(distro[5].rstrip(), '%Y-%m-%d'))
-                support_end = datetime.fromtimestamp(support_end)
+                support_end = datetime.datetime.fromtimestamp(support_end)
                 release_dates[distro[2]] = [release_date, support_end]
             except:
                 pass
@@ -197,3 +198,49 @@ class Alias():
         self.name = name
         self.short_description = short_description
         self.description = description
+
+class UpdateTracker():
+
+    def __init__(self, settings):
+        self.tracker_version = 1 # version of the data structure
+        self.settings = settings
+        self.tracked_updates = {}
+        self.refreshed_update_names = [] # updates which are seen in checkAPT
+        self.today = datetime.date.today().strftime("%Y.%m.%d")
+        self.path = os.path.join(CONFIG_PATH, "updates.json")
+        try:
+            with open(self.path) as f:
+                self.tracked_updates = json.load(f)
+                if self.tracked_updates['version'] < self.tracker_version:
+                    raise Exception()
+        except Exception as e:
+            print(e)
+            os.system("mkdir -p %s" % CONFIG_PATH)
+            self.tracked_updates['updates'] = {}
+            self.tracked_updates['version'] = self.tracker_version
+
+    # update the record for a particular update
+    def update(self, update):
+        self.refreshed_update_names.append(update.display_name)
+        if not update.display_name in self.tracked_updates['updates']:
+            update_record = {}
+            update_record['version'] = update.new_version
+            update_record['first_seen'] = self.today
+            update_record['last_seen'] = self.today
+            update_record['days_seen'] = 1
+            self.tracked_updates['updates'][update.display_name] = update_record
+        else:
+            update_record = self.tracked_updates['updates'][update.display_name]
+            update_record['version'] = update.new_version
+            if self.today > update_record['last_seen']:
+                update_record['last_seen'] = self.today
+                update_record['days_seen'] += 1
+
+    def record(self):
+        # Purge non-refreshed updates
+        for name in self.tracked_updates['updates'].keys():
+            if not name in self.refreshed_update_names:
+                del self.tracked_updates['updates'][name]
+        # Write JSON
+        with open(self.path, "w") as f:
+            json.dump(self.tracked_updates, f, indent=2)
