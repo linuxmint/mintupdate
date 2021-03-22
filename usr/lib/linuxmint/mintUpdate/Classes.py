@@ -1,13 +1,19 @@
 #!/usr/bin/python3
 
+import gi
+gi.require_version('Notify', '0.7')
+from gi.repository import Gio, Notify
+
+import datetime
 import gettext
-gettext.install("mintupdate", "/usr/share/locale")
 import html
-from gi.repository import Gio
 import json
 import os
+import subprocess
 import time
-import datetime
+
+gettext.install("mintupdate", "/usr/share/locale")
+Notify.init(_("Update Manager"))
 
 # These updates take priority over other updates.
 # If a new version of these packages is available, nothing else is listed.
@@ -201,46 +207,169 @@ class Alias():
 
 class UpdateTracker():
 
-    def __init__(self, settings):
+    # Loads past updates from JSON file
+    def __init__(self, settings, logger):
+        os.system("mkdir -p %s" % CONFIG_PATH)
+        self.path = os.path.join(CONFIG_PATH, "updates.json")
+
+        # Test case
+        self.test_mode = False
+        test_path = "/usr/share/linuxmint/mintupdate/tests/%s.json" % os.getenv("MINTUPDATE_TEST")
+        if os.path.exists(test_path):
+            os.system("mkdir -p %s" % CONFIG_PATH)
+            os.system("cp %s %s" % (test_path, self.path))
+            self.test_mode = True
+
         self.tracker_version = 1 # version of the data structure
         self.settings = settings
         self.tracked_updates = {}
         self.refreshed_update_names = [] # updates which are seen in checkAPT
         self.today = datetime.date.today().strftime("%Y.%m.%d")
-        self.path = os.path.join(CONFIG_PATH, "updates.json")
+        self.max_days = 0 # oldest update (in number of days seen)
+        self.oldest_since_date = self.today # oldest update (according to since date)
+        self.active = True # False if the tracking was already done today
+        self.security_only = self.settings.get_boolean("tracker-security-only")
+        self.logger = logger
+
         try:
             with open(self.path) as f:
                 self.tracked_updates = json.load(f)
                 if self.tracked_updates['version'] < self.tracker_version:
                     raise Exception()
+                if self.tracked_updates['checked'] > self.today:
+                    raise Exception()
+                if self.tracked_updates['notified'] > self.today:
+                    raise Exception()
+                if self.tracked_updates['checked'] == self.today:
+                    # We already tracked updates today
+                    self.active = False
         except Exception as e:
-            print(e)
-            os.system("mkdir -p %s" % CONFIG_PATH)
+            self.logger.write("Tracker exception: " + e)
             self.tracked_updates['updates'] = {}
             self.tracked_updates['version'] = self.tracker_version
+            self.tracked_updates['checked'] = self.today
+            self.tracked_updates['notified'] = self.today
 
-    # update the record for a particular update
+    # Updates the record for a particular update
     def update(self, update):
-        self.refreshed_update_names.append(update.display_name)
-        if not update.display_name in self.tracked_updates['updates']:
+        self.refreshed_update_names.append(update.real_source_name)
+        if not update.real_source_name in self.tracked_updates['updates']:
             update_record = {}
-            update_record['version'] = update.new_version
-            update_record['first_seen'] = self.today
-            update_record['last_seen'] = self.today
-            update_record['days_seen'] = 1
-            self.tracked_updates['updates'][update.display_name] = update_record
+            update_record['type'] = update.type
+            update_record['since'] = self.today
+            update_record['days'] = 1
+            self.tracked_updates['updates'][update.real_source_name] = update_record
         else:
-            update_record = self.tracked_updates['updates'][update.display_name]
-            update_record['version'] = update.new_version
-            if self.today > update_record['last_seen']:
-                update_record['last_seen'] = self.today
-                update_record['days_seen'] += 1
+            update_record = self.tracked_updates['updates'][update.real_source_name]
+            update_record['type'] = update.type
+            if self.today > self.tracked_updates['checked']:
+                update_record['days'] += 1
 
+        if update.type in ["security", "kernel"] or (not self.security_only):
+            if self.max_days < update_record['days']:
+                self.max_days = update_record['days']
+            if self.oldest_since_date > update_record['since']:
+                self.oldest_since_date = update_record['since']
+
+    # Returns the number of days between today and the given date string
+    def get_days_since_date(self, string, date_format):
+        datetime_object = datetime.datetime.strptime(string, date_format)
+        days = (datetime.date.today() - datetime_object.date()).days
+        return days
+
+    # Returns the number of days between today and the given timestamp
+    def get_days_since_timestamp(self, timestamp):
+        datetime_object = datetime.datetime.fromtimestamp(timestamp)
+        days = (datetime.date.today() - datetime_object.date()).days
+        return days
+
+    def get_latest_apt_upgrade(self):
+        latest_upgrade_date = None
+
+        if os.path.exists("/var/log/apt/history.log"):
+            logs = subprocess.getoutput("cat /var/log/apt/history.log")
+            for event in logs.split("\n\n"):
+                if not "Upgrade: " in event:
+                    continue
+                end_date = None
+                upgrade = None
+                for line in event.split("\n"):
+                    line = line.strip()
+                    if line.startswith("End-Date: "):
+                        end_date = line.replace("End-Date: ", "")
+                        end_date = end_date.split()[0]
+                if end_date != None and (latest_upgrade_date == None or end_date > latest_upgrade_date):
+                    latest_upgrade_date = end_date
+
+        return latest_upgrade_date
+
+    # Notifies user if needed
+    def show_notification(self):
+        notification = None
+        max_age = self.get_days_since_date(self.oldest_since_date, '%Y.%m.%d')
+        notified_age = self.get_days_since_date(self.tracked_updates['notified'], '%Y.%m.%d')
+        if (self.settings.get_int("install-last-run")) == 0:
+            last_install_age = 999
+        else:
+            last_install_age = self.get_days_since_timestamp(self.settings.get_int("install-last-run"))
+        last_apt_upgrade = self.get_latest_apt_upgrade()
+        if last_apt_upgrade == None:
+            last_apt_upgrade_age = 999
+        else:
+            last_apt_upgrade_age = self.get_days_since_date(last_apt_upgrade, '%Y-%m-%d')
+
+        notification_needed = False
+        notification_title = _("Updates are available")
+        notification_message = _("Keep your operating system safe and up to date.")
+
+        # Maximum days
+        self.logger.write("Tracker: Max days: %d days" % self.max_days)
+        if self.max_days >= self.settings.get_int("tracker-max-days"):
+            self.logger.write("Tracker: Max days setting reached! (%d days)" % self.settings.get_int("tracker-max-days"))
+            notification_needed = True
+
+        # Maximum age
+        self.logger.write("Tracker: Max age: %d days" % max_age)
+        if max_age >= self.settings.get_int("tracker-max-age"):
+            self.logger.write("Tracker: Max age setting reached! (%d days)" % self.settings.get_int("tracker-max-age"))
+            notification_needed = True
+
+        # Notification age
+        self.logger.write("Tracker: Notification age: %d days" % notified_age)
+        if notified_age >= self.settings.get_int("tracker-days-between-notifications"):
+            self.logger.write("Tracker: Notification age setting reached! (%d days)" % self.settings.get_int("tracker-days-between-notifications"))
+        else:
+            notification_needed = False
+
+        if not self.test_mode:
+            # Upgrade activity found...
+            if last_install_age <= self.settings.get_int("tracker-max-age"):
+                self.logger.write("Tracker: Mintupdate update button was pressed recently.")
+                notification_needed = False
+
+            # APT Upgrade activity found...
+            if last_apt_upgrade_age <= self.settings.get_int("tracker-max-age"):
+                self.logger.write("Tracker: APT upgrades were taken recently.")
+                notification_needed = False
+
+        if notification_needed:
+            self.tracked_updates['notified'] = self.today
+            notification = Notify.Notification.new(notification_title, notification_message, "mintupdate-updates-available-symbolic")
+            # notification.add_action("action_click", _("Open the Update Manager"), on_notification_clicked, None)
+            notification.set_urgency(2)
+            return notification
+        else:
+            return None
+
+    # Records updates in JSON file and potentially notify
     def record(self):
         # Purge non-refreshed updates
-        for name in self.tracked_updates['updates'].keys():
+        for name in list(self.tracked_updates['updates'].keys()):
             if not name in self.refreshed_update_names:
                 del self.tracked_updates['updates'][name]
+        # Update the check date
+        self.tracked_updates['checked'] = self.today
         # Write JSON
         with open(self.path, "w") as f:
             json.dump(self.tracked_updates, f, indent=2)
+

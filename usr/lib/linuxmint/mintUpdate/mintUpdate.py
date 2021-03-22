@@ -615,16 +615,25 @@ class RefreshThread(threading.Thread):
         self.application.menubar.set_sensitive(True)
         Gdk.threads_leave()
 
+    def show_window(self):
+        Gdk.threads_enter()
+        if not self.application.window.get_visible():
+            self.application.window.present()
+        Gdk.threads_leave()
+
+    def on_notification_clicked(self, notification, action_name, data):
+        os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+
+    def on_notification_closed(self, notification):
+        self.show_window()
+
     def run(self):
         if self.application.refreshing:
             return False
 
         if self.application.updates_inhibited:
             self.application.logger.write("Updates are inhibited, skipping refresh")
-            Gdk.threads_enter()
-            if not self.application.window.get_visible():
-                self.application.window.present()
-            Gdk.threads_leave()
+            self.show_window()
             return False
 
         self.application.refreshing = True
@@ -688,7 +697,7 @@ class RefreshThread(threading.Thread):
                 if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
                     output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
                 else:
-                    output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/updates.test", shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
+                    output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
 
             error_found = False
 
@@ -742,7 +751,7 @@ class RefreshThread(threading.Thread):
             num_visible = 0
             download_size = 0
             is_self_update = False
-            tracker = UpdateTracker(self.application.settings)
+            tracker = UpdateTracker(self.application.settings, self.application.logger)
             lines = output.split("---EOL---")
             if len(lines):
                 for line in lines:
@@ -751,7 +760,9 @@ class RefreshThread(threading.Thread):
 
                     # Create update object
                     update = Update(package=None, input_string=line, source_name=None)
-                    tracker.update(update)
+
+                    if tracker.active and update.type != "unstable":
+                        tracker.update(update)
 
                     # Check if self-update is needed
                     if update.source_name in PRIORITY_UPDATES:
@@ -817,7 +828,17 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
-            tracker.record()
+            if tracker.active:
+                self.notification = tracker.show_notification()
+                # We use self.notification (instead of just a variable) to keep a memory pointer
+                # on the notification. Without doing this, the callbacks are never executed by Gtk/Notify.
+                if self.notification != None:
+                    Gdk.threads_enter()
+                    self.notification.add_action("action_click", _("Show available updates"), self.on_notification_clicked, None)
+                    self.notification.connect("closed", self.on_notification_closed)
+                    self.notification.show()
+                    Gdk.threads_leave()
+                tracker.record()
 
             Gdk.threads_enter()
             # Updates found, update status message
