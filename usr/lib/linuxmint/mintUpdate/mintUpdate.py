@@ -624,8 +624,8 @@ class RefreshThread(threading.Thread):
     def on_notification_clicked(self, notification, action_name, data):
         os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
 
-    def on_notification_closed(self, notification):
-        self.show_window()
+    def on_notification_automation_clicked(self, notification, action_name, data):
+        self.application.open_preferences(None)
 
     def run(self):
         if self.application.refreshing:
@@ -835,7 +835,7 @@ class RefreshThread(threading.Thread):
                 if self.notification != None:
                     Gdk.threads_enter()
                     self.notification.add_action("action_click", _("Show available updates"), self.on_notification_clicked, None)
-                    self.notification.connect("closed", self.on_notification_closed)
+                    self.notification.add_action("action_click", _("Enable automatic updates"), self.on_notification_automation_clicked, None)
                     self.notification.show()
                     Gdk.threads_leave()
                 tracker.record()
@@ -2086,6 +2086,19 @@ class MintUpdate():
         label.set_markup("<i>%s</i>" % _("Note: The list only gets refreshed while the Update Manager window is closed (system tray mode)."))
         grid.attach(label, 0, 3, 4, 1)
         section.add_reveal_row(grid, "com.linuxmint.updates", "refresh-schedule-enabled")
+
+        section = SettingsSection(_("Notifications"))
+        revealer = SettingsRevealer("com.linuxmint.updates", "refresh-schedule-enabled")
+        revealer.add(section)
+        section._revealer = revealer
+        page.pack_start(revealer, False, False, 0)
+
+        switch = GSettingsSwitch(_("Only show notifications for security and kernel updates"), "com.linuxmint.updates", "tracker-security-only")
+        section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
+        switch = GSettingsSpinButton(_("Show a notification if updates are available but none are applied for (in logged-in days):"), "com.linuxmint.updates", "tracker-max-days", mini=2, maxi=90, step=1, page=5)
+        section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
+        switch = GSettingsSpinButton(_("Show a notification if an update is older than (in days):"), "com.linuxmint.updates", "tracker-max-age", mini=2, maxi=90, step=1, page=5)
+        section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
 
         # Blacklist
         treeview_blacklist = builder.get_object("treeview_blacklist")

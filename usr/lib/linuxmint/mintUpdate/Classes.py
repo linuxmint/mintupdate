@@ -229,6 +229,7 @@ class UpdateTracker():
         self.oldest_since_date = self.today # oldest update (according to since date)
         self.active = True # False if the tracking was already done today
         self.security_only = self.settings.get_boolean("tracker-security-only")
+        self.notifications_enabled = not self.settings.get_boolean("tracker-disable-notifications")
         self.logger = logger
 
         try:
@@ -352,10 +353,9 @@ class UpdateTracker():
                 self.logger.write("Tracker: APT upgrades were taken recently.")
                 notification_needed = False
 
-        if notification_needed:
+        if notification_needed and self.notifications_enabled:
             self.tracked_updates['notified'] = self.today
             notification = Notify.Notification.new(notification_title, notification_message, "mintupdate-updates-available-symbolic")
-            # notification.add_action("action_click", _("Open the Update Manager"), on_notification_clicked, None)
             notification.set_urgency(2)
             return notification
         else:
