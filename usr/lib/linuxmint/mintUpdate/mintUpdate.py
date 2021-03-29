@@ -24,7 +24,8 @@ import setproctitle
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
 gi.require_version('AppIndicator3', '0.1')
-from gi.repository import Gtk, Gdk, Gio, GLib
+gi.require_version('Notify', '0.7')
+from gi.repository import Gtk, Gdk, Gio, GLib, Notify
 from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
@@ -49,6 +50,9 @@ locale.bindtextdomain(APP, LOCALE_DIR)
 gettext.bindtextdomain(APP, LOCALE_DIR)
 gettext.textdomain(APP)
 _ = gettext.gettext
+
+
+Notify.init(_("Update Manager"))
 
 (TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
 
@@ -621,11 +625,11 @@ class RefreshThread(threading.Thread):
             self.application.window.present()
         Gdk.threads_leave()
 
-    def on_notification_clicked(self, notification, action_name, data):
-        os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
-
-    def on_notification_automation_clicked(self, notification, action_name, data):
-        self.application.open_preferences(None)
+    def on_notification_action(self, notification, action_name, data):
+        if action_name == "show_updates":
+            os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+        elif action_name == "enable_automatic_updates":
+            self.application.open_preferences(None, show_automation=True)
 
     def run(self):
         if self.application.refreshing:
@@ -749,6 +753,8 @@ class RefreshThread(threading.Thread):
 
             # Look at the updates one by one
             num_visible = 0
+            num_security = 0
+            num_software = 0
             download_size = 0
             is_self_update = False
             tracker = UpdateTracker(self.application.settings, self.application.logger)
@@ -801,13 +807,16 @@ class RefreshThread(threading.Thread):
                     if update.type == "kernel":
                         tooltip = _("Kernel update")
                         type_sort_key = 2
+                        num_security += 1
                     elif update.type == "security":
                         tooltip = _("Security update")
                         type_sort_key = 1
+                        num_security += 1
                     elif update.type == "unstable":
                         tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
                         type_sort_key = 5
                     else:
+                        num_software += 1
                         if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
                             tooltip = _("Software update")
                             type_sort_key = 3
@@ -829,13 +838,32 @@ class RefreshThread(threading.Thread):
                     num_visible += 1
 
             if tracker.active:
-                self.notification = tracker.show_notification()
-                # We use self.notification (instead of just a variable) to keep a memory pointer
-                # on the notification. Without doing this, the callbacks are never executed by Gtk/Notify.
-                if self.notification != None:
+                if tracker.notify():
                     Gdk.threads_enter()
-                    self.notification.add_action("action_click", _("Show available updates"), self.on_notification_clicked, None)
-                    self.notification.add_action("action_click", _("Enable automatic updates"), self.on_notification_automation_clicked, None)
+                    notification_title = _("Updates are available")
+                    # ngettext can't handle multiple variable.
+                    # in most languages we get the same plural form above 2 so let's go for that.
+                    if num_security > 2 and num_software > 2:
+                        msg = _("%d security updates and %d software updates are available.") % (num_security, num_software)
+                        msg += "\n\n"
+                    elif num_security > 2:
+                        msg = _("%d security updates are available.") % num_security
+                        msg += "\n\n"
+                    elif num_software > 2:
+                        msg = _("%d software updates are available.") % num_software
+                        msg += "\n\n"
+                    else:
+                        msg = ""
+
+                    msg = "%s%s" % (msg, _("Apply them to keep your operating system safe and up to date."))
+
+                    # We use self.notification (instead of just a variable) to keep a memory pointer
+                    # on the notification. Without doing this, the callbacks are never executed by Gtk/Notify.
+                    self.notification = Notify.Notification.new(notification_title, msg, "mintupdate-updates-available-symbolic")
+                    self.notification.set_urgency(2)
+                    self.notification.set_timeout(Notify.EXPIRES_NEVER)
+                    self.notification.add_action("show_updates", _("View updates"), self.on_notification_action, None)
+                    self.notification.add_action("enable_automatic_updates", _("Enable automatic updates"), self.on_notification_action, None)
                     self.notification.show()
                     Gdk.threads_leave()
                 tracker.record()
@@ -1982,7 +2010,7 @@ class MintUpdate():
 
 ######### PREFERENCES SCREEN #########
 
-    def open_preferences(self, widget):
+    def open_preferences(self, widget, show_automation=False):
         if self.preferences_window_showing:
             return
         self.preferences_window_showing = True
@@ -2095,9 +2123,11 @@ class MintUpdate():
 
         switch = GSettingsSwitch(_("Only show notifications for security and kernel updates"), "com.linuxmint.updates", "tracker-security-only")
         section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
-        switch = GSettingsSpinButton(_("Show a notification if updates are available but none are applied for (in logged-in days):"), "com.linuxmint.updates", "tracker-max-days", mini=2, maxi=90, step=1, page=5)
+        switch = GSettingsSpinButton(_("Show a notification if an update has been available for (in logged-in days):"), "com.linuxmint.updates", "tracker-max-days", mini=2, maxi=90, step=1, page=5)
         section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
         switch = GSettingsSpinButton(_("Show a notification if an update is older than (in days):"), "com.linuxmint.updates", "tracker-max-age", mini=2, maxi=90, step=1, page=5)
+        section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
+        switch = GSettingsSpinButton(_("Don't show notifications if an update was applied in the last (in days):"), "com.linuxmint.updates", "tracker-grace-period", mini=2, maxi=90, step=1, page=5)
         section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
 
         # Blacklist
@@ -2145,6 +2175,9 @@ class MintUpdate():
         section.add_note(_("This option always leaves at least one older kernel installed and never removes manually installed kernels."))
 
         window.show_all()
+
+        if show_automation:
+            stack.set_visible_child_name("page_auto")
 
     def export_blacklist(self, widget):
         filename = os.path.join(tempfile.gettempdir(), "mintUpdate/blacklist")
