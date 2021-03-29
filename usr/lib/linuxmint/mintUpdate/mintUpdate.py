@@ -834,8 +834,8 @@ class RefreshThread(threading.Thread):
                 # on the notification. Without doing this, the callbacks are never executed by Gtk/Notify.
                 if self.notification != None:
                     Gdk.threads_enter()
-                    self.notification.add_action("action_click", _("Show available updates"), self.on_notification_clicked, None)
-                    self.notification.add_action("action_click", _("Enable automatic updates"), self.on_notification_automation_clicked, None)
+                    self.notification.add_action("action_click", _("Show available wedwedwed updates"), self.on_notification_clicked, None)
+                    self.notification.add_action("action_click", _("Enable automatic wedwedwed updates"), self.on_notification_automation_clicked, None)
                     self.notification.show()
                     Gdk.threads_leave()
                 tracker.record()

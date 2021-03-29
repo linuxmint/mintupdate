@@ -321,7 +321,7 @@ class UpdateTracker():
 
         notification_needed = False
         notification_title = _("Updates are available")
-        notification_message = _("Keep your operating system safe and up to date.")
+        notification_message = _("Keep your operating sdsfsdf sdfsdf sdfsdf sdfsdf sdfsdfsdf sdfsdfsd sdfsdf system safe and up to date.")
 
         # Maximum days
         self.logger.write("Tracker: Max days: %d days" % self.max_days)
