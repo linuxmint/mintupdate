@@ -239,7 +239,7 @@ class UpdateTracker():
                     # We already tracked updates today
                     self.active = False
         except Exception as e:
-            self.logger.write("Tracker exception: " + e)
+            self.logger.write("Tracker exception: " + str(e))
             self.tracked_updates['updates'] = {}
             self.tracked_updates['version'] = self.tracker_version
             self.tracked_updates['checked'] = self.today
