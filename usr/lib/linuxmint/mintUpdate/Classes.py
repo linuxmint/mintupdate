@@ -4,11 +4,14 @@ import gi
 from gi.repository import Gio
 
 import datetime
+import gettext
 import html
 import json
 import os
 import subprocess
 import time
+
+gettext.install("mintupdate", "/usr/share/locale")
 
 # These updates take priority over other updates.
 # If a new version of these packages is available, nothing else is listed.
