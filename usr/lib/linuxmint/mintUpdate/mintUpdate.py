@@ -841,21 +841,14 @@ class RefreshThread(threading.Thread):
                 if tracker.notify():
                     Gdk.threads_enter()
                     notification_title = _("Updates are available")
-                    # ngettext can't handle multiple variable.
-                    # in most languages we get the same plural form above 2 so let's go for that.
-                    if num_security > 2 and num_software > 2:
-                        msg = _("%d security updates and %d software updates are available.") % (num_security, num_software)
-                        msg += "\n\n"
-                    elif num_security > 2:
-                        msg = _("%d security updates are available.") % num_security
-                        msg += "\n\n"
-                    elif num_software > 2:
-                        msg = _("%d software updates are available.") % num_software
-                        msg += "\n\n"
-                    else:
-                        msg = ""
-
-                    msg = "%s%s" % (msg, _("Apply them to keep your operating system safe and up to date."))
+                    security_msg = gettext.ngettext("%d security update", "%d security updates", num_security) % num_security
+                    software_msg = gettext.ngettext("%d software update", "%d software updates", num_software) % num_software
+                    msg = ""
+                    if num_security > 0:
+                        msg = "%s\n" % security_msg
+                    if num_software > 0:
+                        msg = "%s%s\n" % (msg, software_msg)
+                    msg = "%s\n%s" % (msg, _("Apply them to keep your operating system safe and up to date."))
 
                     # We use self.notification (instead of just a variable) to keep a memory pointer
                     # on the notification. Without doing this, the callbacks are never executed by Gtk/Notify.
