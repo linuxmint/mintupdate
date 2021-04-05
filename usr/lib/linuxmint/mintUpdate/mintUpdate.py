@@ -819,7 +819,7 @@ class RefreshThread(threading.Thread):
                         num_security += 1
                     elif update.type == "unstable":
                         tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
-                        type_sort_key = 5
+                        type_sort_key = 6
                     else:
                         num_software += 1
                         if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
@@ -828,7 +828,7 @@ class RefreshThread(threading.Thread):
                         else:
                             update.type = "3rd-party"
                             tooltip = "%s\n%s" % (_("3rd-party update"), origin)
-                            type_sort_key = 4
+                            type_sort_key = 5
 
                     model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                     model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
@@ -844,41 +844,36 @@ class RefreshThread(threading.Thread):
 
             if CINNAMON_SUPPORT:
                 manager = cinnamon.UpdateManager()
-                type_sort_key = 6
+                type_sort_key = 4
                 for update in manager.get_dummy_updates():
                     if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
                         tooltip = _("Cinnamon applet")
-                        display_name = _("Cinnamon applet %s") % update.uuid
                     elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
                         tooltip = _("Cinnamon desklet")
-                        display_name = _("Cinnamon desklet %s") % update.uuid
                     elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
                         tooltip = _("Cinnamon theme")
-                        display_name = _("Cinnamon theme %s") % update.uuid
                     else:
                         tooltip = _("Cinnamon extension")
-                        display_name = _("Cinnamon extension %s") % update.uuid
 
-
-                        iter = model.insert_before(None, None)
+                    iter = model.insert_before(None, None)
                     model.row_changed(model.get_path(iter), iter)
 
                     model.set_value(iter, UPDATE_CHECKED, True)
 
                     if self.application.settings.get_boolean("show-descriptions"):
-                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (update.uuid, tooltip))
+                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (update.uuid, update.name))
                     else:
-                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % display_name)
+                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % update.uuid)
 
-                    model.set_value(iter, UPDATE_OLD_VERSION, "")
-                    model.set_value(iter, UPDATE_NEW_VERSION, "")
-                    model.set_value(iter, UPDATE_SOURCE, "Linux Mint")
-                    model.set_value(iter, UPDATE_SIZE, 0)
-                    model.set_value(iter, UPDATE_SIZE_STR, "0")
-                    model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % "cinnamon")
+                    model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
+                    model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
+                    model.set_value(iter, UPDATE_SOURCE, "Linux Mint / cinnamon")
+                    model.set_value(iter, UPDATE_SIZE, update.size)
+                    model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
+                    model.set_value(iter, UPDATE_TYPE_PIX, "cinnamon-symbolic")
                     model.set_value(iter, UPDATE_TYPE, "cinnamon")
                     model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                    model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), display_name))
+                    model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.uuid))
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
