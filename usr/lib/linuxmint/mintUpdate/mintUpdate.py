@@ -20,6 +20,11 @@ import datetime
 import configparser
 import traceback
 import setproctitle
+try:
+    import cinnamon
+    CINNAMON_SUPPORT = True
+except:
+    CINNAMON_SUPPORT = False
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -834,6 +839,46 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_TYPE, update.type)
                     model.set_value(iter, UPDATE_TOOLTIP, tooltip)
                     model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.display_name))
+                    model.set_value(iter, UPDATE_OBJ, update)
+                    num_visible += 1
+
+            if CINNAMON_SUPPORT:
+                manager = cinnamon.UpdateManager()
+                type_sort_key = 6
+                for update in manager.get_dummy_updates():
+                    if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
+                        tooltip = _("Cinnamon applet")
+                        display_name = _("Cinnamon applet %s") % update.uuid
+                    elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
+                        tooltip = _("Cinnamon desklet")
+                        display_name = _("Cinnamon desklet %s") % update.uuid
+                    elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
+                        tooltip = _("Cinnamon theme")
+                        display_name = _("Cinnamon theme %s") % update.uuid
+                    else:
+                        tooltip = _("Cinnamon extension")
+                        display_name = _("Cinnamon extension %s") % update.uuid
+
+
+                        iter = model.insert_before(None, None)
+                    model.row_changed(model.get_path(iter), iter)
+
+                    model.set_value(iter, UPDATE_CHECKED, True)
+
+                    if self.application.settings.get_boolean("show-descriptions"):
+                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (update.uuid, tooltip))
+                    else:
+                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % display_name)
+
+                    model.set_value(iter, UPDATE_OLD_VERSION, "")
+                    model.set_value(iter, UPDATE_NEW_VERSION, "")
+                    model.set_value(iter, UPDATE_SOURCE, "Linux Mint")
+                    model.set_value(iter, UPDATE_SIZE, 0)
+                    model.set_value(iter, UPDATE_SIZE_STR, "0")
+                    model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % "cinnamon")
+                    model.set_value(iter, UPDATE_TYPE, "cinnamon")
+                    model.set_value(iter, UPDATE_TOOLTIP, tooltip)
+                    model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), display_name))
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
