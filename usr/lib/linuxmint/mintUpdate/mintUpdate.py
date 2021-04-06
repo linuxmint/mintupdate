@@ -922,6 +922,7 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_TOOLTIP, tooltip)
                     model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.uuid))
                     model.set_value(iter, UPDATE_OBJ, update)
+                    num_software += 1
                     num_visible += 1
 
             if tracker.active:
