@@ -884,6 +884,7 @@ class RefreshThread(threading.Thread):
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
                 for update in self.application.cinnamon_updater.get_updates():
+                    update.real_source_name = update.uuid
                     update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
                     update.package_names = []
                     update.type = "cinnamon"
@@ -897,6 +898,9 @@ class RefreshThread(threading.Thread):
                         tooltip = _("Cinnamon theme")
                     else:
                         tooltip = _("Cinnamon extension")
+
+                    if tracker.active:
+                        tracker.update(update)
 
                     iter = model.insert_before(None, None)
                     model.row_changed(model.get_path(iter), iter)
