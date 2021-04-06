@@ -423,7 +423,7 @@ class InstallThread(threading.Thread):
                 checked = model.get_value(iter, UPDATE_CHECKED)
                 if (checked):
                     package_update = model.get_value(iter, UPDATE_OBJ)
-                    if package_update.type == "spice":
+                    if package_update.type == "cinnamon":
                         spice_packages.append(package_update)
                         iter = model.iter_next(iter)
                         continue
@@ -1340,7 +1340,7 @@ class MintUpdate():
             self.treeview.connect("row-activated", self.treeview_row_activated)
 
             selection = self.treeview.get_selection()
-            selection.connect("changed", self.display_selected_package)
+            selection.connect("changed", self.display_selected_update)
             self.builder.get_object("notebook_details").connect("switch-page", self.switch_page)
             self.window.connect("delete_event", self.close_window)
 
@@ -1829,19 +1829,20 @@ class MintUpdate():
 
         self.update_installable_state()
 
-    def display_selected_package(self, selection):
+    def display_selected_update(self, selection):
         try:
             self.textview_packages.set_text("")
             self.textview_description.set_text("")
             self.textview_changes.set_text("")
             (model, iter) = selection.get_selected()
             if (iter != None):
-                package_update = model.get_value(iter, UPDATE_OBJ)
-                self.display_package_description(package_update)
+                update = model.get_value(iter, UPDATE_OBJ)
+                description = update.description.replace("\\n", "\n")
+                self.textview_description.set_text(description)
 
-                if hasattr(package_update, "spice_type"):
-                    self.desc_spice_link.set_uri(package_update.link)
-                    self.desc_spice_link.set_label(package_update.link)
+                if update.type == "cinnamon":
+                    self.desc_spice_link.set_uri(update.link)
+                    self.desc_spice_link.set_label(update.link)
                     self.desc_spice_link.show()
                     self.notebook_details.get_nth_page(TAB_PACKAGES).hide()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
@@ -1850,11 +1851,11 @@ class MintUpdate():
                     self.notebook_details.get_nth_page(TAB_PACKAGES).show()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).show()
                     self.desc_spice_link.hide()
-                    self.display_package_list(package_update)
+                    self.display_package_list(update)
 
                 if self.notebook_details.get_current_page() == 2:
                     # Changelog tab
-                    retriever = ChangelogRetriever(package_update, self)
+                    retriever = ChangelogRetriever(update, self)
                     retriever.start()
                     self.changelog_retriever_started = True
                 else:
@@ -1869,38 +1870,34 @@ class MintUpdate():
         (model, iter) = selection.get_selected()
         if iter and page_num == 2 and not self.changelog_retriever_started:
             # Changelog tab
-            package_update = model.get_value(iter, UPDATE_OBJ)
-            retriever = ChangelogRetriever(package_update, self)
+            update = model.get_value(iter, UPDATE_OBJ)
+            retriever = ChangelogRetriever(update, self)
             retriever.start()
             self.changelog_retriever_started = True
 
-    def display_package_list(self, package_update):
+    def display_package_list(self, update):
         prefix = "\n    • "
-        count = len(package_update.package_names)
+        count = len(update.package_names)
         packages = "%s%s%s\n%s %s\n\n" % \
             (gettext.ngettext("This update affects the following installed package:",
                       "This update affects the following installed packages:",
                       count),
              prefix,
-             prefix.join(sorted(package_update.package_names)),
-             _("Total size:"), size_to_string(package_update.size))
+             prefix.join(sorted(update.package_names)),
+             _("Total size:"), size_to_string(update.size))
         self.textview_packages.set_text(packages)
-
-    def display_package_description(self, package_update):
-        description = package_update.description.replace("\\n", "\n")
-        self.textview_description.set_text(description)
 
     def treeview_right_clicked(self, widget, event):
         if event.button == 3:
             (model, iter) = widget.get_selection().get_selected()
             if (iter != None):
-                package_update = model.get_value(iter, UPDATE_OBJ)
+                update = model.get_value(iter, UPDATE_OBJ)
                 menu = Gtk.Menu()
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore the current update for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, package_update.source_packages, True)
+                menuItem.connect("activate", self.add_to_ignore_list, update.source_packages, True)
                 menu.append(menuItem)
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore all future updates for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, package_update.source_packages, False)
+                menuItem.connect("activate", self.add_to_ignore_list, update.source_packages, False)
                 menu.append(menuItem)
                 menu.attach_to_widget (widget, None)
                 menu.show_all()
