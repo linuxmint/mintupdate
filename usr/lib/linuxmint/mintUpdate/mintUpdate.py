@@ -389,6 +389,8 @@ class AutomaticRefreshThread(threading.Thread):
         else:
             self.application.logger.write("Auto-refresh disabled in preferences, AutomaticRefreshThread stopped")
 
+
+
 class InstallThread(threading.Thread):
 
     def __init__(self, application):
@@ -410,8 +412,9 @@ class InstallThread(threading.Thread):
         try:
             self.application.logger.write("Install requested by user")
             Gdk.threads_enter()
-            installNeeded = False
+            aptInstallNeeded = False
             packages = []
+            spice_packages = []
             model = self.application.treeview.get_model()
             Gdk.threads_leave()
 
@@ -419,8 +422,13 @@ class InstallThread(threading.Thread):
             while (iter != None):
                 checked = model.get_value(iter, UPDATE_CHECKED)
                 if (checked):
-                    installNeeded = True
                     package_update = model.get_value(iter, UPDATE_OBJ)
+                    if package_update.type == "spice":
+                        spice_packages.append(package_update)
+                        iter = model.iter_next(iter)
+                        continue
+
+                    aptInstallNeeded = True
                     if package_update.type == "kernel" and \
                        [True for pkg in package_update.package_names if "-image-" in pkg]:
                         self.reboot_required = True
@@ -429,8 +437,7 @@ class InstallThread(threading.Thread):
                         self.application.logger.write("Will install " + str(package))
                 iter = model.iter_next(iter)
 
-            if (installNeeded == True):
-
+            if aptInstallNeeded:
                 proceed = True
                 try:
                     pkgs = ' '.join(str(pkg) for pkg in packages)
@@ -588,6 +595,36 @@ class InstallThread(threading.Thread):
                         Gdk.threads_enter()
                         self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
                         Gdk.threads_leave()
+
+            if CINNAMON_SUPPORT and spice_packages != []:
+                Gdk.threads_enter()
+                spices_window = Gtk.Window(title=_("Updating Cinnamon Spices"),
+                                           default_width=400,
+                                           default_height=100,
+                                           deletable=False,
+                                           skip_taskbar_hint=True,
+                                           skip_pager_hint=True,
+                                           resizable=False,
+                                           transient_for=self.application.window)
+                box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, valign=Gtk.Align.CENTER)
+                spinner = Gtk.Spinner(active=True, height_request=32)
+                box.pack_start(spinner, False, False, 0)
+                label = Gtk.Label()
+                box.pack_start(label, False, False, 0)
+                spices_window.add(box)
+                spices_window.show_all()
+                Gdk.threads_leave()
+
+                for pkg in spice_packages:
+                    Gdk.threads_enter()
+                    label.set_text("%s (%s)" % (pkg.name, pkg.uuid))
+                    Gdk.threads_leave()
+                    self.application.cinnamon_updater.upgrade(pkg)
+
+                Gdk.threads_enter()
+                # Make sure it stays up long enough to at least see the title
+                GLib.timeout_add_seconds(1, spices_window.destroy)
+                Gdk.threads_leave()
 
         except Exception as e:
             print (e)
@@ -843,9 +880,12 @@ class RefreshThread(threading.Thread):
                     num_visible += 1
 
             if CINNAMON_SUPPORT:
-                manager = cinnamon.UpdateManager()
                 type_sort_key = 4
-                for update in manager.get_updates():
+                blacklist = self.application.settings.get_strv("blacklisted-packages")
+
+                for update in self.application.cinnamon_updater.get_updates():
+                    if update.uuid in blacklist or update.source_packages[0] in blacklist:
+                        continue
                     if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
                         tooltip = _("Cinnamon applet")
                     elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
@@ -1558,6 +1598,11 @@ class MintUpdate():
 
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
             self.paned.set_position(self.settings.get_int('window-pane-position'))
+
+            if CINNAMON_SUPPORT:
+                self.cinnamon_updater = cinnamon.UpdateManager()
+            else:
+                self.cinnamon_updater = None
 
             self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.auto_refresh = AutomaticRefreshThread(self)
