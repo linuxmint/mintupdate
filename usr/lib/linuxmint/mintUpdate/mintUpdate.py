@@ -59,7 +59,7 @@ _ = gettext.gettext
 
 Notify.init(_("Update Manager"))
 
-(TAB_UPDATES, TAB_UPTODATE, TAB_ERROR) = range(3)
+(TAB_DESC, TAB_PACKAGES, TAB_CHANGELOG) = range(3)
 
 (UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE, UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ) = range(12)
 
@@ -845,7 +845,7 @@ class RefreshThread(threading.Thread):
             if CINNAMON_SUPPORT:
                 manager = cinnamon.UpdateManager()
                 type_sort_key = 4
-                for update in manager.get_dummy_updates():
+                for update in manager.get_updates():
                     if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
                         tooltip = _("Cinnamon applet")
                     elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
@@ -1554,6 +1554,7 @@ class MintUpdate():
                 self.cache_watcher.start()
 
             self.builder.get_object("notebook_details").set_current_page(0)
+            self.desc_spice_link = self.builder.get_object("desc_spice_link")
 
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
             self.paned.set_position(self.settings.get_int('window-pane-position'))
@@ -1783,8 +1784,21 @@ class MintUpdate():
             (model, iter) = selection.get_selected()
             if (iter != None):
                 package_update = model.get_value(iter, UPDATE_OBJ)
-                self.display_package_list(package_update)
                 self.display_package_description(package_update)
+
+                if hasattr(package_update, "spice_type"):
+                    self.desc_spice_link.set_uri(package_update.link)
+                    self.desc_spice_link.set_label(package_update.link)
+                    self.desc_spice_link.show()
+                    self.notebook_details.get_nth_page(TAB_PACKAGES).hide()
+                    self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
+                    self.notebook_details.set_current_page(TAB_DESC)
+                else:
+                    self.notebook_details.get_nth_page(TAB_PACKAGES).show()
+                    self.notebook_details.get_nth_page(TAB_CHANGELOG).show()
+                    self.desc_spice_link.hide()
+                    self.display_package_list(package_update)
+
                 if self.notebook_details.get_current_page() == 2:
                     # Changelog tab
                     retriever = ChangelogRetriever(package_update, self)
