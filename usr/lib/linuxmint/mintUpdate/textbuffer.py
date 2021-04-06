@@ -24,10 +24,10 @@ class LinkableTextBuffer(Gtk.TextBuffer):
         self.recursing = False
 
         self.view = view
-        self.view.connect('motion-notify-event', self.track_motion)
-        self.view.connect('button-press-event', self.handle_click)
+        self.view.connect('motion-notify-event', self.motion_event)
+        self.view.connect('button-press-event', self.click_event)
 
-    def track_motion(self, view, event):
+    def motion_event(self, view, event):
         mouse_iter = self.view.get_iter_at_location(*self.view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, event.x, event.y))[1]
         tag = self.get_tag_table().lookup('link')
         if mouse_iter.has_tag(tag):
@@ -38,7 +38,7 @@ class LinkableTextBuffer(Gtk.TextBuffer):
 
         return Gdk.EVENT_PROPAGATE
 
-    def handle_click(self, view, event):
+    def click_event(self, view, event):
         if event.button != 1:
             return Gdk.EVENT_PROPAGATE
 
@@ -73,7 +73,7 @@ class LinkableTextBuffer(Gtk.TextBuffer):
         previous_text = text
         new_text = ""
         while True:
-            new_text = re.sub(r'(?:LINK:\[)([\s\S]+?)(?:\]\[)([\S]+?)(?:\]\:LINK)', match_func, previous_text, count=1)
+            new_text = re.sub(r'(?:\[)([\s\S]+?)(?:\]\()([\S]+?)(?:\))', match_func, previous_text, count=1)
 
             if new_text != previous_text:
                 previous_text = new_text

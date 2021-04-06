@@ -1845,31 +1845,39 @@ class MintUpdate():
             if (iter != None):
                 update = model.get_value(iter, UPDATE_OBJ)
                 description = update.description.replace("\\n", "\n")
+                desc_tab = self.notebook_details.get_nth_page(TAB_DESC)
 
                 if update.type == "cinnamon":
-                    formatted_date = datetime.datetime.fromtimestamp(update.raw_last_edited).strftime("%x")
+                    if update.spice_type == "applet":
+                        click_here_str = gettext.pgettext("The word 'here' will become a hyperlink, translate like 'Click here for...'",
+                                                          "Click [here](%s) for more information on this applet") % update.link
+                    elif update.spice_type == "desklet":
+                        click_here_str = gettext.pgettext("The word 'here' will become a hyperlink, translate like 'Click here for...'",
+                                                          "Click [here](%s) for more information on this desklet") % update.link
+                    elif update.spice_type == "extension":
+                        click_here_str = gettext.pgettext("The word 'here' will become a hyperlink, translate like 'Click here for...'",
+                                                          "Click [here](%s) for more information on this extension") % update.link
+                    else:
+                        click_here_str = gettext.pgettext("The word 'here' will become a hyperlink, translate like 'Click here for...'",
+                                                          "Click [here](%s) for more information on this theme") % update.link
+
                     gh_link = "https://github.com/linuxmint/cinnamon-spices-%ss/commits/master/%s" % (update.spice_type, update.uuid)
-
-                    desc = """\
-%s
-
-
-Website: LINK:[%s][%s]:LINK
-
-Last commit: (%s) [LINK:[%s][%s]:LINK]: %s
-""" % (description,
-       update.link, update.link,
-       formatted_date, update.commit_id[:8], gh_link, update.commit_msg)
+                    latest_change_str = gettext.pgettext("This will end up as hyperlink text as part of 'Most recent change: blah blah change description'",
+                                                         "Most recent change")
+                    desc = "%s\n\n%s\n\n[%s](%s): %s" % (description, click_here_str, latest_change_str, gh_link, update.commit_msg)
 
                     self.textview_description.set_text(desc)
 
                     self.notebook_details.get_nth_page(TAB_PACKAGES).hide()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
+
                     self.notebook_details.set_current_page(TAB_DESC)
+                    self.notebook_details.set_tab_label_text(desc_tab, _("Information"))
                 else:
                     self.textview_description.set_text(description)
                     self.notebook_details.get_nth_page(TAB_PACKAGES).show()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).show()
+                    self.notebook_details.set_tab_label_text(desc_tab, _("Description"))
                     self.display_package_list(update)
 
                 if self.notebook_details.get_current_page() == 2:
