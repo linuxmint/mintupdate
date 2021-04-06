@@ -884,6 +884,9 @@ class RefreshThread(threading.Thread):
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
                 for update in self.application.cinnamon_updater.get_updates():
+                    update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
+                    update.package_names = []
+                    update.type = "cinnamon"
                     if update.uuid in blacklist or update.source_packages[0] in blacklist:
                         continue
                     if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
