@@ -35,6 +35,7 @@ from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
+import textbuffer
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -1271,8 +1272,15 @@ class MintUpdate():
 
             self.notebook_details = self.builder.get_object("notebook_details")
             self.textview_packages = self.builder.get_object("textview_packages").get_buffer()
-            self.textview_description = self.builder.get_object("textview_description").get_buffer()
-            self.textview_changes = self.builder.get_object("textview_changes").get_buffer()
+
+            tv = self.builder.get_object("textview_description")
+            self.textview_description = textbuffer.LinkableTextBuffer(tv)
+            tv.set_buffer(self.textview_description)
+
+            tv = self.builder.get_object("textview_changes")
+            self.textview_changes = textbuffer.LinkableTextBuffer(tv)
+            tv.set_buffer(self.textview_changes)
+
             self.paned = self.builder.get_object("paned1")
 
             # Welcome page
@@ -1602,7 +1610,6 @@ class MintUpdate():
                 self.cache_watcher.start()
 
             self.builder.get_object("notebook_details").set_current_page(0)
-            self.desc_spice_link = self.builder.get_object("desc_spice_link")
 
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
             self.paned.set_position(self.settings.get_int('window-pane-position'))
@@ -1838,19 +1845,31 @@ class MintUpdate():
             if (iter != None):
                 update = model.get_value(iter, UPDATE_OBJ)
                 description = update.description.replace("\\n", "\n")
-                self.textview_description.set_text(description)
 
                 if update.type == "cinnamon":
-                    self.desc_spice_link.set_uri(update.link)
-                    self.desc_spice_link.set_label(update.link)
-                    self.desc_spice_link.show()
+                    formatted_date = datetime.datetime.fromtimestamp(update.raw_last_edited).strftime("%x")
+                    gh_link = "https://github.com/linuxmint/cinnamon-spices-%ss/commits/master/%s" % (update.spice_type, update.uuid)
+
+                    desc = """\
+%s
+
+
+Website: LINK:[%s][%s]:LINK
+
+Last commit: (%s) [LINK:[%s][%s]:LINK]: %s
+""" % (description,
+       update.link, update.link,
+       formatted_date, update.commit_id[:8], gh_link, update.commit_msg)
+
+                    self.textview_description.set_text(desc)
+
                     self.notebook_details.get_nth_page(TAB_PACKAGES).hide()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
                     self.notebook_details.set_current_page(TAB_DESC)
                 else:
+                    self.textview_description.set_text(description)
                     self.notebook_details.get_nth_page(TAB_PACKAGES).show()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).show()
-                    self.desc_spice_link.hide()
                     self.display_package_list(update)
 
                 if self.notebook_details.get_current_page() == 2:
