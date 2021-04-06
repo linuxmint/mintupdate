@@ -135,11 +135,11 @@ class CacheWatcher(threading.Thread):
         self.application.refresh()
 
 class ChangelogRetriever(threading.Thread):
-    def __init__(self, package_update, application):
+    def __init__(self, update, application):
         threading.Thread.__init__(self)
-        self.source_package = package_update.real_source_name
-        self.version = package_update.new_version
-        self.origin = package_update.origin
+        self.source_package = update.real_source_name
+        self.version = update.new_version
+        self.origin = update.origin
         self.application = application
         # get the proxy settings from gsettings
         self.ps = proxygsettings.get_proxy_settings()
@@ -414,7 +414,7 @@ class InstallThread(threading.Thread):
             Gdk.threads_enter()
             aptInstallNeeded = False
             packages = []
-            spice_packages = []
+            cinnamon_spices = []
             model = self.application.treeview.get_model()
             Gdk.threads_leave()
 
@@ -422,17 +422,17 @@ class InstallThread(threading.Thread):
             while (iter != None):
                 checked = model.get_value(iter, UPDATE_CHECKED)
                 if (checked):
-                    package_update = model.get_value(iter, UPDATE_OBJ)
-                    if package_update.type == "cinnamon":
-                        spice_packages.append(package_update)
+                    update = model.get_value(iter, UPDATE_OBJ)
+                    if update.type == "cinnamon":
+                        cinnamon_spices.append(update)
                         iter = model.iter_next(iter)
                         continue
 
                     aptInstallNeeded = True
-                    if package_update.type == "kernel" and \
-                       [True for pkg in package_update.package_names if "-image-" in pkg]:
+                    if update.type == "kernel" and \
+                       [True for pkg in update.package_names if "-image-" in pkg]:
                         self.reboot_required = True
-                    for package in package_update.package_names:
+                    for package in update.package_names:
                         packages.append(package)
                         self.application.logger.write("Will install " + str(package))
                 iter = model.iter_next(iter)
@@ -596,7 +596,7 @@ class InstallThread(threading.Thread):
                         self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
                         Gdk.threads_leave()
 
-            if CINNAMON_SUPPORT and spice_packages != []:
+            if len(cinnamon_spices) > 0:
                 Gdk.threads_enter()
                 spices_window = Gtk.Window(title=_("Updating Cinnamon Spices"),
                                            default_width=400,
@@ -615,11 +615,11 @@ class InstallThread(threading.Thread):
                 spices_window.show_all()
                 Gdk.threads_leave()
 
-                for pkg in spice_packages:
+                for update in cinnamon_spices:
                     Gdk.threads_enter()
-                    label.set_text("%s (%s)" % (pkg.name, pkg.uuid))
+                    label.set_text("%s (%s)" % (update.name, update.uuid))
                     Gdk.threads_leave()
-                    self.application.cinnamon_updater.upgrade(pkg)
+                    self.application.cinnamon_updater.upgrade(update)
 
                 Gdk.threads_enter()
                 # Make sure it stays up long enough to at least see the title
