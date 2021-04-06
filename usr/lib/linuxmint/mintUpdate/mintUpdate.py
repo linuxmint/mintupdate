@@ -879,7 +879,7 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_visible += 1
 
-            if CINNAMON_SUPPORT:
+            if CINNAMON_SUPPORT and not is_self_update:
                 type_sort_key = 4
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
