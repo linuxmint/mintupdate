@@ -627,14 +627,31 @@ class InstallThread(threading.Thread):
                     self.application.cinnamon_updater.upgrade(update)
 
                 Gdk.threads_enter()
-                # Make sure it stays up long enough to at least see the title
-                GLib.timeout_add_seconds(1, spices_window.destroy)
+                repl_string = "" if len(cinnamon_spices) == 1 else cinnamon_spices[0].spice_type.title()
+                # TRANSLATORS: The %s argument will only be used for the singular string. The plural will be one of Applet, Desklet, Extension or Theme.
+                restart_msg = gettext.ngettext("Restarting Cinnamon to finish applying %s update",
+                                               "Restarting Cinnamon to finish applying Spice updates%s", len(cinnamon_spices)) \
+                                                   % cinnamon_spices[0].spice_type.title()
+                label.set_text(restart_msg)
+                spinner.hide()
+
+                Gdk.threads_leave()
+                # Keep the dialog from looking funky before it freezes during the restart
+                time.sleep(.25)
+                subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
+
+                # We want to be back from the restart before refreshing or else it looks bad. Restarting can
+                # take a bit longer than the restart command before it's properly 'running' again.
+                time.sleep(2)
+
+                Gdk.threads_enter()
+                spices_window.destroy()
                 Gdk.threads_leave()
 
                 needs_refresh = True
 
             if needs_refresh:
-                GLib.timeout_add_seconds(1, self.application.refresh)
+                self.application.refresh()
 
         except Exception as e:
             print (e)
