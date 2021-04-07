@@ -2045,10 +2045,22 @@ class MintUpdate():
         treeview.show()
 
         model = Gtk.TreeStore(str, str, str, str) # (packageName, date, oldVersion, newVersion)
+
+        updates = []
+
         if os.path.isfile("/var/log/dpkg.log"):
-            updates = subprocess.run('zgrep " upgrade " -sh /var/log/dpkg.log*',
+            updates += subprocess.run('zgrep " upgrade " -sh /var/log/dpkg.log*',
                 stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)\
                 .stdout.decode().split("\n")
+
+        if CINNAMON_SUPPORT:
+            logfile = '%s/.cinnamon/updates.log' % os.path.expanduser("~")
+            if os.path.isfile(logfile):
+                updates += subprocess.run('grep " upgrade " -sh %s' % logfile,
+                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)\
+                    .stdout.decode().split("\n")
+
+        if updates != []:
             updates.sort(reverse=True)
             for pkg in updates:
                 values = pkg.split(" ")
