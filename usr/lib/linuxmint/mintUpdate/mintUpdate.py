@@ -767,6 +767,46 @@ class RefreshThread(threading.Thread):
                 subprocess.run(refresh_command)
                 self.application.settings.set_int("refresh-last-run", int(time.time()))
 
+            if CINNAMON_SUPPORT:
+                if self.root_mode:
+                    self.application.logger.write("Refreshing available Cinnamon updates from the server")
+                    spices_refresh_window = None
+
+                    if not self.application.app_hidden():
+                        Gdk.threads_enter()
+                        spices_refresh_window = Gtk.Window(title=_("Downloading list of Cinnamon updates"),
+                                                           default_width=400,
+                                                           default_height=100,
+                                                           deletable=False,
+                                                           skip_taskbar_hint=True,
+                                                           skip_pager_hint=True,
+                                                           resizable=False,
+                                                           modal=True,
+                                                           window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
+                                                           transient_for=self.application.window)
+                        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
+                                      spacing=10,
+                                      margin=10,
+                                      valign=Gtk.Align.CENTER)
+                        spinner = Gtk.Spinner(active=True, height_request=32)
+                        box.pack_start(spinner, False, False, 0)
+                        label = Gtk.Label(label=_("Checking the Cinnamon Spices website for any updates"))
+                        box.pack_start(label, False, False, 0)
+                        spices_refresh_window.add(box)
+                        spices_refresh_window.show_all()
+                        Gdk.threads_leave()
+
+                    try:
+                        self.application.cinnamon_updater.refresh_cache()
+                    except:
+                        self.application.logger.write_error("Something went wrong fetching Cinnamon updates: %s" % str(sys.exc_info()[0]))
+                        print("-- Exception occurred fetching Cinnamon updates:\n%s" % traceback.format_exc())
+
+                    if spices_refresh_window != None:
+                        Gdk.threads_enter()
+                        spices_refresh_window.destroy()
+                        Gdk.threads_leave()
+
             if os.getenv("MINTUPDATE_TEST") == None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
             else:
@@ -913,34 +953,6 @@ class RefreshThread(threading.Thread):
                 type_sort_key = 4
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
-                spices_refresh_window = None
-                if self.root_mode:
-                    if not self.application.app_hidden():
-                        Gdk.threads_enter()
-                        spices_refresh_window = Gtk.Window(title=_("Downloading list of Cinnamon updates"),
-                                                           default_width=400,
-                                                           default_height=100,
-                                                           deletable=False,
-                                                           skip_taskbar_hint=True,
-                                                           skip_pager_hint=True,
-                                                           resizable=False,
-                                                           modal=True,
-                                                           window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
-                                                           transient_for=self.application.window)
-                        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
-                                      spacing=10,
-                                      margin=10,
-                                      valign=Gtk.Align.CENTER)
-                        spinner = Gtk.Spinner(active=True, height_request=32)
-                        box.pack_start(spinner, False, False, 0)
-                        label = Gtk.Label(label=_("Checking the Cinnamon Spices website for any updates"))
-                        box.pack_start(label, False, False, 0)
-                        spices_refresh_window.add(box)
-                        spices_refresh_window.show_all()
-                        Gdk.threads_leave()
-
-                    self.application.cinnamon_updater.refresh_cache()
-
                 for update in self.application.cinnamon_updater.get_updates():
                     update.real_source_name = update.uuid
                     update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
@@ -982,11 +994,6 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_software += 1
                     num_visible += 1
-
-                if spices_refresh_window != None:
-                    Gdk.threads_enter()
-                    GLib.timeout_add(500, spices_refresh_window.destroy)
-                    Gdk.threads_leave()
 
             if tracker.active:
                 if tracker.notify():
@@ -2165,10 +2172,8 @@ class MintUpdate():
 
         updates = apt_updates + cinnamon_updates
 
-        sorted_model = Gtk.TreeModelSort(model=model)
-        sorted_model.set_sort_column_id(COL_DATE, Gtk.SortType.DESCENDING)
-
-        treeview.set_model(sorted_model)
+        model.set_sort_column_id(COL_DATE, Gtk.SortType.DESCENDING)
+        treeview.set_model(model)
 
         def destroy_window(widget):
             self.history_window_showing = False
