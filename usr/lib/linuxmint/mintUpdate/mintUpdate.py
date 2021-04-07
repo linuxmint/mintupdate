@@ -914,29 +914,32 @@ class RefreshThread(threading.Thread):
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
                 spices_refresh_window = None
-                if not self.application.app_hidden():
-                    Gdk.threads_enter()
-                    spices_refresh_window = Gtk.Window(title=_("Downloading list of Cinnamon updates"),
-                                                       default_width=400,
-                                                       default_height=100,
-                                                       deletable=False,
-                                                       skip_taskbar_hint=True,
-                                                       skip_pager_hint=True,
-                                                       resizable=False,
-                                                       modal=True,
-                                                       window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
-                                                       transient_for=self.application.window)
-                    box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
-                                  spacing=10,
-                                  margin=10,
-                                  valign=Gtk.Align.CENTER)
-                    spinner = Gtk.Spinner(active=True, height_request=32)
-                    box.pack_start(spinner, False, False, 0)
-                    label = Gtk.Label(_("Checking the Cinnamon Spices website for any updates"))
-                    box.pack_start(label, False, False, 0)
-                    spices_refresh_window.add(box)
-                    spices_refresh_window.show_all()
-                    Gdk.threads_leave()
+                if self.root_mode:
+                    if not self.application.app_hidden():
+                        Gdk.threads_enter()
+                        spices_refresh_window = Gtk.Window(title=_("Downloading list of Cinnamon updates"),
+                                                           default_width=400,
+                                                           default_height=100,
+                                                           deletable=False,
+                                                           skip_taskbar_hint=True,
+                                                           skip_pager_hint=True,
+                                                           resizable=False,
+                                                           modal=True,
+                                                           window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
+                                                           transient_for=self.application.window)
+                        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
+                                      spacing=10,
+                                      margin=10,
+                                      valign=Gtk.Align.CENTER)
+                        spinner = Gtk.Spinner(active=True, height_request=32)
+                        box.pack_start(spinner, False, False, 0)
+                        label = Gtk.Label(label=_("Checking the Cinnamon Spices website for any updates"))
+                        box.pack_start(label, False, False, 0)
+                        spices_refresh_window.add(box)
+                        spices_refresh_window.show_all()
+                        Gdk.threads_leave()
+
+                    self.application.cinnamon_updater.refresh_cache()
 
                 for update in self.application.cinnamon_updater.get_updates():
                     update.real_source_name = update.uuid
