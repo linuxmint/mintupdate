@@ -601,7 +601,7 @@ class InstallThread(threading.Thread):
 
             if len(cinnamon_spices) > 0:
                 Gdk.threads_enter()
-                spices_window = Gtk.Window(title=_("Updating Cinnamon Spices"),
+                spices_install_window = Gtk.Window(title=_("Updating Cinnamon Spices"),
                                            default_width=400,
                                            default_height=100,
                                            deletable=False,
@@ -611,13 +611,16 @@ class InstallThread(threading.Thread):
                                            modal=True,
                                            window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
                                            transient_for=self.application.window)
-                box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, valign=Gtk.Align.CENTER)
+                box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
+                              spacing=10,
+                              margin=10,
+                              valign=Gtk.Align.CENTER)
                 spinner = Gtk.Spinner(active=True, height_request=32)
                 box.pack_start(spinner, False, False, 0)
                 label = Gtk.Label()
                 box.pack_start(label, False, False, 0)
-                spices_window.add(box)
-                spices_window.show_all()
+                spices_install_window.add(box)
+                spices_install_window.show_all()
                 Gdk.threads_leave()
 
                 for update in cinnamon_spices:
@@ -645,7 +648,7 @@ class InstallThread(threading.Thread):
                 time.sleep(2)
 
                 Gdk.threads_enter()
-                spices_window.destroy()
+                spices_install_window.destroy()
                 Gdk.threads_leave()
 
                 needs_refresh = True
@@ -910,6 +913,31 @@ class RefreshThread(threading.Thread):
                 type_sort_key = 4
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
+                spices_refresh_window = None
+                if not self.application.app_hidden():
+                    Gdk.threads_enter()
+                    spices_refresh_window = Gtk.Window(title=_("Downloading list of Cinnamon updates"),
+                                                       default_width=400,
+                                                       default_height=100,
+                                                       deletable=False,
+                                                       skip_taskbar_hint=True,
+                                                       skip_pager_hint=True,
+                                                       resizable=False,
+                                                       modal=True,
+                                                       window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
+                                                       transient_for=self.application.window)
+                    box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
+                                  spacing=10,
+                                  margin=10,
+                                  valign=Gtk.Align.CENTER)
+                    spinner = Gtk.Spinner(active=True, height_request=32)
+                    box.pack_start(spinner, False, False, 0)
+                    label = Gtk.Label(_("Checking the Cinnamon Spices website for any updates"))
+                    box.pack_start(label, False, False, 0)
+                    spices_refresh_window.add(box)
+                    spices_refresh_window.show_all()
+                    Gdk.threads_leave()
+
                 for update in self.application.cinnamon_updater.get_updates():
                     update.real_source_name = update.uuid
                     update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
@@ -951,6 +979,11 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_software += 1
                     num_visible += 1
+
+                if spices_refresh_window != None:
+                    Gdk.threads_enter()
+                    GLib.timeout_add(500, spices_refresh_window.destroy)
+                    Gdk.threads_leave()
 
             if tracker.active:
                 if tracker.notify():
