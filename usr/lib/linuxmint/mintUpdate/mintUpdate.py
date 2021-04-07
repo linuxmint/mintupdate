@@ -438,6 +438,8 @@ class InstallThread(threading.Thread):
                         self.application.logger.write("Will install " + str(package))
                 iter = model.iter_next(iter)
 
+            needs_refresh = False
+
             if aptInstallNeeded:
                 proceed = True
                 try:
@@ -591,7 +593,7 @@ class InstallThread(threading.Thread):
                             return
 
                         # Refresh
-                        self.application.refresh()
+                        needs_refresh = True
                     else:
                         Gdk.threads_enter()
                         self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
@@ -626,6 +628,11 @@ class InstallThread(threading.Thread):
                 # Make sure it stays up long enough to at least see the title
                 GLib.timeout_add_seconds(1, spices_window.destroy)
                 Gdk.threads_leave()
+
+                needs_refresh = True
+
+            if needs_refresh:
+                self.application.refresh()
 
         except Exception as e:
             print (e)
