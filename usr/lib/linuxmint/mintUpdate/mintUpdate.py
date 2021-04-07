@@ -608,6 +608,8 @@ class InstallThread(threading.Thread):
                                            skip_taskbar_hint=True,
                                            skip_pager_hint=True,
                                            resizable=False,
+                                           modal=True,
+                                           window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
                                            transient_for=self.application.window)
                 box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, valign=Gtk.Align.CENTER)
                 spinner = Gtk.Spinner(active=True, height_request=32)
@@ -632,7 +634,7 @@ class InstallThread(threading.Thread):
                 needs_refresh = True
 
             if needs_refresh:
-                self.application.refresh()
+                GLib.timeout_add_seconds(1, self.application.refresh)
 
         except Exception as e:
             print (e)
