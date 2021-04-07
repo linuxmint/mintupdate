@@ -1849,21 +1849,21 @@ class MintUpdate():
 
                 if update.type == "cinnamon":
                     if update.spice_type == "applet":
-                        click_here_str = gettext.pgettext("The word 'here' will become a hyperlink, translate like 'Click here for...'",
-                                                          "Click [here](%s) for more information on this applet") % update.link
+                        # TRANSLATORS: The word 'here' will become a hyperlink, leave []() in place.'
+                        click_here_str = _("Click [here](%s) for more information on this applet.") % update.link
                     elif update.spice_type == "desklet":
-                        click_here_str = gettext.pgettext("The word 'here' will become a hyperlink, translate like 'Click here for...'",
-                                                          "Click [here](%s) for more information on this desklet") % update.link
+                        # TRANSLATORS: The word 'here' will become a hyperlink, leave []() in place.'
+                        click_here_str = _("Click [here](%s) for more information on this desklet.") % update.link
                     elif update.spice_type == "extension":
-                        click_here_str = gettext.pgettext("The word 'here' will become a hyperlink, translate like 'Click here for...'",
-                                                          "Click [here](%s) for more information on this extension") % update.link
+                        # TRANSLATORS: The word 'here' will become a hyperlink, leave []() in place.'
+                        click_here_str = _("Click [here](%s) for more information on this extension.") % update.link
                     else:
-                        click_here_str = gettext.pgettext("The word 'here' will become a hyperlink, translate like 'Click here for...'",
-                                                          "Click [here](%s) for more information on this theme") % update.link
+                        # TRANSLATORS: The word 'here' will become a hyperlink, leave []() in place.'
+                        click_here_str = _("Click [here](%s) for more information on this theme.") % update.link
 
                     gh_link = "https://github.com/linuxmint/cinnamon-spices-%ss/commits/master/%s" % (update.spice_type, update.uuid)
-                    latest_change_str = gettext.pgettext("This will end up as hyperlink text as part of 'Most recent change: blah blah change description'",
-                                                         "Most recent change")
+                    # TRANSLATORS: This will end up as hyperlink text as part of 'Most recent change: <description of change>.'
+                    latest_change_str = _("Most recent change")
                     desc = "%s\n\n%s\n\n[%s](%s): %s" % (description, click_here_str, latest_change_str, gh_link, update.commit_msg)
 
                     self.textview_description.set_text(desc)
