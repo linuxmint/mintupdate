@@ -2030,20 +2030,27 @@ class MintUpdate():
         window.set_icon_name("mintupdate")
         window.set_title(_("History of Updates"))
 
+        (COL_DATE, COL_TYPE, COL_NAME, COL_OLD_VER, COL_NEW_VER) = range(5)
+        model = Gtk.TreeStore(str, str, str, str, str)
+
         treeview = builder.get_object("treeview_history")
-        column_date = Gtk.TreeViewColumn(_("Date"), Gtk.CellRendererText(), text=1)
-        column_date.set_sort_column_id(1)
+        column_date = Gtk.TreeViewColumn(_("Date"), Gtk.CellRendererText(), text=COL_DATE)
+        column_date.set_sort_column_id(COL_DATE)
         column_date.set_resizable(True)
-        column_package = Gtk.TreeViewColumn(_("Package"), Gtk.CellRendererText(), text=0)
-        column_package.set_sort_column_id(0)
+        column_type = Gtk.TreeViewColumn(_("Type"), Gtk.CellRendererText(), text=COL_TYPE)
+        column_type.set_sort_column_id(COL_TYPE)
+        column_type.set_resizable(True)
+        column_package = Gtk.TreeViewColumn(_("Update"), Gtk.CellRendererText(), text=COL_NAME)
+        column_package.set_sort_column_id(COL_NAME)
         column_package.set_resizable(True)
-        column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(), text=2)
-        column_old_version.set_sort_column_id(2)
+        column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(), text=COL_OLD_VER)
+        column_old_version.set_sort_column_id(COL_OLD_VER)
         column_old_version.set_resizable(True)
-        column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(), text=3)
-        column_new_version.set_sort_column_id(3)
+        column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(), text=COL_NEW_VER)
+        column_new_version.set_sort_column_id(COL_NEW_VER)
         column_new_version.set_resizable(True)
         treeview.append_column(column_date)
+        treeview.append_column(column_type)
         treeview.append_column(column_package)
         treeview.append_column(column_old_version)
         treeview.append_column(column_new_version)
@@ -2053,25 +2060,16 @@ class MintUpdate():
         treeview.set_enable_search(True)
         treeview.show()
 
-        model = Gtk.TreeStore(str, str, str, str) # (packageName, date, oldVersion, newVersion)
-
         updates = []
+        apt_updates = []
+        cinnamon_updates = []
 
         if os.path.isfile("/var/log/dpkg.log"):
-            updates += subprocess.run('zgrep " upgrade " -sh /var/log/dpkg.log*',
+            apt_updates = subprocess.run('zgrep " upgrade " -sh /var/log/dpkg.log*',
                 stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)\
                 .stdout.decode().split("\n")
 
-        if CINNAMON_SUPPORT:
-            logfile = '%s/.cinnamon/updates.log' % os.path.expanduser("~")
-            if os.path.isfile(logfile):
-                updates += subprocess.run('grep " upgrade " -sh %s' % logfile,
-                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)\
-                    .stdout.decode().split("\n")
-
-        if updates != []:
-            updates.sort(reverse=True)
-            for pkg in updates:
+            for pkg in apt_updates:
                 values = pkg.split(" ")
                 if len(values) == 6:
                     (date, time, action, package, oldVersion, newVersion) = values
@@ -2081,15 +2079,44 @@ class MintUpdate():
                         package = package.split(":")[0]
 
                     iter = model.insert_before(None, None)
-                    model.set_value(iter, 0, package)
+                    model.set_value(iter, COL_NAME, package)
                     model.row_changed(model.get_path(iter), iter)
-                    model.set_value(iter, 1, "%s - %s" % (date, time))
-                    model.set_value(iter, 2, oldVersion)
-                    model.set_value(iter, 3, newVersion)
+                    model.set_value(iter, COL_DATE, "%s - %s" % (date, time))
+                    model.set_value(iter, COL_OLD_VER, oldVersion)
+                    model.set_value(iter, COL_NEW_VER, newVersion)
+                    model.set_value(iter, COL_TYPE, _("System"))
 
-        # model.set_sort_column_id( 1, Gtk.SortType.DESCENDING )
-        treeview.set_model(model)
-        del model
+        if CINNAMON_SUPPORT:
+            logfile = '%s/.cinnamon/harvester.log' % os.path.expanduser("~")
+            if os.path.isfile(logfile):
+                cinnamon_updates += subprocess.run('grep " upgrade " -sh %s' % logfile,
+                    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)\
+                    .stdout.decode().split("\n")
+
+                for pkg in cinnamon_updates:
+                    values = pkg.split(" ")
+                    if len(values) == 7:
+                        (date, time, spice_type, action, package, oldVersion, newVersion) = values
+                        if action != "upgrade" or oldVersion == newVersion:
+                            continue
+                        if ":" in package:
+                            package = package.split(":")[0]
+
+                        iter = model.insert_before(None, None)
+                        model.set_value(iter, COL_NAME, package)
+                        model.row_changed(model.get_path(iter), iter)
+                        model.set_value(iter, COL_DATE, "%s - %s" % (date, time))
+                        model.set_value(iter, COL_OLD_VER, oldVersion)
+                        model.set_value(iter, COL_NEW_VER, newVersion)
+                        model.set_value(iter, COL_TYPE, spice_type.title())
+
+        updates = apt_updates + cinnamon_updates
+
+        sorted_model = Gtk.TreeModelSort(model=model)
+        sorted_model.set_sort_column_id(COL_DATE, Gtk.SortType.DESCENDING)
+
+        treeview.set_model(sorted_model)
+
         def destroy_window(widget):
             self.history_window_showing = False
             window.destroy()
