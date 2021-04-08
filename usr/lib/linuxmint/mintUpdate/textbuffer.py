@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from gi.repository import Gdk, Gtk, Pango
+from gi.repository import Gdk, Gtk, Pango, GLib
 import re
 
 TAG_DEFINITIONS = {
@@ -71,7 +71,7 @@ class LinkableTextBuffer(Gtk.TextBuffer):
             self.links.append(link_entry)
             return link_entry.name
 
-        previous_text = text
+        previous_text = GLib.utf8_make_valid(text, -1)
         new_text = ""
         while True:
             new_text = re.sub(r'(?:\[)([\s\S]+?)(?:\]\()([\S]+?)(?:\))', match_func, previous_text, count=1)
