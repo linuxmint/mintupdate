@@ -35,7 +35,6 @@ from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
-import textbuffer
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -1317,13 +1316,8 @@ class MintUpdate():
             self.notebook_details = self.builder.get_object("notebook_details")
             self.textview_packages = self.builder.get_object("textview_packages").get_buffer()
 
-            tv = self.builder.get_object("textview_description")
-            self.textview_description = textbuffer.LinkableTextBuffer(tv)
-            tv.set_buffer(self.textview_description)
-
-            tv = self.builder.get_object("textview_changes")
-            self.textview_changes = textbuffer.LinkableTextBuffer(tv)
-            tv.set_buffer(self.textview_changes)
+            self.textview_description = self.builder.get_object("textview_description").get_buffer()
+            self.textview_changes = self.builder.get_object("textview_changes").get_buffer()
 
             self.paned = self.builder.get_object("paned1")
 
@@ -1892,23 +1886,8 @@ class MintUpdate():
                 desc_tab = self.notebook_details.get_nth_page(TAB_DESC)
 
                 if update.type == "cinnamon":
-                    if update.spice_type == "applet":
-                        # TRANSLATORS: The word 'here' will become a hyperlink, leave []() in place.'
-                        click_here_str = _("Click [here](%s) for more information on this applet.") % update.link
-                    elif update.spice_type == "desklet":
-                        # TRANSLATORS: The word 'here' will become a hyperlink, leave []() in place.'
-                        click_here_str = _("Click [here](%s) for more information on this desklet.") % update.link
-                    elif update.spice_type == "extension":
-                        # TRANSLATORS: The word 'here' will become a hyperlink, leave []() in place.'
-                        click_here_str = _("Click [here](%s) for more information on this extension.") % update.link
-                    else:
-                        # TRANSLATORS: The word 'here' will become a hyperlink, leave []() in place.'
-                        click_here_str = _("Click [here](%s) for more information on this theme.") % update.link
-
-                    gh_link = "https://github.com/linuxmint/cinnamon-spices-%ss/commits/master/%s" % (update.spice_type, update.uuid)
-                    # TRANSLATORS: This will end up as hyperlink text as part of 'Most recent change: <description of change>.'
                     latest_change_str = _("Most recent change")
-                    desc = "%s\n\n%s\n\n[%s](%s): %s" % (description, click_here_str, latest_change_str, gh_link, update.commit_msg)
+                    desc = "%s\n\n%s: %s" % (description, latest_change_str, update.commit_msg)
 
                     self.textview_description.set_text(desc)
 
