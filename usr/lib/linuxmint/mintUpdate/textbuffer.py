@@ -4,7 +4,8 @@ from gi.repository import Gdk, Gtk, Pango
 import re
 
 TAG_DEFINITIONS = {
-    'link': {'underline': Pango.Underline.SINGLE, 'foreground': 'blue'}
+     # This color seems readable in light and dark themes, simple 'blue' does not
+    'link': {'foreground': '#038cfc'}
 }
 
 class Link():

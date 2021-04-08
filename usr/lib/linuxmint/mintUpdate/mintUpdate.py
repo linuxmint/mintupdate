@@ -749,7 +749,7 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("tool_apply").set_sensitive(False)
 
             # Starts the blinking
-            self.application.set_status("", _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
+            self.application.set_status(_("Checking for system updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
             Gdk.threads_leave()
 
             model = Gtk.TreeStore(bool, str, str, str, str, int, str, str, str, str, str, object)
@@ -770,42 +770,17 @@ class RefreshThread(threading.Thread):
             if CINNAMON_SUPPORT:
                 if self.root_mode:
                     self.application.logger.write("Refreshing available Cinnamon updates from the server")
-                    spices_refresh_window = None
 
-                    if not self.application.app_hidden():
-                        Gdk.threads_enter()
-                        spices_refresh_window = Gtk.Window(title=_("Downloading list of Cinnamon updates"),
-                                                           default_width=400,
-                                                           default_height=100,
-                                                           deletable=False,
-                                                           skip_taskbar_hint=True,
-                                                           skip_pager_hint=True,
-                                                           resizable=False,
-                                                           modal=True,
-                                                           window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
-                                                           transient_for=self.application.window)
-                        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
-                                      spacing=10,
-                                      margin=10,
-                                      valign=Gtk.Align.CENTER)
-                        spinner = Gtk.Spinner(active=True, height_request=32)
-                        box.pack_start(spinner, False, False, 0)
-                        label = Gtk.Label(label=_("Checking the Cinnamon Spices website for any updates"))
-                        box.pack_start(label, False, False, 0)
-                        spices_refresh_window.add(box)
-                        spices_refresh_window.show_all()
-                        Gdk.threads_leave()
+                    for spice_type in cinnamon.updates.SPICE_TYPES:
+                        try:
+                            self.application.logger.write("Refreshing available Cinnamon %s from the server" % spice_type)
+                            self.application.set_status_message(_("Checking for updated Cinnamon Spices: %ss") % spice_type.title())
+                            self.application.cinnamon_updater.refresh_cache_for_type(spice_type)
+                        except:
+                            self.application.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
+                            print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
 
-                    try:
-                        self.application.cinnamon_updater.refresh_cache()
-                    except:
-                        self.application.logger.write_error("Something went wrong fetching Cinnamon updates: %s" % str(sys.exc_info()[0]))
-                        print("-- Exception occurred fetching Cinnamon updates:\n%s" % traceback.format_exc())
-
-                    if spices_refresh_window != None:
-                        Gdk.threads_enter()
-                        spices_refresh_window.destroy()
-                        Gdk.threads_leave()
+            self.application.set_status_message(_("Processing updates"))
 
             if os.getenv("MINTUPDATE_TEST") == None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
