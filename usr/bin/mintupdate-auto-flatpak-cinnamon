@@ -1,0 +1,74 @@
+#!/usr/bin/python3
+
+import subprocess
+import os
+
+import gi
+from gi.repository import GLib, Gio
+
+def do_flatpak_updates():
+    print("Checking if flatpak and libflatpak are installed")
+    try:
+        gi.require_version('Flatpak', '1.0')
+        from gi.repository import Flatpak
+
+        if not GLib.find_program_in_path("flatpak"):
+            raise Exception
+    except Exception as e:
+        print("Flatpak not installed or not working: %s" % e)
+        return
+
+    from mintcommon.installer import _flatpak
+
+    print("Updating flatpaks")
+    out = subprocess.run(["flatpak", "update", "-y"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+    print(out.stdout.decode())
+
+    print("Checking for theme changes")
+    theme_refs = _flatpak.get_updated_theme_refs()
+
+    if not theme_refs:
+        print("No theme packages to install, exiting")
+        exit(0)
+
+    print("Installing new theme package(s) to match system themes")
+    for ref in theme_refs:
+        name = ref.get_name()
+        remote = ref.get_remote_name()
+
+        out = subprocess.run(["flatpak", "install", "-y", remote, name], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+        print(out.stdout.decode())
+
+    print("Done with flatpak updates")
+
+def do_spice_updates():
+    print("Updating Cinnamon Spices")
+    try:
+        out = subprocess.run(["cinnamon-spice-updater", "--update-all"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        print(out.stdout.decode())
+    except Exception as e:
+        print("Something went wrong updating cinnamon spices: %s" % e)
+
+if __name__ == "__main__":
+    if os.getuid() == 0:
+        print("Error: Do not run this as root")
+        exit(1)
+
+    settings = Gio.Settings(schema_id="com.linuxmint.updates")
+    update_flatpaks = settings.get_boolean("auto-update-flatpaks")
+    update_spices = settings.get_boolean("auto-update-cinnamon-spices")
+
+    if update_flatpaks:
+        do_flatpak_updates()
+    if update_spices:
+        do_spice_updates()
+
+    exit(0)
+
+
+
+
+
+
