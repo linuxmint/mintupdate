@@ -2339,7 +2339,7 @@ class MintUpdate():
         box = builder.get_object("page_auto_inner")
         page = SettingsPage()
         box.pack_start(page, True, True, 0)
-        section = page.add_section(_("Automatic Updates"), _("This option is run as root on a daily basis"))
+        section = page.add_section(_("Package Updates"), _("This option is run as root on a daily basis"))
         autoupgrade_switch = Switch(_("Apply updates automatically"))
         autoupgrade_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
         autoupgrade_switch.content_widget.connect("notify::active", self.set_auto_upgrade)
@@ -2351,6 +2351,21 @@ class MintUpdate():
         button.set_tooltip_text(_("Click this button for automatic updates to use your current blacklist."))
         button.connect("clicked", self.export_blacklist)
         section.add_row(button)
+        additional_options = []
+        if os.path.exists("/usr/bin/cinnamon"):
+            switch = GSettingsSwitch(_("Update Cinnamon spices automatically"), "com.linuxmint.updates", "auto-update-cinnamon-spices")
+            additional_options.append(switch)
+        if os.path.exists("/usr/bin/flatpak"):
+            switch = GSettingsSwitch(_("Update flatpaks automatically"), "com.linuxmint.updates", "auto-update-flatpaks")
+            additional_options.append(switch)
+        if len(additional_options) > 1:
+            section = page.add_section(_("Other Updates"), _("These options are run when you log in"))
+            for switch in additional_options:
+                section.add_row(switch)
+        elif len(additional_options) > 0:
+            section = page.add_section(_("Other Updates"), _("This option is run when you log in"))
+            for switch in additional_options:
+                section.add_row(switch)
         section = page.add_section(_("Automatic Maintenance"), _("This option is run as root on a weekly basis"))
         autoremove_switch = Switch(_("Remove obsolete kernels and dependencies"))
         autoremove_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["autoremove"][0]))
