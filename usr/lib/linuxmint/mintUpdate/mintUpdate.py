@@ -765,11 +765,9 @@ class RefreshThread(threading.Thread):
             if CINNAMON_SUPPORT:
                 if self.root_mode:
                     self.application.logger.write("Refreshing available Cinnamon updates from the server")
-
+                    self.application.set_status_message(_("Checking for Cinnamon spices"))
                     for spice_type in cinnamon.updates.SPICE_TYPES:
                         try:
-                            self.application.logger.write("Refreshing available Cinnamon %s from the server" % spice_type)
-                            self.application.set_status_message(_("Checking for updated Cinnamon Spices: %ss") % spice_type.title())
                             self.application.cinnamon_updater.refresh_cache_for_type(spice_type)
                         except:
                             self.application.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
