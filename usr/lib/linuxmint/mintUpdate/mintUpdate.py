@@ -628,23 +628,19 @@ class InstallThread(threading.Thread):
                     Gdk.threads_leave()
                     self.application.cinnamon_updater.upgrade(update)
 
-                Gdk.threads_enter()
-                repl_string = "" if len(cinnamon_spices) == 1 else cinnamon_spices[0].spice_type.title()
-                # TRANSLATORS: The %s argument will only be used for the singular string. The plural will be one of Applet, Desklet, Extension or Theme.
-                restart_msg = gettext.ngettext("Restarting Cinnamon to finish applying %s update",
-                                               "Restarting Cinnamon to finish applying Spice updates%s", len(cinnamon_spices)) \
-                                                   % cinnamon_spices[0].spice_type.title()
-                label.set_text(restart_msg)
-                spinner.hide()
+                if os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
+                    Gdk.threads_enter()
+                    label.set_text(_("Restarting Cinnamon"))
+                    spinner.hide()
+                    Gdk.threads_leave()
 
-                Gdk.threads_leave()
-                # Keep the dialog from looking funky before it freezes during the restart
-                time.sleep(.25)
-                subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
+                    # Keep the dialog from looking funky before it freezes during the restart
+                    time.sleep(.25)
+                    subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
 
-                # We want to be back from the restart before refreshing or else it looks bad. Restarting can
-                # take a bit longer than the restart command before it's properly 'running' again.
-                time.sleep(2)
+                    # We want to be back from the restart before refreshing or else it looks bad. Restarting can
+                    # take a bit longer than the restart command before it's properly 'running' again.
+                    time.sleep(2)
 
                 Gdk.threads_enter()
                 spices_install_window.destroy()
