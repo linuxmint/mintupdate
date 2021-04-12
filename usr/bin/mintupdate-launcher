@@ -48,6 +48,9 @@ def update_flatpak():
             gi.require_version('Flatpak', '1.0')
             from gi.repository import Flatpak
             from mintcommon.installer import _flatpak
+            # Remove unused flatpak runtimes
+            out = subprocess.run(["flatpak", "uninstall", "--unused", "-y"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            print(out.stdout.decode())
             # Update flatpaks
             out = subprocess.run(["flatpak", "update", "-y"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             print(out.stdout.decode())
