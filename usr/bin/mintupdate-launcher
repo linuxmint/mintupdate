@@ -1,7 +1,56 @@
 #!/usr/bin/python3
-
+import gi
 import os
+import subprocess
 import xapp.os
+from gi.repository import GLib, Gio
 
-if ((not xapp.os.is_live_session()) and (not xapp.os.is_guest_session())):
-	os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py &")
+def update_cinnamon_spices():
+    print("Updating Cinnamon Spices")
+    try:
+        out = subprocess.run(["cinnamon-spice-updater", "--update-all"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        print(out.stdout.decode())
+    except Exception as e:
+        print("An error occurred while updating cinnamon spices: %s" % e)
+
+def update_flatpak():
+    print("Updating flatpaks")
+    try:
+        gi.require_version('Flatpak', '1.0')
+        from gi.repository import Flatpak
+        if not GLib.find_program_in_path("flatpak"):
+            raise Exception
+    except Exception as e:
+        print("Flatpak not installed or not working: %s" % e)
+        return
+
+    try:
+        from mintcommon.installer import _flatpak
+        # Update flatpaks
+        out = subprocess.run(["flatpak", "update", "-y"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        print(out.stdout.decode())
+        # Install theme if needed
+        theme_refs = _flatpak.get_updated_theme_refs()
+        if theme_refs != None:
+            print("Installing new theme to match local theme")
+            for ref in theme_refs:
+                out = subprocess.run(["flatpak", "install", "-y", ref.get_remote_name(), ref.get_name()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                print(out.stdout.decode())
+    except Exception as e:
+        print("An error occurred while updating flatpaks: %s" % e)
+
+if __name__ == "__main__":
+    if os.getuid() == 0:
+        print("Error: Do not run this as root")
+        exit(1)
+
+    if ((not xapp.os.is_live_session()) and (not xapp.os.is_guest_session())):
+        settings = Gio.Settings(schema_id="com.linuxmint.updates")
+        # Update Cinnamon spices
+        if settings.get_boolean("auto-update-cinnamon-spices"):
+            update_cinnamon_spices()
+        # Update flatpak
+        if settings.get_boolean("auto-update-flatpaks"):
+            update_flatpak()
+        # Launch mintupdate
+        os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py &")
