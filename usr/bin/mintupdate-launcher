@@ -1,12 +1,26 @@
 #!/usr/bin/python3
 from functools import wraps
 import errno
+import gettext
 import gi
+import locale
 import os
 import signal
 import subprocess
+import time
 import xapp.os
-from gi.repository import GLib, Gio
+gi.require_version('Notify', '0.7')
+from gi.repository import GLib, Gio, Notify
+
+# i18n
+APP = 'mintupdate'
+LOCALE_DIR = "/usr/share/locale"
+locale.bindtextdomain(APP, LOCALE_DIR)
+gettext.bindtextdomain(APP, LOCALE_DIR)
+gettext.textdomain(APP)
+_ = gettext.gettext
+
+Notify.init(_("Update Manager"))
 
 class TimeoutError(Exception):
     pass
@@ -32,11 +46,29 @@ def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
 
 @timeout(600)
 def update_cinnamon_spices():
-    if os.path.exists("/usr/bin/cinnamon-spice-updater"):
+    if os.path.exists("/usr/bin/cinnamon"):
         print("Updating Cinnamon Spices")
         try:
-            out = subprocess.run(["cinnamon-spice-updater", "--update-all"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            print(out.stdout.decode())
+            import cinnamon
+            updater = cinnamon.UpdateManager()
+            updater.refresh_all_caches()
+            updates = updater.get_updates()
+            if len(updates) > 0:
+                msg = _("The following spices were automatically updated:")
+                msg = msg + "\n"
+                for update in updates:
+                    updater.upgrade(update)
+                    msg += "\n- %s (%s)" % (update.uuid, update.spice_type)
+
+                if xapp.os.is_desktop_cinnamon():
+                    subprocess.call(["cinnamon-dbus-command", "RestartCinnamon", "0"])
+                    time.sleep(10) # Give cinnamon some time, otherwise it won't show our notification.
+                    msg = "%s\n\n%s" % (msg, _("Cinnamon was restarted to reload them."))
+                    notification_title = _("Cinnamon was restarted")
+                    notification = Notify.Notification.new(notification_title, msg, "cinnamon-symbolic")
+                    notification.set_urgency(2)
+                    notification.set_timeout(Notify.EXPIRES_NEVER)
+                    notification.show()
         except Exception as e:
             print("An error occurred while updating cinnamon spices: %s" % e)
 
