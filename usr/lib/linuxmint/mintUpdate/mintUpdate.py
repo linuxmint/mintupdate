@@ -2098,7 +2098,7 @@ class MintUpdate():
                     model.set_value(iter, COL_DATE, "%s - %s" % (date, time))
                     model.set_value(iter, COL_OLD_VER, oldVersion)
                     model.set_value(iter, COL_NEW_VER, newVersion)
-                    model.set_value(iter, COL_TYPE, _("System"))
+                    model.set_value(iter, COL_TYPE, _("package"))
 
         if CINNAMON_SUPPORT:
             logfile = '%s/.cinnamon/harvester.log' % os.path.expanduser("~")
@@ -2122,7 +2122,7 @@ class MintUpdate():
                         model.set_value(iter, COL_DATE, "%s - %s" % (date, time))
                         model.set_value(iter, COL_OLD_VER, oldVersion)
                         model.set_value(iter, COL_NEW_VER, newVersion)
-                        model.set_value(iter, COL_TYPE, spice_type.title())
+                        model.set_value(iter, COL_TYPE, spice_type)
 
         updates = apt_updates + cinnamon_updates
 
