@@ -744,7 +744,7 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("tool_apply").set_sensitive(False)
 
             # Starts the blinking
-            self.application.set_status(_("Checking for system updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
+            self.application.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
             Gdk.threads_leave()
 
             model = Gtk.TreeStore(bool, str, str, str, str, int, str, str, str, str, str, object)
