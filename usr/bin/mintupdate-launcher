@@ -1,10 +1,36 @@
 #!/usr/bin/python3
+from functools import wraps
+import errno
 import gi
 import os
+import signal
 import subprocess
 import xapp.os
 from gi.repository import GLib, Gio
 
+class TimeoutError(Exception):
+    pass
+
+# Limit the amount of time a function can run
+def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
+    def decorator(func):
+        def _handle_timeout(signum, frame):
+            raise TimeoutError(error_message)
+
+        def wrapper(*args, **kwargs):
+            signal.signal(signal.SIGALRM, _handle_timeout)
+            signal.alarm(seconds)
+            try:
+                result = func(*args, **kwargs)
+            finally:
+                signal.alarm(0)
+            return result
+
+        return wraps(func)(wrapper)
+
+    return decorator
+
+@timeout(600)
 def update_cinnamon_spices():
     if os.path.exists("/usr/bin/cinnamon-spice-updater"):
         print("Updating Cinnamon Spices")
@@ -14,6 +40,7 @@ def update_cinnamon_spices():
         except Exception as e:
             print("An error occurred while updating cinnamon spices: %s" % e)
 
+@timeout(600)
 def update_flatpak():
     if os.path.exists("/usr/bin/flatpak"):
         print("Updating flatpaks")
