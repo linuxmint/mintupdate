@@ -1818,18 +1818,8 @@ class MintUpdate():
             self.save_window_size()
             self.window.hide()
         else:
-            if not self.window.get_visible():
-                self.window.present()
-            else:
-                # When there is more than one monitor, either gtk or
-                # window managers (I've seen this in cinnamon, mate, xfce)
-                # get confused if the mintupdate window is topmost on one
-                # monitor, but the current focus is actually a window in
-                # another monitor.  Focusing makes sure this window will
-                # become 'active' for purposes of the hiding code above.
-
-                self.window.get_window().raise_()
-                self.window.get_window().focus(time)
+            self.window.show()
+            self.window.present_with_time(time)
 
     def on_appindicator_activated(self, widget):
         self.tray_activate()
