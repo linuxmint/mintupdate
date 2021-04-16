@@ -63,7 +63,6 @@ def update_cinnamon_spices():
                 if xapp.os.is_desktop_cinnamon():
                     subprocess.call(["cinnamon-dbus-command", "RestartCinnamon", "0"])
                     time.sleep(10) # Give cinnamon some time, otherwise it won't show our notification.
-                    msg = "%s\n\n%s" % (msg, _("Cinnamon was restarted to reload them."))
                     notification_title = _("Cinnamon was restarted")
                     notification = Notify.Notification.new(notification_title, msg, "cinnamon-symbolic")
                     notification.set_urgency(2)

@@ -2333,7 +2333,7 @@ class MintUpdate():
         box = builder.get_object("page_auto_inner")
         page = SettingsPage()
         box.pack_start(page, True, True, 0)
-        section = page.add_section(_("Package Updates"), _("This option is run as root on a daily basis"))
+        section = page.add_section(_("Package Updates"), _("Done as root on a daily basis"))
         autoupgrade_switch = Switch(_("Apply updates automatically"))
         autoupgrade_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
         autoupgrade_switch.content_widget.connect("notify::active", self.set_auto_upgrade)
@@ -2352,15 +2352,11 @@ class MintUpdate():
         if os.path.exists("/usr/bin/flatpak"):
             switch = GSettingsSwitch(_("Update flatpaks automatically"), "com.linuxmint.updates", "auto-update-flatpaks")
             additional_options.append(switch)
-        if len(additional_options) > 1:
-            section = page.add_section(_("Other Updates"), _("These options are run when you log in"))
+        if len(additional_options) > 0:
+            section = page.add_section(_("Other Updates"), _("Done when you log in"))
             for switch in additional_options:
                 section.add_row(switch)
-        elif len(additional_options) > 0:
-            section = page.add_section(_("Other Updates"), _("This option is run when you log in"))
-            for switch in additional_options:
-                section.add_row(switch)
-        section = page.add_section(_("Automatic Maintenance"), _("This option is run as root on a weekly basis"))
+        section = page.add_section(_("Automatic Maintenance"), _("Done as root on a weekly basis"))
         autoremove_switch = Switch(_("Remove obsolete kernels and dependencies"))
         autoremove_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["autoremove"][0]))
         autoremove_switch.content_widget.connect("notify::active", self.set_auto_remove)
