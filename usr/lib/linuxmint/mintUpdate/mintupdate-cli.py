@@ -24,7 +24,7 @@ if __name__ == "__main__":
         return False
 
     parser = argparse.ArgumentParser(prog="mintupdate-cli")
-    parser.add_argument("command", help="command to run (possible commands are: list, upgrade)")
+    parser.add_argument("command", help="command to run (possible commands are: list, upgrade, download)")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-k", "--only-kernel", action="store_true", help="only include kernel updates")
@@ -72,11 +72,13 @@ if __name__ == "__main__":
         if args.command == "list":
             for update in updates:
                 print ("%-15s %-45s %s" % (update.type, update.source_name, update.new_version))
-        elif args.command == "upgrade":
+        elif args.command == "upgrade" or "download":
             packages = []
             for update in updates:
                 packages += update.package_names
             arguments = ["apt-get", "install"]
+            if(args.command == "download"):
+                arguments.append("--download-only")
             if args.dry_run:
                 arguments.append("--simulate")
             if args.yes:

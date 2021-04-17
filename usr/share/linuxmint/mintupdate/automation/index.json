@@ -2,5 +2,6 @@
     "upgrade": ["/etc/systemd/system/timers.target.wants/mintupdate-automation-upgrade.timer", "systemd"],
     "blacklist": ["/etc/mintupdate.blacklist", "Blacklist"],
     "autoremove": ["/etc/systemd/system/timers.target.wants/mintupdate-automation-autoremove.timer", "systemd"],
-    "clean": ["/etc/apt/apt.conf.d/99_mintupdate_clean", "apt-daily config"]
+    "clean": ["/etc/apt/apt.conf.d/99_mintupdate_clean", "apt-daily config"],
+    "download": ["/etc/systemd/system/timers.target.wants/mintupdate-automation-download.timer", "systemd"]
 }

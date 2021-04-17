@@ -2328,6 +2328,10 @@ class MintUpdate():
         autoupgrade_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
         autoupgrade_switch.content_widget.connect("notify::active", self.set_auto_upgrade)
         section.add_row(autoupgrade_switch)
+        autodownload_switch = Switch(_("Download updates automatically"))
+        autodownload_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["download"][0]))
+        autodownload_switch.content_widget.connect("notify::active", self.set_auto_download)
+        section.add_row(autodownload_switch)
         button = Gtk.Button(label=_("Export blacklist to /etc/mintupdate.blacklist"))
         button.set_margin_start(20)
         button.set_margin_end(20)
@@ -2381,6 +2385,18 @@ class MintUpdate():
         if action:
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "upgrade", action])
         if widget.get_active() != os.path.isfile(AUTOMATIONS["upgrade"][0]):
+            widget.set_active(not widget.get_active())
+
+    def set_auto_download(self, widget, param):
+        exists = os.path.isfile(AUTOMATIONS["download"][0])
+        action = None
+        if widget.get_active() and not exists:
+            action = "enable"
+        elif not widget.get_active() and exists:
+            action = "disable"
+        if action:
+            subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "download", action])
+        if widget.get_active() != os.path.isfile(AUTOMATIONS["download"][0]):
             widget.set_active(not widget.get_active())
 
     def set_auto_remove(self, widget, param):

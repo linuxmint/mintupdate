@@ -10,7 +10,7 @@ if not os.getuid() == 0:
     print("This command needs to be run as root or with sudo.")
     sys.exit(1)
 
-if len(sys.argv) != 3 or sys.argv[1] not in ("upgrade", "autoremove", "blacklist") or sys.argv[2] not in ("enable", "disable"):
+if len(sys.argv) != 3 or sys.argv[1] not in ("upgrade", "autoremove", "blacklist", "download") or sys.argv[2] not in ("enable", "disable"):
     print("Bad arguments")
     sys.exit(1)
 
