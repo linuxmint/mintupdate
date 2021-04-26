@@ -14,10 +14,12 @@ log.flush()
 pkla_source = "/usr/share/linuxmint/mintupdate/automation/99-mintupdate-temporary.pkla"
 pkla_target = "/etc/polkit-1/localauthority/90-mandatory.d/99-mintupdate-temporary.pkla"
 try:
-    powersupply = open(power_connectfile).read()[0]=='1'
+    power_supply_file = open(power_connectfile)
+    powersupply = power_supply_file.read()[0]=='1'
+    power_supply_file.close()
 except:
     powersupply = True
-    print("exception")
+    log.write(power_connectfile+" not found. Ignore power supply check.")
 if powersupply:
     try:
         # Put shutdown and reboot blocker into place
