@@ -2188,6 +2188,7 @@ class MintUpdate():
         builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         window = builder.get_object("main_window")
+        window.set_transient_for(self.window)
         window.set_title(_("Preferences"))
         window.set_icon_name("mintupdate")
         window.connect("destroy", self.close_preferences, window)
