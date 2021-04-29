@@ -3,7 +3,11 @@
 import os
 import subprocess
 import time
+import argparse
 
+parser = argparse.ArgumentParser(description="Script for automatic Upgrades")
+parser.add_argument("-d", "--only-download", action="store_true", help="only download upgrades and do not install them.")
+args=parser.parse_args()
 optionsfile = "/etc/mintupdate-automatic-upgrades.conf"
 logfile = "/var/log/mintupdate.log"
 log = open(logfile, "a")
@@ -32,6 +36,8 @@ try:
     cmd = ["/bin/systemd-inhibit", '--why="Performing automatic updates"',
            '--who="Update Manager"',  "--what=shutdown", "--mode=block",
            "/usr/bin/mintupdate-cli", "upgrade", "--refresh-cache", "--yes"]
+    if(args.only_download):
+        cmd[6] = "download"
     cmd.extend(arguments)
     subprocess.run(cmd, stdout=log, stderr=log)
 
