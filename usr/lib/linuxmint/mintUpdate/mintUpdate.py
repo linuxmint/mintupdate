@@ -438,9 +438,9 @@ class InstallThread(threading.Thread):
                 iter = model.iter_next(iter)
 
             needs_refresh = False
+            proceed = True
 
             if aptInstallNeeded:
-                proceed = True
                 try:
                     pkgs = ' '.join(str(pkg) for pkg in packages)
                     warnings = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs, shell = True).decode("utf-8")
@@ -598,7 +598,7 @@ class InstallThread(threading.Thread):
                         self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
                         Gdk.threads_leave()
 
-            if len(cinnamon_spices) > 0:
+            if proceed and len(cinnamon_spices) > 0:
                 Gdk.threads_enter()
                 spices_install_window = Gtk.Window(title=_("Updating Cinnamon Spices"),
                                            default_width=400,
