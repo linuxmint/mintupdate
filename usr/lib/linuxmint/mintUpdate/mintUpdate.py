@@ -432,6 +432,9 @@ class InstallThread(threading.Thread):
                     if update.type == "kernel" and \
                        [True for pkg in update.package_names if "-image-" in pkg]:
                         self.reboot_required = True
+                    if update.type == "security" and \
+                       [True for pkg in update.package_names if "nvidia" in pkg]:
+                       self.reboot_required = True
                     for package in update.package_names:
                         packages.append(package)
                         self.application.logger.write("Will install " + str(package))
@@ -628,7 +631,7 @@ class InstallThread(threading.Thread):
                     Gdk.threads_leave()
                     self.application.cinnamon_updater.upgrade(update)
 
-                if os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
+                if (not self.reboot_required) and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
                     Gdk.threads_enter()
                     label.set_text(_("Restarting Cinnamon"))
                     spinner.hide()
