@@ -1,3 +1,62 @@
+mintupdate (5.7.4) uma; urgency=medium
+
+  [ Eric ]
+  * Fixed #656: upgrade warnings checkbox now works as expected
+
+  [ agent-redd ]
+  * Bugfix for "CVE Tracker" Link
+
+  [ Thomas Uhle ]
+  * Packaging: Adapt dependencies to reflect the switch from cron to systemd timers
+
+  [ Clement Lefebvre ]
+  * mintupdate-cli: Update description for install-recommends
+  * Record the last time the apply-updates button was pressed
+  * Depecations: Replace parser.unescape with html.unescape
+  * Present the window if the welcome screen needs to be acknowledged
+  * Remove unnecessary variable
+  * Simplify refresh thread
+  * Add tests for various cases
+  * Fix insensitive update button in self-update case
+  * Simplify refresh thread
+  * Add a test case for the apt policy
+  * Refactor code around mint layer detection
+  * test: Fix /lib copy call on merged systems
+  * Keep track of updates over time
+  * Notify user when updates are too old
+  * Add a setting to disable notifications
+  * Improve notification system
+  * Fix exception handling
+
+  [ Butterfly ]
+  * Always mark Chromium updates as security updates (#664)
+
+  [ Clement Lefebvre ]
+  * Fix a regression in previous commits
+  * Notifications: Fix i18n with ngettext
+
+  [ Michael Webster ]
+  * mintUpdate.py: Fix status icon activation.
+
+  [ Clement Lefebvre ]
+  * Add support for Cinnamon spices (#670)
+
+  [ Michael Webster ]
+  * mintUpdate.py: Set the transient-for property on the preferences window so it stays on top of and visible with the main window.
+
+  [ johanw ]
+  * No Updates without Power Supply
+  * Fixed some small bugs
+
+  [ Michael Webster ]
+  * mintUpdate.py: If the upgrade gets aborted by the user, abort the cinnamon updates also.
+  * Make nvidia driver updates require a reboot. Don't restart cinnamon if a reboot is neeed.
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 04 Jun 2021 11:53:32 +0100
+
 mintupdate (5.7.3) ulyssa; urgency=medium
 
   * rel_upgrade_root: Handle package additions/removals
