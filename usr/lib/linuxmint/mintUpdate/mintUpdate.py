@@ -691,8 +691,7 @@ class RefreshThread(threading.Thread):
 
     def show_window(self):
         Gdk.threads_enter()
-        if not self.application.window.get_visible():
-            self.application.window.present()
+        self.application.window.present_with_time(Gtk.get_current_event_time())
         Gdk.threads_leave()
 
     def on_notification_action(self, notification, action_name, data):
@@ -1636,7 +1635,7 @@ class MintUpdate():
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if showWindow == "show":
-                    self.window.present()
+                    self.window.present_with_time(Gtk.get_current_event_time())
 
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
@@ -2177,7 +2176,7 @@ class MintUpdate():
             window.set_transient_for(self.window)
 
         window.show_all()
-        window.present()
+        window.present_with_time(Gtk.get_current_event_time())
 
 ######### PREFERENCES SCREEN #########
 
