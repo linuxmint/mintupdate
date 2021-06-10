@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-11-13 13:01+0100\n"
-"PO-Revision-Date: 2019-10-16 19:57+0000\n"
-"Last-Translator: Mats Larsen <Unknown>\n"
+"PO-Revision-Date: 2021-03-22 21:22+0000\n"
+"Last-Translator: Emil Våge <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2021-01-02 14:09+0000\n"
-"X-Generator: Launchpad (build 34b3ffd45c9543b7f7aa5aa313925241e9e7ca3f)\n"
+"X-Launchpad-Export-Date: 2021-06-09 14:13+0000\n"
+"X-Generator: Launchpad (build b45bdbe3a00b6b668fa7f2069bd545c35c41f7f4)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -249,24 +249,24 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:27(title)
 msgid "Listing updates"
-msgstr ""
+msgstr "Lister oppdateringer"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:29(p)
 msgid "You can use the \"list\" command to list updates:"
-msgstr ""
+msgstr "Du kan bruke \"list\" kommandoen for å liste oppdateringer:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr ""
+msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid "You can use -s to only show the security updates."
-msgstr ""
+msgstr "Du kan bruke -s for å bare vise sikkerhetsoppdateringer"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr ""
+msgstr "Du kan bruke -k for å bare vise kerneloppdateringer"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
@@ -275,11 +275,11 @@ msgstr "For eksempel, viser følgende kommando alle sikkerhetsoppdateringer:"
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(screen)
 #, no-wrap
 msgid "mintupdate-cli list -s"
-msgstr ""
+msgstr "mintupdate-cli list -s"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:45(title)
 msgid "Applying updates"
-msgstr ""
+msgstr "Utfører oppdateringer"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:47(p)
 msgid ""
@@ -288,12 +288,12 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr ""
+msgstr "For eksempel, den følgende kommandoen utfører kerneloppdateringer"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
 msgid "sudo mintupdate-cli upgrade -r -k"
-msgstr ""
+msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
@@ -304,20 +304,22 @@ msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
 msgstr ""
+"For mer informasjon om mintupdate-cli og en komplett liste over kommandoer "
+"skriv inn:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:57(screen)
 #, no-wrap
 msgid "mintupdate-cli -h"
-msgstr ""
+msgstr "mintupdate-cli -h"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr ""
+msgstr "Kernel og kerneloppdateringer"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Kernel updates"
-msgstr ""
+msgstr "Kerneloppdateringer"
 
 #: usr/share/help/C/mintupdate/kernels.page:21(p)
 msgid ""
@@ -506,12 +508,17 @@ msgid ""
 "Updates are important because they keep your computer safe, eliminate bugs "
 "and can even add new features to your operating system."
 msgstr ""
+"Oppdateringer er viktige fordi de gjør datamaskinen din tryggere, fjerner "
+"ustabilitet fra programvare  og kan legge til ny funksjonalitet til "
+"operativsystemet."
 
 #: usr/share/help/C/mintupdate/index.page:24(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
 msgstr ""
+"Dessverre introduserer de noen ganger også nye problemer kalt 'regresjoner', "
+"som kan ødelegge ting som fungerte bra før."
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
@@ -519,26 +526,30 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"For å holde datamaskinen trygg og i god stand, anbefales det å bruke alle "
+"tilgjengelige oppdateringer og sette opp øyeblikksbilder av systemet, slik "
+"at du kan gjenopprette systemet i tilfelle noe går galt."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
-msgstr ""
+msgstr "Kjernekonsepter"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
 msgstr ""
+"Denne delen forklarer kjernekonseptene knyttet til programvareoppdateringer."
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains kernel updates."
-msgstr ""
+msgstr "Denne seksjonen forklarer kjerneoppdateringer."
 
 #: usr/share/help/C/mintupdate/index.page:41(title)
 msgid "Advanced techniques"
-msgstr ""
+msgstr "Avanserte teknikker"
 
 #: usr/share/help/C/mintupdate/index.page:43(p)
 msgid "This section explains advanced techniques."
-msgstr ""
+msgstr "Denne delen forklarer avanserte teknikker."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: usr/share/help/C/mintupdate/index.page:0(None)
@@ -567,11 +578,11 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #, python-format
 msgid "Linux kernel %s"
-msgstr ""
+msgstr "Linux kjernen %s"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 msgid "The Linux kernel."
-msgstr ""
+msgstr "Linux kjernen."
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 msgid ""
@@ -584,6 +595,14 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
+"Linuxkjernen er ansvarlig for maskinvare og drivere. Merk at denne "
+"oppdateringen ikke vil fjerne den eksisterende kjernen. Du vil fortsatt "
+"kunne starte med den nåværende kjernen ved å velge de avanserte "
+"alternativene i oppstartsmenyen. Vær imidlertid forsiktig .. "
+"Kjerneregresjoner kan påvirke muligheten til å koble deg til Internett eller "
+"logge på grafisk. DKMS moduler er utarbeidet for de fleste nyere kjerner som "
+"er installert på datamaskinen. Hvis du bruker proprietære drivere og du vil "
+"bruke en eldre kjerne, må du fjerne den nye først."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
@@ -624,19 +643,19 @@ msgstr "Er du sikker på at du vil installere kjerne %s?"
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 msgid "Kernels"
-msgstr ""
+msgstr "Kjerner"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
 msgid "Remove Kernels"
-msgstr ""
+msgstr "Fjern kjerner"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 msgid "Perform Queued Actions"
-msgstr ""
+msgstr "Utfør handlinger i køen"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:429
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:432
 msgid "Installed"
@@ -644,19 +663,19 @@ msgstr "Installert"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 msgid "Supported until"
-msgstr ""
+msgstr "Støttet til"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Superseded"
-msgstr ""
+msgstr "Erstattet"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:525
 msgid "End of Life"
-msgstr ""
+msgstr "Slutt på støtte"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:527
 msgid "Unsupported"
-msgstr ""
+msgstr "Ikke støttet"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 msgid "You are currently using the following kernel:"
@@ -692,11 +711,11 @@ msgstr "Denne oppgraderingen vil medføre flere endringer"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:465
 msgid "The following packages will be removed:"
-msgstr ""
+msgstr "Følgende pakker vil bli fjernet:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:494
 msgid "The following packages will be installed:"
-msgstr ""
+msgstr "Følgende pakker vil bli installert:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:537
 msgid "Installing updates"
@@ -709,7 +728,7 @@ msgstr "Kunne ikke installere sikkerhetsoppdateringene"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:660
 msgid "Reboot required"
-msgstr ""
+msgstr "Systemet må startes på nytt"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
 msgid ""
@@ -996,7 +1015,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid "Welcome to the Update Manager"
-msgstr ""
+msgstr "Velkommen til oppdateringsbehandleren"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1769
 msgid "This update affects the following installed package:"

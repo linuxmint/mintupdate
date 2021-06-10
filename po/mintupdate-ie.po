@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2019-11-13 13:01+0100\n"
-"PO-Revision-Date: 2020-12-25 09:02+0000\n"
+"PO-Revision-Date: 2021-03-02 05:57+0000\n"
 "Last-Translator: Silvara <Unknown>\n"
 "Language-Team: Interlingue <ie@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2021-01-02 14:09+0000\n"
-"X-Generator: Launchpad (build 34b3ffd45c9543b7f7aa5aa313925241e9e7ca3f)\n"
+"X-Launchpad-Export-Date: 2021-06-09 14:13+0000\n"
+"X-Generator: Launchpad (build b45bdbe3a00b6b668fa7f2069bd545c35c41f7f4)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -589,7 +589,7 @@ msgstr "Fin de vive"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:527
 msgid "Unsupported"
-msgstr ""
+msgstr "Ínsuportat"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 msgid "You are currently using the following kernel:"
@@ -638,11 +638,11 @@ msgstr "Installante actualisamentes"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:597
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:604
 msgid "Could not install the security updates"
-msgstr ""
+msgstr "Ne successat installar li actualisamentes de securitá"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:660
 msgid "Reboot required"
-msgstr ""
+msgstr "On besona reiniciar li computator"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:661
 msgid ""
@@ -674,7 +674,7 @@ msgstr "Actualisament del nucleo"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:781
 msgid "Security update"
-msgstr ""
+msgstr "Actualisament de securitá"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:784
 msgid ""
@@ -747,7 +747,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:931
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr ""
+msgstr "Local spegules es ordinarimen plu veloci quam packages.linuxmint.com"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:942
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:952
@@ -902,7 +902,7 @@ msgstr "Pri"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
 msgid "Cannot Proceed"
-msgstr ""
+msgstr "On ne posse continuar"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1554
 msgid ""
@@ -982,7 +982,7 @@ msgstr "Autorefriscar"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2040
 msgid "Refresh the list of updates automatically"
-msgstr ""
+msgstr "Refriscar li liste de actualisamentes automaticmen"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2052
 msgid "days"
@@ -1024,7 +1024,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2132
 msgid "Apply updates automatically"
-msgstr ""
+msgstr "Applicar actialisamentes automaticmen"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2136
 msgid "Export blacklist to /etc/mintupdate.blacklist"
@@ -1089,6 +1089,9 @@ msgid ""
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
+"Vor sistema manca su critic componentes. Un paccage quel corresponde a vor "
+"version de Linux Mint deve provider li virtual paccage «mint-info» e li file "
+"«/etc/linuxmint/info»."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:52
 msgid "No upgrades were found."
@@ -1220,7 +1223,7 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
 msgid "These issues include:"
-msgstr ""
+msgstr "Ti problemas include:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
 msgid ""
@@ -1229,10 +1232,14 @@ msgid ""
 "- Black screen on startup\n"
 "- Random system freeze"
 msgstr ""
+"- Manca de wifi (o ethernet)\n"
+"- Manca del acceleration de video\n"
+"- Un nigri ecran al inicie\n"
+"- Subit haltas del sistema"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "If you face any of these issues, don't panic:"
-msgstr ""
+msgstr "Si vu incontra alcun de ti problemas, ples ne panicar:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:10
 msgid ""
@@ -1245,20 +1252,20 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
-msgstr ""
+msgstr "Ne monstrar ti missage denov"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
 msgid "Help"
-msgstr ""
+msgstr "Auxilie"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:17
 msgid "Continue"
-msgstr ""
+msgstr "Continuar"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
 msgid "Kernel flavor:"
-msgstr ""
+msgstr "Variante del nucleo:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 msgid "Perform Queued Actions..."
@@ -1278,7 +1285,7 @@ msgstr "Applicar"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:25
 msgid "Please confirm the following actions:"
-msgstr ""
+msgstr "Ples confirmar li sequent actiones:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1322,7 +1329,7 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Security updates"
-msgstr ""
+msgstr "Actialisamentes de securitá"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid ""
@@ -1378,7 +1385,7 @@ msgstr "Selection"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select Security Updates"
-msgstr ""
+msgstr "Selecter actualisamentes de securitá"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select Kernel Updates"
