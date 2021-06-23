@@ -809,11 +809,10 @@ class RefreshThread(threading.Thread):
                 label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
 
                 msg = _("Your APT configuration is corrupt.")
-                error_label = _("APT error:")
                 if error_msg:
-                    error_msg = "\n\n%s\n%s" % (error_label, error_msg)
+                    error_msg = "\n\n%s\n%s" % (_("APT error:"), error_msg)
                 else:
-                    error_label = ""
+                    error_msg = ""
                 self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                     msg, Gtk.MessageType.ERROR,
                     callback=self._on_infobar_mintsources_response)
