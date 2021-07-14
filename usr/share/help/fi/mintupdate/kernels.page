@@ -11,29 +11,29 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Ytimet ja ytimen päivitykset</desc>
+    <desc>Ytimet ja ydinpäivitykset</desc>
   </info>
 
-  <title>Ytimen päivitykset</title>
+  <title>Ydinpäivitykset</title>
 
-  <p>Ydin on keskeinen osa käyttöjärjestelmää. Se on muun muassa vastuussa laitteistotuesta.</p>
+  <p>Ydin on keskeinen osa käyttöjärjestelmää. Se on vastuussa mm. laitteistotuesta.</p>
 
   <note><p>Linux Mintissä ytimen päivitykset tuovat sekä turvapäivityksiä että virheenkorjauksia (joskus jopa uusia ominaisuuksia) ja ne vaikuttavat käyttöjärjestelmän kriittisiin osiin. Tästä syystä ytimen päivitykset ovat turvallisuuden näkökulmasta tärkeitä, mutta niistä voi myös aiheutua ongelmia, joita aloittelevan käyttäjän on vaikea korjata.</p></note>
 
-  <p>Turvallisuuden näkökulmasta, on tärkeää toteuttaa ytimen päivitykset.</p>
+  <p>Tietoturvanäkökulmasta ydinpäivitykset ovat tärkeitä.</p>
 
-  <p>Ytimen regressiot voivat kuitenkin vaikuttaa mahdollisuuksiisi yhdistää Internetiin, käynnistää työpöytäympäristöäsi tai jopa käyttöjärjestelmän käynnistämiseen.</p>
+  <p>Ytimen regressiot voivat kuitenkin haitata internetyhteyttä, työpöytäympäristöä tai jopa käyttöjärjestelmän käynnistämistä.</p>
 
-  <p>Tästä syystä on tärkeää olla varovainen, kun toteutetaan ytimen päivityksiä ja tietää kuinka perua muutokset, jos jokin menee pieleen.</p>
+  <p>Tästä syystä on tärkeää olla varovainen ydinpäivityksiä toteutettaessa ja tietää, kuinka perua muutokset, jos jotakin menee pieleen.</p>
 
   <section id="kernel1">
     <title>Useita ytimiä voidaan asentaa</title>
 
     <p>Kun toteutat päivityksen, korvaat ohjelmiston vanhan version uudella versiolla.</p>
 
-    <p>Ytimien kohdalla tilanne on toinen. Kun toteutat ytimen päivityksen (kernel update), et itse asiassa päivitä ydintä, vaan asennat uuden ytimen vanhan rinnalle.</p>
+    <p>Ydinten kohdalla tilanne on toinen. Ydintä päivitettäessä ei itse asiassa päivitetäkään ydintä vaan asennetaan uusi ydin vanhan rinnalle.</p>
 
-    <p>Jokaisella kerralla jolloin toteutat ytimen päivityksen, asennat järjestelmään uuden ytimen, poistamatta vanhoja.</p>
+    <p>Aina kun teet ydinpäivityksen, järjestelmään asennetaan uusi ydin poistamatta vanhoja.</p>
 
     <p>Käynnistettäessä tietokone valitsee tuoreimman.</p>
 
@@ -51,46 +51,46 @@
   <section id="kernel3">
     <title>Ydinten asennus ja poistaminen</title>
 
-    <p>Voit asentaa ja poistaa ytimiä Päivitysten hallinnasta.</p>
+    <p>Ytimiä voi asentaa ja poistaa päivitysten hallinnassa.</p>
 
-    <p>Valitse "Näytä" -&gt; "Linux ytimet" valikossa.</p>
+    <p>Valitse valikosta ”Näytä → Linux-ytimet”.</p>
 
-    <note><p>Et voi poistaa käytössä olevaa ydintä. Poistaaksesi sen, sinun täytyy valita toinen ydin käynnistystä varten.</p></note>
+    <note><p>Käytössä olevaa ydintä ei voi poistaa. Sen poistamiseksi on valittava toinen ydin käynnistettäväksi.</p></note>
 
   </section>
 
   <section id="kernel4">
     <title>Ytimen valinta</title>
 
-    <p>Sinulla voi olla useita ytimiä asennettuna, mutta voit käyttää vain yhtä kerrallaan.</p>
+    <p>Ytimiä voi olla asennettuna useita, mutta vain yhtä voi käyttää kerrallaan.</p>
 
-    <p>Kun käynnistät tietokoneen, ensimmäistä ruutua kutsutaan Grub –valikoksi. Tämä valikko mahdollistaa käyttöjärjestelmän valinnan, mutta voit myös käyttää sitä ytimen valintaan.</p>
+    <p>Tietokonetta käynnistettäessä ensimmäistä näkymää kutsutaan Grubin valikoksi. Tässä valikossa voi valita paitsi käyttöjärjestelmän myös ytimen.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>Valitaksesi ytimen, valitse "Advanced options" Grub–valikosta. Sinun tulisi nähdä kaikki asennetut ytimet. Valitse niistä se jota haluat käyttää ja tietokoneesi käynnistyy sillä.</p>
+    <p>Valitaksesi ytimen valitse Grub-valikosta ”Advanced options”. Sen alla näkyvät kaikki asennetut ytimet. Valitse niistä se, jota haluat käyttää, jolloin tietokone käynnistetään sillä.</p>
 
   </section>
 
   <section id="kernel5">
     <title>Tarkastetaan DKMS:n tila</title>
 
-    <p>Ydin sisältää kaikki avoimen lähdekoodin ajurit ja ne toimivat yleensä erittäin hyvin. Suljetut ajurit (NVIDIA, AMD, Broadcom...jne) eivät sisälly ja ne täytyy kääntää jokaista asentamaasi ydintä varten. Tämä tapahtuu mekanismilla jota kutsutaan nimellä DKMS.</p>
+    <p>Ydin sisältää yleensä erittäin hyvin toimivat avoimen lähdekoodin ajurit. Suljetut ajurit (NVIDIA, AMD, Broadcom jne.) eivät ole mukana, ja ne täytyy kääntää kulloinkin asentamallesi ytimelle erikseen. Tämä tehdään DKMS:ksi kutsutulla mekanismilla.</p>
 
-    <p>Jos suljettua ajuria ei ole käännetty kunnolla DKMS:llä yhdelle ytimistäsi, se ei toimi oikein sen ytimen kanssa.</p>
+    <p>Ellei suljettua ajuria ole käännetty DKMS:llä oikein jollekin ytimistä, se ei toimi oikein sillä ytimellä.</p>
 
     <p>Ytimen asentamisen tai poistamisen jälkeen voit tarkastaa DKMS:n tilan varmistaaksesi kaikkien suljettujen ajurien olevan kunnolla asennettuna jokaiselle ytimellesi seuraavalla komennolla:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>Uusi ytimen sarja tulee yleensä saataville ennen kuin suljetut ajurit tukevat niitä DKMS:llä. Jos käytät suljettuja ajureita, on suositeltavaa pysytellä ytimen päivityksissä ja olla asentamatta ytimiä sarjoista jotka ovat uudempia kuin suositeltujen ytimien sarja.</p></note>
+    <note><p>Uusi ytimen sarja tulee yleensä saataville ennen kuin suljetut ajurit tukevat niitä DKMS:llä. Suljettuja ajureita käytettäessä on suositeltavaa pysytellä ytimen päivityksissä ja olla asentamatta ytimiä sarjoista, jotka ovat uudempia kuin suositeltujen ydinten sarja.</p></note>
 
   </section>
 
   <section id="kernel6">
     <title>Ytimen päivityksen peruminen</title>
 
-    <p>Jos jokin ei toimi viimeisimmällä asentamallasi ytimellä (tai viimeisimmällä ytimen päivityksellä), käynnistä uudelleen, valitse ydin jota käytit aiemmin, poista uusi ydin ja käynnistä uudelleen.</p>
+    <p>Ellei jokin toimi viimeisimmällä asennetulla ytimellä (tai sen viimeisimmällä päivityksellä), käynnistä uudelleen, valitse aiemmin käyttämäsi ydin, poista uusi ydin ja käynnistä uudelleen.</p>
 
   </section>
 

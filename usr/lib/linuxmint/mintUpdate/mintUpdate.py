@@ -691,8 +691,7 @@ class RefreshThread(threading.Thread):
 
     def show_window(self):
         Gdk.threads_enter()
-        if not self.application.window.get_visible():
-            self.application.window.present()
+        self.application.window.present_with_time(Gtk.get_current_event_time())
         Gdk.threads_leave()
 
     def on_notification_action(self, notification, action_name, data):
@@ -810,11 +809,10 @@ class RefreshThread(threading.Thread):
                 label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
 
                 msg = _("Your APT configuration is corrupt.")
-                error_label = _("APT error:")
                 if error_msg:
-                    error_msg = "\n\n%s\n%s" % (error_label, error_msg)
+                    error_msg = "\n\n%s\n%s" % (_("APT error:"), error_msg)
                 else:
-                    error_label = ""
+                    error_msg = ""
                 self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                     msg, Gtk.MessageType.ERROR,
                     callback=self._on_infobar_mintsources_response)
@@ -1636,7 +1634,7 @@ class MintUpdate():
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if showWindow == "show":
-                    self.window.present()
+                    self.window.present_with_time(Gtk.get_current_event_time())
 
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
@@ -2177,7 +2175,7 @@ class MintUpdate():
             window.set_transient_for(self.window)
 
         window.show_all()
-        window.present()
+        window.present_with_time(Gtk.get_current_event_time())
 
 ######### PREFERENCES SCREEN #########
 

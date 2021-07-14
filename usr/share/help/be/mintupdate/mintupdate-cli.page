@@ -11,28 +11,28 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Updating from the command line</desc>
+    <desc>Абнаўленне з каманднага радка</desc>
   </info>
 
-  <title>Using mintupdate-cli</title>
+  <title>Выкарыстоўваючы mintupdate-cli</title>
 
-    <p>The Update Manager provides a command line utility called "mintupdate-cli".</p>
+    <p>Кіраўнік абнаўленняў пастаўляе ўтыліту каманднага радка "mintupdate-cli".</p>
 
-    <p>If you are experienced with Linux, you can use this tool in your scripts or your cron jobs to automate the installation of software updates.</p>
+    <p>Калі вы вопытны карыстальнік Linux, вы можаце выкарыстоўваць гэты інструмент у вашых скрыптах для аўтаматызацыі ўсталявання праграмных абнаўленняў.</p>
 
   <section id="tool1">
 
-  <title>Listing updates</title>
+  <title>Пошук абнаўленняў</title>
 
-  <p>You can use the "list" command to list updates:</p>
+  <p>Вы можаце выкарыстаць каманду "list" для пошука абнаўленняў:</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>You can use -s to only show the security updates.</p>
+  <p>Вы можаце дадаць -s каб паказваць толькі абнаўленні бяспекі.</p>
 
-  <p>You can use -k to only show the kernel updates.</p>
+  <p>Вы можаце дадаць -k каб паказваць толькі абнаўленні ядра.</p>
 
-  <p>For instance, the following command lists all security updates:</p>
+  <p>Напрыклад, наступная каманда пакажа ўсе абнаўленні бяспекі:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -40,17 +40,17 @@
 
   <section id="tool1">
 
-  <title>Applying updates</title>
+  <title>Ужыванне абнаўленняў</title>
 
-  <p>You can use the "upgrade" command to apply updates, using the same options.</p>
+  <p>Вы можаце выкарыстаць каманду "upgrade" каб ужыць абнаўленні, выкарыстоўваючы тыя ж опцыі.</p>
 
-  <p>For instance, the following command applies kernel updates:</p>
+  <p>Напрыклад, наступная каманда ўжывае абнаўленні ядра:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Note the -r argument, which was added to refresh the cache.</p>
+  <p>Звярніце ўвагу, што -r дададзена, каб абнавіць кэш.</p>
 
-  <p>For more information on mintupdate-cli and a complete list of arguments, type:</p>
+  <p>Каб паглядзець больш пра ўтыліту mintupdate-cli і ўвесь спіс аргументаў, увядзіце:</p>
 
   <screen>mintupdate-cli -h</screen>
 
