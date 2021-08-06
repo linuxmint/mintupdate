@@ -625,13 +625,24 @@ class InstallThread(threading.Thread):
                 spices_install_window.show_all()
                 Gdk.threads_leave()
 
+                need_cinnamon_restart = False
+
                 for update in cinnamon_spices:
                     Gdk.threads_enter()
                     label.set_text("%s (%s)" % (update.name, update.uuid))
                     Gdk.threads_leave()
                     self.application.cinnamon_updater.upgrade(update)
 
-                if (not self.reboot_required) and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
+                    try:
+                        if self.application.cinnamon_updater.spice_is_enabled(update):
+                            need_cinnamon_restart = True
+                            break
+                    except:
+                        need_cinnamon_restart = True
+
+                if (not self.reboot_required) \
+                        and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"] \
+                        and need_cinnamon_restart:
                     Gdk.threads_enter()
                     label.set_text(_("Restarting Cinnamon"))
                     spinner.hide()
