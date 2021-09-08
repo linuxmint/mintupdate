@@ -26,6 +26,8 @@ try:
 except:
     CINNAMON_SUPPORT = False
 
+from flatpakUpdater import FlatpakUpdater
+
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
@@ -413,6 +415,7 @@ class InstallThread(threading.Thread):
             aptInstallNeeded = False
             packages = []
             cinnamon_spices = []
+            flatpaks = []
             model = self.application.treeview.get_model()
             Gdk.threads_leave()
 
@@ -423,6 +426,10 @@ class InstallThread(threading.Thread):
                     update = model.get_value(iter, UPDATE_OBJ)
                     if update.type == "cinnamon":
                         cinnamon_spices.append(update)
+                        iter = model.iter_next(iter)
+                        continue
+                    elif update.type == "flatpak":
+                        flatpaks.append(update)
                         iter = model.iter_next(iter)
                         continue
 
@@ -440,6 +447,7 @@ class InstallThread(threading.Thread):
 
             needs_refresh = False
             proceed = True
+            update_flatpaks = False
 
             if aptInstallNeeded:
                 try:
@@ -534,70 +542,86 @@ class InstallThread(threading.Thread):
                     print (e)
                     print(sys.exc_info()[0])
 
-                if proceed:
-                    Gdk.threads_enter()
-                    self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
-                    Gdk.threads_leave()
-                    self.application.logger.write("Ready to launch synaptic")
-                    f = tempfile.NamedTemporaryFile()
+            if len(flatpaks) > 0:
+                self.application.flatpak_updater.prepare_start_updates(flatpaks)
 
-                    cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
-                            "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), \
-                            "-o", "Synaptic::closeZvt=true", "--set-selections-file", "%s" % f.name]
+                if self.application.flatpak_updater.confirm_start():
+                    update_flatpaks = True
+                else:
+                    proceed = False
 
-                    for pkg in packages:
-                        pkg_line = "%s\tinstall\n" % pkg
-                        f.write(pkg_line.encode("utf-8"))
-                    f.flush()
+            if aptInstallNeeded and proceed:
+                Gdk.threads_enter()
+                self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
+                Gdk.threads_leave()
+                self.application.logger.write("Ready to launch synaptic")
+                f = tempfile.NamedTemporaryFile()
 
-                    subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
-                    try:
-                        result = subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log, check=True)
-                        returnCode = result.returncode
-                    except subprocess.CalledProcessError as e:
-                        returnCode = e.returncode
-                    subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
-                    self.application.logger.write("Return code:" + str(returnCode))
-                    f.close()
+                cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
+                        "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), \
+                        "-o", "Synaptic::closeZvt=true", "--set-selections-file", "%s" % f.name]
 
-                    latest_apt_update = ''
-                    update_successful = False
-                    with open("/var/log/apt/history.log", encoding="utf-8") as apt_history:
-                        for line in reversed(list(apt_history)):
-                            if "Start-Date" in line:
-                                break
-                            else:
-                                latest_apt_update += line
-                        if f.name in latest_apt_update and "End-Date" in latest_apt_update:
-                            update_successful = True
-                            self.application.logger.write("Install finished")
+                for pkg in packages:
+                    pkg_line = "%s\tinstall\n" % pkg
+                    f.write(pkg_line.encode("utf-8"))
+                f.flush()
+
+                subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
+                try:
+                    result = subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log, check=True)
+                    returnCode = result.returncode
+                except subprocess.CalledProcessError as e:
+                    returnCode = e.returncode
+                subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
+                self.application.logger.write("Return code:" + str(returnCode))
+                f.close()
+
+                latest_apt_update = ''
+                update_successful = False
+                with open("/var/log/apt/history.log", encoding="utf-8") as apt_history:
+                    for line in reversed(list(apt_history)):
+                        if "Start-Date" in line:
+                            break
                         else:
-                            self.application.logger.write("Install failed")
-
-                    if update_successful:
-                        # override CacheWatcher since there's a forced refresh later already
-                        self.application.cache_watcher.update_cachetime()
-
-                        if self.reboot_required:
-                            self.application.reboot_required = True
-                        elif self.application.settings.get_boolean("hide-window-after-update"):
-                            Gdk.threads_enter()
-                            self.application.window.hide()
-                            Gdk.threads_leave()
-
-                        if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
-                            # Restart
-                            self.application.logger.write("Mintupdate was updated, restarting it...")
-                            self.application.logger.close()
-                            os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
-                            return
-
-                        # Refresh
-                        needs_refresh = True
+                            latest_apt_update += line
+                    if f.name in latest_apt_update and "End-Date" in latest_apt_update:
+                        update_successful = True
+                        self.application.logger.write("Install finished")
                     else:
+                        self.application.logger.write("Install failed")
+
+                if update_successful:
+                    # override CacheWatcher since there's a forced refresh later already
+                    self.application.cache_watcher.update_cachetime()
+
+                    if self.reboot_required:
+                        self.application.reboot_required = True
+                    elif self.application.settings.get_boolean("hide-window-after-update"):
                         Gdk.threads_enter()
-                        self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
+                        self.application.window.hide()
                         Gdk.threads_leave()
+
+                    if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
+                        # Restart
+                        self.application.logger.write("Mintupdate was updated, restarting it...")
+                        self.application.logger.close()
+                        os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+                        return
+
+                    # Refresh
+                    needs_refresh = True
+                else:
+                    Gdk.threads_enter()
+                    self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
+                    Gdk.threads_leave()
+
+            if update_flatpaks and proceed:
+                self.application.flatpak_updater.perform_updates()
+                if self.application.flatpak_updater.error != None:
+                    Gdk.threads_enter()
+                    self.application.set_status_message(self.application.flatpak_updater.error)
+                    Gdk.threads_leave()
+                needs_refresh = True
 
             if proceed and len(cinnamon_spices) > 0:
                 Gdk.threads_enter()
@@ -783,6 +807,12 @@ class RefreshThread(threading.Thread):
                         except:
                             self.application.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
                             print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
+
+            if self.application.flatpak_updater:
+                # if self.root_mode:
+                self.application.logger.write("Refreshing available Flatpak updates")
+                self.application.set_status_message(_("Checking for Flatpak updates"))
+                self.application.flatpak_updater.refresh()
 
             self.application.set_status_message(_("Processing updates"))
 
@@ -973,6 +1003,47 @@ class RefreshThread(threading.Thread):
                     num_software += 1
                     num_visible += 1
 
+            if self.application.flatpak_updater and not is_self_update:
+                type_sort_key = 7
+                blacklist = self.application.settings.get_strv("blacklisted-packages")
+
+                self.application.flatpak_updater.fetch_updates()
+                if self.application.flatpak_updater.error == None:
+                    for update in self.application.flatpak_updater.updates:
+                        update.type = "flatpak"
+                        if update.ref_str in blacklist or update.source_packages[0] in blacklist:
+                            continue
+                        if update.flatpak_type == "app":
+                            tooltip = _("Flatpak application")
+                        else:
+                            tooltip = _("Flatpak runtime")
+
+                        if tracker.active:
+                            tracker.update(update)
+
+                        iter = model.insert_before(None, None)
+                        model.row_changed(model.get_path(iter), iter)
+
+                        model.set_value(iter, UPDATE_CHECKED, True)
+
+                        if self.application.settings.get_boolean("show-descriptions"):
+                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (update.name, update.description))
+                        else:
+                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % update.name)
+
+                        model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
+                        model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
+                        model.set_value(iter, UPDATE_SOURCE, update.origin)
+                        model.set_value(iter, UPDATE_SIZE, update.size)
+                        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
+                        model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-flatpak-symbolic")
+                        model.set_value(iter, UPDATE_TYPE, "flatpak")
+                        model.set_value(iter, UPDATE_TOOLTIP, tooltip)
+                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.ref_str))
+                        model.set_value(iter, UPDATE_OBJ, update)
+                        num_software += 1
+                        num_visible += 1
+
             if tracker.active:
                 if tracker.notify():
                     Gdk.threads_enter()
@@ -1019,6 +1090,11 @@ class RefreshThread(threading.Thread):
                 self.application.stack.set_visible_child_name("status_updated")
                 self.application.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
+
+            if self.application.flatpak_updater.error != None:
+                self.application.logger.write("Could not check for flatpak updates: %s" % self.application.flatpak_updater.error)
+                msg = _("Error checking for flatpak updates: %s") % self.application.flatpak_updater.error
+                self.application.set_status_message(msg)
 
             self.application.builder.get_object("notebook_details").set_current_page(0)
             self.application.treeview.set_model(model)
@@ -1388,24 +1464,20 @@ class MintUpdate():
 
             # Tray icon menu
             menu = Gtk.Menu()
-            menuItem3 = Gtk.ImageMenuItem(label=_("Refresh"))
             image = Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU)
-            menuItem3.set_image(image)
+            menuItem3 = Gtk.ImageMenuItem(label=_("Refresh"), image=image)
             menuItem3.connect('activate', self.force_refresh)
             menu.append(menuItem3)
-            menuItem2 = Gtk.ImageMenuItem(label=_("Information"))
             image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
-            menuItem2.set_image(image)
+            menuItem2 = Gtk.ImageMenuItem(label=_("Information"), image=image)
             menuItem2.connect('activate', self.open_information)
             menu.append(menuItem2)
-            menuItem4 = Gtk.ImageMenuItem(label=_("Preferences"))
             image = Gtk.Image.new_from_icon_name("preferences-other-symbolic", Gtk.IconSize.MENU)
-            menuItem4.set_image(image)
+            menuItem4 = Gtk.ImageMenuItem(label=_("Preferences"), image=image)
             menuItem4.connect('activate', self.open_preferences)
             menu.append(menuItem4)
-            menuItem = Gtk.ImageMenuItem(label=_("Quit"))
             image = Gtk.Image.new_from_icon_name("application-exit-symbolic", Gtk.IconSize.MENU)
-            menuItem.set_image(image)
+            menuItem = Gtk.ImageMenuItem(label=_("Quit"), image=image)
             menuItem.connect('activate', self.quit)
             menu.append(menuItem)
             menu.show_all()
@@ -1419,17 +1491,15 @@ class MintUpdate():
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
             fileMenu.set_submenu(fileSubmenu)
-            closeMenuItem = Gtk.ImageMenuItem()
-            closeMenuItem.set_image(Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU))
-            closeMenuItem.set_label(_("Close window"))
+            image = Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU)
+            closeMenuItem = Gtk.ImageMenuItem(label=_("Close window"), image=image)
             closeMenuItem.connect("activate", self.hide_main_window)
             key, mod = Gtk.accelerator_parse("<Control>W")
             closeMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             fileSubmenu.append(closeMenuItem)
             fileSubmenu.append(Gtk.SeparatorMenuItem())
-            quitMenuItem = Gtk.ImageMenuItem(label=_("Quit"))
             image = Gtk.Image.new_from_icon_name("application-exit-symbolic", Gtk.IconSize.MENU)
-            quitMenuItem.set_image(image)
+            quitMenuItem = Gtk.ImageMenuItem(label=_("Quit"), image=image)
             quitMenuItem.connect('activate', self.quit)
             key, mod = Gtk.accelerator_parse("<Control>Q")
             quitMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
@@ -1438,21 +1508,18 @@ class MintUpdate():
             editMenu = Gtk.MenuItem.new_with_mnemonic(_("_Edit"))
             editSubmenu = Gtk.Menu()
             editMenu.set_submenu(editSubmenu)
-            prefsMenuItem = Gtk.ImageMenuItem()
-            prefsMenuItem.set_image(Gtk.Image.new_from_icon_name("preferences-other-symbolic", Gtk.IconSize.MENU))
-            prefsMenuItem.set_label(_("Preferences"))
+            image = Gtk.Image.new_from_icon_name("preferences-other-symbolic", Gtk.IconSize.MENU)
+            prefsMenuItem = Gtk.ImageMenuItem(label=_("Preferences"), image=image)
             prefsMenuItem.connect("activate", self.open_preferences)
             editSubmenu.append(prefsMenuItem)
             if os.path.exists("/usr/bin/timeshift-gtk"):
-                sourcesMenuItem = Gtk.ImageMenuItem()
-                sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU))
-                sourcesMenuItem.set_label(_("System Snapshots"))
+                image = Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU)
+                sourcesMenuItem = Gtk.ImageMenuItem(label=_("System Snapshots"), image=image)
                 sourcesMenuItem.connect("activate", self.open_timeshift)
                 editSubmenu.append(sourcesMenuItem)
             if os.path.exists("/usr/bin/mintsources"):
-                sourcesMenuItem = Gtk.ImageMenuItem()
-                sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("system-software-install-symbolic", Gtk.IconSize.MENU))
-                sourcesMenuItem.set_label(_("Software Sources"))
+                image = Gtk.Image.new_from_icon_name("system-software-install-symbolic", Gtk.IconSize.MENU)
+                sourcesMenuItem = Gtk.ImageMenuItem(label=_("Software Sources"), image=image)
                 sourcesMenuItem.connect("activate", self.open_repositories)
                 editSubmenu.append(sourcesMenuItem)
 
@@ -1473,30 +1540,25 @@ class MintUpdate():
                 config.read(rel_path)
                 if rel_edition.lower() in config['general']['editions']:
                     rel_target = config['general']['target_name']
-                    relUpgradeMenuItem = Gtk.ImageMenuItem()
-                    relUpgradeMenuItem.set_image(Gtk.Image.new_from_icon_name("mintupdate-type-package-symbolic", Gtk.IconSize.MENU))
-                    relUpgradeMenuItem.set_label(_("Upgrade to %s") % rel_target)
+                    image = Gtk.Image.new_from_icon_name("mintupdate-type-package-symbolic", Gtk.IconSize.MENU)
+                    relUpgradeMenuItem = Gtk.ImageMenuItem(label=_("Upgrade to %s") % rel_target, image=image)
                     relUpgradeMenuItem.connect("activate", self.open_rel_upgrade)
                     editSubmenu.append(relUpgradeMenuItem)
 
             viewMenu = Gtk.MenuItem.new_with_mnemonic(_("_View"))
             viewSubmenu = Gtk.Menu()
             viewMenu.set_submenu(viewSubmenu)
-            historyMenuItem = Gtk.ImageMenuItem()
-            historyMenuItem.set_image(Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU))
-            historyMenuItem.set_label(_("History of Updates"))
+            image = Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU)
+            historyMenuItem = Gtk.ImageMenuItem(label=_("History of Updates"), image=image )
             historyMenuItem.connect("activate", self.open_history)
-            kernelMenuItem = Gtk.ImageMenuItem()
-            kernelMenuItem.set_image(Gtk.Image.new_from_icon_name("system-run-symbolic", Gtk.IconSize.MENU))
-            kernelMenuItem.set_label(_("Linux Kernels"))
+            image = Gtk.Image.new_from_icon_name("system-run-symbolic", Gtk.IconSize.MENU)
+            kernelMenuItem = Gtk.ImageMenuItem(label=_("Linux Kernels"), image=image)
             kernelMenuItem.connect("activate", self.open_kernels)
-            infoMenuItem = Gtk.ImageMenuItem()
-            infoMenuItem.set_image(Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU))
-            infoMenuItem.set_label(_("Information"))
+            image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
+            infoMenuItem = Gtk.ImageMenuItem(label=_("Information"), image=image)
             infoMenuItem.connect("activate", self.open_information)
-            visibleColumnsMenuItem = Gtk.ImageMenuItem()
-            visibleColumnsMenuItem.set_image(Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU))
-            visibleColumnsMenuItem.set_label(_("Visible Columns"))
+            image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
+            visibleColumnsMenuItem = Gtk.ImageMenuItem(label=_("Visible Columns"), image=image)
             visibleColumnsMenu = Gtk.Menu()
             visibleColumnsMenuItem.set_submenu(visibleColumnsMenu)
 
@@ -1558,27 +1620,23 @@ class MintUpdate():
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
 
-            helpMenuItem = Gtk.ImageMenuItem()
-            helpMenuItem.set_image(Gtk.Image.new_from_icon_name("security-high-symbolic", Gtk.IconSize.MENU))
-            helpMenuItem.set_label(_("Welcome Screen"))
+            image = Gtk.Image.new_from_icon_name("security-high-symbolic", Gtk.IconSize.MENU)
+            helpMenuItem = Gtk.ImageMenuItem(label=_("Welcome Screen"), image=image)
             helpMenuItem.connect("activate", self.show_welcome_page)
             helpSubmenu.append(helpMenuItem)
             if (Gtk.check_version(3,20,0) is None):
-                shortcutsMenuItem = Gtk.ImageMenuItem()
-                shortcutsMenuItem.set_label(_("Keyboard Shortcuts"))
-                shortcutsMenuItem.set_image(Gtk.Image.new_from_icon_name("preferences-desktop-keyboard-shortcuts-symbolic", Gtk.IconSize.MENU))
+                image = Gtk.Image.new_from_icon_name("preferences-desktop-keyboard-shortcuts-symbolic", Gtk.IconSize.MENU)
+                shortcutsMenuItem = Gtk.ImageMenuItem(label=_("Keyboard Shortcuts"), image=image)
                 shortcutsMenuItem.connect("activate", self.open_shortcuts)
                 helpSubmenu.append(shortcutsMenuItem)
-            helpMenuItem = Gtk.ImageMenuItem()
-            helpMenuItem.set_image(Gtk.Image.new_from_icon_name("help-contents-symbolic", Gtk.IconSize.MENU))
-            helpMenuItem.set_label(_("Contents"))
+            image = Gtk.Image.new_from_icon_name("help-contents-symbolic", Gtk.IconSize.MENU)
+            helpMenuItem = Gtk.ImageMenuItem(label=_("Contents"), image=image)
             helpMenuItem.connect("activate", self.open_help)
             key, mod = Gtk.accelerator_parse("F1")
             helpMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             helpSubmenu.append(helpMenuItem)
-            aboutMenuItem = Gtk.ImageMenuItem()
-            aboutMenuItem.set_image(Gtk.Image.new_from_icon_name("help-about-symbolic", Gtk.IconSize.MENU))
-            aboutMenuItem.set_label(_("About"))
+            image = Gtk.Image.new_from_icon_name("help-about-symbolic", Gtk.IconSize.MENU)
+            aboutMenuItem = Gtk.ImageMenuItem(label=_("About"), image=image)
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
 
@@ -1603,6 +1661,17 @@ class MintUpdate():
                 if showWindow == "show":
                     self.window.present_with_time(Gtk.get_current_event_time())
 
+            if CINNAMON_SUPPORT:
+                self.cinnamon_updater = cinnamon.UpdateManager()
+            else:
+                self.cinnamon_updater = None
+
+            try:
+                self.flatpak_updater = FlatpakUpdater()
+            except Exception as e:
+                print(e)
+                self.flatpak_updater = None
+
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
             else:
@@ -1613,11 +1682,6 @@ class MintUpdate():
 
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
             self.paned.set_position(self.settings.get_int('window-pane-position'))
-
-            if CINNAMON_SUPPORT:
-                self.cinnamon_updater = cinnamon.UpdateManager()
-            else:
-                self.cinnamon_updater = None
 
             self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.auto_refresh = AutomaticRefreshThread(self)
@@ -1858,6 +1922,18 @@ class MintUpdate():
 
                     self.notebook_details.set_current_page(TAB_DESC)
                     self.notebook_details.set_tab_label_text(desc_tab, _("Information"))
+                elif update.type == "flatpak":
+                    website_label_str = _("Website")
+                    desc = "%s: %s" % (website_label_str, update.link)
+
+                    self.textview_description.set_text(desc)
+
+                    self.notebook_details.get_nth_page(TAB_PACKAGES).show()
+                    self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
+
+                    self.notebook_details.set_current_page(TAB_DESC)
+                    self.notebook_details.set_tab_label_text(desc_tab, _("Information"))
+                    self.display_package_list(update, is_flatpak=True)
                 else:
                     self.textview_description.set_text(description)
                     self.notebook_details.get_nth_page(TAB_PACKAGES).show()
@@ -1865,13 +1941,13 @@ class MintUpdate():
                     self.notebook_details.set_tab_label_text(desc_tab, _("Description"))
                     self.display_package_list(update)
 
-                if self.notebook_details.get_current_page() == 2:
-                    # Changelog tab
-                    retriever = ChangelogRetriever(update, self)
-                    retriever.start()
-                    self.changelog_retriever_started = True
-                else:
-                    self.changelog_retriever_started = False
+                    if self.notebook_details.get_current_page() == 2:
+                        # Changelog tab
+                        retriever = ChangelogRetriever(update, self)
+                        retriever.start()
+                        self.changelog_retriever_started = True
+                    else:
+                        self.changelog_retriever_started = False
 
         except Exception as e:
             print (e)
@@ -1887,16 +1963,21 @@ class MintUpdate():
             retriever.start()
             self.changelog_retriever_started = True
 
-    def display_package_list(self, update):
+    def display_package_list(self, update, is_flatpak=False):
         prefix = "\n    • "
         count = len(update.package_names)
+        if is_flatpak:
+            size_label = _("Total size: <")
+        else:
+            size_label = _("Total size:")
+
         packages = "%s%s%s\n%s %s\n\n" % \
             (gettext.ngettext("This update affects the following installed package:",
                       "This update affects the following installed packages:",
                       count),
              prefix,
              prefix.join(sorted(update.package_names)),
-             _("Total size:"), size_to_string(update.size))
+             size_label, size_to_string(update.size))
         self.textview_packages.set_text(packages)
 
     def treeview_right_clicked(self, widget, event):
