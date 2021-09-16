@@ -1078,8 +1078,8 @@ class RefreshThread(threading.Thread):
                             if mirror_url.endswith("/"):
                                 mirror_url = mirror_url[:-1]
                             break
-                if mirror_url is None:
-                    # Unable to find the Mint mirror being used..
+                if mirror_url is None or not mirror_url.startswith("http"):
+                    # The Mint mirror being used either cannot be found or is not an HTTP(s) mirror
                     pass
                 elif mirror_url == "http://packages.linuxmint.com":
                     if not self.application.settings.get_boolean("default-repo-is-ok"):
