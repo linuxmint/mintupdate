@@ -1,3 +1,17 @@
+mintupdate (5.7.9) una; urgency=medium
+
+  [ Michael Webster ]
+  * Work around issue with GtkWindow focus tracking after a cinnamon restart.
+  * Don't restart cinnamon if no updates affected running xlets.
+
+  [ Kyle Laker ]
+  * Avoid unreachable message for non-HTTP mirrors (#701)
+
+  [ NikoKrause ]
+  * Change mintupdate-error-symbolic icon (#704)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 26 Nov 2021 11:00:07 +0000
+
 mintupdate (5.7.8) uma; urgency=medium
 
   * Depend on gir1.2-notify-0.7
