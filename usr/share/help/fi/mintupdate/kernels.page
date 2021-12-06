@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Ytimet ja ydinpäivitykset</desc>
+    <desc>Kernelit ja kernel päivitykset</desc>
   </info>
 
-  <title>Ydinpäivitykset</title>
+  <title>Kernel päivitykset</title>
 
-  <p>Ydin on keskeinen osa käyttöjärjestelmää. Se on vastuussa mm. laitteistotuesta.</p>
+  <p>Kernel on keskeinen osa käyttöjärjestelmää. Se on muun muassa vastuussa laitteistotuesta.</p>
 
-  <note><p>Linux Mintissä ytimen päivitykset tuovat sekä turvapäivityksiä että virheenkorjauksia (joskus jopa uusia ominaisuuksia) ja ne vaikuttavat käyttöjärjestelmän kriittisiin osiin. Tästä syystä ytimen päivitykset ovat turvallisuuden näkökulmasta tärkeitä, mutta niistä voi myös aiheutua ongelmia, joita aloittelevan käyttäjän on vaikea korjata.</p></note>
+  <note><p>Linux Mint, kernel päivitykset tuovat sekä turvapäivityksiä että virheenkorjauksia (joskus jopa uusia ominaisuuksia) ja ne vaikuttavat käyttöjärjestelmän kriittisiin osiin. Tästä syystä kernel päivitykset ovat turvallisuuden näkökulmasta tärkeitä, mutta niistä voi aiheutua myös ongelmia, joita aloittelevan käyttäjän on vaikea korjata.</p></note>
 
-  <p>Tietoturvanäkökulmasta ydinpäivitykset ovat tärkeitä.</p>
+  <p>Tietoturvan näkökulmasta kernel päivitykset ovat tärkeitä.</p>
 
-  <p>Ytimen regressiot voivat kuitenkin haitata internetyhteyttä, työpöytäympäristöä tai jopa käyttöjärjestelmän käynnistämistä.</p>
+  <p>Kernel regressiot voivat kuitenkin haitata internetyhteyttä, työpöytää tai jopa käyttöjärjestelmän käynnistämistä.</p>
 
-  <p>Tästä syystä on tärkeää olla varovainen ydinpäivityksiä toteutettaessa ja tietää, kuinka perua muutokset, jos jotakin menee pieleen.</p>
+  <p>Tästä syystä on tärkeää olla varovainen kernel päivityksiä toteutettaessa ja tietää, kuinka perua muutokset, jos jotakin menee pieleen.</p>
 
   <section id="kernel1">
-    <title>Useita ytimiä voidaan asentaa</title>
+    <title>Useita kerneleitä voi asentaa</title>
 
     <p>Kun toteutat päivityksen, korvaat ohjelmiston vanhan version uudella versiolla.</p>
 
-    <p>Ydinten kohdalla tilanne on toinen. Ydintä päivitettäessä ei itse asiassa päivitetäkään ydintä vaan asennetaan uusi ydin vanhan rinnalle.</p>
+    <p>Asiat ovat toisin, kun on kyse kerneleistä. Kerneliä päivitettäessä ei itse asiassa päivitetä kerneliä vaan asennetaan uusi kernel vanhan rinnalle.</p>
 
-    <p>Aina kun teet ydinpäivityksen, järjestelmään asennetaan uusi ydin poistamatta vanhoja.</p>
+    <p>Aina kun teet kernel päivityksen, järjestelmään asennetaan uusi kernel poistamatta vanhoja.</p>
 
     <p>Käynnistettäessä tietokone valitsee tuoreimman.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Nykyisen ytimen tunnistaminen</title>
+    <title>Nykyisen kernelin tunnistaminen</title>
 
-    <p>Jos haluat tietää mitä ydintä käytät tällä hetkellä, avaa pääte ja kirjoita:</p>
+    <p>Jos haluat tietää mitä kerneliä käytät tällä hetkellä, avaa pääte ja kirjoita:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Ydinten asennus ja poistaminen</title>
+    <title>Kernelien asennus ja poistaminen</title>
 
-    <p>Ytimiä voi asentaa ja poistaa päivitysten hallinnassa.</p>
+    <p>Kernelit voi asentaa ja poistaa päivitysten hallinnassa.</p>
 
-    <p>Valitse valikosta ”Näytä → Linux-ytimet”.</p>
+    <p>Valitse valikosta ”Näytä → Linux-kernelit”.</p>
 
-    <note><p>Käytössä olevaa ydintä ei voi poistaa. Sen poistamiseksi on valittava toinen ydin käynnistettäväksi.</p></note>
+    <note><p>Käytössä olevaa kerneliä ei voi poistaa. Sen poistamiseksi on valittava toinen kernel käynnistettäväksi.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Ytimen valinta</title>
+    <title>Kernelin valinta</title>
 
-    <p>Ytimiä voi olla asennettuna useita, mutta vain yhtä voi käyttää kerrallaan.</p>
+    <p>Kerneleitä voi olla asennettuna useita, mutta vain yhtä voi käyttää kerrallaan.</p>
 
-    <p>Tietokonetta käynnistettäessä ensimmäistä näkymää kutsutaan Grubin valikoksi. Tässä valikossa voi valita paitsi käyttöjärjestelmän myös ytimen.</p>
+    <p>Tietokonetta käynnistettäessä ensimmäistä näkymää kutsutaan Grubin valikoksi. Tässä valikossa voi valita paitsi käyttöjärjestelmän myös kernelin.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>Valitaksesi ytimen valitse Grub-valikosta ”Advanced options”. Sen alla näkyvät kaikki asennetut ytimet. Valitse niistä se, jota haluat käyttää, jolloin tietokone käynnistetään sillä.</p>
+    <p>Valitaksesi kernelin valitse Grub-valikosta ”Advanced options”. Sen alla näkyvät kaikki asennetut kernelit. Valitse niistä se, jota haluat käyttää, jolloin tietokone käynnistetään sillä.</p>
 
   </section>
 
   <section id="kernel5">
     <title>Tarkastetaan DKMS:n tila</title>
 
-    <p>Ydin sisältää yleensä erittäin hyvin toimivat avoimen lähdekoodin ajurit. Suljetut ajurit (NVIDIA, AMD, Broadcom jne.) eivät ole mukana, ja ne täytyy kääntää kulloinkin asentamallesi ytimelle erikseen. Tämä tehdään DKMS:ksi kutsutulla mekanismilla.</p>
+    <p>Kernel sisältää yleensä erittäin hyvin toimivat avoimen lähdekoodin ajurit. Suljetut ajurit (NVIDIA, AMD, Broadcom jne.) eivät ole mukana ja ne täytyy kääntää kulloinkin asentamallesi kernelille erikseen. Tämä tehdään DKMS:ksi kutsutulla mekanismilla.</p>
 
-    <p>Ellei suljettua ajuria ole käännetty DKMS:llä oikein jollekin ytimistä, se ei toimi oikein sillä ytimellä.</p>
+    <p>Ellei suljettua ajuria ole käännetty DKMS:llä oikein jollekin kernelille, se ei toimi oikein sillä kernelillä.</p>
 
-    <p>Ytimen asentamisen tai poistamisen jälkeen voit tarkastaa DKMS:n tilan varmistaaksesi kaikkien suljettujen ajurien olevan kunnolla asennettuna jokaiselle ytimellesi seuraavalla komennolla:</p>
+    <p>Kernelin asentamisen tai poistamisen jälkeen voit tarkastaa DKMS:n tilan varmistaaksesi kaikkien suljettujen ajurien olevan asennettuna jokaiselle kernelille seuraavalla komennolla:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>Uusi ytimen sarja tulee yleensä saataville ennen kuin suljetut ajurit tukevat niitä DKMS:llä. Suljettuja ajureita käytettäessä on suositeltavaa pysytellä ytimen päivityksissä ja olla asentamatta ytimiä sarjoista, jotka ovat uudempia kuin suositeltujen ydinten sarja.</p></note>
+    <note><p>Uusi  kernel tulee yleensä saataville ennen kuin suljetut ajurit tukevat niitä DKMS:llä. Suljettuja ajureita käytettäessä on suositeltavaa pysytellä kernel päivityksissä ja olla asentamatta kerneleitä, jotka ovat uudempia kuin suositeltujen kernelien sarja.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Ytimen päivityksen peruminen</title>
+    <title>Kernel päivityksen peruminen</title>
 
-    <p>Ellei jokin toimi viimeisimmällä asennetulla ytimellä (tai sen viimeisimmällä päivityksellä), käynnistä uudelleen, valitse aiemmin käyttämäsi ydin, poista uusi ydin ja käynnistä uudelleen.</p>
+    <p>Ellei jokin toimi viimeisimmällä asennetulla kernelillä (tai sen viimeisimmällä päivityksellä), käynnistä uudelleen, valitse aiemmin käyttämäsi kernel, poista uusi kernel ja käynnistä uudelleen.</p>
 
   </section>
 
