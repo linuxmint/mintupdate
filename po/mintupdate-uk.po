@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2021-06-19 18:57+0000\n"
+"PO-Revision-Date: 2021-06-28 19:01+0000\n"
 "Last-Translator: Mykola Tkach <chistomov@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2021-06-23 10:28+0000\n"
-"X-Generator: Launchpad (build 9dbb463b42239a8426ed781b3086dde814e80a01)\n"
+"X-Launchpad-Export-Date: 2021-12-06 14:57+0000\n"
+"X-Generator: Launchpad (build f92b6e0bb2624f8a9125e3f45b7621c6e230c5ff)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -74,7 +74,7 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
-"Безпека дуже важлива, разом з тим має технічну складову. Вразливості не "
+"Безпека дуже важлива, разом із тим має технічну складову. Вразливості не "
 "завжди шкодять Вашому комп’ютеру і побачити їх доволі складно. Більшість "
 "людей взагалі їх не помічають, тому їхні комп’ютери у зоні ризику. "
 "Нехтування правилами безпеки може призвести до важких наслідків, тому завжди "
@@ -564,7 +564,7 @@ msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
 msgstr ""
-"Нажаль, інколи вони також можуть призвести до нових проблем, під назвою "
+"На жаль, інколи вони також можуть призвести до нових проблем, під назвою "
 "'регресія', яка може зіпсувати те, що добре працювало раніше."
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
@@ -744,7 +744,7 @@ msgstr "Завантажується журнал змін..."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:249
 msgid "No changelog available"
-msgstr "Немає доступного журналу змін"
+msgstr "Нема доступного журналу змін"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:460
 msgid "This upgrade will trigger additional changes"
@@ -769,7 +769,7 @@ msgstr "Не вдалося встановити оновлення безпек
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:606
 msgid "Updating Cinnamon Spices"
-msgstr ""
+msgstr "Оновлення приправ Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 msgid "Restarting Cinnamon"
@@ -798,7 +798,7 @@ msgstr "Перевірка на оновлення"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:770
 msgid "Checking for Cinnamon spices"
-msgstr ""
+msgstr "Перевірка приправ Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Processing updates"
@@ -1137,7 +1137,7 @@ msgstr "Ласкаво просимо в Упорядник Оновлень"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
 msgid "Most recent change"
-msgstr ""
+msgstr "Найостанніша зміна"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1899
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
@@ -1249,6 +1249,8 @@ msgstr "Показувати лише сповіщення про безпеку
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
+"Показувати сповіщення, якщо оновлення доступне впродовж (у зареєстрованих "
+"днях):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2299
 msgid "Show a notification if an update is older than (in days):"
@@ -1258,6 +1260,7 @@ msgstr "Показувати сповіщення, якщо оновлення �
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
+"Не показувати сповіщення, якщо оновлення було застосовано нещодавно (у днях):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2306
 msgid "Ignored Updates"
@@ -1269,7 +1272,7 @@ msgstr "Оновлення пакунку"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Performed as root on a daily basis"
-msgstr ""
+msgstr "Виконується щодня від ім'я root"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2330
 msgid "Apply updates automatically"
@@ -1288,7 +1291,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2343
 msgid "Update Cinnamon spices automatically"
-msgstr ""
+msgstr "Оновити приправи Cinnamon автоматично"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
 msgid "Update flatpaks automatically"
@@ -1308,7 +1311,7 @@ msgstr "Автоматичне обслуговування"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Performed as root on a weekly basis"
-msgstr ""
+msgstr "Виконується щотижня від ім'я root"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
 msgid "Remove obsolete kernels and dependencies"
@@ -1474,11 +1477,11 @@ msgstr "Показати та встановити доступні оновле
 
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
-msgstr ""
+msgstr "Такі приправи було автоматично оновлено:"
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
-msgstr ""
+msgstr "Cinnamon було перезапущено"
 
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3

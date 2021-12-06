@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: mintupdate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2021-06-20 09:32+0000\n"
+"PO-Revision-Date: 2021-09-01 07:53+0000\n"
 "Last-Translator: KAMI <kami911@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2021-06-23 10:29+0000\n"
-"X-Generator: Launchpad (build 9dbb463b42239a8426ed781b3086dde814e80a01)\n"
+"X-Launchpad-Export-Date: 2021-12-06 14:57+0000\n"
+"X-Generator: Launchpad (build f92b6e0bb2624f8a9125e3f45b7621c6e230c5ff)\n"
 "Language: hu\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -723,7 +723,7 @@ msgstr "Telepítve"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 msgid "Supported until"
-msgstr "A támogatás lejár majd:"
+msgstr "Támogatás lejár:"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Superseded"
@@ -821,7 +821,7 @@ msgstr "Cinnamon Spices keresése"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Processing updates"
-msgstr "Frissítések végrehajtása"
+msgstr "Frissítések ellenőrzése"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:797
 msgid "Run 'apt update' in a terminal window to address this"
@@ -924,6 +924,8 @@ msgstr[1] "%d szoftverfrissítés"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr ""
+"Telepítse őket az operációs rendszer biztonságos és friss állapotának "
+"fenntartásához."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:986
 msgid "View updates"
@@ -1210,8 +1212,8 @@ msgstr "Frissítéskezelő elrejtése a frissítések telepítése után"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2220
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
-"Ikon megjelenítése az értesítési panelen ha van elérhető frissítés vagy hiba "
-"történt"
+"Ikon megjelenítése az értesítési panelen, ha van elérhető frissítés vagy "
+"hiba történt"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2222
 msgid "Auto-refresh"
@@ -1235,19 +1237,19 @@ msgstr "perc"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2238
 msgid "First, refresh the list of updates after:"
-msgstr "Először töltse a frissítések listáját ez után:"
+msgstr "Első frissítések listája letöltés:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2242
 msgid "Then, refresh the list of updates every:"
-msgstr "Majd töltse le a frissítések listáját:"
+msgstr "További frissítések listája letöltés időköze:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2285
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
 msgstr ""
-"Megjegyzés: A lista csak akkor frissül, ha a Frissítéskezelő zárva van "
-"(értesítési panel üzemmód)."
+"Megjegyzés: A lista csak akkor frissül, ha a Frissítéskezelő párbeszédablaka "
+"zárva van (értesítési panel üzemmód)."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2289
 msgid "Notifications"
@@ -1256,20 +1258,26 @@ msgstr "Értesítések"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
 msgid "Only show notifications for security and kernel updates"
 msgstr ""
+"Csak a biztonsági és kernel frissítésekről szóló értesítések megjelenítése"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
+"Értesítés megjelenítése, ha a frissítés (bejelentkezett) napok óta elérhető"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2299
 msgid "Show a notification if an update is older than (in days):"
 msgstr ""
+"Értesítés megjelenítése, ha a frissítés napok óta elérhető (napokban "
+"megadva):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2301
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
+"Ne jelenítsen meg értesítést, ha az elmúlt napokban frissítést telepített "
+"(napokban megadva):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2306
 msgid "Ignored Updates"
@@ -1277,11 +1285,11 @@ msgstr "Mellőzött frissítések"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Package Updates"
-msgstr ""
+msgstr "Csomagfrissítések"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Performed as root on a daily basis"
-msgstr ""
+msgstr "Rendszergazdaként naponta végrehajtva"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2330
 msgid "Apply updates automatically"
@@ -1300,19 +1308,19 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2343
 msgid "Update Cinnamon spices automatically"
-msgstr ""
+msgstr "Cinnamon Spices automatikus frissítése"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
 msgid "Update flatpaks automatically"
-msgstr ""
+msgstr "Flatpak csomagok automatikus frissítése"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Other Updates"
-msgstr ""
+msgstr "Egyéb frissítések"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Performed when you log in"
-msgstr ""
+msgstr "Végrehajtás bejelentkezéskor"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Automatic Maintenance"
@@ -1320,7 +1328,7 @@ msgstr "Automatikus karbantartás"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Performed as root on a weekly basis"
-msgstr ""
+msgstr "Rendszergazdaként hetente végrehajtva"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
 msgid "Remove obsolete kernels and dependencies"
@@ -1489,11 +1497,11 @@ msgstr "Rendelkezésre álló frissítések megjelenítése és telepítése"
 
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
-msgstr ""
+msgstr "A következő spices automatikusan frissülnek:"
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
-msgstr ""
+msgstr "A Cinnamon asztali környezet újraindult"
 
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3

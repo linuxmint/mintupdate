@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2021-01-05 19:05+0000\n"
-"Last-Translator: Murat Käribay <d2vsd1@mail.ru>\n"
+"PO-Revision-Date: 2021-11-04 20:55+0000\n"
+"Last-Translator: Andrey Novikov <cooking95@mail.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2021-06-23 10:28+0000\n"
-"X-Generator: Launchpad (build 9dbb463b42239a8426ed781b3086dde814e80a01)\n"
+"X-Launchpad-Export-Date: 2021-12-06 14:57+0000\n"
+"X-Generator: Launchpad (build f92b6e0bb2624f8a9125e3f45b7621c6e230c5ff)\n"
 "Language: ru\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -617,11 +617,13 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Aleksandr https://launchpad.net/~aleksnch\n"
+"  Aleksey Kabanov https://launchpad.net/~ak099\n"
 "  Alexander Mischenko https://launchpad.net/~shultz-5\n"
 "  Alexey https://launchpad.net/~lcbgreen\n"
 "  Andrew Denezhkin https://launchpad.net/~steepler\n"
+"  Andrey Novikov https://launchpad.net/~andreynovikov\n"
+"  Anna https://launchpad.net/~cybertailor\n"
 "  Clement Lefebvre https://launchpad.net/~clementlefebvre\n"
-"  CyberTailor https://launchpad.net/~cybertailor\n"
 "  Dmitriy Kulikov https://launchpad.net/~kulikoff\n"
 "  Faust3000 https://launchpad.net/~slavusik1988\n"
 "  Gvozdik Artem https://launchpad.net/~gvozdik\n"
@@ -634,6 +636,7 @@ msgstr ""
 "  Sandro https://launchpad.net/~regipool\n"
 "  Sergey Sedov https://launchpad.net/~serg-sedov\n"
 "  Snow fire https://launchpad.net/~vladimir-kireev\n"
+"  Uncle-Lesha https://launchpad.net/~alex-gml\n"
 "  Vlad Orlov https://launchpad.net/~monsta\n"
 "  dkrichun https://launchpad.net/~dimas-newmail\n"
 "  segray https://launchpad.net/~segray\n"
@@ -795,11 +798,11 @@ msgstr "Не удалось установить обновления безоп
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:606
 msgid "Updating Cinnamon Spices"
-msgstr ""
+msgstr "Обновление дополнений (Cinnamon Spices)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 msgid "Restarting Cinnamon"
-msgstr ""
+msgstr "Перезапуск Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:727
 msgid "Reboot required"
@@ -815,7 +818,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 msgid "Checking for package updates"
-msgstr ""
+msgstr "Проверка наличия обновлений пакетов"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
@@ -824,11 +827,11 @@ msgstr "Проверка наличия обновлений"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:770
 msgid "Checking for Cinnamon spices"
-msgstr ""
+msgstr "Проверка дополнений (Cinnamon Spices)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Processing updates"
-msgstr ""
+msgstr "Обработка обновлений"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:797
 msgid "Run 'apt update' in a terminal window to address this"
@@ -896,49 +899,53 @@ msgstr "Обновления сторонних программ"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:934
 msgid "Cinnamon applet"
-msgstr ""
+msgstr "Апплет Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:936
 msgid "Cinnamon desklet"
-msgstr ""
+msgstr "Десклет Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:938
 msgid "Cinnamon theme"
-msgstr ""
+msgstr "Тема Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:940
 msgid "Cinnamon extension"
-msgstr ""
+msgstr "Расширение Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:971
 msgid "Updates are available"
-msgstr ""
+msgstr "Доступны обновления"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d обновление безопасности"
+msgstr[1] "%d обновления безопасности"
+msgstr[2] "%d обновлений безопасности"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:973
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d обновление программного обеспечения"
+msgstr[1] "%d обновления программного обеспечения"
+msgstr[2] "%d обновлений программного обеспечения"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr ""
+"Примените их, чтобы ваша операционная система  была в безопасном и "
+"актуальном состоянии."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:986
 msgid "View updates"
-msgstr ""
+msgstr "Просмотр обновлений"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:987
 msgid "Enable automatic updates"
-msgstr ""
+msgstr "Включить автоматические обновления"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1001
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1780
@@ -1159,7 +1166,7 @@ msgstr "Добро пожаловать в Менеджер обновлений
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
 msgid "Most recent change"
-msgstr ""
+msgstr "Самое последнее изменение"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1899
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
@@ -1191,11 +1198,11 @@ msgstr "Дата"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2043
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2087
 msgid "package"
-msgstr ""
+msgstr "пакет"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2210
 msgid "Options"
@@ -1260,25 +1267,29 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2289
 msgid "Notifications"
-msgstr ""
+msgstr "Уведомления"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
 msgid "Only show notifications for security and kernel updates"
-msgstr ""
+msgstr "Показывать только уведомления об обновлениях безопасности и ядра"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
+"Показывать уведомление, если обновление было доступно в течение (дней входа "
+"в систему):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2299
 msgid "Show a notification if an update is older than (in days):"
-msgstr ""
+msgstr "Показывать уведомление, если обновление старше (в днях):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2301
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
+"Не показывайте уведомления, если обновление было применено в последний раз "
+"(в днях):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2306
 msgid "Ignored Updates"
@@ -1286,11 +1297,11 @@ msgstr "Игнорируемые обновления"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Package Updates"
-msgstr ""
+msgstr "Обновления пакетов"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Performed as root on a daily basis"
-msgstr ""
+msgstr "Выполняется как root ежедневно"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2330
 msgid "Apply updates automatically"
@@ -1309,19 +1320,19 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2343
 msgid "Update Cinnamon spices automatically"
-msgstr ""
+msgstr "Обновлять дополнения (Cinnamon spices) автоматически"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
 msgid "Update flatpaks automatically"
-msgstr ""
+msgstr "Обновлять пакеты flatpak автоматически"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Other Updates"
-msgstr ""
+msgstr "Другие обновления"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Performed when you log in"
-msgstr ""
+msgstr "Выполняется при входе в систему"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Automatic Maintenance"
@@ -1329,7 +1340,7 @@ msgstr "Автоматическое обслуживание"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Performed as root on a weekly basis"
-msgstr ""
+msgstr "Выполняется как root еженедельно"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
 msgid "Remove obsolete kernels and dependencies"
@@ -1496,11 +1507,11 @@ msgstr "Показать и установить доступные обновл
 
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
-msgstr ""
+msgstr "Следующие дополнения были автоматически обновлены:"
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
-msgstr ""
+msgstr "Cinnamon был перезапущен"
 
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3

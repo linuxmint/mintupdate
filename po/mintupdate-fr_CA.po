@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2020-09-20 14:37+0000\n"
-"Last-Translator: Francis Lapointe <Unknown>\n"
+"PO-Revision-Date: 2021-08-25 01:42+0000\n"
+"Last-Translator: guwrt <guwrt77@gmail.com>\n"
 "Language-Team: French (Canada) <fr_CA@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Launchpad-Export-Date: 2021-06-23 10:28+0000\n"
-"X-Generator: Launchpad (build 9dbb463b42239a8426ed781b3086dde814e80a01)\n"
+"X-Launchpad-Export-Date: 2021-12-06 14:57+0000\n"
+"X-Generator: Launchpad (build f92b6e0bb2624f8a9125e3f45b7621c6e230c5ff)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -796,11 +796,11 @@ msgstr "Impossible d'installer les mises à jour de sécurité"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:606
 msgid "Updating Cinnamon Spices"
-msgstr ""
+msgstr "Mise à jour des composants Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 msgid "Restarting Cinnamon"
-msgstr ""
+msgstr "Redémarrage de Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:727
 msgid "Reboot required"
@@ -816,7 +816,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 msgid "Checking for package updates"
-msgstr ""
+msgstr "Recherche de mises à jour de paquets"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
@@ -825,11 +825,11 @@ msgstr "Recherche des mises à jour en cours"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:770
 msgid "Checking for Cinnamon spices"
-msgstr ""
+msgstr "Recherche de mises à jour de composants Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Processing updates"
-msgstr ""
+msgstr "Mise à jour en cours"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:797
 msgid "Run 'apt update' in a terminal window to address this"
@@ -896,49 +896,50 @@ msgstr "Mise à jour tierce"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:934
 msgid "Cinnamon applet"
-msgstr ""
+msgstr "Applet Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:936
 msgid "Cinnamon desklet"
-msgstr ""
+msgstr "Desklet Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:938
 msgid "Cinnamon theme"
-msgstr ""
+msgstr "Thème Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:940
 msgid "Cinnamon extension"
-msgstr ""
+msgstr "Extension Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:971
 msgid "Updates are available"
-msgstr ""
+msgstr "Mises à jour disponibles"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d mise à jour de sécurité"
+msgstr[1] "%d mises à jour de sécurité"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:973
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d mise à jour logicielle"
+msgstr[1] "%d mises à jour logicielles"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr ""
+"Appliquez-les pour garder votre système d'exploitation à jour et en sécurité."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:986
 msgid "View updates"
-msgstr ""
+msgstr "Voir les mises à jour"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:987
 msgid "Enable automatic updates"
-msgstr ""
+msgstr "Activer les mises à jour automatiques"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1001
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1780
@@ -1160,7 +1161,7 @@ msgstr "Bienvenue dans le Gestionnaire de mises à jour"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
 msgid "Most recent change"
-msgstr ""
+msgstr "Changement le plus récent"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1899
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
@@ -1191,11 +1192,11 @@ msgstr "Date"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2043
 msgid "Update"
-msgstr ""
+msgstr "Mise à jour"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2087
 msgid "package"
-msgstr ""
+msgstr "paquet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2210
 msgid "Options"
@@ -1262,25 +1263,33 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2289
 msgid "Notifications"
-msgstr ""
+msgstr "Notifications"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
 msgid "Only show notifications for security and kernel updates"
 msgstr ""
+"N'afficher que les notifications concernant les mises à jour de sécurité ou "
+"de noyaux"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
+"Afficher une notification si une mise à jour est disponible depuis (en jours "
+"où vous avez été connecté) :"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2299
 msgid "Show a notification if an update is older than (in days):"
 msgstr ""
+"Afficher une notification si une mise à jour est disponible depuis (en "
+"jours) :"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2301
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
+"Ne pas afficher de notifications si une mise à jour a été appliquée il y a "
+"moins de (en jours) :"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2306
 msgid "Ignored Updates"
@@ -1288,11 +1297,11 @@ msgstr "Mises à jour ignorées"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Package Updates"
-msgstr ""
+msgstr "Mises à jour de paquets"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Performed as root on a daily basis"
-msgstr ""
+msgstr "Effectué en tant que super-utilisateur de façon quotidienne"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2330
 msgid "Apply updates automatically"
@@ -1311,19 +1320,19 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2343
 msgid "Update Cinnamon spices automatically"
-msgstr ""
+msgstr "Mettre à jour les composants Cinnamon automatiquement"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
 msgid "Update flatpaks automatically"
-msgstr ""
+msgstr "Mettre à jour les flatpaks automatiquement"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Other Updates"
-msgstr ""
+msgstr "Autres mises à jour disponibles"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Performed when you log in"
-msgstr ""
+msgstr "Effectué lors de l'ouverture de session"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Automatic Maintenance"
@@ -1331,7 +1340,7 @@ msgstr "Maintenance automatique"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Performed as root on a weekly basis"
-msgstr ""
+msgstr "Effectué en tant que super-utilisateur sur une base hebdomadaire"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
 msgid "Remove obsolete kernels and dependencies"
@@ -1505,10 +1514,11 @@ msgstr "Afficher et installer les mises à jour disponibles"
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
 msgstr ""
+"Les composants Cinnamon suivants ont été automatiquement mis à jour :"
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
-msgstr ""
+msgstr "Cinnamon a été redémarré"
 
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3

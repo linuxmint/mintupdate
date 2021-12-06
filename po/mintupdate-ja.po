@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://launchpad.net/~linuxmint-translation-team-"
 "japanese\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2021-06-21 10:07+0000\n"
+"PO-Revision-Date: 2021-07-02 02:41+0000\n"
 "Last-Translator: vega m57 <Unknown>\n"
 "Language-Team: Japanese <https://launchpad.net/~linuxmint-translation-team-"
 "japanese>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2021-06-23 10:29+0000\n"
-"X-Generator: Launchpad (build 9dbb463b42239a8426ed781b3086dde814e80a01)\n"
+"X-Launchpad-Export-Date: 2021-12-06 14:57+0000\n"
+"X-Generator: Launchpad (build f92b6e0bb2624f8a9125e3f45b7621c6e230c5ff)\n"
 "Language: ja\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -270,7 +270,7 @@ msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
-msgstr "キャッシュを更新するために追加された -r オプションに注意してください。"
+msgstr "キャッシュを再読み込みするために追加された -r オプションに注意してください。"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid ""
@@ -539,7 +539,7 @@ msgstr "このセクションでは、高度なテクニックについて説明
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  BALLOON a.k.a. Fu-sen. (Keiichi SHIGA) https://launchpad.net/~balloon\n"
+"  BALLOON https://launchpad.net/~balloon\n"
 "  Hiroki Tanaka https://launchpad.net/~hrk623\n"
 "  Hiroshi Tagawa https://launchpad.net/~kuponuga\n"
 "  José Lou Chang https://launchpad.net/~obake\n"
@@ -776,7 +776,7 @@ msgstr "別の Linux Mint ミラーに切り替えてください"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1030
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Could not refresh the list of updates"
-msgstr "アップデートの一覧を更新できませんでした"
+msgstr "アップデートの一覧を再読み込みできませんでした"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:890
 msgid "Kernel update"
@@ -834,7 +834,7 @@ msgstr[0] "%d 個のソフトウェアアップデート"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Apply them to keep your operating system safe and up to date."
-msgstr "それらを適用して､オペレーティングシステムを安全かつ最新に保ちます。"
+msgstr "これらを適用して､オペレーティングシステムを安全かつ最新に保ちましょう｡"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:986
 msgid "View updates"
@@ -1117,11 +1117,11 @@ msgstr "アップデートが利用可能、またはエラーが発生した場
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2222
 msgid "Auto-refresh"
-msgstr "自動更新"
+msgstr "自動で再読み込み"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2223
 msgid "Refresh the list of updates automatically"
-msgstr "アップデートの一覧を自動的に更新"
+msgstr "アップデートの一覧を自動的に再読み込みする"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2235
 msgid "days"
@@ -1137,21 +1137,21 @@ msgstr "分"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2238
 msgid "First, refresh the list of updates after:"
-msgstr "1 度目はアップデート一覧を次の時点で更新します:"
+msgstr "1 度目はアップデート一覧を次の時点で再読み込みします:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2242
 msgid "Then, refresh the list of updates every:"
-msgstr "その後は､アップデート一覧を次の間隔で更新します:"
+msgstr "その後は､アップデート一覧を次の間隔で再読み込みします:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2285
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
-msgstr "注: 一覧が更新されるのは、アップデートマネージャーを閉じている間のみです (システムトレイモード)。"
+msgstr "注: 一覧が再読み込みされるのは、アップデートマネージャーを閉じている間のみです (システムトレイモード)。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2289
 msgid "Notifications"
-msgstr "通知メッセージ"
+msgstr "ポップアップ通知"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
 msgid "Only show notifications for security and kernel updates"
@@ -1160,11 +1160,11 @@ msgstr "セキュリティとカーネルのアップデートに関する通知
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
-msgstr "利用可能なアップデートが次の日数にわたり未適用であった場合に通知を表示 (ログイン日数で):"
+msgstr "各アップデートの内､次の日数にわたり未適用のものがあった場合に通知を表示 (ログイン中の日数で):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2299
 msgid "Show a notification if an update is older than (in days):"
-msgstr "各アップデートが次の日数より経過していた場合は通知を表示 (単純日数で):"
+msgstr "各アップデートの内､次の日数より経過しているものがあった場合は通知を表示 (単純日数で):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2301
 msgid ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2019-11-13 14:00+0000\n"
+"PO-Revision-Date: 2021-06-23 19:16+0000\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2021-06-23 10:28+0000\n"
-"X-Generator: Launchpad (build 9dbb463b42239a8426ed781b3086dde814e80a01)\n"
+"X-Launchpad-Export-Date: 2021-12-06 14:57+0000\n"
+"X-Generator: Launchpad (build f92b6e0bb2624f8a9125e3f45b7621c6e230c5ff)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -767,11 +767,11 @@ msgstr "Neuspjela instalacija sigurnosnih nadopuna"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:606
 msgid "Updating Cinnamon Spices"
-msgstr ""
+msgstr "Nadopuna Cinnamon dodataka"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 msgid "Restarting Cinnamon"
-msgstr ""
+msgstr "Ponovno pokretanje Cinnamona"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:727
 msgid "Reboot required"
@@ -787,7 +787,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 msgid "Checking for package updates"
-msgstr ""
+msgstr "Provjera nadopuna paketa"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
@@ -796,11 +796,11 @@ msgstr "Provjeravanje nadopuna"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:770
 msgid "Checking for Cinnamon spices"
-msgstr ""
+msgstr "Provjera Cinnamon dodataka"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Processing updates"
-msgstr ""
+msgstr "Obrada nadopuna"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:797
 msgid "Run 'apt update' in a terminal window to address this"
@@ -868,49 +868,51 @@ msgstr "Nadopuna treće strane"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:934
 msgid "Cinnamon applet"
-msgstr ""
+msgstr "Cinnamon aplet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:936
 msgid "Cinnamon desklet"
-msgstr ""
+msgstr "Cinnamon desklet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:938
 msgid "Cinnamon theme"
-msgstr ""
+msgstr "Cinnamon tema"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:940
 msgid "Cinnamon extension"
-msgstr ""
+msgstr "Cinnamon proširenje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:971
 msgid "Updates are available"
-msgstr ""
+msgstr "Nadopune su dostupne"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d sigurnosna nadopuna"
+msgstr[1] "%d sigurnosne nadopune"
+msgstr[2] "%d sigurnosnih nadopuna"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:973
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d softverska nadopuna"
+msgstr[1] "%d softverske nadopune"
+msgstr[2] "%d softverskih nadopuna"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Apply them to keep your operating system safe and up to date."
-msgstr ""
+msgstr "Primijenite ih kako bi vaš sustav održali sigurnim i nadopunjenim."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:986
 msgid "View updates"
-msgstr ""
+msgstr "Pogledaj nadopune"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:987
 msgid "Enable automatic updates"
-msgstr ""
+msgstr "Omogući automatsko nadopunjivanje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1001
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1780
@@ -1133,7 +1135,7 @@ msgstr "Dobrodošli u Upravitelj nadopuna"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
 msgid "Most recent change"
-msgstr ""
+msgstr "Najnovije promjene"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1899
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
@@ -1165,11 +1167,11 @@ msgstr "Datum"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2043
 msgid "Update"
-msgstr ""
+msgstr "Nadopuni"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2087
 msgid "package"
-msgstr ""
+msgstr "paket"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2210
 msgid "Options"
@@ -1235,25 +1237,26 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2289
 msgid "Notifications"
-msgstr ""
+msgstr "Obavijesti"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
 msgid "Only show notifications for security and kernel updates"
-msgstr ""
+msgstr "Prikaži obavijesti samo za sigurnosne i nadopune kernela"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
-msgstr ""
+msgstr "Prikaži obavijest ako je nadopuna dostupna (u prijavljenim danima):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2299
 msgid "Show a notification if an update is older than (in days):"
-msgstr ""
+msgstr "Prikaži obavijest ako je nadopuna starija od (u danima):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2301
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
+"Ne prikazuj obavijest ako je nadopuna primijenjena u posljednjih (u danima):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2306
 msgid "Ignored Updates"
@@ -1261,11 +1264,11 @@ msgstr "Zanemarene nadopune"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Package Updates"
-msgstr ""
+msgstr "Nadopune paketa"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Performed as root on a daily basis"
-msgstr ""
+msgstr "Primjenjuje se svakodnevno kao korijenski korisnik"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2330
 msgid "Apply updates automatically"
@@ -1284,19 +1287,19 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2343
 msgid "Update Cinnamon spices automatically"
-msgstr ""
+msgstr "Nadopuni Cinnamon dodatke automatski"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
 msgid "Update flatpaks automatically"
-msgstr ""
+msgstr "Nadopuni flatpak  pakete automatski"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Other Updates"
-msgstr ""
+msgstr "Ostale nadopune"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Performed when you log in"
-msgstr ""
+msgstr "Primjenjuje se kada ste prijavljeni"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Automatic Maintenance"
@@ -1304,7 +1307,7 @@ msgstr "Automatsko održavanje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Performed as root on a weekly basis"
-msgstr ""
+msgstr "Primjenjuje se tjedno kao korijenski korisnik"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
 msgid "Remove obsolete kernels and dependencies"
@@ -1471,11 +1474,11 @@ msgstr "Prikaži i instaliraj dostupne nadopune"
 
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
-msgstr ""
+msgstr "Sljedeći dodaci su automatski nadopunjeni:"
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
-msgstr ""
+msgstr "Cinnamon je ponovno pokrenut"
 
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3

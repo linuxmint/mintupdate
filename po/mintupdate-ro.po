@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2020-01-21 21:36+0000\n"
+"PO-Revision-Date: 2021-07-14 18:57+0000\n"
 "Last-Translator: Nicolae Crefelean <Unknown>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n % 100 > 19) || ((n % 100 "
 "== 0) && (n != 0))) ? 2: 1));\n"
-"X-Launchpad-Export-Date: 2021-06-23 10:28+0000\n"
-"X-Generator: Launchpad (build 9dbb463b42239a8426ed781b3086dde814e80a01)\n"
+"X-Launchpad-Export-Date: 2021-12-06 14:57+0000\n"
+"X-Generator: Launchpad (build f92b6e0bb2624f8a9125e3f45b7621c6e230c5ff)\n"
 "Language: Romanian\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -786,11 +786,11 @@ msgstr "Nu s-au putut instala actualizările de securitate"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:606
 msgid "Updating Cinnamon Spices"
-msgstr ""
+msgstr "Se actualizează adițiile Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 msgid "Restarting Cinnamon"
-msgstr ""
+msgstr "Se repornește Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:727
 msgid "Reboot required"
@@ -806,7 +806,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 msgid "Checking for package updates"
-msgstr ""
+msgstr "Se caută actualizări pentru pachete"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
@@ -815,11 +815,11 @@ msgstr "Se caută actualizări"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:770
 msgid "Checking for Cinnamon spices"
-msgstr ""
+msgstr "Se caută adiții Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Processing updates"
-msgstr ""
+msgstr "Se procesează actualizările"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:797
 msgid "Run 'apt update' in a terminal window to address this"
@@ -887,49 +887,52 @@ msgstr "actualizare de la un terț"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:934
 msgid "Cinnamon applet"
-msgstr ""
+msgstr "Applet Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:936
 msgid "Cinnamon desklet"
-msgstr ""
+msgstr "Desklet Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:938
 msgid "Cinnamon theme"
-msgstr ""
+msgstr "Temă Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:940
 msgid "Cinnamon extension"
-msgstr ""
+msgstr "Extensie Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:971
 msgid "Updates are available"
-msgstr ""
+msgstr "Există actualizări disponibile"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d actualizare de securitate"
+msgstr[1] "%d actualizări de securitate"
+msgstr[2] "%d de actualizări de securitate"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:973
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d actualizare software"
+msgstr[1] "%d actualizări software"
+msgstr[2] "%d de actualizări software"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr ""
+"Aplică-le pentru siguranța și actualitatea sistemului tău de operare."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:986
 msgid "View updates"
-msgstr ""
+msgstr "Vezi actualizările"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:987
 msgid "Enable automatic updates"
-msgstr ""
+msgstr "Activează actualizările automate"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1001
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1780
@@ -1025,7 +1028,7 @@ msgstr "Origine"
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
-msgstr "Reîmprospătează"
+msgstr "Reîncarcă"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1529
@@ -1059,7 +1062,7 @@ msgstr "_Editare"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1483
 msgid "System Snapshots"
-msgstr "Instantanee de sistem."
+msgstr "Instantanee de sistem"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1489
 msgid "Software Sources"
@@ -1152,7 +1155,7 @@ msgstr "Bine ați venit la Administratorul de actualizări"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
 msgid "Most recent change"
-msgstr ""
+msgstr "Cea mai recentă modificare"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1899
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
@@ -1184,11 +1187,11 @@ msgstr "Dată"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2043
 msgid "Update"
-msgstr ""
+msgstr "Actualizează"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2087
 msgid "package"
-msgstr ""
+msgstr "pachet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2210
 msgid "Options"
@@ -1254,25 +1257,29 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2289
 msgid "Notifications"
-msgstr ""
+msgstr "Notificări"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
 msgid "Only show notifications for security and kernel updates"
-msgstr ""
+msgstr "Arată notificări doar pentru actualizările de securitate și nucleu"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
+"Arată o notificare dacă o actualizare a fost disponibilă timp de (în zile de "
+"la autentificare):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2299
 msgid "Show a notification if an update is older than (in days):"
 msgstr ""
+"Arată o notificare dacă o actualizare este mai veche decât (în zile):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2301
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
+"Nu arăta notificări dacă s-au aplicat actualizări în ultimele (în zile):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2306
 msgid "Ignored Updates"
@@ -1280,11 +1287,11 @@ msgstr "Actualizări ignorate"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Package Updates"
-msgstr ""
+msgstr "Actualizări de pachete"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Performed as root on a daily basis"
-msgstr ""
+msgstr "Efectuate ca root, zilnic"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2330
 msgid "Apply updates automatically"
@@ -1303,19 +1310,19 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2343
 msgid "Update Cinnamon spices automatically"
-msgstr ""
+msgstr "Actualizează automat adițiile Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
 msgid "Update flatpaks automatically"
-msgstr ""
+msgstr "Actualizează automat pachetele flatpak"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Other Updates"
-msgstr ""
+msgstr "Alte actualizări"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Performed when you log in"
-msgstr ""
+msgstr "Efectuate când te autentifici"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Automatic Maintenance"
@@ -1323,7 +1330,7 @@ msgstr "Mentenanță automată"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Performed as root on a weekly basis"
-msgstr ""
+msgstr "Efectuate ca root, săptămânal"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
 msgid "Remove obsolete kernels and dependencies"
@@ -1491,11 +1498,11 @@ msgstr "Arată și instalează actualizările disponibile"
 
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
-msgstr ""
+msgstr "Următoarele adiții au fost actualizate automat:"
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
-msgstr ""
+msgstr "Cinnamon a fost repornit"
 
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
@@ -1605,7 +1612,7 @@ msgstr "Confirmați următoarele acțiuni:"
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
 msgid "Clear"
-msgstr "Curăță"
+msgstr "Deselectează tot"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
@@ -1615,7 +1622,7 @@ msgstr "Selectează tot"
 #: usr/share/linuxmint/mintupdate/main.ui.h:4
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:4
 msgid "Install Updates"
-msgstr "Instalare actualizări"
+msgstr "Instalează actualizările"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 msgid "A new version of the Update Manager is available"
