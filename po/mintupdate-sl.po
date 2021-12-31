@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2021-12-01 23:21+0000\n"
+"PO-Revision-Date: 2021-12-16 22:51+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
-"X-Launchpad-Export-Date: 2021-12-06 14:57+0000\n"
-"X-Generator: Launchpad (build f92b6e0bb2624f8a9125e3f45b7621c6e230c5ff)\n"
+"X-Launchpad-Export-Date: 2021-12-31 12:17+0000\n"
+"X-Generator: Launchpad (build adb364d6a74a28e7b95d51cd30446ec16160de6c)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -74,6 +74,11 @@ msgid ""
 "at risk. That said, a security breach can have dire consequences, so it is "
 "always recommended to take them seriously."
 msgstr ""
+"Varnost je izjemno pomembna, je pa tudi zelo tehnična stvar. Ranljivosti ne "
+"vplivajo vedno na vaš računalnik in jih je včasih težko razumeti. Večina jih "
+"sploh ne razume in njihovi osebni računalniki so le redko izpostavljeni "
+"tveganju. Ne glede na to pa ima varnostni vdor grozljive posledice, zato je "
+"priporočljivo, da jih vzamete resno."
 
 #: usr/share/help/C/mintupdate/updates.page:31(p)
 msgid ""
@@ -92,6 +97,11 @@ msgid ""
 "of view, but also prone to regressions which can be hard to fix for novice "
 "users."
 msgstr ""
+"V Linux Mint posodobitve jedra prinašajo tako varnostne popravke kot "
+"popravke hroščev (in včasih celo nove funkcionalnosti), ti pa vplivajo na "
+"kritične dele operacijskega sistema. Zato so posodobitve jedra pomembne z "
+"varnostne plati, hkrati pa tudi občutljive za regresije, ki jih uporabniki "
+"začetniki težko razrešijo."
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
@@ -108,12 +118,16 @@ msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
+"Timeshift, sistemsko orodje za slike sistema, je na voljo v vseh različicah "
+"sistema Linux Mint."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
+"Z njim lahko izdelate posnetke ročno, lahko pa tudi avtomatizirate izdelavo "
+"posnetkov sistema."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
@@ -126,6 +140,9 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
+"Če posodobitev, napaka, hrošč ali zlovešči program okvari nekaj na vašem "
+"računalniku, lahko operacijski sistem obnovite iz sleherne slike sistema, s "
+"čimer se rešite težave, kot da se ne bi zgodila."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
@@ -164,6 +181,10 @@ msgid ""
 "skilled developers are, they can't always predict every possible situation "
 "or test on every possible hardware specification."
 msgstr ""
+"Regresije so zelo pogoste v industriji programja. So del razvoja programske "
+"opreme. Spremembe kode lahko povzročajo regresije. Ne  glede na to, kako "
+"vešči so razvijalci, ne morejo vedno napovedati vsake možne situacije ali "
+"preizkusiti vsake možne specifikacije strojne opreme."
 
 #: usr/share/help/C/mintupdate/regressions.page:27(p)
 msgid ""
@@ -189,6 +210,9 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
+"Recimo da bralnik PDF ne zmore več tiskati. No, to je kar nadležno ... ni pa "
+"tako hudo kot nedelovanje vaše omrežne povezave ali nezmožnost zagona "
+"računalnika ali prijave v sistem."
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
@@ -301,6 +325,8 @@ msgid ""
 "The kernel is the central part of the operating system. Among other things, "
 "it is responsible for hardware support."
 msgstr ""
+"Jedro je osrčje operacijskega sistema. Med drugim je odgovorno za podporo "
+"strojne opreme."
 
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
@@ -314,6 +340,8 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
+"Regresija jedra bi lahko vplivala na vaše povezovanje na internet, na zagon "
+"namiznega okolja ali celo na zagon operacijskega sistema."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
@@ -430,6 +458,9 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
+"Za izbor jedra izberite \"Napredne možnosti\" v meniju Grub. Izpisati bi se "
+"morala vsa trenutno nameščena jedra. Izberite tistega, ki ga želite "
+"uporabiti, in vaš računalnik se bo zagnal z njim."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
@@ -442,12 +473,18 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
+"Jedro vključuje vse odprto-kodne gonilnike in ti običajno delujejo zelo "
+"dobro. Lastniški gonilniki (NVIDIA, AMD, Broadcom, ...) niso vključeni in "
+"jih je potrebno prevesti z vsakim jedrom, ki ga namestite. To opravite prek "
+"mehanizma KDMS."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
+"Če lastniški gonilnik ni pravilno ponovno preveden z DMKS za enega od vaših "
+"jeder, s tem jedrom ne bo pravilno deloval."
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -471,6 +508,10 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
+"Nov niz jeder je običajno na voljo pred podporo lastniških gonilnikov zanj "
+"prek DKMS. Če uporabljate lastniške gonilnike, priporočamo, da se držite "
+"posodobitev jedra in da ne nameščate jeder iz nizov, ki so novejši od niza "
+"priporočenih jeder."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
@@ -482,6 +523,10 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
+"Če nekaj ne deluje z najnovejšim jedrom, ki ste ga namestili (ali z "
+"najnovejšo posodobitvijo jedra), ponovno zaženite računalnik, izberite "
+"jedro, ki ste ga doslej uporabljali, odstranite novo dodano jedro ter "
+"ponovno zaženite računalnik."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:60
@@ -499,18 +544,25 @@ msgid ""
 "The Update Manager provides your operating system with software and security "
 "updates."
 msgstr ""
+"Upravitelj posodobitev zagotavlja vašemu operacijskemu sistemu programske in "
+"varnostne posodobitve."
 
 #: usr/share/help/C/mintupdate/index.page:22(p)
 msgid ""
 "Updates are important because they keep your computer safe, eliminate bugs "
 "and can even add new features to your operating system."
 msgstr ""
+"Posodobitve so pomembne, saj ohranjajo vaš računalnik varen, izkoreninijo "
+"hrošče ter lahko celo dodajo nove funkcionalnosti vašemu operacijskemu "
+"sistemu."
 
 #: usr/share/help/C/mintupdate/index.page:24(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions', "
 "which can break things which worked well before."
 msgstr ""
+"Žal včasih vpeljejo nove težave, imenovane »regresije«, ki lahko okvarijo "
+"delovanje tam, kjer je dotlej vse delovalo."
 
 #: usr/share/help/C/mintupdate/index.page:26(p)
 msgid ""
@@ -518,6 +570,9 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
+"Da bi ohranili svoj računalnik v varnem in dobro delujočem stanju, "
+"priporočamo, da uveljavite vse razpoložljive posodobitve in da vzpostavite "
+"slike sistema, tako da lahko obnovite svoj sistem, če gre kaj narobe."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -571,6 +626,14 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
+"Jedro Linuxa je odgovorno za podporo strojne opreme in gonilnikov. "
+"Upoštevajte, da ta posodobitev ne bo odstranila vašega obstoječega jedra. Še "
+"vedno boste lahko zagnali računalnik s trenutnim jedrom, tako da izberete "
+"napredne možnosti v meniju ob zagonu. Bodite previdni: regresija jedra lahko "
+"vpliva na vašo zmožnost povezovanja v internet ali za grafično prijavo. "
+"Moduli DKMS so prevedeni za najsodobnejša jedra, nameščena na vašem "
+"računalniku. Če uporabljate lastniške gonilnike in želite uporabljati "
+"starejše jedro, boste morali najprej odstraniti novega."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
@@ -635,7 +698,7 @@ msgstr "Podprto do"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Superseded"
-msgstr ""
+msgstr "Nasledeno"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:525
 msgid "End of Life"
@@ -711,6 +774,8 @@ msgid ""
 "You have installed updates that require a reboot to take effect, please "
 "reboot your system as soon as possible."
 msgstr ""
+"Namestili ste posodobitve, ki za uporabo zahtevajo ponoven zagon; čim prej "
+"ponovno zaženite sistem."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 msgid "Checking for package updates"
@@ -731,7 +796,7 @@ msgstr "Obdelovanje posodobitev"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:797
 msgid "Run 'apt update' in a terminal window to address this"
-msgstr ""
+msgstr "Za rešitev tega zaženite \"apt update\" v oknu terminala"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:807
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:811
@@ -749,6 +814,8 @@ msgstr ""
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
+"Če želite preklopiti na drug zrcalni strežnik Linux Mint in rešiti to "
+"težavo, kliknite V redu."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:812
 msgid "APT error:"
@@ -789,7 +856,7 @@ msgstr "Posodobitev programske opreme"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:907
 msgid "3rd-party update"
-msgstr ""
+msgstr "Posodobitev tretje strani"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:934
 msgid "Cinnamon applet"
@@ -797,7 +864,7 @@ msgstr "Programček Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:936
 msgid "Cinnamon desklet"
-msgstr ""
+msgstr "Namizni vstavek Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:938
 msgid "Cinnamon theme"
@@ -815,19 +882,24 @@ msgstr "Na voljo so posodobitve"
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d varnostnih posodobitev"
+msgstr[1] "%d varnostna posodobitev"
+msgstr[2] "%d varnostni posodobitvi"
+msgstr[3] "%d varnostne posodobitve"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:973
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d programskih posodobitev"
+msgstr[1] "%d programska posodobitev"
+msgstr[2] "%d programski posodobitvi"
+msgstr[3] "%d programske posodobitve"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr ""
+"Uveljavite jih, da ohranite svoj operacijski sistem varen in posodobljen."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:986
 msgid "View updates"
@@ -835,22 +907,26 @@ msgstr "Pokaži posodobitve"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:987
 msgid "Enable automatic updates"
-msgstr ""
+msgstr "Omogoči samodejne posodobitve"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1001
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1780
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(selected)d izbranih posodobitev (%(size)s)"
+msgstr[1] "%(selected)d izbrana posodobitev (%(size)s)"
+msgstr[2] "%(selected)d izbrana posodobitvi (%(size)s)"
+msgstr[3] "%(selected)d izbrane posodobitve (%(size)s)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1007
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d posodobitev na voljo"
+msgstr[1] "%d posodobitev na voljo"
+msgstr[2] "%d posodobitvi na voljo"
+msgstr[3] "%d posodobitve na voljo"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1012
 #: usr/share/linuxmint/mintupdate/main.ui.h:8
@@ -859,11 +935,12 @@ msgstr "Vaš sistem je že posodobljen."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1076
 msgid "Do you want to switch to a local mirror?"
-msgstr ""
+msgstr "Ali želite preklopiti na krajevni zrcalni strežnik?"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
+"Krajevni zrcalni strežniki so običajno hitrejši kot packages.linuxmint.com."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1088
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1098
@@ -873,14 +950,16 @@ msgstr "Preklopite na drug zrcalni strežnik"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1089
 #, python-format
 msgid "%s is unreachable."
-msgstr ""
+msgstr "%s ni dosegljiv."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1099
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Zadnja posodobitev na %(mirror)s je bila pred %(days)d dnevi."
+msgstr[1] "Zadnja posodobitev na %(mirror)s je bila pred %(days)d dnem."
+msgstr[2] "Zadnja posodobitev na %(mirror)s je bila pred %(days)d dnema."
+msgstr[3] "Zadnja posodobitev na %(mirror)s je bila pred %(days)d dnevi."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
 msgid "Exit"
@@ -1026,6 +1105,8 @@ msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
 msgstr ""
+"Sistem upravljanja s paketi trenutno uporablja drug proces. Počakajte, da "
+"dokonča svoje delo, in nato poskusite znova."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1737
 msgid "Yes"
@@ -1047,11 +1128,11 @@ msgstr "Izbrana ni nobena posodobitev"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1855
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid "Welcome to the Update Manager"
-msgstr ""
+msgstr "Dobrodošli v Upravitelja posodobitev"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
 msgid "Most recent change"
-msgstr ""
+msgstr "Zadnja sprememba"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1899
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
@@ -1061,8 +1142,10 @@ msgstr "Opis"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1928
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ta posodobitev vpliva na naslednje nameščene pakete:"
+msgstr[1] "Ta posodobitev vpliva na naslednje nameščene pakete:"
+msgstr[2] "Ta posodobitev vpliva na naslednje nameščene pakete:"
+msgstr[3] "Ta posodobitev vpliva na naslednje nameščene pakete:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1933
 msgid "Total size:"
@@ -1146,6 +1229,8 @@ msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
 msgstr ""
+"Opomba: seznam se osveži le takrat, ko je okno Upravitelja posodobitev "
+"zaprto (način sistemskega pladnja)."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2289
 msgid "Notifications"
@@ -1181,7 +1266,7 @@ msgstr "Posodobitve paketov"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Performed as root on a daily basis"
-msgstr ""
+msgstr "Izvedeno korensko vsak dan"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2330
 msgid "Apply updates automatically"
@@ -1195,14 +1280,16 @@ msgstr "Izvozi črn seznam v /etc/mintupdate.blacklist"
 msgid ""
 "Click this button for automatic updates to use your current blacklist."
 msgstr ""
+"Kliknite ta gumb, da samodejne posodobitve uporabijo vaš trenutni črni "
+"seznam."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2343
 msgid "Update Cinnamon spices automatically"
-msgstr ""
+msgstr "Posodobi začimbe Cinnamon samodejno"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
 msgid "Update flatpaks automatically"
-msgstr ""
+msgstr "Samodejno posodobi platpak-e"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Other Updates"
@@ -1210,7 +1297,7 @@ msgstr "Druge posodobitve"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 msgid "Performed when you log in"
-msgstr ""
+msgstr "Se izvede, ko se prijavite"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Automatic Maintenance"
@@ -1218,23 +1305,27 @@ msgstr "Samodejno vzdrževanje"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2352
 msgid "Performed as root on a weekly basis"
-msgstr ""
+msgstr "Se izvede korensko enkrat tedensko"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
 msgid "Remove obsolete kernels and dependencies"
-msgstr ""
+msgstr "Odstrani zastarela jedra in odvisne pakete"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2357
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
 msgstr ""
+"Ta možnost vedno pusti vsaj eno starejše jedro nameščeno in nikoli ne "
+"odstrani ročno nameščenih jeder."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
 msgstr ""
+"Določite ime izvornega paketa posodobitve, ki ga želite prezreti (podprti so "
+"nadomestni znaki), in po želji tudi njegovo različico:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2414
 msgid "Ignore an Update"
@@ -1381,7 +1472,7 @@ msgstr "Pokaži in namesti razpoložljive posodobitve"
 
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
-msgstr ""
+msgstr "Naslednje začimbe (spices) so samodejno posodobljene:"
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
@@ -1408,17 +1499,19 @@ msgstr "Opozorilo!"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:2
 msgid "Proceed with caution"
-msgstr ""
+msgstr "Nadaljujte pazljivo"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:3
 msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
+"Nameščanje novega jedra lahko včasih povzroči težave, še posebej ob uporabi "
+"lastniških gonilnikov."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
 msgid "These issues include:"
-msgstr ""
+msgstr "Med te težave sodijo:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:5
 msgid ""
@@ -1427,10 +1520,14 @@ msgid ""
 "- Black screen on startup\n"
 "- Random system freeze"
 msgstr ""
+"- nedelujoč wi-fi (ali ethernet);\n"
+"- brez pospeševanja videa;\n"
+"- črn zaslon ob zagonu;\n"
+"- naključne zamrznitve sistema."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "If you face any of these issues, don't panic:"
-msgstr ""
+msgstr "Če naletite na katero od teh težav, brez panike:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:10
 msgid ""
@@ -1440,6 +1537,12 @@ msgid ""
 "- Select an older kernel.\n"
 "- After the computer boots with the older kernel, uninstall the new one."
 msgstr ""
+"- Ponovno zaženite sistem.\n"
+"- Pritisnite dvigalko in jo držite pritisnjeno, da se pokaže zagonski meni.\n"
+"- V zagonskem meniju izberite vrstico, ki se začne z \"Napredne možnosti\" "
+"(angl. Advanced options).\n"
+"- Izberite starejše jedro.\n"
+"- Po zagonu računalnika s starejšim jedrom odnamestite novejšega."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
@@ -1456,11 +1559,11 @@ msgstr "Nadaljuj"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
 msgid "Kernel flavor:"
-msgstr ""
+msgstr "Niansa jedra:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 msgid "Perform Queued Actions..."
-msgstr ""
+msgstr "Izvedi dejanja v vrsti ..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Remove Kernels..."
@@ -1513,6 +1616,8 @@ msgstr "Dnevnik sprememb"
 msgid ""
 "This tool provides your operating system with software and security updates."
 msgstr ""
+"To orodje vašemu operacijskemu sistemu zagotavlja programske in varnostne "
+"posodobitve."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Security updates"
@@ -1522,6 +1627,8 @@ msgstr "Varnostne posodobitve"
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
+"Uveljavite varnostne posodobitve, za zaščitite ranljivosti in ohranite "
+"računalnik varen."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid "Software updates"
@@ -1537,6 +1644,8 @@ msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
+"Vzpostavite slike sistema, da se zaščitite pred napakami in regresijami. Če "
+"se kar koli zalomi, enostavno obnovite zadnji posnetek sistema."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid ""
@@ -1544,6 +1653,10 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
+"Linux Mint priporoča, da vzpostavite samodejno izdelavo slik sistema in da "
+"uveljavite vse razpoložljive posodobitve. Na ta način je vaš računalnik "
+"vedno varen in vrnete se lahko v času ter ga obnovite pri vsaki potencialni "
+"regresiji."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid ""
@@ -1567,6 +1680,8 @@ msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
+"Preverite, da so posnetki sistema pravilno prilagojeni, preden uporabite to "
+"možnost."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
