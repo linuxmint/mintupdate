@@ -28,10 +28,8 @@ except:
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
-gi.require_version('AppIndicator3', '0.1')
 gi.require_version('Notify', '0.7')
 from gi.repository import Gtk, Gdk, Gio, GLib, Notify
-from gi.repository import AppIndicator3 as AppIndicator
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
@@ -1226,44 +1224,6 @@ class Logger():
     def remove_hook(self):
         self.hook = None
 
-class AppIndicatorIcon():
-
-    def __init__(self, app):
-        self.app = app
-        self.icon = AppIndicator.Indicator.new("mintUpdate", "mintupdate", AppIndicator.IndicatorCategory.APPLICATION_STATUS)
-        self.icon.set_status(AppIndicator.IndicatorStatus.ACTIVE)
-        self.icon.set_title(_("Update Manager"))
-
-        self.menu = Gtk.Menu()
-        item = Gtk.MenuItem()
-        item.set_label(_("Update Manager"))
-        item.connect("activate", self.app.on_appindicator_activated)
-        self.menu.append(item)
-        self.icon.set_secondary_activate_target(item)
-
-        item = Gtk.MenuItem()
-        item.set_label(_("Exit"))
-        item.connect("activate", self.cb_exit, '')
-        self.menu.append(item)
-
-        self.menu.show_all()
-        self.icon.set_menu(self.menu)
-
-    def cb_exit(self, w, data):
-        self.app.quit(None, None)
-
-    def set_from_icon_name(self, name):
-        self.icon.set_icon(name)
-
-    def set_tooltip_text(self, text):
-        self.icon.set_title(text)
-
-    def set_visible(self, visible):
-        if visible:
-            self.icon.set_status(AppIndicator.IndicatorStatus.ACTIVE)
-        else:
-            self.icon.set_status(AppIndicator.IndicatorStatus.PASSIVE)
-
 class XAppStatusIcon():
 
     def __init__(self, menu):
@@ -1450,12 +1410,8 @@ class MintUpdate():
             menu.append(menuItem)
             menu.show_all()
 
-            if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
-                # KDE Plasma no longer supports Gtk.StatusIcon and doesn't yet support XApp.StatusIcon
-                self.statusIcon = AppIndicatorIcon(self)
-            else:
-                self.statusIcon = XAppStatusIcon(menu)
-                self.statusIcon.icon.connect('activate', self.on_statusicon_activated)
+            self.statusIcon = XAppStatusIcon(menu)
+            self.statusIcon.icon.connect('activate', self.on_statusicon_activated)
 
             self.set_status("", _("Checking for updates"), "mintupdate-checking-symbolic", not self.settings.get_boolean("hide-systray"))
 
@@ -1985,9 +1941,6 @@ class MintUpdate():
         else:
             self.window.show()
             self.window.present_with_time(time)
-
-    def on_appindicator_activated(self, widget):
-        self.tray_activate()
 
     def on_statusicon_activated(self, icon, button, time):
         if button == Gdk.BUTTON_PRIMARY:
