@@ -427,8 +427,10 @@ class InstallThread(threading.Thread):
                         continue
 
                     aptInstallNeeded = True
+                    activeKernelLine = subprocess.check_output(['uname','-r']).decode('utf-8').split('-')[0]
                     if update.type == "kernel" and \
-                       [True for pkg in update.package_names if "-image-" in pkg]:
+                       [True for pkg in update.package_names if "-image-" in pkg] and \
+                       [True for pkg in update.package_names if activeKernelLine in pkg] :
                         self.reboot_required = True
                     if update.type == "security" and \
                        [True for pkg in update.package_names if "nvidia" in pkg]:
