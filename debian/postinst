@@ -25,6 +25,8 @@ case "$1" in
         if which systemctl >/dev/null 2>&1
         then
             systemctl enable mintupdate-automation-cleanup.service || true
+            systemctl disable mintupdate-automation-upgrade.service || true
+            systemctl disable mintupdate-automation-autoremove.service || true
         fi
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
