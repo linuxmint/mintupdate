@@ -2296,7 +2296,7 @@ class MintUpdate():
         box.pack_start(page, True, True, 0)
         section = page.add_section(_("Package Updates"), _("Performed as root on a daily basis"))
         autoupgrade_switch = Switch(_("Apply updates automatically"))
-        autoupgrade_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
+        autoupgrade_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["upgrade"][2]))
         autoupgrade_switch.content_widget.connect("notify::active", self.set_auto_upgrade)
         section.add_row(autoupgrade_switch)
         button = Gtk.Button(label=_("Export blacklist to /etc/mintupdate.blacklist"))
@@ -2319,7 +2319,7 @@ class MintUpdate():
                 section.add_row(switch)
         section = page.add_section(_("Automatic Maintenance"), _("Performed as root on a weekly basis"))
         autoremove_switch = Switch(_("Remove obsolete kernels and dependencies"))
-        autoremove_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["autoremove"][0]))
+        autoremove_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["autoremove"][2]))
         autoremove_switch.content_widget.connect("notify::active", self.set_auto_remove)
         section.add_row(autoremove_switch)
         section.add_note(_("This option always leaves at least one older kernel installed and never removes manually installed kernels."))
@@ -2343,7 +2343,7 @@ class MintUpdate():
             self.auto_refresh.start()
 
     def set_auto_upgrade(self, widget, param):
-        exists = os.path.isfile(AUTOMATIONS["upgrade"][0])
+        exists = os.path.isfile(AUTOMATIONS["upgrade"][2])
         action = None
         if widget.get_active() and not exists:
             action = "enable"
@@ -2351,11 +2351,11 @@ class MintUpdate():
             action = "disable"
         if action:
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "upgrade", action])
-        if widget.get_active() != os.path.isfile(AUTOMATIONS["upgrade"][0]):
+        if widget.get_active() != os.path.isfile(AUTOMATIONS["upgrade"][2]):
             widget.set_active(not widget.get_active())
 
     def set_auto_remove(self, widget, param):
-        exists = os.path.isfile(AUTOMATIONS["autoremove"][0])
+        exists = os.path.isfile(AUTOMATIONS["autoremove"][2])
         action = None
         if widget.get_active() and not exists:
             action = "enable"
@@ -2363,7 +2363,7 @@ class MintUpdate():
             action = "disable"
         if action:
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "autoremove", action])
-        if widget.get_active() != os.path.isfile(AUTOMATIONS["autoremove"][0]):
+        if widget.get_active() != os.path.isfile(AUTOMATIONS["autoremove"][2]):
             widget.set_active(not widget.get_active())
 
     def save_blacklist(self, treeview_blacklist):
