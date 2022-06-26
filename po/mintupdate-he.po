@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2021-11-29 12:04+0000\n"
-"Last-Translator: Avi Markovitz <avi.markovitz@gmail.com>\n"
+"PO-Revision-Date: 2022-03-11 13:25+0000\n"
+"Last-Translator: Omer I.S. <Unknown>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2021-12-31 12:17+0000\n"
-"X-Generator: Launchpad (build adb364d6a74a28e7b95d51cd30446ec16160de6c)\n"
+"X-Launchpad-Export-Date: 2022-06-26 11:17+0000\n"
+"X-Generator: Launchpad (build 51a2e4fa2e9b8e45f00904ad7f53546f45ac48a5)\n"
 "Language: he\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -54,15 +54,15 @@ msgid ""
 "'Software updates' are updates which fix bugs (or also sometimes which bring "
 "new features)."
 msgstr ""
-"'עדכוני תכנה' הם עדכונים שמתקנים תקלים (או לפעמים מוסיפים יכולות חדשות)."
+"'עדכוני תכנה' הם עדכונים שמתקנים תקלות (ולפעמים מוסיפים גם תכונות חדשות)."
 
 #: usr/share/help/C/mintupdate/updates.page:25(p)
 msgid "'Security updates' are updates which patch vulnerabilities."
-msgstr "'עדכוני אבטחה' הם עדכונים שמתקנים בעיות אבטחה ידועות."
+msgstr "\"עדכוני אבטחה\" הם עדכונים שמתקנים בעיות אבטחה ידועות."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
-msgstr "'עדכוני ליבה' מיצגים התקנת ליבה (קרנל) חדשה למערכת ההפעלה."
+msgstr "\"עדכוני ליבה\" משמעם התקנת גרסת ליבה (kernel) חדשה."
 
 #: usr/share/help/C/mintupdate/updates.page:29(p)
 msgid ""
@@ -82,7 +82,7 @@ msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
-"עדכוני תכנה אינם חשובים באותה מידה. הם מספקים תיקוני תקלים ושיפורים שאינם "
+"עדכוני התוכנה אינם חשובים באותה מידה. הם מספקים תיקוני תקלות ושיפורים שאינם "
 "קשורים לאבטחה."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
@@ -94,43 +94,39 @@ msgid ""
 "of view, but also prone to regressions which can be hard to fix for novice "
 "users."
 msgstr ""
-"בלינוקס מינט, עדכוני ליבה כוללים גם עדכוני אבטחה וגם תיקוני תקלים (ולעתים "
-"אפילו יכולות חדשות), והם משפיעים על חלקים משמעותיים של מערכת ההפעלה. מסיבה "
-"זו עדכוני ליבה חשובים מנקודת המבט של האבטחה, אך טמונה בהם גם סכנה לנסיגה, "
-"שעשויה לא להיות  פשוטה לתיקון עבור משתמשים מתחילים."
+"עדכוני ליבה בלינוקס מינט, כוללים גם עדכוני אבטחה וגם תיקוני תקלים (לעתים "
+"אפילו גם יכולות חדשות), שמשפיעים על חלקים משמעותיים של מערכת ההפעלה. מסיבה "
+"זו עדכוני ליבה חשובים בהיבט האבטחה, אך טמונה בהם גם סכנה לתסוגה, שעשויה "
+"להיות  מורכבת לתיקון עבור משתמשים מתחילים."
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
-msgstr ""
-"במקרה של תְּסוּגָה משמעותית, יש לשחזר את תמונת־החטף האחרונה של המערכת."
+msgstr "במקרה של תְּסוּגָה משמעותית, יש לשחזר תמונת־חטף מערכת אחרונה."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "System snapshots"
-msgstr "תמונת־חטף  מערכת"
+msgstr "תמונות מערכת"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
-"טיימשיפט, תכנת השירות לניהול תמונת־חטף של המערכת, זמינה בכל הגרסאות של "
-"לינוקס מינט."
+"‏Timeshift, תוכנת העזר לניהול תמונות מערכת, זמינה בכל גרסאות לינוקס מינט."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
-msgstr ""
-"ניתן להשתמש בתכנת השרות, על מנת ליצור תמונות־חטף מערכת באופן ידני או  "
-"אוטומטי."
+msgstr "ניתן להשתמש בה כדי ליצור תמונות מערכת באופן ידני או  אוטומטי."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
 msgstr ""
-"לינוקס מינט ממליצה להגדיר אוטומציה ליצירת תמונות־חטף יומית ושל מחיצת האתחול "
-"(boot)."
+"לינוקס מינט ממליצה להגדיר אוטומציה ליצירת תמונות־חטף מערכת ומחיצת האתחול "
+"(boot), יומיות."
 
 #: usr/share/help/C/mintupdate/snapshots.page:27(p)
 msgid ""
@@ -138,7 +134,7 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
-"אם כתוצאה מעדכון, טעות, תקל או תכנה זדונית, משהו משתבש במחשב , ניתן לשחזר את "
+"אם משהו משתבש במחשב, כתוצאה מעדכון, טעות, תקל או תכנה זדונית, ניתן לשחזר את "
 "מערכת ההפעלה מכל תמונת־חטף ובכך לנטרל את הבעיה כאילו  מעולם לא ארעה."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
@@ -146,12 +142,12 @@ msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
-"תמונות-חטף מערכת מגבות רק את מערכת ההפעלה עצמה. הם אינם כוללים או משפיעים על "
-"הנתונים האישיים במחשב."
+"תמונות־חטף המערכת, מגבות רק את מערכת ההפעלה עצמה. הן אינן כוללות או משפיעות "
+"על הנתונים האישיים במחשב."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
-msgstr "שיבוש כתוצאה מעדכון המערכת נקרא 'תסוגה'."
+msgstr "שיבוש כתוצאה מעדכון מערכת, נקרא 'תסוגה'."
 
 #: usr/share/help/C/mintupdate/regressions.page:19(title)
 msgid "Software regressions"
@@ -162,14 +158,14 @@ msgid ""
 "Updates keep your computer safe, eliminate bugs and even sometimes add new "
 "features to your operating system."
 msgstr ""
-"עדכונים שומרים על המחשב – מאובטח, מתקנים תקלים ולפעמים אפילו מוסיפים יכולות "
+"עדכונים שומרים על המחשב מאובטח, מתקנים תקלות ולפעמים אפילו מוסיפים תכונות "
 "חדשות למערכת ההפעלה."
 
 #: usr/share/help/C/mintupdate/regressions.page:23(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions'."
 msgstr ""
-"לרוע המזל, הם עלולים לפעמים ליוצרים גם סוגיות חדשות, תופעה שנקראת 'תסוגה'."
+"לרוע המזל, הם עלולים לפעמים ליוצור גם בעיות חדשות, תופעה שנקראת 'תסוגה'."
 
 #: usr/share/help/C/mintupdate/regressions.page:25(p)
 msgid ""
@@ -190,14 +186,15 @@ msgstr "כאשר מתרחשת תסוגה, היא משבשת משהו שלפני 
 
 #: usr/share/help/C/mintupdate/regressions.page:29(p)
 msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
-msgstr "לפעמים זה לא ממש חשוב, אבל יש מקרים בהם זה משמעותי מאוד."
+msgstr ""
+"לפעמים זה לא ממש משנה, אבל במקרים מסוימים זה עשוי להיות משמעותי מאוד."
 
 #: usr/share/help/C/mintupdate/regressions.page:31(p)
 msgid ""
 "It depends on what part of the operating system is affected and whether or "
 "not you're able to work around it or to fix it."
 msgstr ""
-"תלוי במרכיב במערכת ההפעלה שהושפע מהעדכון והאם ניתן לעקוף זאת או לבצע תיקון."
+"תלוי במרכיב מערכת ההפעלה שהושפע מהעדכון והאם ניתן לעקוף זאת או לבצע תיקון."
 
 #: usr/share/help/C/mintupdate/regressions.page:33(p)
 msgid ""
@@ -205,17 +202,17 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
-"לדוגמה, נניח שקורא ה- PDF לא מסוגל עוד להדפיס. ובכן, זה בהחלט מעצבן ... אבל "
-"זה לא משמעותי באותה מידה אילו חיבור הרשת הפסיק לעבוד או שלפתע לא ניתן לאתחל "
-"את המחשב או להתחבר."
+"לדוגמה, נניח שקורא ה־PDF לא מדפיס עוד. ובכן, זה עשוי בהחלט להיות  מעצבן ... "
+"אך אין זה בעייתי באותה מידה אילו חיבור הרשת פסק לעבוד, או שלפתע לא ניתן "
+"לאתחל את המחשב, או להתחבר אליו."
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
 "In the latter case, it can be very problematic if you're not experienced "
 "with Linux and you don't know how to troubleshoot."
 msgstr ""
-"המקרה האחרון,  עשוי להיות מאוד בעייתי למי  שלא מנוסה בלינוקס ולא יודע כיצד "
-"לנפות תקלים."
+"המקרה האחרון עשוי להיות בעייתי מאוד אם אין לך ניסיון בלינוקס ואין בידיעתך "
+"כיצד לנפות תקלות."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
@@ -228,7 +225,7 @@ msgstr "שימוש ב־mintupdate-cli"
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:21(p)
 msgid ""
 "The Update Manager provides a command line utility called \"mintupdate-cli\"."
-msgstr "מנהל העדכונים מספק תכנת שורת־פקודה בשם 'mintupdate-cli'."
+msgstr "מנהל העדכונים מספק עזר שורת־פקודה בשם 'mintupdate-cli'."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:23(p)
 msgid ""
@@ -249,7 +246,7 @@ msgstr "ניתן להשתמש בפקודה \"list\" להצגת העדכונים:
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:31(screen)
 #, no-wrap
 msgid "mintupdate-cli list"
-msgstr "רשימת mintupdate-cli"
+msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid "You can use -s to only show the security updates."
@@ -257,7 +254,7 @@ msgstr "ניתן להשתמש ב־' s-' להצגת עדכוני האבטחה ב�
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr "ניתן להשתמש ב- 'k-'  להצגת עדכוני ליבה בלבד."
+msgstr "ניתן להשתמש ב־'k-'  להצגת עדכוני ליבה בלבד."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
@@ -276,7 +273,7 @@ msgstr "החלת עדכונים"
 msgid ""
 "You can use the \"upgrade\" command to apply updates, using the same options."
 msgstr ""
-"ניתן להשתמש בפקודה \"upgrade\" כדי להחיל עדכונים, המשתמשים באותן אפשרויות,"
+"ניתן להשתמש בפקודה \"upgrade\" להחלת עדכונים, תוך שימוש באפשרויות זהות."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
@@ -289,13 +286,13 @@ msgstr "sudo mintupdate-cli upgrade -r -k"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:53(p)
 msgid "Note the -r argument, which was added to refresh the cache."
-msgstr "שימו לב למשתנה 'r-'  שהתווסף לפקודה לרענן המטמון."
+msgstr "שימו לב למשתנה 'r-'  שהתווסף לפקודת רענון המטמון."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:55(p)
 msgid ""
 "For more information on mintupdate-cli and a complete list of arguments, "
 "type:"
-msgstr "למידע נוסף אודות  mintupdate-cli ולרשימת המשתנים  המלאה, נא להקליד:"
+msgstr "למידע נוסף אודות mintupdate-cli ולרשימת המשתנים המלאה, נא להקליד:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:57(screen)
 #, no-wrap
@@ -370,7 +367,7 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
-msgstr "בזמן האתחול, המחשב בוחר את הליבה העדכנית ביותר."
+msgstr "בזמן איתחול, המחשב בוחר בליבה העדכנית ביותר."
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
@@ -397,7 +394,7 @@ msgstr "ניתן להסיר ליבות על ידי מנהל העדכונים."
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr "בתפריט יש לבחור ב- 'תצוגה'  &gt-;  'ליבות לינוקס'."
+msgstr "מהתפריט, יש לבחור ב'תצוגה'  ->  'ליבות לינוקס'."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
@@ -423,8 +420,8 @@ msgid ""
 "This menu allows you to choose operating systems but you can also use it to "
 "select a kernel."
 msgstr ""
-"באתחול המחשב, המסך הראשון שמופיע נקרא תפריט  גרוב (Grub). תפריט זה מאפשר את "
-"בחירתן מערכות הפעלה, אך ניתן לבחור דרכו גם את הליבה הרצויה."
+"עם איתחול המחשב, המסך הראשון שיופיע נקרא תפריט  גרוב (Grub). תפריט זה מאפשר "
+"לבחור מערכת הפעלה, אך גם את הליבה הרצויה."
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -432,8 +429,8 @@ msgid ""
 "skip the Grub menu. To force the Grub menu to show, boot the computer and "
 "keep pressing the left <key>Shift</key> key."
 msgstr ""
-"אם מותקנת רק מערכת הפעלה אחת, יתכן שתהליך האתחול  ידלג על תפריט הגרוב. על "
-"מנת לאלץ הצגת התפריט, יש לאתחל את המחשב תוך כדי החזקת מקש ה-<key>Shift</key> "
+"אם מותקנת רק מערכת הפעלה אחת, יתכן שתהליך האיתחול  ידלג על תפריט הגרוב. על "
+"מנת לאלץ הצגת התפריט, יש לאתחל את המחשב תוך כדי החזקת מקש ה־<key>Shift</key> "
 "לחוץ."
 
 #: usr/share/help/C/mintupdate/kernels.page:73(p)
@@ -448,7 +445,7 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
-msgstr "בדיקת מצב ה-DKMS"
+msgstr "בדיקת מצב ה־DKMS"
 
 #: usr/share/help/C/mintupdate/kernels.page:80(p)
 msgid ""
@@ -457,17 +454,17 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
-"הליבה כוללת את כל התקני הקוד הפתוח ולרוב הם עובדים מאוד טוב. התקנים קנייניים "
-"(NVIDIA, AMD, Broadcom, כו') לא נכללים והם צריכים להדר את עצמם מול כל ליבה "
-"חדשה שמותקנת. נעשה באמצעות מנגנון המכונה DKMS."
+"הליבה כוללת את כל התקני הקוד הפתוח ולרוב הם עובדים היטב. התקנים קנייניים "
+"(NVIDIA, AMD, Broadcom, ועוד) לא נכללים והם צריכים להדר את עצמם מול כול ליבה "
+"חדשה שתותקן. הדבר נעשה באמצעות מנגנון המכונה DKMS."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
-"אם התקן קנייני לא הודר כנדרש באמצעות DKMS לאחד מהליבות, ההתקן לא יתפקד באופן "
-"תקיו בליבה זו."
+"אם התקן קנייני לא הודר כנדרש באמצעות DKMS לאחת הליבות, ההתקן לא יתפקד בליבה "
+"זו באופן תקין ."
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -475,9 +472,9 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
-"לאחר שמתקינים או מסירים ליבה, ניתן לבדוק את מצב ה-DKMS, ניתן לוודא שכל "
-"ההתקנים הקנייניים מותקנים בצורה תקינה, עבור כל אחת מהליבות המותקנות במחשב, "
-"באמצעות הפקודה הבאה:"
+"לאחר התקנת או הסרת ליבה, ניתן לבדוק את מצב ה־DKMS, כדי לוודא שכל ההתקנים "
+"הקנייניים מותקנים באופן תקין עבור כל אחת מהליבות המותקנות במחשב, באמצעות "
+"הפקודה הבאה:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
@@ -491,9 +488,9 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
-"סדרות ליבה חדשות לרוב יהיו זמינות עוד לפני שהתקנים הקנייניים יתמכו בהן "
-"באמצעות DKMS. כאשר מותקנים התקנים קנייניים, מומלץ להצמד עם לעדכוני ליבה ולא "
-"להתקין ליבות מסדרות חדשות מסדרת הליבות המומלצת."
+"סדרות ליבה חדשות, יהיו לרוב זמינות, עוד לפני שההתקנים הקנייניים יתמכו בהן "
+"באמצעות DKMS. כאשר  התקנים קנייניים מותקנים, מומלץ להצמד לעדכוני ליבה ולא "
+"להתקין ליבות מסדרות חדשות מאלו של הליבות המומלצת."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
@@ -548,9 +545,9 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
-"כאשר משתמשים באותן אפשרויות, לשמור על המחשב בטוח ובמצב עבודה תקין, מומלץ "
-"להתקין את כל העדכונים ולהפעיל את ביצוע תמונות-חטף המערכת, כך שניתן יהיה "
-"לשחזר את המערכת במקרה שמשהו משתבש."
+"לאחזקת המחשב במצב עבודה תקין ובטוח, מומלץ להתקין את כל העדכונים ולהפעיל "
+"אפשרות ביצוע תמונות־חטף מערכת, כך שניתן יהיה לשחזר את המערכת במקרה שמשהו "
+"משתבש."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -584,6 +581,7 @@ msgstr ""
 "  Keren A. https://launchpad.net/~kerena\n"
 "  Liel Fridman https://launchpad.net/~lielft-deactivatedaccount\n"
 "  Ohadcn https://launchpad.net/~ohadcn\n"
+"  Omer I.S. https://launchpad.net/~omeritzics\n"
 "  Rony Alaluf https://launchpad.net/~rony321\n"
 "  Yaron https://launchpad.net/~sh-yaron\n"
 "  elyashiv https://launchpad.net/~elyashi-horovitz\n"
@@ -612,10 +610,10 @@ msgid ""
 msgstr ""
 "ליבת לינוקס אחראית על תמיכה בחומרה ובהתקנים. לתשומת לב, העדכון  לא מסיר את "
 "הליבה הקיימת. ניתן עדיין לאתחל עם הליבה הנוכחית על ידי בחירת האפשרויות "
-"המתקדמות מתפריט האתחול. אך נא להיזהר.. תסוגות ליבה עלולות להשפיע על היכולת "
-"להתחבר למרשתת או להיכנס למחשב במצב גרפי. פורקני DKMS מהודרים לליבות העדכניות "
-"ביותר המותקנות במחשב. במידה ואתם משתמשים בהתקנים קנייניים ותרצו להשתמש בליבה "
-"ישנה יותר, תצטרכו להסיר תחילה את הליבה החדשה."
+"המתקדמות מתפריט האתחול. אך נא לנקוט במשנה זהירות. תסוגות ליבה עלולות להשפיע "
+"על היכולת להתחבר למרשתת או למחשב במצב גרפי. פירקני DKMS מהודרים לליבות "
+"העדכניות ביותר המותקנות במחשב. במידה ונעשה שימוש בהתקנים קנייניים ולהשתמש "
+"בליבה ישנה יותר, תידרש הסרת הליבה החדשה תחילה."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
@@ -646,12 +644,12 @@ msgstr "לא ניתן להתקין ליבה זו."
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
-msgstr "האם להסיר את הליבה %s?"
+msgstr "האם להסיר ליבה %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:267
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
-msgstr "האם להתקין את הליבה %s?"
+msgstr "האם להתקין ליבה %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
@@ -676,7 +674,7 @@ msgstr "מותקן"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 msgid "Supported until"
-msgstr "נתמך עד"
+msgstr "תמיכה עד"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Superseded"
@@ -712,7 +710,7 @@ msgstr "B"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:236
 msgid "Downloading changelog..."
-msgstr "הורדת רשימת השינויים..."
+msgstr "הורדת יומן שינויים..."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:249
 msgid "No changelog available"
@@ -728,7 +726,7 @@ msgstr "החבילות הבאות יוסרו:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:498
 msgid "The following packages will be installed:"
-msgstr "החבילות הבאות יותקנו:"
+msgstr "החבילות הבאות תותקנה:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:541
 msgid "Installing updates"
@@ -741,11 +739,11 @@ msgstr "לא ניתן להתקין את עדכוני האבטחה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:606
 msgid "Updating Cinnamon Spices"
-msgstr "עדכון תבליני סינמון"
+msgstr "„תבליני Cinnamon” מתעדכנים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 msgid "Restarting Cinnamon"
-msgstr "אתחול סינמון"
+msgstr "‏Cinnamon מופעל מחדש"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:727
 msgid "Reboot required"
@@ -761,7 +759,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 msgid "Checking for package updates"
-msgstr "מחפש עדכוני חבילות"
+msgstr "חיפוש אחר עדכוני חבילות"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:749
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
@@ -770,7 +768,7 @@ msgstr "חיפוש עדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:770
 msgid "Checking for Cinnamon spices"
-msgstr "מחפש עדכוני תבליני סינמון"
+msgstr "מתבצע חיפוש אחר תבליני Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:778
 msgid "Processing updates"
@@ -839,19 +837,19 @@ msgstr "עדכון צד שלישי"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:934
 msgid "Cinnamon applet"
-msgstr "ישומון סינמון"
+msgstr "יישומון Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:936
 msgid "Cinnamon desklet"
-msgstr "ישומון שולחן עבודה סינמון"
+msgstr "יישומון Cinnamon ללוח"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:938
 msgid "Cinnamon theme"
-msgstr "ערכת נושא סינמון"
+msgstr "ערכת נושא ל־Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:940
 msgid "Cinnamon extension"
-msgstr "הרחבות סינמון"
+msgstr "הרחבה ל־Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:971
 msgid "Updates are available"
@@ -905,28 +903,28 @@ msgstr "המערכת מעודכנת"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1076
 msgid "Do you want to switch to a local mirror?"
-msgstr "האם להחליף למראה מקומית?"
+msgstr "האם להחליף לאתר־מראה מקומי?"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr "מראות מקומיות בדרך כלל מהירות יותר מ-packages.linuxmint.com."
+msgstr "אתרי־מראה מקומיים לרוב מהירים יותר מ־packages.linuxmint.com."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1088
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1098
 msgid "Please switch to another mirror"
-msgstr "נא להחליף למראה אחרת"
+msgstr "נא להחליף לאתר־מראה אחר"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1089
 #, python-format
 msgid "%s is unreachable."
-msgstr "לא ניתן לגשת אל %s."
+msgstr "%s לא נגיש."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1099
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] "העדכון האחרון ב-%(mirror)s היה לפני יום %(days)d."
-msgstr[1] "העדכון האחרון ב-%(mirror)s היה לפני %(days)d ימים."
+msgstr[0] "העדכון האחרון ב־%(mirror)s היה לפני יום %(days)d."
+msgstr[1] "העדכון האחרון ב־%(mirror)s היה לפני %(days)d ימים."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1235
 msgid "Exit"
@@ -1006,7 +1004,7 @@ msgstr "_עריכה"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1483
 msgid "System Snapshots"
-msgstr "תמונות-חטף מערכת"
+msgstr "תמונות־חטף מערכת"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1489
 msgid "Software Sources"
@@ -1015,7 +1013,7 @@ msgstr "מקורות תוכנה"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1512
 #, python-format
 msgid "Upgrade to %s"
-msgstr "שדרוג ל- %s"
+msgstr "שדרוג ל־%s"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1516
 msgid "_View"
@@ -1072,7 +1070,8 @@ msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
 msgstr ""
-"תהליך אחר משתמש כרגע במערכת ניהול החבילות. נא להמתין לסיום התהליך ולנסות שוב."
+"תהליך אחר עושה שימוש במערכת ניהול החבילות, כעת. נא להמתין לסיום התהליך "
+"ולנסות שוב."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1737
 msgid "Yes"
@@ -1098,7 +1097,7 @@ msgstr "ברוכים הבאים למנהל העדכונים"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
 msgid "Most recent change"
-msgstr "השינוי האחרון"
+msgstr "שינוי אחרון"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1899
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
@@ -1165,7 +1164,7 @@ msgstr "רענון אוטומטי"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2223
 msgid "Refresh the list of updates automatically"
-msgstr "רענון אוטומטי של רשימת העדכונים"
+msgstr "רענון רשימת העדכונים באופן אוטומטי"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2235
 msgid "days"
@@ -1181,7 +1180,7 @@ msgstr "דקות"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2238
 msgid "First, refresh the list of updates after:"
-msgstr "תחילה, נא לרענן את רשימת העדכונים אחרי:"
+msgstr "תחילה, נא לרענן את רשימת העדכונים לאחר:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2242
 msgid "Then, refresh the list of updates every:"
@@ -1243,7 +1242,7 @@ msgstr "הקשה על לחצן זה על מנת שעדכונים אוטומטי�
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2343
 msgid "Update Cinnamon spices automatically"
-msgstr "עדכון תבליני סינמון אוטומטית"
+msgstr "עדכון „תבליני Cinnamon” באופן אוטומטי"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
 msgid "Update flatpaks automatically"
@@ -1299,7 +1298,7 @@ msgstr "גרסה:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 msgid "(optional)"
-msgstr "(אפשרי)"
+msgstr "(חלופי)"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:23
 msgid "System Upgrade"
@@ -1315,8 +1314,8 @@ msgid ""
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
-"המערכת חסרה רכיבים קריטיים. חבילה שתואמת את הגרסת לינוקס מינט המותקנת,  "
-"אמורה לספק את החבילה המדומה 'mint-info' ואת הקובץ /etc/linuxmint/info."
+"המערכת חסרה רכיבים חיוניים. חבילה שתואמת לגרסת לינוקס מינט המותקנת,  אמורה "
+"לספק את החבילה המדומה 'mint-info' ואת הקובץ /etc/linuxmint/info."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:52
 msgid "No upgrades were found."
@@ -1329,7 +1328,7 @@ msgstr "זמינה גרסת לינוקס מניט חדשה!"
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:71
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
-msgstr "נמצא עדכון אך הוא לא זמין לגרסת ה-%s."
+msgstr "נמצא עדכון אך הוא לא זמין לגרסה %s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:80
 msgid "Release notes"
@@ -1340,17 +1339,17 @@ msgid ""
 "Please read the release notes before upgrading. They explain all the known "
 "issues, workarounds and solutions associated with the new version."
 msgstr ""
-"נא לקרוא את הערות השחרור לפני השדרוג. הם מסבירים את כל הסוגיות הידועות, "
-"מעקפים ופתרונות הקשורים לגרסה החדשה."
+"נא לקרוא את הערות השחרור לפני השדרוג. הן מסבירות את כול הסוגיות הידועות, "
+"המעקפים והפתרונות שקשורים לגרסה החדשה."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:91
 #, python-format
 msgid "Release notes for %s"
-msgstr "הערות שחרור ל-%s"
+msgstr "הערות שחרור ל־%s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:94
 msgid "Click on the link to open the release notes."
-msgstr "הקשה על הקישור על מנת לפתוח את הערות השחרור."
+msgstr "נא להקיש על הקישור על מנת לפתוח את הערות השחרור."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:102
 msgid "New features"
@@ -1363,7 +1362,7 @@ msgstr "נא צפו בתכונות החדשות שנוספו בגרסה זו."
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:113
 #, python-format
 msgid "New features in %s"
-msgstr "תכונות חדשות ב-%s"
+msgstr "תכונות חדשות ב־%s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:116
 msgid "Click on the link to browse the new features."
@@ -1400,7 +1399,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:161
 #, python-format
 msgid "I understand the risk. I want to upgrade to %s."
-msgstr "הסיכון מובן לי. אני רוצה לעדכן ל-%s."
+msgstr "הסיכון מובן לי. אני רוצה לעדכן ל־%s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:171
 msgid "Summary"
@@ -1429,7 +1428,7 @@ msgstr "התבלינים הבאים עודכנו אוטומטית:"
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
-msgstr "סינמון אותחל"
+msgstr "‏Cinnamon הופעל מחדש"
 
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
@@ -1459,7 +1458,7 @@ msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
-"התקנת ליבה חדשה עלולה לעתים לגרום לבעיות, במיוחד אם נעשה שימוש בהתקני-תכנה "
+"התקנת ליבה חדשה עלולה לעתים לגרום לבעיות, במיוחד אם נעשה שימוש בהתקני תכנה "
 "קנייניים."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
@@ -1474,7 +1473,7 @@ msgid ""
 "- Random system freeze"
 msgstr ""
 "- אין חיבור למרשתת (חוטי או אלחוטי)\n"
-"- אין האצת וידאו\n"
+"- אין האצת חוזי\n"
 "- מסך שחור בעת הפעלה\n"
 "- קיפאון מערכת אקראי"
 
@@ -1491,10 +1490,10 @@ msgid ""
 "- After the computer boots with the older kernel, uninstall the new one."
 msgstr ""
 "- נא לבצע אתחול.\n"
-"- יש להחזיק את מקש ה'שיפט' לחוץ כדי להציג את תפריט האתחול,   \n"
-"- בתפריט האתחול, נא לבחור בשורה שמתחילה ב'אפשרויות מתקדמות'.\n"
+"- יש להחזיק את מקש ה'שיפט' לחוץ כדי להציג את תפריט האתחול.\n"
+"- בתפריט האתחול, יש לבחור בשורה שמתחילה ב'אפשרויות מתקדמות'.\n"
 "- נא לבחור מהרשימה ליבה ישנה יותר.\n"
-"- לאחר שהמחשב אותחל עם הליבה הישנה,  ניתן להסיר את הליבה החדשה."
+"- לאחר שהמחשב איתחל עם הליבה הישנה, ניתן להסיר את הליבה החדשה."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
@@ -1591,8 +1590,8 @@ msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
-"הגדרת תמונות-חטף מערכת על מנת להתגונן מפני טעויות ותסוגה. אם משהו משתבש פשוט "
-"משחזרים את התמונת-החטף האחרונה."
+"הגדרת תמונות־חטף מערכת להתגוננות מפני טעויות ותסוגה. אם משהו משתבש פשוט "
+"משחזרים את התמונת־החטף האחרונה."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid ""
@@ -1600,7 +1599,7 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
-"לינוקס מינט ממליצה להגדיר אוטומציה ליצירת תמונות-חטף ולהחיל את כל העדכונים "
+"לינוקס מינט ממליצה להגדיר אוטומציה ליצירת תמונות־חטף ולהחיל את כל העדכונים "
 "הזמינים. בכך, המחשב יהיה תמיד מאובטח וניתן יהיה לחזור אחורה בזמן ולהתאושש "
 "מכל תסוגה אפשרית."
 
@@ -1617,13 +1616,15 @@ msgid ""
 "It is recommended to add packages to the blacklist by right-clicking them in "
 "the updates listing."
 msgstr ""
-"מומלץ להוסיף חבילות לרשימה השחורה ע\"י לחיצה ימנית עליהם ברשימת העדכונים."
+"מומלץ להוסיף חבילות לרשימה השחורה, על־ידי הקשת־עכבר ימנית על החבילה הרצויה "
+"ברשימת העדכונים."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:3
 msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
-msgstr "נא לוודא שתמונות-חטף המערכת מתוצרת כַּיָאוּת לפני השימוש באפשרות זו."
+msgstr ""
+"לפני השימוש באפשרות זו, נא לוודא שתמונות־חטף המערכת מתוצרת כַּיָאוּת."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
