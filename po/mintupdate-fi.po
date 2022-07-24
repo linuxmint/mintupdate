@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2021-06-18 12:56+0100\n"
-"PO-Revision-Date: 2022-01-11 10:15+0000\n"
-"Last-Translator: Ari Ervasti <ari.ervasti87@gmail.com>\n"
+"PO-Revision-Date: 2022-07-19 07:47+0000\n"
+"Last-Translator: Kimmo Kujansuu <Unknown>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2022-06-26 11:17+0000\n"
-"X-Generator: Launchpad (build 51a2e4fa2e9b8e45f00904ad7f53546f45ac48a5)\n"
+"X-Launchpad-Export-Date: 2022-07-24 09:33+0000\n"
+"X-Generator: Launchpad (build 025a39fd866a641b6ae33074cda0d02a2c712d38)\n"
 "Language: fi\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -65,8 +65,7 @@ msgstr "”Tietoturvapäivitykset” paikkaavat haavoittuvuuksia."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
-msgstr ""
-"”Ytimen päivitykset” asentavat uudemman kernelin eli käyttöjärjestelmäytimen."
+msgstr "\"Kernel päivitykset\" tarjoavat uudemman kernelin asentamisen."
 
 #: usr/share/help/C/mintupdate/updates.page:29(p)
 msgid ""
@@ -100,11 +99,11 @@ msgid ""
 "of view, but also prone to regressions which can be hard to fix for novice "
 "users."
 msgstr ""
-"Linux Mintissä ytimen päivitykset tuovat sekä turvapäivityksiä että "
-"virheenkorjauksia (joskus jopa uusia ominaisuuksia) ja ne vaikuttavat "
-"käyttöjärjestelmän kriittisiin osiin. Tästä syystä ytimen päivitykset ovat "
-"turvallisuuden näkökulmasta tärkeitä, mutta niistä voi myös aiheutua "
-"ongelmia, joita aloittelevan käyttäjän on vaikea korjata."
+"Linux Mint kernel päivitykset tuovat korjauksia ohjelmointivirheisiin ja "
+"tietoturvaan (joskus jopa uusia ominaisuuksia) ja ne vaikuttavat "
+"käyttöjärjestelmän kriittisiin osiin. Tämä tekee kernel päivityksistä "
+"tärkeitä tietoturvan kannalta, mutta myös alttiita kriittisiin osiin, joita "
+"voi olla aloittelevan käyttäjän vaikea korjata."
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
@@ -115,7 +114,7 @@ msgstr ""
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
 msgid "System snapshots"
-msgstr "Järjestelmän palautuspisteet"
+msgstr "Palautuspisteet"
 
 #: usr/share/help/C/mintupdate/snapshots.page:21(p)
 msgid ""
@@ -270,7 +269,7 @@ msgstr "-s-valitsimella näytetään vain tietoturvapäivitykset."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
-msgstr "Valitsimella -k näytetään vain ytimen päivitykset."
+msgstr "Valitsimella -k näytetään vain kernel päivitykset."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
@@ -293,7 +292,7 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr "Esimerkiksi seuraava komento toteuttaa ytimen päivitykset:"
+msgstr "Esimerkiksi seuraava komento toteuttaa kernel päivitykset:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
@@ -318,25 +317,25 @@ msgstr "mintupdate-cli -h"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr "Ytimet ja ytimen päivitykset"
+msgstr "Kernel ja kernel päivitykset"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:35(title)
 msgid "Kernel updates"
-msgstr "Ytimen päivitykset"
+msgstr "Kernel päivitykset"
 
 #: usr/share/help/C/mintupdate/kernels.page:21(p)
 msgid ""
 "The kernel is the central part of the operating system. Among other things, "
 "it is responsible for hardware support."
 msgstr ""
-"Ydin on keskeinen osa käyttöjärjestelmää. Se vastaa muun muassa "
+"Kernel on keskeinen osa käyttöjärjestelmää. Se on muun muassa vastuussa "
 "laitteistotuesta."
 
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
-msgstr "Turvallisuuden näkökulmasta on tärkeää toteuttaa ytimen päivitykset."
+msgstr "Turvallisuuden näkökulmasta on tärkeää toteuttaa kernel päivitykset."
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -344,16 +343,16 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
-"Ytimen regressiot voivat kuitenkin vaikuttaa mahdollisuuksiisi yhdistää "
-"Internetiin, käynnistää työpöytäympäristöäsi tai jopa käyttöjärjestelmää."
+"Kernel regressio voi kuitenkin vaikuttaa kykyysi muodostaa yhteys "
+"Internetiin, käynnistää työpöytää tai jopa koko käyttöjärjestelmää."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
 msgstr ""
-"Tästä syystä on tärkeää olla varovainen ytimen päivityksiä toteutettaessa ja "
-"tietää, kuinka perua muutokset, jos jotakin menee pieleen."
+"Tästä syystä on tärkeää olla varovainen kernel päivityksiä asentaessa ja "
+"tietää kuinka ne voidaan palauttaa, jos jokin menee pieleen."
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
@@ -373,17 +372,17 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
-"Ytimien kohdalla tilanne on toinen. Ytimen päivitystä (kernel update) "
-"toteutettaessa ei itse asiassa päivitetä ydintä, vaan asennetaan uusi ydin "
-"vanhan rinnalle."
+"Asiat ovat toisin, kun kyse on kernelistä. Kun asennat \"kernel "
+"päivityksen\", et varsinaisesti päivitä kerneliä, vaan asennat uuden "
+"kernelin olemassa olevan rinnalle."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
 "Every time you apply a kernel update, you install a new kernel on the "
 "system, without removing the old ones."
 msgstr ""
-"Aina ydintä päivitettäessä asennetaan järjestelmään uusi ydin poistamatta "
-"vanhoja."
+"Joka kerta kun asennat kernel päivityksen, asennat järjestelmään uuden "
+"kernelin poistamatta vanhoja."
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
@@ -391,14 +390,15 @@ msgstr "Käynnistettäessä tietokone valitsee tuoreimman."
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
-msgstr "Nykyisen ytimen tunnistaminen"
+msgstr "Nykyisen kernelin tunnistaminen"
 
 #: usr/share/help/C/mintupdate/kernels.page:47(p)
 msgid ""
 "If you want to know which kernel you are currently using, open a terminal "
 "and type:"
 msgstr ""
-"Jos haluat tietää mitä ydintä käytät tällä hetkellä, avaa pääte ja kirjoita:"
+"Jos haluat tietää, mitä kerneliä käytät tällä hetkellä, avaa pääte ja "
+"kirjoita:"
 
 #: usr/share/help/C/mintupdate/kernels.page:49(screen)
 #, no-wrap
@@ -407,34 +407,35 @@ msgstr "uname -a"
 
 #: usr/share/help/C/mintupdate/kernels.page:54(title)
 msgid "Installing and removing kernels"
-msgstr "Ydinten asennus ja poistaminen"
+msgstr "Kernelin asentaminen ja poistaminen"
 
 #: usr/share/help/C/mintupdate/kernels.page:56(p)
 msgid "You can install and remove kernels from the Update Manager."
-msgstr "Ytimiä voi asentaa ja poistaa Päivitysten hallinnasta."
+msgstr "Voit asentaa ja poistaa kernelit \"Päivitysten hallinnalla\""
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr "Valitse valikosta ”Näytä → Linux-ytimet”."
+msgstr "Valitse valikosta ”Näytä → Linux kernelit”."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
 "You cannot remove the kernel you are currently using. To remove it, you need "
 "to reboot and select a different kernel to boot with."
 msgstr ""
-"Käytössä olevaa ydintä ei voi poistaa. Sen poistamiseksi on tietokone "
-"käynnistettävä uudestaan ja valittava toinen ydin käynnistettäväksi."
+"Et voi poistaa käytössä olevaa kerneliä. Poistaaksesi sen, sinun on "
+"käynnistettävä uudelleen ja valittava eri kernel."
 
 #: usr/share/help/C/mintupdate/kernels.page:65(title)
 msgid "Selecting a kernel"
-msgstr "Ytimen valinta"
+msgstr "Kernelin valinta"
 
 #: usr/share/help/C/mintupdate/kernels.page:67(p)
 msgid ""
 "You can have multiple kernels installed, but you can only run one kernel at "
 "a time."
 msgstr ""
-"Ytimiä voi olla asennettuna useita, mutta vain yhtä voi käyttää kerrallaan."
+"Sinulla voi olla asennettuna useampi kernel, mutta voit käyttää vain yhtä "
+"kerrallaan."
 
 #: usr/share/help/C/mintupdate/kernels.page:69(p)
 msgid ""
@@ -443,7 +444,7 @@ msgid ""
 "select a kernel."
 msgstr ""
 "Tietokonetta käynnistettäessä ensimmäistä näkymää kutsutaan Grub-valikoksi. "
-"Tässä valikossa voi valita paitsi käyttöjärjestelmän myös ytimen."
+"Tässä valikossa voi valita paitsi käyttöjärjestelmän myös kernelin."
 
 #: usr/share/help/C/mintupdate/kernels.page:71(p)
 msgid ""
@@ -461,9 +462,9 @@ msgid ""
 "see all the kernels currently installed. Select the one you want to use and "
 "your computer will boot with that one."
 msgstr ""
-"Valitaksesi kernelin valitse Grub-valikosta ”Advanced options”. Sen alla "
-"näkyvät kaikki asennetut ytimet. Valitse niistä se, jota haluat käyttää, "
-"jolloin tietokone käynnistetään sillä."
+"Valitse kernel valitsemalla Grub-valikosta ”Advanced options”. Sen alla "
+"näkyvät kaikki asennetut kernelit. Valitse niistä se, jota haluat käyttää ja "
+"tietokoneesi käynnistyy sillä."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
@@ -476,18 +477,18 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
-"Ydin sisältää yleensä erittäin hyvin toimivat avoimen lähdekoodin ajurit. "
+"Kernel sisältää yleensä erittäin hyvin toimivat avoimen lähdekoodin ajurit. "
 "Suljetut ajurit (NVIDIA, AMD, Broadcom jne.) eivät ole mukana ja ne täytyy "
-"kääntää jokaiselle asennetulle ytimelle erikseen. Tämä tehdään DKMS:ksi "
-"kutsutulla mekanismilla."
+"kääntää jokaiselle asennetulle kernelille erikseen. Tämä tehdään DKMS:ksi "
+"kutsutun mekanismin kautta."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
 "If a proprietary driver isn't properly recompiled with DKMS for one of your "
 "kernels, it will not function correctly with that kernel."
 msgstr ""
-"Jos suljettua ajuria ei ole käännetty kunnolla DKMS:llä jollekin ytimistäsi, "
-"se ei toimi oikein tuon ytimen kanssa."
+"Jos suljettua ajuria ei ole käännetty oikein DKMS:n kanssa jollekin "
+"kernelille, se ei toimi oikein kyseisen kernelin kanssa."
 
 #: usr/share/help/C/mintupdate/kernels.page:84(p)
 msgid ""
@@ -495,9 +496,9 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
-"Ytimen asentamisen tai poistamisen jälkeen voit tarkastaa DKMS:n tilan "
-"varmistaaksesi kaikkien suljettujen ajurien olevan kunnolla asennettuina "
-"jokaiselle ytimellesi seuraavalla komennolla:"
+"Kernelin asentamisen tai poistamisen jälkeen voit tarkastaa DKMS:n tilan "
+"varmistaaksesi kaikkien suljettujen ajurien olevan oikein asennettuna "
+"jokaiselle kernelille seuraavalla komennolla:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
@@ -511,14 +512,14 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
-"Uusi ytimen sarja tulee yleensä saataville ennen kuin suljetut ajurit "
-"tukevat niitä DKMS:llä. Jos käytät suljettuja ajureita, on suositeltavaa "
-"pysytellä ytimen päivityksissä ja olla asentamatta ytimiä sarjoista jotka "
-"ovat uudempia kuin suositeltujen ytimien sarja."
+"Uusi kernel sarja tulee yleensä saataville ennen kuin suljetut ajurit "
+"tukevat niitä DKMS:n kautta. Jos käytät suljettuja ajureita on suositeltavaa "
+"pysyä kernel päivityksissä ja olla asentamatta sarjoja jotka ovat uudempia "
+"kuin suositellut kernelit."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
-msgstr "Ytimen päivityksen peruminen"
+msgstr "Kernel päivityksen peruminen"
 
 #: usr/share/help/C/mintupdate/kernels.page:95(p)
 msgid ""
@@ -526,9 +527,9 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
-"Jos jokin ei toimi viimeisimmällä asentamallasi ytimellä (tai viimeisimmällä "
-"ytimen päivityksellä), käynnistä uudelleen, valitse ydin jota käytit "
-"aiemmin, poista uusi ydin ja käynnistä uudelleen."
+"Jos jokin ei toimi viimeisimmän asentamasi kernelin (tai uusimman kernelin "
+"päivityksen) kanssa, käynnistä uudelleen, valitse aiemmin käyttämäsi kernel, "
+"poista uusi kernel ja käynnistä uudelleen."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:60
@@ -571,9 +572,9 @@ msgid ""
 "to apply all available updates and to set up system snapshots, so that you "
 "can restore your system in case something goes wrong."
 msgstr ""
-"Pitääksesi tietokoneesi turvassa ja hyvässä kunnossa, on suositeltavaa "
-"asentaa kaikki tarjolla olevat päivitykset ja asettaa järjestelmävedokset, "
-"jotta voit palauttaa järjestelmäsi jonkin mennessä pieleen."
+"Pitääksesi tietokoneesi hyvässä kunnossa on suositeltavaa asentaa kaikki "
+"tarjolla olevat päivitykset ja tehdä palautuspisteet, jotta voit palauttaa "
+"järjestelmäsi jonkin mennessä pieleen."
 
 #: usr/share/help/C/mintupdate/index.page:29(title)
 msgid "Core concepts"
@@ -585,7 +586,7 @@ msgstr "Tämä osio selittää ohjelmistopäivityksiin liittyvät ydinkonseptit.
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains kernel updates."
-msgstr "Tämä osio selittää ytimen päivitykset."
+msgstr "Tämä osio selittää kernel päivitykset."
 
 #: usr/share/help/C/mintupdate/index.page:41(title)
 msgid "Advanced techniques"
@@ -625,11 +626,11 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #, python-format
 msgid "Linux kernel %s"
-msgstr "Linux-ydin %s"
+msgstr "Linux kernel %s"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 msgid "The Linux kernel."
-msgstr "Linux-ydin."
+msgstr "Linux kernel."
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 msgid ""
@@ -642,13 +643,14 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
-"Linux-ydin on vastuussa laitteiston ja ajureiden tuesta. Huomaathan ettei "
-"päivitys poista olemassa olevaa ydintä. Voit silti käynnistää järjestelmän "
-"nykyisellä ytimellä valitsemalla käynnistysvalikosta lisävalinnat. Olethan "
-"kuitenkin varovainen: Ytimen regressiot voivat vaikuttaa verkkoyhteyksiin "
-"tai estää kirjautumisen graafiseen ympäristöön. DKMS-moduulit käännetään "
-"viimeisimpiin tietokoneellesi asennettuihin ytimiin. Jos käytät suljettuja "
-"ajureita ja haluat vanhemman ytimen, sinun täytyy poistaa ensin uudempi."
+"Linux kernel on vastuussa laitteiston ja ajureiden tuesta. Huomaathan ettei "
+"päivitys poista olemassa olevaa kerneliä. Voit silti käynnistää järjestelmän "
+"nykyisellä kernelillä valitsemalla käynnistysvalikosta lisävalinnat. Olethan "
+"kuitenkin varovainen: Kernelin regressiot voivat vaikuttaa verkkoyhteyksiin "
+"tai estää kirjautumisen graafiseen työpöytään. DKMS-moduulit käännetään "
+"viimeisimpiin tietokoneellesi asennettuihin kerneleihin. Jos käytät "
+"suljettuja ajureita ja haluat vanhemman kernelin, sinun täytyy poistaa ensin "
+"uudempi."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
@@ -666,7 +668,7 @@ msgstr "Jonopoisto"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 msgid "This kernel cannot be removed because it is currently in use."
-msgstr "Tätä ydintä ei voi poistaa, sillä se on tällä hetkellä käytössä."
+msgstr "Tätä kerneliä ei voi poistaa, koska se on tällä hetkellä käytössä."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 msgid "Queue Installation"
@@ -674,26 +676,26 @@ msgstr "Jonoasennus"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "This kernel is not installable."
-msgstr "Tämä ydin ei ole asennettavissa."
+msgstr "Tämä kernel ei ole asennettavissa."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
-msgstr "Haluatko varmasti poistaa käyttöjärjestelmäytimen %s?"
+msgstr "Haluatko varmasti poistaa kernelin %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:267
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
-msgstr "Haluatko varmasti asentaa käyttöjärjestelmäytimen %s?"
+msgstr "Haluatko varmasti asentaa kernelin %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 msgid "Kernels"
-msgstr "Ytimet"
+msgstr "Kernelit"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
 msgid "Remove Kernels"
-msgstr "Poista ytimiä"
+msgstr "Poista kernelit"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 msgid "Perform Queued Actions"
@@ -709,7 +711,7 @@ msgstr "Asennettu"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 msgid "Supported until"
-msgstr "Tuettu asti"
+msgstr "Tuettu"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 msgid "Superseded"
@@ -717,15 +719,15 @@ msgstr "Korvattu"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:525
 msgid "End of Life"
-msgstr "Tuen loppu"
+msgstr "Elinkaari loppu"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:527
 msgid "Unsupported"
-msgstr "Ei tuettu"
+msgstr "Ei tueta"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 msgid "You are currently using the following kernel:"
-msgstr "Käytät nyt seuraavaa ydintä:"
+msgstr "Käytät nyt seuraavaa kerneliä:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:75
 msgid "GB"
@@ -849,7 +851,7 @@ msgstr "Ei voitu päivittää päivitettävien listaa"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:890
 msgid "Kernel update"
-msgstr "Ytimen päivitys"
+msgstr "Kernel päivitys"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:894
 msgid "Security update"
@@ -1044,7 +1046,7 @@ msgstr "_Muokkaa"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1483
 msgid "System Snapshots"
-msgstr "Järjestelmävedokset"
+msgstr "Palautuspisteet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1489
 msgid "Software Sources"
@@ -1066,7 +1068,7 @@ msgstr "Päivityshistoria"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1525
 msgid "Linux Kernels"
-msgstr "Linux-ytimet"
+msgstr "Linux kernelit"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1533
 msgid "Visible Columns"
@@ -1242,7 +1244,7 @@ msgstr "Ilmoitukset"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
 msgid "Only show notifications for security and kernel updates"
-msgstr "Näytä ilmoituksia vain turvallisuus- ja ydinpäivityksistä"
+msgstr "Näytä ilmoitukset vain tietoturva ja kernel päivityksistä"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
 msgid ""
@@ -1311,15 +1313,15 @@ msgstr "Suoritetaan pääkäyttäjänä viikoittain"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
 msgid "Remove obsolete kernels and dependencies"
-msgstr "Poista vanhentuneet ytimet ja riippuvuudet"
+msgstr "Poista käyttämättömät kernelit ja riippuvuudet"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2357
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
 msgstr ""
-"Tämä valinta jättää aina vähintään yhden vanhemman ytimen asennetuksi, eikä "
-"ikinä poista käsin asennettuja ytimiä."
+"Tämä valinta jättää aina vähintään yhden vanhemman kernelin asennetuksi, "
+"eikä ikinä poista käsin asennettuja kerneleitä."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
 msgid ""
@@ -1508,7 +1510,7 @@ msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
-"Uuden ytimen asentaminen saattaa joskus aiheuttaa ongelmia, etenkin "
+"Uuden kernelin asentaminen saattaa joskus aiheuttaa ongelmia, etenkin "
 "käytettäessä suljettuja ajureita."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:4
@@ -1542,8 +1544,8 @@ msgstr ""
 "- Käynnistä uudelleen.\n"
 "- Paina ja pidä vaihtonäppäintä painettuna näyttääksesi käynnistysvalikon.\n"
 "- Käynnistysvalikosta valitse rivi, jossa lukee 'Advanced options'.\n"
-"- Valitse vanhempi ydin.\n"
-"- Koneen käynnistyttyä vanhemmalla ytimellä poista uudempi."
+"- Valitse vanhempi kernel.\n"
+"- Kun tietokone on käynnistynyt vanhemmalla kernelillä, poista uusi."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid "Do not show this message again"
@@ -1560,7 +1562,7 @@ msgstr "Jatka"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:18
 msgid "Kernel flavor:"
-msgstr "Ytimen tyyppi:"
+msgstr "Kernelin tyyppi:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:19
 msgid "Perform Queued Actions..."
@@ -1568,7 +1570,7 @@ msgstr "Suorita jonossa olevat toiminnot..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Remove Kernels..."
-msgstr "Poista ytimiä..."
+msgstr "Poista kerneleitä..."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:23
 msgid "Cancel"
@@ -1643,8 +1645,8 @@ msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
-"Aseta järjestelmävedokset suojautuaksesi virheiltä ja regressioilta. Jos "
-"joki hajoaa, palautat vain edellisestä vedoksesta."
+"Aseta palautuspisteet suojautuaksesi virheiltä ja regressioilta. Jos joki "
+"hajoaa, palautat vain edellisestä pisteestä."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid ""
@@ -1652,10 +1654,10 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
-"Linux Mint suosittelee automaattisten järjestelmävedosten asettamista ja "
-"saatavilla olevien päivitysten toteuttamista. Tällöin tietokoneesi on aina "
-"turvallinen ja voit palata ajassa ja palautua mistä tahansa potentiaalisesta "
-"regressiosta."
+"Linux Mint suosittelee automaattista palaustuspisteen asettamista ja "
+"saatavilla olevien päivitysten toteuttamista. Tällöin tietokoneesi on "
+"turvallinen ja voit palata ajassa takaisin ja palautua mistä tahansa "
+"potentiaalisesta regressiosta."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid ""
@@ -1678,7 +1680,7 @@ msgid ""
 "Make sure your system snapshots are properly configured before using this "
 "option."
 msgstr ""
-"Varmista järjestelmävedostesi asetusten olevan kunnossa ennen kuin käytät "
+"Varmista ensin palautuspisteen asetusten olevan kunnossa ennen kuin käytät "
 "tätä valintaa."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
@@ -1695,7 +1697,7 @@ msgstr "Valitse tietoturvapäivitykset"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select Kernel Updates"
-msgstr "Valitse ytimen päivitykset"
+msgstr "Valitse kernel päivitykset"
 
 #~ msgid "Update is complete"
 #~ msgstr "Päivitys on valmis"
