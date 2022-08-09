@@ -23,7 +23,7 @@ automation_id = sys.argv[1]
 
 def do_enable(_automation_id):
     (filename, name, touchfile) = AUTOMATIONS[_automation_id]
-    if (touchfile != None and not os.path.isfile(touchfile)) or sys.argv[1] == "blacklist":
+    if touchfile != None or sys.argv[1] == "blacklist":
         if name == "systemd":
             touch = Path(touchfile)
             touch.parent.mkdir(parents=True, exist_ok=True)
@@ -41,7 +41,7 @@ def do_enable(_automation_id):
 
 def do_disable(_automation_id):
     (filename, name, touchfile) = AUTOMATIONS[_automation_id]
-    if touchfile != None and os.path.isfile(touchfile):
+    if touchfile != None:
         if name == "systemd":
             touch = Path(touchfile)
             touch.parent.mkdir(parents=True, exist_ok=True)
