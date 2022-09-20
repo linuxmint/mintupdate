@@ -164,14 +164,14 @@ class ChangelogRetriever(threading.Thread):
             with open(source) as f:
                 for line in f:
                     if (not line.startswith("#") and all(word in line for word in ppa_words)):
-                        ppa_info = line.split("ppa.launchpad.net/")[1]
+                        ppa_info = line.split("://")[1]
                         break
                 else:
                     return None, None
         except EnvironmentError as e:
             print ("Error encountered while trying to get PPA owner and name: %s" % e)
             return None, None
-        ppa_owner, ppa_name, ppa_x = ppa_info.split("/", 2)
+        ppa_url, ppa_owner, ppa_name, ppa_x = ppa_info.split("/", 3)
         return ppa_owner, ppa_name
 
     def get_ppa_changelog(self, ppa_owner, ppa_name):
@@ -181,7 +181,7 @@ class ChangelogRetriever(threading.Thread):
             ppa_abbr = self.source_package[:4]
         else:
             ppa_abbr = self.source_package[0]
-        deb_dsc_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s_%s.dsc" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, self.source_package, self.version)
+        deb_dsc_uri = "https://ppa.launchpadcontent.net/%s/%s/ubuntu/pool/main/%s/%s/%s_%s.dsc" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, self.source_package, self.version)
         try:
             deb_dsc = urllib.request.urlopen(deb_dsc_uri, None, 10).read().decode("utf-8")
         except Exception as e:
@@ -202,7 +202,7 @@ class ChangelogRetriever(threading.Thread):
         if (int(deb_size) > max_tarball_size):
             print ("Tarball size %s B exceeds maximum download size %d B. Skipping download." % (deb_size, max_tarball_size))
             return
-        deb_file_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
+        deb_file_uri = "https://ppa.launchpadcontent.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
         try:
             deb_file = urllib.request.urlopen(deb_file_uri, None, 10).read().decode("utf-8")
         except Exception as e:
