@@ -28,7 +28,10 @@ CONFIGURED_KERNEL_TYPE = settings.get_string("selected-kernel-type")
 if CONFIGURED_KERNEL_TYPE not in SUPPORTED_KERNEL_TYPES:
     CONFIGURED_KERNEL_TYPE = "-generic"
 
-CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
+if "XDG_CACHE_HOME" in os.environ:
+    CACHE_PATH = os.path.join(os.environ["XDG_CACHE_HOME"], "mintupdate")
+else:
+    CACHE_PATH = os.path.expanduser("~/.cache/minupdate")
 
 def get_release_dates():
     """ Get distro release dates for support duration calculation """
@@ -207,14 +210,14 @@ class UpdateTracker():
 
     # Loads past updates from JSON file
     def __init__(self, settings, logger):
-        os.system("mkdir -p %s" % CONFIG_PATH)
-        self.path = os.path.join(CONFIG_PATH, "updates.json")
+        os.system("mkdir -p %s" % CACHE_PATH)
+        self.path = os.path.join(CACHE_PATH, "updates.json")
 
         # Test case
         self.test_mode = False
         test_path = "/usr/share/linuxmint/mintupdate/tests/%s.json" % os.getenv("MINTUPDATE_TEST")
         if os.path.exists(test_path):
-            os.system("mkdir -p %s" % CONFIG_PATH)
+            os.system("mkdir -p %s" % CACHE_PATH)
             os.system("cp %s %s" % (test_path, self.path))
             self.test_mode = True
 
