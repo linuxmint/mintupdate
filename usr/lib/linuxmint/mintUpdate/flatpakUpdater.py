@@ -34,7 +34,7 @@ class FlatpakUpdate():
         self.ref_str = ref.get_name()
         self.metadata = op.get_metadata()
         self.size = op.get_download_size()
-        self.link = installer.get_url(pkginfo) if pkginfo else None
+        self.link = installer.get_homepage_url(pkginfo) if pkginfo else None
 
         self.flatpak_type = "app" if ref.get_kind() == Flatpak.RefKind.APP else "runtime"
 
