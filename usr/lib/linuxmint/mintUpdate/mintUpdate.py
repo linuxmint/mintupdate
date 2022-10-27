@@ -986,9 +986,10 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_CHECKED, True)
 
                     if self.application.settings.get_boolean("show-descriptions"):
-                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (update.uuid, update.name))
+                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.uuid),
+                                                                                      GLib.markup_escape_text(update.name)))
                     else:
-                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % update.uuid)
+                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(update.uuid))
 
                     model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                     model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
@@ -1027,9 +1028,10 @@ class RefreshThread(threading.Thread):
                         model.set_value(iter, UPDATE_CHECKED, True)
 
                         if self.application.settings.get_boolean("show-descriptions"):
-                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (update.name, update.description))
+                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.name),
+                                                                                          GLib.markup_escape_text(update.description)))
                         else:
-                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % update.name)
+                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(update.name))
 
                         model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                         model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
