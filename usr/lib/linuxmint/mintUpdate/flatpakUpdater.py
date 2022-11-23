@@ -249,7 +249,6 @@ class FlatpakUpdater():
                     return True
 
     def is_base_package(self, update):
-        return False
         name = update.ref_str
         if name.startswith("app"):
             return True
