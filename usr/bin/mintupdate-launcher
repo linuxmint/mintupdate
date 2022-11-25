@@ -90,7 +90,7 @@ def update_flatpak():
             if theme_refs != None:
                 print("Installing new theme to match local theme")
                 for ref in theme_refs:
-                    out = subprocess.run(["flatpak", "install", "-y", ref.get_remote_name(), ref.get_name()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    out = subprocess.run(["flatpak", "install", "-y", "--system", ref.get_remote_name(), ref.get_name()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                     print(out.stdout.decode())
         except Exception as e:
             print("An error occurred while updating flatpaks: %s" % e)
