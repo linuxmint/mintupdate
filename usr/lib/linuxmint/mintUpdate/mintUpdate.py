@@ -26,7 +26,11 @@ try:
 except:
     CINNAMON_SUPPORT = False
 
-from flatpakUpdater import FlatpakUpdater
+try:
+    import flatpakUpdater
+    FLATPAK_SUPPORT = True
+except Exception as e:
+    FLATPAK_SUPPORT = False
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -808,7 +812,7 @@ class RefreshThread(threading.Thread):
                             self.application.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
                             print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
 
-            if self.application.flatpak_updater:
+            if FLATPAK_SUPPORT:
                 # if self.root_mode:
                 self.application.logger.write("Refreshing available Flatpak updates")
                 self.application.set_status_message(_("Checking for Flatpak updates"))
@@ -934,7 +938,7 @@ class RefreshThread(threading.Thread):
                         num_security += 1
                     elif update.type == "unstable":
                         tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
-                        type_sort_key = 6
+                        type_sort_key = 7
                     else:
                         num_software += 1
                         if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
@@ -943,7 +947,7 @@ class RefreshThread(threading.Thread):
                         else:
                             update.type = "3rd-party"
                             tooltip = "%s\n%s" % (_("3rd-party update"), origin)
-                            type_sort_key = 5
+                            type_sort_key = 4
 
                     model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                     model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
@@ -958,7 +962,7 @@ class RefreshThread(threading.Thread):
                     num_visible += 1
 
             if CINNAMON_SUPPORT and not is_self_update:
-                type_sort_key = 4
+                type_sort_key = 6
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
                 for update in self.application.cinnamon_updater.get_updates():
@@ -1004,8 +1008,8 @@ class RefreshThread(threading.Thread):
                     num_software += 1
                     num_visible += 1
 
-            if self.application.flatpak_updater and not is_self_update:
-                type_sort_key = 7
+            if FLATPAK_SUPPORT and self.application.flatpak_updater and not is_self_update:
+                type_sort_key = 5
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
                 self.application.flatpak_updater.fetch_updates()
@@ -1093,7 +1097,7 @@ class RefreshThread(threading.Thread):
                 self.application.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
 
-            if self.application.flatpak_updater.error != None:
+            if FLATPAK_SUPPORT and self.application.flatpak_updater.error != None and not is_self_update:
                 self.application.logger.write("Could not check for flatpak updates: %s" % self.application.flatpak_updater.error)
                 msg = _("Error checking for flatpak updates: %s") % self.application.flatpak_updater.error
                 self.application.set_status_message(msg)
@@ -1107,7 +1111,6 @@ class RefreshThread(threading.Thread):
             self.mirror_check()
 
             self.application.logger.write("Refresh finished")
-
         except:
             print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
             self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
@@ -1668,11 +1671,14 @@ class MintUpdate():
             else:
                 self.cinnamon_updater = None
 
-            try:
-                self.flatpak_updater = FlatpakUpdater()
-            except Exception as e:
-                print(e)
-                self.flatpak_updater = None
+            global FLATPAK_SUPPORT
+            if FLATPAK_SUPPORT:
+                try:
+                    self.flatpak_updater = flatpakUpdater.FlatpakUpdater()
+                except Exception as e:
+                    print("Error creating FlatpakUpdater:", str(e))
+                    self.flatpak_updater = None
+                    FLATPAK_SUPPORT = False
 
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
@@ -2394,7 +2400,7 @@ class MintUpdate():
             switch = GSettingsSwitch(_("Update Cinnamon spices automatically"), "com.linuxmint.updates", "auto-update-cinnamon-spices")
             additional_options.append(switch)
         if os.path.exists("/usr/bin/flatpak"):
-            switch = GSettingsSwitch(_("Update flatpaks automatically"), "com.linuxmint.updates", "auto-update-flatpaks")
+            switch = GSettingsSwitch(_("Update Flatpaks automatically"), "com.linuxmint.updates", "auto-update-flatpaks")
             additional_options.append(switch)
         if len(additional_options) > 0:
             section = page.add_section(_("Other Updates"), _("Performed when you log in"))

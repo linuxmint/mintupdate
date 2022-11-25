@@ -5,18 +5,19 @@ import functools
 import traceback
 
 import gi
+gi.require_version('GLib', '2.0')
+from gi.repository import GLib
+
 try:
+    if not GLib.find_program_in_path("flatpak"):
+        raise Exception
     gi.require_version('Flatpak', '1.0')
     from gi.repository import Flatpak, Gio
     from mintcommon.installer import installer
     from mintcommon.installer import _flatpak
-    FLATPAK_SUPPORT = True
 except Exception as e:
-    print(e)
-    FLATPAK_SUPPORT = False
-
-gi.require_version('GLib', '2.0')
-from gi.repository import GLib
+    print("No Flatpak support - are flatpak and gir1.2-flatpak-1.0 installed?")
+    raise NotImplementedError
 
 GET_UPDATES_TIMEOUT = 60
 
@@ -101,9 +102,6 @@ class FlatpakUpdate():
 
 class FlatpakUpdater():
     def __init__(self):
-        if not FLATPAK_SUPPORT:
-            raise
-
         self.installer = installer.Installer()
         self.fp_sys = _flatpak.get_fp_sys()
 
