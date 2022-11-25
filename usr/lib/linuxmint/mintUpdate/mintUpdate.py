@@ -1033,7 +1033,7 @@ class RefreshThread(threading.Thread):
 
                         if self.application.settings.get_boolean("show-descriptions"):
                             model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.name),
-                                                                                          GLib.markup_escape_text(update.description)))
+                                                                                          GLib.markup_escape_text(update.summary)))
                         else:
                             model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(update.name))
 
@@ -1931,10 +1931,13 @@ class MintUpdate():
                     self.notebook_details.set_current_page(TAB_DESC)
                     self.notebook_details.set_tab_label_text(desc_tab, _("Information"))
                 elif update.type == "flatpak":
-                    website_label_str = _("Website")
-                    desc = "%s: %s" % (website_label_str, update.link)
+                    if update.link is not None:
+                        website_label_str = _("Website: %s") % update.link
+                        description = "%s\n\n%s" % (update.description, website_label_str)
+                    else:
+                        description = "%s" % update.description
 
-                    self.textview_description.set_text(desc)
+                    self.textview_description.set_text(description)
 
                     self.notebook_details.get_nth_page(TAB_PACKAGES).show()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()

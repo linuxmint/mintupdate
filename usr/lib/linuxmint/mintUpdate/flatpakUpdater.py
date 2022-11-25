@@ -2,7 +2,7 @@
 
 import threading
 import functools
-import traceback
+import re
 
 import gi
 gi.require_version('GLib', '2.0')
@@ -76,11 +76,18 @@ class FlatpakUpdate():
             self.name = ref.get_name()
 
         if pkginfo:
-            self.description = installer.get_summary(pkginfo)
+            self.summary = installer.get_summary(pkginfo)
+            description = installer.get_description(pkginfo)
+            self.description = re.sub(r'\n+', '\n\n', description).rstrip()
         elif installed_ref:
-            self.description = installed_ref.get_appdata_summary()
-        else:
+            self.summary = installed_ref.get_appdata_summary()
             self.description = ""
+        else:
+            self.summary = ""
+            self.description = ""
+
+        if self.description == "" and self.flatpak_type == "runtime":
+            self.summary = self.description = _("A Flatpak runtime package")
 
         self.real_source_name = self.ref_str
         self.source_packages = ["%s=%s" % (self.ref_str, self.new_version)]
