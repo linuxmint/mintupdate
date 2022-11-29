@@ -1,3 +1,21 @@
+mintupdate (5.9.0) vera; urgency=medium
+
+  [ Michael Webster ]
+  * Selective flatpak updates. (#703)
+
+  [ Clement Lefebvre ]
+  * Depend on mint-common 2.2.0
+  * Packaging: Remove obsolete conflicts/replaces
+
+  [ Michael Webster ]
+  * flatpak automatic updates: bypass system/user prompt if a user installation exists.
+  * Fix description tab contents for flatpaks, add a default summary for runtimes.
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 29 Nov 2022 16:26:46 +0000
+
 mintupdate (5.8.9) vanessa; urgency=medium
 
   * Adapt to new PPA url
