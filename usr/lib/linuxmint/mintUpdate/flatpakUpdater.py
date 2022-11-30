@@ -217,7 +217,7 @@ class FlatpakUpdater():
                 except GLib.Error as e:
                     remote_ref = None
 
-                pkginfo = self.installer.find_pkginfo(ref.get_name(), installer.PKG_TYPE_FLATPAK)
+                pkginfo = self.installer.find_pkginfo(ref.get_name(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
                 try:
                     update = FlatpakUpdate(op, self.installer, ref, None, remote_ref, pkginfo)
 
