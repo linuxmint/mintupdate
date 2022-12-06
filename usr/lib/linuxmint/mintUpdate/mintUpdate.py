@@ -1042,7 +1042,7 @@ class RefreshThread(threading.Thread):
                         model.set_value(iter, UPDATE_SOURCE, update.origin)
                         model.set_value(iter, UPDATE_SIZE, update.size)
                         model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-                        model.set_value(iter, UPDATE_TYPE_PIX, "flatpak-symbolic")
+                        model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-flatpak-symbolic")
                         model.set_value(iter, UPDATE_TYPE, "flatpak")
                         model.set_value(iter, UPDATE_TOOLTIP, tooltip)
                         model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.ref_str))
