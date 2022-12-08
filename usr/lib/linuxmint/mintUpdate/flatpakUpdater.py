@@ -198,7 +198,7 @@ class FlatpakUpdater():
                     if e.code == Flatpak.Error.NOT_INSTALLED:
                         installed_ref = None
 
-                pkginfo = self.installer.find_pkginfo(ref.get_name(), installer.PKG_TYPE_FLATPAK)
+                pkginfo = self.installer.find_pkginfo(ref.get_name(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
                 try:
                     update = FlatpakUpdate(op, self.installer, ref, installed_ref, None, pkginfo)
 
