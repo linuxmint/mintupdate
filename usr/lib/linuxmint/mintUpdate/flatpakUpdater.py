@@ -2,7 +2,9 @@
 
 import threading
 import functools
+import os
 import re
+from pathlib import Path
 
 import gi
 gi.require_version('GLib', '2.0')
@@ -20,6 +22,7 @@ except Exception as e:
     raise NotImplementedError
 
 GET_UPDATES_TIMEOUT = 60
+LOG_PATH = os.path.join(GLib.get_home_dir(), '.linuxmint', 'mintupdate', 'flatpak-updates.log')
 
 class FlatpakUpdate():
     def __init__(self, op, installer, ref, installed_ref, remote_ref, pkginfo):
@@ -315,9 +318,26 @@ class FlatpakUpdater():
         self.installer.execute_task(self.task)
 
     def _execute_finished(self, task):
-        print("execute finished", task.error_message)
         self.error = task.error_message
+        self.write_to_log(task)
+
         self.perform_updates_finished_event.set()
+
+    def write_to_log(self, task):
+        try:
+            entries = task.get_transaction_log()
+        except:
+            return
+
+        directory = Path(LOG_PATH).parent
+
+        try:
+            os.makedirs(directory, exist_ok=True)
+            with open(LOG_PATH, "a") as f:
+                for entry in entries:
+                    f.write("%s\n" % entry)
+        except Exception as e:
+            print("Can't write to flatpak update log:", e)
 
 if __name__ == "__main__":
     updater = FlatpakUpdater()

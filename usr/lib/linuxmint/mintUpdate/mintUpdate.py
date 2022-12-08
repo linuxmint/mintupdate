@@ -35,7 +35,7 @@ except Exception as e:
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
-from gi.repository import Gtk, Gdk, Gio, GLib, Notify
+from gi.repository import Gtk, Gdk, Gio, GLib, Notify, Pango
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
@@ -2105,17 +2105,17 @@ class MintUpdate():
         column_package = Gtk.TreeViewColumn(_("Update"), Gtk.CellRendererText(), text=COL_NAME)
         column_package.set_sort_column_id(COL_NAME)
         column_package.set_resizable(True)
-        column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(), text=COL_OLD_VER)
-        column_old_version.set_sort_column_id(COL_OLD_VER)
-        column_old_version.set_resizable(True)
-        column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(), text=COL_NEW_VER)
-        column_new_version.set_sort_column_id(COL_NEW_VER)
-        column_new_version.set_resizable(True)
+        self.column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(ellipsize=Pango.EllipsizeMode.END), text=COL_OLD_VER)
+        self.column_old_version.set_sort_column_id(COL_OLD_VER)
+        self.column_old_version.set_resizable(True)
+        self.column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(ellipsize=Pango.EllipsizeMode.END), text=COL_NEW_VER)
+        self.column_new_version.set_sort_column_id(COL_NEW_VER)
+        self.column_new_version.set_resizable(True)
         treeview.append_column(column_date)
         treeview.append_column(column_type)
         treeview.append_column(column_package)
-        treeview.append_column(column_old_version)
-        treeview.append_column(column_new_version)
+        treeview.append_column(self.column_old_version)
+        treeview.append_column(self.column_new_version)
         treeview.set_headers_clickable(True)
         treeview.set_reorderable(False)
         treeview.set_search_column(0)
@@ -2125,6 +2125,7 @@ class MintUpdate():
         updates = []
         apt_updates = []
         cinnamon_updates = []
+        flatpak_updates = []
 
         if os.path.isfile("/var/log/dpkg.log"):
             apt_updates = subprocess.run('zgrep " upgrade " -sh /var/log/dpkg.log*',
@@ -2172,10 +2173,50 @@ class MintUpdate():
                         model.set_value(iter, COL_NEW_VER, newVersion)
                         model.set_value(iter, COL_TYPE, spice_type)
 
-        updates = apt_updates + cinnamon_updates
+        if FLATPAK_SUPPORT:
+            logfile = flatpakUpdater.LOG_PATH
+            if os.path.isfile(logfile):
+                with open(logfile, "r") as f:
+                    for entry in f:
+                        values = entry.strip("\n").split("::")
+                        if len(values) == 7:
+                            (date, time, fp_type, action, name, old_version, new_version) = values
+
+                            iter = model.insert_before(None, None)
+                            model.set_value(iter, COL_NAME, name)
+                            model.row_changed(model.get_path(iter), iter)
+                            model.set_value(iter, COL_DATE, "%s - %s" % (date, time))
+                            model.set_value(iter, COL_OLD_VER, old_version)
+                            model.set_value(iter, COL_NEW_VER, new_version)
+                            model.set_value(iter, COL_TYPE, "flatpak-runtime" if fp_type == "runtime" else "flatpak-app")
+
+
+        updates = apt_updates + cinnamon_updates + flatpak_updates
 
         model.set_sort_column_id(COL_DATE, Gtk.SortType.DESCENDING)
         treeview.set_model(model)
+
+        def on_query_tooltip(widget, x, y, keyboard, tooltip):
+            if not widget.get_tooltip_context(x, y, keyboard):
+                return False
+            else:
+                on_row, wx, wy, model, path, iter = widget.get_tooltip_context(x, y, keyboard)
+                bx, by = widget.convert_widget_to_bin_window_coords(x, y)
+                result = widget.get_path_at_pos(bx, by)
+
+                if result is not None:
+                    path, column, cx, cy = result
+                    if column == self.column_old_version:
+                        text = model[iter][COL_OLD_VER]
+                    elif column == self.column_new_version:
+                        text = model[iter][COL_NEW_VER]
+                    else:
+                        return False
+                    
+                    tooltip.set_text(text)
+                    return True
+
+        treeview.connect("query-tooltip", on_query_tooltip)
 
         def destroy_window(widget):
             self.history_window_showing = False
