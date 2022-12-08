@@ -1007,6 +1007,7 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_software += 1
                     num_visible += 1
+                    download_size += update.size
 
             if FLATPAK_SUPPORT and self.application.flatpak_updater and not is_self_update:
                 type_sort_key = 5
@@ -1049,6 +1050,7 @@ class RefreshThread(threading.Thread):
                         model.set_value(iter, UPDATE_OBJ, update)
                         num_software += 1
                         num_visible += 1
+                        download_size += update.size
 
             if tracker.active:
                 if tracker.notify():
