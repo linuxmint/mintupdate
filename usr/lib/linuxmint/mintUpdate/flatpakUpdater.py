@@ -142,7 +142,7 @@ class FlatpakUpdater():
         self.updates = []
         self.task_ready_event.clear()
 
-        thread = threading.Thread(target=self._fetch_update_thread)
+        thread = threading.Thread(target=self._fetch_update_thread, name="mintupdate-flatpak-fetch-update-thread")
         thread.start()
 
         self.task_ready_event.wait(GET_UPDATES_TIMEOUT)
@@ -279,7 +279,7 @@ class FlatpakUpdater():
         for update in updates:
             refs.append(update.op.get_ref())
 
-        thread = threading.Thread(target=self._start_update_thread, args=(refs,))
+        thread = threading.Thread(target=self._start_update_thread, args=(refs,), name="mintupdate-flatpak-prepare-start-thread")
         thread.start()
 
         self.task_ready_event.wait()
@@ -309,7 +309,7 @@ class FlatpakUpdater():
     def perform_updates(self):
         self.perform_updates_finished_event.clear()
 
-        thread = threading.Thread(target=self._perform_updates_thread)
+        thread = threading.Thread(target=self._perform_updates_thread, name="mintupdate-flatpak-perform-updates-thread")
         thread.start()
 
         self.perform_updates_finished_event.wait()

@@ -398,7 +398,7 @@ class AutomaticRefreshThread(threading.Thread):
 class InstallThread(threading.Thread):
 
     def __init__(self, application):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, name="mintupdate-install-thread")
         self.application = application
         self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
         self.application.window.set_sensitive(False)
@@ -702,7 +702,7 @@ class InstallThread(threading.Thread):
 class RefreshThread(threading.Thread):
 
     def __init__(self, application, root_mode=False):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, name="mintupdate-refresh-thread")
         self.root_mode = root_mode
         self.application = application
         self.running = False
