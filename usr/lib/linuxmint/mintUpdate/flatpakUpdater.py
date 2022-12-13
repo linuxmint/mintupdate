@@ -112,7 +112,7 @@ class FlatpakUpdate():
 
 class FlatpakUpdater():
     def __init__(self):
-        self.installer = installer.Installer()
+        self.installer = installer.Installer(installer.PKG_TYPE_FLATPAK)
         self.fp_sys = _flatpak.get_fp_sys()
 
         self.task = None
@@ -123,21 +123,19 @@ class FlatpakUpdater():
 
         self.updates = []
 
-    def refresh(self):
-        self.installer = installer.Installer(installer.PKG_TYPE_FLATPAK, temp=True)
-
+    def refresh(self, full=True):
         self.fp_sys.cleanup_local_refs_sync(None)
         self.fp_sys.prune_local_repo(None)
 
-        self.installer.init_sync()
-        self.installer.force_new_cache_sync()
+        if not self.installer.init_sync() or full:
+            self.installer.force_new_cache_sync()
+            self.installer.generate_uncached_pkginfos()
 
         self.no_pull = False
 
     def fetch_updates(self):
         print("Flatpak: generating updates")
         _flatpak._initialize_appstream_thread()
-        self.installer.generate_uncached_pkginfos()
 
         self.updates = []
         self.task_ready_event.clear()

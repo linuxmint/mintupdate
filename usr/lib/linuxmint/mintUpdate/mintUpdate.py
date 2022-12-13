@@ -23,13 +23,17 @@ import setproctitle
 try:
     import cinnamon
     CINNAMON_SUPPORT = True
-except:
+except Exception as e:
+    if os.getenv("DEBUG"):
+        print("No cinnamon update support:\n%s" % traceback.format_exc())
     CINNAMON_SUPPORT = False
 
 try:
     import flatpakUpdater
     FLATPAK_SUPPORT = True
 except Exception as e:
+    if os.getenv("DEBUG"):
+        print("No flatpak update support:\n%s" % traceback.format_exc())
     FLATPAK_SUPPORT = False
 
 from kernelwindow import KernelWindow
@@ -813,10 +817,9 @@ class RefreshThread(threading.Thread):
                             print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
 
             if FLATPAK_SUPPORT:
-                # if self.root_mode:
                 self.application.logger.write("Refreshing available Flatpak updates")
                 self.application.set_status_message(_("Checking for Flatpak updates"))
-                self.application.flatpak_updater.refresh()
+                self.application.flatpak_updater.refresh(full=self.root_mode)
 
             self.application.set_status_message(_("Processing updates"))
 
