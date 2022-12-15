@@ -1,3 +1,20 @@
+mintupdate (5.9.2) vera; urgency=medium
+
+  [ Michael Webster ]
+  * Make sure to always use the proper flatpak symbolic icon.
+
+  [ Tibladar ]
+  * Add size support for Flatpak and Spices (#775)
+
+  [ Michael Webster ]
+  * Show flatpak updates in the update history.
+  * flatpaks: Fix missing argument for specifying a remote.
+  * Give refresh, install and flatpak threads names.
+  * flatpaks: Use the existing cache, only rebuild it during a full refresh (background or user-initiated) or if it doesn't exist.
+  * Bump mint-common version.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 15 Dec 2022 12:55:30 +0000
+
 mintupdate (5.9.1) vera; urgency=medium
 
   [ Michael Webster ]
