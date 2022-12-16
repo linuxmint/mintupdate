@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import gi
-from gi.repository import Gio
+from gi.repository import Gio, GLib
 
 import datetime
 import gettext
@@ -10,6 +10,7 @@ import json
 import os
 import subprocess
 import time
+import re
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -381,3 +382,160 @@ class UpdateTracker():
         with open(self.path, "w") as f:
             json.dump(self.tracked_updates, f, indent=2)
 
+try:
+    gi.require_version('Flatpak', '1.0')
+    from gi.repository import Flatpak
+except:
+    pass
+
+class FlatpakUpdate():
+    def __init__(self, op=None, installer=None, ref=None, installed_ref=None, remote_ref=None, pkginfo=None):
+        if op is None:
+            # json decoding
+            return
+
+        self.op = op
+
+        # nullable
+        self.installed_ref = installed_ref
+        self.remote_ref = remote_ref
+        self.pkginfo = pkginfo
+        #
+
+        # to be jsonified
+        self.ref = ref
+        self.ref_name = ref.get_name()
+        self.metadata = op.get_metadata()
+        self.size = op.get_download_size()
+        self.link = installer.get_homepage_url(pkginfo) if pkginfo else None
+        self.flatpak_type = "app" if ref.get_kind() == Flatpak.RefKind.APP else "runtime"
+        self.old_version = ""
+        self.new_version = ""
+        self.name = ""
+        self.summary = ""
+        self.description = ""
+        self.real_source_name = ""
+        self.source_packages = []
+        self.package_names = [self.ref_name]
+        self.sub_updates = []
+        self.origin = ""
+        ##################
+
+        # ideal:           old-version                     new-version
+        # versions same:   old-version (commit)            new-version (commit)
+        # no versions      commit                          commit
+
+        # old version
+        if installed_ref:
+            iref_version = self.installed_ref.get_appdata_version()
+            old_commit = installed_ref.get_commit()[:10]
+        else:
+            iref_version = ""
+            old_commit = ""
+
+        # new version
+        if pkginfo:
+            appstream_version = installer.get_version(pkginfo)
+
+        new_commit = op.get_commit()[:10]
+
+        if iref_version != "" and appstream_version != "":
+            if iref_version != appstream_version:
+                self.old_version = iref_version
+                self.new_version = appstream_version
+            else:
+                self.old_version = "%s (%s)" % (iref_version, old_commit)
+                self.new_version = "%s (%s)" % (appstream_version, new_commit)
+        else:
+            self.old_version = old_commit
+            self.new_version = new_commit
+
+        if pkginfo:
+            self.name = installer.get_display_name(pkginfo)
+        elif installed_ref:
+            self.name = installed_ref.get_appdata_name()
+        else:
+            self.name = ref.get_name()
+
+        if pkginfo:
+            self.summary = installer.get_summary(pkginfo)
+            description = installer.get_description(pkginfo)
+            self.description = re.sub(r'\n+', '\n\n', description).rstrip()
+        elif installed_ref:
+            self.summary = installed_ref.get_appdata_summary()
+            self.description = ""
+        else:
+            self.summary = ""
+            self.description = ""
+
+        if self.description == "" and self.flatpak_type == "runtime":
+            self.summary = self.description = _("A Flatpak runtime package")
+
+        self.real_source_name = self.ref_name
+        self.source_packages = ["%s=%s" % (self.ref_name, self.new_version)]
+        self.package_names = [self.ref_name]
+        self.sub_updates = []
+
+        if installed_ref:
+            self.origin = installed_ref.get_origin().capitalize()
+        elif remote_ref:
+            self.origin = remote_ref.get_remote_name()
+        else:
+            self.origin = ""
+
+    def add_package(self, update):
+        self.sub_updates.append(update)
+        self.package_names.append(update.ref_name)
+        self.size += update.size
+        # self.source_packages.append("%s=%s" % (update.ref_name, update.new_version))
+
+    def to_json(self):
+        trimmed_dict = {}
+
+        for key in ("flatpak_type",
+                    "name",
+                    "origin",
+                    "old_version",
+                    "new_version",
+                    "size",
+                    "summary",
+                    "description",
+                    "real_source_name",
+                    "source_packages",
+                    "package_names",
+                    "sub_updates",
+                    "link"):
+            trimmed_dict[key] = self.__dict__[key]
+        trimmed_dict["metadata"] = self.metadata.to_data()[0]
+        trimmed_dict["ref"] = self.ref.format_ref()
+
+        return trimmed_dict
+
+    @classmethod
+    def from_json(cls, json_data:dict):
+        inst = cls()
+        inst.flatpak_type = json_data["flatpak_type"]
+        inst.ref = Flatpak.Ref.parse(json_data["ref"])
+        inst.ref_name = inst.ref.get_name()
+        inst.name = json_data["name"]
+        inst.origin = json_data["origin"]
+        inst.old_version = json_data["old_version"]
+        inst.new_version = json_data["new_version"]
+        inst.size = json_data["size"]
+        inst.summary = json_data["summary"]
+        inst.description = json_data["description"]
+        inst.real_source_name = json_data["real_source_name"]
+        inst.source_packages = json_data["source_packages"]
+        inst.package_names = json_data["package_names"]
+        inst.sub_updates = json_data["sub_updates"]
+        inst.link = json_data["link"]
+        inst.metadata = GLib.KeyFile()
+
+        try:
+            b = GLib.Bytes.new(json_data["metadata"].encode())
+            inst.metadata.load_from_bytes(b, GLib.KeyFileFlags.NONE)
+        except GLib.Error:
+            print("unable to decode op metadata: %s" % e.message)
+            pass
+
+        return inst

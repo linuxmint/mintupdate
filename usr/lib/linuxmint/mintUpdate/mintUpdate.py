@@ -817,9 +817,10 @@ class RefreshThread(threading.Thread):
                             print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
 
             if FLATPAK_SUPPORT:
-                self.application.logger.write("Refreshing available Flatpak updates")
-                self.application.set_status_message(_("Checking for Flatpak updates"))
-                self.application.flatpak_updater.refresh(full=self.root_mode)
+                if self.root_mode:
+                    self.application.logger.write("Refreshing available Flatpak updates")
+                    self.application.set_status_message(_("Checking for Flatpak updates"))
+                    self.application.flatpak_updater.refresh()
 
             self.application.set_status_message(_("Processing updates"))
 
@@ -1020,7 +1021,7 @@ class RefreshThread(threading.Thread):
                 if self.application.flatpak_updater.error == None:
                     for update in self.application.flatpak_updater.updates:
                         update.type = "flatpak"
-                        if update.ref_str in blacklist or update.source_packages[0] in blacklist:
+                        if update.ref_name in blacklist or update.source_packages[0] in blacklist:
                             continue
                         if update.flatpak_type == "app":
                             tooltip = _("Flatpak application")
@@ -1049,7 +1050,7 @@ class RefreshThread(threading.Thread):
                         model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-flatpak-symbolic")
                         model.set_value(iter, UPDATE_TYPE, "flatpak")
                         model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.ref_str))
+                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.ref_name))
                         model.set_value(iter, UPDATE_OBJ, update)
                         num_software += 1
                         num_visible += 1
