@@ -222,10 +222,6 @@ class FlatpakUpdateWorker():
             self.quit()
 
     def start_updates(self):
-        # thread = threading.Thread(target=self._perform_updates_thread, name="flatpak-update-worker-execute")
-        # thread.start()
-
-    # def _perform_updates_thread(self):
         self.installer.execute_task(self.task)
 
     def _execute_finished(self, task):
@@ -254,21 +250,6 @@ class FlatpakUpdateWorker():
     def send_to_updater(self, msg):
         print(msg, flush=True)
 
-    #     if self.worker_cancellable is None or self.worker_cancellable.is_cancelled():
-    #         return
-
-    #     print("sending '%s' to worker" % string)
-
-    #     try:
-    #         b = GLib.Bytes.new(string.encode())
-
-    #         s = self.in_pipe.write_bytes(b)
-
-    #         self.in_pipe.flush(None)
-    #     except GLib.Error as e:
-    #         if e.code != Gib.IOErrorEnum.CANCELLED:
-    #             print("Error sending message: %s" % e.message)
-
     def message_from_updater(self, pipe, res):
         if self.cancellable is None or self.cancellable.is_cancelled():
             return
@@ -291,18 +272,12 @@ class FlatpakUpdateWorker():
 
         pipe.read_bytes_async(4096, GLib.PRIORITY_DEFAULT, self.cancellable, self.message_from_updater)
 
-
-
-
     def quit(self):
         if self.task:
             self.task.cancel()
 
         self.cancellable.cancel()
-
-        GLib.idle_add(Gtk.main_quit)
-        # Gtk.main_quit()
-
+        Gtk.main_quit()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flatpak worker for mintupdate")
@@ -313,9 +288,6 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--fetch-updates", help="Get a json list of update info.",
                         action="store_true")
     parser.add_argument("-u", "--update-packages", help="Updates packages - one or more flatpak ref strings must be supplied. "
-                                                        "This process will remain running for communication.",
-                        action="store_true")
-    parser.add_argument("--fd", help="Updates packages - one or more flatpak ref strings must be supplied. "
                                                         "This process will remain running for communication.",
                         action="store_true")
     
@@ -332,7 +304,6 @@ if __name__ == "__main__":
             print(e)
             exit(1)
     elif args.fetch_updates:
-        # print("fetch start")
         updater.fetch_updates()
     elif args.update_packages:
         if len(args.refs) == 0:
@@ -348,3 +319,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         Gtk.main_quit()
 
+    exit(0)
