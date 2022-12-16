@@ -116,6 +116,7 @@ class FlatpakUpdater():
         self.fp_sys = _flatpak.get_fp_sys()
 
         self.task = None
+        self.error = None
         self.task_ready_event = threading.Event()
         self.perform_updates_finished_event = threading.Event()
 
