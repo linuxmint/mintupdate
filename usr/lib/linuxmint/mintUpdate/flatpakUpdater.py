@@ -76,8 +76,8 @@ class FlatpakUpdater():
 
         try:
             self.proc = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding="utf-8")
-        except GLib.Error as e:
-            print("Flatpak: Could not start worker: %s" % e.message)
+        except Exception as e:
+            print("Flatpak: Could not start worker: %s" % str(e))
             return False
 
         self.out_pipe = self.proc.stdout
@@ -91,8 +91,8 @@ class FlatpakUpdater():
                     return
                 else:
                     raise Exception("Unexpected response from worker - expected 'ready', got '%s'" % answer)
-        except GLib.Error as e:
-            print("Flatpak: Could not set up to install updates: %s", e.message)
+        except Exception as e:
+            print("Flatpak: Could not set up to install updates: %s", str(e))
             self.terminate_helper()
 
     def confirm_start(self):
@@ -108,8 +108,8 @@ class FlatpakUpdater():
                 else:
                     self.terminate_helper()
                     return False
-        except GLib.Error as e:
-            print("Flatpak: Could not complete confirmation: %s", e.message)
+        except Exception as e:
+            print("Flatpak: Could not complete confirmation: %s", str(e))
             self.terminate_helper()
 
         return False
@@ -127,8 +127,8 @@ class FlatpakUpdater():
                 elif answer.startswith("error:"):
                     self.error = answer[6:]
                     print("Flatpaks: error performing updates: %s" % self.error)
-        except GLib.Error as e:
-            print("Flatpak: Could not perform updates: %s", e.message)
+        except Exception as e:
+            print("Flatpak: Could not perform updates: %s", str(e))
 
         self.terminate_helper()
 
