@@ -54,18 +54,23 @@ class FlatpakUpdateWorker():
 
         self.updates = []
 
-    def refresh(self):
+    def refresh(self, init=True):
         self.fp_sys.cleanup_local_refs_sync(None)
         self.fp_sys.prune_local_repo(None)
 
-        self.installer.init_sync()
+        if init:
+            self.installer.init_sync()
+
         self.installer.force_new_cache_sync()
-        self.installer.generate_uncached_pkginfos()
 
     def fetch_updates(self):
         if not self.installer.init_sync():
-            self.refresh()
-            self.installer.generate_uncached_pkginfos()
+            warn("cache not valid, refreshing")
+            self.refresh(False)
+        else:
+            debug("cache valid")
+
+        self.installer.generate_uncached_pkginfos()
 
         debug("generating updates")
         _flatpak._initialize_appstream_thread()
