@@ -3,6 +3,8 @@
 import os
 import json
 import subprocess
+import threading
+import time
 import sys
 
 import gi
@@ -29,6 +31,9 @@ class FlatpakUpdater():
 
         self.updates = []
         self.error = None
+
+        self.response_timeout_lock = threading.Lock()
+        self.response_timeout_cancel = False
 
     def refresh(self):
         print("Flatpak: refreshing")
@@ -100,8 +105,11 @@ class FlatpakUpdater():
             self.in_pipe.write("confirm")
             self.in_pipe.flush()
 
+            self.start_response_timeout()
             res = self.out_pipe.readline()
             if res:
+                self.cancel_response_timeout()
+
                 answer = res.strip("\n")
                 if answer == "yes":
                     return True
@@ -109,10 +117,30 @@ class FlatpakUpdater():
                     self.terminate_helper()
                     return False
         except Exception as e:
-            print("Flatpak: Could not complete confirmation: %s", str(e))
-            self.terminate_helper()
+            if not self.response_timeout_cancel:
+                print("Flatpak: Timed out waiting for confirmation")
+            else:
+                print("Flatpak: Could not complete confirmation: %s" % str(e))
+                self.terminate_helper()
 
         return False
+
+    def start_response_timeout(self):
+        self.response_timeout_cancel = False
+
+        def response_timer():
+            time.sleep(20)
+            with self.response_timeout_lock:
+                if not self.response_timeout_cancel:
+                    self.kill_any_helpers()
+                    self.proc = None
+
+        t = threading.Thread(target=response_timer)
+        t.start()
+
+    def cancel_response_timeout(self):
+        with self.response_timeout_lock:
+            self.response_timeout_cancel = True
 
     def perform_updates(self):
         try:
