@@ -9,15 +9,17 @@ import sys
 
 import gi
 gi.require_version('GLib', '2.0')
-from gi.repository import GLib
+from gi.repository import GLib, Gio
 
 try:
     if not GLib.find_program_in_path("flatpak"):
         raise Exception
+    if not Gio.Settings(schema_id="com.linuxmint.updates").get_boolean("interactive-flatpak-updates"):
+        raise Exception
     gi.require_version('Flatpak', '1.0')
     from gi.repository import Flatpak
 except Exception:
-    print("No Flatpak support - are flatpak and gir1.2-flatpak-1.0 installed?")
+    print("No Flatpak support - either disabled via settings or flatpak and gir1.2-flatpak-1.0 not installed?")
     raise NotImplementedError
 
 from Classes import FlatpakUpdate
