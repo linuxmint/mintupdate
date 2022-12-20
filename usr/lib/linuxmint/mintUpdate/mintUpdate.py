@@ -39,7 +39,7 @@ except Exception as e:
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
-from gi.repository import Gtk, Gdk, Gio, GLib, Notify, Pango
+from gi.repository import Gtk, Gdk, Gio, GLib, GObject, Notify, Pango
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
@@ -790,7 +790,7 @@ class RefreshThread(threading.Thread):
             self.application.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
             Gdk.threads_leave()
 
-            model = Gtk.TreeStore(bool, str, str, str, str, int, str, str, str, str, str, object)
+            model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
