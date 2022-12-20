@@ -34,12 +34,12 @@ except:
 def debug(*args):
     if not DEBUG_MODE:
         return
-    sanitized = [arg for arg in args if arg is not None]
+    sanitized = [str(arg) for arg in args if arg is not None]
     argstr = " ".join(sanitized)
     print("flatpak-update-worker (DEBUG): %s" % argstr, file=sys.stderr, flush=True)
 
 def warn(*args):
-    sanitized = [arg for arg in args if arg is not None]
+    sanitized = [str(arg) for arg in args if arg is not None]
     argstr = " ".join(sanitized)
     print("flatpak-update-worker (WARN): %s" % argstr, file=sys.stderr, flush=True)
 
@@ -82,18 +82,20 @@ class FlatpakUpdateWorker():
                                               use_mainloop=False)
 
     def _fetch_task_ready(self, task):
+        debug("task object:", task, "transaction:", task.transaction)
+
         self.task = task
         self.error = task.error_message
 
-        if self.error == None:
+        if self.error == None and task.transaction is not None:
             self._process_fetch_task(task)
 
             out = json.dumps(self.updates, default=lambda o: o.to_json(), indent=4)
             self.send_to_updater(out)
-
-            self.quit()
         else:
             self.send_to_updater(self.error)
+
+        self.quit()
         debug("done generating updates", self.error)
 
     def _fetch_updates_error(self, task):
@@ -278,6 +280,9 @@ class FlatpakUpdateWorker():
         pipe.read_bytes_async(4096, GLib.PRIORITY_DEFAULT, self.cancellable, self.message_from_updater)
 
     def quit(self):
+        GLib.timeout_add(0, self.quit_on_ml)
+
+    def quit_on_ml(self):
         if self.task:
             self.task.cancel()
 
