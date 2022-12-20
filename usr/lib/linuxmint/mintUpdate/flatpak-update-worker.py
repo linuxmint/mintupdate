@@ -16,6 +16,7 @@ from gi.repository import Gtk, GLib, Flatpak, Gio
 
 from mintcommon.installer import installer
 from mintcommon.installer import _flatpak
+from mintcommon.installer.dialogs import ChangesConfirmDialog
 
 from Classes import FlatpakUpdate
 
@@ -221,8 +222,37 @@ class FlatpakUpdateWorker():
         warn("start updates error", task.error_message)
         self.send_to_updater(task.error_message)
 
+    def _confirm_transaction(self):
+        # only show a confirmation if:
+        # - (install/remove) Additional changes are triggered for more than just the selected package.
+        # - we're updating all available packages
+        # - the packages specifically selected to be updated (initial_refs_to_update) trigger additional package installs/updates/removals
+        total_count = len(self.task.to_install + self.task.to_remove + self.task.to_update)
+        additional = False
+
+        if total_count == 0:
+            debug("No work to perform now - are you online still?")
+            # FIXME: If the network's down, flatpak doesn't consider not being able to access remote refs as fatal, since it's an update
+            # and they're already installed. We should popup a message to say so.
+            return False
+
+        if self.task.type in (self.task.INSTALL_TASK, self.task.UNINSTALL_TASK) and total_count > 1:
+            additional = True
+        elif self.task.type == self.task.UPDATE_TASK:
+            if len(self.task.initial_refs_to_update) == 0 or (total_count - len(self.task.initial_refs_to_update)) > 0:
+                additional = True
+
+        if additional:
+            dia = ChangesConfirmDialog(None, self.task, parent=self.task.parent_window)
+            res = dia.run()
+            dia.hide()
+            dia.destroy()
+            return res == Gtk.ResponseType.OK
+        else:
+            return True
+
     def confirm_start(self):
-        if self.task.confirm():
+        if self._confirm_transaction():
             self.send_to_updater("yes")
         else:
             self.send_to_updater("no")
