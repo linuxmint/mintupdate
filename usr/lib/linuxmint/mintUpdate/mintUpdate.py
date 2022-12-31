@@ -626,9 +626,7 @@ class InstallThread(threading.Thread):
             if update_flatpaks and proceed:
                 self.application.flatpak_updater.perform_updates()
                 if self.application.flatpak_updater.error != None:
-                    Gdk.threads_enter()
-                    self.application.set_status_message(self.application.flatpak_updater.error)
-                    Gdk.threads_leave()
+                    self.application.set_status_message_from_thread(self.application.flatpak_updater.error)
                 needs_refresh = True
 
             if proceed and len(cinnamon_spices) > 0:
@@ -808,7 +806,7 @@ class RefreshThread(threading.Thread):
             if CINNAMON_SUPPORT:
                 if self.root_mode:
                     self.application.logger.write("Refreshing available Cinnamon updates from the server")
-                    self.application.set_status_message(_("Checking for Cinnamon spices"))
+                    self.application.set_status_message_from_thread(_("Checking for Cinnamon spices"))
                     for spice_type in cinnamon.updates.SPICE_TYPES:
                         try:
                             self.application.cinnamon_updater.refresh_cache_for_type(spice_type)
@@ -819,10 +817,10 @@ class RefreshThread(threading.Thread):
             if FLATPAK_SUPPORT:
                 if self.root_mode:
                     self.application.logger.write("Refreshing available Flatpak updates")
-                    self.application.set_status_message(_("Checking for Flatpak updates"))
+                    self.application.set_status_message_from_thread(_("Checking for Flatpak updates"))
                     self.application.flatpak_updater.refresh()
 
-            self.application.set_status_message(_("Processing updates"))
+            self.application.set_status_message_from_thread(_("Processing updates"))
 
             if os.getenv("MINTUPDATE_TEST") == None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
@@ -860,12 +858,15 @@ class RefreshThread(threading.Thread):
                     error_msg = "\n\n%s\n%s" % (_("APT error:"), error_msg)
                 else:
                     error_msg = ""
+
+                Gdk.threads_enter()
                 self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                     msg, Gtk.MessageType.ERROR,
                     callback=self._on_infobar_mintsources_response)
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
                 self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
+                Gdk.threads_leave()
 
             if error_found:
                 Gdk.threads_enter()
@@ -1729,6 +1730,11 @@ class MintUpdate():
 
     def set_status_message(self, message):
         self.statusbar.push(self.context_id, message)
+
+    def set_status_message_from_thread(self, message):
+        Gdk.threads_enter()
+        self.set_status_message(message)
+        Gdk.threads_leave()
 
     def set_status(self, message, tooltip, icon, visible):
         self.set_status_message(message)
