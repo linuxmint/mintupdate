@@ -31,16 +31,14 @@ class FlatpakUpdater():
         self.error = None
 
     def refresh(self):
-        print("Flatpak: refreshing")
         self.kill_any_helpers()
 
         try:
-            subprocess.run([UPDATE_WORKER_PATH, "--refresh"], timeout = 30)
+            subprocess.run([UPDATE_WORKER_PATH, "--refresh"], timeout = 30, stdout=subprocess.DEVNULL)
         except subprocess.TimeoutExpired as e:
             print("Flatpaks: timed out trying to refresh", str(e))
 
     def fetch_updates(self):
-        print("Flatpak: generating updates")
         self.kill_any_helpers()
 
         self.updates = []
@@ -51,10 +49,16 @@ class FlatpakUpdater():
         except subprocess.TimeoutExpired as e:
             print("Flatpaks: timed out trying to get a list of updates", str(e))
 
-        #debug(output)
+        # print(output)
 
         if output is None:
             print("Flatpaks: no updates")
+            return
+
+        output = output.strip("\n")
+
+        if output == "no-installed":
+            print("Flatpaks: skipping update check - nothing installed")
             return
 
         if output.startswith("error:"):

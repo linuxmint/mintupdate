@@ -50,11 +50,34 @@ class FlatpakUpdateWorker():
         self.task = None
 
         self.cancellable = Gio.Cancellable()
+
+        if not self.check_for_any_installed():
+            self.send_to_updater("no-installed")
+            self.cancellable.cancel()
+            self.quit()
+
         self.stdin = Gio.UnixInputStream.new(sys.stdin.fileno(), True)
 
         self.updates = []
 
+    def check_for_any_installed(self):
+        try:
+            installed = self.fp_sys.list_installed_refs(self.cancellable)
+        except GLib.Error as e:
+            warn("not able to list installed refs: (%d) %s" % (e.code, e.message))
+            installed == []
+
+        if len(installed) == 0:
+            debug("no flatpaks installed, exiting without refreshing")
+            return False
+
+        debug("%d flatpaks installed, continuing" % len(installed))
+        return True
+
     def refresh(self, init=True):
+        if self.cancellable.is_cancelled():
+            return
+
         self.fp_sys.cleanup_local_refs_sync(None)
         self.fp_sys.prune_local_repo(None)
 
@@ -64,6 +87,9 @@ class FlatpakUpdateWorker():
         self.installer.force_new_cache_sync()
 
     def fetch_updates(self):
+        if self.cancellable.is_cancelled():
+            return
+
         if not self.installer.init_sync():
             warn("cache not valid, refreshing")
             self.refresh(False)
@@ -204,6 +230,9 @@ class FlatpakUpdateWorker():
             return False
 
     def prepare_start_updates(self, updates):
+        if self.cancellable.is_cancelled():
+            return
+
         debug("creating real update task")
         self.error = None
 
