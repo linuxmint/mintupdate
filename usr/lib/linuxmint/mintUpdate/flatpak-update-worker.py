@@ -65,7 +65,7 @@ class FlatpakUpdateWorker():
             installed = self.fp_sys.list_installed_refs(self.cancellable)
         except GLib.Error as e:
             warn("not able to list installed refs: (%d) %s" % (e.code, e.message))
-            installed == []
+            installed = []
 
         if len(installed) == 0:
             debug("no flatpaks installed, exiting without refreshing")
