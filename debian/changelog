@@ -1,3 +1,20 @@
+mintupdate (5.9.7) vera; urgency=medium
+
+  [ Michael Webster ]
+  * flatpak worker: Check task.transaction before processing updates, call Gtk.main_quit on the main loop.
+  * Remove unused .circleci folder.
+  * Make sure all Gtk calls during the refresh and install threads are guarded by Gdk.threads_enter/leave.
+  * flatpaks: See if any flatpaks are actually installed before bothering to check for updates.
+
+  [ hduelme ]
+  * fix typo causing potential type error (#785)
+
+  [ Tibladar ]
+  * Update 'CVE Tracker' URL (#773)
+  * Update URLs to HTTPS where applicable (#774)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 11 Jan 2023 11:40:09 +0000
+
 mintupdate (5.9.6) vera; urgency=medium
 
   [ Michael Webster ]
