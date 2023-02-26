@@ -41,7 +41,7 @@ try:
                 pkg_version = pkg.installed.version
             else:
                 # only offer to install same-type kernels
-                if not kernel_type == CONFIGURED_KERNEL_TYPE:
+                if kernel_type != CONFIGURED_KERNEL_TYPE:
                     continue
                 if pkg.candidate and pkg.candidate.downloadable:
                     installable = 1
@@ -67,7 +67,7 @@ try:
 
             # get support duration
             supported_tag = pkg_data.record.get("Supported")
-            if not supported_tag and origin == 1 and not "-proposed" in pkg_data.origins[0].archive:
+            if not supported_tag and origin == 1 and "-proposed" not in pkg_data.origins[0].archive:
                 # Workaround for Ubuntu releasing kernels by copying straight from
                 # -proposed and only adding the Supported tag shortly after.
                 # To avoid user confusion in the time in-between we just assume

@@ -67,7 +67,7 @@ class InstallKernelThread(threading.Thread):
                         if pkg.is_installed:
                             # skip kernel_type independent packages (headers) if another kernel of the
                             # same version but different type is installed
-                            if not kernel.type in name and self.package_needed_by_another_kernel(kernel.version, kernel.type):
+                            if kernel.type not in name and self.package_needed_by_another_kernel(kernel.version, kernel.type):
                                 continue
                             pkg_line = "%s\tpurge\n" % name
                             f.write(pkg_line.encode("utf-8"))
@@ -443,7 +443,7 @@ class KernelWindow():
 
                 release = archive.split("-", 1)[0]
                 if support_duration and origin == "1":
-                    if not release in hwe_support_duration:
+                    if release not in hwe_support_duration:
                         hwe_support_duration[release] = []
                     if not [x for x in hwe_support_duration[release] if x[0] == page_label]:
                         hwe_support_duration[release].append([page_label, support_duration])
@@ -513,9 +513,9 @@ class KernelWindow():
                 if support_info:
                     (page_label, support_duration, support_end_str, is_end_of_life) = support_info[0]
                     if support_end_str:
-                        if not kernel_type in supported_kernels.keys():
+                        if kernel_type not in supported_kernels.keys():
                             supported_kernels[kernel_type] = []
-                        if not page_label in supported_kernels[kernel_type]:
+                        if page_label not in supported_kernels[kernel_type]:
                             supported_kernels[kernel_type].append(page_label)
                             support_status = '%s %s' % (_("Supported until"), support_end_str)
                             newest_supported_in_series = True

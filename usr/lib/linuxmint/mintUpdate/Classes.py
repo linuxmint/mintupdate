@@ -252,7 +252,7 @@ class UpdateTracker():
     # Updates the record for a particular update
     def update(self, update):
         self.refreshed_update_names.append(update.real_source_name)
-        if not update.real_source_name in self.tracked_updates['updates']:
+        if update.real_source_name not in self.tracked_updates['updates']:
             update_record = {}
             update_record['type'] = update.type
             update_record['since'] = self.today
@@ -292,7 +292,7 @@ class UpdateTracker():
         if os.path.exists("/var/log/apt/history.log"):
             logs = subprocess.getoutput("cat /var/log/apt/history.log")
             for event in logs.split("\n\n"):
-                if not "Upgrade: " in event:
+                if "Upgrade: " not in event:
                     continue
                 end_date = None
                 upgrade = None
@@ -308,7 +308,7 @@ class UpdateTracker():
             try:
                 logs = subprocess.getoutput("zcat /var/log/apt/history.log*gz")
                 for event in logs.split("\n\n"):
-                    if not "Upgrade: " in event:
+                    if "Upgrade: " not in event:
                         continue
                     end_date = None
                     upgrade = None
@@ -374,7 +374,7 @@ class UpdateTracker():
     def record(self):
         # Purge non-refreshed updates
         for name in list(self.tracked_updates['updates'].keys()):
-            if not name in self.refreshed_update_names:
+            if name not in self.refreshed_update_names:
                 del self.tracked_updates['updates'][name]
         # Update the check date
         self.tracked_updates['checked'] = self.today

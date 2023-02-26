@@ -114,7 +114,7 @@ class CacheWatcher(threading.Thread):
                 try:
                     cachetime = os.path.getmtime(self.pkgcache)
                     statustime = os.path.getmtime(self.dpkgstatus)
-                    if (not cachetime == self.cachetime or not statustime == self.statustime) and \
+                    if (cachetime != self.cachetime or statustime != self.statustime) and \
                         not self.application.dpkg_locked():
                         self.cachetime = cachetime
                         self.statustime = statustime
@@ -890,7 +890,7 @@ class RefreshThread(threading.Thread):
             lines = output.split("---EOL---")
             if len(lines):
                 for line in lines:
-                    if not "###" in line:
+                    if "###" not in line:
                         continue
 
                     # Create update object
@@ -1246,7 +1246,7 @@ class RefreshThread(threading.Thread):
                             for pkg2 in changes:
                                 if o.name == pkg2.name:
                                     pkgFound = True
-                            if pkgFound == False:
+                            if not pkgFound:
                                 newPkg = cache[o.name]
                                 changes.append(newPkg)
                                 foundSomething = True
