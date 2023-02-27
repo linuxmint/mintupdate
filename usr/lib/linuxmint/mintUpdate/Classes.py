@@ -534,7 +534,7 @@ class FlatpakUpdate():
         try:
             b = GLib.Bytes.new(json_data["metadata"].encode())
             inst.metadata.load_from_bytes(b, GLib.KeyFileFlags.NONE)
-        except GLib.Error:
+        except GLib.Error as e:
             print("unable to decode op metadata: %s" % e.message)
             pass
 
