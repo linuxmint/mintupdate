@@ -162,7 +162,7 @@ class APTCheck():
 
     def get_kernel_version_from_meta_package(self, pkg):
         for dependency in pkg.dependencies:
-            if not dependency.target_versions or not dependency.rawtype == "Depends":
+            if not dependency.target_versions or dependency.rawtype != "Depends":
                 return None
             deppkg = dependency.target_versions[0]
             if deppkg.source_name in ("linux", "linux-signed"):
@@ -206,8 +206,8 @@ class APTCheck():
                 update.add_package(package)
                 # Adjust update.old_version for kernel updates to try and
                 # match the kernel, not the meta
-                if kernel_update and package.is_installed and not \
-                   "-" in update.old_version and "-" in package.installed.version:
+                if kernel_update and package.is_installed and \
+                        "-" not in update.old_version and "-" in package.installed.version:
                     update.old_version = package.installed.version
             else:
                 update = Update(package, source_name=source_name)
