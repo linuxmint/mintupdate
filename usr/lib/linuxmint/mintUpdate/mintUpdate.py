@@ -87,6 +87,11 @@ def size_to_string(size):
         return "%d %s" % (size // KILOBYTE,  _("KB"))
     return "%d %s" % (size,  _("B"))
 
+def name_search_func(model, column, key, iter):
+    name = model.get_value(iter, column)
+    return key.lower() not in name.lower() # False is a match
+
+
 class CacheWatcher(threading.Thread):
     """ Monitors package cache and dpkg status and runs RefreshThread() on change """
 
@@ -1424,6 +1429,8 @@ class MintUpdate():
 
             self.treeview.set_tooltip_column(UPDATE_TOOLTIP)
 
+            self.treeview.set_search_column(UPDATE_DISPLAY_NAME)
+            self.treeview.set_search_equal_func(name_search_func)
             self.treeview.append_column(column_type)
             self.treeview.append_column(column_upgrade)
             self.treeview.append_column(column_name)
@@ -2128,7 +2135,8 @@ class MintUpdate():
         treeview.append_column(self.column_new_version)
         treeview.set_headers_clickable(True)
         treeview.set_reorderable(False)
-        treeview.set_search_column(0)
+        treeview.set_search_column(COL_NAME)
+        treeview.set_search_equal_func(name_search_func)
         treeview.set_enable_search(True)
         treeview.show()
 
