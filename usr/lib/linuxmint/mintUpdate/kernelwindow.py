@@ -488,7 +488,6 @@ class KernelWindow():
                             support_duration = 10 + point_release * 6
 
                 support_end_str = ""
-                is_end_of_life = False
                 (support_end_year, support_end_month) = get_maintenance_end_date(self.release_dates[release][0], support_duration)
                 is_end_of_life = (now.year > support_end_year or (now.year == support_end_year and now.month > support_end_month))
                 if not is_end_of_life:

@@ -295,7 +295,6 @@ class UpdateTracker():
                 if "Upgrade: " not in event:
                     continue
                 end_date = None
-                upgrade = None
                 for line in event.split("\n"):
                     line = line.strip()
                     if line.startswith("End-Date: "):
@@ -311,7 +310,6 @@ class UpdateTracker():
                     if "Upgrade: " not in event:
                         continue
                     end_date = None
-                    upgrade = None
                     for line in event.split("\n"):
                         line = line.strip()
                         if line.startswith("End-Date: "):
