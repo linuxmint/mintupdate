@@ -20,21 +20,6 @@ import datetime
 import configparser
 import traceback
 import setproctitle
-try:
-    import cinnamon
-    CINNAMON_SUPPORT = True
-except Exception as e:
-    if os.getenv("DEBUG"):
-        print("No cinnamon update support:\n%s" % traceback.format_exc())
-    CINNAMON_SUPPORT = False
-
-try:
-    import flatpakUpdater
-    FLATPAK_SUPPORT = True
-except Exception as e:
-    if os.getenv("DEBUG"):
-        print("No flatpak update support:\n%s" % traceback.format_exc())
-    FLATPAK_SUPPORT = False
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -43,6 +28,29 @@ from gi.repository import Gtk, Gdk, Gio, GLib, GObject, Notify, Pango
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
+
+
+settings = Gio.Settings(schema_id="com.linuxmint.updates")
+cinnamon_support = False
+try:
+    if settings.get_boolean("show-cinnamon-updates"):
+        import cinnamon
+        cinnamon_support = True
+except Exception as e:
+    if os.getenv("DEBUG"):
+        print("No cinnamon update support:\n%s" % traceback.format_exc())
+
+flatpak_support = False
+try:
+    if settings.get_boolean("show-flatpak-updates"):
+        import flatpakUpdater
+        flatpak_support = True
+except Exception as e:
+    if os.getenv("DEBUG"):
+        print("No flatpak update support:\n%s" % traceback.format_exc())
+
+CINNAMON_SUPPORT = cinnamon_support
+FLATPAK_SUPPORT = flatpak_support
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -618,7 +626,7 @@ class InstallThread(threading.Thread):
                         # Restart
                         self.application.logger.write("Mintupdate was updated, restarting it...")
                         self.application.logger.close()
-                        os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+                        self.application.restart_app()
                         return
 
                     # Refresh
@@ -1346,6 +1354,11 @@ class MintUpdate():
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
+        self.app_restart_required = False
+        self.show_cinnamon_enabled = False
+        self.settings.connect("changed", self._on_settings_changed)
+        self._on_settings_changed(self.settings, None)
+
         #Set the Glade file
         gladefile = "/usr/share/linuxmint/mintupdate/main.ui"
         self.builder = Gtk.Builder()
@@ -1718,6 +1731,15 @@ class MintUpdate():
             print(sys.exc_info()[0])
             self.logger.write_error("Exception occurred in main thread: " + str(sys.exc_info()[0]))
             self.logger.close()
+
+    def _on_settings_changed(self, settings, key, data=None):
+        if key is None:
+            self.show_flatpak_enabled = settings.get_boolean("show-flatpak-updates")
+            self.show_cinnamon_enabled = settings.get_boolean("show-cinnamon-updates")
+            return
+
+        self.app_restart_required = settings.get_boolean("show-cinnamon-updates") != self.show_cinnamon_enabled or \
+                                    settings.get_boolean("show-flatpak-updates") != self.show_flatpak_enabled
 
 ######### EVENT HANDLERS #########
 
@@ -2329,7 +2351,7 @@ class MintUpdate():
         page_holder.add(stack)
 
         stack.add_titled(builder.get_object("page_options"), "page_options", _("Options"))
-        stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
+        stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Packages"))
         stack.add_titled(builder.get_object("page_auto"), "page_auto", _("Automation"))
 
         # Options
@@ -2421,6 +2443,23 @@ class MintUpdate():
         section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
         switch = GSettingsSpinButton(_("Don't show notifications if an update was applied in the last (in days):"), "com.linuxmint.updates", "tracker-grace-period", mini=2, maxi=90, step=1, page=5)
         section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
+
+        box = builder.get_object("update_types_box")
+        page = SettingsPage()
+        box.pack_start(page, True, True, 0)
+
+        # if False:
+        if os.path.exists("/usr/bin/cinnamon") or os.path.exists("/usr/bin/flatpak"):
+            section = page.add_section(_("Update types"), _("In addition to system packages, check for:"))
+
+            if os.path.exists("/usr/bin/cinnamon"):
+                section.add_row(GSettingsSwitch(_("Cinnamon spice updates"), "com.linuxmint.updates", "show-cinnamon-updates"))
+            if os.path.exists("/usr/bin/flatpak"):
+                section.add_row(GSettingsSwitch(_("Flatpak updates"), "com.linuxmint.updates", "show-flatpak-updates"))
+            box.show_all()
+        else:
+            box.set_no_show_all(True)
+            box.hide()
 
         # Blacklist
         treeview_blacklist = builder.get_object("treeview_blacklist")
@@ -2573,7 +2612,15 @@ class MintUpdate():
         self.window.set_sensitive(True)
         self.preferences_window_showing = False
         window.destroy()
-        self.refresh()
+
+        if self.app_restart_required:
+            self.restart_app()
+        else:
+            self.refresh()
+
+    def restart_app(self):
+        self.logger.write("Restarting update manager...")
+        os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
 
 ######### KERNEL FEATURES #########
 
