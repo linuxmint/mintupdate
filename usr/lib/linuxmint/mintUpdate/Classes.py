@@ -271,15 +271,15 @@ class UpdateTracker():
                 self.oldest_since_date = update_record['since']
 
     # Returns the number of days between today and the given date string
-    def get_days_since_date(self, string, date_format):
-        if string == None:
+    def get_days_since_date(self, string: str, date_format: str) -> int:
+        if string is None:
             return 999
         datetime_object = datetime.datetime.strptime(string, date_format)
         days = (datetime.date.today() - datetime_object.date()).days
         return days
 
     # Returns the number of days between today and the given timestamp
-    def get_days_since_timestamp(self, timestamp):
+    def get_days_since_timestamp(self, timestamp: float) -> int:
         if timestamp == 0:
             return 999
         datetime_object = datetime.datetime.fromtimestamp(timestamp)
