@@ -113,7 +113,7 @@ class FlatpakUpdateWorker():
         self.task = task
         self.error = task.error_message
 
-        if self.error == None and task.transaction is not None:
+        if self.error is None and task.transaction is not None:
             self._process_fetch_task(task)
 
             out = json.dumps(self.updates, default=lambda o: o.to_json(), indent=4)
