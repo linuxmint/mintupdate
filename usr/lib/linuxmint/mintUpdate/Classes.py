@@ -300,10 +300,10 @@ class UpdateTracker():
                     if line.startswith("End-Date: "):
                         end_date = line.replace("End-Date: ", "")
                         end_date = end_date.split()[0]
-                if end_date != None and (latest_upgrade_date == None or end_date > latest_upgrade_date):
+                if end_date is not None and (latest_upgrade_date is None or end_date > latest_upgrade_date):
                     latest_upgrade_date = end_date
 
-        if latest_upgrade_date == None:
+        if latest_upgrade_date is None:
             try:
                 logs = subprocess.getoutput("zcat /var/log/apt/history.log*gz")
                 for event in logs.split("\n\n"):
@@ -315,7 +315,7 @@ class UpdateTracker():
                         if line.startswith("End-Date: "):
                             end_date = line.replace("End-Date: ", "")
                             end_date = end_date.split()[0]
-                    if end_date != None and (latest_upgrade_date == None or end_date > latest_upgrade_date):
+                    if end_date is not None and (latest_upgrade_date is None or end_date > latest_upgrade_date):
                         latest_upgrade_date = end_date
             except Exception as e:
                 print("Failed to check compressed APT logs", e)

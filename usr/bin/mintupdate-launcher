@@ -108,7 +108,7 @@ def process_flatpaks():
             from mintcommon.installer import _flatpak
 
             theme_refs = _flatpak.get_updated_theme_refs()
-            if theme_refs != None:
+            if theme_refs is not None:
                 print("Installing new theme to match local theme")
                 for ref in theme_refs:
                     out = subprocess.run(

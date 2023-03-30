@@ -441,9 +441,9 @@ class InstallThread(threading.Thread):
             Gdk.threads_leave()
 
             iter = model.get_iter_first()
-            while (iter != None):
+            while iter is not None:
                 checked = model.get_value(iter, UPDATE_CHECKED)
-                if (checked):
+                if checked:
                     update = model.get_value(iter, UPDATE_OBJ)
                     if update.type == "cinnamon":
                         cinnamon_spices.append(update)
@@ -638,7 +638,7 @@ class InstallThread(threading.Thread):
 
             if update_flatpaks and proceed:
                 self.application.flatpak_updater.perform_updates()
-                if self.application.flatpak_updater.error != None:
+                if self.application.flatpak_updater.error is not None:
                     self.application.set_status_message_from_thread(self.application.flatpak_updater.error)
                 needs_refresh = True
 
@@ -835,7 +835,7 @@ class RefreshThread(threading.Thread):
 
             self.application.set_status_message_from_thread(_("Processing updates"))
 
-            if os.getenv("MINTUPDATE_TEST") == None:
+            if os.getenv("MINTUPDATE_TEST") is None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
             else:
                 if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
@@ -1032,7 +1032,7 @@ class RefreshThread(threading.Thread):
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
                 self.application.flatpak_updater.fetch_updates()
-                if self.application.flatpak_updater.error == None:
+                if self.application.flatpak_updater.error is None:
                     for update in self.application.flatpak_updater.updates:
                         update.type = "flatpak"
                         if update.ref_name in blacklist or update.source_packages[0] in blacklist:
@@ -1117,7 +1117,7 @@ class RefreshThread(threading.Thread):
                 self.application.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
 
-            if FLATPAK_SUPPORT and self.application.flatpak_updater.error != None and not is_self_update:
+            if FLATPAK_SUPPORT and self.application.flatpak_updater.error is not None and not is_self_update:
                 self.application.logger.write("Could not check for flatpak updates: %s" % self.application.flatpak_updater.error)
                 msg = _("Error checking for flatpak updates: %s") % self.application.flatpak_updater.error
                 self.application.set_status_message(msg)
@@ -1844,9 +1844,9 @@ class MintUpdate():
         iter = model.get_iter_first()
         download_size = 0
         num_selected = 0
-        while (iter != None):
+        while iter is not None:
             checked = model.get_value(iter, UPDATE_CHECKED)
-            if (checked):
+            if checked:
                 size = model.get_value(iter, UPDATE_SIZE)
                 download_size = download_size + size
                 num_selected = num_selected + 1
@@ -1871,7 +1871,7 @@ class MintUpdate():
         model = self.treeview.get_model()
         if len(model):
             iter = model.get_iter_first()
-            while (iter != None):
+            while iter is not None:
                 model.set_value(iter, 0, False)
                 iter = model.iter_next(iter)
 
@@ -1883,8 +1883,8 @@ class MintUpdate():
     def select_updates(self, security=False, kernel=False):
         model = self.treeview.get_model()
         iter = model.get_iter_first()
-        while (iter != None):
-            update =  model.get_value(iter, UPDATE_OBJ)
+        while iter is not None:
+            update = model.get_value(iter, UPDATE_OBJ)
             if security:
                 if update.type == "security":
                     model.set_value(iter, UPDATE_CHECKED, True)
@@ -1944,7 +1944,7 @@ class MintUpdate():
     def toggled(self, renderer, path):
         model = self.treeview.get_model()
         iter = model.get_iter(path)
-        if (iter != None):
+        if iter is not None:
             model.set_value(iter, UPDATE_CHECKED, (not model.get_value(iter, UPDATE_CHECKED)))
 
         self.update_installable_state()
@@ -1955,7 +1955,7 @@ class MintUpdate():
             self.textview_description.set_text("")
             self.textview_changes.set_text("")
             (model, iter) = selection.get_selected()
-            if (iter != None):
+            if iter is not None:
                 update = model.get_value(iter, UPDATE_OBJ)
                 description = update.description.replace("\\n", "\n")
                 desc_tab = self.notebook_details.get_nth_page(TAB_DESC)
@@ -2035,7 +2035,7 @@ class MintUpdate():
     def treeview_right_clicked(self, widget, event):
         if event.button == 3:
             (model, iter) = widget.get_selection().get_selected()
-            if (iter != None):
+            if iter is not None:
                 update = model.get_value(iter, UPDATE_OBJ)
                 menu = Gtk.Menu()
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore the current update for this package"))
@@ -2252,7 +2252,7 @@ class MintUpdate():
                         text = model[iter][COL_NEW_VER]
                     else:
                         return False
-                    
+
                     tooltip.set_text(text)
                     return True
 
@@ -2603,7 +2603,7 @@ class MintUpdate():
     def remove_blacklisted_package(self, widget, treeview_blacklist):
         selection = treeview_blacklist.get_selection()
         (model, iter) = selection.get_selected()
-        if (iter != None):
+        if iter is not None:
             pkg = model.get_value(iter, BLACKLIST_PKG_NAME)
             model.remove(iter)
         self.save_blacklist(treeview_blacklist)
