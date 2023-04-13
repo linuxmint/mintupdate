@@ -677,7 +677,6 @@ class InstallThread(threading.Thread):
                     try:
                         if self.application.cinnamon_updater.spice_is_enabled(update):
                             need_cinnamon_restart = True
-                            break
                     except:
                         need_cinnamon_restart = True
 
