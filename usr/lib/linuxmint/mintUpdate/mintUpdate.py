@@ -386,6 +386,7 @@ class AutomaticRefreshThread(threading.Thread):
                     time.sleep(timetosleep)
                     if not self.application.refresh_schedule_enabled:
                         self.application.logger.write("Auto-refresh disabled in preferences, cancelling %s refresh" % refresh_type)
+                        self.application.uninhibit_pm()
                         return
                     if self.application.app_hidden():
                         self.application.logger.write("Update Manager is in tray mode, performing %s refresh" % refresh_type)
@@ -430,6 +431,7 @@ class InstallThread(threading.Thread):
 
     def run(self):
         self.application.cache_watcher.pause()
+        self.application.inhibit_pm("Installing updates")
         try:
             self.application.logger.write("Install requested by user")
             Gdk.threads_enter()
@@ -624,6 +626,7 @@ class InstallThread(threading.Thread):
 
                     if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
                         # Restart
+                        self.application.uninhibit_pm()
                         self.application.logger.write("Mintupdate was updated, restarting it...")
                         self.application.logger.close()
                         self.application.restart_app()
@@ -702,6 +705,7 @@ class InstallThread(threading.Thread):
 
                 needs_refresh = True
 
+            self.application.uninhibit_pm()
             if needs_refresh:
                 self.application.refresh()
 
@@ -712,6 +716,7 @@ class InstallThread(threading.Thread):
             self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
             self.application.logger.write_error("Could not install security updates")
             Gdk.threads_leave()
+            self.application.uninhibit_pm()
 
 class RefreshThread(threading.Thread):
 
@@ -724,6 +729,7 @@ class RefreshThread(threading.Thread):
     def cleanup(self):
         # cleanup when finished refreshing
         self.application.refreshing = False
+        self.application.uninhibit_pm()
         if not self.running:
             return
         self.application.cache_watcher.resume()
@@ -768,6 +774,7 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write("Package management system locked by another process, retrying in 60s")
                 time.sleep(60)
 
+        self.application.inhibit_pm("Refreshing available updates")
         self.application.cache_watcher.pause()
 
         Gdk.threads_enter()
@@ -1349,6 +1356,7 @@ class MintUpdate():
         self.updates_inhibited = False
         self.reboot_required = False
         self.refreshing = False
+        self.inhibit_cookie = 0
         self.logger = Logger()
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
@@ -2620,6 +2628,93 @@ class MintUpdate():
     def restart_app(self):
         self.logger.write("Restarting update manager...")
         os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+
+    def inhibit_pm(self, reason):
+        if self.inhibit_cookie > 0:
+            return
+
+        try:
+            bus = Gio.bus_get_sync(Gio.BusType.SESSION)
+        except GLib.Error as e:
+            self.logger.write("Couldn't get session bus to inhibit power management: %s" % e.message)
+            return
+
+        name, path, iface, args, unused = self.get_inhibitor_info(reason)
+
+        try:
+            ret = bus.call_sync(
+                name,
+                path,
+                iface,
+                "Inhibit",
+                args,
+                GLib.VariantType("(u)"),
+                Gio.DBusCallFlags.NONE,
+                2000,
+                None
+            )
+        except GLib.Error as e:
+            self.logger.write("Could not inhibit power management: %s" % e.message)
+            return
+
+        self.logger.write("Inhibited power management")
+        self.inhibit_cookie = ret.unpack()[0]
+
+    def uninhibit_pm(self):
+        if self.inhibit_cookie > 0:
+            try:
+                bus = Gio.bus_get_sync(Gio.BusType.SESSION)
+            except GLib.Error as e:
+                self.logger.write("Couldn't get session bus to uninhibit power management: %s" % e.message)
+                return
+
+            name, path, iface, unused_args, uninhibit_method = self.get_inhibitor_info("none")
+
+            try:
+                bus.call_sync(
+                    name,
+                    path,
+                    iface,
+                    uninhibit_method,
+                    GLib.Variant("(u)", (self.inhibit_cookie,)),
+                    None,
+                    Gio.DBusCallFlags.NONE,
+                    2000,
+                    None
+                )
+            except GLib.Error as e:
+                self.logger.write("Could not uninhibit power management: %s" % e.message)
+                return
+
+            self.logger.write("Resumed power management")
+            self.inhibit_cookie = 0
+
+    def get_inhibitor_info(self, reason):
+        session = os.environ.get("XDG_CURRENT_DESKTOP")
+
+        if session == "XFCE":
+            name = "org.freedesktop.PowerManagement"
+            path = "/org/freedesktop/PowerManagement/Inhibit"
+            iface = "org.freedesktop.PowerManagement.Inhibit"
+            args = GLib.Variant("(ss)", ("MintUpdate", reason))
+            uninhibit_method = "UnInhibit"
+        else:
+            # https://github.com/linuxmint/cinnamon-session/blob/master/cinnamon-session/csm-inhibitor.h#L51-L58
+            #       LOGOUT | SUSPEND
+            flags =      1 | 4
+
+            try:
+                xid = self.window.get_window().get_xid()
+            except:
+                xid = 0
+
+            name = "org.gnome.SessionManager"
+            path = "/org/gnome/SessionManager"
+            iface = "org.gnome.SessionManager"
+            args = GLib.Variant("(susu)", ("MintUpdate", xid, reason, flags))
+            uninhibit_method = "Uninhibit"
+
+        return name, path, iface, args, uninhibit_method
 
 ######### KERNEL FEATURES #########
 
