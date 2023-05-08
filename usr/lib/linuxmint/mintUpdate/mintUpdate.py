@@ -20,6 +20,7 @@ import datetime
 import configparser
 import traceback
 import setproctitle
+import platform
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
@@ -457,9 +458,17 @@ class InstallThread(threading.Thread):
                         continue
 
                     aptInstallNeeded = True
-                    if update.type == "kernel" and \
-                       [True for pkg in update.package_names if "-image-" in pkg]:
-                        self.reboot_required = True
+                    if update.type == "kernel":
+                        for pkg in update.package_names:
+                            if "-image-" in pkg:
+                                try:
+                                    kernel_version = platform.release().split("-")[0]
+                                    if update.old_version.startswith(kernel_version):
+                                        self.reboot_required = True
+                                except:
+                                    print("Warning: Could not assess the current kernel version.")
+                                    self.reboot_required = True
+                                break
                     if update.type == "security" and \
                        [True for pkg in update.package_names if "nvidia" in pkg]:
                        self.reboot_required = True
