@@ -909,6 +909,7 @@ class RefreshThread(threading.Thread):
                 return False
 
             # Look at the updates one by one
+            updates = []
             num_visible = 0
             num_security = 0
             num_software = 0
@@ -923,6 +924,7 @@ class RefreshThread(threading.Thread):
 
                     # Create update object
                     update = Update(package=None, input_string=line, source_name=None)
+                    updates.append(update)
 
                     if tracker.active and update.type != "unstable":
                         tracker.update(update)
@@ -1117,6 +1119,11 @@ class RefreshThread(threading.Thread):
                     self.application.stack.set_visible_child_name("status_self-update")
                     self.application.statusbar.set_visible(False)
                     status_string = ""
+                    details = []
+                    for update in updates:
+                        details.append(f"{update.source_name} {update.new_version}")
+                    details = ", ".join(details)
+                    self.application.builder.get_object("label_self_update_details").set_text(details)
                 else:
                     status_string = gettext.ngettext("%(selected)d update selected (%(size)s)",
                                             "%(selected)d updates selected (%(size)s)", num_visible) % \
