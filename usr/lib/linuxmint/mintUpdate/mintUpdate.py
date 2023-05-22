@@ -1365,6 +1365,9 @@ class MintUpdate():
 
             self.window.set_icon_name("mintupdate")
 
+            # Add mintupdate style class for easier theming
+            self.window.get_style_context().add_class('mintupdate')
+
             accel_group = Gtk.AccelGroup()
             self.window.add_accel_group(accel_group)
 
@@ -2086,6 +2089,10 @@ class MintUpdate():
         window = builder.get_object("main_window")
         window.set_title(_("Information"))
         window.set_icon_name("mintupdate")
+
+        # Add mintupdate style class for easier theming
+        self.window.get_style_context().add_class('mintupdate')
+
         textbuffer = builder.get_object("log_textview").get_buffer()
         window.connect("destroy", destroy_window)
         builder.get_object("close_button").connect("clicked", destroy_window)
@@ -2107,6 +2114,9 @@ class MintUpdate():
         window = builder.get_object("main_window")
         window.set_icon_name("mintupdate")
         window.set_title(_("History of Updates"))
+
+        # Add mintupdate style class for easier theming
+        self.window.get_style_context().add_class('mintupdate')
 
         (COL_DATE, COL_TYPE, COL_NAME, COL_OLD_VER, COL_NEW_VER) = range(5)
         model = Gtk.TreeStore(str, str, str, str, str)
@@ -2313,6 +2323,10 @@ class MintUpdate():
         window.set_transient_for(self.window)
         window.set_title(_("Preferences"))
         window.set_icon_name("mintupdate")
+
+        # Add mintupdate style class for easier theming
+        self.window.get_style_context().add_class('mintupdate')
+
         window.connect("destroy", self.close_preferences, window)
 
         switch_container = builder.get_object("switch_container")
