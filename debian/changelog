@@ -1,3 +1,43 @@
+mintupdate (6.0.0) victoria; urgency=medium
+
+  [ Michael Webster ]
+  * mintupdate-launcher: Purge unused and un-pinned flatpak runtimes even if auto-update is disabled.
+  * mintupdate-launcher: Install a new matching flatpak at startup even if automatic updates are disabled.
+
+  [ hduelme ]
+  * add missing variable causing potential type error (#799)
+  * simplify boolean expressions (#797)
+
+  [ Michael Webster ]
+  * Fix interactive search in the main treeview and update history.
+
+  [ hduelme ]
+  * remove unused variables (#802)
+
+  [ Michael Webster ]
+  * Re-save preferences.ui for newer Gtk.
+  * Add settings to configure Cinnamon and Flatpak support.
+
+  [ hduelme ]
+  * add type hints to get_days_since functions (#798)
+  *  replace equality None check with identity None check (#804)
+
+  [ Michael Webster ]
+  * spices: Don't stop updating after encountering an active spice.
+  * Inhibit power management during ui-based refreshes and installs.
+
+  [ Clement Lefebvre ]
+  * Check kernel version before recommending a restart
+  * Self-updates: Show pkg names and versions
+
+  [ Toshayo ]
+  * Added mintupdate style class to the window for easier theming (#815)
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 06 Jun 2023 11:40:35 +0100
+
 mintupdate (5.9.7) vera; urgency=medium
 
   [ Michael Webster ]
