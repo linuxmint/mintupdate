@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import apt
 import locale
+import gettext
 import os
 import subprocess
 import tempfile
@@ -15,6 +16,14 @@ from apt.utils import get_maintenance_end_date
 
 from Classes import (CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES,
                      SUPPORTED_KERNEL_TYPES, get_release_dates)
+
+# i18n
+APP = 'mintupdate'
+LOCALE_DIR = "/usr/share/locale"
+locale.bindtextdomain(APP, LOCALE_DIR)
+gettext.bindtextdomain(APP, LOCALE_DIR)
+gettext.textdomain(APP)
+_ = gettext.gettext
 
 
 def list_header_func(row, before, user_data):
