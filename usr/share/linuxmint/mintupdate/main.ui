@@ -387,6 +387,7 @@
         </child>
         <child>
           <object class="GtkNotebook" id="notebook_details">
+            <property name="height-request">150</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <child>
@@ -492,7 +493,7 @@
           </object>
           <packing>
             <property name="resize">True</property>
-            <property name="shrink">False</property>
+            <property name="shrink">True</property>
           </packing>
         </child>
         <style>
