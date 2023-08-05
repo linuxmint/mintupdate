@@ -902,7 +902,8 @@ class RefreshThread(threading.Thread):
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
                     "mintupdate-error-symbolic", True)
                 self.application.stack.set_visible_child_name("status_error")
-                self.application.builder.get_object("label_error_details").set_text(error_msg)
+                if error_msg:
+                    self.application.builder.get_object("label_error_details").set_text(error_msg)
                 self.application.builder.get_object("label_error_details").show()
                 Gdk.threads_leave()
                 self.cleanup()
