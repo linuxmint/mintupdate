@@ -29,6 +29,7 @@ from gi.repository import Gtk, Gdk, Gio, GLib, GObject, Notify, Pango
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
+import xapp.os
 
 
 settings = Gio.Settings(schema_id="com.linuxmint.updates")
@@ -1191,7 +1192,7 @@ class RefreshThread(threading.Thread):
             if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
                 mirror_url = None
 
-                codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
+                codename = xapp.os.get_os_release_info()["VERSION_CODENAME"]
                 with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
                     for line in sources_file:
                         line = line.strip()
@@ -1668,8 +1669,8 @@ class MintUpdate():
 
             try:
                 # Only support kernel selection in Linux Mint (not LMDE)
-                release_info = subprocess.run(["lsb_release", "-irs"], stdout=subprocess.PIPE).stdout.decode().split("\n")
-                if release_info[0].lower() == "linuxmint" and float(release_info[1]) >= 13:
+                release_info = xapp.os.get_os_release_info()
+                if release_info["NAME"].lower() == "linux mint" and float(release_info["VERSION_ID"]) >= 13:
                     viewSubmenu.append(kernelMenuItem)
             except Exception as e:
                 print (e)
