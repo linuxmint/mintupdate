@@ -1669,8 +1669,7 @@ class MintUpdate():
 
             try:
                 # Only support kernel selection in Linux Mint (not LMDE)
-                release_info = xapp.os.get_os_release_info()
-                if release_info["NAME"].lower() == "linux mint" and float(release_info["VERSION_ID"]) >= 13:
+                if not os.path.exists("/usr/share/doc/debian-system-adjustments/copyright"):
                     viewSubmenu.append(kernelMenuItem)
             except Exception as e:
                 print (e)
