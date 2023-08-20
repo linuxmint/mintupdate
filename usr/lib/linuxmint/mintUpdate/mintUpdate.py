@@ -29,8 +29,6 @@ from gi.repository import Gtk, Gdk, Gio, GLib, GObject, Notify, Pango
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
-import xapp.os
-
 
 settings = Gio.Settings(schema_id="com.linuxmint.updates")
 cinnamon_support = False
@@ -1191,12 +1189,10 @@ class RefreshThread(threading.Thread):
         try:
             if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
                 mirror_url = None
-
-                codename = xapp.os.get_os_release_info()["VERSION_CODENAME"]
                 with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
                     for line in sources_file:
                         line = line.strip()
-                        if line.startswith("deb ") and "%s main upstream import" % codename in line:
+                        if line.startswith("deb ") and "main upstream import" in line:
                             mirror_url = line.split()[1]
                             if mirror_url.endswith("/"):
                                 mirror_url = mirror_url[:-1]
