@@ -972,7 +972,7 @@ class RefreshThread(threading.Thread):
                         type_sort_key = 1
                         num_security += 1
                     elif update.type == "unstable":
-                        tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
+                        tooltip = _("Unstable software. Only apply this update to help developers beta-test new software or features.")
                         type_sort_key = 7
                     else:
                         num_software += 1

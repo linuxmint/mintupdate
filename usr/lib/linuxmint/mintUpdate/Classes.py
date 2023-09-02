@@ -116,6 +116,9 @@ class Update():
                         self.origin = "debian"
                     elif origin.origin.startswith("LP-PPA"):
                         self.origin = origin.origin
+                        if origin.origin == "LP-PPA-linuxmint-daily-build-team-daily-builds":
+                            self.type = "unstable"
+                            break
                     if origin.origin == "Ubuntu" and '-security' in origin.archive:
                         self.type = "security"
                         break
@@ -125,10 +128,6 @@ class Update():
                     if source_name in ["firefox", "thunderbird", "chromium"]:
                         self.type = "security"
                         break
-                    if origin.origin == "linuxmint":
-                        if origin.component == "romeo":
-                            self.type = "unstable"
-                            break
                 if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                     self.type = "kernel"
         else:
