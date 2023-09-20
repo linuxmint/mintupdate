@@ -461,7 +461,14 @@ class InstallThread(threading.Thread):
                         for pkg in update.package_names:
                             if "-image-" in pkg:
                                 try:
-                                    kernel_version = platform.release().split("-")[0]
+                                    if self.application.is_lmde:
+                                        # In Mint, platform.release() returns the kernel version. In LMDE it returns the kernel
+                                        # abi version.  So for LMDE, parse platform.version() instead.
+                                        version_string = platform.version()
+                                        kernel_version = re.search(r"(\d+\.\d+\.\d+)", version_string).group(1)
+                                    else:
+                                        kernel_version = platform.release().split("-")[0]
+
                                     if update.old_version.startswith(kernel_version):
                                         self.reboot_required = True
                                 except:
@@ -1375,6 +1382,7 @@ class MintUpdate():
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
+        self.is_lmde = False
         self.app_restart_required = False
         self.show_cinnamon_enabled = False
         self.settings.connect("changed", self._on_settings_changed)
@@ -1667,6 +1675,8 @@ class MintUpdate():
                 # Only support kernel selection in Linux Mint (not LMDE)
                 if not os.path.exists("/usr/share/doc/debian-system-adjustments/copyright"):
                     viewSubmenu.append(kernelMenuItem)
+                else:
+                    self.is_lmde = True
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
