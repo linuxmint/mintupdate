@@ -1,3 +1,21 @@
+mintupdate (6.0.4) faye; urgency=medium
+
+  [ Michael Webster ]
+  * Maintain a useful height for the details pane when using a low- resolution monitor.
+
+  [ Anatoly Bashmakov ]
+  * fix freeze, bug 833 (#834)
+
+  [ Michael Webster ]
+  * mintUpdate.py: Use xapp.os.get_os_release_info() instead of checking the lsb_release command.
+
+  [ Clement Lefebvre ]
+  * Simplify LMDE check
+  * Simplify mirror identification
+  * UI: Fix install button icon
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 20 Sep 2023 09:56:25 +0100
+
 mintupdate (6.0.3) victoria; urgency=medium
 
   * l10n: Update translations
