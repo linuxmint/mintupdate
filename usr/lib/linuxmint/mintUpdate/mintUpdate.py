@@ -1416,6 +1416,9 @@ class MintUpdate():
             self.window.add_accel_group(accel_group)
 
             self.toolbar = self.builder.get_object("toolbar1")
+            if self.settings.get_boolean('toolbar-both-horiz'):
+                self.toolbar.set_style(Gtk.ToolbarStyle.BOTH_HORIZ)
+
             self.menubar = self.builder.get_object("menubar1")
 
             self.notebook_details = self.builder.get_object("notebook_details")
