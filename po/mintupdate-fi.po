@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2023-06-06 11:39+0100\n"
-"PO-Revision-Date: 2023-06-14 13:59+0000\n"
+"PO-Revision-Date: 2023-09-15 14:22+0000\n"
 "Last-Translator: Kimmo Kujansuu <Unknown>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2023-07-07 12:52+0000\n"
-"X-Generator: Launchpad (build 2ac9e3bf4ab511504f8fc651371e24a6a047ba12)\n"
+"X-Launchpad-Export-Date: 2023-12-03 13:28+0000\n"
+"X-Generator: Launchpad (build 886068b1e1d10de444fbd53b0c7d3f6d4fb3e658)\n"
 "Language: fi\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -56,16 +56,16 @@ msgid ""
 "'Software updates' are updates which fix bugs (or also sometimes which bring "
 "new features)."
 msgstr ""
-"”Ohjelmistopäivitykset” korjaavat ohjelmavirheitä (ja joskus tuovat myös "
-"uusia ominaisuuksia)."
+"”Ohjelmiston päivitykset” korjaavat ohjelmien virheitä (joskus tuovat myös "
+"parempia ominaisuuksia)."
 
 #: usr/share/help/C/mintupdate/updates.page:25(p)
 msgid "'Security updates' are updates which patch vulnerabilities."
-msgstr "”Tietoturvapäivitykset” paikkaavat haavoittuvuuksia."
+msgstr "”Tietoturvan päivitykset” paikkaavat haavoittuvuuksia."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
-msgstr "\"Kernel päivitykset\" tarjoavat uudemman kernelin asentamisen."
+msgstr "\"Kernel päivitykset\" tarjoavat uudemman kernelin."
 
 #: usr/share/help/C/mintupdate/updates.page:29(p)
 msgid ""
@@ -87,8 +87,8 @@ msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
-"Ohjelmistopäivitykset eivät ole yhtä tärkeitä. Ne tuovat virheenkorjauksia "
-"tai parannuksia jotka eivät liity turvallisuuteen."
+"Ohjelmiston päivitykset eivät ole yhtä tärkeitä. Ne tuovat virheenkorjauksia "
+"tai parannuksia jotka eivät liity suoraan turvallisuuteen."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -265,7 +265,7 @@ msgstr "mintupdate-cli list"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:33(p)
 msgid "You can use -s to only show the security updates."
-msgstr "-s-valitsimella näytetään vain tietoturvapäivitykset."
+msgstr "Valitsimella -s näytetään vain tietoturvan päivitykset."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:35(p)
 msgid "You can use -k to only show the kernel updates."
@@ -273,7 +273,8 @@ msgstr "Valitsimella -k näytetään vain kernel päivitykset."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:37(p)
 msgid "For instance, the following command lists all security updates:"
-msgstr "Esimerkiksi seuraava komento luettelee vain tietoturvapäivitykset:"
+msgstr ""
+"Esimerkiksi seuraava komento luettelee vain päivitykset tietoturvaan:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:39(screen)
 #, no-wrap
@@ -556,8 +557,8 @@ msgid ""
 "The Update Manager provides your operating system with software and security "
 "updates."
 msgstr ""
-"Päivitysten hallinta tarjoaa käyttöjärjestelmääsi ohjelmisto- ja "
-"turvapäivityksiä."
+"Päivitysten hallinta tarjoaa käyttöjärjestelmääsi päivityksiä ohjelmistoon "
+"ja tietoturvaan."
 
 #: usr/share/help/C/mintupdate/index.page:22(p)
 msgid ""
@@ -591,7 +592,8 @@ msgstr "Ydinkonseptit"
 
 #: usr/share/help/C/mintupdate/index.page:31(p)
 msgid "This section explains the core concepts related to software updates."
-msgstr "Tämä osio selittää ohjelmistopäivityksiin liittyvät ydinkonseptit."
+msgstr ""
+"Tämä osio selittää ohjelmiston päivityksiin liittyvät keskeiset käsitteet."
 
 #: usr/share/help/C/mintupdate/index.page:37(p)
 msgid "This section explains kernel updates."
@@ -810,7 +812,7 @@ msgstr "Asennetaan päivityksiä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:648
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:725
 msgid "Could not install the security updates"
-msgstr "Tietoturvapäivityksiä ei voitu asentaa"
+msgstr "Tietoturvan päivityksiä ei voitu asentaa"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:606
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:632
@@ -1000,8 +1002,8 @@ msgstr "Päivityksiä on saatavilla"
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
-msgstr[0] "%d päivitys tietoturva"
-msgstr[1] "%d päivitykset tietoturva"
+msgstr[0] "%d tietoturvapäivitys"
+msgstr[1] "%d tietoturvapäivitystä"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:974
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
@@ -1009,8 +1011,8 @@ msgstr[1] "%d päivitykset tietoturva"
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
-msgstr[0] "%d päivitys ohjelmisto"
-msgstr[1] "%d päivitykset ohjelmisto"
+msgstr[0] "%d ohjelmistopäivitys"
+msgstr[1] "%d ohjelmistopäivitystä"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:980
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1064
@@ -2043,7 +2045,8 @@ msgstr "Muutoshistoria"
 msgid ""
 "This tool provides your operating system with software and security updates."
 msgstr ""
-"Tämä työkalu tarjoaa käyttöjärjestelmääsi ohjelmisto- ja turvapäivityksiä."
+"Tämä työkalu tarjoaa käyttöjärjestelmääsi päivityksiä ohjelmistoon ja "
+"tietoturvaan."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:14
 msgid "Security updates"
@@ -2058,11 +2061,12 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid "Software updates"
-msgstr "Ohjelmistopäivitykset"
+msgstr "Ohjelmiston päivitykset"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "Apply software updates to fix bugs in your computer."
-msgstr "Toteuta ohjelmistopäivitykset korjataksesi virheitä tietokoneeltasi."
+msgstr ""
+"Toteuta ohjelmiston päivitykset, jotka korjaa virheitä tietokoneeltasi."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid ""
