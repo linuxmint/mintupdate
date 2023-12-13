@@ -1019,6 +1019,8 @@ class RefreshThread(threading.Thread):
                         tooltip = _("Cinnamon applet")
                     elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
                         tooltip = _("Cinnamon desklet")
+                    elif update.spice_type == cinnamon.SPICE_TYPE_ACTION:
+                        tooltip = _("Nemo action")
                     elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
                         tooltip = _("Cinnamon theme")
                     else:
