@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2023-06-06 11:39+0100\n"
+"POT-Creation-Date: 2023-12-13 11:30+0000\n"
 "PO-Revision-Date: 2021-07-03 19:14+0000\n"
 "Last-Translator: Saša Marjanović <Unknown>\n"
 "Language-Team: Serbian <(nothing)>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2023-12-03 13:28+0000\n"
-"X-Generator: Launchpad (build 886068b1e1d10de444fbd53b0c7d3f6d4fb3e658)\n"
+"X-Launchpad-Export-Date: 2024-01-04 14:52+0000\n"
+"X-Generator: Launchpad (build e1eeab5b20e19239bd7d5f36676f7a52988db88b)\n"
 "Language: sr\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -552,6 +552,9 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2304
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1815
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2314
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1825
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2324
 msgid "Update Manager"
 msgstr "Управник ажурирања"
 
@@ -660,83 +663,103 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:157
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 msgid "Remove"
 msgstr "Уклони"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:150
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:159
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:254
 msgid "Install"
 msgstr "Угради"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:249
 msgid "Queue Removal"
 msgstr "Распоред уклањања"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:251
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr "Овај кернел се не може уклонити јер је тренутно у употреби."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:255
 msgid "Queue Installation"
 msgstr "Распоред инсталације"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:257
 msgid "This kernel is not installable."
 msgstr "Није могућа уградња овог кернела."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
 msgstr "Да ли сигурно желите да уклоните кернел „%s“?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:267
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "Да ли сигурно желите да уградите кернел „%s“?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:308
 msgid "Kernels"
 msgstr "Кернели"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:353
 msgid "Remove Kernels"
 msgstr "Уклањање кернела"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:355
 msgid "Perform Queued Actions"
 msgstr "Распоред радњи"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:429
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:438
 msgid "Active"
 msgstr "Активан"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:432
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:441
 msgid "Installed"
 msgstr "Уграђен"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:519
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:528
 msgid "Supported until"
 msgstr "Подржан до"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:522
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:531
 msgid "Superseded"
 msgstr "Непокренут"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:525
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:524
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:533
 msgid "End of Life"
 msgstr "Застарео"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:527
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:526
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:535
 msgid "Unsupported"
 msgstr "Неподржан"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:558
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:567
 msgid "You are currently using the following kernel:"
 msgstr "Тренутно користите следећи кернел:"
 
@@ -779,24 +802,28 @@ msgstr "Дневник измена није доступан"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:460
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:470
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:498
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:505
 msgid "This upgrade will trigger additional changes"
 msgstr "Ова надоградња ће повући додатне промене"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:469
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:507
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:514
 msgid "The following packages will be removed:"
 msgstr "Следећи пакети ће бити уклоњени:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:498
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:508
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:536
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:543
 msgid "The following packages will be installed:"
 msgstr "Следећи пакети ће бити инсталирани:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:541
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:587
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:594
 msgid "Installing updates"
 msgstr "Ажурирам пакете"
 
@@ -806,30 +833,36 @@ msgstr "Ажурирам пакете"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:698
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:648
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:725
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
 msgid "Could not install the security updates"
 msgstr "Не могу да инсталирам безбедоносне исправке"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:606
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:632
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:659
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:666
 msgid "Updating Cinnamon Spices"
 msgstr "Ажурирање зачина за Цимет"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:673
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:699
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
 msgid "Restarting Cinnamon"
 msgstr "Поново покретање Цимета"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:764
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:794
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:801
 msgid "Reboot required"
 msgstr "Потребно је поново покретање рачунара"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:729
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:765
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:795
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:802
 msgid ""
 "You have installed updates that require a reboot to take effect, please "
 "reboot your system as soon as possible."
@@ -840,6 +873,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:750
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:786
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 msgid "Checking for package updates"
 msgstr "Проверавам да ли постоје ажурирања програмских пакета"
 
@@ -850,24 +884,29 @@ msgstr "Проверавам да ли постоје ажурирања про�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1543
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
 msgid "Checking for updates"
 msgstr "Проверавам има ли ажурирања"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:771
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:807
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:837
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:844
 msgid "Checking for Cinnamon spices"
 msgstr "Проверавам да ли постоје ажурирања зачина за Цимет"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:779
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:851
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
 msgid "Processing updates"
 msgstr "Обрађивање ажурирања"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:798
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:840
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:870
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:877
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr "Покрените 'apt update' у терминалу за више детаља"
 
@@ -877,12 +916,15 @@ msgstr "Покрените 'apt update' у терминалу за више де
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:854
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:880
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:884
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:887
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "Your APT configuration is corrupt."
 msgstr "Ваша АПТ подешавања су оштећена."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:809
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:851
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:881
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:888
 msgid ""
 "Do not install or update anything, it could break your operating system!"
 msgstr "Немојте инсталирати или ажурирати ништа, може оштетити ваш систем!"
@@ -890,6 +932,7 @@ msgstr "Немојте инсталирати или ажурирати ништ
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:810
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:852
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:882
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
@@ -899,12 +942,14 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:813
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:856
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:886
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:893
 msgid "APT error:"
 msgstr "АПТ грешка:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:818
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:859
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
 msgid "Please switch to another Linux Mint mirror"
 msgstr "Пребаците се на друго огледало Линукс Минта"
 
@@ -924,24 +969,31 @@ msgstr "Пребаците се на друго огледало Линукс М
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1160
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:908
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:909
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1170
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
 msgid "Could not refresh the list of updates"
 msgstr "Нисам успео да освежим списак ажурирања"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:932
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:967
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:975
 msgid "Kernel update"
 msgstr "Ажурирање кернела"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:895
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:936
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:971
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 msgid "Security update"
 msgstr "Безбедносно ажурирање"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:899
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:940
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:975
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:983
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -952,48 +1004,56 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:904
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:945
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:980
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:988
 msgid "Software update"
 msgstr "Ажурирање програма"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:908
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:949
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:984
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:992
 msgid "3rd-party update"
 msgstr "Ажурирање треће стране"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:935
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:976
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1011
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1019
 msgid "Cinnamon applet"
 msgstr "Програмчић за Цимет"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:937
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:978
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
 msgid "Cinnamon desklet"
 msgstr "Справица за Цимет"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:939
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:980
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1015
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1025
 msgid "Cinnamon theme"
 msgstr "Тема за Цимет"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:941
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:982
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1017
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
 msgid "Cinnamon extension"
 msgstr "Проширење за Цимет"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1093
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
 msgid "Updates are available"
 msgstr "Доступна су ажурирања"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:973
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1057
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1094
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
@@ -1004,6 +1064,7 @@ msgstr[2] "%d сигурносних ажурирања"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:974
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1095
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
@@ -1014,6 +1075,7 @@ msgstr[2] "%d софтверских ажурирања"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:980
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1064
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1101
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr ""
 "Примените их да бисте одржали Ваш оперативни систем сигурним и ажурним."
@@ -1021,12 +1083,14 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:987
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1071
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1108
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1118
 msgid "View updates"
 msgstr "Погледајте ажурирања"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:988
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1072
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
 msgid "Enable automatic updates"
 msgstr "Омогућите аутоматска ажурирања"
 
@@ -1037,6 +1101,8 @@ msgstr "Омогућите аутоматска ажурирања"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1128
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1882
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1138
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1895
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
@@ -1047,6 +1113,7 @@ msgstr[2] "%(selected)d изабрано ажурирање (%(size)s)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1008
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1092
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1134
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
@@ -1058,18 +1125,21 @@ msgstr[2] "Ажурирања су доступна %d"
 #: usr/share/linuxmint/mintupdate/main.ui.h:8
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1097
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1139
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1149
 msgid "Your system is up to date"
 msgstr "Систем је ажуриран"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1165
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1207
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1215
 msgid "Do you want to switch to a local mirror?"
 msgstr "Да ли желите да се пребаците на локално огледало?"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1078
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1166
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1208
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1216
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr "Локална огледала су обично бржа од packages.linuxmint.com."
 
@@ -1079,12 +1149,15 @@ msgstr "Локална огледала су обично бржа од packages
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1187
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1219
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1229
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1237
 msgid "Please switch to another mirror"
 msgstr "Пребаците се на друго огледало"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1090
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1178
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1220
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1228
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s је недостижно."
@@ -1092,6 +1165,7 @@ msgstr "%s је недостижно."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1100
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1230
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1238
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
@@ -1107,6 +1181,7 @@ msgstr "Изађи"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1389
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1437
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1440
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
 msgid "Upgrade"
 msgstr "Надогради"
 
@@ -1114,6 +1189,7 @@ msgstr "Надогради"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1394
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1442
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1454
 msgid "Name"
 msgstr "Назив"
 
@@ -1129,6 +1205,9 @@ msgstr "Назив"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1635
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2180
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1458
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1644
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2190
 msgid "Old Version"
 msgstr "Стара верзија"
 
@@ -1144,6 +1223,9 @@ msgstr "Стара верзија"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1453
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1641
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2183
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1462
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1650
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2193
 msgid "New Version"
 msgstr "Нова верзија"
 
@@ -1155,6 +1237,8 @@ msgstr "Нова верзија"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1457
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1653
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1466
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1662
 msgid "Size"
 msgstr "Величина"
 
@@ -1170,6 +1254,9 @@ msgstr "Величина"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1461
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2174
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1470
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2184
 msgid "Type"
 msgstr "Врста"
 
@@ -1181,6 +1268,8 @@ msgstr "Врста"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1644
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1465
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1474
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1656
 msgid "Origin"
 msgstr "Порекло"
 
@@ -1190,6 +1279,7 @@ msgstr "Порекло"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1473
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1523
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1526
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
 msgid "Refresh"
 msgstr "Освежи"
 
@@ -1210,6 +1300,11 @@ msgstr "Освежи"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2013
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2136
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1539
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2009
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2023
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2146
 msgid "Information"
 msgstr "Податак"
 
@@ -1225,6 +1320,9 @@ msgstr "Податак"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1534
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1570
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2370
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1543
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1579
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2380
 msgid "Preferences"
 msgstr "Поставке"
 
@@ -1236,6 +1334,8 @@ msgstr "Поставке"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1557
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1560
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1547
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1569
 msgid "Quit"
 msgstr "Одустати"
 
@@ -1243,6 +1343,7 @@ msgstr "Одустати"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1496
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1549
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
 msgid "_File"
 msgstr "_Датотека"
 
@@ -1250,6 +1351,7 @@ msgstr "_Датотека"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1550
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
 msgid "Close window"
 msgstr "Затвори прозор"
 
@@ -1257,6 +1359,7 @@ msgstr "Затвори прозор"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1513
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1563
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1566
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 msgid "_Edit"
 msgstr "_Уређивање"
 
@@ -1264,6 +1367,7 @@ msgstr "_Уређивање"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1522
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 msgid "System Snapshots"
 msgstr "Системски снимци"
 
@@ -1271,6 +1375,7 @@ msgstr "Системски снимци"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1527
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1577
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1580
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
 msgid "Software Sources"
 msgstr "Извори програма"
 
@@ -1278,6 +1383,7 @@ msgstr "Извори програма"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1549
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1599
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1602
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1611
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Надогради на „%s“"
@@ -1286,6 +1392,7 @@ msgstr "Надогради на „%s“"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1603
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1606
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1615
 msgid "_View"
 msgstr "_Преглед"
 
@@ -1297,6 +1404,8 @@ msgstr "_Преглед"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2155
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1610
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2162
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1619
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2172
 msgid "History of Updates"
 msgstr "Историја ажурирања"
 
@@ -1304,6 +1413,7 @@ msgstr "Историја ажурирања"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1560
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1610
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1613
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
 msgid "Linux Kernels"
 msgstr "Линукс кернели"
 
@@ -1311,6 +1421,7 @@ msgstr "Линукс кернели"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1566
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1616
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1619
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 msgid "Visible Columns"
 msgstr "Приказане колоне"
 
@@ -1318,6 +1429,7 @@ msgstr "Приказане колоне"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1626
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1629
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "Package"
 msgstr "Пакет"
 
@@ -1325,6 +1437,7 @@ msgstr "Пакет"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1608
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1658
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1661
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
 msgid "Show Descriptions"
 msgstr "Прикажи описе"
 
@@ -1332,6 +1445,7 @@ msgstr "Прикажи описе"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1624
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 msgid "_Help"
 msgstr "По_моћ"
 
@@ -1339,6 +1453,7 @@ msgstr "По_моћ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1629
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1682
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
 msgid "Welcome Screen"
 msgstr "Екран добродошлице"
 
@@ -1346,6 +1461,7 @@ msgstr "Екран добродошлице"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1634
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1684
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Keyboard Shortcuts"
 msgstr "Пречице на тастатуру"
 
@@ -1353,6 +1469,7 @@ msgstr "Пречице на тастатуру"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1688
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1691
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
 msgid "Contents"
 msgstr "Садржај"
 
@@ -1364,6 +1481,8 @@ msgstr "Садржај"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2302
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2312
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1707
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2322
 msgid "About"
 msgstr "О програму"
 
@@ -1371,6 +1490,7 @@ msgstr "О програму"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1746
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1810
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1813
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1823
 msgid "Cannot Proceed"
 msgstr "Немогуће наставити"
 
@@ -1378,6 +1498,7 @@ msgstr "Немогуће наставити"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1747
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1811
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1814
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1824
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
@@ -1389,6 +1510,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1775
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1839
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1842
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
 msgid "Yes"
 msgstr "Да"
 
@@ -1396,6 +1518,7 @@ msgstr "Да"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1776
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1840
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1843
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1853
 msgid "No"
 msgstr "Не"
 
@@ -1404,6 +1527,7 @@ msgstr "Не"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1778
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1842
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1855
 msgid "OK"
 msgstr "У реду"
 
@@ -1411,6 +1535,7 @@ msgstr "У реду"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1815
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1882
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
 msgid "No updates selected"
 msgstr "Ниједно ажурирање није изабрано"
 
@@ -1419,6 +1544,7 @@ msgstr "Ниједно ажурирање није изабрано"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1893
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1957
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1960
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1970
 msgid "Welcome to the Update Manager"
 msgstr "Добродошли у Управника ажурирања"
 
@@ -1426,6 +1552,7 @@ msgstr "Добродошли у Управника ажурирања"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1923
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1990
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 msgid "Most recent change"
 msgstr "Последња промена"
 
@@ -1434,6 +1561,7 @@ msgstr "Последња промена"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1952
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2016
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2019
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 msgid "Description"
 msgstr "Опис"
 
@@ -1441,6 +1569,7 @@ msgstr "Опис"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1986
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2050
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2053
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2063
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "Ова исправка обухвата следећи инсталирани пакет:"
@@ -1451,6 +1580,7 @@ msgstr[2] "Ова исправка обухвата следеће инстал�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1983
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2047
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2050
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2060
 msgid "Total size:"
 msgstr "Укупна величина:"
 
@@ -1458,6 +1588,7 @@ msgstr "Укупна величина:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2064
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2067
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 msgid "Ignore the current update for this package"
 msgstr "Игноришите тренутна ажурирања за овај пакет"
 
@@ -1465,6 +1596,7 @@ msgstr "Игноришите тренутна ажурирања за овај �
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2003
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2067
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2070
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 msgid "Ignore all future updates for this package"
 msgstr "Занемарите сва будућа ажурирања за овај пакет"
 
@@ -1472,6 +1604,7 @@ msgstr "Занемарите сва будућа ажурирања за ова�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2097
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2161
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2171
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2181
 msgid "Date"
 msgstr "Датум"
 
@@ -1479,6 +1612,7 @@ msgstr "Датум"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2103
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2167
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2177
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2187
 msgid "Update"
 msgstr "Ажурирај"
 
@@ -1486,6 +1620,7 @@ msgstr "Ажурирај"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2147
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2213
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2223
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2233
 msgid "package"
 msgstr "пакет"
 
@@ -1493,6 +1628,7 @@ msgstr "пакет"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2270
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2376
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2390
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 msgid "Options"
 msgstr "Опције"
 
@@ -1505,6 +1641,7 @@ msgstr "Списак забрана"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2272
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2378
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2392
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 msgid "Automation"
 msgstr "Аутоматизација"
 
@@ -1512,6 +1649,7 @@ msgstr "Аутоматизација"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2278
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2384
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2398
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2408
 msgid "Interface"
 msgstr "Приступ"
 
@@ -1519,6 +1657,7 @@ msgstr "Приступ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2279
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2385
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2399
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 msgid "Hide the update manager after applying updates"
 msgstr "Сакриј управника ажурирања након примене ажурирања"
 
@@ -1526,6 +1665,7 @@ msgstr "Сакриј управника ажурирања након приме
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2280
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2386
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2410
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
 "Само покажи иконицу са палете када су ажурирања доступна или у случају "
@@ -1535,6 +1675,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2282
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2388
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2412
 msgid "Auto-refresh"
 msgstr "Ауто-освежење"
 
@@ -1542,6 +1683,7 @@ msgstr "Ауто-освежење"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2283
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2389
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2403
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
 msgid "Refresh the list of updates automatically"
 msgstr "Oсвежи листу аутоматског ажурирања"
 
@@ -1549,6 +1691,7 @@ msgstr "Oсвежи листу аутоматског ажурирања"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2401
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2415
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 msgid "days"
 msgstr "дана"
 
@@ -1556,6 +1699,7 @@ msgstr "дана"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2296
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2416
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 msgid "hours"
 msgstr "сата"
 
@@ -1563,6 +1707,7 @@ msgstr "сата"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2403
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2417
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 msgid "minutes"
 msgstr "минута"
 
@@ -1570,6 +1715,7 @@ msgstr "минута"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2298
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2418
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2428
 msgid "First, refresh the list of updates after:"
 msgstr "Прво, освежи списак ажурирања након:"
 
@@ -1577,6 +1723,7 @@ msgstr "Прво, освежи списак ажурирања након:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2302
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2422
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
 msgid "Then, refresh the list of updates every:"
 msgstr "Затим, освежи списак ажурирања сваких:"
 
@@ -1584,6 +1731,7 @@ msgstr "Затим, освежи списак ажурирања сваких:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2345
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2451
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2465
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2475
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(system tray mode)."
@@ -1595,6 +1743,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2349
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2455
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2469
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 msgid "Notifications"
 msgstr "Обавештења"
 
@@ -1602,6 +1751,7 @@ msgstr "Обавештења"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2355
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2461
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2475
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2485
 msgid "Only show notifications for security and kernel updates"
 msgstr "Прикажи само сигурносна ажурирања и ажурирања кернела"
 
@@ -1609,6 +1759,7 @@ msgstr "Прикажи само сигурносна ажурирања и аж�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2357
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2463
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2477
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2487
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
@@ -1619,6 +1770,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2359
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2465
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2489
 msgid "Show a notification if an update is older than (in days):"
 msgstr "Прикажи обавештење уколико је ажурирање старије од (број дана):"
 
@@ -1626,6 +1778,7 @@ msgstr "Прикажи обавештење уколико је ажурирањ
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2361
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2467
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2481
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2491
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
@@ -1636,6 +1789,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2366
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2489
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2513
 msgid "Ignored Updates"
 msgstr "Занемарена ажурирања"
 
@@ -1643,6 +1797,7 @@ msgstr "Занемарена ажурирања"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2389
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2512
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2526
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 msgid "Package Updates"
 msgstr "Ажурирања програмских пакета"
 
@@ -1650,6 +1805,7 @@ msgstr "Ажурирања програмских пакета"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2389
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2512
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2526
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 msgid "Performed as root on a daily basis"
 msgstr "Извршава се свакодневно са администраторким привилегијама"
 
@@ -1657,6 +1813,7 @@ msgstr "Извршава се свакодневно са администрат
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2390
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2513
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2527
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2537
 msgid "Apply updates automatically"
 msgstr "Примените ажурирања аутоматски"
 
@@ -1664,6 +1821,7 @@ msgstr "Примените ажурирања аутоматски"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2394
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2531
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2541
 msgid "Export blacklist to /etc/mintupdate.blacklist"
 msgstr "Извези листу занемарених /etc/mintupdate.blacklist"
 
@@ -1671,6 +1829,7 @@ msgstr "Извези листу занемарених /etc/mintupdate.blacklist
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2398
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2521
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2535
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2545
 msgid ""
 "Click this button for automatic updates to use your current blacklist."
 msgstr ""
@@ -1681,6 +1840,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2403
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2526
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2540
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
 msgid "Update Cinnamon spices automatically"
 msgstr "Аутоматски ажурирај зачине за Цимет"
 
@@ -1692,6 +1852,7 @@ msgstr "Аутоматски ажурирај флетпекове"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2532
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 msgid "Other Updates"
 msgstr "Друга ажурирања"
 
@@ -1699,6 +1860,7 @@ msgstr "Друга ажурирања"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2532
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 msgid "Performed when you log in"
 msgstr "Извршава се када сте улоговани"
 
@@ -1706,6 +1868,7 @@ msgstr "Извршава се када сте улоговани"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2412
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2535
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2549
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 msgid "Automatic Maintenance"
 msgstr "Аутоматско одржавање"
 
@@ -1713,6 +1876,7 @@ msgstr "Аутоматско одржавање"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2412
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2535
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2549
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 msgid "Performed as root on a weekly basis"
 msgstr "Извршава се сваке недеље са администраторским привилегијама"
 
@@ -1720,6 +1884,7 @@ msgstr "Извршава се сваке недеље са администра�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2560
 msgid "Remove obsolete kernels and dependencies"
 msgstr "Уклоните застареле кернеле и зависности"
 
@@ -1727,6 +1892,7 @@ msgstr "Уклоните застареле кернеле и зависност
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2417
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2540
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2554
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2564
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
@@ -1738,6 +1904,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2473
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2596
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2610
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2620
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
@@ -1749,6 +1916,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2474
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2597
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2611
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2621
 msgid "Ignore an Update"
 msgstr "Занемари ажурирање"
 
@@ -1756,6 +1924,7 @@ msgstr "Занемари ажурирање"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2482
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2605
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2619
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2629
 msgid "Name:"
 msgstr "Назив:"
 
@@ -1763,6 +1932,7 @@ msgstr "Назив:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2484
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2607
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2631
 msgid "Version:"
 msgstr "Верзија:"
 
@@ -1770,6 +1940,7 @@ msgstr "Верзија:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2486
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2609
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2623
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2633
 msgid "(optional)"
 msgstr "(необавезно)"
 
@@ -2037,6 +2208,7 @@ msgstr "Примени ажурирање"
 #: usr/share/linuxmint/mintupdate/main.ui.h:10
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2377
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2391
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2401
 msgid "Packages"
 msgstr "Пакети"
 
@@ -2137,21 +2309,25 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:818
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:848
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:855
 msgid "Checking for Flatpak updates"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1022
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1068
 msgid "Flatpak application"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1024
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1060
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1070
 msgid "Flatpak runtime"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1102
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 #, python-format
 msgid "Error checking for flatpak updates: %s"
 msgstr ""
@@ -2159,6 +2335,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1935
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2002
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2012
 #, python-format
 msgid "Website: %s"
 msgstr ""
@@ -2166,32 +2343,38 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1981
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2045
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2048
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2058
 msgid "Total size: <"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2406
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2529
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2543
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 msgid "Update Flatpaks automatically"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2476
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2490
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 msgid "Update types"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2476
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2490
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 msgid "In addition to system packages, check for:"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2493
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
 msgid "Cinnamon spice updates"
 msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2481
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2495
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2505
 msgid "Flatpak updates"
 msgstr ""
 
@@ -2213,6 +2396,10 @@ msgstr ""
 msgid ""
 "Make sure your system snapshots are properly configured before enabling "
 "automation."
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1023
+msgid "Nemo action"
 msgstr ""
 
 #~ msgid "Downloading safety level rules..."
