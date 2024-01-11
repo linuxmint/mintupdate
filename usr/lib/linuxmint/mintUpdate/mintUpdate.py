@@ -1019,7 +1019,10 @@ class RefreshThread(threading.Thread):
                         tooltip = _("Cinnamon applet")
                     elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
                         tooltip = _("Cinnamon desklet")
-                    elif update.spice_type == cinnamon.SPICE_TYPE_ACTION:
+                    elif update.spice_type == "action":
+                        # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
+                        # use the value "action" instead here so this code can be 
+                        # backported.
                         tooltip = _("Nemo action")
                     elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
                         tooltip = _("Cinnamon theme")
