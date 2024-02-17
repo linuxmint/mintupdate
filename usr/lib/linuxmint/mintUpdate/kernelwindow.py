@@ -60,9 +60,17 @@ class InstallKernelThread(threading.Thread):
             if not do_regular:
                 do_regular = True
                 f = tempfile.NamedTemporaryFile()
-                cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
-                    "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), \
-                    "-o", "Synaptic::closeZvt=true", "--set-selections-file", "%s" % f.name]
+                cmd = [
+                    "pkexec", "/usr/sbin/synaptic",
+                    "--hide-main-window",
+                    "--non-interactive",
+                    "-o", "Synaptic::closeZvt=true",
+                    "--set-selections-file", "%s" % f.name
+                ]
+
+                if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+                    cmd += ["--parent-window-id", "%s" % self.application.window.get_window().get_xid()]
+
                 if not self.cache:
                     self.cache = apt.Cache()
             _KERNEL_PKG_NAMES = KERNEL_PKG_NAMES.copy()

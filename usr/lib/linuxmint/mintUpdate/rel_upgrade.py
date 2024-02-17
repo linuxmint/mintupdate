@@ -173,7 +173,16 @@ class Assistant:
 
 
     def install_pkgs(self, widget, event, packages):
-        cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % self.assistant.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
+        cmd = [
+            "pkexec", "/usr/sbin/synaptic",
+            "--hide-main-window",
+            "--non-interactive",
+            "-o", "Synaptic::closeZvt=true"
+        ]
+
+        if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+            xmd += ["--parent-window-id", "%s" % self.assistant.get_window().get_xid()]
+
         f = tempfile.NamedTemporaryFile()
         for pkg in packages:
             pkg_line = "%s\tinstall\n" % pkg
@@ -238,7 +247,14 @@ class Assistant:
             else:
                 os.system("gsettings set %s false" % screensaver_setting)
 
-        cmd = ["pkexec", "/usr/bin/mint-release-upgrade-root", "%s" % self.current_codename, "%s" % self.assistant.get_window().get_xid()]
+        cmd = [
+            "pkexec", "/usr/bin/mint-release-upgrade-root",
+            "%s" % self.current_codename
+        ]
+
+        if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+            cmd += ["%s" % self.assistant.get_window().get_xid()]
+
         comnd = Popen(' '.join(cmd), shell=True)
         returnCode = comnd.wait()
 

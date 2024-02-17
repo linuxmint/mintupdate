@@ -596,9 +596,16 @@ class InstallThread(threading.Thread):
                 self.application.logger.write("Ready to launch synaptic")
                 f = tempfile.NamedTemporaryFile()
 
-                cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
-                        "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), \
-                        "-o", "Synaptic::closeZvt=true", "--set-selections-file", "%s" % f.name]
+                cmd = [
+                    "pkexec", "/usr/sbin/synaptic",
+                    "--hide-main-window",
+                    "--non-interactive",
+                    "-o", "Synaptic::closeZvt=true",
+                    "--set-selections-file", "%s" % f.name,
+                ]
+
+                if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+                    cmd += ["--parent-window-id", "%s" % self.application.window.get_window().get_xid()]
 
                 for pkg in packages:
                     pkg_line = "%s\tinstall\n" % pkg
@@ -832,7 +839,7 @@ class RefreshThread(threading.Thread):
             # Refresh the APT cache
             if self.root_mode:
                 refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
-                if not self.application.app_hidden():
+                if (not self.application.app_hidden()) and os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
                     refresh_command.extend(["--use-synaptic",
                                             str(self.application.window.get_window().get_xid())])
                 subprocess.run(refresh_command)
@@ -2746,10 +2753,12 @@ class MintUpdate():
             #       LOGOUT | SUSPEND
             flags =      1 | 4
 
-            try:
-                xid = self.window.get_window().get_xid()
-            except:
-                xid = 0
+            xid = 0
+            if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+                try:
+                    xid = self.window.get_window().get_xid()
+                except:
+                    pass
 
             name = "org.gnome.SessionManager"
             path = "/org/gnome/SessionManager"
