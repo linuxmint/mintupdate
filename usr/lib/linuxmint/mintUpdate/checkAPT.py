@@ -47,8 +47,9 @@ class APTCheck():
 
         # Package updates
         for pkg in changes:
-            if (pkg.is_installed and pkg.marked_upgrade and pkg.candidate.version != pkg.installed.version):
-                self.add_update(pkg)
+            if (pkg.is_installed and pkg.candidate.version != pkg.installed.version):
+                if (pkg.marked_upgrade or pkg.marked_downgrade):
+                    self.add_update(pkg)
 
         # Kernel updates
         lts_meta_name = "linux" + CONFIGURED_KERNEL_TYPE
