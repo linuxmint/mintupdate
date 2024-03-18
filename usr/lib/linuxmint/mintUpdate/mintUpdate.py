@@ -1166,6 +1166,7 @@ class RefreshThread(threading.Thread):
 
             self.application.builder.get_object("notebook_details").set_current_page(0)
             self.application.treeview.set_model(model)
+            self.application.treeview.set_search_column(UPDATE_DISPLAY_NAME)
             del model
             Gdk.threads_leave()
 
@@ -1487,7 +1488,6 @@ class MintUpdate():
 
             self.treeview.set_tooltip_column(UPDATE_TOOLTIP)
 
-            self.treeview.set_search_column(UPDATE_DISPLAY_NAME)
             self.treeview.set_search_equal_func(name_search_func)
             self.treeview.append_column(column_type)
             self.treeview.append_column(column_upgrade)
@@ -2210,7 +2210,6 @@ class MintUpdate():
         treeview.append_column(self.column_new_version)
         treeview.set_headers_clickable(True)
         treeview.set_reorderable(False)
-        treeview.set_search_column(COL_NAME)
         treeview.set_search_equal_func(name_search_func)
         treeview.set_enable_search(True)
         treeview.show()
@@ -2288,6 +2287,7 @@ class MintUpdate():
 
         model.set_sort_column_id(COL_DATE, Gtk.SortType.DESCENDING)
         treeview.set_model(model)
+        treeview.set_search_column(COL_NAME)
 
         def on_query_tooltip(widget, x, y, keyboard, tooltip):
             if not widget.get_tooltip_context(x, y, keyboard):
