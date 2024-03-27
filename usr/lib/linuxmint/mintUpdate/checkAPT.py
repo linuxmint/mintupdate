@@ -19,6 +19,9 @@ gettext.install("mintupdate", "/usr/share/locale")
 
 meta_names = []
 
+# packages which description is incorrect in Ubuntu (usually those which were replaced by snap dependencies)
+NON_TRANSLATED_PKGS = ["firefox", "thunderbird"]
+
 class APTCheck():
 
     def __init__(self):
@@ -281,8 +284,9 @@ class APTCheck():
                                             # Add missing punctuation
                                             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                                                 value = "%s." % value
-                                            update.short_description = value
-                                            update.description = ""
+                                            if update.source_name not in NON_TRANSLATED_PKGS:
+                                                update.short_description = value
+                                                update.description = ""
                                         except Exception as e:
                                             print(e)
                                             print(sys.exc_info()[0])
@@ -316,7 +320,8 @@ class APTCheck():
                                             # Add missing punctuation
                                             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                                                 value = "%s." % value
-                                            update.description += description
+                                            if update.source_name not in NON_TRANSLATED_PKGS:
+                                                update.description += description
                                         except Exception as e:
                                             print (e)
                                             print(sys.exc_info()[0])
