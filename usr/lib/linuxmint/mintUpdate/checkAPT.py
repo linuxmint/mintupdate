@@ -169,7 +169,7 @@ class APTCheck():
             if not dependency.target_versions or dependency.rawtype != "Depends":
                 return None
             deppkg = dependency.target_versions[0]
-            if deppkg.source_name in ("linux", "linux-signed"):
+            if deppkg.source_name in ("linux", "linux-signed") or deppkg.source_name.startswith("linux-hwe"):
                 return deppkg.source_version
             if deppkg.source_name.startswith("linux-meta"):
                 return self.get_kernel_version_from_meta_package(deppkg)
