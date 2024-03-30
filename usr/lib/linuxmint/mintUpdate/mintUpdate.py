@@ -153,7 +153,7 @@ class CacheWatcher(threading.Thread):
             self.statustime = os.path.getmtime(self.dpkgstatus)
 
     def refresh_cache(self):
-        self.application.logger.write("Changes to the package cache detected, triggering refresh")
+        self.application.logger.write("Changes to the package cache detected; triggering refresh")
         self.application.refresh()
 
 class ChangelogRetriever(threading.Thread):
@@ -386,20 +386,20 @@ class AutomaticRefreshThread(threading.Thread):
                         (refresh_type.capitalize(), schedule["days"], schedule["hours"], schedule["minutes"]))
                     time.sleep(timetosleep)
                     if not self.application.refresh_schedule_enabled:
-                        self.application.logger.write("Auto-refresh disabled in preferences, cancelling %s refresh" % refresh_type)
+                        self.application.logger.write("Auto-refresh disabled in preferences; cancelling %s refresh" % refresh_type)
                         self.application.uninhibit_pm()
                         return
                     if self.application.app_hidden():
-                        self.application.logger.write("Update Manager is in tray mode, performing %s refresh" % refresh_type)
+                        self.application.logger.write("Update Manager is in tray mode; performing %s refresh" % refresh_type)
                         refresh = RefreshThread(self.application, root_mode=True)
                         refresh.start()
                         while refresh.is_alive():
                             time.sleep(5)
                     else:
                         if initial_refresh:
-                            self.application.logger.write("Update Manager window is open, skipping %s refresh" % refresh_type)
+                            self.application.logger.write("Update Manager window is open; skipping %s refresh" % refresh_type)
                         else:
-                            self.application.logger.write("Update Manager window is open, delaying %s refresh by 60s" % refresh_type)
+                            self.application.logger.write("Update Manager window is open; delaying %s refresh by 60s" % refresh_type)
                             time.sleep(60)
             except Exception as e:
                 print (e)
@@ -794,7 +794,7 @@ class RefreshThread(threading.Thread):
 
         if self.root_mode:
             while self.application.dpkg_locked():
-                self.application.logger.write("Package management system locked by another process, retrying in 60s")
+                self.application.logger.write("Package management system locked by another process; retrying in 60s")
                 time.sleep(60)
 
         self.application.inhibit_pm("Refreshing available updates")
@@ -806,7 +806,7 @@ class RefreshThread(threading.Thread):
             child.destroy()
         if self.application.reboot_required:
             self.application.show_infobar(_("Reboot required"),
-                _("You have installed updates that require a reboot to take effect, please reboot your system as soon as possible."), icon="system-reboot-symbolic")
+                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."), icon="system-reboot-symbolic")
         Gdk.threads_leave()
 
         try:
@@ -892,7 +892,7 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write_error("Error: The APT policy is incorrect!")
 
                 label1 = _("Your APT configuration is corrupt.")
-                label2 = _("Do not install or update anything, it could break your operating system!")
+                label2 = _("Do not install or update anything - so doing could break your operating system!")
                 label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
 
                 msg = _("Your APT configuration is corrupt.")
@@ -1232,7 +1232,7 @@ class RefreshThread(threading.Thread):
                     mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
                     if mirror_timestamp is None:
                         if mint_timestamp is None:
-                            # Both default repo and mirror are unreachable, assume there's no Internet connection
+                            # Both default repo and mirror are unreachable; so, assume there's no Internet connection
                             pass
                         else:
                             infobar_title = _("Please switch to another mirror")
@@ -2482,7 +2482,7 @@ class MintUpdate():
         grid.attach(spin_button, 3, 2, 1, 1)
 
         label = Gtk.Label()
-        label.set_markup("<i>%s</i>" % _("Note: The list only gets refreshed while the Update Manager window is closed (system tray mode)."))
+        label.set_markup("<i>%s</i>" % _("Note: The list only gets refreshed while the Update Manager window is closed (i.e., in System Tray mode)."))
         grid.attach(label, 0, 3, 4, 1)
         section.add_reveal_row(grid, "com.linuxmint.updates", "refresh-schedule-enabled")
 
@@ -2552,7 +2552,7 @@ class MintUpdate():
         button.set_margin_start(20)
         button.set_margin_end(20)
         button.set_border_width(5)
-        button.set_tooltip_text(_("Click this button for automatic updates to use your current blacklist."))
+        button.set_tooltip_text(_("Click this button to make automatic updates use your current blacklist."))
         button.connect("clicked", self.export_blacklist)
         section.add_row(button)
         additional_options = []
