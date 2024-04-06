@@ -72,28 +72,54 @@ def update_cinnamon_spices():
             print("An error occurred while updating cinnamon spices: %s" % e)
 
 @timeout(600)
-def update_flatpak():
+def process_flatpaks():
     if os.path.exists("/usr/bin/flatpak"):
-        print("Updating flatpaks")
+        # Remove unused flatpak runtimes. Do it before updating so we're not updating unused
+        # runtimes unnecessarily.
+
+        try:
+            print("Purging unused flatpaks")
+            out = subprocess.run(
+                [
+                    "flatpak", "uninstall", "--unused", "-y"
+                ],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            print(out.stdout.decode())
+        except Exception as e:
+            print("An error occurred while purging unused flatpaks: %s" % e)
+
+        if settings.get_boolean("auto-update-flatpaks"):
+            print("Updating flatpaks")
+            try:
+                # Update flatpaks
+                out = subprocess.run(
+                    [
+                        "flatpak", "update", "-y"
+                    ],
+                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                print(out.stdout.decode())
+            except Exception as e:
+                print("An error occurred while updating flatpaks: %s" % e)
+
+        # Install theme if needed
         try:
             gi.require_version('Flatpak', '1.0')
             from gi.repository import Flatpak
             from mintcommon.installer import _flatpak
-            # Remove unused flatpak runtimes
-            out = subprocess.run(["flatpak", "uninstall", "--unused", "-y"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            print(out.stdout.decode())
-            # Update flatpaks
-            out = subprocess.run(["flatpak", "update", "-y"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            print(out.stdout.decode())
-            # Install theme if needed
+
             theme_refs = _flatpak.get_updated_theme_refs()
-            if theme_refs != None:
+            if theme_refs is not None:
                 print("Installing new theme to match local theme")
                 for ref in theme_refs:
-                    out = subprocess.run(["flatpak", "install", "-y", ref.get_remote_name(), ref.get_name()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    out = subprocess.run(
+                        [
+                            "flatpak", "install", "-y", "--system",
+                            ref.get_remote_name(), ref.get_name()
+                        ],
+                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                     print(out.stdout.decode())
         except Exception as e:
-            print("An error occurred while updating flatpaks: %s" % e)
+            print("An error occurred checking for a new flatpak theme: %s" % e)
 
 if __name__ == "__main__":
     if os.getuid() == 0:
@@ -105,8 +131,7 @@ if __name__ == "__main__":
         # Update Cinnamon spices
         if settings.get_boolean("auto-update-cinnamon-spices"):
             update_cinnamon_spices()
-        # Update flatpak
-        if settings.get_boolean("auto-update-flatpaks"):
-            update_flatpak()
+        # Update and auto-remove flatpaks
+        process_flatpaks()
         # Launch mintupdate
         os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py &")

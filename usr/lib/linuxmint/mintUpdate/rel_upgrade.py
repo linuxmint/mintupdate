@@ -88,7 +88,7 @@ class Assistant:
         vbox_content.pack_start(label, False, False, 6)
         self.vbox_rel_notes.pack_start(vbox_content, False, False, 6)
         link = Gtk.Label()
-        link.set_markup("<a href='http://www.linuxmint.com/rel_%s_%s.php'><b>%s</b></a>" % (self.rel_target_codename, self.current_edition.lower(), _("Release notes for %s") % self.rel_target_name))
+        link.set_markup("<a href='https://www.linuxmint.com/rel_%s.php'><b>%s</b></a>" % (self.rel_target_codename, _("Release notes for %s") % self.rel_target_name))
         self.vbox_rel_notes.pack_start(link, False, False, 6)
         label = Gtk.Label()
         label.set_markup("<i><b>%s</b></i>" % _("Click on the link to open the release notes."))
@@ -110,7 +110,7 @@ class Assistant:
         vbox_content.pack_start(label, False, False, 6)
         self.vbox_new_features.pack_start(vbox_content, False, False, 6)
         link = Gtk.Label()
-        link.set_markup("<a href='http://www.linuxmint.com/rel_%s_%s_whatsnew.php'><b>%s</b></a>" % (self.rel_target_codename, self.current_edition.lower(), _("New features in %s") % self.rel_target_name))
+        link.set_markup("<a href='https://www.linuxmint.com/rel_%s_whatsnew.php'><b>%s</b></a>" % (self.rel_target_codename, _("New features in %s") % self.rel_target_name))
         self.vbox_new_features.pack_start(link, False, False, 6)
         label = Gtk.Label()
         label.set_markup("<i><b>%s</b></i>" % _("Click on the link to browse the new features."))
@@ -173,7 +173,16 @@ class Assistant:
 
 
     def install_pkgs(self, widget, event, packages):
-        cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % self.assistant.get_window().get_xid(), "-o", "Synaptic::closeZvt=true"]
+        cmd = [
+            "pkexec", "/usr/sbin/synaptic",
+            "--hide-main-window",
+            "--non-interactive",
+            "-o", "Synaptic::closeZvt=true"
+        ]
+
+        if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+            xmd += ["--parent-window-id", "%s" % self.assistant.get_window().get_xid()]
+
         f = tempfile.NamedTemporaryFile()
         for pkg in packages:
             pkg_line = "%s\tinstall\n" % pkg
@@ -238,7 +247,14 @@ class Assistant:
             else:
                 os.system("gsettings set %s false" % screensaver_setting)
 
-        cmd = ["pkexec", "/usr/bin/mint-release-upgrade-root", "%s" % self.current_codename, "%s" % self.assistant.get_window().get_xid()]
+        cmd = [
+            "pkexec", "/usr/bin/mint-release-upgrade-root",
+            "%s" % self.current_codename
+        ]
+
+        if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+            cmd += ["%s" % self.assistant.get_window().get_xid()]
+
         comnd = Popen(' '.join(cmd), shell=True)
         returnCode = comnd.wait()
 

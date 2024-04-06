@@ -29,13 +29,12 @@ try:
     # Get changes
     for pkg in cache.packages:
         if (not depcache.marked_keep(pkg) and
-            (depcache.marked_install(pkg) or depcache.marked_upgrade(pkg)) and
-            not pkg.name in selection and
-            not "%s:%s" % (pkg.name, pkg.architecture) in selection and
-            not pkg.name in packages_to_install
-            ):
+                (depcache.marked_install(pkg) or depcache.marked_upgrade(pkg)) and
+                pkg.name not in selection and
+                "%s:%s" % (pkg.name, pkg.architecture) not in selection and
+                pkg.name not in packages_to_install):
             packages_to_install.append(pkg.name)
-        if depcache.marked_delete(pkg) and not pkg.name in packages_to_remove:
+        if depcache.marked_delete(pkg) and pkg.name not in packages_to_remove:
             packages_to_remove.append(pkg.name)
     installations = ' '.join(packages_to_install)
     removals = ' '.join(packages_to_remove)

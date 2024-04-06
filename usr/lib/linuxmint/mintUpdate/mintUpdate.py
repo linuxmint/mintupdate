@@ -20,21 +20,38 @@ import datetime
 import configparser
 import traceback
 import setproctitle
-try:
-    import cinnamon
-    CINNAMON_SUPPORT = True
-except:
-    CINNAMON_SUPPORT = False
+import platform
+import re
 
 from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
-gi.require_version('AppIndicator3', '0.1')
 gi.require_version('Notify', '0.7')
-from gi.repository import Gtk, Gdk, Gio, GLib, Notify
-from gi.repository import AppIndicator3 as AppIndicator
+from gi.repository import Gtk, Gdk, Gio, GLib, GObject, Notify, Pango
 
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
+
+settings = Gio.Settings(schema_id="com.linuxmint.updates")
+cinnamon_support = False
+try:
+    if settings.get_boolean("show-cinnamon-updates"):
+        import cinnamon
+        cinnamon_support = True
+except Exception as e:
+    if os.getenv("DEBUG"):
+        print("No cinnamon update support:\n%s" % traceback.format_exc())
+
+flatpak_support = False
+try:
+    if settings.get_boolean("show-flatpak-updates"):
+        import flatpakUpdater
+        flatpak_support = True
+except Exception as e:
+    if os.getenv("DEBUG"):
+        print("No flatpak update support:\n%s" % traceback.format_exc())
+
+CINNAMON_SUPPORT = cinnamon_support
+FLATPAK_SUPPORT = flatpak_support
 
 # import AUTOMATIONS dict
 with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
@@ -79,6 +96,11 @@ def size_to_string(size):
         return "%d %s" % (size // KILOBYTE,  _("KB"))
     return "%d %s" % (size,  _("B"))
 
+def name_search_func(model, column, key, iter):
+    name = model.get_value(iter, column)
+    return key.lower() not in name.lower() # False is a match
+
+
 class CacheWatcher(threading.Thread):
     """ Monitors package cache and dpkg status and runs RefreshThread() on change """
 
@@ -106,7 +128,7 @@ class CacheWatcher(threading.Thread):
                 try:
                     cachetime = os.path.getmtime(self.pkgcache)
                     statustime = os.path.getmtime(self.dpkgstatus)
-                    if (not cachetime == self.cachetime or not statustime == self.statustime) and \
+                    if (cachetime != self.cachetime or statustime != self.statustime) and \
                         not self.application.dpkg_locked():
                         self.cachetime = cachetime
                         self.statustime = statustime
@@ -166,14 +188,14 @@ class ChangelogRetriever(threading.Thread):
             with open(source) as f:
                 for line in f:
                     if (not line.startswith("#") and all(word in line for word in ppa_words)):
-                        ppa_info = line.split("ppa.launchpad.net/")[1]
+                        ppa_info = line.split("://")[1]
                         break
                 else:
                     return None, None
         except EnvironmentError as e:
             print ("Error encountered while trying to get PPA owner and name: %s" % e)
             return None, None
-        ppa_owner, ppa_name, ppa_x = ppa_info.split("/", 2)
+        ppa_url, ppa_owner, ppa_name, ppa_x = ppa_info.split("/", 3)
         return ppa_owner, ppa_name
 
     def get_ppa_changelog(self, ppa_owner, ppa_name):
@@ -183,7 +205,7 @@ class ChangelogRetriever(threading.Thread):
             ppa_abbr = self.source_package[:4]
         else:
             ppa_abbr = self.source_package[0]
-        deb_dsc_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s_%s.dsc" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, self.source_package, self.version)
+        deb_dsc_uri = "https://ppa.launchpadcontent.net/%s/%s/ubuntu/pool/main/%s/%s/%s_%s.dsc" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, self.source_package, self.version)
         try:
             deb_dsc = urllib.request.urlopen(deb_dsc_uri, None, 10).read().decode("utf-8")
         except Exception as e:
@@ -204,7 +226,7 @@ class ChangelogRetriever(threading.Thread):
         if (int(deb_size) > max_tarball_size):
             print ("Tarball size %s B exceeds maximum download size %d B. Skipping download." % (deb_size, max_tarball_size))
             return
-        deb_file_uri = "http://ppa.launchpad.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
+        deb_file_uri = "https://ppa.launchpadcontent.net/%s/%s/ubuntu/pool/main/%s/%s/%s" % (ppa_owner, ppa_name, ppa_abbr, self.source_package, deb_filename)
         try:
             deb_file = urllib.request.urlopen(deb_file_uri, None, 10).read().decode("utf-8")
         except Exception as e:
@@ -254,24 +276,24 @@ class ChangelogRetriever(threading.Thread):
             changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")
         elif self.origin == "ubuntu":
             if (self.source_package.startswith("lib")):
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
             else:
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
         elif self.origin == "debian":
             if (self.source_package.startswith("lib")):
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
             else:
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
-                changelog_sources.append("http://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
+                changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
         elif self.origin.startswith("LP-PPA"):
             ppa_owner, ppa_name = self.get_ppa_info()
             if ppa_owner and ppa_name:
@@ -365,6 +387,7 @@ class AutomaticRefreshThread(threading.Thread):
                     time.sleep(timetosleep)
                     if not self.application.refresh_schedule_enabled:
                         self.application.logger.write("Auto-refresh disabled in preferences, cancelling %s refresh" % refresh_type)
+                        self.application.uninhibit_pm()
                         return
                     if self.application.app_hidden():
                         self.application.logger.write("Update Manager is in tray mode, performing %s refresh" % refresh_type)
@@ -394,7 +417,7 @@ class AutomaticRefreshThread(threading.Thread):
 class InstallThread(threading.Thread):
 
     def __init__(self, application):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, name="mintupdate-install-thread")
         self.application = application
         self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
         self.application.window.set_sensitive(False)
@@ -409,38 +432,63 @@ class InstallThread(threading.Thread):
 
     def run(self):
         self.application.cache_watcher.pause()
+        self.application.inhibit_pm("Installing updates")
         try:
             self.application.logger.write("Install requested by user")
             Gdk.threads_enter()
             aptInstallNeeded = False
             packages = []
             cinnamon_spices = []
+            flatpaks = []
             model = self.application.treeview.get_model()
             Gdk.threads_leave()
 
             iter = model.get_iter_first()
-            while (iter != None):
+            while iter is not None:
                 checked = model.get_value(iter, UPDATE_CHECKED)
-                if (checked):
+                if checked:
                     update = model.get_value(iter, UPDATE_OBJ)
                     if update.type == "cinnamon":
                         cinnamon_spices.append(update)
                         iter = model.iter_next(iter)
                         continue
+                    elif update.type == "flatpak":
+                        flatpaks.append(update)
+                        iter = model.iter_next(iter)
+                        continue
 
                     aptInstallNeeded = True
-                    if update.type == "kernel" and \
-                       [True for pkg in update.package_names if "-image-" in pkg]:
-                        self.reboot_required = True
+                    if update.type == "kernel":
+                        for pkg in update.package_names:
+                            if "-image-" in pkg:
+                                try:
+                                    if self.application.is_lmde:
+                                        # In Mint, platform.release() returns the kernel version. In LMDE it returns the kernel
+                                        # abi version.  So for LMDE, parse platform.version() instead.
+                                        version_string = platform.version()
+                                        kernel_version = re.search(r"(\d+\.\d+\.\d+)", version_string).group(1)
+                                    else:
+                                        kernel_version = platform.release().split("-")[0]
+
+                                    if update.old_version.startswith(kernel_version):
+                                        self.reboot_required = True
+                                except Exception as e:
+                                    print("Warning: Could not assess the current kernel version: %s" % str(e))
+                                    self.reboot_required = True
+                                break
+                    if update.type == "security" and \
+                       [True for pkg in update.package_names if "nvidia" in pkg]:
+                       self.reboot_required = True
                     for package in update.package_names:
                         packages.append(package)
                         self.application.logger.write("Will install " + str(package))
                 iter = model.iter_next(iter)
 
             needs_refresh = False
+            proceed = True
+            update_flatpaks = False
 
             if aptInstallNeeded:
-                proceed = True
                 try:
                     pkgs = ' '.join(str(pkg) for pkg in packages)
                     warnings = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs, shell = True).decode("utf-8")
@@ -533,72 +581,94 @@ class InstallThread(threading.Thread):
                     print (e)
                     print(sys.exc_info()[0])
 
-                if proceed:
-                    Gdk.threads_enter()
-                    self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
-                    Gdk.threads_leave()
-                    self.application.logger.write("Ready to launch synaptic")
-                    f = tempfile.NamedTemporaryFile()
+            if len(flatpaks) > 0:
+                self.application.flatpak_updater.prepare_start_updates(flatpaks)
 
-                    cmd = ["pkexec", "/usr/sbin/synaptic", "--hide-main-window",  \
-                            "--non-interactive", "--parent-window-id", "%s" % self.application.window.get_window().get_xid(), \
-                            "-o", "Synaptic::closeZvt=true", "--set-selections-file", "%s" % f.name]
+                if self.application.flatpak_updater.confirm_start():
+                    update_flatpaks = True
+                else:
+                    proceed = False
 
-                    for pkg in packages:
-                        pkg_line = "%s\tinstall\n" % pkg
-                        f.write(pkg_line.encode("utf-8"))
-                    f.flush()
+            if aptInstallNeeded and proceed:
+                Gdk.threads_enter()
+                self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
+                Gdk.threads_leave()
+                self.application.logger.write("Ready to launch synaptic")
+                f = tempfile.NamedTemporaryFile()
 
-                    subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
-                    try:
-                        result = subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log, check=True)
-                        returnCode = result.returncode
-                    except subprocess.CalledProcessError as e:
-                        returnCode = e.returncode
-                    subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
-                    self.application.logger.write("Return code:" + str(returnCode))
-                    f.close()
+                cmd = [
+                    "pkexec", "/usr/sbin/synaptic",
+                    "--hide-main-window",
+                    "--non-interactive",
+                    "-o", "Synaptic::closeZvt=true",
+                    "--set-selections-file", "%s" % f.name,
+                ]
 
-                    latest_apt_update = ''
-                    update_successful = False
-                    with open("/var/log/apt/history.log", encoding="utf-8") as apt_history:
-                        for line in reversed(list(apt_history)):
-                            if "Start-Date" in line:
-                                break
-                            else:
-                                latest_apt_update += line
-                        if f.name in latest_apt_update and "End-Date" in latest_apt_update:
-                            update_successful = True
-                            self.application.logger.write("Install finished")
+                if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+                    cmd += ["--parent-window-id", "%s" % self.application.window.get_window().get_xid()]
+
+                for pkg in packages:
+                    pkg_line = "%s\tinstall\n" % pkg
+                    f.write(pkg_line.encode("utf-8"))
+                f.flush()
+
+                subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
+                try:
+                    result = subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log, check=True)
+                    returnCode = result.returncode
+                except subprocess.CalledProcessError as e:
+                    returnCode = e.returncode
+                subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
+                self.application.logger.write("Return code:" + str(returnCode))
+                f.close()
+
+                latest_apt_update = ''
+                update_successful = False
+                with open("/var/log/apt/history.log", encoding="utf-8") as apt_history:
+                    for line in reversed(list(apt_history)):
+                        if "Start-Date" in line:
+                            break
                         else:
-                            self.application.logger.write("Install failed")
-
-                    if update_successful:
-                        # override CacheWatcher since there's a forced refresh later already
-                        self.application.cache_watcher.update_cachetime()
-
-                        if self.reboot_required:
-                            self.application.reboot_required = True
-                        elif self.application.settings.get_boolean("hide-window-after-update"):
-                            Gdk.threads_enter()
-                            self.application.window.hide()
-                            Gdk.threads_leave()
-
-                        if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
-                            # Restart
-                            self.application.logger.write("Mintupdate was updated, restarting it...")
-                            self.application.logger.close()
-                            os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
-                            return
-
-                        # Refresh
-                        needs_refresh = True
+                            latest_apt_update += line
+                    if f.name in latest_apt_update and "End-Date" in latest_apt_update:
+                        update_successful = True
+                        self.application.logger.write("Install finished")
                     else:
+                        self.application.logger.write("Install failed")
+
+                if update_successful:
+                    # override CacheWatcher since there's a forced refresh later already
+                    self.application.cache_watcher.update_cachetime()
+
+                    if self.reboot_required:
+                        self.application.reboot_required = True
+                    elif self.application.settings.get_boolean("hide-window-after-update"):
                         Gdk.threads_enter()
-                        self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
+                        self.application.window.hide()
                         Gdk.threads_leave()
 
-            if len(cinnamon_spices) > 0:
+                    if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
+                        # Restart
+                        self.application.uninhibit_pm()
+                        self.application.logger.write("Mintupdate was updated, restarting it...")
+                        self.application.logger.close()
+                        self.application.restart_app()
+                        return
+
+                    # Refresh
+                    needs_refresh = True
+                else:
+                    Gdk.threads_enter()
+                    self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
+                    Gdk.threads_leave()
+
+            if update_flatpaks and proceed:
+                self.application.flatpak_updater.perform_updates()
+                if self.application.flatpak_updater.error is not None:
+                    self.application.set_status_message_from_thread(self.application.flatpak_updater.error)
+                needs_refresh = True
+
+            if proceed and len(cinnamon_spices) > 0:
                 Gdk.threads_enter()
                 spices_install_window = Gtk.Window(title=_("Updating Cinnamon Spices"),
                                            default_width=400,
@@ -622,13 +692,23 @@ class InstallThread(threading.Thread):
                 spices_install_window.show_all()
                 Gdk.threads_leave()
 
+                need_cinnamon_restart = False
+
                 for update in cinnamon_spices:
                     Gdk.threads_enter()
                     label.set_text("%s (%s)" % (update.name, update.uuid))
                     Gdk.threads_leave()
                     self.application.cinnamon_updater.upgrade(update)
 
-                if os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
+                    try:
+                        if self.application.cinnamon_updater.spice_is_enabled(update):
+                            need_cinnamon_restart = True
+                    except:
+                        need_cinnamon_restart = True
+
+                if (not self.reboot_required) \
+                        and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"] \
+                        and need_cinnamon_restart:
                     Gdk.threads_enter()
                     label.set_text(_("Restarting Cinnamon"))
                     spinner.hide()
@@ -648,6 +728,7 @@ class InstallThread(threading.Thread):
 
                 needs_refresh = True
 
+            self.application.uninhibit_pm()
             if needs_refresh:
                 self.application.refresh()
 
@@ -658,11 +739,12 @@ class InstallThread(threading.Thread):
             self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
             self.application.logger.write_error("Could not install security updates")
             Gdk.threads_leave()
+            self.application.uninhibit_pm()
 
 class RefreshThread(threading.Thread):
 
     def __init__(self, application, root_mode=False):
-        threading.Thread.__init__(self)
+        threading.Thread.__init__(self, name="mintupdate-refresh-thread")
         self.root_mode = root_mode
         self.application = application
         self.running = False
@@ -670,6 +752,7 @@ class RefreshThread(threading.Thread):
     def cleanup(self):
         # cleanup when finished refreshing
         self.application.refreshing = False
+        self.application.uninhibit_pm()
         if not self.running:
             return
         self.application.cache_watcher.resume()
@@ -688,8 +771,7 @@ class RefreshThread(threading.Thread):
 
     def show_window(self):
         Gdk.threads_enter()
-        if not self.application.window.get_visible():
-            self.application.window.present()
+        self.application.window.present_with_time(Gtk.get_current_event_time())
         Gdk.threads_leave()
 
     def on_notification_action(self, notification, action_name, data):
@@ -715,6 +797,7 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write("Package management system locked by another process, retrying in 60s")
                 time.sleep(60)
 
+        self.application.inhibit_pm("Refreshing available updates")
         self.application.cache_watcher.pause()
 
         Gdk.threads_enter()
@@ -747,7 +830,7 @@ class RefreshThread(threading.Thread):
             self.application.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
             Gdk.threads_leave()
 
-            model = Gtk.TreeStore(bool, str, str, str, str, int, str, str, str, str, str, object)
+            model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
 
@@ -756,7 +839,7 @@ class RefreshThread(threading.Thread):
             # Refresh the APT cache
             if self.root_mode:
                 refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
-                if not self.application.app_hidden():
+                if (not self.application.app_hidden()) and os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
                     refresh_command.extend(["--use-synaptic",
                                             str(self.application.window.get_window().get_xid())])
                 subprocess.run(refresh_command)
@@ -765,7 +848,7 @@ class RefreshThread(threading.Thread):
             if CINNAMON_SUPPORT:
                 if self.root_mode:
                     self.application.logger.write("Refreshing available Cinnamon updates from the server")
-                    self.application.set_status_message(_("Checking for Cinnamon spices"))
+                    self.application.set_status_message_from_thread(_("Checking for Cinnamon spices"))
                     for spice_type in cinnamon.updates.SPICE_TYPES:
                         try:
                             self.application.cinnamon_updater.refresh_cache_for_type(spice_type)
@@ -773,9 +856,15 @@ class RefreshThread(threading.Thread):
                             self.application.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
                             print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
 
-            self.application.set_status_message(_("Processing updates"))
+            if FLATPAK_SUPPORT:
+                if self.root_mode:
+                    self.application.logger.write("Refreshing available Flatpak updates")
+                    self.application.set_status_message_from_thread(_("Checking for Flatpak updates"))
+                    self.application.flatpak_updater.refresh()
 
-            if os.getenv("MINTUPDATE_TEST") == None:
+            self.application.set_status_message_from_thread(_("Processing updates"))
+
+            if os.getenv("MINTUPDATE_TEST") is None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
             else:
                 if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
@@ -807,17 +896,19 @@ class RefreshThread(threading.Thread):
                 label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
 
                 msg = _("Your APT configuration is corrupt.")
-                error_label = _("APT error:")
                 if error_msg:
-                    error_msg = "\n\n%s\n%s" % (error_label, error_msg)
+                    error_msg = "\n\n%s\n%s" % (_("APT error:"), error_msg)
                 else:
-                    error_label = ""
+                    error_msg = ""
+
+                Gdk.threads_enter()
                 self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                     msg, Gtk.MessageType.ERROR,
                     callback=self._on_infobar_mintsources_response)
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
                 self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
+                Gdk.threads_leave()
 
             if error_found:
                 Gdk.threads_enter()
@@ -825,13 +916,15 @@ class RefreshThread(threading.Thread):
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
                     "mintupdate-error-symbolic", True)
                 self.application.stack.set_visible_child_name("status_error")
-                self.application.builder.get_object("label_error_details").set_text(error_msg)
+                if error_msg:
+                    self.application.builder.get_object("label_error_details").set_text(error_msg)
                 self.application.builder.get_object("label_error_details").show()
                 Gdk.threads_leave()
                 self.cleanup()
                 return False
 
             # Look at the updates one by one
+            updates = []
             num_visible = 0
             num_security = 0
             num_software = 0
@@ -841,11 +934,12 @@ class RefreshThread(threading.Thread):
             lines = output.split("---EOL---")
             if len(lines):
                 for line in lines:
-                    if not "###" in line:
+                    if "###" not in line:
                         continue
 
                     # Create update object
                     update = Update(package=None, input_string=line, source_name=None)
+                    updates.append(update)
 
                     if tracker.active and update.type != "unstable":
                         tracker.update(update)
@@ -894,7 +988,7 @@ class RefreshThread(threading.Thread):
                         num_security += 1
                     elif update.type == "unstable":
                         tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
-                        type_sort_key = 6
+                        type_sort_key = 7
                     else:
                         num_software += 1
                         if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
@@ -903,7 +997,7 @@ class RefreshThread(threading.Thread):
                         else:
                             update.type = "3rd-party"
                             tooltip = "%s\n%s" % (_("3rd-party update"), origin)
-                            type_sort_key = 5
+                            type_sort_key = 4
 
                     model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                     model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
@@ -918,7 +1012,7 @@ class RefreshThread(threading.Thread):
                     num_visible += 1
 
             if CINNAMON_SUPPORT and not is_self_update:
-                type_sort_key = 4
+                type_sort_key = 6
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
                 for update in self.application.cinnamon_updater.get_updates():
@@ -932,6 +1026,11 @@ class RefreshThread(threading.Thread):
                         tooltip = _("Cinnamon applet")
                     elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
                         tooltip = _("Cinnamon desklet")
+                    elif update.spice_type == "action":
+                        # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
+                        # use the value "action" instead here so this code can be 
+                        # backported.
+                        tooltip = _("Nemo action")
                     elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
                         tooltip = _("Cinnamon theme")
                     else:
@@ -946,9 +1045,10 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_CHECKED, True)
 
                     if self.application.settings.get_boolean("show-descriptions"):
-                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (update.uuid, update.name))
+                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.uuid),
+                                                                                      GLib.markup_escape_text(update.name)))
                     else:
-                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % update.uuid)
+                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(update.uuid))
 
                     model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
                     model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
@@ -962,6 +1062,50 @@ class RefreshThread(threading.Thread):
                     model.set_value(iter, UPDATE_OBJ, update)
                     num_software += 1
                     num_visible += 1
+                    download_size += update.size
+
+            if FLATPAK_SUPPORT and self.application.flatpak_updater and not is_self_update:
+                type_sort_key = 5
+                blacklist = self.application.settings.get_strv("blacklisted-packages")
+
+                self.application.flatpak_updater.fetch_updates()
+                if self.application.flatpak_updater.error is None:
+                    for update in self.application.flatpak_updater.updates:
+                        update.type = "flatpak"
+                        if update.ref_name in blacklist or update.source_packages[0] in blacklist:
+                            continue
+                        if update.flatpak_type == "app":
+                            tooltip = _("Flatpak application")
+                        else:
+                            tooltip = _("Flatpak runtime")
+
+                        if tracker.active:
+                            tracker.update(update)
+
+                        iter = model.insert_before(None, None)
+                        model.row_changed(model.get_path(iter), iter)
+
+                        model.set_value(iter, UPDATE_CHECKED, True)
+
+                        if self.application.settings.get_boolean("show-descriptions"):
+                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.name),
+                                                                                          GLib.markup_escape_text(update.summary)))
+                        else:
+                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(update.name))
+
+                        model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
+                        model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
+                        model.set_value(iter, UPDATE_SOURCE, update.origin)
+                        model.set_value(iter, UPDATE_SIZE, update.size)
+                        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
+                        model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-flatpak-symbolic")
+                        model.set_value(iter, UPDATE_TYPE, "flatpak")
+                        model.set_value(iter, UPDATE_TOOLTIP, tooltip)
+                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.ref_name))
+                        model.set_value(iter, UPDATE_OBJ, update)
+                        num_software += 1
+                        num_visible += 1
+                        download_size += update.size
 
             if tracker.active:
                 if tracker.notify():
@@ -995,6 +1139,11 @@ class RefreshThread(threading.Thread):
                     self.application.stack.set_visible_child_name("status_self-update")
                     self.application.statusbar.set_visible(False)
                     status_string = ""
+                    details = []
+                    for update in updates:
+                        details.append(f"{update.source_name} {update.new_version}")
+                    details = ", ".join(details)
+                    self.application.builder.get_object("label_self_update_details").set_text(details)
                 else:
                     status_string = gettext.ngettext("%(selected)d update selected (%(size)s)",
                                             "%(selected)d updates selected (%(size)s)", num_visible) % \
@@ -1010,8 +1159,14 @@ class RefreshThread(threading.Thread):
                 self.application.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
                                             not self.application.settings.get_boolean("hide-systray"))
 
+            if FLATPAK_SUPPORT and self.application.flatpak_updater.error is not None and not is_self_update:
+                self.application.logger.write("Could not check for flatpak updates: %s" % self.application.flatpak_updater.error)
+                msg = _("Error checking for flatpak updates: %s") % self.application.flatpak_updater.error
+                self.application.set_status_message(msg)
+
             self.application.builder.get_object("notebook_details").set_current_page(0)
             self.application.treeview.set_model(model)
+            self.application.treeview.set_search_column(UPDATE_DISPLAY_NAME)
             del model
             Gdk.threads_leave()
 
@@ -1019,7 +1174,6 @@ class RefreshThread(threading.Thread):
             self.mirror_check()
 
             self.application.logger.write("Refresh finished")
-
         except:
             print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
             self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
@@ -1056,18 +1210,16 @@ class RefreshThread(threading.Thread):
         try:
             if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
                 mirror_url = None
-
-                codename = subprocess.check_output("lsb_release -cs", shell = True).strip().decode("UTF-8")
                 with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
                     for line in sources_file:
                         line = line.strip()
-                        if line.startswith("deb ") and "%s main upstream import" % codename in line:
+                        if line.startswith("deb ") and "main upstream import" in line:
                             mirror_url = line.split()[1]
                             if mirror_url.endswith("/"):
                                 mirror_url = mirror_url[:-1]
                             break
-                if mirror_url is None:
-                    # Unable to find the Mint mirror being used..
+                if mirror_url is None or not mirror_url.startswith("http"):
+                    # The Mint mirror being used either cannot be found or is not an HTTP(s) mirror
                     pass
                 elif mirror_url == "http://packages.linuxmint.com":
                     if not self.application.settings.get_boolean("default-repo-is-ok"):
@@ -1148,7 +1300,7 @@ class RefreshThread(threading.Thread):
                             for pkg2 in changes:
                                 if o.name == pkg2.name:
                                     pkgFound = True
-                            if pkgFound == False:
+                            if not pkgFound:
                                 newPkg = cache[o.name]
                                 changes.append(newPkg)
                                 foundSomething = True
@@ -1214,44 +1366,6 @@ class Logger():
     def remove_hook(self):
         self.hook = None
 
-class AppIndicatorIcon():
-
-    def __init__(self, app):
-        self.app = app
-        self.icon = AppIndicator.Indicator.new("mintUpdate", "mintupdate", AppIndicator.IndicatorCategory.APPLICATION_STATUS)
-        self.icon.set_status(AppIndicator.IndicatorStatus.ACTIVE)
-        self.icon.set_title(_("Update Manager"))
-
-        self.menu = Gtk.Menu()
-        item = Gtk.MenuItem()
-        item.set_label(_("Update Manager"))
-        item.connect("activate", self.app.on_appindicator_activated)
-        self.menu.append(item)
-        self.icon.set_secondary_activate_target(item)
-
-        item = Gtk.MenuItem()
-        item.set_label(_("Exit"))
-        item.connect("activate", self.cb_exit, '')
-        self.menu.append(item)
-
-        self.menu.show_all()
-        self.icon.set_menu(self.menu)
-
-    def cb_exit(self, w, data):
-        self.app.quit(None, None)
-
-    def set_from_icon_name(self, name):
-        self.icon.set_icon(name)
-
-    def set_tooltip_text(self, text):
-        self.icon.set_title(text)
-
-    def set_visible(self, visible):
-        if visible:
-            self.icon.set_status(AppIndicator.IndicatorStatus.ACTIVE)
-        else:
-            self.icon.set_status(AppIndicator.IndicatorStatus.PASSIVE)
-
 class XAppStatusIcon():
 
     def __init__(self, menu):
@@ -1277,9 +1391,16 @@ class MintUpdate():
         self.updates_inhibited = False
         self.reboot_required = False
         self.refreshing = False
+        self.inhibit_cookie = 0
         self.logger = Logger()
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
+
+        self.is_lmde = False
+        self.app_restart_required = False
+        self.show_cinnamon_enabled = False
+        self.settings.connect("changed", self._on_settings_changed)
+        self._on_settings_changed(self.settings, None)
 
         #Set the Glade file
         gladefile = "/usr/share/linuxmint/mintupdate/main.ui"
@@ -1300,6 +1421,9 @@ class MintUpdate():
             self.window.set_title(_("Update Manager"))
 
             self.window.set_icon_name("mintupdate")
+
+            # Add mintupdate style class for easier theming
+            self.window.get_style_context().add_class('mintupdate')
 
             accel_group = Gtk.AccelGroup()
             self.window.add_accel_group(accel_group)
@@ -1364,6 +1488,7 @@ class MintUpdate():
 
             self.treeview.set_tooltip_column(UPDATE_TOOLTIP)
 
+            self.treeview.set_search_equal_func(name_search_func)
             self.treeview.append_column(column_type)
             self.treeview.append_column(column_upgrade)
             self.treeview.append_column(column_name)
@@ -1416,34 +1541,26 @@ class MintUpdate():
 
             # Tray icon menu
             menu = Gtk.Menu()
-            menuItem3 = Gtk.ImageMenuItem(label=_("Refresh"))
             image = Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU)
-            menuItem3.set_image(image)
+            menuItem3 = Gtk.ImageMenuItem(label=_("Refresh"), image=image)
             menuItem3.connect('activate', self.force_refresh)
             menu.append(menuItem3)
-            menuItem2 = Gtk.ImageMenuItem(label=_("Information"))
             image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
-            menuItem2.set_image(image)
+            menuItem2 = Gtk.ImageMenuItem(label=_("Information"), image=image)
             menuItem2.connect('activate', self.open_information)
             menu.append(menuItem2)
-            menuItem4 = Gtk.ImageMenuItem(label=_("Preferences"))
             image = Gtk.Image.new_from_icon_name("preferences-other-symbolic", Gtk.IconSize.MENU)
-            menuItem4.set_image(image)
+            menuItem4 = Gtk.ImageMenuItem(label=_("Preferences"), image=image)
             menuItem4.connect('activate', self.open_preferences)
             menu.append(menuItem4)
-            menuItem = Gtk.ImageMenuItem(label=_("Quit"))
             image = Gtk.Image.new_from_icon_name("application-exit-symbolic", Gtk.IconSize.MENU)
-            menuItem.set_image(image)
+            menuItem = Gtk.ImageMenuItem(label=_("Quit"), image=image)
             menuItem.connect('activate', self.quit)
             menu.append(menuItem)
             menu.show_all()
 
-            if os.getenv("XDG_CURRENT_DESKTOP") == "KDE":
-                # KDE Plasma no longer supports Gtk.StatusIcon and doesn't yet support XApp.StatusIcon
-                self.statusIcon = AppIndicatorIcon(self)
-            else:
-                self.statusIcon = XAppStatusIcon(menu)
-                self.statusIcon.icon.connect('activate', self.on_statusicon_activated)
+            self.statusIcon = XAppStatusIcon(menu)
+            self.statusIcon.icon.connect('activate', self.on_statusicon_activated)
 
             self.set_status("", _("Checking for updates"), "mintupdate-checking-symbolic", not self.settings.get_boolean("hide-systray"))
 
@@ -1451,17 +1568,15 @@ class MintUpdate():
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
             fileMenu.set_submenu(fileSubmenu)
-            closeMenuItem = Gtk.ImageMenuItem()
-            closeMenuItem.set_image(Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU))
-            closeMenuItem.set_label(_("Close window"))
+            image = Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU)
+            closeMenuItem = Gtk.ImageMenuItem(label=_("Close window"), image=image)
             closeMenuItem.connect("activate", self.hide_main_window)
             key, mod = Gtk.accelerator_parse("<Control>W")
             closeMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             fileSubmenu.append(closeMenuItem)
             fileSubmenu.append(Gtk.SeparatorMenuItem())
-            quitMenuItem = Gtk.ImageMenuItem(label=_("Quit"))
             image = Gtk.Image.new_from_icon_name("application-exit-symbolic", Gtk.IconSize.MENU)
-            quitMenuItem.set_image(image)
+            quitMenuItem = Gtk.ImageMenuItem(label=_("Quit"), image=image)
             quitMenuItem.connect('activate', self.quit)
             key, mod = Gtk.accelerator_parse("<Control>Q")
             quitMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
@@ -1470,21 +1585,18 @@ class MintUpdate():
             editMenu = Gtk.MenuItem.new_with_mnemonic(_("_Edit"))
             editSubmenu = Gtk.Menu()
             editMenu.set_submenu(editSubmenu)
-            prefsMenuItem = Gtk.ImageMenuItem()
-            prefsMenuItem.set_image(Gtk.Image.new_from_icon_name("preferences-other-symbolic", Gtk.IconSize.MENU))
-            prefsMenuItem.set_label(_("Preferences"))
+            image = Gtk.Image.new_from_icon_name("preferences-other-symbolic", Gtk.IconSize.MENU)
+            prefsMenuItem = Gtk.ImageMenuItem(label=_("Preferences"), image=image)
             prefsMenuItem.connect("activate", self.open_preferences)
             editSubmenu.append(prefsMenuItem)
             if os.path.exists("/usr/bin/timeshift-gtk"):
-                sourcesMenuItem = Gtk.ImageMenuItem()
-                sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU))
-                sourcesMenuItem.set_label(_("System Snapshots"))
+                image = Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU)
+                sourcesMenuItem = Gtk.ImageMenuItem(label=_("System Snapshots"), image=image)
                 sourcesMenuItem.connect("activate", self.open_timeshift)
                 editSubmenu.append(sourcesMenuItem)
             if os.path.exists("/usr/bin/mintsources"):
-                sourcesMenuItem = Gtk.ImageMenuItem()
-                sourcesMenuItem.set_image(Gtk.Image.new_from_icon_name("system-software-install-symbolic", Gtk.IconSize.MENU))
-                sourcesMenuItem.set_label(_("Software Sources"))
+                image = Gtk.Image.new_from_icon_name("system-software-install-symbolic", Gtk.IconSize.MENU)
+                sourcesMenuItem = Gtk.ImageMenuItem(label=_("Software Sources"), image=image)
                 sourcesMenuItem.connect("activate", self.open_repositories)
                 editSubmenu.append(sourcesMenuItem)
 
@@ -1505,30 +1617,25 @@ class MintUpdate():
                 config.read(rel_path)
                 if rel_edition.lower() in config['general']['editions']:
                     rel_target = config['general']['target_name']
-                    relUpgradeMenuItem = Gtk.ImageMenuItem()
-                    relUpgradeMenuItem.set_image(Gtk.Image.new_from_icon_name("mintupdate-type-package-symbolic", Gtk.IconSize.MENU))
-                    relUpgradeMenuItem.set_label(_("Upgrade to %s") % rel_target)
+                    image = Gtk.Image.new_from_icon_name("mintupdate-type-package-symbolic", Gtk.IconSize.MENU)
+                    relUpgradeMenuItem = Gtk.ImageMenuItem(label=_("Upgrade to %s") % rel_target, image=image)
                     relUpgradeMenuItem.connect("activate", self.open_rel_upgrade)
                     editSubmenu.append(relUpgradeMenuItem)
 
             viewMenu = Gtk.MenuItem.new_with_mnemonic(_("_View"))
             viewSubmenu = Gtk.Menu()
             viewMenu.set_submenu(viewSubmenu)
-            historyMenuItem = Gtk.ImageMenuItem()
-            historyMenuItem.set_image(Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU))
-            historyMenuItem.set_label(_("History of Updates"))
+            image = Gtk.Image.new_from_icon_name("document-open-recent-symbolic", Gtk.IconSize.MENU)
+            historyMenuItem = Gtk.ImageMenuItem(label=_("History of Updates"), image=image )
             historyMenuItem.connect("activate", self.open_history)
-            kernelMenuItem = Gtk.ImageMenuItem()
-            kernelMenuItem.set_image(Gtk.Image.new_from_icon_name("system-run-symbolic", Gtk.IconSize.MENU))
-            kernelMenuItem.set_label(_("Linux Kernels"))
+            image = Gtk.Image.new_from_icon_name("system-run-symbolic", Gtk.IconSize.MENU)
+            kernelMenuItem = Gtk.ImageMenuItem(label=_("Linux Kernels"), image=image)
             kernelMenuItem.connect("activate", self.open_kernels)
-            infoMenuItem = Gtk.ImageMenuItem()
-            infoMenuItem.set_image(Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU))
-            infoMenuItem.set_label(_("Information"))
+            image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
+            infoMenuItem = Gtk.ImageMenuItem(label=_("Information"), image=image)
             infoMenuItem.connect("activate", self.open_information)
-            visibleColumnsMenuItem = Gtk.ImageMenuItem()
-            visibleColumnsMenuItem.set_image(Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU))
-            visibleColumnsMenuItem.set_label(_("Visible Columns"))
+            image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
+            visibleColumnsMenuItem = Gtk.ImageMenuItem(label=_("Visible Columns"), image=image)
             visibleColumnsMenu = Gtk.Menu()
             visibleColumnsMenuItem.set_submenu(visibleColumnsMenu)
 
@@ -1579,9 +1686,10 @@ class MintUpdate():
 
             try:
                 # Only support kernel selection in Linux Mint (not LMDE)
-                release_info = subprocess.run(["lsb_release", "-irs"], stdout=subprocess.PIPE).stdout.decode().split("\n")
-                if release_info[0].lower() == "linuxmint" and float(release_info[1]) >= 13:
+                if not os.path.exists("/usr/share/doc/debian-system-adjustments/copyright"):
                     viewSubmenu.append(kernelMenuItem)
+                else:
+                    self.is_lmde = True
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
@@ -1590,27 +1698,23 @@ class MintUpdate():
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
 
-            helpMenuItem = Gtk.ImageMenuItem()
-            helpMenuItem.set_image(Gtk.Image.new_from_icon_name("security-high-symbolic", Gtk.IconSize.MENU))
-            helpMenuItem.set_label(_("Welcome Screen"))
+            image = Gtk.Image.new_from_icon_name("security-high-symbolic", Gtk.IconSize.MENU)
+            helpMenuItem = Gtk.ImageMenuItem(label=_("Welcome Screen"), image=image)
             helpMenuItem.connect("activate", self.show_welcome_page)
             helpSubmenu.append(helpMenuItem)
             if (Gtk.check_version(3,20,0) is None):
-                shortcutsMenuItem = Gtk.ImageMenuItem()
-                shortcutsMenuItem.set_label(_("Keyboard Shortcuts"))
-                shortcutsMenuItem.set_image(Gtk.Image.new_from_icon_name("preferences-desktop-keyboard-shortcuts-symbolic", Gtk.IconSize.MENU))
+                image = Gtk.Image.new_from_icon_name("preferences-desktop-keyboard-shortcuts-symbolic", Gtk.IconSize.MENU)
+                shortcutsMenuItem = Gtk.ImageMenuItem(label=_("Keyboard Shortcuts"), image=image)
                 shortcutsMenuItem.connect("activate", self.open_shortcuts)
                 helpSubmenu.append(shortcutsMenuItem)
-            helpMenuItem = Gtk.ImageMenuItem()
-            helpMenuItem.set_image(Gtk.Image.new_from_icon_name("help-contents-symbolic", Gtk.IconSize.MENU))
-            helpMenuItem.set_label(_("Contents"))
+            image = Gtk.Image.new_from_icon_name("help-contents-symbolic", Gtk.IconSize.MENU)
+            helpMenuItem = Gtk.ImageMenuItem(label=_("Contents"), image=image)
             helpMenuItem.connect("activate", self.open_help)
             key, mod = Gtk.accelerator_parse("F1")
             helpMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             helpSubmenu.append(helpMenuItem)
-            aboutMenuItem = Gtk.ImageMenuItem()
-            aboutMenuItem.set_image(Gtk.Image.new_from_icon_name("help-about-symbolic", Gtk.IconSize.MENU))
-            aboutMenuItem.set_label(_("About"))
+            image = Gtk.Image.new_from_icon_name("help-about-symbolic", Gtk.IconSize.MENU)
+            aboutMenuItem = Gtk.ImageMenuItem(label=_("About"), image=image)
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
 
@@ -1633,7 +1737,21 @@ class MintUpdate():
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if showWindow == "show":
-                    self.window.present()
+                    self.window.present_with_time(Gtk.get_current_event_time())
+
+            if CINNAMON_SUPPORT:
+                self.cinnamon_updater = cinnamon.UpdateManager()
+            else:
+                self.cinnamon_updater = None
+
+            global FLATPAK_SUPPORT
+            if FLATPAK_SUPPORT:
+                try:
+                    self.flatpak_updater = flatpakUpdater.FlatpakUpdater()
+                except Exception as e:
+                    print("Error creating FlatpakUpdater:", str(e))
+                    self.flatpak_updater = None
+                    FLATPAK_SUPPORT = False
 
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
@@ -1645,11 +1763,6 @@ class MintUpdate():
 
             self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
             self.paned.set_position(self.settings.get_int('window-pane-position'))
-
-            if CINNAMON_SUPPORT:
-                self.cinnamon_updater = cinnamon.UpdateManager()
-            else:
-                self.cinnamon_updater = None
 
             self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.auto_refresh = AutomaticRefreshThread(self)
@@ -1664,6 +1777,15 @@ class MintUpdate():
             print(sys.exc_info()[0])
             self.logger.write_error("Exception occurred in main thread: " + str(sys.exc_info()[0]))
             self.logger.close()
+
+    def _on_settings_changed(self, settings, key, data=None):
+        if key is None:
+            self.show_flatpak_enabled = settings.get_boolean("show-flatpak-updates")
+            self.show_cinnamon_enabled = settings.get_boolean("show-cinnamon-updates")
+            return
+
+        self.app_restart_required = settings.get_boolean("show-cinnamon-updates") != self.show_cinnamon_enabled or \
+                                    settings.get_boolean("show-flatpak-updates") != self.show_flatpak_enabled
 
 ######### EVENT HANDLERS #########
 
@@ -1683,6 +1805,11 @@ class MintUpdate():
 
     def set_status_message(self, message):
         self.statusbar.push(self.context_id, message)
+
+    def set_status_message_from_thread(self, message):
+        Gdk.threads_enter()
+        self.set_status_message(message)
+        Gdk.threads_leave()
 
     def set_status(self, message, tooltip, icon, visible):
         self.set_status_message(message)
@@ -1763,9 +1890,9 @@ class MintUpdate():
         iter = model.get_iter_first()
         download_size = 0
         num_selected = 0
-        while (iter != None):
+        while iter is not None:
             checked = model.get_value(iter, UPDATE_CHECKED)
-            if (checked):
+            if checked:
                 size = model.get_value(iter, UPDATE_SIZE)
                 download_size = download_size + size
                 num_selected = num_selected + 1
@@ -1790,7 +1917,7 @@ class MintUpdate():
         model = self.treeview.get_model()
         if len(model):
             iter = model.get_iter_first()
-            while (iter != None):
+            while iter is not None:
                 model.set_value(iter, 0, False)
                 iter = model.iter_next(iter)
 
@@ -1802,8 +1929,8 @@ class MintUpdate():
     def select_updates(self, security=False, kernel=False):
         model = self.treeview.get_model()
         iter = model.get_iter_first()
-        while (iter != None):
-            update =  model.get_value(iter, UPDATE_OBJ)
+        while iter is not None:
+            update = model.get_value(iter, UPDATE_OBJ)
             if security:
                 if update.type == "security":
                     model.set_value(iter, UPDATE_CHECKED, True)
@@ -1863,7 +1990,7 @@ class MintUpdate():
     def toggled(self, renderer, path):
         model = self.treeview.get_model()
         iter = model.get_iter(path)
-        if (iter != None):
+        if iter is not None:
             model.set_value(iter, UPDATE_CHECKED, (not model.get_value(iter, UPDATE_CHECKED)))
 
         self.update_installable_state()
@@ -1874,7 +2001,7 @@ class MintUpdate():
             self.textview_description.set_text("")
             self.textview_changes.set_text("")
             (model, iter) = selection.get_selected()
-            if (iter != None):
+            if iter is not None:
                 update = model.get_value(iter, UPDATE_OBJ)
                 description = update.description.replace("\\n", "\n")
                 desc_tab = self.notebook_details.get_nth_page(TAB_DESC)
@@ -1890,6 +2017,21 @@ class MintUpdate():
 
                     self.notebook_details.set_current_page(TAB_DESC)
                     self.notebook_details.set_tab_label_text(desc_tab, _("Information"))
+                elif update.type == "flatpak":
+                    if update.link is not None:
+                        website_label_str = _("Website: %s") % update.link
+                        description = "%s\n\n%s" % (update.description, website_label_str)
+                    else:
+                        description = "%s" % update.description
+
+                    self.textview_description.set_text(description)
+
+                    self.notebook_details.get_nth_page(TAB_PACKAGES).show()
+                    self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
+
+                    self.notebook_details.set_current_page(TAB_DESC)
+                    self.notebook_details.set_tab_label_text(desc_tab, _("Information"))
+                    self.display_package_list(update, is_flatpak=True)
                 else:
                     self.textview_description.set_text(description)
                     self.notebook_details.get_nth_page(TAB_PACKAGES).show()
@@ -1897,13 +2039,13 @@ class MintUpdate():
                     self.notebook_details.set_tab_label_text(desc_tab, _("Description"))
                     self.display_package_list(update)
 
-                if self.notebook_details.get_current_page() == 2:
-                    # Changelog tab
-                    retriever = ChangelogRetriever(update, self)
-                    retriever.start()
-                    self.changelog_retriever_started = True
-                else:
-                    self.changelog_retriever_started = False
+                    if self.notebook_details.get_current_page() == 2:
+                        # Changelog tab
+                        retriever = ChangelogRetriever(update, self)
+                        retriever.start()
+                        self.changelog_retriever_started = True
+                    else:
+                        self.changelog_retriever_started = False
 
         except Exception as e:
             print (e)
@@ -1919,22 +2061,27 @@ class MintUpdate():
             retriever.start()
             self.changelog_retriever_started = True
 
-    def display_package_list(self, update):
+    def display_package_list(self, update, is_flatpak=False):
         prefix = "\n    • "
         count = len(update.package_names)
+        if is_flatpak:
+            size_label = _("Total size: <")
+        else:
+            size_label = _("Total size:")
+
         packages = "%s%s%s\n%s %s\n\n" % \
             (gettext.ngettext("This update affects the following installed package:",
                       "This update affects the following installed packages:",
                       count),
              prefix,
              prefix.join(sorted(update.package_names)),
-             _("Total size:"), size_to_string(update.size))
+             size_label, size_to_string(update.size))
         self.textview_packages.set_text(packages)
 
     def treeview_right_clicked(self, widget, event):
         if event.button == 3:
             (model, iter) = widget.get_selection().get_selected()
-            if (iter != None):
+            if iter is not None:
                 update = model.get_value(iter, UPDATE_OBJ)
                 menu = Gtk.Menu()
                 menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore the current update for this package"))
@@ -1962,15 +2109,17 @@ class MintUpdate():
         return not self.window.get_visible()
 
     def tray_activate(self, time=0):
-        if self.window.is_active():
+        try:
+            focused = self.window.get_window().get_state() & Gdk.WindowState.FOCUSED
+        except:
+            focused = self.window.is_active() and self.window.get_visible()
+
+        if focused:
             self.save_window_size()
             self.window.hide()
         else:
             self.window.show()
             self.window.present_with_time(time)
-
-    def on_appindicator_activated(self, widget):
-        self.tray_activate()
 
     def on_statusicon_activated(self, icon, button, time):
         if button == Gdk.BUTTON_PRIMARY:
@@ -2006,6 +2155,10 @@ class MintUpdate():
         window = builder.get_object("main_window")
         window.set_title(_("Information"))
         window.set_icon_name("mintupdate")
+
+        # Add mintupdate style class for easier theming
+        self.window.get_style_context().add_class('mintupdate')
+
         textbuffer = builder.get_object("log_textview").get_buffer()
         window.connect("destroy", destroy_window)
         builder.get_object("close_button").connect("clicked", destroy_window)
@@ -2028,6 +2181,9 @@ class MintUpdate():
         window.set_icon_name("mintupdate")
         window.set_title(_("History of Updates"))
 
+        # Add mintupdate style class for easier theming
+        self.window.get_style_context().add_class('mintupdate')
+
         (COL_DATE, COL_TYPE, COL_NAME, COL_OLD_VER, COL_NEW_VER) = range(5)
         model = Gtk.TreeStore(str, str, str, str, str)
 
@@ -2041,26 +2197,27 @@ class MintUpdate():
         column_package = Gtk.TreeViewColumn(_("Update"), Gtk.CellRendererText(), text=COL_NAME)
         column_package.set_sort_column_id(COL_NAME)
         column_package.set_resizable(True)
-        column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(), text=COL_OLD_VER)
-        column_old_version.set_sort_column_id(COL_OLD_VER)
-        column_old_version.set_resizable(True)
-        column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(), text=COL_NEW_VER)
-        column_new_version.set_sort_column_id(COL_NEW_VER)
-        column_new_version.set_resizable(True)
+        self.column_old_version = Gtk.TreeViewColumn(_("Old Version"), Gtk.CellRendererText(ellipsize=Pango.EllipsizeMode.END), text=COL_OLD_VER)
+        self.column_old_version.set_sort_column_id(COL_OLD_VER)
+        self.column_old_version.set_resizable(True)
+        self.column_new_version = Gtk.TreeViewColumn(_("New Version"), Gtk.CellRendererText(ellipsize=Pango.EllipsizeMode.END), text=COL_NEW_VER)
+        self.column_new_version.set_sort_column_id(COL_NEW_VER)
+        self.column_new_version.set_resizable(True)
         treeview.append_column(column_date)
         treeview.append_column(column_type)
         treeview.append_column(column_package)
-        treeview.append_column(column_old_version)
-        treeview.append_column(column_new_version)
+        treeview.append_column(self.column_old_version)
+        treeview.append_column(self.column_new_version)
         treeview.set_headers_clickable(True)
         treeview.set_reorderable(False)
-        treeview.set_search_column(0)
+        treeview.set_search_equal_func(name_search_func)
         treeview.set_enable_search(True)
         treeview.show()
 
         updates = []
         apt_updates = []
         cinnamon_updates = []
+        flatpak_updates = []
 
         if os.path.isfile("/var/log/dpkg.log"):
             apt_updates = subprocess.run('zgrep " upgrade " -sh /var/log/dpkg.log*',
@@ -2108,10 +2265,51 @@ class MintUpdate():
                         model.set_value(iter, COL_NEW_VER, newVersion)
                         model.set_value(iter, COL_TYPE, spice_type)
 
-        updates = apt_updates + cinnamon_updates
+        if FLATPAK_SUPPORT:
+            logfile = flatpakUpdater.LOG_PATH
+            if os.path.isfile(logfile):
+                with open(logfile, "r") as f:
+                    for entry in f:
+                        values = entry.strip("\n").split("::")
+                        if len(values) == 7:
+                            (date, time, fp_type, action, name, old_version, new_version) = values
+
+                            iter = model.insert_before(None, None)
+                            model.set_value(iter, COL_NAME, name)
+                            model.row_changed(model.get_path(iter), iter)
+                            model.set_value(iter, COL_DATE, "%s - %s" % (date, time))
+                            model.set_value(iter, COL_OLD_VER, old_version)
+                            model.set_value(iter, COL_NEW_VER, new_version)
+                            model.set_value(iter, COL_TYPE, "flatpak-runtime" if fp_type == "runtime" else "flatpak-app")
+
+
+        updates = apt_updates + cinnamon_updates + flatpak_updates
 
         model.set_sort_column_id(COL_DATE, Gtk.SortType.DESCENDING)
         treeview.set_model(model)
+        treeview.set_search_column(COL_NAME)
+
+        def on_query_tooltip(widget, x, y, keyboard, tooltip):
+            if not widget.get_tooltip_context(x, y, keyboard):
+                return False
+            else:
+                on_row, wx, wy, model, path, iter = widget.get_tooltip_context(x, y, keyboard)
+                bx, by = widget.convert_widget_to_bin_window_coords(x, y)
+                result = widget.get_path_at_pos(bx, by)
+
+                if result is not None:
+                    path, column, cx, cy = result
+                    if column == self.column_old_version:
+                        text = model[iter][COL_OLD_VER]
+                    elif column == self.column_new_version:
+                        text = model[iter][COL_NEW_VER]
+                    else:
+                        return False
+
+                    tooltip.set_text(text)
+                    return True
+
+        treeview.connect("query-tooltip", on_query_tooltip)
 
         def destroy_window(widget):
             self.history_window_showing = False
@@ -2149,7 +2347,7 @@ class MintUpdate():
         dlg.set_version("__DEB_VERSION__")
         dlg.set_icon_name("mintupdate")
         dlg.set_logo_icon_name("mintupdate")
-        dlg.set_website("http://www.github.com/linuxmint/mintupdate")
+        dlg.set_website("https://www.github.com/linuxmint/mintupdate")
         def close(w, res):
             if res == Gtk.ResponseType.CANCEL or res == Gtk.ResponseType.DELETE_EVENT:
                 w.destroy()
@@ -2174,7 +2372,7 @@ class MintUpdate():
             window.set_transient_for(self.window)
 
         window.show_all()
-        window.present()
+        window.present_with_time(Gtk.get_current_event_time())
 
 ######### PREFERENCES SCREEN #########
 
@@ -2188,8 +2386,13 @@ class MintUpdate():
         builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         window = builder.get_object("main_window")
+        window.set_transient_for(self.window)
         window.set_title(_("Preferences"))
         window.set_icon_name("mintupdate")
+
+        # Add mintupdate style class for easier theming
+        self.window.get_style_context().add_class('mintupdate')
+
         window.connect("destroy", self.close_preferences, window)
 
         switch_container = builder.get_object("switch_container")
@@ -2205,7 +2408,7 @@ class MintUpdate():
         page_holder.add(stack)
 
         stack.add_titled(builder.get_object("page_options"), "page_options", _("Options"))
-        stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Blacklist"))
+        stack.add_titled(builder.get_object("page_blacklist"), "page_blacklist", _("Packages"))
         stack.add_titled(builder.get_object("page_auto"), "page_auto", _("Automation"))
 
         # Options
@@ -2298,6 +2501,23 @@ class MintUpdate():
         switch = GSettingsSpinButton(_("Don't show notifications if an update was applied in the last (in days):"), "com.linuxmint.updates", "tracker-grace-period", mini=2, maxi=90, step=1, page=5)
         section.add_reveal_row(switch, "com.linuxmint.updates", "tracker-disable-notifications", [False])
 
+        box = builder.get_object("update_types_box")
+        page = SettingsPage()
+        box.pack_start(page, True, True, 0)
+
+        # if False:
+        if os.path.exists("/usr/bin/cinnamon") or os.path.exists("/usr/bin/flatpak"):
+            section = page.add_section(_("Update types"), _("In addition to system packages, check for:"))
+
+            if os.path.exists("/usr/bin/cinnamon"):
+                section.add_row(GSettingsSwitch(_("Cinnamon spice updates"), "com.linuxmint.updates", "show-cinnamon-updates"))
+            if os.path.exists("/usr/bin/flatpak"):
+                section.add_row(GSettingsSwitch(_("Flatpak updates"), "com.linuxmint.updates", "show-flatpak-updates"))
+            box.show_all()
+        else:
+            box.set_no_show_all(True)
+            box.hide()
+
         # Blacklist
         treeview_blacklist = builder.get_object("treeview_blacklist")
         column = Gtk.TreeViewColumn(_("Ignored Updates"), Gtk.CellRendererText(), text=BLACKLIST_PKG_NAME)
@@ -2325,7 +2545,7 @@ class MintUpdate():
         box.pack_start(page, True, True, 0)
         section = page.add_section(_("Package Updates"), _("Performed as root on a daily basis"))
         autoupgrade_switch = Switch(_("Apply updates automatically"))
-        autoupgrade_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["upgrade"][0]))
+        autoupgrade_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["upgrade"][2]))
         autoupgrade_switch.content_widget.connect("notify::active", self.set_auto_upgrade)
         section.add_row(autoupgrade_switch)
         autodownload_switch = Switch(_("Download updates automatically"))
@@ -2344,7 +2564,7 @@ class MintUpdate():
             switch = GSettingsSwitch(_("Update Cinnamon spices automatically"), "com.linuxmint.updates", "auto-update-cinnamon-spices")
             additional_options.append(switch)
         if os.path.exists("/usr/bin/flatpak"):
-            switch = GSettingsSwitch(_("Update flatpaks automatically"), "com.linuxmint.updates", "auto-update-flatpaks")
+            switch = GSettingsSwitch(_("Update Flatpaks automatically"), "com.linuxmint.updates", "auto-update-flatpaks")
             additional_options.append(switch)
         if len(additional_options) > 0:
             section = page.add_section(_("Other Updates"), _("Performed when you log in"))
@@ -2352,7 +2572,7 @@ class MintUpdate():
                 section.add_row(switch)
         section = page.add_section(_("Automatic Maintenance"), _("Performed as root on a weekly basis"))
         autoremove_switch = Switch(_("Remove obsolete kernels and dependencies"))
-        autoremove_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["autoremove"][0]))
+        autoremove_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["autoremove"][2]))
         autoremove_switch.content_widget.connect("notify::active", self.set_auto_remove)
         section.add_row(autoremove_switch)
         section.add_note(_("This option always leaves at least one older kernel installed and never removes manually installed kernels."))
@@ -2376,7 +2596,7 @@ class MintUpdate():
             self.auto_refresh.start()
 
     def set_auto_upgrade(self, widget, param):
-        exists = os.path.isfile(AUTOMATIONS["upgrade"][0])
+        exists = os.path.isfile(AUTOMATIONS["upgrade"][2])
         action = None
         if widget.get_active() and not exists:
             action = "enable"
@@ -2384,7 +2604,7 @@ class MintUpdate():
             action = "disable"
         if action:
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "upgrade", action])
-        if widget.get_active() != os.path.isfile(AUTOMATIONS["upgrade"][0]):
+        if widget.get_active() != os.path.isfile(AUTOMATIONS["upgrade"][2]):
             widget.set_active(not widget.get_active())
 
     def set_auto_download(self, widget, param):
@@ -2400,7 +2620,7 @@ class MintUpdate():
             widget.set_active(not widget.get_active())
 
     def set_auto_remove(self, widget, param):
-        exists = os.path.isfile(AUTOMATIONS["autoremove"][0])
+        exists = os.path.isfile(AUTOMATIONS["autoremove"][2])
         action = None
         if widget.get_active() and not exists:
             action = "enable"
@@ -2408,7 +2628,7 @@ class MintUpdate():
             action = "disable"
         if action:
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "autoremove", action])
-        if widget.get_active() != os.path.isfile(AUTOMATIONS["autoremove"][0]):
+        if widget.get_active() != os.path.isfile(AUTOMATIONS["autoremove"][2]):
             widget.set_active(not widget.get_active())
 
     def save_blacklist(self, treeview_blacklist):
@@ -2456,7 +2676,7 @@ class MintUpdate():
     def remove_blacklisted_package(self, widget, treeview_blacklist):
         selection = treeview_blacklist.get_selection()
         (model, iter) = selection.get_selected()
-        if (iter != None):
+        if iter is not None:
             pkg = model.get_value(iter, BLACKLIST_PKG_NAME)
             model.remove(iter)
         self.save_blacklist(treeview_blacklist)
@@ -2465,7 +2685,104 @@ class MintUpdate():
         self.window.set_sensitive(True)
         self.preferences_window_showing = False
         window.destroy()
-        self.refresh()
+
+        if self.app_restart_required:
+            self.restart_app()
+        else:
+            self.refresh()
+
+    def restart_app(self):
+        self.logger.write("Restarting update manager...")
+        os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+
+    def inhibit_pm(self, reason):
+        if self.inhibit_cookie > 0:
+            return
+
+        try:
+            bus = Gio.bus_get_sync(Gio.BusType.SESSION)
+        except GLib.Error as e:
+            self.logger.write("Couldn't get session bus to inhibit power management: %s" % e.message)
+            return
+
+        name, path, iface, args, unused = self.get_inhibitor_info(reason)
+
+        try:
+            ret = bus.call_sync(
+                name,
+                path,
+                iface,
+                "Inhibit",
+                args,
+                GLib.VariantType("(u)"),
+                Gio.DBusCallFlags.NONE,
+                2000,
+                None
+            )
+        except GLib.Error as e:
+            self.logger.write("Could not inhibit power management: %s" % e.message)
+            return
+
+        self.logger.write("Inhibited power management")
+        self.inhibit_cookie = ret.unpack()[0]
+
+    def uninhibit_pm(self):
+        if self.inhibit_cookie > 0:
+            try:
+                bus = Gio.bus_get_sync(Gio.BusType.SESSION)
+            except GLib.Error as e:
+                self.logger.write("Couldn't get session bus to uninhibit power management: %s" % e.message)
+                return
+
+            name, path, iface, unused_args, uninhibit_method = self.get_inhibitor_info("none")
+
+            try:
+                bus.call_sync(
+                    name,
+                    path,
+                    iface,
+                    uninhibit_method,
+                    GLib.Variant("(u)", (self.inhibit_cookie,)),
+                    None,
+                    Gio.DBusCallFlags.NONE,
+                    2000,
+                    None
+                )
+            except GLib.Error as e:
+                self.logger.write("Could not uninhibit power management: %s" % e.message)
+                return
+
+            self.logger.write("Resumed power management")
+            self.inhibit_cookie = 0
+
+    def get_inhibitor_info(self, reason):
+        session = os.environ.get("XDG_CURRENT_DESKTOP")
+
+        if session == "XFCE":
+            name = "org.freedesktop.PowerManagement"
+            path = "/org/freedesktop/PowerManagement/Inhibit"
+            iface = "org.freedesktop.PowerManagement.Inhibit"
+            args = GLib.Variant("(ss)", ("MintUpdate", reason))
+            uninhibit_method = "UnInhibit"
+        else:
+            # https://github.com/linuxmint/cinnamon-session/blob/master/cinnamon-session/csm-inhibitor.h#L51-L58
+            #       LOGOUT | SUSPEND
+            flags =      1 | 4
+
+            xid = 0
+            if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+                try:
+                    xid = self.window.get_window().get_xid()
+                except:
+                    pass
+
+            name = "org.gnome.SessionManager"
+            path = "/org/gnome/SessionManager"
+            iface = "org.gnome.SessionManager"
+            args = GLib.Variant("(susu)", ("MintUpdate", xid, reason, flags))
+            uninhibit_method = "Uninhibit"
+
+        return name, path, iface, args, uninhibit_method
 
 ######### KERNEL FEATURES #########
 

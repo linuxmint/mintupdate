@@ -5,6 +5,7 @@ import json
 import os
 import sys
 import subprocess
+from pathlib import Path
 
 if not os.getuid() == 0:
     print("This command needs to be run as root or with sudo.")
@@ -21,9 +22,13 @@ with open("/usr/share/linuxmint/mintupdate/automation/index.json") as f:
 automation_id = sys.argv[1]
 
 def do_enable(_automation_id):
-    (filename, name) = AUTOMATIONS[_automation_id]
-    if not os.path.isfile(filename) or sys.argv[1] == "blacklist":
+    (filename, name, touchfile) = AUTOMATIONS[_automation_id]
+    if touchfile is not None or sys.argv[1] == "blacklist":
         if name == "systemd":
+            touch = Path(touchfile)
+            touch.parent.mkdir(parents=True, exist_ok=True)
+            touch.touch(exist_ok=True)
+
             basename = os.path.basename(filename)
             subprocess.run(["/bin/systemctl", "start", basename])
             subprocess.run(["/bin/systemctl", "enable", basename])
@@ -35,9 +40,13 @@ def do_enable(_automation_id):
                 add_user_blacklist(filename)
 
 def do_disable(_automation_id):
-    (filename, name) = AUTOMATIONS[_automation_id]
-    if os.path.isfile(filename):
+    (filename, name, touchfile) = AUTOMATIONS[_automation_id]
+    if touchfile is not None:
         if name == "systemd":
+            touch = Path(touchfile)
+            touch.parent.mkdir(parents=True, exist_ok=True)
+            touch.unlink(missing_ok=True)
+
             basename = os.path.basename(filename)
             subprocess.run(["/bin/systemctl", "stop", basename])
             subprocess.run(["/bin/systemctl", "disable", basename])

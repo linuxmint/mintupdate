@@ -11,86 +11,86 @@
 
     <include xmlns="http://www.w3.org/2001/XInclude" href="legal.xml"/>
 
-    <desc>Kernels and kernel updates</desc>
+    <desc>Jedra in posodobitve jedra</desc>
   </info>
 
-  <title>Kernel updates</title>
+  <title>Posodobitev jedra</title>
 
-  <p>The kernel is the central part of the operating system. Among other things, it is responsible for hardware support.</p>
+  <p>Jedro je osrčje operacijskega sistema. Med drugim je odgovorno za podporo strojne opreme.</p>
 
-  <note><p>In Linux Mint, kernel updates bring both security patches and bug fixes (and sometimes even new features), and they impact critical parts of the operating system. This makes kernel updates important from a security point of view, but also prone to regressions which can be hard to fix for novice users.</p></note>
+  <note><p>V Linux Mint posodobitve jedra prinašajo tako varnostne popravke kot popravke hroščev (in včasih celo nove funkcionalnosti), ti pa vplivajo na kritične dele operacijskega sistema. Zato so posodobitve jedra pomembne z varnostne plati, hkrati pa tudi občutljive za regresije, ki jih uporabniki začetniki težko razrešijo.</p></note>
 
-  <p>From a security point of view, it is important to apply kernel updates.</p>
+  <p>Iz varnostnega gledišča je pomembno, da uveljavljate posodobitve jedra.</p>
 
-  <p>A kernel regression could however affect your ability to connect to the Internet, to start your desktop environment or even to boot the operating system.</p>
+  <p>Regresija jedra bi lahko vplivala na vaše povezovanje na internet, na zagon namiznega okolja ali celo na zagon operacijskega sistema.</p>
 
-  <p>For this reason it is important to be cautious when applying kernel updates and to know how to revert them when something goes wrong.</p>
+  <p>Zaradi tega je pomembno, da ste previdni, ko posodabljate jedro, in da veste, kako povrniti spremembe, če gre kaj narobe.</p>
 
   <section id="kernel1">
-    <title>Multiple kernels can be installed</title>
+    <title>Nameščenih je lahko več jeder</title>
 
-    <p>When you apply an update, you replace the old version of the software with the new version.</p>
+    <p>Ko uveljavite posodobitev, zamenjate staro različico programja z novo.</p>
 
-    <p>Things are different when it comes to kernels. When you apply a "kernel update", you don't actually update the kernel, you install a new kernel alongside the existing one.</p>
+    <p>Drugače je z jedri. Ko uveljavite posodobitev jedra, dejansko ne posodobite jedra, temveč namestite novo jedro ob bok obstoječega.</p>
 
-    <p>Every time you apply a kernel update, you install a new kernel on the system, without removing the old ones.</p>
+    <p>Ko uveljavite posodobitev jedra, namestite novo jedro na sistem, ne da bi odstranili prejšnjih.</p>
 
-    <p>At boot time, the computer selects the most recent one.</p>
+    <p>Ob zagonu računalnik izbere najnovejšega.</p>
 
   </section>
 
   <section id="kernel2">
-    <title>Identifying the current kernel</title>
+    <title>Identifikacija trenutnega jedra</title>
 
-    <p>If you want to know which kernel you are currently using, open a terminal and type:</p>
+    <p>Če želite vedeti, katero izdajo jedra trenutno uporabljate, odprite terminal in vnesite:</p>
 
     <screen>uname -a</screen>
 
   </section>
 
   <section id="kernel3">
-    <title>Installing and removing kernels</title>
+    <title>Nameščanje in odstranjevanje jeder</title>
 
-    <p>You can install and remove kernels from the Update Manager.</p>
+    <p>Jedra lahko namestite in odstranite s pomočjo Upravitelja posodobitev.</p>
 
-    <p>Select "View" -&gt; "Linux Kernels" in the menu.</p>
+    <p>V meniju izberite »Pogled« -&gt; »Jedra Linuxa«.</p>
 
-    <note><p>You cannot remove the kernel you are currently using. To remove it, you need to reboot and select a different kernel to boot with.</p></note>
+    <note><p>Jedra, ki ga trenutno uporabljate, ne morete odstraniti. Da bi ga odstranili, morate ponovno zagnati sistem in izbrati drugo jedro, s katerim računalnik zaženete.</p></note>
 
   </section>
 
   <section id="kernel4">
-    <title>Selecting a kernel</title>
+    <title>Izbiranje jedra</title>
 
-    <p>You can have multiple kernels installed, but you can only run one kernel at a time.</p>
+    <p>Nameščenih imate lahko več jeder, naenkrat pa lahko poganjate le eno jedro.</p>
 
-    <p>When you boot the computer, the very first screen is called the Grub menu. This menu allows you to choose operating systems but you can also use it to select a kernel.</p>
+    <p>Prvi zaslon ob zagonu računalnika je imenovan meni Grub. Ta meni omogoča izbor operacijskega sistema, uporabite pa ga lahko tudi za izbor jedra.</p>
 
     <note><p>If you only have one operating system installed, your boot sequence might skip the Grub menu. To force the Grub menu to show, boot the computer and keep pressing the left <key>Shift</key> key.</p></note>
 
-    <p>To select a kernel, choose "Advanced options" in the Grub menu. You should see all the kernels currently installed. Select the one you want to use and your computer will boot with that one.</p>
+    <p>Za izbor jedra izberite "Napredne možnosti" v meniju Grub. Izpisati bi se morala vsa trenutno nameščena jedra. Izberite tistega, ki ga želite uporabiti, in vaš računalnik se bo zagnal z njim.</p>
 
   </section>
 
   <section id="kernel5">
-    <title>Checking the DKMS status</title>
+    <title>Preverjanje stanja DKMS</title>
 
-    <p>The kernel includes all open source drivers and these usually work very well. Proprietary drivers (NVIDIA, AMD, Broadcom...etc) are not included and they need to compile themselves against every kernel you install. This is done via a mechanism called DKMS.</p>
+    <p>Jedro vključuje vse odprto-kodne gonilnike in ti običajno delujejo zelo dobro. Lastniški gonilniki (NVIDIA, AMD, Broadcom, ...) niso vključeni in jih je potrebno prevesti z vsakim jedrom, ki ga namestite. To opravite prek mehanizma KDMS.</p>
 
-    <p>If a proprietary driver isn't properly recompiled with DKMS for one of your kernels, it will not function correctly with that kernel.</p>
+    <p>Če lastniški gonilnik ni pravilno ponovno preveden z DMKS za enega od vaših jeder, s tem jedrom ne bo pravilno deloval.</p>
 
-    <p>After installing or removing a kernel, you can check your DKMS status, to make sure all proprietary drivers are properly installed for each of your kernels with the following command:</p>
+    <p>Po namestitvi ali odstranitvi jedra lahko preverite stanje DKMS, da preverite, če so vsi lastniški gonilniki ustrezno nameščeni za vsakega od jeder z naslednjim ukazom:</p>
 
     <screen>dkms status</screen>
 
-    <note><p>New kernel series usually become available before proprietary drivers support them via DKMS. If you are using proprietary drivers, it is recommended to stick to kernel updates and not to install kernels from series which are newer than the series of the recommended kernels.</p></note>
+    <note><p>Nov niz jeder je običajno na voljo pred podporo lastniških gonilnikov zanj prek DKMS. Če uporabljate lastniške gonilnike, priporočamo, da se držite posodobitev jedra in da ne nameščate jeder iz nizov, ki so novejši od niza priporočenih jeder.</p></note>
 
   </section>
 
   <section id="kernel6">
-    <title>Reverting a kernel update</title>
+    <title>Povrnitev posodobitve jedra</title>
 
-    <p>If something doesn't work with the latest kernel you installed (or the latest kernel update), reboot, select the kernel you were previously using, remove the new kernel and reboot again.</p>
+    <p>Če nekaj ne deluje z najnovejšim jedrom, ki ste ga namestili (ali z najnovejšo posodobitvijo jedra), ponovno zaženite računalnik, izberite jedro, ki ste ga doslej uporabljali, odstranite novo dodano jedro ter ponovno zaženite računalnik.</p>
 
   </section>
 

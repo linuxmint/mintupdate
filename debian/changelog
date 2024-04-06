@@ -1,3 +1,389 @@
+mintupdate (6.1.0) wilma; urgency=medium
+
+  [ Michael Webster ]
+  * Only try to pass window ids to synaptic in an x11 session.
+
+  [ Clement Lefebvre ]
+  * Include potential downgrades
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 27 Feb 2024 17:08:02 +0000
+
+mintupdate (6.0.9) virginia; urgency=medium
+
+  * rel_upgrade.py: Simplify rel notes URL
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 12 Jan 2024 11:37:39 +0000
+
+mintupdate (6.0.8) virginia; urgency=medium
+
+  * Don't rely on newly introduced constant from Cinnamon 6.0
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 11 Jan 2024 15:53:58 +0000
+
+mintupdate (6.0.7) virginia; urgency=medium
+
+  * Cinnamon spices: Identify Nemo actions
+  * l10n: Update POT
+  * l10n: Update translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 04 Jan 2024 16:43:29 +0000
+
+mintupdate (6.0.6) virginia; urgency=medium
+
+  * l10n: Update translations
+  * l10n: Update files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 03 Dec 2023 15:05:54 +0000
+
+mintupdate (6.0.5) faye; urgency=medium
+
+  [ Michael Webster ]
+  * Fix install button icon name.
+  * Use platform.version() to check the currently active kernel in LMDE.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 21 Sep 2023 09:37:33 +0100
+
+mintupdate (6.0.4) faye; urgency=medium
+
+  [ Michael Webster ]
+  * Maintain a useful height for the details pane when using a low- resolution monitor.
+
+  [ Anatoly Bashmakov ]
+  * fix freeze, bug 833 (#834)
+
+  [ Michael Webster ]
+  * mintUpdate.py: Use xapp.os.get_os_release_info() instead of checking the lsb_release command.
+
+  [ Clement Lefebvre ]
+  * Simplify LMDE check
+  * Simplify mirror identification
+  * UI: Fix install button icon
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 20 Sep 2023 09:56:25 +0100
+
+mintupdate (6.0.3) victoria; urgency=medium
+
+  * l10n: Update translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 07 Jul 2023 17:04:43 +0200
+
+mintupdate (6.0.2) victoria; urgency=medium
+
+  * kernelwindow: Fix l10n
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 26 Jun 2023 13:02:39 +0200
+
+mintupdate (6.0.1) victoria; urgency=medium
+
+  * l10n: Update translations
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 08 Jun 2023 11:48:26 +0100
+
+mintupdate (6.0.0) victoria; urgency=medium
+
+  [ Michael Webster ]
+  * mintupdate-launcher: Purge unused and un-pinned flatpak runtimes even if auto-update is disabled.
+  * mintupdate-launcher: Install a new matching flatpak at startup even if automatic updates are disabled.
+
+  [ hduelme ]
+  * add missing variable causing potential type error (#799)
+  * simplify boolean expressions (#797)
+
+  [ Michael Webster ]
+  * Fix interactive search in the main treeview and update history.
+
+  [ hduelme ]
+  * remove unused variables (#802)
+
+  [ Michael Webster ]
+  * Re-save preferences.ui for newer Gtk.
+  * Add settings to configure Cinnamon and Flatpak support.
+
+  [ hduelme ]
+  * add type hints to get_days_since functions (#798)
+  *  replace equality None check with identity None check (#804)
+
+  [ Michael Webster ]
+  * spices: Don't stop updating after encountering an active spice.
+  * Inhibit power management during ui-based refreshes and installs.
+
+  [ Clement Lefebvre ]
+  * Check kernel version before recommending a restart
+  * Self-updates: Show pkg names and versions
+
+  [ Toshayo ]
+  * Added mintupdate style class to the window for easier theming (#815)
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 06 Jun 2023 11:40:35 +0100
+
+mintupdate (5.9.7) vera; urgency=medium
+
+  [ Michael Webster ]
+  * flatpak worker: Check task.transaction before processing updates, call Gtk.main_quit on the main loop.
+  * Remove unused .circleci folder.
+  * Make sure all Gtk calls during the refresh and install threads are guarded by Gdk.threads_enter/leave.
+  * flatpaks: See if any flatpaks are actually installed before bothering to check for updates.
+
+  [ hduelme ]
+  * fix typo causing potential type error (#785)
+
+  [ Tibladar ]
+  * Update 'CVE Tracker' URL (#773)
+  * Update URLs to HTTPS where applicable (#774)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 11 Jan 2023 11:40:09 +0000
+
+mintupdate (5.9.6) vera; urgency=medium
+
+  [ Michael Webster ]
+  * mintupdate: Use a C long type for the update size column.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 20 Dec 2022 22:22:49 +0000
+
+mintupdate (5.9.5) vera; urgency=medium
+
+  [ Michael Webster ]
+  * Add workflow for actions.
+  * build.yml - missing comma.
+  * flatpak-update-worker: don't initialize the installer twice.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 19 Dec 2022 15:08:11 +0000
+
+mintupdate (5.9.4) vera; urgency=medium
+
+  [ Michael Webster ]
+  * Break the flatpak update work into a separate process.
+  * Clean up some things
+
+  [ Clement Lefebvre ]
+  * Fix some exception types
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 17 Dec 2022 13:38:14 +0000
+
+mintupdate (5.9.3) vera; urgency=medium
+
+  * l10n: Update translations
+  * l10n: Update files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 16 Dec 2022 13:10:39 +0000
+
+mintupdate (5.9.2) vera; urgency=medium
+
+  [ Michael Webster ]
+  * Make sure to always use the proper flatpak symbolic icon.
+
+  [ Tibladar ]
+  * Add size support for Flatpak and Spices (#775)
+
+  [ Michael Webster ]
+  * Show flatpak updates in the update history.
+  * flatpaks: Fix missing argument for specifying a remote.
+  * Give refresh, install and flatpak threads names.
+  * flatpaks: Use the existing cache, only rebuild it during a full refresh (background or user-initiated) or if it doesn't exist.
+  * Bump mint-common version.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 15 Dec 2022 12:55:30 +0000
+
+mintupdate (5.9.1) vera; urgency=medium
+
+  [ Michael Webster ]
+  * Let the flatpak updater specify a remote when looking for package information.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 02 Dec 2022 17:21:35 +0000
+
+mintupdate (5.9.0) vera; urgency=medium
+
+  [ Michael Webster ]
+  * Selective flatpak updates. (#703)
+
+  [ Clement Lefebvre ]
+  * Depend on mint-common 2.2.0
+  * Packaging: Remove obsolete conflicts/replaces
+
+  [ Michael Webster ]
+  * flatpak automatic updates: bypass system/user prompt if a user installation exists.
+  * Fix description tab contents for flatpaks, add a default summary for runtimes.
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 29 Nov 2022 16:26:46 +0000
+
+mintupdate (5.8.9) vanessa; urgency=medium
+
+  * Adapt to new PPA url
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 20 Sep 2022 13:59:17 +0100
+
+mintupdate (5.8.8) vanessa; urgency=medium
+
+  [ Michael Webster ]
+  * mintupdate-automation: Don't check if the automation flags exist already before adding/removing them.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 13 Aug 2022 12:19:13 +0200
+
+mintupdate (5.8.7) vanessa; urgency=medium
+
+  * l10n: Update translations
+  * l10n: Update files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 24 Jul 2022 12:21:05 +0200
+
+mintupdate (5.8.6) vanessa; urgency=medium
+
+  * l10n: Update translations
+  * l10n: Update files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 26 Jun 2022 16:00:29 +0200
+
+mintupdate (5.8.5) vanessa; urgency=medium
+
+  [ Michael Webster ]
+  * automation: Don't rely solely on systemd behavior for enabling/ (#737)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 22 Jun 2022 08:49:13 +0200
+
+mintupdate (5.8.4) vanessa; urgency=medium
+
+  [ Michael Webster ]
+  * postinst: Be sure the upgrade and autoremove services are disabled.
+
+  [ Clement Lefebvre ]
+  * Revert "Bump debhelper version."
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 21 Jun 2022 21:52:28 +0200
+
+mintupdate (5.8.3) vanessa; urgency=medium
+
+  [ Michael Webster ]
+  * Bump debhelper version.
+  * automation: Remove multi-user.target hooks.
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 21 Jun 2022 15:03:28 +0200
+
+mintupdate (5.8.2) una; urgency=medium
+
+  * Remove support for AppIndicator
+
+ -- Clement Lefebvre <clem@macbook>  Thu, 13 Jan 2022 16:05:56 +0000
+
+mintupdate (5.8.1) una; urgency=medium
+
+  * l10n: Update translations
+  * l10n: Update files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 31 Dec 2021 12:52:57 +0000
+
+mintupdate (5.8.0) una; urgency=medium
+
+  * l10n: Update translations
+  * l10n: Update files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 06 Dec 2021 15:41:27 +0000
+
+mintupdate (5.7.9) una; urgency=medium
+
+  [ Michael Webster ]
+  * Work around issue with GtkWindow focus tracking after a cinnamon restart.
+  * Don't restart cinnamon if no updates affected running xlets.
+
+  [ Kyle Laker ]
+  * Avoid unreachable message for non-HTTP mirrors (#701)
+
+  [ NikoKrause ]
+  * Change mintupdate-error-symbolic icon (#704)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 26 Nov 2021 11:00:07 +0000
+
+mintupdate (5.7.8) uma; urgency=medium
+
+  * Depend on gir1.2-notify-0.7
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 14 Jul 2021 09:50:03 +0100
+
+mintupdate (5.7.7) uma; urgency=medium
+
+  * Fix crash when APT sources are corrupt
+  * l10n: Update translations
+  * l10n: Generate files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 23 Jun 2021 12:01:05 +0100
+
+mintupdate (5.7.6) uma; urgency=medium
+
+  * Replace present() with present_with_time()
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 10 Jun 2021 20:12:52 +0100
+
+mintupdate (5.7.5) uma; urgency=medium
+
+  * l10n: Update translations
+  * l10n: Generate files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 10 Jun 2021 11:28:54 +0100
+
+mintupdate (5.7.4) uma; urgency=medium
+
+  [ Eric ]
+  * Fixed #656: upgrade warnings checkbox now works as expected
+
+  [ agent-redd ]
+  * Bugfix for "CVE Tracker" Link
+
+  [ Thomas Uhle ]
+  * Packaging: Adapt dependencies to reflect the switch from cron to systemd timers
+
+  [ Clement Lefebvre ]
+  * mintupdate-cli: Update description for install-recommends
+  * Record the last time the apply-updates button was pressed
+  * Depecations: Replace parser.unescape with html.unescape
+  * Present the window if the welcome screen needs to be acknowledged
+  * Remove unnecessary variable
+  * Simplify refresh thread
+  * Add tests for various cases
+  * Fix insensitive update button in self-update case
+  * Simplify refresh thread
+  * Add a test case for the apt policy
+  * Refactor code around mint layer detection
+  * test: Fix /lib copy call on merged systems
+  * Keep track of updates over time
+  * Notify user when updates are too old
+  * Add a setting to disable notifications
+  * Improve notification system
+  * Fix exception handling
+
+  [ Butterfly ]
+  * Always mark Chromium updates as security updates (#664)
+
+  [ Clement Lefebvre ]
+  * Fix a regression in previous commits
+  * Notifications: Fix i18n with ngettext
+
+  [ Michael Webster ]
+  * mintUpdate.py: Fix status icon activation.
+
+  [ Clement Lefebvre ]
+  * Add support for Cinnamon spices (#670)
+
+  [ Michael Webster ]
+  * mintUpdate.py: Set the transient-for property on the preferences window so it stays on top of and visible with the main window.
+
+  [ johanw ]
+  * No Updates without Power Supply
+  * Fixed some small bugs
+
+  [ Michael Webster ]
+  * mintUpdate.py: If the upgrade gets aborted by the user, abort the cinnamon updates also.
+  * Make nvidia driver updates require a reboot. Don't restart cinnamon if a reboot is neeed.
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 04 Jun 2021 11:53:32 +0100
+
 mintupdate (5.7.3) ulyssa; urgency=medium
 
   * rel_upgrade_root: Handle package additions/removals

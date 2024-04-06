@@ -19,6 +19,9 @@ gettext.install("mintupdate", "/usr/share/locale")
 
 meta_names = []
 
+# packages which description is incorrect in Ubuntu (usually those which were replaced by snap dependencies)
+NON_TRANSLATED_PKGS = ["firefox", "thunderbird"]
+
 class APTCheck():
 
     def __init__(self):
@@ -47,8 +50,9 @@ class APTCheck():
 
         # Package updates
         for pkg in changes:
-            if (pkg.is_installed and pkg.marked_upgrade and pkg.candidate.version != pkg.installed.version):
-                self.add_update(pkg)
+            if (pkg.is_installed and pkg.candidate.version != pkg.installed.version):
+                if (pkg.marked_upgrade or pkg.marked_downgrade):
+                    self.add_update(pkg)
 
         # Kernel updates
         lts_meta_name = "linux" + CONFIGURED_KERNEL_TYPE
@@ -162,7 +166,7 @@ class APTCheck():
 
     def get_kernel_version_from_meta_package(self, pkg):
         for dependency in pkg.dependencies:
-            if not dependency.target_versions or not dependency.rawtype == "Depends":
+            if not dependency.target_versions or dependency.rawtype != "Depends":
                 return None
             deppkg = dependency.target_versions[0]
             if deppkg.source_name in ("linux", "linux-signed"):
@@ -206,8 +210,8 @@ class APTCheck():
                 update.add_package(package)
                 # Adjust update.old_version for kernel updates to try and
                 # match the kernel, not the meta
-                if kernel_update and package.is_installed and not \
-                   "-" in update.old_version and "-" in package.installed.version:
+                if kernel_update and package.is_installed and \
+                        "-" not in update.old_version and "-" in package.installed.version:
                     update.old_version = package.installed.version
             else:
                 update = Update(package, source_name=source_name)
@@ -280,8 +284,9 @@ class APTCheck():
                                             # Add missing punctuation
                                             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                                                 value = "%s." % value
-                                            update.short_description = value
-                                            update.description = ""
+                                            if update.source_name not in NON_TRANSLATED_PKGS:
+                                                update.short_description = value
+                                                update.description = ""
                                         except Exception as e:
                                             print(e)
                                             print(sys.exc_info()[0])
@@ -315,7 +320,8 @@ class APTCheck():
                                             # Add missing punctuation
                                             if len(value) > 0 and value[-1] not in [".", "!", "?"]:
                                                 value = "%s." % value
-                                            update.description += description
+                                            if update.source_name not in NON_TRANSLATED_PKGS:
+                                                update.description += description
                                         except Exception as e:
                                             print (e)
                                             print(sys.exc_info()[0])

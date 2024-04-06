@@ -14,25 +14,25 @@
     <desc>Päivittäminen komentoriviltä</desc>
   </info>
 
-  <title>Komennon mintupdate-cli käyttö</title>
+  <title>mintupdate-cli-komennon käyttö</title>
 
-    <p>Päivitysten hallinta tarjoaa komentorivi työkalun, jota kutsutaan nimellä "mintupdate-cli".</p>
+    <p>Päivitystenhallinta tarjoaa komentorivityökalun nimeltä ”mintupdate-cli”.</p>
 
-    <p>Jos olet kokenut Linuxin parissa, voit käyttää tätä työkalua skripteissäsi tai cron–töissä automatisoidaksesi ohjelmistopäivitykset.</p>
+    <p>Kokenut Linux-käyttäjä voi käyttää tätä työkalua skripteissään tai cron-töissään automatisoidakseen ohjelmistopäivitykset.</p>
 
   <section id="tool1">
 
-  <title>Listataan päivityksiä</title>
+  <title>Luetellaan päivityksiä</title>
 
-  <p>Voit käyttää "list" komentoa listataksesi päivitykset:</p>
+  <p>Päivitysten luettelemiseksi voi käyttää komentoa ”list”:</p>
 
   <screen>mintupdate-cli list</screen>
 
-  <p>Voit käyttää -s argumenttia näyttääksesi vain tietoturvapäivitykset.</p>
+  <p>-s-valitsimella näytetään vain tietoturvapäivitykset.</p>
 
-  <p>Voit käyttää -k argumenttia näyttääksesi vain ytimen päivitykset.</p>
+  <p>-k-valitsimella näytetään vain kernel päivitykset.</p>
 
-  <p>Esimerkiksi, seuraava komento listaa vain tietoturvapäivitykset:</p>
+  <p>Esimerkiksi seuraava komento luettelee vain tietoturvapäivitykset:</p>
 
   <screen>mintupdate-cli list -s</screen>
 
@@ -42,15 +42,15 @@
 
   <title>Toteutetaan päivityksiä</title>
 
-  <p>Voit käyttää "upgrade" komentoa toteuttaaksesi päivitykset käyttäen samoja asetuksia.</p>
+  <p>Toteuttaaksesi päivitykset samoin asetuksin voit käyttää komentoa ”upgrade”.</p>
 
-  <p>Esimerkiksi, seuraava komento toteuttaa ytimen päivitykset:</p>
+  <p>Esimerkiksi seuraava komento toteuttaa kernel päivitykset:</p>
 
   <screen>sudo mintupdate-cli upgrade -r -k</screen>
 
-  <p>Huomaa -r valinta, joka lisättiin välimuistin virkistykseen.</p>
+  <p>Huomaa -r-valitsin, joka lisättiin välimuistin virkistämiseksi.</p>
 
-  <p>Voit saada lisätietoja mintupdate-cli komennosta ja täyden listan argumenteista kirjoittamalla:</p>
+  <p>Lisätietoa mintupdate-cli-komennoista ja -parametreista saa kirjoittamalla:</p>
 
   <screen>mintupdate-cli -h</screen>
 
