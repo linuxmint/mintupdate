@@ -2544,14 +2544,16 @@ class MintUpdate():
         page = SettingsPage()
         box.pack_start(page, True, True, 0)
         section = page.add_section(_("Package Updates"), _("Performed as root on a daily basis"))
-        autoupgrade_switch = Switch(_("Apply updates automatically"))
-        autoupgrade_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["upgrade"][2]))
-        autoupgrade_switch.content_widget.connect("notify::active", self.set_auto_upgrade)
-        section.add_row(autoupgrade_switch)
-        autodownload_switch = Switch(_("Download updates automatically"))
-        autodownload_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["download"][0]))
-        autodownload_switch.content_widget.connect("notify::active", self.set_auto_download)
-        section.add_row(autodownload_switch)
+        autoupgrade_combo = ComboBox(label = _("Select what to do automatically"), options = [[0, _("Nothing")], [1,_("Only Download")], [2,_("Download and install (recommended)")]])
+        if (os.path.isfile(AUTOMATIONS["upgrade"][2])):
+            active = 2
+        elif (os.path.isfile(AUTOMATIONS["download"][2])):
+            active = 1
+        else:
+            active = 0
+        autoupgrade_combo.content_widget.set_active(active)
+        autoupgrade_combo.content_widget.connect("changed", self.set_auto_upgrade)
+        section.add_row(autoupgrade_combo)
         button = Gtk.Button(label=_("Export blacklist to /etc/mintupdate.blacklist"))
         button.set_margin_start(20)
         button.set_margin_end(20)
@@ -2595,29 +2597,25 @@ class MintUpdate():
             self.auto_refresh = AutomaticRefreshThread(self)
             self.auto_refresh.start()
 
-    def set_auto_upgrade(self, widget, param):
-        exists = os.path.isfile(AUTOMATIONS["upgrade"][2])
-        action = None
-        if widget.get_active() and not exists:
-            action = "enable"
-        elif not widget.get_active() and exists:
-            action = "disable"
-        if action:
-            subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "upgrade", action])
-        if widget.get_active() != os.path.isfile(AUTOMATIONS["upgrade"][2]):
-            widget.set_active(not widget.get_active())
-
-    def set_auto_download(self, widget, param):
-        exists = os.path.isfile(AUTOMATIONS["download"][0])
-        action = None
-        if widget.get_active() and not exists:
-            action = "enable"
-        elif not widget.get_active() and exists:
-            action = "disable"
-        if action:
-            subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "download", action])
-        if widget.get_active() != os.path.isfile(AUTOMATIONS["download"][0]):
-            widget.set_active(not widget.get_active())
+    def set_auto_upgrade(self, widget):
+        model = widget.get_model()
+        upgrade_exists = exists = os.path.isfile(AUTOMATIONS["upgrade"][2])
+        download_exists = exists = os.path.isfile(AUTOMATIONS["download"][2])
+        if model[widget.get_active_iter()][0]==0:
+            if upgrade_exists:
+                subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "upgrade", "disable"])
+            if download_exists:
+                subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "download", "disable"])
+        elif model[widget.get_active_iter()][0]==1:
+            if upgrade_exists:
+                subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "upgrade", "disable"])
+            if not download_exists:
+                subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "download", "enable"])
+        elif model[widget.get_active_iter()][0]==2:
+            if download_exists:
+                subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "download", "disable"])
+            if not upgrade_exists:
+                subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "upgrade", "enable"])
 
     def set_auto_remove(self, widget, param):
         exists = os.path.isfile(AUTOMATIONS["autoremove"][2])
