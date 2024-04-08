@@ -2544,7 +2544,7 @@ class MintUpdate():
         page = SettingsPage()
         box.pack_start(page, True, True, 0)
         section = page.add_section(_("Package Updates"), _("Performed as root on a daily basis"))
-        autoupgrade_combo = ComboBox(label = _("Select what to do automatically"), options = [[0, _("Nothing")], [1,_("Only Download")], [2,_("Download and install (recommended)")]])
+        autoupgrade_combo = ComboBox(label = _("Apply updates automatically?"), options = [[0, _("No")], [1,_("Only Download")], [2,_("Yes (recommended)")]])
         if (os.path.isfile(AUTOMATIONS["upgrade"][2])):
             active = 2
         elif (os.path.isfile(AUTOMATIONS["download"][2])):
