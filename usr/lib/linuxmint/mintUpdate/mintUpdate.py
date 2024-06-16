@@ -899,7 +899,7 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write_error("Error: The APT policy is incorrect!")
 
                 label1 = _("Your APT configuration is corrupt.")
-                label2 = _("Do not install or update anything - so doing could break your operating system!")
+                label2 = _("Do not install or update anything - doing so could break your operating system!")
                 label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
 
                 msg = _("Your APT configuration is corrupt.")
@@ -2489,7 +2489,7 @@ class MintUpdate():
         grid.attach(spin_button, 3, 2, 1, 1)
 
         label = Gtk.Label()
-        label.set_markup("<i>%s</i>" % _("Note: The list only gets refreshed while the Update Manager window is closed (i.e., in System Tray mode)."))
+        label.set_markup("<i>%s</i>" % _("Note: The list only gets refreshed while the Update Manager window is closed (in system tray mode)."))
         grid.attach(label, 0, 3, 4, 1)
         section.add_reveal_row(grid, "com.linuxmint.updates", "refresh-schedule-enabled")
 
