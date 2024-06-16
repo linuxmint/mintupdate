@@ -162,6 +162,7 @@ class ChangelogRetriever(threading.Thread):
         self.source_package = update.real_source_name
         self.version = update.new_version
         self.origin = update.origin
+        self.is_kernel_update = update.type == "kernel"
         self.application = application
         # get the proxy settings from gsettings
         self.ps = proxygsettings.get_proxy_settings()
@@ -275,7 +276,11 @@ class ChangelogRetriever(threading.Thread):
             changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_amd64.changes")
             changelog_sources.append("http://packages.linuxmint.com/dev/" + self.source_package + "_" + self.version + "_i386.changes")
         elif self.origin == "ubuntu":
-            if (self.source_package.startswith("lib")):
+            if self.is_kernel_update:
+                # Ubuntu HWE kernel versions end with '~' followed by the Ubuntu version (e.g. ~22.04.1). This suffix needs to be removed to get the correct changelog URL
+                kernel_version = self.version.split("~")[0]
+                changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/main/l/linux/linux_%s/changelog" % (kernel_version))
+            elif (self.source_package.startswith("lib")):
                 changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/main/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
                 changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/multiverse/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
                 changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
@@ -286,7 +291,9 @@ class ChangelogRetriever(threading.Thread):
                 changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/universe/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
                 changelog_sources.append("https://changelogs.ubuntu.com/changelogs/pool/restricted/%s/%s/%s_%s/changelog" % (self.source_package[0], self.source_package, self.source_package, self.version))
         elif self.origin == "debian":
-            if (self.source_package.startswith("lib")):
+            if self.is_kernel_update:
+                changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/main/l/linux/linux_%s_changelog" % (self.version))
+            elif (self.source_package.startswith("lib")):
                 changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/main/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
                 changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/contrib/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
                 changelog_sources.append("https://metadata.ftp-master.debian.org/changelogs/non-free/%s/%s/%s_%s_changelog" % (self.source_package[0:4], self.source_package, self.source_package, self.version))
