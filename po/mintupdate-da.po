@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2023-12-13 11:30+0000\n"
-"PO-Revision-Date: 2023-12-13 12:06+0000\n"
+"POT-Creation-Date: 2024-06-16 11:51+0100\n"
+"PO-Revision-Date: 2024-06-17 16:32+0000\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2024-01-04 14:52+0000\n"
-"X-Generator: Launchpad (build e1eeab5b20e19239bd7d5f36676f7a52988db88b)\n"
+"X-Launchpad-Export-Date: 2024-06-18 17:48+0000\n"
+"X-Generator: Launchpad (build bbfa2351d9d6a9ddfe262109428f7bf5516e65d1)\n"
 "Language: da\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -556,6 +556,9 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1410
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1825
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2324
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1428
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1842
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2341
 msgid "Update Manager"
 msgstr "Opdateringshåndtering"
 
@@ -625,15 +628,18 @@ msgstr ""
 "  scootergrisen https://launchpad.net/~scootergrisen"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:241
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Linux-kerne %s"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:242
 msgid "The Linux kernel."
 msgstr "Linux-kernen."
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -656,6 +662,8 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:157
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:165
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:256
 msgid "Remove"
 msgstr "Fjern"
 
@@ -663,37 +671,45 @@ msgstr "Fjern"
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:245
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:159
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:254
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:167
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:262
 msgid "Install"
 msgstr "Installér"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:240
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:249
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:257
 msgid "Queue Removal"
 msgstr "Sæt i kø til fjernelse"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:242
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:251
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:259
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr "Kernen kan ikke fjernes, da den er i brug."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:255
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:263
 msgid "Queue Installation"
 msgstr "Sæt i kø til installering"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:248
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:257
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
 msgid "This kernel is not installable."
 msgstr "Denne kerne kan ikke installeres."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:265
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:274
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:282
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
 msgstr "Er du sikker på, du vil fjerne kernen %s?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:267
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:276
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:284
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
 msgstr "Er du sikker på, du vil installere kernen %s?"
@@ -701,56 +717,66 @@ msgstr "Er du sikker på, du vil installere kernen %s?"
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:299
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:22
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:308
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:316
 msgid "Kernels"
 msgstr "Kerner"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:344
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:353
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:361
 msgid "Remove Kernels"
 msgstr "Fjern kerner"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:346
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:355
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:363
 msgid "Perform Queued Actions"
 msgstr "Udfør handlinger som er sat i kø"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:429
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:438
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:446
 msgid "Active"
 msgstr "Aktiv"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:432
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:441
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:449
 msgid "Installed"
 msgstr "Installeret"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:520
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:519
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:528
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:536
 msgid "Supported until"
 msgstr "Understøttet indtil"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:523
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:522
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:531
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:539
 msgid "Superseded"
 msgstr "Erstattet"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:525
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:524
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:533
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:541
 msgid "End of Life"
 msgstr "End-of-life"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:527
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:526
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:535
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:543
 msgid "Unsupported"
 msgstr "Understøttes ikke"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:559
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:558
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:567
+#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:575
 msgid "You are currently using the following kernel:"
 msgstr "Du anvender for tiden følgende kerne:"
 
@@ -781,12 +807,14 @@ msgstr "B"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:236
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:240
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:258
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 msgid "Downloading changelog..."
 msgstr "Downloader ændringslog …"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:249
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:253
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:271
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:272
 msgid "No changelog available"
 msgstr "Ingen ændringslog tilgængelig"
 
@@ -794,6 +822,7 @@ msgstr "Ingen ændringslog tilgængelig"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:470
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:498
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:505
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:512
 msgid "This upgrade will trigger additional changes"
 msgstr "Denne opgradering vil medføre yderligere ændringer"
 
@@ -801,6 +830,7 @@ msgstr "Denne opgradering vil medføre yderligere ændringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:507
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:514
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:521
 msgid "The following packages will be removed:"
 msgstr "Følgende pakker vil blive fjernet:"
 
@@ -808,6 +838,7 @@ msgstr "Følgende pakker vil blive fjernet:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:508
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:543
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:550
 msgid "The following packages will be installed:"
 msgstr "Følgende pakker vil blive installeret:"
 
@@ -815,6 +846,7 @@ msgstr "Følgende pakker vil blive installeret:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:587
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:594
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
 msgid "Installing updates"
 msgstr "Installerer opdateringer"
 
@@ -826,6 +858,8 @@ msgstr "Installerer opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:725
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:655
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:732
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
 msgid "Could not install the security updates"
 msgstr "Kunne ikke installere sikkerhedsopdateringerne"
 
@@ -833,6 +867,7 @@ msgstr "Kunne ikke installere sikkerhedsopdateringerne"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:632
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:659
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:666
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
 msgid "Updating Cinnamon Spices"
 msgstr "Opdaterer Cinnamon Spices"
 
@@ -840,6 +875,7 @@ msgstr "Opdaterer Cinnamon Spices"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:673
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:699
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:720
 msgid "Restarting Cinnamon"
 msgstr "Genstarter Cinnamon"
 
@@ -847,6 +883,7 @@ msgstr "Genstarter Cinnamon"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:764
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:794
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:801
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
 msgid "Reboot required"
 msgstr "Genstart er nødvendig"
 
@@ -865,6 +902,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:786
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:837
 msgid "Checking for package updates"
 msgstr "Leder efter pakkeopdateringer"
 
@@ -877,6 +915,8 @@ msgstr "Leder efter pakkeopdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:823
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:837
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
 msgid "Checking for updates"
 msgstr "Leder efter opdateringer"
 
@@ -884,6 +924,7 @@ msgstr "Leder efter opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:807
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:837
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:844
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
 msgid "Checking for Cinnamon spices"
 msgstr "Leder efter Cinnamon Spices"
 
@@ -891,6 +932,7 @@ msgstr "Leder efter Cinnamon Spices"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:851
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:872
 msgid "Processing updates"
 msgstr "Behandler opdateringer"
 
@@ -898,6 +940,7 @@ msgstr "Behandler opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:840
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:870
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:877
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr "Kør “apt update” i et terminalvindue for at løse det"
 
@@ -909,6 +952,8 @@ msgstr "Kør “apt update” i et terminalvindue for at løse det"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:884
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:887
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:901
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:905
 msgid "Your APT configuration is corrupt."
 msgstr "Din APT-konfiguration er ødelagt."
 
@@ -925,6 +970,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:852
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:882
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
@@ -934,6 +980,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:856
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:886
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:893
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:907
 msgid "APT error:"
 msgstr "APT-fejl:"
 
@@ -941,6 +988,7 @@ msgstr "APT-fejl:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:859
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:912
 msgid "Please switch to another Linux Mint mirror"
 msgstr "Skift venligst til et andet Linux Mint-spejl"
 
@@ -964,6 +1012,11 @@ msgstr "Skift venligst til et andet Linux Mint-spejl"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:909
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1170
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:915
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:922
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:923
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 msgid "Could not refresh the list of updates"
 msgstr "Kunne ikke genindlæse listen over opdateringer"
 
@@ -971,6 +1024,7 @@ msgstr "Kunne ikke genindlæse listen over opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:932
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:967
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:975
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:989
 msgid "Kernel update"
 msgstr "Kerneopdatering"
 
@@ -978,6 +1032,7 @@ msgstr "Kerneopdatering"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:936
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:971
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:993
 msgid "Security update"
 msgstr "Sikkerhedsopdatering"
 
@@ -985,6 +1040,7 @@ msgstr "Sikkerhedsopdatering"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:940
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:975
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:983
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:997
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -996,6 +1052,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:945
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:980
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:988
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1002
 msgid "Software update"
 msgstr "Programopdatering"
 
@@ -1003,6 +1060,7 @@ msgstr "Programopdatering"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:949
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:984
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:992
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1006
 msgid "3rd-party update"
 msgstr "Tredjepartsopdatering"
 
@@ -1010,6 +1068,7 @@ msgstr "Tredjepartsopdatering"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:976
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1011
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1019
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
 msgid "Cinnamon applet"
 msgstr "Cinnamon-panelprogram"
 
@@ -1017,6 +1076,7 @@ msgstr "Cinnamon-panelprogram"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:978
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1013
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1035
 msgid "Cinnamon desklet"
 msgstr "Cinnamon-skrivebordsprogram"
 
@@ -1024,6 +1084,7 @@ msgstr "Cinnamon-skrivebordsprogram"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:980
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1015
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1025
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1042
 msgid "Cinnamon theme"
 msgstr "Cinnamon-tema"
 
@@ -1031,6 +1092,7 @@ msgstr "Cinnamon-tema"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:982
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1017
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1044
 msgid "Cinnamon extension"
 msgstr "Cinnamon-udvidelse"
 
@@ -1038,6 +1100,7 @@ msgstr "Cinnamon-udvidelse"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1093
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1120
 msgid "Updates are available"
 msgstr "Der er tilgængelige opdateringer"
 
@@ -1045,6 +1108,7 @@ msgstr "Der er tilgængelige opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1057
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1094
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
@@ -1055,6 +1119,7 @@ msgstr[1] "%d sikkerhedsopdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1095
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
@@ -1065,6 +1130,7 @@ msgstr[1] "%d programopdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1064
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1101
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1128
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr "Installér dem for at holde dit styresystem sikkert og opdateret."
 
@@ -1072,6 +1138,7 @@ msgstr "Installér dem for at holde dit styresystem sikkert og opdateret."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1071
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1108
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1118
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1135
 msgid "View updates"
 msgstr "Vis opdateringer"
 
@@ -1079,6 +1146,7 @@ msgstr "Vis opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1072
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1109
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
 msgid "Enable automatic updates"
 msgstr "Aktivér automatisk opdatering"
 
@@ -1091,6 +1159,8 @@ msgstr "Aktivér automatisk opdatering"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1885
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1138
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1895
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1155
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1912
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
@@ -1101,6 +1171,7 @@ msgstr[1] "%(selected)d opdateringer valgt (%(size)s)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1092
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1134
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
@@ -1112,6 +1183,7 @@ msgstr[1] "%d opdateringer tilgængelig"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1097
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1139
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1149
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1166
 msgid "Your system is up to date"
 msgstr "Dit system er opdateret"
 
@@ -1119,6 +1191,7 @@ msgstr "Dit system er opdateret"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1165
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1207
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1215
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
 msgid "Do you want to switch to a local mirror?"
 msgstr "Ønsker du at skifte til et lokalt spejl?"
 
@@ -1126,6 +1199,7 @@ msgstr "Ønsker du at skifte til et lokalt spejl?"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1166
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1208
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1216
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1234
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr "Lokale spejle plejer at være hurtigere end packages.linuxmint.com."
 
@@ -1137,6 +1211,8 @@ msgstr "Lokale spejle plejer at være hurtigere end packages.linuxmint.com."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1229
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1227
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1237
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1245
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
 msgid "Please switch to another mirror"
 msgstr "Skift venligst til et andet spejl"
 
@@ -1144,6 +1220,7 @@ msgstr "Skift venligst til et andet spejl"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1178
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1220
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1228
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1246
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s kan ikke nås."
@@ -1152,6 +1229,7 @@ msgstr "%s kan ikke nås."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1188
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1230
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1238
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1256
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
@@ -1167,6 +1245,7 @@ msgstr "Afslut"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1437
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1440
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
 msgid "Upgrade"
 msgstr "Opgradér"
 
@@ -1175,6 +1254,7 @@ msgstr "Opgradér"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1442
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1445
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1454
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1472
 msgid "Name"
 msgstr "Navn"
 
@@ -1193,6 +1273,9 @@ msgstr "Navn"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1458
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1644
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2190
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1476
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1661
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2207
 msgid "Old Version"
 msgstr "Gammel version"
 
@@ -1211,6 +1294,9 @@ msgstr "Gammel version"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1462
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2193
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1480
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1667
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2210
 msgid "New Version"
 msgstr "Ny version"
 
@@ -1224,6 +1310,8 @@ msgstr "Ny version"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1653
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1466
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1662
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1484
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 msgid "Size"
 msgstr "Størrelse"
 
@@ -1242,6 +1330,9 @@ msgstr "Størrelse"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1470
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2184
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1488
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1649
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2201
 msgid "Type"
 msgstr "Type"
 
@@ -1255,6 +1346,8 @@ msgstr "Type"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1647
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1474
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1656
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1492
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1673
 msgid "Origin"
 msgstr "Oprindelse"
 
@@ -1265,6 +1358,7 @@ msgstr "Oprindelse"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1523
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1526
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1552
 msgid "Refresh"
 msgstr "Genindlæs"
 
@@ -1290,6 +1384,11 @@ msgstr "Genindlæs"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2009
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2023
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2146
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1556
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1642
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2026
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2040
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2163
 msgid "Information"
 msgstr "Information"
 
@@ -1308,6 +1407,9 @@ msgstr "Information"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1543
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1579
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2380
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1560
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1596
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2397
 msgid "Preferences"
 msgstr "Indstillinger"
 
@@ -1321,6 +1423,8 @@ msgstr "Indstillinger"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1560
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1547
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1569
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1564
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1586
 msgid "Quit"
 msgstr "Afslut"
 
@@ -1329,6 +1433,7 @@ msgstr "Afslut"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1549
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 msgid "_File"
 msgstr "_Filer"
 
@@ -1337,6 +1442,7 @@ msgstr "_Filer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1550
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1579
 msgid "Close window"
 msgstr "Luk vindue"
 
@@ -1345,6 +1451,7 @@ msgstr "Luk vindue"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1563
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1566
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1592
 msgid "_Edit"
 msgstr "_Redigér"
 
@@ -1353,6 +1460,7 @@ msgstr "_Redigér"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1601
 msgid "System Snapshots"
 msgstr "Øjebliksbilleder af systemet"
 
@@ -1361,6 +1469,7 @@ msgstr "Øjebliksbilleder af systemet"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1577
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1580
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1606
 msgid "Software Sources"
 msgstr "Softwarekilder"
 
@@ -1369,6 +1478,7 @@ msgstr "Softwarekilder"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1599
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1602
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1611
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Opgradér til %s"
@@ -1378,6 +1488,7 @@ msgstr "Opgradér til %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1603
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1606
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1615
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
 msgid "_View"
 msgstr "_Vis"
 
@@ -1391,6 +1502,8 @@ msgstr "_Vis"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2162
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1619
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1636
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
 msgid "History of Updates"
 msgstr "Opdateringshistorik"
 
@@ -1399,6 +1512,7 @@ msgstr "Opdateringshistorik"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1610
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1613
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1639
 msgid "Linux Kernels"
 msgstr "Linux-kerner"
 
@@ -1407,6 +1521,7 @@ msgstr "Linux-kerner"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1616
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1619
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
 msgid "Visible Columns"
 msgstr "Synlige kolonner"
 
@@ -1415,6 +1530,7 @@ msgstr "Synlige kolonner"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1626
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1629
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
 msgid "Package"
 msgstr "Pakke"
 
@@ -1423,6 +1539,7 @@ msgstr "Pakke"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1658
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1661
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 msgid "Show Descriptions"
 msgstr "Vis beskrivelser"
 
@@ -1431,6 +1548,7 @@ msgstr "Vis beskrivelser"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1677
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
 msgid "_Help"
 msgstr "_Hjælp"
 
@@ -1439,6 +1557,7 @@ msgstr "_Hjælp"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1682
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1709
 msgid "Welcome Screen"
 msgstr "Velkomstskærm"
 
@@ -1447,6 +1566,7 @@ msgstr "Velkomstskærm"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1684
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1714
 msgid "Keyboard Shortcuts"
 msgstr "Tastaturgenveje"
 
@@ -1455,6 +1575,7 @@ msgstr "Tastaturgenveje"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1688
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1691
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1718
 msgid "Contents"
 msgstr "Indhold"
 
@@ -1468,6 +1589,8 @@ msgstr "Indhold"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2312
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1707
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1724
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2339
 msgid "About"
 msgstr "Om"
 
@@ -1476,6 +1599,7 @@ msgstr "Om"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1810
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1813
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1823
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1840
 msgid "Cannot Proceed"
 msgstr "Kan ikke fortsætte"
 
@@ -1484,6 +1608,7 @@ msgstr "Kan ikke fortsætte"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1811
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1814
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1824
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
@@ -1496,6 +1621,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1839
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1842
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1869
 msgid "Yes"
 msgstr "Ja"
 
@@ -1504,6 +1630,7 @@ msgstr "Ja"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1840
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1843
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1853
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
 msgid "No"
 msgstr "Nej"
 
@@ -1513,6 +1640,7 @@ msgstr "Nej"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1842
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1845
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1855
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
 msgid "OK"
 msgstr "OK"
 
@@ -1521,6 +1649,7 @@ msgstr "OK"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1879
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1882
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1909
 msgid "No updates selected"
 msgstr "Ingen opdateringer valgt"
 
@@ -1530,6 +1659,7 @@ msgstr "Ingen opdateringer valgt"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1957
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1960
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1970
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
 msgid "Welcome to the Update Manager"
 msgstr "Velkommen til Opdateringshåndtering"
 
@@ -1538,6 +1668,7 @@ msgstr "Velkommen til Opdateringshåndtering"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1990
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2017
 msgid "Most recent change"
 msgstr "Seneste ændring"
 
@@ -1547,6 +1678,7 @@ msgstr "Seneste ændring"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2016
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2019
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2046
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -1555,6 +1687,7 @@ msgstr "Beskrivelse"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2050
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2053
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2063
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "Denne opdatering påvirker den følgende installeret pakke:"
@@ -1565,6 +1698,7 @@ msgstr[1] "Denne opdatering påvirker de følgende installerede pakker:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2047
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2050
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2060
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 msgid "Total size:"
 msgstr "Samlet størrelse:"
 
@@ -1573,6 +1707,7 @@ msgstr "Samlet størrelse:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2064
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2067
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
 msgid "Ignore the current update for this package"
 msgstr "Ignorér den aktuelle opdatering til denne pakke"
 
@@ -1581,6 +1716,7 @@ msgstr "Ignorér den aktuelle opdatering til denne pakke"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2067
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2070
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2097
 msgid "Ignore all future updates for this package"
 msgstr "Ignorér alle fremtidige opdateringer til denne pakke"
 
@@ -1589,6 +1725,7 @@ msgstr "Ignorér alle fremtidige opdateringer til denne pakke"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2161
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2181
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2198
 msgid "Date"
 msgstr "Dato"
 
@@ -1597,14 +1734,16 @@ msgstr "Dato"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2167
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2177
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2187
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2204
 msgid "Update"
-msgstr "Opdatér"
+msgstr "Opdatering"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2088
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2147
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2213
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2223
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2233
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2249
 msgid "package"
 msgstr "pakke"
 
@@ -1613,6 +1752,7 @@ msgstr "pakke"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2376
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2390
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2417
 msgid "Options"
 msgstr "Indstillinger"
 
@@ -1626,6 +1766,7 @@ msgstr "Sortliste"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2378
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2392
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2419
 msgid "Automation"
 msgstr "Automatisering"
 
@@ -1634,6 +1775,7 @@ msgstr "Automatisering"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2384
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2398
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2408
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 msgid "Interface"
 msgstr "Grænseflade"
 
@@ -1642,6 +1784,7 @@ msgstr "Grænseflade"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2385
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2399
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 msgid "Hide the update manager after applying updates"
 msgstr ""
 "Skjul opdateringshåndteringen efter opdateringerne er blevet installeret"
@@ -1651,6 +1794,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2386
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2410
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
 "Vis kun et statusfeltikon, når opdateringer er tilgængelige eller i tilfælde "
@@ -1661,6 +1805,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2388
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2412
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2429
 msgid "Auto-refresh"
 msgstr "Auto-genindlæsning"
 
@@ -1669,6 +1814,7 @@ msgstr "Auto-genindlæsning"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2389
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2403
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2430
 msgid "Refresh the list of updates automatically"
 msgstr "Genindlæs automatisk listen over opdateringer"
 
@@ -1677,6 +1823,7 @@ msgstr "Genindlæs automatisk listen over opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2401
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2415
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2442
 msgid "days"
 msgstr "dage"
 
@@ -1685,6 +1832,7 @@ msgstr "dage"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2416
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2443
 msgid "hours"
 msgstr "timer"
 
@@ -1693,6 +1841,7 @@ msgstr "timer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2403
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2417
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2444
 msgid "minutes"
 msgstr "minutter"
 
@@ -1701,6 +1850,7 @@ msgstr "minutter"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2418
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2428
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
 msgid "First, refresh the list of updates after:"
 msgstr "Genindlæs listen over opdateringer efter:"
 
@@ -1709,6 +1859,7 @@ msgstr "Genindlæs listen over opdateringer efter:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2422
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2449
 msgid "Then, refresh the list of updates every:"
 msgstr "Genindlæs herefter listen over opdateringer hver:"
 
@@ -1729,6 +1880,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2455
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2469
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2496
 msgid "Notifications"
 msgstr "Underretninger"
 
@@ -1737,6 +1889,7 @@ msgstr "Underretninger"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2461
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2475
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2485
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2502
 msgid "Only show notifications for security and kernel updates"
 msgstr "Vis kun underretninger for sikkerheds- og kerneopdateringer"
 
@@ -1745,6 +1898,7 @@ msgstr "Vis kun underretninger for sikkerheds- og kerneopdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2463
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2477
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2487
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2504
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
@@ -1756,6 +1910,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2465
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2489
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2506
 msgid "Show a notification if an update is older than (in days):"
 msgstr "Vis en underretning, hvis en opdatering er ældre end (antal dage):"
 
@@ -1764,6 +1919,7 @@ msgstr "Vis en underretning, hvis en opdatering er ældre end (antal dage):"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2467
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2481
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2491
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2508
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
@@ -1775,6 +1931,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2489
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2513
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2530
 msgid "Ignored Updates"
 msgstr "Ignorerede opdateringer"
 
@@ -1783,6 +1940,7 @@ msgstr "Ignorerede opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2512
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2526
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 msgid "Package Updates"
 msgstr "Pakkeopdateringer"
 
@@ -1791,6 +1949,7 @@ msgstr "Pakkeopdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2512
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2526
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 msgid "Performed as root on a daily basis"
 msgstr "Udført som rod på daglig basis"
 
@@ -1799,6 +1958,7 @@ msgstr "Udført som rod på daglig basis"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2513
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2527
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2537
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2554
 msgid "Apply updates automatically"
 msgstr "Installér opdateringer automatisk"
 
@@ -1807,6 +1967,7 @@ msgstr "Installér opdateringer automatisk"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2531
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2541
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2558
 msgid "Export blacklist to /etc/mintupdate.blacklist"
 msgstr "Eksportér sortliste til /etc/mintupdate.blacklist"
 
@@ -1825,6 +1986,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2526
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2540
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2567
 msgid "Update Cinnamon spices automatically"
 msgstr "Opdatér Cinnamon Spices automatisk"
 
@@ -1837,6 +1999,7 @@ msgstr "Opdatér flatpaks automatisk"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2532
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2546
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 msgid "Other Updates"
 msgstr "Andre opdateringer"
 
@@ -1845,6 +2008,7 @@ msgstr "Andre opdateringer"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2532
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2546
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 msgid "Performed when you log in"
 msgstr "Udført når du logger på"
 
@@ -1853,6 +2017,7 @@ msgstr "Udført når du logger på"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2535
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2549
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 msgid "Automatic Maintenance"
 msgstr "Automatisk vedligeholdelse"
 
@@ -1861,6 +2026,7 @@ msgstr "Automatisk vedligeholdelse"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2535
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2549
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 msgid "Performed as root on a weekly basis"
 msgstr "Udført som rod på ugentlig basis"
 
@@ -1869,6 +2035,7 @@ msgstr "Udført som rod på ugentlig basis"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2560
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2577
 msgid "Remove obsolete kernels and dependencies"
 msgstr "Fjern forældede kerner og afhængigheder"
 
@@ -1877,6 +2044,7 @@ msgstr "Fjern forældede kerner og afhængigheder"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2540
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2554
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2564
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2581
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
@@ -1889,6 +2057,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2596
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2610
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2637
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
@@ -1901,6 +2070,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2597
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2611
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2638
 msgid "Ignore an Update"
 msgstr "Ignorér en opdatering"
 
@@ -1909,6 +2079,7 @@ msgstr "Ignorér en opdatering"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2605
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2619
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2629
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2646
 msgid "Name:"
 msgstr "Navn:"
 
@@ -1917,6 +2088,7 @@ msgstr "Navn:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2607
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2621
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2631
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2648
 msgid "Version:"
 msgstr "Version:"
 
@@ -1925,6 +2097,7 @@ msgstr "Version:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2609
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2623
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2650
 msgid "(optional)"
 msgstr "(valgfri)"
 
@@ -2037,6 +2210,7 @@ msgid "Summary"
 msgstr "Sammenfatning"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:260
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:276
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
@@ -2045,6 +2219,7 @@ msgstr ""
 "ændringerne kan træde i kraft."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:263
+#: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:279
 msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
@@ -2194,6 +2369,7 @@ msgstr "Installér opdateringen"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2377
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2391
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2401
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2418
 msgid "Packages"
 msgstr "Pakker"
 
@@ -2296,24 +2472,28 @@ msgstr "En Flatpak-runtimepakke"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:818
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:848
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:855
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:869
 msgid "Checking for Flatpak updates"
 msgstr "Søger efter Flatpak-opdateringer"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1022
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1068
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
 msgid "Flatpak application"
 msgstr "Flatpak-program"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1024
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1060
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1070
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
 msgid "Flatpak runtime"
 msgstr "Flatpak-runtime"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1102
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
 #, python-format
 msgid "Error checking for flatpak updates: %s"
 msgstr "Der opstod en fejl under søgningen efter flatpak-opdateringer: %s"
@@ -2322,6 +2502,7 @@ msgstr "Der opstod en fejl under søgningen efter flatpak-opdateringer: %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2002
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2012
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 #, python-format
 msgid "Website: %s"
 msgstr "Websted: %s"
@@ -2330,6 +2511,7 @@ msgstr "Websted: %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2045
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2048
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2058
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2075
 msgid "Total size: <"
 msgstr "Samlet størrelse: <"
 
@@ -2337,30 +2519,35 @@ msgstr "Samlet størrelse: <"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2529
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2543
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2570
 msgid "Update Flatpaks automatically"
 msgstr "Opdatér flatpaks automatisk"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2476
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 msgid "Update types"
 msgstr "Opdateringstyper"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2476
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 msgid "In addition to system packages, check for:"
 msgstr "Udover systempakker så led efter følgende:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2493
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2520
 msgid "Cinnamon spice updates"
 msgstr "Cinnamon spice-opdateringer"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2481
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2495
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2505
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2522
 msgid "Flatpak updates"
 msgstr "Flatpak-opdateringer"
 
@@ -2389,8 +2576,38 @@ msgstr ""
 "inden du aktiverer automatisering."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1023
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1040
 msgid "Nemo action"
 msgstr "Nemo-handling"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
+msgid ""
+"You have installed updates that require a reboot to take effect. Please "
+"reboot your system as soon as possible."
+msgstr ""
+"Systemet skal genstartes, før de installerede opdateringer træder i kraft. "
+"Genstart systemet så snart som muligt."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
+msgid ""
+"Do not install or update anything - doing so could break your operating "
+"system!"
+msgstr "Installér eller opdatér ikke noget — det kan skade dit styresystem!"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2492
+msgid ""
+"Note: The list only gets refreshed while the Update Manager window is closed "
+"(in system tray mode)."
+msgstr ""
+"Bemærk: Listen opdateres kun, mens Opdateringshåndteringsvinduet er lukket "
+"(i statusfelttilstand)."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2562
+msgid ""
+"Click this button to make automatic updates use your current blacklist."
+msgstr ""
+"Klik på denne knap for at få automatiske opdateringer til at bruge den "
+"nuværende sortliste."
 
 #~ msgid "Please wait, this can take some time"
 #~ msgstr "Vent venligst, dette kan tage noget tid"
