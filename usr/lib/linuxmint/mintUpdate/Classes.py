@@ -431,6 +431,7 @@ class FlatpakUpdate():
             iref_version = ""
             old_commit = ""
 
+        appstream_version = ""
         # new version
         if pkginfo:
             appstream_version = installer.get_version(pkginfo)
@@ -457,8 +458,7 @@ class FlatpakUpdate():
 
         if pkginfo:
             self.summary = installer.get_summary(pkginfo)
-            description = installer.get_description(pkginfo)
-            self.description = re.sub(r'\n+', '\n\n', description).rstrip()
+            self.description = installer.get_description(pkginfo)
         elif installed_ref:
             self.summary = installed_ref.get_appdata_summary()
             self.description = ""
