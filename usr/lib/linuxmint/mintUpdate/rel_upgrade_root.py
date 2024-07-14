@@ -150,3 +150,4 @@ try:
 except Exception as detail:
     syslog.syslog("Couldn't update grub: %s" % detail
 )
+
