@@ -451,7 +451,7 @@ class FlatpakUpdate():
 
         if pkginfo:
             self.name = installer.get_display_name(pkginfo)
-        elif installed_ref:
+        elif installed_ref and self.flatpak_type != "runtime":
             self.name = installed_ref.get_appdata_name()
         else:
             self.name = ref.get_name()
