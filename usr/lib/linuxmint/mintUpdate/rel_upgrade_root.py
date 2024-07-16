@@ -14,15 +14,7 @@ if len(sys.argv) != 3:
     sys.exit(1)
 
 codename = sys.argv[1]
-second_param = sys.argv[2]
-
-if second_param == "non-interactive":
-    use_apt = True
-    window_id = 0
-else:
-    use_apt = False
-    window_id = int(second_param)
-
+window_id = int(sys.argv[2])
 sources_list = "/usr/share/mint-upgrade-info/%s/official-package-repositories.list" % codename
 blacklist_filename = "/usr/share/mint-upgrade-info/%s/blacklist" % codename
 additions_filename = "/usr/share/mint-upgrade-info/%s/additions" % codename
@@ -32,44 +24,29 @@ if not os.path.exists(sources_list):
     print("Unrecognized release: %s" % codename)
     sys.exit(1)
 
+
 def install_packages(packages):
     if len(packages) > 0:
-        if use_apt is True:
-            cmd = ["sudo", "/usr/local/bin/apt", "install"]
-        else:
-            cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id, "-o", "Synaptic::closeZvt=true"]
-            f = tempfile.NamedTemporaryFile()
+        cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id, "-o", "Synaptic::closeZvt=true"]
+        f = tempfile.NamedTemporaryFile()
         for package in packages:
-            if use_apt is True:
-                pkg_name = " %s" % package
-                cmd.append(pkg_name)
-            else:
-                pkg_line = "%s\tinstall\n" % package
-                f.write(pkg_line.encode("utf-8"))
-        if use_apt is False:
-            cmd.append("--set-selections-file")
-            cmd.append("%s" % f.name)
-            f.flush()
+            pkg_line = "%s\tinstall\n" % package
+            f.write(pkg_line.encode("utf-8"))
+        cmd.append("--set-selections-file")
+        cmd.append("%s" % f.name)
+        f.flush()
         subprocess.run(cmd)
 
 def remove_packages(packages):
     if len(packages) > 0:
-        if use_apt is True:
-            cmd = ["sudo", "/usr/local/bin/apt", "purge"]
-        else:
-            cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id, "-o", "Synaptic::closeZvt=true"]
-            f = tempfile.NamedTemporaryFile()
+        cmd = ["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--non-interactive", "--parent-window-id", "%s" % window_id, "-o", "Synaptic::closeZvt=true"]
+        f = tempfile.NamedTemporaryFile()
         for package in packages:
-            if use_apt is True:
-                pkg_name = " %s" % package
-                cmd.append(pkg_name)
-            else:
-                pkg_line = "%s\tdeinstall\n" % package
-                f.write(pkg_line.encode("utf-8"))
-        if use_apt is False:
-            cmd.append("--set-selections-file")
-            cmd.append("%s" % f.name)
-            f.flush()
+            pkg_line = "%s\tdeinstall\n" % package
+            f.write(pkg_line.encode("utf-8"))
+        cmd.append("--set-selections-file")
+        cmd.append("%s" % f.name)
+        f.flush()
         subprocess.run(cmd)
 
 def file_to_list(filename):
@@ -94,7 +71,7 @@ subprocess.run(["cp", sources_list, "/etc/apt/sources.list.d/official-package-re
 #-------------------------
 
 cache = apt.Cache()
-subprocess.run(["sudo", "/usr/local/bin/apt", "update"])
+subprocess.run(["sudo", "/usr/sbin/synaptic", "--hide-main-window", "--update-at-startup", "--non-interactive", "--parent-window-id", "%d" % window_id])
 
 # STEP 3: INSTALL MINT UPDATES
 #--------------------------------
@@ -148,5 +125,4 @@ try:
     if os.path.exists("/usr/share/ubuntu-system-adjustments/systemd/adjust-grub-title"):
         subprocess.run(["/usr/share/ubuntu-system-adjustments/systemd/adjust-grub-title"])
 except Exception as detail:
-    syslog.syslog("Couldn't update grub: %s" % detail
-)
+    syslog.syslog("Couldn't update grub: %s" % detail)
