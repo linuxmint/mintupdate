@@ -2018,12 +2018,9 @@ class MintUpdate():
                     desc = "%s\n\n%s: %s" % (description, latest_change_str, update.commit_msg)
 
                     self.textview_description.set_text(desc)
-
                     self.notebook_details.get_nth_page(TAB_PACKAGES).hide()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
-
                     self.notebook_details.set_current_page(TAB_DESC)
-                    self.notebook_details.set_tab_label_text(desc_tab, _("Information"))
                 elif update.type == "flatpak":
                     if update.link is not None:
                         website_label_str = _("Website: %s") % update.link
@@ -2032,18 +2029,14 @@ class MintUpdate():
                         description = "%s" % update.description
 
                     self.textview_description.set_text(description)
-
                     self.notebook_details.get_nth_page(TAB_PACKAGES).show()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
-
                     self.notebook_details.set_current_page(TAB_DESC)
-                    self.notebook_details.set_tab_label_text(desc_tab, _("Information"))
                     self.display_package_list(update, is_flatpak=True)
                 else:
                     self.textview_description.set_text(description)
                     self.notebook_details.get_nth_page(TAB_PACKAGES).show()
                     self.notebook_details.get_nth_page(TAB_CHANGELOG).show()
-                    self.notebook_details.set_tab_label_text(desc_tab, _("Description"))
                     self.display_package_list(update)
 
                     if self.notebook_details.get_current_page() == 2:

@@ -412,10 +412,10 @@
               </object>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="l_description">
+              <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Description</property>
+                <property name="label" translatable="yes">Information</property>
               </object>
               <packing>
                 <property name="tab-fill">False</property>
@@ -447,7 +447,7 @@
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="l_packages">
+              <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Packages</property>
@@ -480,7 +480,7 @@
               </packing>
             </child>
             <child type="tab">
-              <object class="GtkLabel" id="l_changelog">
+              <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Changelog</property>
