@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2024-06-16 11:51+0100\n"
-"PO-Revision-Date: 2022-04-23 09:26+0000\n"
-"Last-Translator: Luke Na <Unknown>\n"
+"PO-Revision-Date: 2024-07-19 06:51+0000\n"
+"Last-Translator: 张鹏 <Unknown>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2024-06-18 17:49+0000\n"
+"X-Launchpad-Export-Date: 2024-07-21 08:56+0000\n"
 "X-Generator: Launchpad (build bbfa2351d9d6a9ddfe262109428f7bf5516e65d1)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -538,6 +538,7 @@ msgstr ""
 "  山龙岗 https://launchpad.net/~shanlg\n"
 "  张琦 https://launchpad.net/~hsrzq\n"
 "  张秋雨 https://launchpad.net/~vdergow\n"
+"  张鹏 https://launchpad.net/~scbeta\n"
 "  行走不回头 https://launchpad.net/~307827021-q"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
@@ -777,7 +778,7 @@ msgstr "无法安装安全更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:666
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
 msgid "Updating Cinnamon Spices"
-msgstr ""
+msgstr "正在更新Cinnamon Spices..."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:673
@@ -832,7 +833,7 @@ msgstr "正在检查更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:844
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
 msgid "Checking for Cinnamon spices"
-msgstr ""
+msgstr "正在检查Cinnamon Spices..."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:779
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
@@ -972,7 +973,7 @@ msgstr "第三方更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1019
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
 msgid "Cinnamon applet"
-msgstr ""
+msgstr "Cinnamon小程序"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:937
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:978
@@ -980,7 +981,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1035
 msgid "Cinnamon desklet"
-msgstr ""
+msgstr "Cinnamon桌面小程序"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:939
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:980
@@ -1790,7 +1791,7 @@ msgstr "仅显示安全和内核更新通知"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2504
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
-msgstr ""
+msgstr "如果更新可用（以登录天数为单位），则显示通知："
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2300
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2359
@@ -1809,7 +1810,7 @@ msgstr "如果更新早于以下时间 ，则显示通知（按天计算）："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2508
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
-msgstr ""
+msgstr "如果在过去（以天为单位）应用了更新，则不显示通知："
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2307
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2366
@@ -1872,7 +1873,7 @@ msgstr "点击此按钮以使用您当前的黑名单来自动更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2567
 msgid "Update Cinnamon spices automatically"
-msgstr ""
+msgstr "自动更新Cinnamon spices"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2347
 msgid "Update flatpaks automatically"
@@ -1912,7 +1913,7 @@ msgstr "Automatic Maintenance"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 msgid "Performed as root on a weekly basis"
-msgstr ""
+msgstr "每周以 root 身份执行"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2354
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
@@ -2101,7 +2102,7 @@ msgstr "显示并安装可用更新"
 
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
-msgstr ""
+msgstr "以下Spice已自动更新："
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
@@ -2316,28 +2317,28 @@ msgstr "选择内核更新"
 #: usr/lib/linuxmint/mintUpdate/flatpakUpdater.py:90
 #: usr/lib/linuxmint/mintUpdate/Classes.py:470
 msgid "A Flatpak runtime package"
-msgstr ""
+msgstr "Flatpak运行库包"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:818
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:848
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:855
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:869
 msgid "Checking for Flatpak updates"
-msgstr ""
+msgstr "正在检查Flatpak更新"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1022
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1068
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
 msgid "Flatpak application"
-msgstr ""
+msgstr "Flatpak应用程序"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1024
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1060
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1070
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
 msgid "Flatpak runtime"
-msgstr ""
+msgstr "Flatpak运行库"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1102
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
@@ -2345,7 +2346,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
 #, python-format
 msgid "Error checking for flatpak updates: %s"
-msgstr ""
+msgstr "检查 flatpak 更新时出错： %s"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1935
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
@@ -2354,7 +2355,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 #, python-format
 msgid "Website: %s"
-msgstr ""
+msgstr "网站：%s"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1981
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2045
@@ -2362,7 +2363,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2075
 msgid "Total size: <"
-msgstr ""
+msgstr "总大小：<"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2406
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2529
@@ -2370,83 +2371,83 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2570
 msgid "Update Flatpaks automatically"
-msgstr ""
+msgstr "自动更新Flatpak"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2476
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 msgid "Update types"
-msgstr ""
+msgstr "更新类型"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2476
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 msgid "In addition to system packages, check for:"
-msgstr ""
+msgstr "除了系统软件包之外，还要检查："
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2493
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2520
 msgid "Cinnamon spice updates"
-msgstr ""
+msgstr "Cinnamon spice更新"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2481
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2495
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2505
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2522
 msgid "Flatpak updates"
-msgstr ""
+msgstr "Flatpak更新"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Changes made here will not affect automation."
-msgstr ""
+msgstr "此处所做的更改不会对自动化生效。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:2
 msgid "Blocked packages"
-msgstr ""
+msgstr "被阻止的软件包"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "It is recommended to add packages to this list by right-clicking them in the "
 "updates listing."
-msgstr ""
+msgstr "建议通过在更新列表中右键单击程序包来将程序包添加到此列表中。"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "Make sure your system snapshots are properly configured before enabling "
 "automation."
-msgstr ""
+msgstr "在启用自动化之前，请确保正确配置了系统快照。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1023
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1040
 msgid "Nemo action"
-msgstr ""
+msgstr "Nemo动作"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
 msgid ""
 "You have installed updates that require a reboot to take effect. Please "
 "reboot your system as soon as possible."
-msgstr ""
+msgstr "您已安装需要重新启动才能生效的更新。请尽快重新启动系统。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
 msgid ""
 "Do not install or update anything - doing so could break your operating "
 "system!"
-msgstr ""
+msgstr "不要安装或更新任何东西 - 这样做可能会破坏您的操作系统！"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2492
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(in system tray mode)."
-msgstr ""
+msgstr "注： 只有在 更新管理器 窗口关闭时（在系统托盘模式下），列表才会刷新。"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2562
 msgid ""
 "Click this button to make automatic updates use your current blacklist."
-msgstr ""
+msgstr "单击此按钮可使用您当前的黑名单进行自动更新。"
 
 #~ msgid "Please wait, this can take some time"
 #~ msgstr "请稍候，这将花费一些时间"
