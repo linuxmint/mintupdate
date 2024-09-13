@@ -31,6 +31,22 @@ from gi.repository import Gtk, Gdk, Gio, GLib, GObject, Notify, Pango
 from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
 
+
+# Used as a decorator to run things in the background
+def _async(func):
+    def wrapper(*args, **kwargs):
+        thread = threading.Thread(target=func, args=args, kwargs=kwargs)
+        thread.daemon = True
+        thread.start()
+        return thread
+    return wrapper
+
+# Used as a decorator to run things in the main loop, from another thread
+def _idle(func):
+    def wrapper(*args):
+        GLib.idle_add(func, *args)
+    return wrapper
+
 settings = Gio.Settings(schema_id="com.linuxmint.updates")
 cinnamon_support = False
 try:
