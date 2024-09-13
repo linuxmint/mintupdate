@@ -412,7 +412,7 @@ class AutomaticRefreshThread(threading.Thread):
                         self.application.logger.write("Auto-refresh disabled in preferences; cancelling %s refresh" % refresh_type)
                         self.application.uninhibit_pm()
                         return
-                    if self.application.app_hidden():
+                    if self.application.hidden:
                         self.application.logger.write("Update Manager is in tray mode; performing %s refresh" % refresh_type)
                         refresh = RefreshThread(self.application, root_mode=True)
                         refresh.start()
@@ -667,7 +667,7 @@ class InstallThread(threading.Thread):
                         self.application.reboot_required = True
                     elif self.application.settings.get_boolean("hide-window-after-update"):
                         Gdk.threads_enter()
-                        self.application.window.hide()
+                        self.application.hide_window()
                         Gdk.threads_leave()
 
                     if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
@@ -785,16 +785,11 @@ class RefreshThread(threading.Thread):
         if self.application.stack.get_visible_child_name() == "status_refreshing":
             self.application.stack.set_visible_child_name("updates_available")
         # Reset cursor
-        if not self.application.app_hidden():
+        if not self.application.hidden:
             self.application.window.get_window().set_cursor(None)
         self.application.paned.set_position(self.vpaned_position)
         self.application.toolbar.set_sensitive(True)
         self.application.menubar.set_sensitive(True)
-        Gdk.threads_leave()
-
-    def show_window(self):
-        Gdk.threads_enter()
-        self.application.window.present_with_time(Gtk.get_current_event_time())
         Gdk.threads_leave()
 
     def on_notification_action(self, notification, action_name, data):
@@ -809,7 +804,7 @@ class RefreshThread(threading.Thread):
 
         if self.application.updates_inhibited:
             self.application.logger.write("Updates are inhibited, skipping refresh")
-            self.show_window()
+            self.application.show_window()
             return False
 
         self.application.refreshing = True
@@ -841,7 +836,7 @@ class RefreshThread(threading.Thread):
             # Switch to status_refreshing page
             self.application.status_refreshing_spinner.start()
             self.application.stack.set_visible_child_name("status_refreshing")
-            if not self.application.app_hidden():
+            if not self.application.hidden:
                 self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.application.toolbar.set_sensitive(False)
             self.application.menubar.set_sensitive(False)
@@ -862,7 +857,7 @@ class RefreshThread(threading.Thread):
             # Refresh the APT cache
             if self.root_mode:
                 refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
-                if (not self.application.app_hidden()) and os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+                if (not self.application.hidden) and os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
                     refresh_command.extend(["--use-synaptic",
                                             str(self.application.window.get_window().get_xid())])
                 subprocess.run(refresh_command)
@@ -1249,7 +1244,7 @@ class RefreshThread(threading.Thread):
                         infobar_title = _("Do you want to switch to a local mirror?")
                         infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
                         infobar_message_type = Gtk.MessageType.QUESTION
-                elif not self.application.app_hidden():
+                elif not self.application.hidden:
                     # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
                     mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
                     mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
@@ -1414,6 +1409,7 @@ class MintUpdate():
         self.updates_inhibited = False
         self.reboot_required = False
         self.refreshing = False
+        self.hidden = False # whether the window is hidden or not
         self.inhibit_cookie = 0
         self.logger = Logger()
         self.logger.write("Launching Update Manager")
@@ -1593,7 +1589,7 @@ class MintUpdate():
             fileMenu.set_submenu(fileSubmenu)
             image = Gtk.Image.new_from_icon_name("window-close-symbolic", Gtk.IconSize.MENU)
             closeMenuItem = Gtk.ImageMenuItem(label=_("Close window"), image=image)
-            closeMenuItem.connect("activate", self.hide_main_window)
+            closeMenuItem.connect("activate", self.hide_window)
             key, mod = Gtk.accelerator_parse("<Control>W")
             closeMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             fileSubmenu.append(closeMenuItem)
@@ -1810,6 +1806,7 @@ class MintUpdate():
         self.app_restart_required = settings.get_boolean("show-cinnamon-updates") != self.show_cinnamon_enabled or \
                                     settings.get_boolean("show-flatpak-updates") != self.show_flatpak_enabled
 
+
 ######### EVENT HANDLERS #########
 
     def on_key_press_event(self, widget, event):
@@ -1894,8 +1891,17 @@ class MintUpdate():
 
     def close_window(self, window, event):
         self.save_window_size()
-        self.hide_main_window(window)
+        self.hide_window(window)
         return True
+
+    def hide_window(self, widget=None):
+        self.window.hide()
+        self.hidden = True
+
+    def show_window(self, time=Gtk.get_current_event_time()):
+        self.window.show()
+        self.window.present_with_time(time)
+        self.hidden = False
 
     def save_window_size(self):
         self.settings.set_int('window-width', self.window.get_size()[0])
@@ -1903,9 +1909,6 @@ class MintUpdate():
         self.settings.set_int('window-pane-position', self.paned.get_position())
 
 ######### MENU/TOOLBAR FUNCTIONS #########
-
-    def hide_main_window(self, widget):
-        self.window.hide()
 
     def update_installable_state(self):
         model = self.treeview.get_model()
@@ -2121,9 +2124,6 @@ class MintUpdate():
 
 ######### SYSTRAY #########
 
-    def app_hidden(self):
-        return not self.window.get_visible()
-
     def tray_activate(self, time=0):
         try:
             focused = self.window.get_window().get_state() & Gdk.WindowState.FOCUSED
@@ -2132,10 +2132,9 @@ class MintUpdate():
 
         if focused:
             self.save_window_size()
-            self.window.hide()
+            self.hide_window()
         else:
-            self.window.show()
-            self.window.present_with_time(time)
+            self.show_window(time)
 
     def on_statusicon_activated(self, icon, button, time):
         if button == Gdk.BUTTON_PRIMARY:
@@ -2143,7 +2142,7 @@ class MintUpdate():
 
     def quit(self, widget, data = None):
         if self.window:
-            self.window.hide()
+            self.hide_window()
         try:
             self.logger.write("Exiting - requested by user")
             self.logger.close()
