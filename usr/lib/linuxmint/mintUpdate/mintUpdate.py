@@ -450,11 +450,11 @@ class InstallThread(threading.Thread):
         self.application.inhibit_pm("Installing updates")
         try:
             self.application.logger.write("Install requested by user")
-            Gdk.threads_enter()
             aptInstallNeeded = False
             packages = []
             cinnamon_spices = []
             flatpaks = []
+            Gdk.threads_enter()
             model = self.application.treeview.get_model()
             Gdk.threads_leave()
 
@@ -656,9 +656,7 @@ class InstallThread(threading.Thread):
                     if self.reboot_required:
                         self.application.reboot_required = True
                     elif self.application.settings.get_boolean("hide-window-after-update"):
-                        Gdk.threads_enter()
                         self.application.hide_window()
-                        Gdk.threads_leave()
 
                     if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
                         # Restart
@@ -793,13 +791,9 @@ class RefreshThread(threading.Thread):
         self.application.inhibit_pm("Refreshing available updates")
         self.application.cache_watcher.pause()
 
-        Gdk.threads_enter()
-        for child in self.application.infobar.get_children():
-            child.destroy()
         if self.application.reboot_required:
             self.application.show_infobar(_("Reboot required"),
-                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."), icon="system-reboot-symbolic")
-        Gdk.threads_leave()
+                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."), Gtk.MessageType.WARNING, "system-reboot-symbolic", None)
 
         try:
             if self.root_mode:
@@ -870,37 +864,28 @@ class RefreshThread(threading.Thread):
             (mint_layer_found, error_msg) = self.check_policy()
             if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not mint_layer_found):
                 error_found = True
-                self.application.logger.write_error("Error: The APT policy is incorrect!")
 
                 label1 = _("Your APT configuration is corrupt.")
                 label2 = _("Do not install or update anything - doing so could break your operating system!")
                 label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
 
-                msg = _("Your APT configuration is corrupt.")
-                if error_msg:
-                    error_msg = "\n\n%s\n%s" % (_("APT error:"), error_msg)
-                else:
-                    error_msg = ""
 
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
-                Gdk.threads_enter()
+
                 self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
-                    msg, Gtk.MessageType.ERROR,
-                    callback=self._on_infobar_mintsources_response)
+                    _("Your APT configuration is corrupt."), Gtk.MessageType.ERROR, None,
+                    self._on_infobar_mintsources_response)
+
+                Gdk.threads_enter()
                 self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
                 Gdk.threads_leave()
 
             if error_found:
+                self.application.show_error(error_msg)
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
                     "mintupdate-error-symbolic", True)
-                Gdk.threads_enter()
-                self.application.stack.set_visible_child_name("status_error")
-                if error_msg:
-                    self.application.builder.get_object("label_error_details").set_text(error_msg)
-                self.application.builder.get_object("label_error_details").show()
-                Gdk.threads_leave()
                 self.cleanup()
                 return False
 
@@ -1171,8 +1156,9 @@ class RefreshThread(threading.Thread):
         if p.stderr:
             error_msg = p.stderr.decode().strip()
             self.application.logger.write_error("APT policy error:\n%s" % error_msg)
+            error_msg = "\n\n%s\n%s" % (_("APT error:"), error_msg)
         else:
-            error_msg = None
+            error_msg = ""
         mint_layer_found = False
         for line in output.split("\n"):
             line = line.strip()
@@ -1235,12 +1221,11 @@ class RefreshThread(threading.Thread):
             print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
 
         if infobar_message:
-            Gdk.threads_enter()
             self.application.show_infobar(infobar_title,
                                             infobar_message,
                                             infobar_message_type,
-                                            callback=infobar_callback)
-            Gdk.threads_leave()
+                                            None,
+                                            infobar_callback)
 
     def _on_infobar_mintsources_response(self, infobar, response_id):
         infobar.destroy()
@@ -1812,7 +1797,8 @@ class MintUpdate():
         dialog.run()
         dialog.destroy()
 
-    def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon=None, callback=None):
+    @_idle
+    def show_infobar(self, title, msg, msg_type, icon, callback):
         infobar = Gtk.InfoBar()
         infobar.set_margin_bottom(2)
         infobar.set_message_type(msg_type)
@@ -1841,7 +1827,15 @@ class MintUpdate():
                 infobar.add_button(_("OK"), Gtk.ResponseType.OK)
             infobar.connect("response", callback)
         infobar.show_all()
+        for child in self.infobar.get_children():
+            child.destroy()
         self.infobar.pack_start(infobar, True, True, 0)
+
+    @_idle
+    def show_error(self, error_msg):
+        self.stack.set_visible_child_name("status_error")
+        self.builder.get_object("label_error_details").set_text(error_msg)
+
 
 ######### WINDOW/STATUSICON ##########
 
