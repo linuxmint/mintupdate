@@ -271,9 +271,7 @@ class ChangelogRetriever(threading.Thread):
         return deb_changelog
 
     def run(self):
-        Gdk.threads_enter()
-        self.application.textview_changes.set_text(_("Downloading changelog..."))
-        Gdk.threads_leave()
+        self.application.set_textview_changes_text(_("Downloading changelog..."))
 
         if self.ps == {}:
             # use default urllib.request proxy mechanisms (possibly *_proxy environment vars)
@@ -359,9 +357,7 @@ class ChangelogRetriever(threading.Thread):
             except:
                 pass
 
-        Gdk.threads_enter()
-        self.application.textview_changes.set_text("\n".join(changelog))
-        Gdk.threads_leave()
+        self.application.set_textview_changes_text("\n".join(changelog))
 
 class AutomaticRefreshThread(threading.Thread):
 
@@ -442,16 +438,12 @@ class InstallThread(threading.Thread):
     def __init__(self, application):
         threading.Thread.__init__(self, name="mintupdate-install-thread")
         self.application = application
-        self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
-        self.application.window.set_sensitive(False)
+        self.application.set_window_busy(True)
         self.reboot_required = self.application.reboot_required
 
     def __del__(self):
         self.application.cache_watcher.resume(False)
-        Gdk.threads_enter()
-        self.application.window.get_window().set_cursor(None)
-        self.application.window.set_sensitive(True)
-        Gdk.threads_leave()
+        self.application.set_window_busy(False)
 
     def run(self):
         self.application.cache_watcher.pause()
@@ -773,18 +765,7 @@ class RefreshThread(threading.Thread):
         if not self.running:
             return
         self.application.cache_watcher.resume()
-        Gdk.threads_enter()
-        self.application.status_refreshing_spinner.stop()
-        # Make sure we're never stuck on the status_refreshing page:
-        if self.application.stack.get_visible_child_name() == "status_refreshing":
-            self.application.stack.set_visible_child_name("updates_available")
-        # Reset cursor
-        if not self.application.hidden:
-            self.application.window.get_window().set_cursor(None)
-        self.application.paned.set_position(self.vpaned_position)
-        self.application.toolbar.set_sensitive(True)
-        self.application.menubar.set_sensitive(True)
-        Gdk.threads_leave()
+        self.application.set_refresh_mode(False)
 
     def on_notification_action(self, notification, action_name, data):
         if action_name == "show_updates":
@@ -813,7 +794,6 @@ class RefreshThread(threading.Thread):
         self.application.cache_watcher.pause()
 
         Gdk.threads_enter()
-        self.vpaned_position = self.application.paned.get_position()
         for child in self.application.infobar.get_children():
             child.destroy()
         if self.application.reboot_required:
@@ -826,21 +806,10 @@ class RefreshThread(threading.Thread):
                 self.application.logger.write("Starting refresh (retrieving lists of updates from remote servers)")
             else:
                 self.application.logger.write("Starting refresh (local only)")
-            Gdk.threads_enter()
-            # Switch to status_refreshing page
-            self.application.status_refreshing_spinner.start()
-            self.application.stack.set_visible_child_name("status_refreshing")
-            if not self.application.hidden:
-                self.application.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
-            self.application.toolbar.set_sensitive(False)
-            self.application.menubar.set_sensitive(False)
-            self.application.builder.get_object("tool_clear").set_sensitive(False)
-            self.application.builder.get_object("tool_select_all").set_sensitive(False)
-            self.application.builder.get_object("tool_apply").set_sensitive(False)
-            Gdk.threads_leave()
-            # Starts the blinking
-            self.application.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
 
+            # Switch to status_refreshing page
+            self.application.set_refresh_mode(True)
+            self.application.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
 
             model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
@@ -1892,6 +1861,36 @@ class MintUpdate():
         self.window.present_with_time(time)
         self.hidden = False
 
+    @_idle
+    def set_window_busy(self, busy):
+        if busy and not self.hidden:
+            self.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
+            self.window.set_sensitive(False)
+        else:
+            self.window.get_window().set_cursor(None)
+            self.window.set_sensitive(True)
+
+    @_idle
+    def set_refresh_mode(self, enabled):
+        if enabled:
+            self.status_refreshing_spinner.start()
+            self.stack.set_visible_child_name("status_refreshing")
+            self.toolbar.set_sensitive(False)
+            self.menubar.set_sensitive(False)
+            self.builder.get_object("tool_clear").set_sensitive(False)
+            self.builder.get_object("tool_select_all").set_sensitive(False)
+            self.builder.get_object("tool_apply").set_sensitive(False)
+        else:
+            self.status_refreshing_spinner.stop()
+            # Make sure we're never stuck on the status_refreshing page:
+            if self.stack.get_visible_child_name() == "status_refreshing":
+                self.stack.set_visible_child_name("updates_available")
+            #self.paned.set_position(self.paned.get_position())
+            self.toolbar.set_sensitive(True)
+            self.menubar.set_sensitive(True)
+        self.set_window_busy(enabled)
+
+
     def save_window_size(self):
         self.settings.set_int('window-width', self.window.get_size()[0])
         self.settings.set_int('window-height', self.window.get_size()[1])
@@ -2008,6 +2007,10 @@ class MintUpdate():
             model.set_value(iter, UPDATE_CHECKED, (not model.get_value(iter, UPDATE_CHECKED)))
 
         self.update_installable_state()
+
+    @_idle
+    def set_textview_changes_text(self, text):
+        self.textview_changes.set_text(text)
 
     def display_selected_update(self, selection):
         try:
