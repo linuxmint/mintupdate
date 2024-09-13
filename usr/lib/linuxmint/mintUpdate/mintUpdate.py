@@ -765,12 +765,6 @@ class RefreshThread(threading.Thread):
         self.application.cache_watcher.resume()
         self.application.set_refresh_mode(False)
 
-    def on_notification_action(self, notification, action_name, data):
-        if action_name == "show_updates":
-            os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
-        elif action_name == "enable_automatic_updates":
-            self.application.open_preferences(None, show_automation=True)
-
     def run(self):
         if self.application.refreshing:
             return False
@@ -861,25 +855,15 @@ class RefreshThread(threading.Thread):
                     error_msg = ""
 
             # Check presence of Mint layer
-            (mint_layer_found, error_msg) = self.check_policy()
-            if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not mint_layer_found):
+            if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not self.check_policy()):
                 error_found = True
-
-                label1 = _("Your APT configuration is corrupt.")
-                label2 = _("Do not install or update anything - doing so could break your operating system!")
-                label3 = _("To switch to a different Linux Mint mirror and solve this problem, click OK.")
-
-
-                self.application.set_status(_("Could not refresh the list of updates"),
-                    "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
+                error_msg = "%s\n%s\n%s" % (_("Your APT configuration is corrupt."),
+                _("Do not install or update anything - doing so could break your operating system!"),
+                _("To switch to a different Linux Mint mirror and solve this problem, click OK."))
 
                 self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                     _("Your APT configuration is corrupt."), Gtk.MessageType.ERROR, None,
                     self._on_infobar_mintsources_response)
-
-                Gdk.threads_enter()
-                self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
-                Gdk.threads_leave()
 
             if error_found:
                 self.application.show_error(error_msg)
@@ -890,7 +874,6 @@ class RefreshThread(threading.Thread):
                 return False
 
             # Look at the updates one by one
-            updates = []
             num_visible = 0
             num_security = 0
             num_software = 0
@@ -905,20 +888,10 @@ class RefreshThread(threading.Thread):
 
                     # Create update object
                     update = Update(package=None, input_string=line, source_name=None)
-                    updates.append(update)
-
-                    if tracker.active and update.type != "unstable":
-                        tracker.update(update)
 
                     # Check if self-update is needed
                     if update.source_name in PRIORITY_UPDATES:
                         is_self_update = True
-
-                    iter = model.insert_before(None, None)
-                    model.row_changed(model.get_path(iter), iter)
-
-                    model.set_value(iter, UPDATE_CHECKED, True)
-                    download_size += update.size
 
                     shortdesc = update.short_description
                     if len(shortdesc) > 100:
@@ -933,52 +906,63 @@ class RefreshThread(threading.Thread):
                         except:
                             pass
 
-                    if self.application.settings.get_boolean("show-descriptions"):
-                        model.set_value(iter, UPDATE_DISPLAY_NAME,
-                                        "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.display_name), GLib.markup_escape_text(shortdesc)))
-                    else:
-                        model.set_value(iter, UPDATE_DISPLAY_NAME,
-                                        "<b>%s</b>" % GLib.markup_escape_text(update.display_name))
+                    origin = update.origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
 
-                    origin = update.origin
-                    origin = origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
-
-                    type_sort_key = 0 # Used to sort by type
-                    if update.type == "kernel":
-                        tooltip = _("Kernel update")
-                        type_sort_key = 2
-                        num_security += 1
-                    elif update.type == "security":
+                    if update.type == "security":
+                        sort_key = 1
                         tooltip = _("Security update")
-                        type_sort_key = 1
+                        num_security += 1
+                    elif update.type == "kernel":
+                        sort_key = 2
+                        tooltip = _("Kernel update")
                         num_security += 1
                     elif update.type == "unstable":
+                        sort_key = 7
                         tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
-                        type_sort_key = 7
                     else:
-                        num_software += 1
                         if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
+                            sort_key = 3
                             tooltip = _("Software update")
-                            type_sort_key = 3
                         else:
-                            update.type = "3rd-party"
+                            sort_key = 4
                             tooltip = "%s\n%s" % (_("3rd-party update"), origin)
-                            type_sort_key = 4
+                            update.type = "3rd-party"
+                        num_software += 1
 
-                    model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
-                    model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-                    model.set_value(iter, UPDATE_SOURCE, "%s / %s" % (origin, update.archive))
-                    model.set_value(iter, UPDATE_SIZE, update.size)
-                    model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-                    model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-%s-symbolic" % update.type)
-                    model.set_value(iter, UPDATE_TYPE, update.type)
-                    model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                    model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.display_name))
-                    model.set_value(iter, UPDATE_OBJ, update)
+                    title = update.display_name
+                    description = shortdesc
+                    source = f"{origin} / {update.archive}"
+                    icon = f"mintupdate-type-{update.type}-symbolic"
+                    self.add_update_to_model(tracker, model, update, title, description, source, icon, f"{sort_key}{update.display_name}", tooltip)
+
                     num_visible += 1
+                    download_size += update.size
+
+            if FLATPAK_SUPPORT and self.application.flatpak_updater and not is_self_update:
+                blacklist = self.application.settings.get_strv("blacklisted-packages")
+
+                self.application.flatpak_updater.fetch_updates()
+                if self.application.flatpak_updater.error is None:
+                    for update in self.application.flatpak_updater.updates:
+                        update.type = "flatpak"
+                        if update.ref_name in blacklist or update.source_packages[0] in blacklist:
+                            continue
+                        if update.flatpak_type == "app":
+                            tooltip = _("Flatpak application")
+                        else:
+                            tooltip = _("Flatpak runtime")
+
+                        title = update.name
+                        description = update.summary
+                        source = update.origin
+                        icon = "mintupdate-type-flatpak-symbolic"
+                        self.add_update_to_model(tracker, model, update, title, description, source, icon, f"5{update.ref_name}", tooltip)
+
+                        num_software += 1
+                        num_visible += 1
+                        download_size += update.size
 
             if CINNAMON_SUPPORT and not is_self_update:
-                type_sort_key = 6
                 blacklist = self.application.settings.get_strv("blacklisted-packages")
 
                 for update in self.application.cinnamon_updater.get_updates():
@@ -994,7 +978,7 @@ class RefreshThread(threading.Thread):
                         tooltip = _("Cinnamon desklet")
                     elif update.spice_type == "action":
                         # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
-                        # use the value "action" instead here so this code can be 
+                        # use the value "action" instead here so this code can be
                         # backported.
                         tooltip = _("Nemo action")
                     elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
@@ -1002,144 +986,36 @@ class RefreshThread(threading.Thread):
                     else:
                         tooltip = _("Cinnamon extension")
 
-                    if tracker.active:
-                        tracker.update(update)
+                    title = update.uuid
+                    description = update.name
+                    source = "Linux Mint / cinnamon"
+                    icon = "cinnamon-symbolic"
+                    self.add_update_to_model(tracker, model, update, title, description, source, icon, f"6{update.uuid}", tooltip)
 
-                    iter = model.insert_before(None, None)
-                    model.row_changed(model.get_path(iter), iter)
-
-                    model.set_value(iter, UPDATE_CHECKED, True)
-
-                    if self.application.settings.get_boolean("show-descriptions"):
-                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.uuid),
-                                                                                      GLib.markup_escape_text(update.name)))
-                    else:
-                        model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(update.uuid))
-
-                    model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
-                    model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-                    model.set_value(iter, UPDATE_SOURCE, "Linux Mint / cinnamon")
-                    model.set_value(iter, UPDATE_SIZE, update.size)
-                    model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-                    model.set_value(iter, UPDATE_TYPE_PIX, "cinnamon-symbolic")
-                    model.set_value(iter, UPDATE_TYPE, "cinnamon")
-                    model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                    model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.uuid))
-                    model.set_value(iter, UPDATE_OBJ, update)
                     num_software += 1
                     num_visible += 1
                     download_size += update.size
 
-            if FLATPAK_SUPPORT and self.application.flatpak_updater and not is_self_update:
-                type_sort_key = 5
-                blacklist = self.application.settings.get_strv("blacklisted-packages")
-
-                self.application.flatpak_updater.fetch_updates()
-                if self.application.flatpak_updater.error is None:
-                    for update in self.application.flatpak_updater.updates:
-                        update.type = "flatpak"
-                        if update.ref_name in blacklist or update.source_packages[0] in blacklist:
-                            continue
-                        if update.flatpak_type == "app":
-                            tooltip = _("Flatpak application")
-                        else:
-                            tooltip = _("Flatpak runtime")
-
-                        if tracker.active:
-                            tracker.update(update)
-
-                        iter = model.insert_before(None, None)
-                        model.row_changed(model.get_path(iter), iter)
-
-                        model.set_value(iter, UPDATE_CHECKED, True)
-
-                        if self.application.settings.get_boolean("show-descriptions"):
-                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(update.name),
-                                                                                          GLib.markup_escape_text(update.summary)))
-                        else:
-                            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(update.name))
-
-                        model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
-                        model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-                        model.set_value(iter, UPDATE_SOURCE, update.origin)
-                        model.set_value(iter, UPDATE_SIZE, update.size)
-                        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-                        model.set_value(iter, UPDATE_TYPE_PIX, "mintupdate-type-flatpak-symbolic")
-                        model.set_value(iter, UPDATE_TYPE, "flatpak")
-                        model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-                        model.set_value(iter, UPDATE_SORT_STR, "%s%s" % (str(type_sort_key), update.ref_name))
-                        model.set_value(iter, UPDATE_OBJ, update)
-                        num_software += 1
-                        num_visible += 1
-                        download_size += update.size
-
             if tracker.active:
                 if tracker.notify():
-                    Gdk.threads_enter()
-                    notification_title = _("Updates are available")
-                    security_msg = gettext.ngettext("%d security update", "%d security updates", num_security) % num_security
-                    software_msg = gettext.ngettext("%d software update", "%d software updates", num_software) % num_software
-                    msg = ""
-                    if num_security > 0:
-                        msg = "%s\n" % security_msg
-                    if num_software > 0:
-                        msg = "%s%s\n" % (msg, software_msg)
-                    msg = "%s\n%s" % (msg, _("Apply them to keep your operating system safe and up to date."))
-
-                    # We use self.notification (instead of just a variable) to keep a memory pointer
-                    # on the notification. Without doing this, the callbacks are never executed by Gtk/Notify.
-                    self.notification = Notify.Notification.new(notification_title, msg, "mintupdate-updates-available-symbolic")
-                    self.notification.set_urgency(2)
-                    self.notification.set_timeout(Notify.EXPIRES_NEVER)
-                    self.notification.add_action("show_updates", _("View updates"), self.on_notification_action, None)
-                    self.notification.add_action("enable_automatic_updates", _("Enable automatic updates"), self.on_notification_action, None)
-                    self.notification.show()
-                    Gdk.threads_leave()
+                    self.application.show_tracker_notification(num_software, num_security)
                 tracker.record()
 
-            Gdk.threads_enter()
             # Updates found, update status message
-            if num_visible > 0:
-                self.application.logger.write("Found %d software updates" % num_visible)
-                if is_self_update:
-                    self.application.stack.set_visible_child_name("status_self-update")
-                    self.application.statusbar.set_visible(False)
-                    status_string = ""
-                    details = []
-                    for update in updates:
-                        details.append(f"{update.source_name} {update.new_version}")
-                    details = ", ".join(details)
-                    self.application.builder.get_object("label_self_update_details").set_text(details)
-                else:
-                    status_string = gettext.ngettext("%(selected)d update selected (%(size)s)",
-                                            "%(selected)d updates selected (%(size)s)", num_visible) % \
-                                            {'selected':num_visible, 'size':size_to_string(download_size)}
-                    self.application.builder.get_object("tool_clear").set_sensitive(True)
-                    self.application.builder.get_object("tool_select_all").set_sensitive(True)
-                    self.application.builder.get_object("tool_apply").set_sensitive(True)
-                systray_tooltip = gettext.ngettext("%d update available", "%d updates available", num_visible) % num_visible
-                self.application.set_status(status_string, systray_tooltip, "mintupdate-updates-available-symbolic", True)
-            else:
-                self.application.logger.write("System is up to date")
-                self.application.stack.set_visible_child_name("status_updated")
-                self.application.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
-                                            not self.application.settings.get_boolean("hide-systray"))
+            self.application.show_updates(num_visible, download_size, is_self_update, model)
 
             if FLATPAK_SUPPORT and self.application.flatpak_updater.error is not None and not is_self_update:
                 self.application.logger.write("Could not check for flatpak updates: %s" % self.application.flatpak_updater.error)
                 msg = _("Error checking for flatpak updates: %s") % self.application.flatpak_updater.error
                 self.application.set_status_message(msg)
 
-            self.application.builder.get_object("notebook_details").set_current_page(0)
-            self.application.treeview.set_model(model)
-            self.application.treeview.set_search_column(UPDATE_DISPLAY_NAME)
             del model
-            Gdk.threads_leave()
 
             # Check whether to display the mirror infobar
             self.mirror_check()
 
             self.application.logger.write("Refresh finished")
+
         except:
             print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
             self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
@@ -1149,6 +1025,31 @@ class RefreshThread(threading.Thread):
         finally:
             self.cleanup()
 
+    def add_update_to_model(self, tracker, model, update, title, description, source, icon, sort_key, tooltip):
+        iter = model.insert_before(None, None)
+        model.row_changed(model.get_path(iter), iter)
+
+        model.set_value(iter, UPDATE_CHECKED, True)
+        if self.application.settings.get_boolean("show-descriptions"):
+            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(title),
+                                                                          GLib.markup_escape_text(description)))
+        else:
+            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(title))
+
+        model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
+        model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
+        model.set_value(iter, UPDATE_SOURCE, source)
+        model.set_value(iter, UPDATE_SIZE, update.size)
+        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
+        model.set_value(iter, UPDATE_TYPE_PIX, icon)
+        model.set_value(iter, UPDATE_TYPE, update.type)
+        model.set_value(iter, UPDATE_TOOLTIP, tooltip)
+        model.set_value(iter, UPDATE_SORT_STR, sort_key)
+        model.set_value(iter, UPDATE_OBJ, update)
+
+        if tracker.active and update.type != "unstable":
+            tracker.update(update)
+
     def check_policy(self):
         """ Check the presence of the Mint layer """
         p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={"LC_ALL": "C"})
@@ -1156,16 +1057,14 @@ class RefreshThread(threading.Thread):
         if p.stderr:
             error_msg = p.stderr.decode().strip()
             self.application.logger.write_error("APT policy error:\n%s" % error_msg)
-            error_msg = "\n\n%s\n%s" % (_("APT error:"), error_msg)
-        else:
-            error_msg = ""
+            return False
         mint_layer_found = False
         for line in output.split("\n"):
             line = line.strip()
             if line.startswith("700") and line.endswith("Packages") and "/upstream" in line:
                 mint_layer_found = True
                 break
-        return (mint_layer_found, error_msg)
+        return mint_layer_found
 
     def mirror_check(self):
         """ Mirror-related notifications """
@@ -1836,6 +1735,65 @@ class MintUpdate():
         self.stack.set_visible_child_name("status_error")
         self.builder.get_object("label_error_details").set_text(error_msg)
 
+
+    @_idle
+    def show_updates(self, num_visible, download_size, is_self_update, model):
+        if num_visible > 0:
+            self.logger.write("Found %d software updates" % num_visible)
+            if is_self_update:
+                self.stack.set_visible_child_name("status_self-update")
+                self.statusbar.set_visible(False)
+                status_string = ""
+                details = []
+                for update in updates:
+                    details.append(f"{update.source_name} {update.new_version}")
+                details = ", ".join(details)
+                self.builder.get_object("label_self_update_details").set_text(details)
+            else:
+                status_string = gettext.ngettext("%(selected)d update selected (%(size)s)",
+                                        "%(selected)d updates selected (%(size)s)", num_visible) % \
+                                        {'selected':num_visible, 'size':size_to_string(download_size)}
+                self.builder.get_object("tool_clear").set_sensitive(True)
+                self.builder.get_object("tool_select_all").set_sensitive(True)
+                self.builder.get_object("tool_apply").set_sensitive(True)
+            systray_tooltip = gettext.ngettext("%d update available", "%d updates available", num_visible) % num_visible
+            self.set_status(status_string, systray_tooltip, "mintupdate-updates-available-symbolic", True)
+        else:
+            self.logger.write("System is up to date")
+            self.stack.set_visible_child_name("status_updated")
+            self.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
+                                        not self.settings.get_boolean("hide-systray"))
+
+
+        self.builder.get_object("notebook_details").set_current_page(0)
+        self.treeview.set_model(model)
+        self.treeview.set_search_column(UPDATE_DISPLAY_NAME)
+
+    @_idle
+    def show_tracker_notification(self, num_software, num_security):
+        security_msg = gettext.ngettext("%d security update", "%d security updates", num_security) % num_security
+        software_msg = gettext.ngettext("%d software update", "%d software updates", num_software) % num_software
+        msg = ""
+        if num_security > 0:
+            msg = "%s\n" % security_msg
+        if num_software > 0:
+            msg = "%s%s\n" % (msg, software_msg)
+        msg = "%s\n%s" % (msg, _("Apply them to keep your operating system safe and up to date."))
+
+        # We use self.notification (instead of just a variable) to keep a memory pointer
+        # on the notification. Without doing this, the callbacks are never executed by Gtk/Notify.
+        self.notification = Notify.Notification.new(_("Updates are available"), msg, "mintupdate-updates-available-symbolic")
+        self.notification.set_urgency(2)
+        self.notification.set_timeout(Notify.EXPIRES_NEVER)
+        self.notification.add_action("show_updates", _("View updates"), self.on_notification_action, None)
+        self.notification.add_action("enable_automatic_updates", _("Enable automatic updates"), self.on_notification_action, None)
+        self.notification.show()
+
+    def on_notification_action(self, notification, action_name, data):
+        if action_name == "show_updates":
+            os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+        elif action_name == "enable_automatic_updates":
+            self.open_preferences(None, show_automation=True)
 
 ######### WINDOW/STATUSICON ##########
 
