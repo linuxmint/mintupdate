@@ -613,9 +613,7 @@ class InstallThread(threading.Thread):
                     proceed = False
 
             if aptInstallNeeded and proceed:
-                Gdk.threads_enter()
                 self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
-                Gdk.threads_leave()
                 self.application.logger.write("Ready to launch synaptic")
                 f = tempfile.NamedTemporaryFile()
 
@@ -681,14 +679,12 @@ class InstallThread(threading.Thread):
                     # Refresh
                     needs_refresh = True
                 else:
-                    Gdk.threads_enter()
                     self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
-                    Gdk.threads_leave()
 
             if update_flatpaks and proceed:
                 self.application.flatpak_updater.perform_updates()
                 if self.application.flatpak_updater.error is not None:
-                    self.application.set_status_message_from_thread(self.application.flatpak_updater.error)
+                    self.application.set_status_message(self.application.flatpak_updater.error)
                 needs_refresh = True
 
             if proceed and len(cinnamon_spices) > 0:
@@ -758,10 +754,8 @@ class InstallThread(threading.Thread):
         except Exception as e:
             print (e)
             self.application.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
-            Gdk.threads_enter()
             self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
             self.application.logger.write_error("Could not install security updates")
-            Gdk.threads_leave()
             self.application.uninhibit_pm()
 
 class RefreshThread(threading.Thread):
@@ -843,10 +837,10 @@ class RefreshThread(threading.Thread):
             self.application.builder.get_object("tool_clear").set_sensitive(False)
             self.application.builder.get_object("tool_select_all").set_sensitive(False)
             self.application.builder.get_object("tool_apply").set_sensitive(False)
-
+            Gdk.threads_leave()
             # Starts the blinking
             self.application.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
-            Gdk.threads_leave()
+
 
             model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
@@ -866,7 +860,7 @@ class RefreshThread(threading.Thread):
             if CINNAMON_SUPPORT:
                 if self.root_mode:
                     self.application.logger.write("Refreshing available Cinnamon updates from the server")
-                    self.application.set_status_message_from_thread(_("Checking for Cinnamon spices"))
+                    self.application.set_status_message(_("Checking for Cinnamon spices"))
                     for spice_type in cinnamon.updates.SPICE_TYPES:
                         try:
                             self.application.cinnamon_updater.refresh_cache_for_type(spice_type)
@@ -877,10 +871,10 @@ class RefreshThread(threading.Thread):
             if FLATPAK_SUPPORT:
                 if self.root_mode:
                     self.application.logger.write("Refreshing available Flatpak updates")
-                    self.application.set_status_message_from_thread(_("Checking for Flatpak updates"))
+                    self.application.set_status_message(_("Checking for Flatpak updates"))
                     self.application.flatpak_updater.refresh()
 
-            self.application.set_status_message_from_thread(_("Processing updates"))
+            self.application.set_status_message(_("Processing updates"))
 
             if os.getenv("MINTUPDATE_TEST") is None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
@@ -919,20 +913,20 @@ class RefreshThread(threading.Thread):
                 else:
                     error_msg = ""
 
+                self.application.set_status(_("Could not refresh the list of updates"),
+                    "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
                 Gdk.threads_enter()
                 self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
                     msg, Gtk.MessageType.ERROR,
                     callback=self._on_infobar_mintsources_response)
-                self.application.set_status(_("Could not refresh the list of updates"),
-                    "%s\n%s" % (label1, label2), "mintupdate-error-symbolic", True)
                 self.application.builder.get_object("label_error_details").set_markup("<b>%s\n%s\n%s%s</b>" % (label1, label2, label3, error_msg))
                 Gdk.threads_leave()
 
             if error_found:
-                Gdk.threads_enter()
                 self.application.set_status(_("Could not refresh the list of updates"),
                     "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
                     "mintupdate-error-symbolic", True)
+                Gdk.threads_enter()
                 self.application.stack.set_visible_child_name("status_error")
                 if error_msg:
                     self.application.builder.get_object("label_error_details").set_text(error_msg)
@@ -1195,10 +1189,8 @@ class RefreshThread(threading.Thread):
         except:
             print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
             self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
-            Gdk.threads_enter()
             self.application.set_status(_("Could not refresh the list of updates"),
                                         _("Could not refresh the list of updates"), "mintupdate-error-symbolic", True)
-            Gdk.threads_leave()
 
         finally:
             self.cleanup()
@@ -1787,9 +1779,7 @@ class MintUpdate():
             self.auto_refresh = AutomaticRefreshThread(self)
             self.auto_refresh.start()
 
-            Gdk.threads_enter()
             Gtk.main()
-            Gdk.threads_leave()
 
         except Exception as e:
             print (e)
@@ -1823,14 +1813,11 @@ class MintUpdate():
         refresh = RefreshThread(self, root_mode=root_mode)
         refresh.start()
 
+    @_idle
     def set_status_message(self, message):
         self.statusbar.push(self.context_id, message)
 
-    def set_status_message_from_thread(self, message):
-        Gdk.threads_enter()
-        self.set_status_message(message)
-        Gdk.threads_leave()
-
+    @_idle
     def set_status(self, message, tooltip, icon, visible):
         self.set_status_message(message)
         self.statusIcon.set_from_icon_name(icon)
@@ -1894,10 +1881,12 @@ class MintUpdate():
         self.hide_window(window)
         return True
 
+    @_idle
     def hide_window(self, widget=None):
         self.window.hide()
         self.hidden = True
 
+    @_idle
     def show_window(self, time=Gtk.get_current_event_time()):
         self.window.show()
         self.window.present_with_time(time)
@@ -2003,8 +1992,7 @@ class MintUpdate():
     def show_welcome_page(self, widget=None):
         self.updates_inhibited = True
         self.stack.set_visible_child_name("welcome")
-        self.set_status(_("Welcome to the Update Manager"), _("Welcome to the Update Manager"), "mintupdate-updates-available-symbolic", True)
-        self.set_status_message("")
+        self.set_status("", _("Welcome to the Update Manager"), "mintupdate-updates-available-symbolic", True)
         self.toolbar.set_sensitive(False)
         self.menubar.set_sensitive(False)
 
