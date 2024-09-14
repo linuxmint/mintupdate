@@ -172,80 +172,6 @@ class CacheWatcher(threading.Thread):
         self.application.logger.write("Changes to the package cache detected; triggering refresh")
         self.application.refresh()
 
-class AutomaticRefreshThread(threading.Thread):
-
-    def __init__(self, application):
-        threading.Thread.__init__(self)
-        self.application = application
-
-    def run(self):
-        minute = 60
-        hour = 60 * minute
-        day = 24 * hour
-        initial_refresh = True
-        settings_prefix = ""
-        refresh_type = "initial"
-
-        while self.application.refresh_schedule_enabled:
-            try:
-                schedule = {
-                    "minutes": self.application.settings.get_int("%srefresh-minutes" % settings_prefix),
-                    "hours": self.application.settings.get_int("%srefresh-hours" % settings_prefix),
-                    "days": self.application.settings.get_int("%srefresh-days" % settings_prefix)
-                }
-                timetosleep = schedule["minutes"] * minute + schedule["hours"] * hour + schedule["days"] * day
-
-                if not timetosleep:
-                    time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
-                else:
-                    now = int(time.time())
-                    if not initial_refresh:
-                        refresh_last_run = self.application.settings.get_int("refresh-last-run")
-                        if not refresh_last_run or refresh_last_run > now:
-                            refresh_last_run = now
-                            self.application.settings.set_int("refresh-last-run", now)
-                        time_since_last_refresh = now - refresh_last_run
-                        if time_since_last_refresh > 0:
-                            timetosleep = timetosleep - time_since_last_refresh
-                        # always wait at least 1 minute to be on the safe side
-                        if timetosleep < 60:
-                            timetosleep = 60
-
-                    schedule["days"] = int(timetosleep / day)
-                    schedule["hours"] = int((timetosleep - schedule["days"] * day) / hour)
-                    schedule["minutes"] = int((timetosleep - schedule["days"] * day - schedule["hours"] * hour) / minute)
-                    self.application.logger.write("%s refresh will happen in %d day(s), %d hour(s) and %d minute(s)" %
-                        (refresh_type.capitalize(), schedule["days"], schedule["hours"], schedule["minutes"]))
-                    time.sleep(timetosleep)
-                    if not self.application.refresh_schedule_enabled:
-                        self.application.logger.write("Auto-refresh disabled in preferences; cancelling %s refresh" % refresh_type)
-                        self.application.uninhibit_pm()
-                        return
-                    if self.application.hidden:
-                        self.application.logger.write("Update Manager is in tray mode; performing %s refresh" % refresh_type)
-                        refresh = RefreshThread(self.application, root_mode=True)
-                        refresh.start()
-                        while refresh.is_alive():
-                            time.sleep(5)
-                    else:
-                        if initial_refresh:
-                            self.application.logger.write("Update Manager window is open; skipping %s refresh" % refresh_type)
-                        else:
-                            self.application.logger.write("Update Manager window is open; delaying %s refresh by 60s" % refresh_type)
-                            time.sleep(60)
-            except Exception as e:
-                print (e)
-                self.application.logger.write_error("Exception occurred during %s refresh: %s" % (refresh_type, str(sys.exc_info()[0])))
-
-            if initial_refresh:
-                initial_refresh = False
-                settings_prefix = "auto"
-                refresh_type = "recurring"
-        else:
-            self.application.logger.write("Auto-refresh disabled in preferences, AutomaticRefreshThread stopped")
-
-
-
 class InstallThread(threading.Thread):
 
     def __init__(self, application):
@@ -1067,6 +993,7 @@ class MintUpdate():
         self.updates_inhibited = False
         self.reboot_required = False
         self.refreshing = False
+        self.auto_refresh_is_alive = False
         self.hidden = False # whether the window is hidden or not
         self.inhibit_cookie = 0
         self.logger = Logger()
@@ -1442,8 +1369,7 @@ class MintUpdate():
             self.paned.set_position(self.settings.get_int('window-pane-position'))
 
             self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
-            self.auto_refresh = AutomaticRefreshThread(self)
-            self.auto_refresh.start()
+            self.start_auto_refresh()
 
             Gtk.main()
 
@@ -2005,6 +1931,76 @@ class MintUpdate():
         self.set_textview_changes_text("\n".join(changelog))
 
 
+    @_async
+    def start_auto_refresh(self):
+        self.auto_refresh_is_alive = True
+        minute = 60
+        hour = 60 * minute
+        day = 24 * hour
+        initial_refresh = True
+        settings_prefix = ""
+        refresh_type = "initial"
+
+        while self.refresh_schedule_enabled:
+            try:
+                schedule = {
+                    "minutes": self.settings.get_int("%srefresh-minutes" % settings_prefix),
+                    "hours": self.settings.get_int("%srefresh-hours" % settings_prefix),
+                    "days": self.settings.get_int("%srefresh-days" % settings_prefix)
+                }
+                timetosleep = schedule["minutes"] * minute + schedule["hours"] * hour + schedule["days"] * day
+
+                if not timetosleep:
+                    time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
+                else:
+                    now = int(time.time())
+                    if not initial_refresh:
+                        refresh_last_run = self.settings.get_int("refresh-last-run")
+                        if not refresh_last_run or refresh_last_run > now:
+                            refresh_last_run = now
+                            self.settings.set_int("refresh-last-run", now)
+                        time_since_last_refresh = now - refresh_last_run
+                        if time_since_last_refresh > 0:
+                            timetosleep = timetosleep - time_since_last_refresh
+                        # always wait at least 1 minute to be on the safe side
+                        if timetosleep < 60:
+                            timetosleep = 60
+
+                    schedule["days"] = int(timetosleep / day)
+                    schedule["hours"] = int((timetosleep - schedule["days"] * day) / hour)
+                    schedule["minutes"] = int((timetosleep - schedule["days"] * day - schedule["hours"] * hour) / minute)
+                    self.logger.write("%s refresh will happen in %d day(s), %d hour(s) and %d minute(s)" %
+                        (refresh_type.capitalize(), schedule["days"], schedule["hours"], schedule["minutes"]))
+                    time.sleep(timetosleep)
+                    if not self.refresh_schedule_enabled:
+                        self.logger.write(f"Auto-refresh disabled in preferences; cancelling {refresh_type} refresh")
+                        self.uninhibit_pm()
+                        return
+                    if self.hidden:
+                        self.logger.write(f"Update Manager is in tray mode; performing {refresh_type} refresh")
+                        refresh = RefreshThread(self, root_mode=True)
+                        refresh.start()
+                        while refresh.is_alive():
+                            time.sleep(5)
+                    else:
+                        if initial_refresh:
+                            self.logger.write(f"Update Manager window is open; skipping {refresh_type} refresh")
+                        else:
+                            self.logger.write(f"Update Manager window is open; delaying {refresh_type} refresh by 60s")
+                            time.sleep(60)
+            except Exception as e:
+                print (e)
+                self.logger.write_error("Exception occurred during %s refresh: %s" % (refresh_type, str(sys.exc_info()[0])))
+
+            if initial_refresh:
+                initial_refresh = False
+                settings_prefix = "auto"
+                refresh_type = "auto"
+        else:
+            self.logger.write("Auto-refresh disabled in preferences, automatic refresh thread stopped")
+        self.auto_refresh_is_alive = False
+
+
     def switch_page(self, notebook, page, page_num):
         selection = self.treeview.get_selection()
         (model, iter) = selection.get_selected()
@@ -2536,9 +2532,8 @@ class MintUpdate():
 
     def auto_refresh_toggled(self, widget, param):
         self.refresh_schedule_enabled = widget.get_active()
-        if self.refresh_schedule_enabled and not self.auto_refresh.is_alive():
-            self.auto_refresh = AutomaticRefreshThread(self)
-            self.auto_refresh.start()
+        if self.refresh_schedule_enabled and not self.auto_refresh_is_alive:
+            self.start_auto_refresh()
 
     def set_auto_upgrade(self, widget, param):
         exists = os.path.isfile(AUTOMATIONS["upgrade"][2])
