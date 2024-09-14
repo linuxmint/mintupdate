@@ -482,432 +482,6 @@ class InstallThread(threading.Thread):
             self.application.logger.write_error("Could not install security updates")
             self.application.uninhibit_pm()
 
-class RefreshThread(threading.Thread):
-
-    def __init__(self, application, root_mode=False):
-        threading.Thread.__init__(self, name="mintupdate-refresh-thread")
-        self.root_mode = root_mode
-        self.application = application
-        self.running = False
-
-    def cleanup(self):
-        # cleanup when finished refreshing
-        self.application.refreshing = False
-        self.application.uninhibit_pm()
-        if not self.running:
-            return
-        self.application.cache_monitor.resume()
-        self.application.set_refresh_mode(False)
-
-    def run(self):
-        if self.application.refreshing:
-            return False
-
-        if self.application.updates_inhibited:
-            self.application.logger.write("Updates are inhibited, skipping refresh")
-            self.application.show_window()
-            return False
-
-        self.application.refreshing = True
-        self.running = True
-
-        if self.root_mode:
-            while self.application.dpkg_locked():
-                self.application.logger.write("Package management system locked by another process; retrying in 60s")
-                time.sleep(60)
-
-        self.application.inhibit_pm("Refreshing available updates")
-        self.application.cache_monitor.pause()
-
-        if self.application.reboot_required:
-            self.application.show_infobar(_("Reboot required"),
-                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."), Gtk.MessageType.WARNING, "system-reboot-symbolic", None)
-
-        try:
-            if self.root_mode:
-                self.application.logger.write("Starting refresh (retrieving lists of updates from remote servers)")
-            else:
-                self.application.logger.write("Starting refresh (local only)")
-
-            # Switch to status_refreshing page
-            self.application.set_refresh_mode(True)
-            self.application.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.application.settings.get_boolean("hide-systray"))
-
-            model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
-            # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
-            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
-
-            model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
-
-            # Refresh the APT cache
-            if self.root_mode:
-                refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
-                if (not self.application.hidden) and os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
-                    refresh_command.extend(["--use-synaptic",
-                                            str(self.application.window.get_window().get_xid())])
-                subprocess.run(refresh_command)
-                self.application.settings.set_int("refresh-last-run", int(time.time()))
-
-            if CINNAMON_SUPPORT:
-                if self.root_mode:
-                    self.application.logger.write("Refreshing available Cinnamon updates from the server")
-                    self.application.set_status_message(_("Checking for Cinnamon spices"))
-                    for spice_type in cinnamon.updates.SPICE_TYPES:
-                        try:
-                            self.application.cinnamon_updater.refresh_cache_for_type(spice_type)
-                        except:
-                            self.application.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
-                            print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
-
-            if FLATPAK_SUPPORT:
-                if self.root_mode:
-                    self.application.logger.write("Refreshing available Flatpak updates")
-                    self.application.set_status_message(_("Checking for Flatpak updates"))
-                    self.application.flatpak_updater.refresh()
-
-            self.application.set_status_message(_("Processing updates"))
-
-            if os.getenv("MINTUPDATE_TEST") is None:
-                output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
-            else:
-                if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
-                    output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
-                else:
-                    output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
-
-            error_found = False
-
-            # Return on error
-            if "CHECK_APT_ERROR" in output:
-                error_found = True
-                self.application.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
-                try:
-                    error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
-                    if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
-                        error_msg += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
-                except:
-                    error_msg = ""
-
-            # Check presence of Mint layer
-            if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not self.check_policy()):
-                error_found = True
-                error_msg = "%s\n%s\n%s" % (_("Your APT configuration is corrupt."),
-                _("Do not install or update anything - doing so could break your operating system!"),
-                _("To switch to a different Linux Mint mirror and solve this problem, click OK."))
-
-                self.application.show_infobar(_("Please switch to another Linux Mint mirror"),
-                    _("Your APT configuration is corrupt."), Gtk.MessageType.ERROR, None,
-                    self._on_infobar_mintsources_response)
-
-            if error_found:
-                self.application.show_error(error_msg)
-                self.application.set_status(_("Could not refresh the list of updates"),
-                    "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
-                    "mintupdate-error-symbolic", True)
-                self.cleanup()
-                return False
-
-            # Look at the updates one by one
-            num_visible = 0
-            num_security = 0
-            num_software = 0
-            download_size = 0
-            is_self_update = False
-            tracker = UpdateTracker(self.application.settings, self.application.logger)
-            lines = output.split("---EOL---")
-            if len(lines):
-                for line in lines:
-                    if "###" not in line:
-                        continue
-
-                    # Create update object
-                    update = Update(package=None, input_string=line, source_name=None)
-
-                    # Check if self-update is needed
-                    if update.source_name in PRIORITY_UPDATES:
-                        is_self_update = True
-
-                    shortdesc = update.short_description
-                    if len(shortdesc) > 100:
-                        try:
-                            shortdesc = shortdesc[:100]
-                            # Remove the last word.. in case we chomped
-                            # a word containing an &#234; character..
-                            # if we ended up with &.. without the code and ; sign
-                            # pango would fail to set the markup
-                            words = shortdesc.split()
-                            shortdesc = " ".join(words[:-1]) + "..."
-                        except:
-                            pass
-
-                    origin = update.origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
-
-                    if update.type == "security":
-                        sort_key = 1
-                        tooltip = _("Security update")
-                        num_security += 1
-                    elif update.type == "kernel":
-                        sort_key = 2
-                        tooltip = _("Kernel update")
-                        num_security += 1
-                    elif update.type == "unstable":
-                        sort_key = 7
-                        tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
-                    else:
-                        if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
-                            sort_key = 3
-                            tooltip = _("Software update")
-                        else:
-                            sort_key = 4
-                            tooltip = "%s\n%s" % (_("3rd-party update"), origin)
-                            update.type = "3rd-party"
-                        num_software += 1
-
-                    title = update.display_name
-                    description = shortdesc
-                    source = f"{origin} / {update.archive}"
-                    icon = f"mintupdate-type-{update.type}-symbolic"
-                    self.add_update_to_model(tracker, model, update, title, description, source, icon, f"{sort_key}{update.display_name}", tooltip)
-
-                    num_visible += 1
-                    download_size += update.size
-
-            if FLATPAK_SUPPORT and self.application.flatpak_updater and not is_self_update:
-                blacklist = self.application.settings.get_strv("blacklisted-packages")
-
-                self.application.flatpak_updater.fetch_updates()
-                if self.application.flatpak_updater.error is None:
-                    for update in self.application.flatpak_updater.updates:
-                        update.type = "flatpak"
-                        if update.ref_name in blacklist or update.source_packages[0] in blacklist:
-                            continue
-                        if update.flatpak_type == "app":
-                            tooltip = _("Flatpak application")
-                        else:
-                            tooltip = _("Flatpak runtime")
-
-                        title = update.name
-                        description = update.summary
-                        source = update.origin
-                        icon = "mintupdate-type-flatpak-symbolic"
-                        self.add_update_to_model(tracker, model, update, title, description, source, icon, f"5{update.ref_name}", tooltip)
-
-                        num_software += 1
-                        num_visible += 1
-                        download_size += update.size
-
-            if CINNAMON_SUPPORT and not is_self_update:
-                blacklist = self.application.settings.get_strv("blacklisted-packages")
-
-                for update in self.application.cinnamon_updater.get_updates():
-                    update.real_source_name = update.uuid
-                    update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
-                    update.package_names = []
-                    update.type = "cinnamon"
-                    if update.uuid in blacklist or update.source_packages[0] in blacklist:
-                        continue
-                    if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
-                        tooltip = _("Cinnamon applet")
-                    elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
-                        tooltip = _("Cinnamon desklet")
-                    elif update.spice_type == "action":
-                        # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
-                        # use the value "action" instead here so this code can be
-                        # backported.
-                        tooltip = _("Nemo action")
-                    elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
-                        tooltip = _("Cinnamon theme")
-                    else:
-                        tooltip = _("Cinnamon extension")
-
-                    title = update.uuid
-                    description = update.name
-                    source = "Linux Mint / cinnamon"
-                    icon = "cinnamon-symbolic"
-                    self.add_update_to_model(tracker, model, update, title, description, source, icon, f"6{update.uuid}", tooltip)
-
-                    num_software += 1
-                    num_visible += 1
-                    download_size += update.size
-
-            if tracker.active:
-                if tracker.notify():
-                    self.application.show_tracker_notification(num_software, num_security)
-                tracker.record()
-
-            # Updates found, update status message
-            self.application.show_updates(num_visible, download_size, is_self_update, model)
-
-            if FLATPAK_SUPPORT and self.application.flatpak_updater.error is not None and not is_self_update:
-                self.application.logger.write("Could not check for flatpak updates: %s" % self.application.flatpak_updater.error)
-                msg = _("Error checking for flatpak updates: %s") % self.application.flatpak_updater.error
-                self.application.set_status_message(msg)
-
-            del model
-
-            # Check whether to display the mirror infobar
-            self.mirror_check()
-
-            self.application.logger.write("Refresh finished")
-
-        except:
-            print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
-            self.application.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
-            self.application.set_status(_("Could not refresh the list of updates"),
-                                        _("Could not refresh the list of updates"), "mintupdate-error-symbolic", True)
-
-        finally:
-            self.cleanup()
-
-    def add_update_to_model(self, tracker, model, update, title, description, source, icon, sort_key, tooltip):
-        iter = model.insert_before(None, None)
-        model.row_changed(model.get_path(iter), iter)
-
-        model.set_value(iter, UPDATE_CHECKED, True)
-        if self.application.settings.get_boolean("show-descriptions"):
-            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(title),
-                                                                          GLib.markup_escape_text(description)))
-        else:
-            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(title))
-
-        model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
-        model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
-        model.set_value(iter, UPDATE_SOURCE, source)
-        model.set_value(iter, UPDATE_SIZE, update.size)
-        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
-        model.set_value(iter, UPDATE_TYPE_PIX, icon)
-        model.set_value(iter, UPDATE_TYPE, update.type)
-        model.set_value(iter, UPDATE_TOOLTIP, tooltip)
-        model.set_value(iter, UPDATE_SORT_STR, sort_key)
-        model.set_value(iter, UPDATE_OBJ, update)
-
-        if tracker.active and update.type != "unstable":
-            tracker.update(update)
-
-    def check_policy(self):
-        """ Check the presence of the Mint layer """
-        p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={"LC_ALL": "C"})
-        output = p.stdout.decode()
-        if p.stderr:
-            error_msg = p.stderr.decode().strip()
-            self.application.logger.write_error("APT policy error:\n%s" % error_msg)
-            return False
-        mint_layer_found = False
-        for line in output.split("\n"):
-            line = line.strip()
-            if line.startswith("700") and line.endswith("Packages") and "/upstream" in line:
-                mint_layer_found = True
-                break
-        return mint_layer_found
-
-    def mirror_check(self):
-        """ Mirror-related notifications """
-        infobar_message = None
-        infobar_message_type = Gtk.MessageType.WARNING
-        infobar_callback = self._on_infobar_mintsources_response
-        try:
-            if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
-                mirror_url = None
-                with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
-                    for line in sources_file:
-                        line = line.strip()
-                        if line.startswith("deb ") and "main upstream import" in line:
-                            mirror_url = line.split()[1]
-                            if mirror_url.endswith("/"):
-                                mirror_url = mirror_url[:-1]
-                            break
-                if mirror_url is None or not mirror_url.startswith("http"):
-                    # The Mint mirror being used either cannot be found or is not an HTTP(s) mirror
-                    pass
-                elif mirror_url == "http://packages.linuxmint.com":
-                    if not self.application.settings.get_boolean("default-repo-is-ok"):
-                        infobar_title = _("Do you want to switch to a local mirror?")
-                        infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
-                        infobar_message_type = Gtk.MessageType.QUESTION
-                elif not self.application.hidden:
-                    # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
-                    mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
-                    mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
-                    if mirror_timestamp is None:
-                        if mint_timestamp is None:
-                            # Both default repo and mirror are unreachable; so, assume there's no Internet connection
-                            pass
-                        else:
-                            infobar_title = _("Please switch to another mirror")
-                            infobar_message = _("%s is unreachable.") % mirror_url
-                    elif mint_timestamp is not None:
-                        mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
-                        now = datetime.datetime.now()
-                        mint_age = (now - mint_date).days
-                        if (mint_age > 2):
-                            mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
-                            mirror_age = (mint_date - mirror_date).days
-                            if (mirror_age > 2):
-                                infobar_title = _("Please switch to another mirror")
-                                infobar_message = gettext.ngettext("The last update on %(mirror)s was %(days)d day ago.",
-                                                            "The last update on %(mirror)s was %(days)d days ago.",
-                                                            (now - mirror_date).days) % \
-                                                            {'mirror': mirror_url, 'days': (now - mirror_date).days}
-        except:
-            print(sys.exc_info()[0])
-            # best effort, just print out the error
-            print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
-
-        if infobar_message:
-            self.application.show_infobar(infobar_title,
-                                            infobar_message,
-                                            infobar_message_type,
-                                            None,
-                                            infobar_callback)
-
-    def _on_infobar_mintsources_response(self, infobar, response_id):
-        infobar.destroy()
-        if response_id == Gtk.ResponseType.NO:
-            self.application.settings.set_boolean("default-repo-is-ok", True)
-        else:
-            subprocess.Popen(["pkexec", "mintsources"])
-
-    def get_url_last_modified(self, url):
-        try:
-            c = pycurl.Curl()
-            c.setopt(pycurl.URL, url)
-            c.setopt(pycurl.CONNECTTIMEOUT, 5)
-            c.setopt(pycurl.TIMEOUT, 30)
-            c.setopt(pycurl.FOLLOWLOCATION, 1)
-            c.setopt(pycurl.NOBODY, 1)
-            c.setopt(pycurl.OPT_FILETIME, 1)
-            c.perform()
-            filetime = c.getinfo(pycurl.INFO_FILETIME)
-            if filetime < 0:
-                return None
-            else:
-                return filetime
-        except Exception as e:
-            print (e)
-            return None
-
-    def checkDependencies(self, changes, cache):
-        foundSomething = False
-        for pkg in changes:
-            for dep in pkg.candidateDependencies:
-                for o in dep.or_dependencies:
-                    try:
-                        if cache[o.name].isUpgradable:
-                            pkgFound = False
-                            for pkg2 in changes:
-                                if o.name == pkg2.name:
-                                    pkgFound = True
-                            if not pkgFound:
-                                newPkg = cache[o.name]
-                                changes.append(newPkg)
-                                foundSomething = True
-                    except Exception as e:
-                        print (e)
-                        pass # don't know why we get these..
-        if (foundSomething):
-            changes = self.checkDependencies(changes, cache)
-        return changes
-
 class XAppStatusIcon():
 
     def __init__(self, menu):
@@ -1341,10 +915,6 @@ class MintUpdate():
                 self.select_updates(kernel=True)
 
 ######### UTILITY FUNCTIONS #########
-
-    def refresh(self, root_mode=False):
-        refresh = RefreshThread(self, root_mode=root_mode)
-        refresh.start()
 
     @_idle
     def set_status_message(self, message):
@@ -1920,9 +1490,8 @@ class MintUpdate():
                         return
                     if self.hidden:
                         self.logger.write(f"Update Manager is in tray mode; performing {refresh_type} refresh")
-                        refresh = RefreshThread(self, root_mode=True)
-                        refresh.start()
-                        while refresh.is_alive():
+                        self.refresh(root_mode=True)
+                        while self.refreshing:
                             time.sleep(5)
                     else:
                         if initial_refresh:
@@ -2659,6 +2228,430 @@ class MintUpdate():
 
     def open_kernels(self, widget):
         kernel_window = KernelWindow(self)
+
+
+######### REFRESH THREAD ##########
+
+    def add_update_to_model(self, tracker, model, update, title, description, source, icon, sort_key, tooltip):
+        iter = model.insert_before(None, None)
+        model.row_changed(model.get_path(iter), iter)
+
+        model.set_value(iter, UPDATE_CHECKED, True)
+        if self.settings.get_boolean("show-descriptions"):
+            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>\n%s" % (GLib.markup_escape_text(title),
+                                                                          GLib.markup_escape_text(description)))
+        else:
+            model.set_value(iter, UPDATE_DISPLAY_NAME, "<b>%s</b>" % GLib.markup_escape_text(title))
+
+        model.set_value(iter, UPDATE_OLD_VERSION, update.old_version)
+        model.set_value(iter, UPDATE_NEW_VERSION, update.new_version)
+        model.set_value(iter, UPDATE_SOURCE, source)
+        model.set_value(iter, UPDATE_SIZE, update.size)
+        model.set_value(iter, UPDATE_SIZE_STR, size_to_string(update.size))
+        model.set_value(iter, UPDATE_TYPE_PIX, icon)
+        model.set_value(iter, UPDATE_TYPE, update.type)
+        model.set_value(iter, UPDATE_TOOLTIP, tooltip)
+        model.set_value(iter, UPDATE_SORT_STR, sort_key)
+        model.set_value(iter, UPDATE_OBJ, update)
+
+        if tracker.active and update.type != "unstable":
+            tracker.update(update)
+
+    def check_policy(self):
+        """ Check the presence of the Mint layer """
+        p = subprocess.run(['apt-cache', 'policy'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={"LC_ALL": "C"})
+        output = p.stdout.decode()
+        if p.stderr:
+            error_msg = p.stderr.decode().strip()
+            self.logger.write_error("APT policy error:\n%s" % error_msg)
+            return False
+        mint_layer_found = False
+        for line in output.split("\n"):
+            line = line.strip()
+            if line.startswith("700") and line.endswith("Packages") and "/upstream" in line:
+                mint_layer_found = True
+                break
+        return mint_layer_found
+
+    def mirror_check(self):
+        """ Mirror-related notifications """
+        infobar_message = None
+        infobar_message_type = Gtk.MessageType.WARNING
+        infobar_callback = self._on_infobar_mintsources_response
+        try:
+            if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
+                mirror_url = None
+                with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
+                    for line in sources_file:
+                        line = line.strip()
+                        if line.startswith("deb ") and "main upstream import" in line:
+                            mirror_url = line.split()[1]
+                            if mirror_url.endswith("/"):
+                                mirror_url = mirror_url[:-1]
+                            break
+                if mirror_url is None or not mirror_url.startswith("http"):
+                    # The Mint mirror being used either cannot be found or is not an HTTP(s) mirror
+                    pass
+                elif mirror_url == "http://packages.linuxmint.com":
+                    if not self.settings.get_boolean("default-repo-is-ok"):
+                        infobar_title = _("Do you want to switch to a local mirror?")
+                        infobar_message = _("Local mirrors are usually faster than packages.linuxmint.com.")
+                        infobar_message_type = Gtk.MessageType.QUESTION
+                elif not self.hidden:
+                    # Only perform up-to-date checks when refreshing from the UI (keep the load lower on servers)
+                    mint_timestamp = self.get_url_last_modified("http://packages.linuxmint.com/db/version")
+                    mirror_timestamp = self.get_url_last_modified("%s/db/version" % mirror_url)
+                    if mirror_timestamp is None:
+                        if mint_timestamp is None:
+                            # Both default repo and mirror are unreachable; so, assume there's no Internet connection
+                            pass
+                        else:
+                            infobar_title = _("Please switch to another mirror")
+                            infobar_message = _("%s is unreachable.") % mirror_url
+                    elif mint_timestamp is not None:
+                        mint_date = datetime.datetime.fromtimestamp(mint_timestamp)
+                        now = datetime.datetime.now()
+                        mint_age = (now - mint_date).days
+                        if (mint_age > 2):
+                            mirror_date = datetime.datetime.fromtimestamp(mirror_timestamp)
+                            mirror_age = (mint_date - mirror_date).days
+                            if (mirror_age > 2):
+                                infobar_title = _("Please switch to another mirror")
+                                infobar_message = gettext.ngettext("The last update on %(mirror)s was %(days)d day ago.",
+                                                            "The last update on %(mirror)s was %(days)d days ago.",
+                                                            (now - mirror_date).days) % \
+                                                            {'mirror': mirror_url, 'days': (now - mirror_date).days}
+        except:
+            print(sys.exc_info()[0])
+            # best effort, just print out the error
+            print("An exception occurred while checking if the repositories were up to date: %s" % sys.exc_info()[0])
+
+        if infobar_message:
+            self.show_infobar(infobar_title,
+                            infobar_message,
+                            infobar_message_type,
+                            None,
+                            infobar_callback)
+
+    def _on_infobar_mintsources_response(self, infobar, response_id):
+        infobar.destroy()
+        if response_id == Gtk.ResponseType.NO:
+            self.settings.set_boolean("default-repo-is-ok", True)
+        else:
+            subprocess.Popen(["pkexec", "mintsources"])
+
+    def get_url_last_modified(self, url):
+        try:
+            c = pycurl.Curl()
+            c.setopt(pycurl.URL, url)
+            c.setopt(pycurl.CONNECTTIMEOUT, 5)
+            c.setopt(pycurl.TIMEOUT, 30)
+            c.setopt(pycurl.FOLLOWLOCATION, 1)
+            c.setopt(pycurl.NOBODY, 1)
+            c.setopt(pycurl.OPT_FILETIME, 1)
+            c.perform()
+            filetime = c.getinfo(pycurl.INFO_FILETIME)
+            if filetime < 0:
+                return None
+            else:
+                return filetime
+        except Exception as e:
+            print (e)
+            return None
+
+    def checkDependencies(self, changes, cache):
+        foundSomething = False
+        for pkg in changes:
+            for dep in pkg.candidateDependencies:
+                for o in dep.or_dependencies:
+                    try:
+                        if cache[o.name].isUpgradable:
+                            pkgFound = False
+                            for pkg2 in changes:
+                                if o.name == pkg2.name:
+                                    pkgFound = True
+                            if not pkgFound:
+                                newPkg = cache[o.name]
+                                changes.append(newPkg)
+                                foundSomething = True
+                    except Exception as e:
+                        print (e)
+                        pass # don't know why we get these..
+        if (foundSomething):
+            changes = self.checkDependencies(changes, cache)
+        return changes
+
+    def refresh_cleanup(self):
+        # cleanup when finished refreshing
+        self.refreshing = False
+        self.uninhibit_pm()
+        if not self.running:
+            return
+        self.cache_monitor.resume()
+        self.set_refresh_mode(False)
+
+    @_async
+    def refresh(self, root_mode=False):
+        self.running = False
+
+        if self.refreshing:
+            return False
+
+        if self.updates_inhibited:
+            self.logger.write("Updates are inhibited, skipping refresh")
+            self.show_window()
+            return False
+
+        self.refreshing = True
+        self.running = True
+
+        if root_mode:
+            while self.dpkg_locked():
+                self.logger.write("Package management system locked by another process; retrying in 60s")
+                time.sleep(60)
+
+        self.inhibit_pm("Refreshing available updates")
+        self.cache_monitor.pause()
+
+        if self.reboot_required:
+            self.show_infobar(_("Reboot required"),
+                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."), Gtk.MessageType.WARNING, "system-reboot-symbolic", None)
+
+        try:
+            if root_mode:
+                self.logger.write("Starting refresh (retrieving lists of updates from remote servers)")
+            else:
+                self.logger.write("Starting refresh (local only)")
+
+            # Switch to status_refreshing page
+            self.set_refresh_mode(True)
+            self.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.settings.get_boolean("hide-systray"))
+
+            model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
+            # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
+            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
+
+            model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+
+            # Refresh the APT cache
+            if root_mode:
+                refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
+                if (not self.hidden) and os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+                    refresh_command.extend(["--use-synaptic",
+                                            str(self.window.get_window().get_xid())])
+                subprocess.run(refresh_command)
+                self.settings.set_int("refresh-last-run", int(time.time()))
+
+            if CINNAMON_SUPPORT:
+                if root_mode:
+                    self.logger.write("Refreshing available Cinnamon updates from the server")
+                    self.set_status_message(_("Checking for Cinnamon spices"))
+                    for spice_type in cinnamon.updates.SPICE_TYPES:
+                        try:
+                            self.cinnamon_updater.refresh_cache_for_type(spice_type)
+                        except:
+                            self.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
+                            print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
+
+            if FLATPAK_SUPPORT:
+                if root_mode:
+                    self.logger.write("Refreshing available Flatpak updates")
+                    self.set_status_message(_("Checking for Flatpak updates"))
+                    self.flatpak_updater.refresh()
+
+            self.set_status_message(_("Processing updates"))
+
+            if os.getenv("MINTUPDATE_TEST") is None:
+                output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
+            else:
+                if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
+                    output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
+                else:
+                    output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
+
+            error_found = False
+
+            # Return on error
+            if "CHECK_APT_ERROR" in output:
+                error_found = True
+                self.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
+                try:
+                    error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
+                    if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
+                        error_msg += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
+                except:
+                    error_msg = ""
+
+            # Check presence of Mint layer
+            if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not self.check_policy()):
+                error_found = True
+                error_msg = "%s\n%s\n%s" % (_("Your APT configuration is corrupt."),
+                _("Do not install or update anything - doing so could break your operating system!"),
+                _("To switch to a different Linux Mint mirror and solve this problem, click OK."))
+
+                self.show_infobar(_("Please switch to another Linux Mint mirror"),
+                    _("Your APT configuration is corrupt."), Gtk.MessageType.ERROR, None,
+                    self._on_infobar_mintsources_response)
+
+            if error_found:
+                self.show_error(error_msg)
+                self.set_status(_("Could not refresh the list of updates"),
+                    "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
+                    "mintupdate-error-symbolic", True)
+                self.refresh_cleanup()
+                return False
+
+            # Look at the updates one by one
+            num_visible = 0
+            num_security = 0
+            num_software = 0
+            download_size = 0
+            is_self_update = False
+            tracker = UpdateTracker(self.settings, self.logger)
+            lines = output.split("---EOL---")
+            if len(lines):
+                for line in lines:
+                    if "###" not in line:
+                        continue
+
+                    # Create update object
+                    update = Update(package=None, input_string=line, source_name=None)
+
+                    # Check if self-update is needed
+                    if update.source_name in PRIORITY_UPDATES:
+                        is_self_update = True
+
+                    shortdesc = update.short_description
+                    if len(shortdesc) > 100:
+                        try:
+                            shortdesc = shortdesc[:100]
+                            # Remove the last word.. in case we chomped
+                            # a word containing an &#234; character..
+                            # if we ended up with &.. without the code and ; sign
+                            # pango would fail to set the markup
+                            words = shortdesc.split()
+                            shortdesc = " ".join(words[:-1]) + "..."
+                        except:
+                            pass
+
+                    origin = update.origin.replace("linuxmint", "Linux Mint").replace("ubuntu", "Ubuntu").replace("LP-PPA-", "PPA ").replace("debian", "Debian")
+
+                    if update.type == "security":
+                        sort_key = 1
+                        tooltip = _("Security update")
+                        num_security += 1
+                    elif update.type == "kernel":
+                        sort_key = 2
+                        tooltip = _("Kernel update")
+                        num_security += 1
+                    elif update.type == "unstable":
+                        sort_key = 7
+                        tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
+                    else:
+                        if origin in ["Ubuntu", "Debian", "Linux Mint", "Canonical"]:
+                            sort_key = 3
+                            tooltip = _("Software update")
+                        else:
+                            sort_key = 4
+                            tooltip = "%s\n%s" % (_("3rd-party update"), origin)
+                            update.type = "3rd-party"
+                        num_software += 1
+
+                    title = update.display_name
+                    description = shortdesc
+                    source = f"{origin} / {update.archive}"
+                    icon = f"mintupdate-type-{update.type}-symbolic"
+                    self.add_update_to_model(tracker, model, update, title, description, source, icon, f"{sort_key}{update.display_name}", tooltip)
+
+                    num_visible += 1
+                    download_size += update.size
+
+            if FLATPAK_SUPPORT and self.flatpak_updater and not is_self_update:
+                blacklist = self.settings.get_strv("blacklisted-packages")
+
+                self.flatpak_updater.fetch_updates()
+                if self.flatpak_updater.error is None:
+                    for update in self.flatpak_updater.updates:
+                        update.type = "flatpak"
+                        if update.ref_name in blacklist or update.source_packages[0] in blacklist:
+                            continue
+                        if update.flatpak_type == "app":
+                            tooltip = _("Flatpak application")
+                        else:
+                            tooltip = _("Flatpak runtime")
+
+                        title = update.name
+                        description = update.summary
+                        source = update.origin
+                        icon = "mintupdate-type-flatpak-symbolic"
+                        self.add_update_to_model(tracker, model, update, title, description, source, icon, f"5{update.ref_name}", tooltip)
+
+                        num_software += 1
+                        num_visible += 1
+                        download_size += update.size
+
+            if CINNAMON_SUPPORT and not is_self_update:
+                blacklist = self.settings.get_strv("blacklisted-packages")
+
+                for update in self.cinnamon_updater.get_updates():
+                    update.real_source_name = update.uuid
+                    update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
+                    update.package_names = []
+                    update.type = "cinnamon"
+                    if update.uuid in blacklist or update.source_packages[0] in blacklist:
+                        continue
+                    if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
+                        tooltip = _("Cinnamon applet")
+                    elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
+                        tooltip = _("Cinnamon desklet")
+                    elif update.spice_type == "action":
+                        # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
+                        # use the value "action" instead here so this code can be
+                        # backported.
+                        tooltip = _("Nemo action")
+                    elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
+                        tooltip = _("Cinnamon theme")
+                    else:
+                        tooltip = _("Cinnamon extension")
+
+                    title = update.uuid
+                    description = update.name
+                    source = "Linux Mint / cinnamon"
+                    icon = "cinnamon-symbolic"
+                    self.add_update_to_model(tracker, model, update, title, description, source, icon, f"6{update.uuid}", tooltip)
+
+                    num_software += 1
+                    num_visible += 1
+                    download_size += update.size
+
+            if tracker.active:
+                if tracker.notify():
+                    self.show_tracker_notification(num_software, num_security)
+                tracker.record()
+
+            # Updates found, update status message
+            self.show_updates(num_visible, download_size, is_self_update, model)
+
+            if FLATPAK_SUPPORT and self.flatpak_updater.error is not None and not is_self_update:
+                self.logger.write("Could not check for flatpak updates: %s" % self.flatpak_updater.error)
+                msg = _("Error checking for flatpak updates: %s") % self.flatpak_updater.error
+                self.set_status_message(msg)
+
+            del model
+
+            # Check whether to display the mirror infobar
+            self.mirror_check()
+
+            self.logger.write("Refresh finished")
+
+        except:
+            print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
+            self.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
+            self.set_status(_("Could not refresh the list of updates"),
+                                        _("Could not refresh the list of updates"), "mintupdate-error-symbolic", True)
+
+        finally:
+            self.refresh_cleanup()
 
 if __name__ == "__main__":
     MintUpdate()
