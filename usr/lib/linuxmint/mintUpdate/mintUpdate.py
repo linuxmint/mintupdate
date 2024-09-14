@@ -167,321 +167,6 @@ class APTCacheMonitor():
             self.cachetime = os.path.getmtime(self.pkgcache)
             self.statustime = os.path.getmtime(self.dpkgstatus)
 
-class InstallThread(threading.Thread):
-
-    def __init__(self, application):
-        threading.Thread.__init__(self, name="mintupdate-install-thread")
-        self.application = application
-        self.application.set_window_busy(True)
-        self.reboot_required = self.application.reboot_required
-
-    def __del__(self):
-        self.application.cache_monitor.resume(False)
-        self.application.set_window_busy(False)
-
-    def run(self):
-        self.application.cache_monitor.pause()
-        self.application.inhibit_pm("Installing updates")
-        try:
-            self.application.logger.write("Install requested by user")
-            aptInstallNeeded = False
-            packages = []
-            cinnamon_spices = []
-            flatpaks = []
-            Gdk.threads_enter()
-            model = self.application.treeview.get_model()
-            Gdk.threads_leave()
-
-            iter = model.get_iter_first()
-            while iter is not None:
-                checked = model.get_value(iter, UPDATE_CHECKED)
-                if checked:
-                    update = model.get_value(iter, UPDATE_OBJ)
-                    if update.type == "cinnamon":
-                        cinnamon_spices.append(update)
-                        iter = model.iter_next(iter)
-                        continue
-                    elif update.type == "flatpak":
-                        flatpaks.append(update)
-                        iter = model.iter_next(iter)
-                        continue
-
-                    aptInstallNeeded = True
-                    if update.type == "kernel":
-                        for pkg in update.package_names:
-                            if "-image-" in pkg:
-                                try:
-                                    if self.application.is_lmde:
-                                        # In Mint, platform.release() returns the kernel version. In LMDE it returns the kernel
-                                        # abi version.  So for LMDE, parse platform.version() instead.
-                                        version_string = platform.version()
-                                        kernel_version = re.search(r"(\d+\.\d+\.\d+)", version_string).group(1)
-                                    else:
-                                        kernel_version = platform.release().split("-")[0]
-
-                                    if update.old_version.startswith(kernel_version):
-                                        self.reboot_required = True
-                                except Exception as e:
-                                    print("Warning: Could not assess the current kernel version: %s" % str(e))
-                                    self.reboot_required = True
-                                break
-                    if update.type == "security" and \
-                       [True for pkg in update.package_names if "nvidia" in pkg]:
-                       self.reboot_required = True
-                    for package in update.package_names:
-                        packages.append(package)
-                        self.application.logger.write("Will install " + str(package))
-                iter = model.iter_next(iter)
-
-            needs_refresh = False
-            proceed = True
-            update_flatpaks = False
-
-            if aptInstallNeeded:
-                try:
-                    pkgs = ' '.join(str(pkg) for pkg in packages)
-                    warnings = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs, shell = True).decode("utf-8")
-                    #print ("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
-                    warnings = warnings.split("###")
-                    if len(warnings) == 2:
-                        installations = warnings[0].split()
-                        removals = warnings[1].split()
-                        if len(installations) > 0 or len(removals) > 0:
-                            Gdk.threads_enter()
-                            try:
-                                dialog = Gtk.MessageDialog(self.application.window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK_CANCEL, None)
-                                dialog.set_title("")
-                                dialog.set_markup("<b>" + _("This upgrade will trigger additional changes") + "</b>")
-                                #dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")
-                                dialog.set_icon_name("mintupdate")
-                                dialog.set_default_size(320, 400)
-                                dialog.set_resizable(True)
-
-                                if len(removals) > 0:
-                                    # Removals
-                                    label = Gtk.Label()
-                                    label.set_text(_("The following packages will be removed:"))
-                                    label.set_alignment(0, 0.5)
-                                    label.set_padding(20, 0)
-                                    scrolledWindow = Gtk.ScrolledWindow()
-                                    scrolledWindow.set_shadow_type(Gtk.ShadowType.IN)
-                                    scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-                                    treeview = Gtk.TreeView()
-                                    column = Gtk.TreeViewColumn("", Gtk.CellRendererText(), text=0)
-                                    column.set_sort_column_id(0)
-                                    column.set_resizable(True)
-                                    treeview.append_column(column)
-                                    treeview.set_headers_clickable(False)
-                                    treeview.set_reorderable(False)
-                                    treeview.set_headers_visible(False)
-                                    model = Gtk.TreeStore(str)
-                                    removals.sort()
-                                    for pkg in removals:
-                                        iter = model.insert_before(None, None)
-                                        model.set_value(iter, 0, pkg)
-                                    treeview.set_model(model)
-                                    treeview.show()
-                                    scrolledWindow.add(treeview)
-                                    dialog.get_content_area().pack_start(label, False, False, 0)
-                                    dialog.get_content_area().pack_start(scrolledWindow, True, True, 0)
-                                    dialog.get_content_area().set_border_width(6)
-
-                                if len(installations) > 0:
-                                    # Installations
-                                    label = Gtk.Label()
-                                    label.set_text(_("The following packages will be installed:"))
-                                    label.set_alignment(0, 0.5)
-                                    label.set_padding(20, 0)
-                                    scrolledWindow = Gtk.ScrolledWindow()
-                                    scrolledWindow.set_shadow_type(Gtk.ShadowType.IN)
-                                    scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-                                    treeview = Gtk.TreeView()
-                                    column = Gtk.TreeViewColumn("", Gtk.CellRendererText(), text=0)
-                                    column.set_sort_column_id(0)
-                                    column.set_resizable(True)
-                                    treeview.append_column(column)
-                                    treeview.set_headers_clickable(False)
-                                    treeview.set_reorderable(False)
-                                    treeview.set_headers_visible(False)
-                                    model = Gtk.TreeStore(str)
-                                    installations.sort()
-                                    for pkg in installations:
-                                        iter = model.insert_before(None, None)
-                                        model.set_value(iter, 0, pkg)
-                                    treeview.set_model(model)
-                                    treeview.show()
-                                    scrolledWindow.add(treeview)
-                                    dialog.get_content_area().pack_start(label, False, False, 0)
-                                    dialog.get_content_area().pack_start(scrolledWindow, True, True, 0)
-
-                                dialog.show_all()
-                                if dialog.run() == Gtk.ResponseType.OK:
-                                    proceed = True
-                                else:
-                                    proceed = False
-                                dialog.destroy()
-                            except Exception as e:
-                                print (e)
-                                print(sys.exc_info()[0])
-                            Gdk.threads_leave()
-                        else:
-                            proceed = True
-                except Exception as e:
-                    print (e)
-                    print(sys.exc_info()[0])
-
-            if len(flatpaks) > 0:
-                self.application.flatpak_updater.prepare_start_updates(flatpaks)
-
-                if self.application.flatpak_updater.confirm_start():
-                    update_flatpaks = True
-                else:
-                    proceed = False
-
-            if aptInstallNeeded and proceed:
-                self.application.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
-                self.application.logger.write("Ready to launch synaptic")
-                f = tempfile.NamedTemporaryFile()
-
-                cmd = [
-                    "pkexec", "/usr/sbin/synaptic",
-                    "--hide-main-window",
-                    "--non-interactive",
-                    "-o", "Synaptic::closeZvt=true",
-                    "--set-selections-file", "%s" % f.name,
-                ]
-
-                if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
-                    cmd += ["--parent-window-id", "%s" % self.application.window.get_window().get_xid()]
-
-                for pkg in packages:
-                    pkg_line = "%s\tinstall\n" % pkg
-                    f.write(pkg_line.encode("utf-8"))
-                f.flush()
-
-                subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
-                try:
-                    result = subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log, check=True)
-                    returnCode = result.returncode
-                except subprocess.CalledProcessError as e:
-                    returnCode = e.returncode
-                subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
-                self.application.logger.write("Return code:" + str(returnCode))
-                f.close()
-
-                latest_apt_update = ''
-                update_successful = False
-                with open("/var/log/apt/history.log", encoding="utf-8") as apt_history:
-                    for line in reversed(list(apt_history)):
-                        if "Start-Date" in line:
-                            break
-                        else:
-                            latest_apt_update += line
-                    if f.name in latest_apt_update and "End-Date" in latest_apt_update:
-                        update_successful = True
-                        self.application.logger.write("Install finished")
-                    else:
-                        self.application.logger.write("Install failed")
-
-                if update_successful:
-                    # override the monitor since there's a forced refresh later already
-                    self.application.cache_monitor.update_cachetime()
-
-                    if self.reboot_required:
-                        self.application.reboot_required = True
-                    elif self.application.settings.get_boolean("hide-window-after-update"):
-                        self.application.hide_window()
-
-                    if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
-                        # Restart
-                        self.application.uninhibit_pm()
-                        self.application.logger.write("Mintupdate was updated, restarting it...")
-                        self.application.logger.close()
-                        self.application.restart_app()
-                        return
-
-                    # Refresh
-                    needs_refresh = True
-                else:
-                    self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
-
-            if update_flatpaks and proceed:
-                self.application.flatpak_updater.perform_updates()
-                if self.application.flatpak_updater.error is not None:
-                    self.application.set_status_message(self.application.flatpak_updater.error)
-                needs_refresh = True
-
-            if proceed and len(cinnamon_spices) > 0:
-                Gdk.threads_enter()
-                spices_install_window = Gtk.Window(title=_("Updating Cinnamon Spices"),
-                                           default_width=400,
-                                           default_height=100,
-                                           deletable=False,
-                                           skip_taskbar_hint=True,
-                                           skip_pager_hint=True,
-                                           resizable=False,
-                                           modal=True,
-                                           window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
-                                           transient_for=self.application.window)
-                box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
-                              spacing=10,
-                              margin=10,
-                              valign=Gtk.Align.CENTER)
-                spinner = Gtk.Spinner(active=True, height_request=32)
-                box.pack_start(spinner, False, False, 0)
-                label = Gtk.Label()
-                box.pack_start(label, False, False, 0)
-                spices_install_window.add(box)
-                spices_install_window.show_all()
-                Gdk.threads_leave()
-
-                need_cinnamon_restart = False
-
-                for update in cinnamon_spices:
-                    Gdk.threads_enter()
-                    label.set_text("%s (%s)" % (update.name, update.uuid))
-                    Gdk.threads_leave()
-                    self.application.cinnamon_updater.upgrade(update)
-
-                    try:
-                        if self.application.cinnamon_updater.spice_is_enabled(update):
-                            need_cinnamon_restart = True
-                    except:
-                        need_cinnamon_restart = True
-
-                if (not self.reboot_required) \
-                        and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"] \
-                        and need_cinnamon_restart:
-                    Gdk.threads_enter()
-                    label.set_text(_("Restarting Cinnamon"))
-                    spinner.hide()
-                    Gdk.threads_leave()
-
-                    # Keep the dialog from looking funky before it freezes during the restart
-                    time.sleep(.25)
-                    subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
-
-                    # We want to be back from the restart before refreshing or else it looks bad. Restarting can
-                    # take a bit longer than the restart command before it's properly 'running' again.
-                    time.sleep(2)
-
-                Gdk.threads_enter()
-                spices_install_window.destroy()
-                Gdk.threads_leave()
-
-                needs_refresh = True
-
-            self.application.uninhibit_pm()
-            if needs_refresh:
-                self.application.refresh()
-
-        except Exception as e:
-            print (e)
-            self.application.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
-            self.application.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
-            self.application.logger.write_error("Could not install security updates")
-            self.application.uninhibit_pm()
-
 class XAppStatusIcon():
 
     def __init__(self, menu):
@@ -1169,9 +854,53 @@ class MintUpdate():
         if self.dpkg_locked():
             self.show_dpkg_lock_msg(self.window)
         else:
-            install = InstallThread(self)
-            install.start()
+            # Find list of packages to install
+            install_needed = False
+            packages = []
+            cinnamon_spices = []
+            flatpaks = []
+            model = self.treeview.get_model()
+            iter = model.get_iter_first()
+            while iter is not None:
+                if model.get_value(iter, UPDATE_CHECKED):
+                    install_needed = True
+                    update = model.get_value(iter, UPDATE_OBJ)
+                    if update.type == "cinnamon":
+                        cinnamon_spices.append(update)
+                        iter = model.iter_next(iter)
+                        continue
+                    elif update.type == "flatpak":
+                        flatpaks.append(update)
+                        iter = model.iter_next(iter)
+                        continue
+                    if update.type == "kernel":
+                        for pkg in update.package_names:
+                            if "-image-" in pkg:
+                                try:
+                                    if self.is_lmde:
+                                        # In Mint, platform.release() returns the kernel version. In LMDE it returns the kernel
+                                        # abi version.  So for LMDE, parse platform.version() instead.
+                                        version_string = platform.version()
+                                        kernel_version = re.search(r"(\d+\.\d+\.\d+)", version_string).group(1)
+                                    else:
+                                        kernel_version = platform.release().split("-")[0]
+
+                                    if update.old_version.startswith(kernel_version):
+                                        self.reboot_required = True
+                                except Exception as e:
+                                    print("Warning: Could not assess the current kernel version: %s" % str(e))
+                                    self.reboot_required = True
+                                break
+                    if update.type == "security" and \
+                       [True for pkg in update.package_names if "nvidia" in pkg]:
+                       self.reboot_required = True
+                    for package in update.package_names:
+                        packages.append(package)
+                        self.logger.write("Will install " + str(package))
+                iter = model.iter_next(iter)
             self.settings.set_int("install-last-run", int(time.time()))
+            if install_needed:
+                self.install_async(packages, cinnamon_spices, flatpaks)
 
     def self_update(self, widget):
         self.select_all(widget)
@@ -2652,6 +2381,270 @@ class MintUpdate():
 
         finally:
             self.refresh_cleanup()
+
+
+############## INSTALLATION #########
+
+
+    @_async
+    def install_async(self, packages, cinnamon_spices, flatpaks):
+        self.set_window_busy(True)
+        self.cache_monitor.pause()
+        self.inhibit_pm("Installing updates")
+        try:
+            self.logger.write("Install requested by user")
+
+            needs_refresh = False
+            proceed = True
+            update_flatpaks = False
+
+            try:
+                pkgs = ' '.join(str(pkg) for pkg in packages)
+                warnings = subprocess.check_output("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs, shell = True).decode("utf-8")
+                #print ("/usr/lib/linuxmint/mintUpdate/checkWarnings.py %s" % pkgs)
+                warnings = warnings.split("###")
+                if len(warnings) == 2:
+                    installations = warnings[0].split()
+                    removals = warnings[1].split()
+                    if len(installations) > 0 or len(removals) > 0:
+                        Gdk.threads_enter()
+                        try:
+                            dialog = Gtk.MessageDialog(self.window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK_CANCEL, None)
+                            dialog.set_title("")
+                            dialog.set_markup("<b>" + _("This upgrade will trigger additional changes") + "</b>")
+                            #dialog.format_secondary_markup("<i>" + _("All available upgrades for this package will be ignored.") + "</i>")
+                            dialog.set_icon_name("mintupdate")
+                            dialog.set_default_size(320, 400)
+                            dialog.set_resizable(True)
+
+                            if len(removals) > 0:
+                                # Removals
+                                label = Gtk.Label()
+                                label.set_text(_("The following packages will be removed:"))
+                                label.set_alignment(0, 0.5)
+                                label.set_padding(20, 0)
+                                scrolledWindow = Gtk.ScrolledWindow()
+                                scrolledWindow.set_shadow_type(Gtk.ShadowType.IN)
+                                scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+                                treeview = Gtk.TreeView()
+                                column = Gtk.TreeViewColumn("", Gtk.CellRendererText(), text=0)
+                                column.set_sort_column_id(0)
+                                column.set_resizable(True)
+                                treeview.append_column(column)
+                                treeview.set_headers_clickable(False)
+                                treeview.set_reorderable(False)
+                                treeview.set_headers_visible(False)
+                                model = Gtk.TreeStore(str)
+                                removals.sort()
+                                for pkg in removals:
+                                    iter = model.insert_before(None, None)
+                                    model.set_value(iter, 0, pkg)
+                                treeview.set_model(model)
+                                treeview.show()
+                                scrolledWindow.add(treeview)
+                                dialog.get_content_area().pack_start(label, False, False, 0)
+                                dialog.get_content_area().pack_start(scrolledWindow, True, True, 0)
+                                dialog.get_content_area().set_border_width(6)
+
+                            if len(installations) > 0:
+                                # Installations
+                                label = Gtk.Label()
+                                label.set_text(_("The following packages will be installed:"))
+                                label.set_alignment(0, 0.5)
+                                label.set_padding(20, 0)
+                                scrolledWindow = Gtk.ScrolledWindow()
+                                scrolledWindow.set_shadow_type(Gtk.ShadowType.IN)
+                                scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+                                treeview = Gtk.TreeView()
+                                column = Gtk.TreeViewColumn("", Gtk.CellRendererText(), text=0)
+                                column.set_sort_column_id(0)
+                                column.set_resizable(True)
+                                treeview.append_column(column)
+                                treeview.set_headers_clickable(False)
+                                treeview.set_reorderable(False)
+                                treeview.set_headers_visible(False)
+                                model = Gtk.TreeStore(str)
+                                installations.sort()
+                                for pkg in installations:
+                                    iter = model.insert_before(None, None)
+                                    model.set_value(iter, 0, pkg)
+                                treeview.set_model(model)
+                                treeview.show()
+                                scrolledWindow.add(treeview)
+                                dialog.get_content_area().pack_start(label, False, False, 0)
+                                dialog.get_content_area().pack_start(scrolledWindow, True, True, 0)
+
+                            dialog.show_all()
+                            if dialog.run() == Gtk.ResponseType.OK:
+                                proceed = True
+                            else:
+                                proceed = False
+                            dialog.destroy()
+                        except Exception as e:
+                            print (e)
+                            print(sys.exc_info()[0])
+                        Gdk.threads_leave()
+                    else:
+                        proceed = True
+            except Exception as e:
+                print (e)
+                print(sys.exc_info()[0])
+
+            if len(flatpaks) > 0:
+                self.flatpak_updater.prepare_start_updates(flatpaks)
+
+                if self.flatpak_updater.confirm_start():
+                    update_flatpaks = True
+                else:
+                    proceed = False
+
+            if proceed:
+                self.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
+                self.logger.write("Ready to launch synaptic")
+                f = tempfile.NamedTemporaryFile()
+
+                cmd = [
+                    "pkexec", "/usr/sbin/synaptic",
+                    "--hide-main-window",
+                    "--non-interactive",
+                    "-o", "Synaptic::closeZvt=true",
+                    "--set-selections-file", "%s" % f.name,
+                ]
+
+                if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+                    cmd += ["--parent-window-id", "%s" % self.window.get_window().get_xid()]
+
+                for pkg in packages:
+                    pkg_line = "%s\tinstall\n" % pkg
+                    f.write(pkg_line.encode("utf-8"))
+                f.flush()
+
+                subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","enable"])
+                try:
+                    result = subprocess.run(cmd, stdout=self.logger.log, stderr=self.logger.log, check=True)
+                    returnCode = result.returncode
+                except subprocess.CalledProcessError as e:
+                    returnCode = e.returncode
+                subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
+                self.logger.write("Return code:" + str(returnCode))
+                f.close()
+
+                latest_apt_update = ''
+                update_successful = False
+                with open("/var/log/apt/history.log", encoding="utf-8") as apt_history:
+                    for line in reversed(list(apt_history)):
+                        if "Start-Date" in line:
+                            break
+                        else:
+                            latest_apt_update += line
+                    if f.name in latest_apt_update and "End-Date" in latest_apt_update:
+                        update_successful = True
+                        self.logger.write("Install finished")
+                    else:
+                        self.logger.write("Install failed")
+
+                if update_successful:
+                    # override the monitor since there's a forced refresh later already
+                    self.cache_monitor.update_cachetime()
+
+                    if self.reboot_required:
+                        self.reboot_required = True
+                    elif self.settings.get_boolean("hide-window-after-update"):
+                        self.hide_window()
+
+                    if [pkg for pkg in PRIORITY_UPDATES if pkg in packages]:
+                        # Restart
+                        self.uninhibit_pm()
+                        self.logger.write("Mintupdate was updated, restarting it...")
+                        self.logger.close()
+                        self.restart_app()
+                        return
+
+                    # Refresh
+                    needs_refresh = True
+                else:
+                    self.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
+
+            if update_flatpaks and proceed:
+                self.flatpak_updater.perform_updates()
+                if self.flatpak_updater.error is not None:
+                    self.set_status_message(self.flatpak_updater.error)
+                needs_refresh = True
+
+            if proceed and len(cinnamon_spices) > 0:
+                Gdk.threads_enter()
+                spices_install_window = Gtk.Window(title=_("Updating Cinnamon Spices"),
+                                           default_width=400,
+                                           default_height=100,
+                                           deletable=False,
+                                           skip_taskbar_hint=True,
+                                           skip_pager_hint=True,
+                                           resizable=False,
+                                           modal=True,
+                                           window_position=Gtk.WindowPosition.CENTER_ON_PARENT,
+                                           transient_for=self.window)
+                box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL,
+                              spacing=10,
+                              margin=10,
+                              valign=Gtk.Align.CENTER)
+                spinner = Gtk.Spinner(active=True, height_request=32)
+                box.pack_start(spinner, False, False, 0)
+                label = Gtk.Label()
+                box.pack_start(label, False, False, 0)
+                spices_install_window.add(box)
+                spices_install_window.show_all()
+                Gdk.threads_leave()
+
+                need_cinnamon_restart = False
+
+                for update in cinnamon_spices:
+                    Gdk.threads_enter()
+                    label.set_text("%s (%s)" % (update.name, update.uuid))
+                    Gdk.threads_leave()
+                    self.cinnamon_updater.upgrade(update)
+
+                    try:
+                        if self.cinnamon_updater.spice_is_enabled(update):
+                            need_cinnamon_restart = True
+                    except:
+                        need_cinnamon_restart = True
+
+                if (not self.reboot_required) \
+                        and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"] \
+                        and need_cinnamon_restart:
+                    Gdk.threads_enter()
+                    label.set_text(_("Restarting Cinnamon"))
+                    spinner.hide()
+                    Gdk.threads_leave()
+
+                    # Keep the dialog from looking funky before it freezes during the restart
+                    time.sleep(.25)
+                    subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
+
+                    # We want to be back from the restart before refreshing or else it looks bad. Restarting can
+                    # take a bit longer than the restart command before it's properly 'running' again.
+                    time.sleep(2)
+
+                Gdk.threads_enter()
+                spices_install_window.destroy()
+                Gdk.threads_leave()
+
+                needs_refresh = True
+
+            self.uninhibit_pm()
+            if needs_refresh:
+                self.refresh()
+
+        except Exception as e:
+            print (e)
+            self.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
+            self.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
+            self.logger.write_error("Could not install security updates")
+            self.uninhibit_pm()
+        finally:
+            self.cache_monitor.resume(False)
+            self.set_window_busy(False)
+
 
 if __name__ == "__main__":
     MintUpdate()
