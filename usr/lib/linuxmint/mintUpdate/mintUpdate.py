@@ -120,48 +120,44 @@ def name_search_func(model, column, key, iter):
     return key.lower() not in name.lower() # False is a match
 
 
-class CacheWatcher(threading.Thread):
-    """ Monitors package cache and dpkg status and runs RefreshThread() on change """
+class APTCacheMonitor():
+    """ Monitors package cache and dpkg status and runs the refresh thread() on change """
 
-    def __init__(self, application, refresh_frequency=90):
-        threading.Thread.__init__(self)
+    def __init__(self, application):
         self.application = application
         self.cachetime = 0
         self.statustime = 0
         self.paused = False
-        self.refresh_frequency = refresh_frequency
         self.pkgcache = "/var/cache/apt/pkgcache.bin"
         self.dpkgstatus = "/var/lib/dpkg/status"
 
-    def run(self):
-        self.refresh_cache()
+    @_async
+    def start(self):
+        self.application.refresh()
+        self.update_cachetime()
         if os.path.isfile(self.pkgcache) and os.path.isfile(self.dpkgstatus):
-            self.update_cachetime()
-            self.loop()
+            while True:
+                if not self.paused and self.application.hidden:
+                    try:
+                        cachetime = os.path.getmtime(self.pkgcache)
+                        statustime = os.path.getmtime(self.dpkgstatus)
+                        if (cachetime != self.cachetime or statustime != self.statustime) and \
+                            not self.application.dpkg_locked():
+                            self.cachetime = cachetime
+                            self.statustime = statustime
+                            self.application.logger.write("Changes to the package cache detected; triggering refresh")
+                            self.application.refresh()
+                    except:
+                        pass
+                time.sleep(90)
         else:
             self.application.logger.write("Package cache location not found, disabling cache monitoring")
 
-    def loop(self):
-        while True:
-            if not self.paused and self.application.window.get_sensitive():
-                try:
-                    cachetime = os.path.getmtime(self.pkgcache)
-                    statustime = os.path.getmtime(self.dpkgstatus)
-                    if (cachetime != self.cachetime or statustime != self.statustime) and \
-                        not self.application.dpkg_locked():
-                        self.cachetime = cachetime
-                        self.statustime = statustime
-                        self.refresh_cache()
-                except:
-                    pass
-            time.sleep(self.refresh_frequency)
-
     def resume(self, update_cachetime=True):
-        if not self.paused:
-            return
-        if update_cachetime:
-            self.update_cachetime()
-        self.paused = False
+        if self.paused:
+            if update_cachetime:
+                self.update_cachetime()
+            self.paused = False
 
     def pause(self):
         self.paused = True
@@ -170,10 +166,6 @@ class CacheWatcher(threading.Thread):
         if os.path.isfile(self.pkgcache) and os.path.isfile(self.dpkgstatus):
             self.cachetime = os.path.getmtime(self.pkgcache)
             self.statustime = os.path.getmtime(self.dpkgstatus)
-
-    def refresh_cache(self):
-        self.application.logger.write("Changes to the package cache detected; triggering refresh")
-        self.application.refresh()
 
 class InstallThread(threading.Thread):
 
@@ -184,11 +176,11 @@ class InstallThread(threading.Thread):
         self.reboot_required = self.application.reboot_required
 
     def __del__(self):
-        self.application.cache_watcher.resume(False)
+        self.application.cache_monitor.resume(False)
         self.application.set_window_busy(False)
 
     def run(self):
-        self.application.cache_watcher.pause()
+        self.application.cache_monitor.pause()
         self.application.inhibit_pm("Installing updates")
         try:
             self.application.logger.write("Install requested by user")
@@ -392,8 +384,8 @@ class InstallThread(threading.Thread):
                         self.application.logger.write("Install failed")
 
                 if update_successful:
-                    # override CacheWatcher since there's a forced refresh later already
-                    self.application.cache_watcher.update_cachetime()
+                    # override the monitor since there's a forced refresh later already
+                    self.application.cache_monitor.update_cachetime()
 
                     if self.reboot_required:
                         self.application.reboot_required = True
@@ -504,7 +496,7 @@ class RefreshThread(threading.Thread):
         self.application.uninhibit_pm()
         if not self.running:
             return
-        self.application.cache_watcher.resume()
+        self.application.cache_monitor.resume()
         self.application.set_refresh_mode(False)
 
     def run(self):
@@ -525,7 +517,7 @@ class RefreshThread(threading.Thread):
                 time.sleep(60)
 
         self.application.inhibit_pm("Refreshing available updates")
-        self.application.cache_watcher.pause()
+        self.application.cache_monitor.pause()
 
         if self.application.reboot_required:
             self.application.show_infobar(_("Reboot required"),
@@ -945,6 +937,7 @@ class MintUpdate():
         self.hidden = False # whether the window is hidden or not
         self.inhibit_cookie = 0
         self.logger = logger.Logger()
+        self.cache_monitor = None
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
@@ -1308,8 +1301,8 @@ class MintUpdate():
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
             else:
-                self.cache_watcher = CacheWatcher(self)
-                self.cache_watcher.start()
+                self.cache_monitor = APTCacheMonitor(self)
+                self.cache_monitor.start()
 
             self.builder.get_object("notebook_details").set_current_page(0)
 
@@ -1621,8 +1614,9 @@ class MintUpdate():
         self.toolbar.set_sensitive(True)
         self.menubar.set_sensitive(True)
         self.updates_inhibited = False
-        self.cache_watcher = CacheWatcher(self)
-        self.cache_watcher.start()
+        if self.cache_monitor is None:
+            self.cache_monitor = APTCacheMonitor(self)
+            self.cache_monitor.start()
 
     def show_help(self, button):
         os.system("yelp help:mintupdate/index &")

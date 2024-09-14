@@ -55,7 +55,7 @@ class InstallKernelThread(threading.Thread):
         self.application.window.set_sensitive(False)
         Gdk.threads_leave()
         do_regular = False
-        self.application.cache_watcher.pause()
+        self.application.cache_monitor.pause()
         for kernel in self.kernels:
             if not do_regular:
                 do_regular = True
