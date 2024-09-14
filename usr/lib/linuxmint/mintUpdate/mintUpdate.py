@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+# system imports
 import os
 import sys
 import gi
@@ -23,13 +24,15 @@ import setproctitle
 import platform
 import re
 
-from kernelwindow import KernelWindow
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
 from gi.repository import Gtk, Gdk, Gio, GLib, GObject, Notify, Pango
-
-from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 from xapp.GSettingsWidgets import *
+
+# local imports
+import logger
+from kernelwindow import KernelWindow
+from Classes import Update, PRIORITY_UPDATES, UpdateTracker
 
 
 # Used as a decorator to run things in the background
@@ -913,61 +916,6 @@ class RefreshThread(threading.Thread):
             changes = self.checkDependencies(changes, cache)
         return changes
 
-class Logger():
-
-    def __init__(self):
-        self.logdir = os.path.join(tempfile.gettempdir(), "mintUpdate/")
-        self._create_log()
-        self.hook = None
-
-    def _create_log(self):
-        if not os.path.exists(self.logdir):
-            os.umask(0)
-            os.makedirs(self.logdir)
-        self.log = tempfile.NamedTemporaryFile(mode="w", prefix=self.logdir, delete=False)
-        try:
-            os.chmod(self.log.name, 0o666)
-        except:
-            traceback.print_exc()
-
-    def _log_ready(self):
-        if self.log.closed:
-            return False
-        if not os.path.exists(self.log.name):
-            self.log.close()
-            self._create_log()
-        return True
-
-    def _write(self, line):
-        if self._log_ready():
-            self.log.write(line)
-            self.log.flush()
-        if self.hook:
-            self.hook(line)
-
-    def write(self, line):
-        self._write("%s ++ %s\n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
-
-    def write_error(self, line):
-        self._write("%s -- %s\n" % (datetime.datetime.now().strftime('%m.%d@%H:%M'), line))
-
-    def read(self):
-        if not os.path.exists(self.log.name):
-            self._create_log()
-            return ""
-        else:
-            with open(self.log.name) as f:
-                return f.read()
-
-    def close(self):
-        self.log.close()
-
-    def set_hook(self, callback):
-        self.hook = callback
-
-    def remove_hook(self):
-        self.hook = None
-
 class XAppStatusIcon():
 
     def __init__(self, menu):
@@ -996,7 +944,7 @@ class MintUpdate():
         self.auto_refresh_is_alive = False
         self.hidden = False # whether the window is hidden or not
         self.inhibit_cookie = 0
-        self.logger = Logger()
+        self.logger = logger.Logger()
         self.logger.write("Launching Update Manager")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
@@ -2088,9 +2036,10 @@ class MintUpdate():
         if self.information_window_showing:
             return
         def destroy_window(widget):
-            self.logger.remove_hook()
+            self.logger.remove_callback()
             self.information_window_showing = False
             window.destroy()
+        @_idle
         def update_log(line):
             textbuffer.insert(textbuffer.get_end_iter(), line)
         gladefile = "/usr/share/linuxmint/mintupdate/information.ui"
@@ -2110,7 +2059,7 @@ class MintUpdate():
         builder.get_object("processid_label").set_text(str(os.getpid()))
         textbuffer.set_text(self.logger.read())
         builder.get_object("log_filename").set_text(str(self.logger.log.name))
-        self.logger.set_hook(update_log)
+        self.logger.set_callback(update_log)
         self.information_window_showing = True
 
 ######### HISTORY SCREEN #########
