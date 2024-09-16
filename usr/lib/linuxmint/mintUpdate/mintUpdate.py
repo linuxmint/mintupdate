@@ -676,7 +676,7 @@ class MintUpdate():
 
 
     @_idle
-    def show_updates(self, num_visible, download_size, is_self_update, model):
+    def show_updates_in_UI(self, num_visible, download_size, is_self_update, model):
         if num_visible > 0:
             self.logger.write("Found %d software updates" % num_visible)
             if is_self_update:
@@ -2149,15 +2149,28 @@ class MintUpdate():
 
     @_async
     def refresh_updates(self):
-
         # Wait for all the caches to be refreshed
         while (self.refreshing_apt or self.refreshing_flatpak or self.refreshing_cinnamon):
             time.sleep(1)
 
-        # Refresh the list of updates
-        try:
-            self.logger.write("Checking for updates)")
+        # Check presence of Mint layer
+        if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not self.check_policy()):
+            error_msg = "%s\n%s\n%s" % (_("Your APT configuration is corrupt."),
+            _("Do not install or update anything - doing so could break your operating system!"),
+            _("To switch to a different Linux Mint mirror and solve this problem, click OK."))
+            self.show_error(error_msg)
+            self.set_status(_("Could not refresh the list of updates"),
+                    "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
+                    "mintupdate-error-symbolic", True)
+            self.show_infobar(_("Please switch to another Linux Mint mirror"),
+                _("Your APT configuration is corrupt."), Gtk.MessageType.ERROR, None,
+                self._on_infobar_mintsources_response)
+            self.refresh_cleanup()
+            return
 
+        self.logger.write("Checking for updates)")
+
+        try:
             if os.getenv("MINTUPDATE_TEST") is None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
             else:
@@ -2167,37 +2180,32 @@ class MintUpdate():
                     output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
 
             error_found = False
-
             # Return on error
             if "CHECK_APT_ERROR" in output:
                 error_found = True
                 self.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
-                try:
-                    error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
-                    if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
-                        error_msg += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
-                except:
-                    error_msg = ""
-
-            # Check presence of Mint layer
-            if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not self.check_policy()):
-                error_found = True
-                error_msg = "%s\n%s\n%s" % (_("Your APT configuration is corrupt."),
-                _("Do not install or update anything - doing so could break your operating system!"),
-                _("To switch to a different Linux Mint mirror and solve this problem, click OK."))
-
-                self.show_infobar(_("Please switch to another Linux Mint mirror"),
-                    _("Your APT configuration is corrupt."), Gtk.MessageType.ERROR, None,
-                    self._on_infobar_mintsources_response)
-
-            if error_found:
+                error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
+                if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
+                    error_msg += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
                 self.show_error(error_msg)
                 self.set_status(_("Could not refresh the list of updates"),
-                    "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
-                    "mintupdate-error-symbolic", True)
+                "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
+                "mintupdate-error-symbolic", True)
                 self.refresh_cleanup()
-                return False
+                return
+            else:
+                self.show_updates(output)
 
+        except:
+            print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
+            self.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
+            self.set_status(_("Could not refresh the list of updates"),
+                                        _("Could not refresh the list of updates"), "mintupdate-error-symbolic", True)
+
+
+    @_idle
+    def show_updates(self, output):
+        try:
             model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
             # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
@@ -2333,7 +2341,7 @@ class MintUpdate():
                 tracker.record()
 
             # Updates found, update status message
-            self.show_updates(num_visible, download_size, is_self_update, model)
+            self.show_updates_in_UI(num_visible, download_size, is_self_update, model)
 
             if FLATPAK_SUPPORT and self.flatpak_updater.error is not None and not is_self_update:
                 self.logger.write("Could not check for flatpak updates: %s" % self.flatpak_updater.error)
@@ -2348,8 +2356,8 @@ class MintUpdate():
             self.logger.write("Refresh finished")
 
         except:
-            print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
-            self.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
+            print("-- Exception occurred while showing updates:\n%s" % traceback.format_exc())
+            self.logger.write_error("Exception occurred while showing updates: %s" % str(sys.exc_info()[0]))
             self.set_status(_("Could not refresh the list of updates"),
                                         _("Could not refresh the list of updates"), "mintupdate-error-symbolic", True)
 
