@@ -52,7 +52,7 @@ class InstallKernelThread(threading.Thread):
 
     def run(self):
         Gdk.threads_enter()
-        self.application.window.set_sensitive(False)
+        self.application.ui_window.set_sensitive(False)
         Gdk.threads_leave()
         do_regular = False
         self.application.cache_monitor.pause()
@@ -69,7 +69,7 @@ class InstallKernelThread(threading.Thread):
                 ]
 
                 if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
-                    cmd += ["--parent-window-id", "%s" % self.application.window.get_window().get_xid()]
+                    cmd += ["--parent-window-id", "%s" % self.application.ui_window.get_window().get_xid()]
 
                 if not self.cache:
                     self.cache = apt.Cache()
@@ -133,7 +133,7 @@ class InstallKernelThread(threading.Thread):
         self.application.refresh(False)
         self.cache = None
         Gdk.threads_enter()
-        self.application.window.set_sensitive(True)
+        self.application.ui_window.set_sensitive(True)
         Gdk.threads_leave()
 
     def package_needed_by_another_kernel(self, version, current_kernel_type):
@@ -307,7 +307,7 @@ class KernelWindow():
 
     def __init__(self, application):
         self.application = application
-        self.application.window.set_sensitive(False)
+        self.application.ui_window.set_sensitive(False)
         gladefile = "/usr/share/linuxmint/mintupdate/kernels.ui"
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain("mintupdate")
@@ -390,8 +390,8 @@ class KernelWindow():
 
         # Center on main window
         window_size = self.window.get_size()
-        parent_size = self.application.window.get_size()
-        parent_position = self.application.window.get_position()
+        parent_size = self.application.ui_window.get_size()
+        parent_position = self.application.ui_window.get_position()
         parent_center_x = parent_position.root_x + parent_size.width / 2
         parent_center_y = parent_position.root_y + parent_size.height / 2
         self.window.move(parent_center_x - window_size.width / 2,
@@ -586,7 +586,7 @@ class KernelWindow():
         self.window.destroy()
         if self.initially_configured_kernel_type != CONFIGURED_KERNEL_TYPE:
             self.application.refresh(False)
-        self.application.window.set_sensitive(True)
+        self.application.ui_window.set_sensitive(True)
 
     def on_continue_clicked(self, widget, main_box):
         self.refresh_kernels_list()

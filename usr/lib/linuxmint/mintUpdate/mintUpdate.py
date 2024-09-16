@@ -219,10 +219,16 @@ class MintUpdate():
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain("mintupdate")
         self.builder.add_from_file(gladefile)
-        self.statusbar = self.builder.get_object("statusbar")
-        self.context_id = self.statusbar.get_context_id("mintUpdate")
-        self.window = self.builder.get_object("main_window")
-        self.window.connect("key-press-event",self.on_key_press_event)
+
+        #self.builder.connect_signals(self)
+        for widget in self.builder.get_objects():
+            if issubclass(type(widget), Gtk.Buildable):
+                name = "ui_%s" % Gtk.Buildable.get_name(widget)
+                if not "__" in name:
+                    setattr(self, name, widget)
+
+        self.context_id = self.ui_statusbar.get_context_id("mintUpdate")
+        self.ui_window.connect("key-press-event",self.on_key_press_event)
         self.treeview = self.builder.get_object("treeview_update")
         self.stack = Gtk.Stack()
         self.builder.get_object("stack_container").pack_start(self.stack, True, True, 0)
@@ -230,39 +236,27 @@ class MintUpdate():
         self.stack.set_transition_duration(175)
 
         try:
-            self.window.set_title(_("Update Manager"))
+            self.ui_window.set_title(_("Update Manager"))
 
-            self.window.set_icon_name("mintupdate")
+            self.ui_window.set_icon_name("mintupdate")
 
             # Add mintupdate style class for easier theming
-            self.window.get_style_context().add_class('mintupdate')
+            self.ui_window.get_style_context().add_class('mintupdate')
 
             accel_group = Gtk.AccelGroup()
-            self.window.add_accel_group(accel_group)
+            self.ui_window.add_accel_group(accel_group)
 
-            self.toolbar = self.builder.get_object("toolbar")
-            self.menubar = self.builder.get_object("menubar")
-
-            self.notebook_details = self.builder.get_object("notebook_details")
-            self.textview_packages = self.builder.get_object("textview_packages").get_buffer()
-
-            self.textview_description = self.builder.get_object("textview_description").get_buffer()
-            self.textview_changes = self.builder.get_object("textview_changes").get_buffer()
-
-            self.paned = self.builder.get_object("paned")
+            self.textview_packages = self.ui_textview_packages.get_buffer()
+            self.textview_description = self.ui_textview_description.get_buffer()
+            self.textview_changes = self.ui_textview_changes.get_buffer()
 
             # Welcome page
-            welcome_page = self.builder.get_object("welcome_page")
-            self.stack.add_named(welcome_page, "welcome")
-            self.builder.get_object("button_welcome_finish").connect("clicked", self.on_welcome_page_finished)
-            self.builder.get_object("button_welcome_help").connect("clicked", self.show_help)
+            self.stack.add_named(self.ui_welcome_page, "welcome")
+            self.ui_button_welcome_finish.connect("clicked", self.on_welcome_page_finished)
+            self.ui_button_welcome_help.connect("clicked", self.show_help)
 
             # Updates page
-            updates_page = self.builder.get_object("updates_page")
-            self.stack.add_named(updates_page, "updates_available")
-
-            # the infobar container
-            self.infobar = self.builder.get_object("hbox_infobar")
+            self.stack.add_named(self.ui_updates_page, "updates_available")
 
             # the treeview
             cr = Gtk.CellRendererToggle()
@@ -318,38 +312,31 @@ class MintUpdate():
 
             selection = self.treeview.get_selection()
             selection.connect("changed", self.display_selected_update)
-            self.builder.get_object("notebook_details").connect("switch-page", self.switch_page)
-            self.window.connect("delete_event", self.close_window)
+            self.ui_notebook_details.connect("switch-page", self.switch_page)
+            self.ui_window.connect("delete_event", self.close_window)
 
             # Install Updates button
-            self.install_button = self.builder.get_object("tool_apply")
-            self.install_button.connect("clicked", self.install)
+            self.ui_install_button.connect("clicked", self.install)
             key, mod = Gtk.accelerator_parse("<Control>I")
-            self.install_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            self.ui_install_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
 
             # Clear button
-            clear_button = self.builder.get_object("tool_clear")
-            clear_button.connect("clicked", self.clear)
+            self.ui_clear_button.connect("clicked", self.clear)
             key, mod = Gtk.accelerator_parse("<Control><Shift>A")
-            clear_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            self.ui_clear_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
 
             # Select All button
-            select_all_button = self.builder.get_object("tool_select_all")
-            select_all_button.connect("clicked", self.select_all)
+            self.ui_select_all_button.connect("clicked", self.select_all)
             key, mod = Gtk.accelerator_parse("<Control>A")
-            select_all_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            self.ui_select_all_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
 
             # Refresh button
-            refresh_button = self.builder.get_object("tool_refresh")
-            refresh_button.connect("clicked", self.manual_refresh)
+            self.ui_refresh_button.connect("clicked", self.manual_refresh)
             key, mod = Gtk.accelerator_parse("<Control>R")
-            refresh_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
+            self.ui_refresh_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
 
             # Self-update page:
-            self.builder.get_object("confirm-self-update").connect("clicked", self.self_update)
-
-            # Refreshing page spinner:
-            self.status_refreshing_spinner = self.builder.get_object("status_refreshing_spinner")
+            self.ui_self_update_button.connect("clicked", self.self_update)
 
             # Tray icon menu
             menu = Gtk.Menu()
@@ -528,26 +515,25 @@ class MintUpdate():
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
 
-            self.menubar.append(fileMenu)
-            self.menubar.append(editMenu)
-            self.menubar.append(viewMenu)
-            self.menubar.append(helpMenu)
+            self.ui_menubar.append(fileMenu)
+            self.ui_menubar.append(editMenu)
+            self.ui_menubar.append(viewMenu)
+            self.ui_menubar.append(helpMenu)
 
             # Status pages
-            self.stack.add_named(self.builder.get_object("status_updated"), "status_updated")
-            self.stack.add_named(self.builder.get_object("status_error"), "status_error")
-            self.stack.add_named(self.builder.get_object("status_self-update"), "status_self-update")
-            self.stack.add_named(self.builder.get_object("status_refreshing"), "status_refreshing")
+            self.stack.add_named(self.ui_status_updated, "status_updated")
+            self.stack.add_named(self.ui_status_error, "status_error")
+            self.stack.add_named(self.ui_status_self_update, "status_self-update")
+            self.stack.add_named(self.ui_status_refreshing, "status_refreshing")
             self.stack.set_visible_child_name("status_refreshing")
             self.stack.show_all()
 
-            vbox = self.builder.get_object("vbox")
-            vbox.show_all()
+            self.ui_vbox.show_all()
 
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if showWindow == "show":
-                    self.window.present_with_time(Gtk.get_current_event_time())
+                    self.ui_window.present_with_time(Gtk.get_current_event_time())
 
             if CINNAMON_SUPPORT:
                 self.cinnamon_updater = cinnamon.UpdateManager()
@@ -569,10 +555,10 @@ class MintUpdate():
                 self.cache_monitor = APTCacheMonitor(self)
                 self.cache_monitor.start()
 
-            self.builder.get_object("notebook_details").set_current_page(0)
+            self.ui_notebook_details.set_current_page(0)
 
-            self.window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
-            self.paned.set_position(self.settings.get_int('window-pane-position'))
+            self.ui_window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
+            self.ui_paned.set_position(self.settings.get_int('window-pane-position'))
 
             self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.start_auto_refresh()
@@ -609,7 +595,7 @@ class MintUpdate():
 
     @_idle
     def set_status_message(self, message):
-        self.statusbar.push(self.context_id, message)
+        self.ui_statusbar.push(self.context_id, message)
 
     @_idle
     def set_status(self, message, tooltip, icon, visible):
@@ -667,14 +653,14 @@ class MintUpdate():
                 infobar.add_button(_("OK"), Gtk.ResponseType.OK)
             infobar.connect("response", callback)
         infobar.show_all()
-        for child in self.infobar.get_children():
+        for child in self.ui_infobar.get_children():
             child.destroy()
-        self.infobar.pack_start(infobar, True, True, 0)
+        self.ui_infobar.pack_start(infobar, True, True, 0)
 
     @_idle
     def show_error(self, error_msg):
         self.stack.set_visible_child_name("status_error")
-        self.builder.get_object("label_error_details").set_text(error_msg)
+        self.ui_label_error_details.set_text(error_msg)
 
 
     @_idle
@@ -683,20 +669,20 @@ class MintUpdate():
             self.logger.write("Found %d software updates" % num_visible)
             if is_self_update:
                 self.stack.set_visible_child_name("status_self-update")
-                self.statusbar.set_visible(False)
+                self.ui_statusbar.set_visible(False)
                 status_string = ""
                 details = []
                 for update in updates:
                     details.append(f"{update.source_name} {update.new_version}")
                 details = ", ".join(details)
-                self.builder.get_object("label_self_update_details").set_text(details)
+                self.ui_label_self_update_details.set_text(details)
             else:
                 status_string = gettext.ngettext("%(selected)d update selected (%(size)s)",
                                         "%(selected)d updates selected (%(size)s)", num_visible) % \
                                         {'selected':num_visible, 'size':size_to_string(download_size)}
-                self.builder.get_object("tool_clear").set_sensitive(True)
-                self.builder.get_object("tool_select_all").set_sensitive(True)
-                self.builder.get_object("tool_apply").set_sensitive(True)
+                self.ui_clear_button.set_sensitive(True)
+                self.ui_select_all_button.set_sensitive(True)
+                self.ui_install_button.set_sensitive(True)
             systray_tooltip = gettext.ngettext("%d update available", "%d updates available", num_visible) % num_visible
             self.set_status(status_string, systray_tooltip, "mintupdate-updates-available-symbolic", True)
         else:
@@ -706,7 +692,7 @@ class MintUpdate():
                                         not self.settings.get_boolean("hide-systray"))
 
 
-        self.builder.get_object("notebook_details").set_current_page(0)
+        self.ui_notebook_details.set_current_page(0)
         self.treeview.set_model(model)
         self.treeview.set_search_column(UPDATE_DISPLAY_NAME)
 
@@ -745,49 +731,49 @@ class MintUpdate():
 
     @_idle
     def hide_window(self, widget=None):
-        self.window.hide()
+        self.ui_window.hide()
         self.hidden = True
 
     @_idle
     def show_window(self, time=Gtk.get_current_event_time()):
-        self.window.show()
-        self.window.present_with_time(time)
+        self.ui_window.show()
+        self.ui_window.present_with_time(time)
         self.hidden = False
 
     @_idle
     def set_window_busy(self, busy):
         if busy and not self.hidden:
-            self.window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
-            self.window.set_sensitive(False)
+            self.ui_window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
+            self.ui_window.set_sensitive(False)
         else:
-            self.window.get_window().set_cursor(None)
-            self.window.set_sensitive(True)
+            self.ui_window.get_window().set_cursor(None)
+            self.ui_window.set_sensitive(True)
 
     @_idle
     def set_refresh_mode(self, enabled):
         if enabled:
-            self.status_refreshing_spinner.start()
+            self.ui_refresh_spinner.start()
             self.stack.set_visible_child_name("status_refreshing")
-            self.toolbar.set_sensitive(False)
-            self.menubar.set_sensitive(False)
-            self.builder.get_object("tool_clear").set_sensitive(False)
-            self.builder.get_object("tool_select_all").set_sensitive(False)
-            self.builder.get_object("tool_apply").set_sensitive(False)
+            self.ui_toolbar.set_sensitive(False)
+            self.ui_menubar.set_sensitive(False)
+            self.ui_clear_button.set_sensitive(False)
+            self.ui_select_all_button.set_sensitive(False)
+            self.ui_install_button.set_sensitive(False)
         else:
-            self.status_refreshing_spinner.stop()
+            self.ui_refresh_spinner.stop()
             # Make sure we're never stuck on the status_refreshing page:
             if self.stack.get_visible_child_name() == "status_refreshing":
                 self.stack.set_visible_child_name("updates_available")
-            #self.paned.set_position(self.paned.get_position())
-            self.toolbar.set_sensitive(True)
-            self.menubar.set_sensitive(True)
+            #self.ui_paned.set_position(self.ui_paned.get_position())
+            self.ui_toolbar.set_sensitive(True)
+            self.ui_menubar.set_sensitive(True)
         self.set_window_busy(enabled)
 
 
     def save_window_size(self):
-        self.settings.set_int('window-width', self.window.get_size()[0])
-        self.settings.set_int('window-height', self.window.get_size()[1])
-        self.settings.set_int('window-pane-position', self.paned.get_position())
+        self.settings.set_int('window-width', self.ui_window.get_size()[0])
+        self.settings.set_int('window-height', self.ui_window.get_size()[1])
+        self.settings.set_int('window-pane-position', self.ui_paned.get_position())
 
 ######### MENU/TOOLBAR FUNCTIONS #########
 
@@ -805,10 +791,10 @@ class MintUpdate():
                 num_selected = num_selected + 1
             iter = model.iter_next(iter)
         if num_selected == 0:
-            self.install_button.set_sensitive(False)
+            self.ui_install_button.set_sensitive(False)
             self.set_status_message(_("No updates selected"))
         else:
-            self.install_button.set_sensitive(True)
+            self.ui_install_button.set_sensitive(True)
             self.set_status_message(gettext.ngettext("%(selected)d update selected (%(size)s)", "%(selected)d updates selected (%(size)s)", num_selected) % {'selected':num_selected, 'size':size_to_string(download_size)})
 
     def setVisibleColumn(self, checkmenuitem, column, key):
@@ -852,7 +838,7 @@ class MintUpdate():
 
     def manual_refresh(self, widget):
         if self.dpkg_locked():
-            self.show_dpkg_lock_msg(self.window)
+            self.show_dpkg_lock_msg(self.ui_window)
         else:
             self.refresh(True)
 
@@ -864,8 +850,8 @@ class MintUpdate():
 
     def on_welcome_page_finished(self, button):
         self.settings.set_boolean("show-welcome-page", False)
-        self.toolbar.set_sensitive(True)
-        self.menubar.set_sensitive(True)
+        self.ui_toolbar.set_sensitive(True)
+        self.ui_menubar.set_sensitive(True)
         self.updates_inhibited = False
         if self.cache_monitor is None:
             self.cache_monitor = APTCacheMonitor(self)
@@ -878,8 +864,8 @@ class MintUpdate():
         self.updates_inhibited = True
         self.stack.set_visible_child_name("welcome")
         self.set_status("", _("Welcome to the Update Manager"), "mintupdate-updates-available-symbolic", True)
-        self.toolbar.set_sensitive(False)
-        self.menubar.set_sensitive(False)
+        self.ui_toolbar.set_sensitive(False)
+        self.ui_menubar.set_sensitive(False)
 
 ######### TREEVIEW/SELECTION FUNCTIONS #######
 
@@ -907,16 +893,16 @@ class MintUpdate():
             if iter is not None:
                 update = model.get_value(iter, UPDATE_OBJ)
                 description = update.description.replace("\\n", "\n")
-                desc_tab = self.notebook_details.get_nth_page(TAB_DESC)
+                desc_tab = self.ui_notebook_details.get_nth_page(TAB_DESC)
 
                 if update.type == "cinnamon":
                     latest_change_str = _("Most recent change")
                     desc = "%s\n\n%s: %s" % (description, latest_change_str, update.commit_msg)
 
                     self.textview_description.set_text(desc)
-                    self.notebook_details.get_nth_page(TAB_PACKAGES).hide()
-                    self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
-                    self.notebook_details.set_current_page(TAB_DESC)
+                    self.ui_notebook_details.get_nth_page(TAB_PACKAGES).hide()
+                    self.ui_notebook_details.get_nth_page(TAB_CHANGELOG).hide()
+                    self.ui_notebook_details.set_current_page(TAB_DESC)
                 elif update.type == "flatpak":
                     if update.link is not None:
                         website_label_str = _("Website: %s") % update.link
@@ -925,17 +911,17 @@ class MintUpdate():
                         description = "%s" % update.description
 
                     self.textview_description.set_text(description)
-                    self.notebook_details.get_nth_page(TAB_PACKAGES).show()
-                    self.notebook_details.get_nth_page(TAB_CHANGELOG).hide()
-                    self.notebook_details.set_current_page(TAB_DESC)
+                    self.ui_notebook_details.get_nth_page(TAB_PACKAGES).show()
+                    self.ui_notebook_details.get_nth_page(TAB_CHANGELOG).hide()
+                    self.ui_notebook_details.set_current_page(TAB_DESC)
                     self.display_package_list(update, is_flatpak=True)
                 else:
                     self.textview_description.set_text(description)
-                    self.notebook_details.get_nth_page(TAB_PACKAGES).show()
-                    self.notebook_details.get_nth_page(TAB_CHANGELOG).show()
+                    self.ui_notebook_details.get_nth_page(TAB_PACKAGES).show()
+                    self.ui_notebook_details.get_nth_page(TAB_CHANGELOG).show()
                     self.display_package_list(update)
 
-                    if self.notebook_details.get_current_page() == 2:
+                    if self.ui_notebook_details.get_current_page() == 2:
                         # Changelog tab
                         self.retrieve_changelog(update)
                         self.changelog_retriever_started = True
@@ -1250,9 +1236,9 @@ class MintUpdate():
 
     def tray_activate(self, time=0):
         try:
-            focused = self.window.get_window().get_state() & Gdk.WindowState.FOCUSED
+            focused = self.ui_window.get_window().get_state() & Gdk.WindowState.FOCUSED
         except:
-            focused = self.window.is_active() and self.window.get_visible()
+            focused = self.ui_window.is_active() and self.ui_window.get_visible()
 
         if focused:
             self.save_window_size()
@@ -1265,7 +1251,7 @@ class MintUpdate():
             self.tray_activate(time)
 
     def quit(self, widget, data = None):
-        if self.window:
+        if self.ui_window:
             self.hide_window()
         try:
             self.logger.write("Exiting - requested by user")
@@ -1297,7 +1283,7 @@ class MintUpdate():
         window.set_icon_name("mintupdate")
 
         # Add mintupdate style class for easier theming
-        self.window.get_style_context().add_class('mintupdate')
+        self.ui_window.get_style_context().add_class('mintupdate')
 
         textbuffer = builder.get_object("log_textview").get_buffer()
         window.connect("destroy", destroy_window)
@@ -1322,7 +1308,7 @@ class MintUpdate():
         window.set_title(_("History of Updates"))
 
         # Add mintupdate style class for easier theming
-        self.window.get_style_context().add_class('mintupdate')
+        self.ui_window.get_style_context().add_class('mintupdate')
 
         (COL_DATE, COL_TYPE, COL_NAME, COL_OLD_VER, COL_NEW_VER) = range(5)
         model = Gtk.TreeStore(str, str, str, str, str)
@@ -1468,7 +1454,7 @@ class MintUpdate():
 
     def open_about(self, widget):
         dlg = Gtk.AboutDialog()
-        dlg.set_transient_for(self.window)
+        dlg.set_transient_for(self.ui_window)
         dlg.set_title(_("About"))
         dlg.set_program_name("mintUpdate")
         dlg.set_comments(_("Update Manager"))
@@ -1508,8 +1494,8 @@ class MintUpdate():
         window = builder.get_object("shortcuts")
         window.connect("destroy", Gtk.Widget.destroyed, window)
 
-        if self.window != window.get_transient_for():
-            window.set_transient_for(self.window)
+        if self.ui_window != window.get_transient_for():
+            window.set_transient_for(self.ui_window)
 
         window.show_all()
         window.present_with_time(Gtk.get_current_event_time())
@@ -1520,18 +1506,18 @@ class MintUpdate():
         if self.preferences_window_showing:
             return
         self.preferences_window_showing = True
-        self.window.set_sensitive(False)
+        self.ui_window.set_sensitive(False)
         gladefile = "/usr/share/linuxmint/mintupdate/preferences.ui"
         builder = Gtk.Builder()
         builder.set_translation_domain("mintupdate")
         builder.add_from_file(gladefile)
         window = builder.get_object("main_window")
-        window.set_transient_for(self.window)
+        window.set_transient_for(self.ui_window)
         window.set_title(_("Preferences"))
         window.set_icon_name("mintupdate")
 
         # Add mintupdate style class for easier theming
-        self.window.get_style_context().add_class('mintupdate')
+        self.ui_window.get_style_context().add_class('mintupdate')
 
         window.connect("destroy", self.close_preferences, window)
 
@@ -1805,7 +1791,7 @@ class MintUpdate():
         self.save_blacklist(treeview_blacklist)
 
     def close_preferences(self, widget, window):
-        self.window.set_sensitive(True)
+        self.ui_window.set_sensitive(True)
         self.preferences_window_showing = False
         window.destroy()
 
@@ -1895,7 +1881,7 @@ class MintUpdate():
             xid = 0
             if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
                 try:
-                    xid = self.window.get_window().get_xid()
+                    xid = self.ui_window.get_window().get_xid()
                 except:
                     pass
 
@@ -2106,7 +2092,7 @@ class MintUpdate():
             if self.hidden:
                 self.refresh_apt_cache_externally()
             else:
-                client = aptkit.simpleclient.SimpleAPTClient(self.window)
+                client = aptkit.simpleclient.SimpleAPTClient(self.ui_window)
                 client.set_finished_callback(self.on_cache_updated)
                 client.update_cache()
 
@@ -2457,7 +2443,7 @@ class MintUpdate():
 
     def install(self, widget):
         if self.dpkg_locked():
-            self.show_dpkg_lock_msg(self.window)
+            self.show_dpkg_lock_msg(self.ui_window)
         else:
             # Find list of packages to install
             install_needed = False
@@ -2512,7 +2498,7 @@ class MintUpdate():
                 if len(self.packages) > 0:
                     self.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
                     self.logger.write("Ready to launch aptkit")
-                    client = aptkit.simpleclient.SimpleAPTClient(self.window)
+                    client = aptkit.simpleclient.SimpleAPTClient(self.ui_window)
                     client.set_cancelled_callback(self.on_apt_install_finished)
                     client.set_finished_callback(self.on_apt_install_finished)
                     client.install_packages(self.packages)

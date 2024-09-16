@@ -2,156 +2,6 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.18"/>
-  <object class="GtkWindow" id="main_window">
-    <property name="can-focus">False</property>
-    <property name="window-position">center</property>
-    <child>
-      <object class="GtkBox" id="vbox">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkMenuBar" id="menubar">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkToolbar" id="toolbar">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="toolbar-style">both</property>
-            <property name="icon_size">2</property>
-            <child>
-              <object class="GtkToolButton" id="tool_clear">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Clear</property>
-                <property name="icon-name">edit-clear-symbolic</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="tool_select_all">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Select All</property>
-                <property name="icon-name">edit-select-all-symbolic</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSeparatorToolItem">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="tool_refresh">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Refresh</property>
-                <property name="use-underline">True</property>
-                <property name="icon-name">view-refresh-symbolic</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSeparatorToolItem">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="tool_apply">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Install Updates</property>
-                <property name="use-underline">True</property>
-                <property name="icon-name">mintupdate-action-install-symbolic</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <style>
-              <class name="primary-toolbar"/>
-            </style>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="infobar">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="orientation">vertical</property>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="stack_container">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="orientation">vertical</property>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkStatusbar" id="statusbar">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="spacing">4</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkScrolledWindow" id="status_error">
     <property name="visible">True</property>
     <property name="can-focus">True</property>
@@ -222,7 +72,7 @@
     <property name="vexpand">True</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkSpinner" id="status_refreshing_spinner">
+      <object class="GtkSpinner" id="refresh_spinner">
         <property name="name">active_tasks_spinner</property>
         <property name="height-request">96</property>
         <property name="visible">True</property>
@@ -235,7 +85,7 @@
       </packing>
     </child>
   </object>
-  <object class="GtkBox" id="status_self-update">
+  <object class="GtkBox" id="status_self_update">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="valign">center</property>
@@ -286,7 +136,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkButton" id="confirm-self-update">
+      <object class="GtkButton" id="self_update_button">
         <property name="label" translatable="yes">Apply the Update</property>
         <property name="visible">True</property>
         <property name="can-focus">True</property>
@@ -381,7 +231,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <child>
-              <object class="GtkScrolledWindow" id="description">
+              <object class="GtkScrolledWindow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="border-width">2</property>
@@ -412,7 +262,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkScrolledWindow" id="packages">
+              <object class="GtkScrolledWindow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="border-width">2</property>
@@ -448,7 +298,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkScrolledWindow" id="changelog">
+              <object class="GtkScrolledWindow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="border-width">2</property>
@@ -860,6 +710,156 @@
         <property name="fill">False</property>
         <property name="position">2</property>
       </packing>
+    </child>
+  </object>
+  <object class="GtkWindow" id="window">
+    <property name="can-focus">False</property>
+    <property name="window-position">center</property>
+    <child>
+      <object class="GtkBox" id="vbox">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkMenuBar" id="menubar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolbar" id="toolbar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="toolbar-style">both</property>
+            <property name="icon_size">2</property>
+            <child>
+              <object class="GtkToolButton" id="clear_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Clear</property>
+                <property name="icon-name">edit-clear-symbolic</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="select_all_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Select All</property>
+                <property name="icon-name">edit-select-all-symbolic</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="refresh_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Refresh</property>
+                <property name="use-underline">True</property>
+                <property name="icon-name">view-refresh-symbolic</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="install_button">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Install Updates</property>
+                <property name="use-underline">True</property>
+                <property name="icon-name">mintupdate-action-install-symbolic</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <style>
+              <class name="primary-toolbar"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="infobar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="stack_container">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStatusbar" id="statusbar">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="spacing">4</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+      </object>
     </child>
   </object>
 </interface>
