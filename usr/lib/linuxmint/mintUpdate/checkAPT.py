@@ -8,6 +8,7 @@ import re
 import sys
 import traceback
 import html
+import locale
 
 import apt
 from gi.repository import Gio
@@ -244,11 +245,17 @@ class APTCheck():
                 update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
 
     def apply_l10n_descriptions(self):
+        lang, encoding = locale.getlocale()
+        if "_" in lang:
+            lang = lang.split("_")[0]
+        if lang in [None, "C", "en"]:
+            return
+        print("found lang", lang)
         if os.path.exists("/var/lib/apt/lists"):
             try:
                 super_buffer = []
                 for file in os.listdir("/var/lib/apt/lists"):
-                    if ("i18n_Translation") in file and not file.endswith("Translation-en"):
+                    if file.endswith(f"_i18n_Translation-{lang}"):
                         fd = codecs.open(os.path.join("/var/lib/apt/lists", file), "r", "utf-8")
                         super_buffer += fd.readlines()
 
@@ -367,7 +374,7 @@ if __name__ == "__main__":
         check.clean_descriptions()
         updates = check.get_updates()
         for update in updates:
-            print(update.display_name, update.new_version)
+            print(update.display_name, update.new_version, update.short_description)
     except Exception as error:
         print(error)
         print(sys.exc_info()[0])
