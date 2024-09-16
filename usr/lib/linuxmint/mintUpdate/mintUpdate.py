@@ -2081,6 +2081,9 @@ class MintUpdate():
             self.show_window()
             return False
 
+        # TODO, remove the line below, only added to debug..
+        refresh_cache=False
+
         # Switch to status_refreshing page
         self.refreshing = True
         self.set_refresh_mode(True)
