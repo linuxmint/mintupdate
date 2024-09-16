@@ -240,8 +240,8 @@ class MintUpdate():
             accel_group = Gtk.AccelGroup()
             self.window.add_accel_group(accel_group)
 
-            self.toolbar = self.builder.get_object("toolbar1")
-            self.menubar = self.builder.get_object("menubar1")
+            self.toolbar = self.builder.get_object("toolbar")
+            self.menubar = self.builder.get_object("menubar")
 
             self.notebook_details = self.builder.get_object("notebook_details")
             self.textview_packages = self.builder.get_object("textview_packages").get_buffer()
@@ -249,7 +249,7 @@ class MintUpdate():
             self.textview_description = self.builder.get_object("textview_description").get_buffer()
             self.textview_changes = self.builder.get_object("textview_changes").get_buffer()
 
-            self.paned = self.builder.get_object("paned1")
+            self.paned = self.builder.get_object("paned")
 
             # Welcome page
             welcome_page = self.builder.get_object("welcome_page")
@@ -541,7 +541,7 @@ class MintUpdate():
             self.stack.set_visible_child_name("status_refreshing")
             self.stack.show_all()
 
-            vbox = self.builder.get_object("vbox_main")
+            vbox = self.builder.get_object("vbox")
             vbox.show_all()
 
             if len(sys.argv) > 1:
