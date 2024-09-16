@@ -24,6 +24,8 @@ import setproctitle
 import platform
 import re
 import aptkit.simpleclient
+import checkAPT
+from multiprocess import Process, Queue
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
@@ -2147,6 +2149,25 @@ class MintUpdate():
     def on_cache_updated(self, transaction=None, exit_state=None):
         self.refreshing_apt = False
 
+    # called in a different process
+    def check_apt_in_external_process(self, queue):
+        # in the queue we put: error_message (None if successful), list_of_updates (None if error)
+        try:
+            check = checkAPT.APTCheck()
+            check.find_changes()
+            check.apply_l10n_descriptions()
+            check.load_aliases()
+            check.apply_aliases()
+            check.clean_descriptions()
+            updates = check.get_updates()
+            queue.put([None, updates])
+        except Exception as error:
+            error_msg = str(error).replace("E:", "\n").strip()
+            queue.put([error_msg, None])
+            print(sys.exc_info()[0])
+            print("Error in checkAPT: %s" % error)
+            traceback.print_exc()
+
     @_async
     def refresh_updates(self):
         # Wait for all the caches to be refreshed
@@ -2171,30 +2192,35 @@ class MintUpdate():
         self.logger.write("Checking for updates)")
 
         try:
+            error = None
+            updates = None
             if os.getenv("MINTUPDATE_TEST") is None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
-            else:
-                if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
-                    output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
-                else:
-                    output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
+                # call checkAPT in a different process
+                queue = Queue()
+                process = Process(target=self.check_apt_in_external_process, args=(queue,))
+                process.start()
+                error, updates = queue.get()
+                process.join()
+            # TODO rewrite tests to deal with classes vs text lines
+            # else:
+            #     if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
+            #         output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
+            #     else:
+            #         output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
 
-            error_found = False
-            # Return on error
-            if "CHECK_APT_ERROR" in output:
-                error_found = True
+            if error is not None:
                 self.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
-                error_msg = output.split("Error: ")[1].replace("E:", "\n").strip()
-                if "apt.cache.FetchFailedException" in output and " changed its " in error_msg:
-                    error_msg += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
-                self.show_error(error_msg)
+                if "apt.cache.FetchFailedException" in error and " changed its " in error:
+                    error += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
+                self.show_error(error)
                 self.set_status(_("Could not refresh the list of updates"),
-                "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error_msg else "", error_msg),
+                "%s%s%s" % (_("Could not refresh the list of updates"), "\n\n" if error else "", error),
                 "mintupdate-error-symbolic", True)
                 self.refresh_cleanup()
                 return
             else:
-                self.show_updates(output)
+                self.show_updates(updates)
 
         except:
             print("-- Exception occurred in the refresh thread:\n%s" % traceback.format_exc())
@@ -2204,7 +2230,8 @@ class MintUpdate():
 
 
     @_idle
-    def show_updates(self, output):
+    def show_updates(self, updates):
+        # TODO: cinnamon and flatpak update fetching should happen async
         try:
             model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
@@ -2219,15 +2246,9 @@ class MintUpdate():
             download_size = 0
             is_self_update = False
             tracker = UpdateTracker(self.settings, self.logger)
-            lines = output.split("---EOL---")
-            if len(lines):
-                for line in lines:
-                    if "###" not in line:
-                        continue
 
-                    # Create update object
-                    update = Update(package=None, input_string=line, source_name=None)
-
+            if len(updates) > 0:
+                for update in updates:
                     # Check if self-update is needed
                     if update.source_name in PRIORITY_UPDATES:
                         is_self_update = True

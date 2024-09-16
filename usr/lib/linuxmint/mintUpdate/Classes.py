@@ -81,7 +81,7 @@ class KernelVersion():
 
 class Update():
 
-    def __init__(self, package=None, input_string=None, source_name=None):
+    def __init__(self, package=None, source_name=None):
         self.package_names = []
         if package is not None:
             self.package_names.append(package.name)
@@ -131,9 +131,6 @@ class Update():
                             break
                 if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                     self.type = "kernel"
-        else:
-            # Build the class from the input_string
-            self.parse(input_string)
 
     def add_package(self, pkg):
         self.package_names.append(pkg.name)
@@ -163,28 +160,6 @@ class Update():
         self.description = pkg.candidate.description
         self.short_description = pkg.candidate.raw_description
         self.main_package_name = pkg.name
-
-    def serialize(self):
-        output_string = u"###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
-        (self.display_name, self.source_name, self.real_source_name, ", ".join(self.source_packages),
-         self.main_package_name, ", ".join(self.package_names), self.new_version,
-         self.old_version, self.size, self.type, self.origin,
-         self.short_description, self.description, self.site, self.archive)
-        print(output_string.encode('ascii', 'xmlcharrefreplace'))
-
-    def parse(self, input_string):
-        try:
-            input_string = html.unescape(input_string)
-        except:
-            pass
-        values = input_string.split("###")[1:]
-        (self.display_name, self.source_name, self.real_source_name, source_packages,
-         self.main_package_name, package_names, self.new_version,
-         self.old_version, size, self.type, self.origin, self.short_description,
-         self.description, self.site, self.archive) = values
-        self.size = int(size)
-        self.package_names = package_names.split(", ")
-        self.source_packages = source_packages.split(", ")
 
 class Alias():
     def __init__(self, name, short_description, description):

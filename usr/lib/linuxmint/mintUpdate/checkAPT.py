@@ -220,11 +220,12 @@ class APTCheck():
                 update.type = "kernel"
             update.new_version = source_version
 
-    def serialize_updates(self):
-        # Print updates
-        for source_name in self.updates.keys():
+    def get_updates(self):
+        update_list = []
+        for source_name in sorted(self.updates.keys()):
             update = self.updates[source_name]
-            update.serialize()
+            update_list.append(update)
+        return update_list
 
     def apply_aliases(self):
         for source_name in self.updates.keys():
@@ -364,17 +365,11 @@ if __name__ == "__main__":
         check.load_aliases()
         check.apply_aliases()
         check.clean_descriptions()
-        check.serialize_updates()
-        if os.getuid() == 0 and os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
-            # Spawn the cache update asynchronously
-            # We're using os.system with & here to make sure it's async and detached
-            # from the caller (which will die before the child process is finished)
-            # stdout/stderr is also directed to /dev/null so it doesn't interfere
-            # or block the output from checkAPT
-            os.system("/usr/bin/mintinstall-update-pkgcache > /dev/null 2>&1 &")
+        updates = check.get_updates()
+        for update in updates:
+            print(update.display_name, update.new_version)
     except Exception as error:
-        print("CHECK_APT_ERROR---EOL---")
+        print(error)
         print(sys.exc_info()[0])
-        print("Error: %s" % error)
         traceback.print_exc()
         sys.exit(1)
