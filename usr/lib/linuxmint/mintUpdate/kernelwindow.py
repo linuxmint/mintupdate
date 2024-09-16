@@ -130,7 +130,7 @@ class InstallKernelThread(threading.Thread):
             subprocess.run(cmd, stdout=self.application.logger.log, stderr=self.application.logger.log)
             subprocess.run(["sudo","/usr/lib/linuxmint/mintUpdate/synaptic-workaround.py","disable"])
             f.close()
-        self.application.refresh()
+        self.application.refresh(False)
         self.cache = None
         Gdk.threads_enter()
         self.application.window.set_sensitive(True)
@@ -585,7 +585,7 @@ class KernelWindow():
     def destroy_window(self, widget):
         self.window.destroy()
         if self.initially_configured_kernel_type != CONFIGURED_KERNEL_TYPE:
-            self.application.refresh()
+            self.application.refresh(False)
         self.application.window.set_sensitive(True)
 
     def on_continue_clicked(self, widget, main_box):

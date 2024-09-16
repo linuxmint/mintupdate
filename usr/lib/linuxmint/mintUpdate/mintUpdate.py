@@ -134,7 +134,7 @@ class APTCacheMonitor():
 
     @_async
     def start(self):
-        self.application.refresh()
+        self.application.refresh(False)
         self.update_cachetime()
         if os.path.isfile(self.pkgcache) and os.path.isfile(self.dpkgstatus):
             while True:
@@ -147,7 +147,7 @@ class APTCacheMonitor():
                             self.cachetime = cachetime
                             self.statustime = statustime
                             self.application.logger.write("Changes to the package cache detected; triggering refresh")
-                            self.application.refresh()
+                            self.application.refresh(False)
                     except:
                         pass
                 time.sleep(90)
@@ -192,6 +192,9 @@ class MintUpdate():
         self.updates_inhibited = False
         self.reboot_required = False
         self.refreshing = False
+        self.refreshing_apt = False
+        self.refreshing_flatpak = False
+        self.refreshing_cinnamon = False
         self.auto_refresh_is_alive = False
         self.hidden = False # whether the window is hidden or not
         self.packages = [] # packages selected for update
@@ -336,7 +339,7 @@ class MintUpdate():
 
             # Refresh button
             refresh_button = self.builder.get_object("tool_refresh")
-            refresh_button.connect("clicked", self.force_refresh)
+            refresh_button.connect("clicked", self.manual_refresh)
             key, mod = Gtk.accelerator_parse("<Control>R")
             refresh_button.add_accelerator("clicked", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
 
@@ -350,7 +353,7 @@ class MintUpdate():
             menu = Gtk.Menu()
             image = Gtk.Image.new_from_icon_name("view-refresh-symbolic", Gtk.IconSize.MENU)
             menuItem3 = Gtk.ImageMenuItem(label=_("Refresh"), image=image)
-            menuItem3.connect('activate', self.force_refresh)
+            menuItem3.connect('activate', self.manual_refresh)
             menu.append(menuItem3)
             image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
             menuItem2 = Gtk.ImageMenuItem(label=_("Information"), image=image)
@@ -368,8 +371,6 @@ class MintUpdate():
 
             self.statusIcon = XAppStatusIcon(menu)
             self.statusIcon.icon.connect('activate', self.on_statusicon_activated)
-
-            self.set_status("", _("Checking for updates"), "mintupdate-checking-symbolic", not self.settings.get_boolean("hide-systray"))
 
             # Main window menu
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
@@ -815,7 +816,7 @@ class MintUpdate():
 
     def setVisibleDescriptions(self, checkmenuitem):
         self.settings.set_boolean("show-descriptions", checkmenuitem.get_active())
-        self.refresh()
+        self.refresh(False)
 
     def clear(self, widget):
         model = self.treeview.get_model()
@@ -847,11 +848,11 @@ class MintUpdate():
 
         self.update_installable_state()
 
-    def force_refresh(self, widget):
+    def manual_refresh(self, widget):
         if self.dpkg_locked():
             self.show_dpkg_lock_msg(self.window)
         else:
-            self.refresh(root_mode=True)
+            self.refresh(True)
 
     def install(self, widget):
         if self.dpkg_locked():
@@ -1222,7 +1223,7 @@ class MintUpdate():
                         return
                     if self.hidden:
                         self.logger.write(f"Update Manager is in tray mode; performing {refresh_type} refresh")
-                        self.refresh(root_mode=True)
+                        self.refresh(True)
                         while self.refreshing:
                             time.sleep(5)
                     else:
@@ -1293,7 +1294,7 @@ class MintUpdate():
                 source_package = source_package.split("=")[0]
             blacklist.append(source_package)
         self.settings.set_strv("blacklisted-packages", blacklist)
-        self.refresh()
+        self.refresh(False)
 
 ######### SYSTRAY #########
 
@@ -1861,7 +1862,7 @@ class MintUpdate():
         if self.app_restart_required:
             self.restart_app()
         else:
-            self.refresh()
+            self.refresh(False)
 
     def restart_app(self):
         self.logger.write("Restarting update manager...")
@@ -2120,8 +2121,8 @@ class MintUpdate():
         self.cache_monitor.resume()
         self.set_refresh_mode(False)
 
-    @_async
-    def refresh(self, root_mode=False):
+    @_idle
+    def refresh(self, refresh_cache):
         if self.refreshing:
             return False
 
@@ -2130,61 +2131,84 @@ class MintUpdate():
             self.show_window()
             return False
 
+        # Switch to status_refreshing page
         self.refreshing = True
-
-        if root_mode:
-            while self.dpkg_locked():
-                self.logger.write("Package management system locked by another process; retrying in 60s")
-                time.sleep(60)
-
-        self.inhibit_pm("Refreshing available updates")
+        self.set_refresh_mode(True)
+        self.set_status(_("Checking for updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.settings.get_boolean("hide-systray"))
+        self.inhibit_pm("Checking for updates")
         self.cache_monitor.pause()
 
         if self.reboot_required:
             self.show_infobar(_("Reboot required"),
                 _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."), Gtk.MessageType.WARNING, "system-reboot-symbolic", None)
 
-        try:
-            if root_mode:
-                self.logger.write("Starting refresh (retrieving lists of updates from remote servers)")
+        if refresh_cache:
+            # Note: All cache refresh happen asynchronously
+            # refresh_updates() waits for them to finish
+            self.logger.write("Refreshing cache")
+
+            # APT
+            self.settings.set_int("refresh-last-run", int(time.time()))
+            self.refreshing_apt = True
+            if self.hidden:
+                self.refresh_apt_cache_externally()
             else:
-                self.logger.write("Starting refresh (local only)")
+                client = aptkit.simpleclient.SimpleAPTClient(self.window)
+                client.set_finished_callback(self.on_cache_updated)
+                client.update_cache()
 
-            # Switch to status_refreshing page
-            self.set_refresh_mode(True)
-            self.set_status(_("Checking for package updates"), _("Checking for updates"), "mintupdate-checking-symbolic", not self.settings.get_boolean("hide-systray"))
+            # Cinnamon
+            if CINNAMON_SUPPORT:
+                self.refreshing_cinnamon = True
+                self.refresh_cinnamon_cache()
 
-            model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
-            # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
-            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
+            # Flatpak
+            if FLATPAK_SUPPORT:
+                self.refreshing_flatpak = True
+                self.refresh_flatpak_cache()
 
-            model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+        self.refresh_updates()
 
-            # Refresh the APT cache
-            if root_mode:
-                refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
-                if (not self.hidden) and os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
-                    refresh_command.extend(["--use-synaptic",
-                                            str(self.window.get_window().get_xid())])
-                subprocess.run(refresh_command)
-                self.settings.set_int("refresh-last-run", int(time.time()))
+    @_async
+    def refresh_apt_cache_externally(self):
+        try:
+            refresh_command = ["sudo", "/usr/bin/mint-refresh-cache"]
+            subprocess.run(refresh_command)
+        except:
+            print("Exception while calling mint-refresh-cache")
+        finally:
+            self.refreshing_apt = False
 
-                if CINNAMON_SUPPORT:
-                    self.logger.write("Refreshing available Cinnamon updates from the server")
-                    self.set_status_message(_("Checking for Cinnamon spices"))
-                    for spice_type in cinnamon.updates.SPICE_TYPES:
-                        try:
-                            self.cinnamon_updater.refresh_cache_for_type(spice_type)
-                        except:
-                            self.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
-                            print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
+    @_async
+    def refresh_cinnamon_cache(self):
+        self.logger.write("Refreshing cache for Cinnamon updates")
+        for spice_type in cinnamon.updates.SPICE_TYPES:
+            try:
+                self.cinnamon_updater.refresh_cache_for_type(spice_type)
+            except:
+                self.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
+                print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
+        self.refreshing_cinnamon = False
 
-                if FLATPAK_SUPPORT:
-                    self.logger.write("Refreshing available Flatpak updates")
-                    self.set_status_message(_("Checking for Flatpak updates"))
-                    self.flatpak_updater.refresh()
+    @_async
+    def refresh_flatpak_cache(self):
+        self.logger.write("Refreshing cache for Flatpak updates")
+        self.flatpak_updater.refresh()
+        self.refreshing_flatpak = False
 
-            self.set_status_message(_("Processing updates"))
+    def on_cache_updated(self, transaction=None, exit_state=None):
+        self.refreshing_apt = False
+
+    @_async
+    def refresh_updates(self):
+
+        # Wait for all the caches to be refreshed
+        while (self.refreshing_apt or self.refreshing_flatpak or self.refreshing_cinnamon):
+            time.sleep(1)
+
+        # Refresh the list of updates
+        try:
+            self.logger.write("Checking for updates)")
 
             if os.getenv("MINTUPDATE_TEST") is None:
                 output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
@@ -2225,6 +2249,12 @@ class MintUpdate():
                     "mintupdate-error-symbolic", True)
                 self.refresh_cleanup()
                 return False
+
+            model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
+            # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
+            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
+
+            model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
 
             # Look at the updates one by one
             num_visible = 0
@@ -2449,7 +2479,7 @@ class MintUpdate():
         flatpaks_updated = self.install_flatpaks()
         self.install_cleanup()
         if refresh or spices_updated or flatpaks_updated:
-            self.refresh()
+            self.refresh(False)
 
     @_async
     def install_async(self):
