@@ -230,10 +230,6 @@ class MintUpdate():
         self.context_id = self.ui_statusbar.get_context_id("mintUpdate")
         self.ui_window.connect("key-press-event",self.on_key_press_event)
         self.treeview = self.builder.get_object("treeview_update")
-        self.stack = Gtk.Stack()
-        self.builder.get_object("stack_container").pack_start(self.stack, True, True, 0)
-        self.stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
-        self.stack.set_transition_duration(175)
 
         try:
             self.ui_window.set_title(_("Update Manager"))
@@ -251,12 +247,8 @@ class MintUpdate():
             self.textview_changes = self.ui_textview_changes.get_buffer()
 
             # Welcome page
-            self.stack.add_named(self.ui_welcome_page, "welcome")
             self.ui_button_welcome_finish.connect("clicked", self.on_welcome_page_finished)
             self.ui_button_welcome_help.connect("clicked", self.show_help)
-
-            # Updates page
-            self.stack.add_named(self.ui_updates_page, "updates_available")
 
             # the treeview
             cr = Gtk.CellRendererToggle()
@@ -520,14 +512,7 @@ class MintUpdate():
             self.ui_menubar.append(viewMenu)
             self.ui_menubar.append(helpMenu)
 
-            # Status pages
-            self.stack.add_named(self.ui_status_updated, "status_updated")
-            self.stack.add_named(self.ui_status_error, "status_error")
-            self.stack.add_named(self.ui_status_self_update, "status_self-update")
-            self.stack.add_named(self.ui_status_refreshing, "status_refreshing")
-            self.stack.set_visible_child_name("status_refreshing")
-            self.stack.show_all()
-
+            self.ui_stack.set_visible_child_name("refresh_page")
             self.ui_vbox.show_all()
 
             if len(sys.argv) > 1:
@@ -659,7 +644,7 @@ class MintUpdate():
 
     @_idle
     def show_error(self, error_msg):
-        self.stack.set_visible_child_name("status_error")
+        self.ui_stack.set_visible_child_name("error_page")
         self.ui_label_error_details.set_text(error_msg)
 
 
@@ -668,7 +653,7 @@ class MintUpdate():
         if num_visible > 0:
             self.logger.write("Found %d software updates" % num_visible)
             if is_self_update:
-                self.stack.set_visible_child_name("status_self-update")
+                self.ui_stack.set_visible_child_name("self_update_page")
                 self.ui_statusbar.set_visible(False)
                 status_string = ""
                 details = []
@@ -687,7 +672,7 @@ class MintUpdate():
             self.set_status(status_string, systray_tooltip, "mintupdate-updates-available-symbolic", True)
         else:
             self.logger.write("System is up to date")
-            self.stack.set_visible_child_name("status_updated")
+            self.ui_stack.set_visible_child_name("success_page")
             self.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
                                         not self.settings.get_boolean("hide-systray"))
 
@@ -753,7 +738,7 @@ class MintUpdate():
     def set_refresh_mode(self, enabled):
         if enabled:
             self.ui_refresh_spinner.start()
-            self.stack.set_visible_child_name("status_refreshing")
+            self.ui_stack.set_visible_child_name("refresh_page")
             self.ui_toolbar.set_sensitive(False)
             self.ui_menubar.set_sensitive(False)
             self.ui_clear_button.set_sensitive(False)
@@ -762,8 +747,8 @@ class MintUpdate():
         else:
             self.ui_refresh_spinner.stop()
             # Make sure we're never stuck on the status_refreshing page:
-            if self.stack.get_visible_child_name() == "status_refreshing":
-                self.stack.set_visible_child_name("updates_available")
+            if self.ui_stack.get_visible_child_name() == "refresh_page":
+                self.ui_stack.set_visible_child_name("updates_page")
             #self.ui_paned.set_position(self.ui_paned.get_position())
             self.ui_toolbar.set_sensitive(True)
             self.ui_menubar.set_sensitive(True)
@@ -862,7 +847,7 @@ class MintUpdate():
 
     def show_welcome_page(self, widget=None):
         self.updates_inhibited = True
-        self.stack.set_visible_child_name("welcome")
+        self.ui_stack.set_visible_child_name("welcome_page")
         self.set_status("", _("Welcome to the Update Manager"), "mintupdate-updates-available-symbolic", True)
         self.ui_toolbar.set_sensitive(False)
         self.ui_menubar.set_sensitive(False)
