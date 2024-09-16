@@ -854,58 +854,6 @@ class MintUpdate():
         else:
             self.refresh(True)
 
-    def install(self, widget):
-        if self.dpkg_locked():
-            self.show_dpkg_lock_msg(self.window)
-        else:
-            # Find list of packages to install
-            install_needed = False
-            self.packages = []
-            self.spices = []
-            self.flatpaks = []
-            model = self.treeview.get_model()
-            iter = model.get_iter_first()
-            while iter is not None:
-                if model.get_value(iter, UPDATE_CHECKED):
-                    install_needed = True
-                    update = model.get_value(iter, UPDATE_OBJ)
-                    if update.type == "cinnamon":
-                        self.spices.append(update)
-                        iter = model.iter_next(iter)
-                        continue
-                    elif update.type == "flatpak":
-                        self.flatpaks.append(update)
-                        iter = model.iter_next(iter)
-                        continue
-                    if update.type == "kernel":
-                        for pkg in update.package_names:
-                            if "-image-" in pkg:
-                                try:
-                                    if self.is_lmde:
-                                        # In Mint, platform.release() returns the kernel version. In LMDE it returns the kernel
-                                        # abi version.  So for LMDE, parse platform.version() instead.
-                                        version_string = platform.version()
-                                        kernel_version = re.search(r"(\d+\.\d+\.\d+)", version_string).group(1)
-                                    else:
-                                        kernel_version = platform.release().split("-")[0]
-
-                                    if update.old_version.startswith(kernel_version):
-                                        self.reboot_required = True
-                                except Exception as e:
-                                    print("Warning: Could not assess the current kernel version: %s" % str(e))
-                                    self.reboot_required = True
-                                break
-                    if update.type == "security" and \
-                       [True for pkg in update.package_names if "nvidia" in pkg]:
-                       self.reboot_required = True
-                    for package in update.package_names:
-                        self.packages.append(package)
-                        self.logger.write("Will install " + str(package))
-                iter = model.iter_next(iter)
-            self.settings.set_int("install-last-run", int(time.time()))
-            if install_needed:
-                self.install_async()
-
     def self_update(self, widget):
         self.select_all(widget)
         self.install(widget)
@@ -2432,79 +2380,112 @@ class MintUpdate():
             # Refresh
             needs_refresh = True
         else:
-            self.logger.write("Install failed")
+            self.logger.write_error("APT install failed")
             self.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
 
-        self.install_spices_and_flatpaks(needs_refresh)
-
-    def install_cinnamon_spices(self):
-        if len(self.spices) <= 0:
-            return False
-
-        self.set_status(_("Updating Cinnamon Spices"), _("Updating Cinnamon Spices"), "mintupdate-installing-symbolic", True)
-        need_cinnamon_restart = False
-        for update in self.spices:
-            self.cinnamon_updater.upgrade(update)
-            try:
-                if self.cinnamon_updater.spice_is_enabled(update):
-                    need_cinnamon_restart = True
-            except:
-                need_cinnamon_restart = True
-
-        if need_cinnamon_restart and not self.reboot_required and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
-            subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
-
-        return True
-
-    def install_flatpaks(self):
-        if len(self.flatpaks) <= 0:
-            return False
-        self.flatpak_updater.prepare_start_updates(self.flatpaks)
-        if self.flatpak_updater.confirm_start():
-            self.flatpak_updater.perform_updates()
-            if self.flatpak_updater.error is not None:
-                self.set_status_message(self.flatpak_updater.error)
-            return True
-        return False
-
-    def install_cleanup(self):
-        self.uninhibit_pm()
-        self.cache_monitor.resume(False)
-        self.set_window_busy(False)
+        self.finish_install(needs_refresh)
 
     @_async
-    def install_spices_and_flatpaks(self, refresh):
-        # Install spices and flatpaks
-        spices_updated = self.install_cinnamon_spices()
-        flatpaks_updated = self.install_flatpaks()
-        self.install_cleanup()
-        if refresh or spices_updated or flatpaks_updated:
-            self.refresh(False)
-
-    @_async
-    def install_async(self):
-        self.set_window_busy(True)
-        self.cache_monitor.pause()
-        self.inhibit_pm("Installing updates")
+    def finish_install(self, refresh_needed):
         try:
-            self.logger.write("Install requested by user")
+            # Install flatpaks
+            if len(self.flatpaks) > 0:
+                self.flatpak_updater.prepare_start_updates(self.flatpaks)
+                if self.flatpak_updater.confirm_start():
+                    self.flatpak_updater.perform_updates()
+                    if self.flatpak_updater.error is not None:
+                        self.logger.write_error("Flatpak install failed %s" % self.flatpak_updater.error)
+                        self.set_status_message(self.flatpak_updater.error)
+                    refresh_needed = True
 
-            if len(self.packages) > 0:
-                self.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
-                self.logger.write("Ready to launch aptkit")
-                client = aptkit.simpleclient.SimpleAPTClient(self.window)
-                client.set_cancelled_callback(self.on_apt_install_finished)
-                client.set_finished_callback(self.on_apt_install_finished)
-                client.install_packages(self.packages)
-            else:
-                self.install_spices_and_flatpaks(False)
-
+            # Install spices
+            if len(self.spices) > 0:
+                self.set_status(_("Updating Cinnamon Spices"), _("Updating Cinnamon Spices"), "mintupdate-installing-symbolic", True)
+                need_cinnamon_restart = False
+                for update in self.spices:
+                    self.cinnamon_updater.upgrade(update)
+                    try:
+                        if self.cinnamon_updater.spice_is_enabled(update):
+                            need_cinnamon_restart = True
+                    except:
+                        need_cinnamon_restart = True
+                if need_cinnamon_restart and not self.reboot_required and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
+                    subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
+                    refresh_needed = True
         except Exception as e:
             print (e)
             self.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
             self.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
             self.logger.write_error("Could not install security updates")
-            self.install_cleanup()
+        self.uninhibit_pm()
+        self.cache_monitor.resume(False)
+        self.set_window_busy(False)
+        if refresh_needed or spices_updated or flatpaks_updated:
+            self.refresh(False)
+
+    def install(self, widget):
+        if self.dpkg_locked():
+            self.show_dpkg_lock_msg(self.window)
+        else:
+            # Find list of packages to install
+            install_needed = False
+            self.packages = []
+            self.spices = []
+            self.flatpaks = []
+            model = self.treeview.get_model()
+            iter = model.get_iter_first()
+            while iter is not None:
+                if model.get_value(iter, UPDATE_CHECKED):
+                    install_needed = True
+                    update = model.get_value(iter, UPDATE_OBJ)
+                    if update.type == "cinnamon":
+                        self.spices.append(update)
+                        iter = model.iter_next(iter)
+                        continue
+                    elif update.type == "flatpak":
+                        self.flatpaks.append(update)
+                        iter = model.iter_next(iter)
+                        continue
+                    if update.type == "kernel":
+                        for pkg in update.package_names:
+                            if "-image-" in pkg:
+                                try:
+                                    if self.is_lmde:
+                                        # In Mint, platform.release() returns the kernel version. In LMDE it returns the kernel
+                                        # abi version.  So for LMDE, parse platform.version() instead.
+                                        version_string = platform.version()
+                                        kernel_version = re.search(r"(\d+\.\d+\.\d+)", version_string).group(1)
+                                    else:
+                                        kernel_version = platform.release().split("-")[0]
+
+                                    if update.old_version.startswith(kernel_version):
+                                        self.reboot_required = True
+                                except Exception as e:
+                                    print("Warning: Could not assess the current kernel version: %s" % str(e))
+                                    self.reboot_required = True
+                                break
+                    if update.type == "security" and \
+                       [True for pkg in update.package_names if "nvidia" in pkg]:
+                       self.reboot_required = True
+                    for package in update.package_names:
+                        self.packages.append(package)
+                        self.logger.write("Will install " + str(package))
+                iter = model.iter_next(iter)
+            self.settings.set_int("install-last-run", int(time.time()))
+            if install_needed:
+                self.set_window_busy(True)
+                self.cache_monitor.pause()
+                self.inhibit_pm("Installing updates")
+                self.logger.write("Install requested by user")
+                if len(self.packages) > 0:
+                    self.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
+                    self.logger.write("Ready to launch aptkit")
+                    client = aptkit.simpleclient.SimpleAPTClient(self.window)
+                    client.set_cancelled_callback(self.on_apt_install_finished)
+                    client.set_finished_callback(self.on_apt_install_finished)
+                    client.install_packages(self.packages)
+                else:
+                    self.finish_install(False)
 
 if __name__ == "__main__":
     MintUpdate()
