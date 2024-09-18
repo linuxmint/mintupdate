@@ -497,6 +497,10 @@ class MintUpdate():
             self.ui_menubar.append(helpMenu)
 
             self.ui_stack.set_visible_child_name("refresh_page")
+
+            self.ui_window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
+            self.ui_paned.set_position(self.settings.get_int('window-pane-position'))
+
             self.ui_vbox.show_all()
 
             if len(sys.argv) > 1:
@@ -525,9 +529,6 @@ class MintUpdate():
                 self.cache_monitor.start()
 
             self.ui_notebook_details.set_current_page(0)
-
-            self.ui_window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
-            self.ui_paned.set_position(self.settings.get_int('window-pane-position'))
 
             self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.start_auto_refresh()
