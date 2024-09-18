@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 
+import apt
+import aptkit.simpleclient
 import configparser
 import gettext
-import os
-import tempfile
-from subprocess import PIPE, Popen
-
 import gi
+import os
+import subprocess
+
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
-
-import apt
-
+from gi.repository import Gtk, Gio
+from Classes import _idle, _async
 gettext.install("mintupdate", "/usr/share/locale")
 
 class Assistant:
@@ -40,32 +39,47 @@ class Assistant:
         else:
             self.current_codename = 'unknown'
             self.current_edition = 'unknown'
+            self.edition = 'unknown'
+            self.settings = None
             with open("/etc/linuxmint/info", "r") as info:
                 for line in info:
                     line = line.strip()
                     if "EDITION=" in line:
                         self.current_edition = line.split('=')[1].replace('"', '').split()[0]
+                        self.edition = self.current_edition.lower()
                     if "CODENAME=" in line:
                         self.current_codename = line.split('=')[1].replace('"', '').split()[0]
-            rel_path = "/usr/share/mint-upgrade-info/%s" % self.current_codename
+
+            rel_path = f"/usr/share/mint-upgrade-info/{self.current_codename}"
             if not os.path.exists(rel_path):
                 self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("No upgrades were found."))
             else:
                 config = configparser.ConfigParser()
-                config.read(os.path.join(rel_path, "info"))
+                config.read(f"{rel_path}/info")
                 self.rel_target_name = config['general']['target_name']
                 self.rel_target_codename = config['general']['target_codename']
                 self.rel_editions = config['general']['editions']
-                if self.current_edition.lower() in self.rel_editions:
+                if self.edition in self.rel_editions:
                     label = Gtk.Label()
                     label.set_markup(_("A new version of Linux Mint is available!"))
                     self.vbox_intro.pack_start(label, False, False, 6)
-                    image = Gtk.Image.new_from_file(os.path.join(rel_path, "%s.png" % self.current_edition.lower()))
+                    image = Gtk.Image.new_from_file(f"{rel_path}/{self.edition}.png")
                     self.vbox_intro.pack_start(image, False, False, 0)
                     label = Gtk.Label()
                     label.set_markup("<b>%s</b>" % self.rel_target_name)
                     self.vbox_intro.pack_start(label, False, False, 0)
                     self.assistant.set_page_complete(self.vbox_intro, True)
+
+                    # All good
+                    self.meta = f"mint-meta-{self.edition}"
+                    self.settings = None
+                    self.screensaver_enabled = False
+                    if self.edition == "cinnamon":
+                        self.settings = Gio.Settings(schema="org.cinnamon.desktop.screensaver")
+                        self.screensaver_enabled = self.settings.get_boolean("lock-enabled")
+                    elif self.edition == "mate":
+                        self.settings = Gio.Settings(schema="org.mate.screensaver")
+                        self.screensaver_enabled = self.settings.get_boolean("lock-enabled")
                     self.build_assistant()
                 else:
                     self.show_message('/usr/lib/linuxmint/mintUpdate/rel_upgrades/info.png', _("An upgrade was found but it is not available yet for the %s edition.") % self.current_edition)
@@ -125,18 +139,17 @@ class Assistant:
         self.assistant.set_page_type(self.vbox_prerequesites, Gtk.AssistantPageType.CONFIRM)
 
         self.vbox_meta = Gtk.VBox()
-        meta = "mint-meta-%s" % self.current_edition.lower()
         vbox_content = Gtk.HBox()
         image = Gtk.Image.new_from_file('/usr/lib/linuxmint/mintUpdate/rel_upgrades/failure.png')
         vbox_content.pack_start(image, False, False, 0)
         label = Gtk.Label()
         label.set_line_wrap(True)
-        label.set_markup(_("The package %s needs to be installed before upgrading.") % meta)
+        label.set_markup(_("The package %s needs to be installed before upgrading.") % self.meta)
         vbox_content.pack_start(label, False, False, 6)
         self.vbox_meta.pack_start(vbox_content, False, False, 6)
         button = Gtk.Button()
-        button.set_label(_("Install %s") % meta)
-        packages = [meta]
+        button.set_label(_("Install %s") % self.meta)
+        packages = [self.meta]
         button.connect("button-release-event", self.install_pkgs, packages)
         self.vbox_meta.pack_start(button, False, False, 6)
         label = Gtk.Label()
@@ -173,33 +186,19 @@ class Assistant:
 
 
     def install_pkgs(self, widget, event, packages):
-        cmd = [
-            "pkexec", "/usr/sbin/synaptic",
-            "--hide-main-window",
-            "--non-interactive",
-            "-o", "Synaptic::closeZvt=true"
-        ]
+        client = aptkit.simpleclient.SimpleAPTClient(self.assistant)
+        client.set_finished_callback(self.on_installation_finished)
+        client.set_cancelled_callback(self.on_installation_finished)
+        client.set_error_callback(self.on_installation_finished)
+        client.install_packages(packages)
 
-        if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
-            xmd += ["--parent-window-id", "%s" % self.assistant.get_window().get_xid()]
-
-        f = tempfile.NamedTemporaryFile()
-        for pkg in packages:
-            pkg_line = "%s\tinstall\n" % pkg
-            f.write(pkg_line.encode("utf-8"))
-        cmd.append("--set-selections-file")
-        cmd.append("%s" % f.name)
-        f.flush()
-        comnd = Popen(' '.join(cmd), shell=True)
-        returnCode = comnd.wait()
-        f.close()
+    def on_installation_finished(self, transaction=None, exit_state=None):
         self.check_reqs()
 
     def check_meta(self):
-        meta = "mint-meta-%s" % self.current_edition.lower()
         cache = apt.Cache()
-        if meta in cache:
-            if cache[meta].is_installed:
+        if self.meta in cache:
+            if cache[self.meta].is_installed:
                 return True
         return False
 
@@ -232,61 +231,46 @@ class Assistant:
         Gtk.main_quit()
 
     def apply_button_pressed(self, assistant):
-
         # Turn off the screensaver during the upgrade
-        screensaver_setting = None
-        screensaver_enabled = "true"
-        if self.current_edition.lower() == "cinnamon":
-            screensaver_setting = "org.cinnamon.desktop.screensaver lock-enabled"
-        elif self.current_edition.lower() == "mate":
-            screensaver_setting = "org.mate.screensaver lock-enabled"
-        if screensaver_setting is not None:
-            enabled = os.popen("gsettings get %s" % screensaver_setting).readlines()[0].strip()
-            if enabled == "false":
-                screensaver_enabled = "false"
-            else:
-                os.system("gsettings set %s false" % screensaver_setting)
+        if self.settings is not None:
+            self.settings.set_boolean("lock-enabled", False)
+        self.assistant.set_sensitive(False)
+        self.launch_root_upgrade()
 
-        cmd = [
-            "pkexec", "/usr/bin/mint-release-upgrade-root",
-            "%s" % self.current_codename
-        ]
+    @_async
+    def launch_root_upgrade(self):
+        subprocess.run(['pkexec', '/usr/bin/mint-release-upgrade-root', self.current_codename])
+        self.show_result()
 
-        if os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
-            cmd += ["%s" % self.assistant.get_window().get_xid()]
-
-        comnd = Popen(' '.join(cmd), shell=True)
-        returnCode = comnd.wait()
-
+    @_idle
+    def show_result(self):
         # Reset the screensaver the way it was before the upgrade
-        if screensaver_setting is not None:
-            os.system("gsettings set %s %s" % (screensaver_setting, screensaver_enabled))
+        if self.settings is not None:
+            self.settings.set_boolean("lock-enabled", self.screensaver_enabled)
 
-        new_codename = 'unknown'
+        self.assistant.set_sensitive(True)
+
+        image_result = "failure"
+        message_text = _("The upgrade did not succeed. Make sure you are connected to the Internet and try to upgrade again.")
         if os.path.exists("/etc/linuxmint/info"):
             with open("/etc/linuxmint/info", "r") as info:
                 for line in info:
                     line = line.strip()
                     if "CODENAME=" in line:
                         new_codename = line.split('=')[1].replace('"', '').split()[0]
-                        break
-
-        if new_codename == self.rel_target_codename:
-            image_result = "success"
-            message_text = _("Your operating system was successfully upgraded. Please reboot your computer for all changes to take effect.")
-        else:
-            image_result = "failure"
-            message_text = _("The upgrade did not succeed. Make sure you are connected to the Internet and try to upgrade again.")
+                        if new_codename == self.rel_target_codename:
+                            image_result = "success"
+                            message_text = _("Your operating system was successfully upgraded. Please reboot your computer for all changes to take effect.")
+                            break
 
         vbox_content = Gtk.HBox()
-        image = Gtk.Image.new_from_file('/usr/lib/linuxmint/mintUpdate/rel_upgrades/%s.png' % image_result)
+        image = Gtk.Image.new_from_file(f'/usr/lib/linuxmint/mintUpdate/rel_upgrades/{image_result}.png')
         vbox_content.pack_start(image, False, False, 0)
         label = Gtk.Label()
         label.set_line_wrap(True)
         label.set_markup(message_text)
         vbox_content.pack_start(label, False, False, 6)
         self.vbox_summary.pack_start(vbox_content, False, False, 6)
-
         self.vbox_summary.show_all()
         self.assistant.set_page_complete(self.vbox_summary, True)
 
