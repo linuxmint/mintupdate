@@ -14,8 +14,8 @@ from gi.repository import Gtk, Gdk
 
 from apt.utils import get_maintenance_end_date
 
-from Classes import (CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES,
-                     SUPPORTED_KERNEL_TYPES, get_release_dates)
+from Classes import CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES, \
+                     SUPPORTED_KERNEL_TYPES, get_release_dates, _idle, _async
 
 # i18n
 APP = 'mintupdate'

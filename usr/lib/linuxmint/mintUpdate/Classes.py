@@ -11,6 +11,7 @@ import os
 import subprocess
 import time
 import re
+import threading
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -30,6 +31,21 @@ if CONFIGURED_KERNEL_TYPE not in SUPPORTED_KERNEL_TYPES:
     CONFIGURED_KERNEL_TYPE = "-generic"
 
 CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
+
+# Used as a decorator to run things in the background
+def _async(func):
+    def wrapper(*args, **kwargs):
+        thread = threading.Thread(target=func, args=args, kwargs=kwargs)
+        thread.daemon = True
+        thread.start()
+        return thread
+    return wrapper
+
+# Used as a decorator to run things in the main loop, from another thread
+def _idle(func):
+    def wrapper(*args):
+        GLib.idle_add(func, *args)
+    return wrapper
 
 def get_release_dates():
     """ Get distro release dates for support duration calculation """
