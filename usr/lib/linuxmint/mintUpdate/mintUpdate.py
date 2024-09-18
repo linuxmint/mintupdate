@@ -403,7 +403,7 @@ class MintUpdate():
             historyMenuItem.connect("activate", self.open_history)
             image = Gtk.Image.new_from_icon_name("system-run-symbolic", Gtk.IconSize.MENU)
             kernelMenuItem = Gtk.ImageMenuItem(label=_("Linux Kernels"), image=image)
-            kernelMenuItem.connect("activate", self.open_kernels)
+            kernelMenuItem.connect("activate", self.on_kernel_menu_activated)
             image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
             infoMenuItem = Gtk.ImageMenuItem(label=_("Information"), image=image)
             infoMenuItem.connect("activate", self.open_information)
@@ -1865,9 +1865,16 @@ class MintUpdate():
 
 ######### KERNEL FEATURES #########
 
-    def open_kernels(self, widget):
-        kernel_window = KernelWindow(self)
+    def on_kernel_menu_activated(self, widget):
+        self.ui_window.set_sensitive(False)
+        self.cache_monitor.pause()
+        KernelWindow(self.on_kernel_window_closed)
 
+    def on_kernel_window_closed(self, needs_refresh):
+        self.ui_window.set_sensitive(True)
+        self.cache_monitor.resume()
+        if needs_refresh:
+            self.refresh(False)
 
 ######### REFRESH THREAD ##########
 
