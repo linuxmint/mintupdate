@@ -2041,9 +2041,6 @@ class MintUpdate():
             self.show_window()
             return False
 
-        # TODO, remove the line below, only added to debug..
-        refresh_cache=False
-
         # Switch to status_refreshing page
         self.refreshing = True
         self.set_refresh_mode(True)
@@ -2194,7 +2191,6 @@ class MintUpdate():
 
     @_idle
     def show_updates(self, updates):
-        # TODO: cinnamon and flatpak update fetching should happen async
         try:
             model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
             # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
