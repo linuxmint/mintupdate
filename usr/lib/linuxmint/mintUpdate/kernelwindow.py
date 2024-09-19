@@ -518,7 +518,7 @@ class KernelWindow():
         row.show_hide_children(row)
 
     def show_help(self, widget):
-        os.system("yelp help:mintupdate/index &")
+        os.system("xdg-open https://linuxmint-user-guide.readthedocs.io/en/latest/mintupdate.html &")
 
     def show_confirmation_dialog(self, widget, title, kernel_list):
         self.ui_window.set_sensitive(False)

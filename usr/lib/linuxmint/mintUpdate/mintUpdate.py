@@ -232,7 +232,7 @@ class MintUpdate():
 
             # Welcome page
             self.ui_button_welcome_finish.connect("clicked", self.on_welcome_page_finished)
-            self.ui_button_welcome_help.connect("clicked", self.show_help)
+            self.ui_button_welcome_help.connect("clicked", self.open_help)
 
             # the treeview
             cr = Gtk.CellRendererToggle()
@@ -827,9 +827,6 @@ class MintUpdate():
             self.cache_monitor = APTCacheMonitor(self)
             self.cache_monitor.start()
 
-    def show_help(self, button):
-        os.system("yelp help:mintupdate/index &")
-
     def show_welcome_page(self, widget=None):
         self.updates_inhibited = True
         self.ui_stack.set_visible_child_name("welcome_page")
@@ -1417,7 +1414,7 @@ class MintUpdate():
 ######### HELP/ABOUT/SHORTCUTS/SOURCES SCREEN #########
 
     def open_help(self, widget):
-        os.system("yelp help:mintupdate/index &")
+        os.system("xdg-open https://linuxmint-user-guide.readthedocs.io/en/latest/mintupdate.html &")
 
     def open_rel_upgrade(self, widget):
         os.system("/usr/bin/mint-release-upgrade &")
