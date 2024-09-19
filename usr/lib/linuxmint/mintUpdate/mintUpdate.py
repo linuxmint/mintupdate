@@ -2382,12 +2382,11 @@ class MintUpdate():
             # Install flatpaks
             if len(self.flatpaks) > 0:
                 self.flatpak_updater.prepare_start_updates(self.flatpaks)
-                if self.flatpak_updater.confirm_start():
-                    self.flatpak_updater.perform_updates()
-                    if self.flatpak_updater.error is not None:
-                        self.logger.write_error("Flatpak install failed %s" % self.flatpak_updater.error)
-                        self.set_status_message(self.flatpak_updater.error)
-                    refresh_needed = True
+                self.flatpak_updater.perform_updates()
+                if self.flatpak_updater.error is not None:
+                    self.logger.write_error("Flatpak install failed %s" % self.flatpak_updater.error)
+                    self.set_status_message(self.flatpak_updater.error)
+                refresh_needed = True
 
             # Install spices
             if len(self.spices) > 0:
@@ -2402,7 +2401,7 @@ class MintUpdate():
                         need_cinnamon_restart = True
                 if need_cinnamon_restart and not self.reboot_required and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
                     subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
-                    refresh_needed = True
+                refresh_needed = True
         except Exception as e:
             print (e)
             self.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
