@@ -712,6 +712,9 @@ class MintUpdate():
 
     @_idle
     def set_window_busy(self, busy):
+        if self.ui_window.get_window() is None:
+            return
+
         if busy and not self.hidden:
             self.ui_window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
             self.ui_window.set_sensitive(False)
@@ -2408,7 +2411,7 @@ class MintUpdate():
         self.uninhibit_pm()
         self.cache_monitor.resume(False)
         self.set_window_busy(False)
-        if refresh_needed or spices_updated or flatpaks_updated:
+        if refresh_needed:
             self.refresh(False)
 
     def install(self, widget):
