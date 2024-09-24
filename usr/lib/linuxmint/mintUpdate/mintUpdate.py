@@ -843,6 +843,8 @@ class MintUpdate():
         if self.cache_monitor is None:
             self.cache_monitor = APTCacheMonitor(self)
             self.cache_monitor.start()
+        else:
+            self.ui_stack.set_visible_child_name("updates_page")
 
     def show_welcome_page(self, widget=None):
         self.updates_inhibited = True
