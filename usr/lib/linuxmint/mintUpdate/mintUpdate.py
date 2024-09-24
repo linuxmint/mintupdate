@@ -2354,6 +2354,31 @@ class MintUpdate():
 
 ############## INSTALLATION #########
 
+    def show_cinnamon_error(self, title, message):
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, self._show_cinnamon_error_cb, title, message)
+
+    def _show_cinnamon_error_cb(self, title, message):
+        dialog = Gtk.MessageDialog(transient_for=self.ui_window,
+                                   destroy_with_parent=True,
+                                   modal=True,
+                                   message_type=Gtk.MessageType.ERROR,
+                                   buttons=Gtk.ButtonsType.OK,
+                                   use_markup=True,
+                                   text=f"<big><b>{title}</b></big>")
+        dialog.set_title(_("Update Manager"))
+
+        message_label = Gtk.Label(label=message, lines=20, wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR, selectable=True)
+        message_label.set_max_width_chars(60)
+        message_label.show()
+        dialog.get_message_area().pack_start(message_label, False, False, 0)
+
+        dialog.connect("response", lambda x, y: dialog.destroy())
+
+        dialog.show_all()
+        dialog.present()
+
+        return GLib.SOURCE_REMOVE
+
     def on_apt_install_finished(self, transaction=None, exit_state=None):
         needs_refresh = False
         if exit_state == aptkit.enums.EXIT_SUCCESS:
@@ -2388,29 +2413,34 @@ class MintUpdate():
                 self.flatpak_updater.prepare_start_updates(self.flatpaks)
                 self.flatpak_updater.perform_updates()
                 if self.flatpak_updater.error is not None:
-                    self.logger.write_error("Flatpak install failed %s" % self.flatpak_updater.error)
-                    self.set_status_message(self.flatpak_updater.error)
+                    self.logger.write_error("Flatpak update failed %s" % self.flatpak_updater.error)
                 refresh_needed = True
 
             # Install spices
             if len(self.spices) > 0:
                 self.set_status(_("Updating Cinnamon Spices"), _("Updating Cinnamon Spices"), "mintupdate-installing-symbolic", True)
                 need_cinnamon_restart = False
-                for update in self.spices:
-                    self.cinnamon_updater.upgrade(update)
-                    try:
-                        if self.cinnamon_updater.spice_is_enabled(update):
+                try:
+                    for update in self.spices:
+                        self.cinnamon_updater.upgrade(update)
+                        try:
+                            if self.cinnamon_updater.spice_is_enabled(update):
+                                need_cinnamon_restart = True
+                        except:
                             need_cinnamon_restart = True
-                    except:
-                        need_cinnamon_restart = True
+                except Exception as e:
+                    self.logger.write_error("Cinnamon spice install failed %s" % str(e))
+                    error_message = str(e)
+                    error_title = _("Could not update Cinnamon Spices")
+                    self.show_cinnamon_error(error_title, error_message)
+                    refresh_needed = True
                 if need_cinnamon_restart and not self.reboot_required and os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
                     subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
                 refresh_needed = True
         except Exception as e:
             print (e)
             self.logger.write_error("Exception occurred in the install thread: " + str(sys.exc_info()[0]))
-            self.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
-            self.logger.write_error("Could not install security updates")
+
         self.uninhibit_pm()
         self.cache_monitor.resume(False)
         self.set_window_busy(False)
