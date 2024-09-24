@@ -39,13 +39,11 @@ class FlatpakUpdater():
             print("Flatpaks: timed out trying to refresh", str(e))
 
     def fetch_updates(self):
-        self.kill_any_helpers()
-
         self.updates = []
         output = None
 
         try:
-            output = subprocess.run([UPDATE_WORKER_PATH, "--fetch-updates"], timeout=30, stdout=subprocess.PIPE, encoding="utf-8").stdout
+            output = subprocess.run([UPDATE_WORKER_PATH, "--fetch-updates"], timeout=45, stdout=subprocess.PIPE, encoding="utf-8").stdout
         except subprocess.TimeoutExpired as e:
             print("Flatpaks: timed out trying to get a list of updates", str(e))
 
@@ -129,7 +127,10 @@ class FlatpakUpdater():
 
         self.proc.terminate()
         try:
-            self.proc.wait(5)
+            if self.error is not None:
+                self.proc.wait() # Error dialog happening
+            else:
+                self.proc.wait(5)
         except subprocess.TimeoutExpired:
             self.proc.kill()
 

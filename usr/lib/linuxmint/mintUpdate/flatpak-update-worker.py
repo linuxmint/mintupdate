@@ -7,6 +7,7 @@ import json
 import sys
 import setproctitle
 from pathlib import Path
+import signal
 
 import gi
 gi.require_version('GLib', '2.0')
@@ -248,16 +249,18 @@ class FlatpakUpdateWorker():
 
     def _start_updates_error(self, task):
         warn("start updates error", task.error_message)
-        self.send_to_updater(task.error_message)
+        self.send_to_updater(f"error:{task.error_message}")
 
     def start_updates(self):
         self.installer.execute_task(self.task)
 
     def _execute_finished(self, task):
         self.error = task.error_message
-        self.write_to_log(task)
-
-        self.send_to_updater("done")
+        if task.error_message is not None:
+            self.write_to_log(task)
+            self.send_to_updater(f"error:{task.error_message}")
+        else:
+            self.send_to_updater("done")
         self.quit()
 
     def write_to_log(self, task):
@@ -301,7 +304,7 @@ class FlatpakUpdateWorker():
 
         pipe.read_bytes_async(4096, GLib.PRIORITY_DEFAULT, self.cancellable, self.message_from_updater)
 
-    def quit(self):
+    def quit(self, data=None):
         GLib.timeout_add(0, self.quit_on_ml)
 
     def quit_on_ml(self):
@@ -327,6 +330,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     updater = FlatpakUpdateWorker()
+    GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGTERM, updater.quit, None)
 
     if args.refresh:
         try:
