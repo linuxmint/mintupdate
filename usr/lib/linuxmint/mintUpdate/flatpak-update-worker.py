@@ -250,13 +250,6 @@ class FlatpakUpdateWorker():
         warn("start updates error", task.error_message)
         self.send_to_updater(task.error_message)
 
-    def confirm_start(self):
-        if self.task.confirm():
-            self.send_to_updater("yes")
-        else:
-            self.send_to_updater("no")
-            self.quit()
-
     def start_updates(self):
         self.installer.execute_task(self.task)
 

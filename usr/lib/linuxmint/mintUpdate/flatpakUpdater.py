@@ -99,25 +99,6 @@ class FlatpakUpdater():
             print("Flatpak: Could not set up to install updates: %s", str(e))
             self.terminate_helper()
 
-    def confirm_start(self):
-        try:
-            self.in_pipe.write("confirm")
-            self.in_pipe.flush()
-
-            res = self.out_pipe.readline()
-            if res:
-                answer = res.strip("\n")
-                if answer == "yes":
-                    return True
-                else:
-                    self.terminate_helper()
-                    return False
-        except Exception as e:
-            print("Flatpak: Could not complete confirmation: %s", str(e))
-            self.terminate_helper()
-
-        return False
-
     def perform_updates(self):
         try:
             self.in_pipe.write("start")
