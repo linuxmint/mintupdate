@@ -653,6 +653,7 @@ class MintUpdate():
                 self.ui_clear_button.set_sensitive(True)
                 self.ui_select_all_button.set_sensitive(True)
                 self.ui_install_button.set_sensitive(True)
+                self.ui_window.set_sensitive(True)
             systray_tooltip = gettext.ngettext("%d update available", "%d updates available", num_visible) % num_visible
             self.set_status(status_string, systray_tooltip, "mintupdate-updates-available-symbolic", True)
         else:
@@ -1467,7 +1468,14 @@ class MintUpdate():
         dlg.show()
 
     def open_repositories(self, widget):
-        subprocess.Popen(["pkexec", "mintsources"])
+        self.ui_window.set_sensitive(False)
+        self.run_mintsources()
+
+    @_async
+    def run_mintsources(self):
+        proc = subprocess.Popen(["pkexec", "mintsources"])
+        proc.wait()
+        self.refresh(False)
 
     def open_timeshift(self, widget):
         subprocess.Popen(["pkexec", "timeshift-gtk"])
