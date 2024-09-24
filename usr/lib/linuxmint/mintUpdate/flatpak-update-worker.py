@@ -8,6 +8,8 @@ import sys
 import setproctitle
 from pathlib import Path
 import signal
+import locale
+import gettext
 
 import gi
 gi.require_version('GLib', '2.0')
@@ -20,7 +22,16 @@ from mintcommon.installer import _flatpak
 
 from Classes import FlatpakUpdate
 
+# i18n
+APP = 'mintupdate'
+LOCALE_DIR = "/usr/share/locale"
+locale.bindtextdomain(APP, LOCALE_DIR)
+gettext.bindtextdomain(APP, LOCALE_DIR)
+gettext.textdomain(APP)
+_ = gettext.gettext
+
 setproctitle.setproctitle("flatpak-update-worker")
+GLib.set_application_name(_("Flatpak updates"))
 
 CHUNK_SIZE = 4096
 
