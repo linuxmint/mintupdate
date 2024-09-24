@@ -634,7 +634,7 @@ class MintUpdate():
 
 
     @_idle
-    def show_updates_in_UI(self, num_visible, download_size, is_self_update, model):
+    def show_updates_in_UI(self, num_visible, download_size, is_self_update, model_items):
         if num_visible > 0:
             self.logger.write("Found %d software updates" % num_visible)
             if is_self_update:
@@ -663,10 +663,24 @@ class MintUpdate():
 
 
         self.ui_notebook_details.set_current_page(0)
+
+        tracker = UpdateTracker(self.settings, self.logger)
+        model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
+        # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
+        # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
+
+        model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+        for item in model_items:
+            self.add_update_to_model(model, tracker, item)
+
+        if tracker.active:
+            if tracker.notify():
+                self.show_tracker_notification(num_software, num_security)
+            tracker.record()
+
         self.treeview.set_model(model)
         self.treeview.set_search_column(UPDATE_DISPLAY_NAME)
 
-    @_idle
     def show_tracker_notification(self, num_software, num_security):
         security_msg = gettext.ngettext("%d security update", "%d security updates", num_security) % num_security
         software_msg = gettext.ngettext("%d software update", "%d software updates", num_software) % num_software
@@ -1878,7 +1892,9 @@ class MintUpdate():
 
 ######### REFRESH THREAD ##########
 
-    def add_update_to_model(self, tracker, model, update, title, description, source, icon, sort_key, tooltip):
+    def add_update_to_model(self, model, tracker, item):
+        update, title, description, source, icon, sort_key, tooltip = item
+
         iter = model.insert_before(None, None)
         model.row_changed(model.get_path(iter), iter)
 
@@ -2191,15 +2207,9 @@ class MintUpdate():
             self.set_status(_("Could not refresh the list of updates"),
                                         _("Could not refresh the list of updates"), "mintupdate-error-symbolic", True)
 
-
-    @_idle
     def show_updates(self, updates):
         try:
-            model = Gtk.TreeStore(bool, str, str, str, str, GObject.TYPE_LONG, str, str, str, str, str, object)
-            # UPDATE_CHECKED, UPDATE_DISPLAY_NAME, UPDATE_OLD_VERSION, UPDATE_NEW_VERSION, UPDATE_SOURCE,
-            # UPDATE_SIZE, UPDATE_SIZE_STR, UPDATE_TYPE_PIX, UPDATE_TYPE, UPDATE_TOOLTIP, UPDATE_SORT_STR, UPDATE_OBJ
-
-            model.set_sort_column_id(UPDATE_SORT_STR, Gtk.SortType.ASCENDING)
+            model_items = []
 
             # Look at the updates one by one
             num_visible = 0
@@ -2207,7 +2217,6 @@ class MintUpdate():
             num_software = 0
             download_size = 0
             is_self_update = False
-            tracker = UpdateTracker(self.settings, self.logger)
 
             if len(updates) > 0:
                 for update in updates:
@@ -2255,7 +2264,7 @@ class MintUpdate():
                     description = shortdesc
                     source = f"{origin} / {update.archive}"
                     icon = f"mintupdate-type-{update.type}-symbolic"
-                    self.add_update_to_model(tracker, model, update, title, description, source, icon, f"{sort_key}{update.display_name}", tooltip)
+                    model_items.append((update, title, description, source, icon, f"{sort_key}{update.display_name}", tooltip))
 
                     num_visible += 1
                     download_size += update.size
@@ -2278,7 +2287,7 @@ class MintUpdate():
                         description = update.summary
                         source = update.origin
                         icon = "mintupdate-type-flatpak-symbolic"
-                        self.add_update_to_model(tracker, model, update, title, description, source, icon, f"5{update.ref_name}", tooltip)
+                        model_items.append((update, title, description, source, icon, f"5{update.ref_name}", tooltip))
 
                         num_software += 1
                         num_visible += 1
@@ -2312,26 +2321,19 @@ class MintUpdate():
                     description = update.name
                     source = "Linux Mint / cinnamon"
                     icon = "cinnamon-symbolic"
-                    self.add_update_to_model(tracker, model, update, title, description, source, icon, f"6{update.uuid}", tooltip)
+                    model_items.append((update, title, description, source, icon, f"6{update.uuid}", tooltip))
 
                     num_software += 1
                     num_visible += 1
                     download_size += update.size
 
-            if tracker.active:
-                if tracker.notify():
-                    self.show_tracker_notification(num_software, num_security)
-                tracker.record()
-
             # Updates found, update status message
-            self.show_updates_in_UI(num_visible, download_size, is_self_update, model)
+            self.show_updates_in_UI(num_visible, download_size, is_self_update, model_items)
 
             if FLATPAK_SUPPORT and self.flatpak_updater.error is not None and not is_self_update:
                 self.logger.write("Could not check for flatpak updates: %s" % self.flatpak_updater.error)
                 msg = _("Error checking for flatpak updates: %s") % self.flatpak_updater.error
                 self.set_status_message(msg)
-
-            del model
 
             # Check whether to display the mirror infobar
             self.mirror_check()
