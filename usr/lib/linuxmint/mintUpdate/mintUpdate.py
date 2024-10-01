@@ -2513,7 +2513,6 @@ class MintUpdate():
                     self.set_status(_("Installing updates"), _("Installing updates"), "mintupdate-installing-symbolic", True)
                     self.logger.write("Ready to launch aptkit")
                     client = aptkit.simpleclient.SimpleAPTClient(self.ui_window)
-                    client.set_cancelled_callback(self.on_apt_install_finished)
                     client.set_finished_callback(self.on_apt_install_finished)
                     client.install_packages(self.packages)
                 else:
