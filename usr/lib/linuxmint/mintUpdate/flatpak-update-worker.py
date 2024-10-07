@@ -268,10 +268,10 @@ class FlatpakUpdateWorker():
     def _execute_finished(self, task):
         self.error = task.error_message
         if task.error_message is not None:
-            self.write_to_log(task)
             self.send_to_updater(f"error:{task.error_message}")
         else:
             self.send_to_updater("done")
+        self.write_to_log(task)
         self.quit()
 
     def write_to_log(self, task):

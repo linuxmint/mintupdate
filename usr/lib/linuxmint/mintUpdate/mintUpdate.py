@@ -1355,7 +1355,7 @@ class MintUpdate():
                     model.set_value(iter, COL_TYPE, _("package"))
 
         if CINNAMON_SUPPORT:
-            logfile = '%s/.cinnamon/harvester.log' % os.path.expanduser("~")
+            logfile = os.path.join(GLib.get_user_state_dir(), 'cinnamon', 'harvester.log')
             if os.path.isfile(logfile):
                 cinnamon_updates += subprocess.run('grep " upgrade " -sh %s' % logfile,
                     stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True)\
@@ -2472,10 +2472,12 @@ class MintUpdate():
                     update = model.get_value(iter, UPDATE_OBJ)
                     if update.type == "cinnamon":
                         self.spices.append(update)
+                        self.logger.write("Will install spice " + str(update.uuid))
                         iter = model.iter_next(iter)
                         continue
                     elif update.type == "flatpak":
                         self.flatpaks.append(update)
+                        self.logger.write("Will install flatpak " + str(update.ref_name))
                         iter = model.iter_next(iter)
                         continue
                     if update.type == "kernel":
