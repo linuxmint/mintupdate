@@ -891,7 +891,7 @@ class MintUpdate():
                     self.ui_notebook_details.get_nth_page(TAB_CHANGELOG).hide()
                     self.ui_notebook_details.set_current_page(TAB_DESC)
                 elif update.type == "flatpak":
-                    if update.link is not None:
+                    if update.link is not None and update.link != "":
                         website_label_str = _("Website: %s") % update.link
                         description = "%s\n\n%s" % (update.description, website_label_str)
                     else:
@@ -1182,6 +1182,9 @@ class MintUpdate():
         count = len(update.package_names)
         if is_flatpak:
             size_label = _("Total size: <")
+            if update.installing:
+                self.textview_packages.set_text("%s %s" % (size_label, size_to_string(update.size)))
+                return
         else:
             size_label = _("Total size:")
 

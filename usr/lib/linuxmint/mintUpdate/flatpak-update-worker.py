@@ -102,17 +102,15 @@ class FlatpakUpdateWorker():
         if self.cancellable.is_cancelled():
             return
 
+        self.installer.connect("appstream-changed", self.on_appstream_loaded)
+
         if not self.installer.init_sync():
             warn("cache not valid, refreshing")
             self.refresh(False)
         else:
             debug("cache valid")
 
-        self.installer.generate_uncached_pkginfos()
-
-        debug("generating updates")
-        _flatpak._initialize_appstream_thread()
-
+    def on_appstream_loaded(self, installer):
         self.updates = []
         self.installer.select_flatpak_updates(None,
                                               self._fetch_task_ready, self._fetch_updates_error, 
@@ -157,7 +155,7 @@ class FlatpakUpdateWorker():
         for op in ops:
             if op.get_operation_type() == Flatpak.TransactionOperationType.UPDATE:
                 ref = Flatpak.Ref.parse(op.get_ref())
-                debug("Update: ", op.get_ref())
+                debug("Update: ", op.get_ref(), ref.get_branch())
                 try:
                     installed_ref = self.fp_sys.get_installed_ref(ref.get_kind(),
                                                                   ref.get_name(),
@@ -169,7 +167,7 @@ class FlatpakUpdateWorker():
                     if e.code == Flatpak.Error.NOT_INSTALLED:
                         installed_ref = None
 
-                pkginfo = self.installer.find_pkginfo(ref.get_name(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
+                pkginfo = self.installer.find_pkginfo(ref.format_ref(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
                 try:
                     update = FlatpakUpdate(op, self.installer, ref, installed_ref, None, pkginfo)
 
@@ -192,7 +190,7 @@ class FlatpakUpdateWorker():
                     debug("Can't add ref to install: %s" % e.message)
                     remote_ref = None
 
-                pkginfo = self.installer.find_pkginfo(ref.get_name(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
+                pkginfo = self.installer.find_pkginfo(ref.format_ref(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
                 try:
                     update = FlatpakUpdate(op, self.installer, ref, None, remote_ref, pkginfo)
 
@@ -204,39 +202,37 @@ class FlatpakUpdateWorker():
 
     def add_to_parent_update(self, update):
         for maybe_parent in self.updates:
-            if update.ref_name.startswith(maybe_parent.ref_name):
-                maybe_parent.add_package(update)
-                return True
-            # if not self.is_base_package(maybe_parent):
-            #     continue
-            built_extensions = []
-            try:
-                kf = maybe_parent.metadata
-                try:
-                    built_extensions = kf.get_string_list("Build", "built-extensions")
-                except:
-                    # runtimes, sdks don't have built-extensions, so we must parse the group names...
-                    groups, n_groups = kf.get_groups()
+            if not update.ref_name.startswith(maybe_parent.ref_name):
+                continue
 
-                    for group in groups:
-                        ref_name = group.replace("Extension ", "")
-                        built_extensions.append(ref_name)
-            except Exception:
-                return False
-            for extension in built_extensions:
-                if update.ref_name.startswith(extension):
+            kf = update.metadata
+
+            try:
+                extension_of = kf.get_string("ExtensionOf", "ref")
+                if extension_of == maybe_parent.ref.format_ref():
                     maybe_parent.add_package(update)
                     return True
+            except:
+                pass
+
+            try:
+                runtime_ref_id = "runtime/%s" % kf.get_string("Runtime", "runtime")
+
+                parent_ref = maybe_parent.ref.format_ref()
+                if parent_ref == runtime_ref_id:
+                    maybe_parent.add_package(update)
+                    return True
+            except:
+                pass
 
     def is_base_package(self, update):
-        name = update.ref_name
+        name = update.ref.format_ref()
         if name.startswith("app"):
             return True
         try:
             kf = update.metadata
             runtime_ref_id = "runtime/%s" % kf.get_string("Runtime", "runtime")
-            runtime_ref = Flatpak.Ref.parse(runtime_ref_id)
-            if name == runtime_ref.get_name():
+            if name == runtime_ref_id:
                 return True
         except Exception:
             return False

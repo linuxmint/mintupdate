@@ -9,6 +9,7 @@ import html
 import json
 import os
 import subprocess
+import sys
 import time
 import re
 import threading
@@ -387,6 +388,7 @@ class FlatpakUpdate():
 
         # nullable
         self.installed_ref = installed_ref
+        self.installing = self.installed_ref is None
         self.remote_ref = remote_ref
         self.pkginfo = pkginfo
         #
@@ -420,7 +422,7 @@ class FlatpakUpdate():
             old_commit = installed_ref.get_commit()[:10]
         else:
             iref_version = ""
-            old_commit = ""
+            old_commit = _("Installing")
 
         appstream_version = ""
         # new version
@@ -441,23 +443,31 @@ class FlatpakUpdate():
             self.new_version = new_commit
 
         if pkginfo:
-            self.name = installer.get_display_name(pkginfo)
+            self.name = pkginfo.get_display_name() or self.ref_name
         elif installed_ref and self.flatpak_type != "runtime":
             self.name = installed_ref.get_appdata_name()
         else:
             self.name = ref.get_name()
 
+        # gnome has the branch as part of its name, the rest add it to the name if it's not a Locale
+        if self.flatpak_type == "runtime":
+            if ref.get_name() not in ("org.gnome.Platform", "org.gnome.Sdk") and (not ref.get_name().endswith(".Locale")):
+                self.name = "%s (%s)" % (self.name, ref.get_branch())
+
         if pkginfo:
-            self.summary = installer.get_summary(pkginfo)
+            self.summary = pkginfo.get_summary()
+            if self.summary is None:
+                if installed_ref:
+                    self.summary = installed_ref.get_appdata_summary()
+
             self.description = installer.get_description(pkginfo)
-        elif installed_ref:
-            self.summary = installed_ref.get_appdata_summary()
-            self.description = ""
+            if self.description is None:
+                self.description = self.summary
         else:
             self.summary = ""
             self.description = ""
 
-        if self.description == "" and self.flatpak_type == "runtime":
+        if self.summary == "" and self.flatpak_type == "runtime":
             self.summary = self.description = _("A Flatpak runtime package")
 
         self.real_source_name = self.ref_name
@@ -474,9 +484,8 @@ class FlatpakUpdate():
 
     def add_package(self, update):
         self.sub_updates.append(update)
-        self.package_names.append(update.ref_name)
+        self.package_names.append(update.name)
         self.size += update.size
-        # self.source_packages.append("%s=%s" % (update.ref_name, update.new_version))
 
     def to_json(self):
         trimmed_dict = {}
@@ -493,7 +502,8 @@ class FlatpakUpdate():
                     "source_packages",
                     "package_names",
                     "sub_updates",
-                    "link"):
+                    "link",
+                    "installing"):
             trimmed_dict[key] = self.__dict__[key]
         trimmed_dict["metadata"] = self.metadata.to_data()[0]
         trimmed_dict["ref"] = self.ref.format_ref()
@@ -518,13 +528,13 @@ class FlatpakUpdate():
         inst.package_names = json_data["package_names"]
         inst.sub_updates = json_data["sub_updates"]
         inst.link = json_data["link"]
+        inst.installing = json_data["installing"]
         inst.metadata = GLib.KeyFile()
 
         try:
             b = GLib.Bytes.new(json_data["metadata"].encode())
             inst.metadata.load_from_bytes(b, GLib.KeyFileFlags.NONE)
         except GLib.Error as e:
-            print("unable to decode op metadata: %s" % e.message)
-            pass
+            print("flatpaks: unable to decode op metadata: %s" % e.message, file=sys.stderr, flush=True)
 
         return inst
