@@ -634,7 +634,7 @@ class MintUpdate():
 
 
     @_idle
-    def show_updates_in_UI(self, num_visible, download_size, is_self_update, model_items):
+    def show_updates_in_UI(self, num_visible, num_software, num_security, download_size, is_self_update, model_items):
         if num_visible > 0:
             self.logger.write("Found %d software updates" % num_visible)
             if is_self_update:
@@ -2341,7 +2341,7 @@ class MintUpdate():
                     download_size += update.size
 
             # Updates found, update status message
-            self.show_updates_in_UI(num_visible, download_size, is_self_update, model_items)
+            self.show_updates_in_UI(num_visible, num_software, num_security, download_size, is_self_update, model_items)
 
             if FLATPAK_SUPPORT and self.flatpak_updater.error is not None and not is_self_update:
                 self.logger.write("Could not check for flatpak updates: %s" % self.flatpak_updater.error)
