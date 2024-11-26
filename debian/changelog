@@ -1,3 +1,62 @@
+mintupdate (7.0.0) xia; urgency=medium
+
+  [ Clement Lefebvre ]
+  * multithreading: Bring decorators
+  * multithreading: Use a flag for window status
+  * multithreading: Refactor status messages
+  * multithreading: Externalize refresh/busy UI functions
+  * multithreading: Refactor error messages and infobar
+  * multithreading: Refactor displaying updates and notifications
+  * multithreading: Refactor changelog retrieval
+  * multithreading: Refactor automatic refresh
+  * multithreading: Refactor logger
+  * multithreading: Refactor APT cache monitor
+  * multithreading: Refactor refresh thread
+  * multithreading: Start refactoring install thread
+  * multithreading: Continue refactoring install and move to aptkit
+  * multithreading: Clean up refresh and switch to aptkit
+  * multithread: Clean up install code
+  * refresh: process errors first, improve code structure
+  * refresh: use multiprocess module
+  * checkAPT: Be more precise when picking up translations
+  * DEBUG: Don't refresh cache (delete this before merging)
+  * Glade: Remove unnecessary ids
+  * Glade: Assign widgets to ui_ variables
+  * Glade: Let the ui file handle the stack
+  * multithreading: Move decorators to Classes.py
+  * window: Resize before show()
+  * kernelwindow: refactor threading code
+  * rel_upgrade: Switch to aptkit
+  * Remove dependency on synaptic
+  * Remove help
+  * Remove obsolete debug/todo lines
+  * debian/control: Add aptkit
+
+  [ Michael Webster ]
+  * papercuts: Don't operate on the window if it hasn't been realized, remove uninitialized variables.
+  * Don't get user confirmation for flatpak updates, make sure to refresh even if only cinnamon xlets are updated.
+  * Build the update list while still in the refresh thread.
+  * Change back to the update list after displaying the welcome page via its menu entry.
+  * Improve/cleanup error handling for flatpak and cinnamon updates.
+  * Remove flatpak update confirmation prompt.
+  * Don't terminate the flatpak helper during fetch_updates - this is called immediately after the update thread finishes, and will prevent the flatpak error dialog from displaying.
+  * flatpak-update-worker: Use a translated window title for the error dialog.
+  * Refresh the update list when mintsources is closed, if it's launched from the menu.
+
+  [ Clement Lefebvre ]
+  * aptkit: Remove cancelled callback
+
+  [ Michael Webster ]
+  * Fix logging/history for flatpak and cinnamon updates.
+  * Adapt to flatpak installer changes, improve flatpak presentation.
+
+  [ Clement Lefebvre ]
+  * Fix regression in 1ce2c7ec626502da9e160c6d0898852f50dbcad9
+  * mirror_check: Increase connection timeout
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Tue, 26 Nov 2024 10:43:27 +0000
+
 mintupdate (6.1.5) wilma; urgency=medium
 
   * l10n: Update translations
