@@ -813,7 +813,10 @@ class RefreshThread(threading.Thread):
             child.destroy()
         if self.application.reboot_required:
             self.application.show_infobar(_("Reboot required"),
-                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."), icon="system-reboot-symbolic")
+                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."),
+                icon="system-reboot-symbolic",
+                callback=self._on_infobar_reboot,
+                ok_label=_("Reboot"))
         Gdk.threads_leave()
 
         try:
@@ -1191,6 +1194,19 @@ class RefreshThread(threading.Thread):
 
         finally:
             self.cleanup()
+
+    def _on_infobar_reboot(self, infobar, response_id):
+        dialog = Gtk.MessageDialog(self.application.window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to reboot?"))
+        dialog.format_secondary_markup(_("This will close all running applications."))
+        dialog.set_title(_("Update Manager") + " - " +  _("Confirm Reboot"))
+        dialog.connect("response", self._on_reboot_confirmation)
+        dialog.run()
+        dialog.destroy()
+
+    def _on_reboot_confirmation(self, parent, response_id):
+        if response_id == Gtk.ResponseType.YES:
+            subprocess.run(['reboot'])
 
     def check_policy(self):
         """ Check the presence of the Mint layer """
@@ -1843,7 +1859,10 @@ class MintUpdate():
         dialog.run()
         dialog.destroy()
 
-    def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon=None, callback=None):
+    def show_infobar(self, title, msg, msg_type=Gtk.MessageType.WARNING, icon=None, callback=None, ok_label=None):
+        if not ok_label:
+            ok_label = _("OK")
+
         infobar = Gtk.InfoBar()
         infobar.set_margin_bottom(2)
         infobar.set_message_type(msg_type)
@@ -1869,7 +1888,7 @@ class MintUpdate():
                 infobar.add_button(_("Yes"), Gtk.ResponseType.YES)
                 infobar.add_button(_("No"), Gtk.ResponseType.NO)
             else:
-                infobar.add_button(_("OK"), Gtk.ResponseType.OK)
+                infobar.add_button(ok_label, Gtk.ResponseType.OK)
             infobar.connect("response", callback)
         infobar.show_all()
         self.infobar.pack_start(infobar, True, True, 0)
