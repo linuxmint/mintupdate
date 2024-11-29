@@ -8,6 +8,7 @@ import re
 import sys
 import traceback
 import html
+import locale
 
 import apt
 from gi.repository import Gio
@@ -220,11 +221,12 @@ class APTCheck():
                 update.type = "kernel"
             update.new_version = source_version
 
-    def serialize_updates(self):
-        # Print updates
-        for source_name in self.updates.keys():
+    def get_updates(self):
+        update_list = []
+        for source_name in sorted(self.updates.keys()):
             update = self.updates[source_name]
-            update.serialize()
+            update_list.append(update)
+        return update_list
 
     def apply_aliases(self):
         for source_name in self.updates.keys():
@@ -243,11 +245,17 @@ class APTCheck():
                 update.description = _("The Linux Kernel is responsible for hardware and drivers support. Note that this update will not remove your existing kernel. You will still be able to boot with the current kernel by choosing the advanced options in your boot menu. Please be cautious though.. kernel regressions can affect your ability to connect to the Internet or to log in graphically. DKMS modules are compiled for the most recent kernels installed on your computer. If you are using proprietary drivers and you want to use an older kernel, you will need to remove the new one first.")
 
     def apply_l10n_descriptions(self):
+        lang, encoding = locale.getlocale()
+        if "_" in lang:
+            lang = lang.split("_")[0]
+        if lang in [None, "C", "en"]:
+            return
+        print("found lang", lang)
         if os.path.exists("/var/lib/apt/lists"):
             try:
                 super_buffer = []
                 for file in os.listdir("/var/lib/apt/lists"):
-                    if ("i18n_Translation") in file and not file.endswith("Translation-en"):
+                    if file.endswith(f"_i18n_Translation-{lang}"):
                         fd = codecs.open(os.path.join("/var/lib/apt/lists", file), "r", "utf-8")
                         super_buffer += fd.readlines()
 
@@ -364,17 +372,11 @@ if __name__ == "__main__":
         check.load_aliases()
         check.apply_aliases()
         check.clean_descriptions()
-        check.serialize_updates()
-        if os.getuid() == 0 and os.path.exists("/usr/bin/mintinstall-update-pkgcache"):
-            # Spawn the cache update asynchronously
-            # We're using os.system with & here to make sure it's async and detached
-            # from the caller (which will die before the child process is finished)
-            # stdout/stderr is also directed to /dev/null so it doesn't interfere
-            # or block the output from checkAPT
-            os.system("/usr/bin/mintinstall-update-pkgcache > /dev/null 2>&1 &")
+        updates = check.get_updates()
+        for update in updates:
+            print(update.display_name, update.new_version, update.short_description)
     except Exception as error:
-        print("CHECK_APT_ERROR---EOL---")
+        print(error)
         print(sys.exc_info()[0])
-        print("Error: %s" % error)
         traceback.print_exc()
         sys.exit(1)

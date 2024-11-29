@@ -9,8 +9,10 @@ import html
 import json
 import os
 import subprocess
+import sys
 import time
 import re
+import threading
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -30,6 +32,21 @@ if CONFIGURED_KERNEL_TYPE not in SUPPORTED_KERNEL_TYPES:
     CONFIGURED_KERNEL_TYPE = "-generic"
 
 CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
+
+# Used as a decorator to run things in the background
+def _async(func):
+    def wrapper(*args, **kwargs):
+        thread = threading.Thread(target=func, args=args, kwargs=kwargs)
+        thread.daemon = True
+        thread.start()
+        return thread
+    return wrapper
+
+# Used as a decorator to run things in the main loop, from another thread
+def _idle(func):
+    def wrapper(*args):
+        GLib.idle_add(func, *args)
+    return wrapper
 
 def get_release_dates():
     """ Get distro release dates for support duration calculation """
@@ -81,7 +98,7 @@ class KernelVersion():
 
 class Update():
 
-    def __init__(self, package=None, input_string=None, source_name=None):
+    def __init__(self, package=None, source_name=None):
         self.package_names = []
         if package is not None:
             self.package_names.append(package.name)
@@ -131,9 +148,6 @@ class Update():
                             break
                 if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                     self.type = "kernel"
-        else:
-            # Build the class from the input_string
-            self.parse(input_string)
 
     def add_package(self, pkg):
         self.package_names.append(pkg.name)
@@ -163,28 +177,6 @@ class Update():
         self.description = pkg.candidate.description
         self.short_description = pkg.candidate.raw_description
         self.main_package_name = pkg.name
-
-    def serialize(self):
-        output_string = u"###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s---EOL---" % \
-        (self.display_name, self.source_name, self.real_source_name, ", ".join(self.source_packages),
-         self.main_package_name, ", ".join(self.package_names), self.new_version,
-         self.old_version, self.size, self.type, self.origin,
-         self.short_description, self.description, self.site, self.archive)
-        print(output_string.encode('ascii', 'xmlcharrefreplace'))
-
-    def parse(self, input_string):
-        try:
-            input_string = html.unescape(input_string)
-        except:
-            pass
-        values = input_string.split("###")[1:]
-        (self.display_name, self.source_name, self.real_source_name, source_packages,
-         self.main_package_name, package_names, self.new_version,
-         self.old_version, size, self.type, self.origin, self.short_description,
-         self.description, self.site, self.archive) = values
-        self.size = int(size)
-        self.package_names = package_names.split(", ")
-        self.source_packages = source_packages.split(", ")
 
 class Alias():
     def __init__(self, name, short_description, description):
@@ -396,6 +388,7 @@ class FlatpakUpdate():
 
         # nullable
         self.installed_ref = installed_ref
+        self.installing = self.installed_ref is None
         self.remote_ref = remote_ref
         self.pkginfo = pkginfo
         #
@@ -429,7 +422,7 @@ class FlatpakUpdate():
             old_commit = installed_ref.get_commit()[:10]
         else:
             iref_version = ""
-            old_commit = ""
+            old_commit = _("Installing")
 
         appstream_version = ""
         # new version
@@ -450,23 +443,31 @@ class FlatpakUpdate():
             self.new_version = new_commit
 
         if pkginfo:
-            self.name = installer.get_display_name(pkginfo)
+            self.name = pkginfo.get_display_name() or self.ref_name
         elif installed_ref and self.flatpak_type != "runtime":
             self.name = installed_ref.get_appdata_name()
         else:
             self.name = ref.get_name()
 
+        # gnome has the branch as part of its name, the rest add it to the name if it's not a Locale
+        if self.flatpak_type == "runtime":
+            if ref.get_name() not in ("org.gnome.Platform", "org.gnome.Sdk") and (not ref.get_name().endswith(".Locale")):
+                self.name = "%s (%s)" % (self.name, ref.get_branch())
+
         if pkginfo:
-            self.summary = installer.get_summary(pkginfo)
+            self.summary = pkginfo.get_summary()
+            if self.summary is None:
+                if installed_ref:
+                    self.summary = installed_ref.get_appdata_summary()
+
             self.description = installer.get_description(pkginfo)
-        elif installed_ref:
-            self.summary = installed_ref.get_appdata_summary()
-            self.description = ""
+            if self.description is None:
+                self.description = self.summary
         else:
             self.summary = ""
             self.description = ""
 
-        if self.description == "" and self.flatpak_type == "runtime":
+        if self.summary == "" and self.flatpak_type == "runtime":
             self.summary = self.description = _("A Flatpak runtime package")
 
         self.real_source_name = self.ref_name
@@ -483,9 +484,8 @@ class FlatpakUpdate():
 
     def add_package(self, update):
         self.sub_updates.append(update)
-        self.package_names.append(update.ref_name)
+        self.package_names.append(update.name)
         self.size += update.size
-        # self.source_packages.append("%s=%s" % (update.ref_name, update.new_version))
 
     def to_json(self):
         trimmed_dict = {}
@@ -502,7 +502,8 @@ class FlatpakUpdate():
                     "source_packages",
                     "package_names",
                     "sub_updates",
-                    "link"):
+                    "link",
+                    "installing"):
             trimmed_dict[key] = self.__dict__[key]
         trimmed_dict["metadata"] = self.metadata.to_data()[0]
         trimmed_dict["ref"] = self.ref.format_ref()
@@ -527,13 +528,13 @@ class FlatpakUpdate():
         inst.package_names = json_data["package_names"]
         inst.sub_updates = json_data["sub_updates"]
         inst.link = json_data["link"]
+        inst.installing = json_data["installing"]
         inst.metadata = GLib.KeyFile()
 
         try:
             b = GLib.Bytes.new(json_data["metadata"].encode())
             inst.metadata.load_from_bytes(b, GLib.KeyFileFlags.NONE)
         except GLib.Error as e:
-            print("unable to decode op metadata: %s" % e.message)
-            pass
+            print("flatpaks: unable to decode op metadata: %s" % e.message, file=sys.stderr, flush=True)
 
         return inst

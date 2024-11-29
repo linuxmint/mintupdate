@@ -7,6 +7,9 @@ import json
 import sys
 import setproctitle
 from pathlib import Path
+import signal
+import locale
+import gettext
 
 import gi
 gi.require_version('GLib', '2.0')
@@ -19,7 +22,16 @@ from mintcommon.installer import _flatpak
 
 from Classes import FlatpakUpdate
 
+# i18n
+APP = 'mintupdate'
+LOCALE_DIR = "/usr/share/locale"
+locale.bindtextdomain(APP, LOCALE_DIR)
+gettext.bindtextdomain(APP, LOCALE_DIR)
+gettext.textdomain(APP)
+_ = gettext.gettext
+
 setproctitle.setproctitle("flatpak-update-worker")
+GLib.set_application_name(_("Flatpak updates"))
 
 CHUNK_SIZE = 4096
 
@@ -90,17 +102,15 @@ class FlatpakUpdateWorker():
         if self.cancellable.is_cancelled():
             return
 
+        self.installer.connect("appstream-changed", self.on_appstream_loaded)
+
         if not self.installer.init_sync():
             warn("cache not valid, refreshing")
             self.refresh(False)
         else:
             debug("cache valid")
 
-        self.installer.generate_uncached_pkginfos()
-
-        debug("generating updates")
-        _flatpak._initialize_appstream_thread()
-
+    def on_appstream_loaded(self, installer):
         self.updates = []
         self.installer.select_flatpak_updates(None,
                                               self._fetch_task_ready, self._fetch_updates_error, 
@@ -145,7 +155,7 @@ class FlatpakUpdateWorker():
         for op in ops:
             if op.get_operation_type() == Flatpak.TransactionOperationType.UPDATE:
                 ref = Flatpak.Ref.parse(op.get_ref())
-                debug("Update: ", op.get_ref())
+                debug("Update: ", op.get_ref(), ref.get_branch())
                 try:
                     installed_ref = self.fp_sys.get_installed_ref(ref.get_kind(),
                                                                   ref.get_name(),
@@ -157,7 +167,7 @@ class FlatpakUpdateWorker():
                     if e.code == Flatpak.Error.NOT_INSTALLED:
                         installed_ref = None
 
-                pkginfo = self.installer.find_pkginfo(ref.get_name(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
+                pkginfo = self.installer.find_pkginfo(ref.format_ref(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
                 try:
                     update = FlatpakUpdate(op, self.installer, ref, installed_ref, None, pkginfo)
 
@@ -180,7 +190,7 @@ class FlatpakUpdateWorker():
                     debug("Can't add ref to install: %s" % e.message)
                     remote_ref = None
 
-                pkginfo = self.installer.find_pkginfo(ref.get_name(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
+                pkginfo = self.installer.find_pkginfo(ref.format_ref(), installer.PKG_TYPE_FLATPAK, remote=op.get_remote())
                 try:
                     update = FlatpakUpdate(op, self.installer, ref, None, remote_ref, pkginfo)
 
@@ -192,39 +202,37 @@ class FlatpakUpdateWorker():
 
     def add_to_parent_update(self, update):
         for maybe_parent in self.updates:
-            if update.ref_name.startswith(maybe_parent.ref_name):
-                maybe_parent.add_package(update)
-                return True
-            # if not self.is_base_package(maybe_parent):
-            #     continue
-            built_extensions = []
-            try:
-                kf = maybe_parent.metadata
-                try:
-                    built_extensions = kf.get_string_list("Build", "built-extensions")
-                except:
-                    # runtimes, sdks don't have built-extensions, so we must parse the group names...
-                    groups, n_groups = kf.get_groups()
+            if not update.ref_name.startswith(maybe_parent.ref_name):
+                continue
 
-                    for group in groups:
-                        ref_name = group.replace("Extension ", "")
-                        built_extensions.append(ref_name)
-            except Exception:
-                return False
-            for extension in built_extensions:
-                if update.ref_name.startswith(extension):
+            kf = update.metadata
+
+            try:
+                extension_of = kf.get_string("ExtensionOf", "ref")
+                if extension_of == maybe_parent.ref.format_ref():
                     maybe_parent.add_package(update)
                     return True
+            except:
+                pass
+
+            try:
+                runtime_ref_id = "runtime/%s" % kf.get_string("Runtime", "runtime")
+
+                parent_ref = maybe_parent.ref.format_ref()
+                if parent_ref == runtime_ref_id:
+                    maybe_parent.add_package(update)
+                    return True
+            except:
+                pass
 
     def is_base_package(self, update):
-        name = update.ref_name
+        name = update.ref.format_ref()
         if name.startswith("app"):
             return True
         try:
             kf = update.metadata
             runtime_ref_id = "runtime/%s" % kf.get_string("Runtime", "runtime")
-            runtime_ref = Flatpak.Ref.parse(runtime_ref_id)
-            if name == runtime_ref.get_name():
+            if name == runtime_ref_id:
                 return True
         except Exception:
             return False
@@ -248,23 +256,18 @@ class FlatpakUpdateWorker():
 
     def _start_updates_error(self, task):
         warn("start updates error", task.error_message)
-        self.send_to_updater(task.error_message)
-
-    def confirm_start(self):
-        if self.task.confirm():
-            self.send_to_updater("yes")
-        else:
-            self.send_to_updater("no")
-            self.quit()
+        self.send_to_updater(f"error:{task.error_message}")
 
     def start_updates(self):
         self.installer.execute_task(self.task)
 
     def _execute_finished(self, task):
         self.error = task.error_message
+        if task.error_message is not None:
+            self.send_to_updater(f"error:{task.error_message}")
+        else:
+            self.send_to_updater("done")
         self.write_to_log(task)
-
-        self.send_to_updater("done")
         self.quit()
 
     def write_to_log(self, task):
@@ -308,7 +311,7 @@ class FlatpakUpdateWorker():
 
         pipe.read_bytes_async(4096, GLib.PRIORITY_DEFAULT, self.cancellable, self.message_from_updater)
 
-    def quit(self):
+    def quit(self, data=None):
         GLib.timeout_add(0, self.quit_on_ml)
 
     def quit_on_ml(self):
@@ -334,6 +337,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     updater = FlatpakUpdateWorker()
+    GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGTERM, updater.quit, None)
 
     if args.refresh:
         try:
