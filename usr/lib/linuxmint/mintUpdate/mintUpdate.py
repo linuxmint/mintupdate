@@ -1868,7 +1868,7 @@ class MintUpdate():
             name = "org.freedesktop.PowerManagement"
             path = "/org/freedesktop/PowerManagement/Inhibit"
             iface = "org.freedesktop.PowerManagement.Inhibit"
-            args = GLib.Variant("(ss)", ("MintUpdate", reason))
+            args = GLib.Variant("(ss)", ("mintupdate", reason))
             uninhibit_method = "UnInhibit"
         else:
             # https://github.com/linuxmint/cinnamon-session/blob/master/cinnamon-session/csm-inhibitor.h#L51-L58
@@ -1885,7 +1885,7 @@ class MintUpdate():
             name = "org.gnome.SessionManager"
             path = "/org/gnome/SessionManager"
             iface = "org.gnome.SessionManager"
-            args = GLib.Variant("(susu)", ("MintUpdate", xid, reason, flags))
+            args = GLib.Variant("(susu)", ("mintupdate", xid, reason, flags))
             uninhibit_method = "Uninhibit"
 
         return name, path, iface, args, uninhibit_method
