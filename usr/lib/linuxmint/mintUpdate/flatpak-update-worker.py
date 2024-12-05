@@ -106,7 +106,7 @@ class FlatpakUpdateWorker():
 
         if not self.installer.init_sync():
             warn("cache not valid, refreshing")
-            self.refresh(False)
+            self.installer.init()
         else:
             debug("cache valid")
 
