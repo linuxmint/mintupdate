@@ -2164,7 +2164,7 @@ class MintUpdate():
             # Simulate an update of mintupdate itself.
             check = checkAPT.APTCheck()
             self.dummy_update(check, "mintupdate", False)
-            queue.put([None, check.updates.values()])
+            queue.put([None, list(check.updates.values())])
         elif test_mode == "updates":
             # Simulate some normal updates
             check = checkAPT.APTCheck()
@@ -2172,7 +2172,7 @@ class MintUpdate():
             self.dummy_update(check, "mint-meta-core", False)
             self.dummy_update(check, "linux-generic", True)
             self.dummy_update(check, "xreader", False)
-            queue.put([None, check.updates.values()])
+            queue.put([None, list(check.updates.values())])
         elif test_mode == "tracker-max-age":
             # Simulate the UpdateTracker notifying about updates.
             check = checkAPT.APTCheck()
@@ -2194,7 +2194,7 @@ class MintUpdate():
             with open(os.path.join(CONFIG_PATH, "updates.json"), "w") as f:
                 json.dump(root_json, f)
 
-            queue.put([None, check.updates.values()])
+            queue.put([None, list(check.updates.values())])
 
         return True
 # ---------------- Testing ------------------------------------------#
