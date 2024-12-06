@@ -2334,63 +2334,64 @@ class MintUpdate():
                     num_visible += 1
                     download_size += update.size
 
-            if FLATPAK_SUPPORT and self.flatpak_updater and not is_self_update:
-                blacklist = self.settings.get_strv("blacklisted-packages")
+            if not self.test_mode:
+                if FLATPAK_SUPPORT and self.flatpak_updater and not is_self_update:
+                    blacklist = self.settings.get_strv("blacklisted-packages")
 
-                self.flatpak_updater.fetch_updates()
-                if self.flatpak_updater.error is None:
-                    for update in self.flatpak_updater.updates:
-                        update.type = "flatpak"
-                        if update.ref_name in blacklist or update.source_packages[0] in blacklist:
+                    self.flatpak_updater.fetch_updates()
+                    if self.flatpak_updater.error is None:
+                        for update in self.flatpak_updater.updates:
+                            update.type = "flatpak"
+                            if update.ref_name in blacklist or update.source_packages[0] in blacklist:
+                                continue
+                            if update.flatpak_type == "app":
+                                tooltip = _("Flatpak application")
+                            else:
+                                tooltip = _("Flatpak runtime")
+
+                            title = update.name
+                            description = update.summary
+                            source = update.origin
+                            icon = "mintupdate-type-flatpak-symbolic"
+                            model_items.append((update, title, description, source, icon, f"5{update.ref_name}", tooltip))
+
+                            num_software += 1
+                            num_visible += 1
+                            download_size += update.size
+
+                if CINNAMON_SUPPORT and not is_self_update:
+                    blacklist = self.settings.get_strv("blacklisted-packages")
+
+                    for update in self.cinnamon_updater.get_updates():
+                        update.real_source_name = update.uuid
+                        update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
+                        update.package_names = []
+                        update.type = "cinnamon"
+                        if update.uuid in blacklist or update.source_packages[0] in blacklist:
                             continue
-                        if update.flatpak_type == "app":
-                            tooltip = _("Flatpak application")
+                        if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
+                            tooltip = _("Cinnamon applet")
+                        elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
+                            tooltip = _("Cinnamon desklet")
+                        elif update.spice_type == "action":
+                            # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
+                            # use the value "action" instead here so this code can be
+                            # backported.
+                            tooltip = _("Nemo action")
+                        elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
+                            tooltip = _("Cinnamon theme")
                         else:
-                            tooltip = _("Flatpak runtime")
+                            tooltip = _("Cinnamon extension")
 
-                        title = update.name
-                        description = update.summary
-                        source = update.origin
-                        icon = "mintupdate-type-flatpak-symbolic"
-                        model_items.append((update, title, description, source, icon, f"5{update.ref_name}", tooltip))
+                        title = update.uuid
+                        description = update.name
+                        source = "Linux Mint / cinnamon"
+                        icon = "cinnamon-symbolic"
+                        model_items.append((update, title, description, source, icon, f"6{update.uuid}", tooltip))
 
                         num_software += 1
                         num_visible += 1
                         download_size += update.size
-
-            if CINNAMON_SUPPORT and not is_self_update:
-                blacklist = self.settings.get_strv("blacklisted-packages")
-
-                for update in self.cinnamon_updater.get_updates():
-                    update.real_source_name = update.uuid
-                    update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
-                    update.package_names = []
-                    update.type = "cinnamon"
-                    if update.uuid in blacklist or update.source_packages[0] in blacklist:
-                        continue
-                    if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
-                        tooltip = _("Cinnamon applet")
-                    elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
-                        tooltip = _("Cinnamon desklet")
-                    elif update.spice_type == "action":
-                        # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
-                        # use the value "action" instead here so this code can be
-                        # backported.
-                        tooltip = _("Nemo action")
-                    elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
-                        tooltip = _("Cinnamon theme")
-                    else:
-                        tooltip = _("Cinnamon extension")
-
-                    title = update.uuid
-                    description = update.name
-                    source = "Linux Mint / cinnamon"
-                    icon = "cinnamon-symbolic"
-                    model_items.append((update, title, description, source, icon, f"6{update.uuid}", tooltip))
-
-                    num_software += 1
-                    num_visible += 1
-                    download_size += update.size
 
             # Updates found, update status message
             self.show_updates_in_UI(num_visible, num_software, num_security, download_size, is_self_update, model_items)
