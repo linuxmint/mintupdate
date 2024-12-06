@@ -2119,17 +2119,17 @@ class MintUpdate():
         self.refresh_updates()
 
     def _on_infobar_reboot(self, parent, response_id):
-        dialog = Gtk.MessageDialog(self.ui_window, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-            Gtk.MessageType.QUESTION, Gtk.ButtonsType.YES_NO, _("Are you sure you want to reboot?"))
-        dialog.format_secondary_markup(_("This will close all running applications."))
-        dialog.set_title(_("Update Manager") + " - " +  _("Confirm Reboot"))
-        dialog.connect("response", self._on_reboot_confirmation)
-        dialog.run()
-        dialog.destroy()
-
-    def _on_reboot_confirmation(self, parent, response_id):
-        if response_id == Gtk.ResponseType.YES:
-            subprocess.run(['reboot'])
+        session = os.environ.get("XDG_CURRENT_DESKTOP")
+        # Trigger reboot based on DE
+        if session in ["Cinnamon", "X-Cinnamon"]:
+            subprocess.run(['/usr/bin/cinnamon-session-quit', '--reboot'])
+        elif session == 'MATE':
+            subprocess.run(['/usr/bin/dbus-send', '--dest=org.gnome.SessionManager', '--type=method_call',
+                '/org/gnome/SessionManager', 'org.gnome.SessionManager.RequestReboot'])
+        elif session == 'XFCE':
+            subprocess.run(['/usr/bin/xfce4-session-logout', '--reboot'])
+        else:
+            subprocess.run(['/usr/bin/systemctl', 'reboot'])
 
     @_async
     def refresh_apt_cache_externally(self):
