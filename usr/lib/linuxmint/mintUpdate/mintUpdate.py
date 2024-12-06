@@ -34,7 +34,7 @@ from xapp.GSettingsWidgets import *
 # local imports
 import logger
 from kernelwindow import KernelWindow
-from Classes import Update, PRIORITY_UPDATES, UpdateTracker, _idle, _async
+from Classes import Update, PRIORITY_UPDATES, CONFIG_PATH, UpdateTracker, _idle, _async
 
 
 settings = Gio.Settings(schema_id="com.linuxmint.updates")
@@ -642,8 +642,9 @@ class MintUpdate():
                 self.ui_statusbar.set_visible(False)
                 status_string = ""
                 details = []
-                for update in updates:
-                    details.append(f"{update.source_name} {update.new_version}")
+
+                for item in model_items:
+                    details.append(f"{item[0].source_name} {item[0].new_version}")
                 details = ", ".join(details)
                 self.ui_label_self_update_details.set_text(details)
             else:
@@ -2141,10 +2142,70 @@ class MintUpdate():
     def on_cache_updated(self, transaction=None, exit_state=None):
         self.refreshing_apt = False
 
+
+# ---------------- Test Mode ------------------------------------------#
+    def dummy_update(self, check, package_name, kernel=False):
+        pkg = check.cache[package_name]
+        check.add_update(pkg, kernel, "99.0.0")
+
+    # Part of check_apt_in_external_process fork
+    def handle_apt_check_test(self, queue):
+        test_mode = os.getenv("MINTUPDATE_TEST")
+        if test_mode is None:
+            return False
+
+        if test_mode == "error":
+            # See how an error from checkAPT subprocess is handled
+            raise Exception("Testing - this is a simulated error.")
+        elif test_mode == "up-to-date":
+            # Simulate checkAPT finding no updates
+            queue.put([None, []])
+        elif test_mode == "self-update":
+            # Simulate an update of mintupdate itself.
+            check = checkAPT.APTCheck()
+            self.dummy_update(check, "mintupdate", False)
+            queue.put([None, list(check.updates.values())])
+        elif test_mode == "updates":
+            # Simulate some normal updates
+            check = checkAPT.APTCheck()
+            self.dummy_update(check, "python3", False)
+            self.dummy_update(check, "mint-meta-core", False)
+            self.dummy_update(check, "linux-generic", True)
+            self.dummy_update(check, "xreader", False)
+            queue.put([None, list(check.updates.values())])
+        elif test_mode == "tracker-max-age":
+            # Simulate the UpdateTracker notifying about updates.
+            check = checkAPT.APTCheck()
+            self.dummy_update(check, "dnsmasq", False)
+            self.dummy_update(check, "linux-generic", True)
+
+            updates_json = {
+                "mint-meta-common":    { "type": "package",  "since": "2020.12.03", "days": 99 },
+                "linux-meta": { "type": "security", "since": "2020.12.03", "days": 99 }
+            }
+            root_json = {
+                "updates": updates_json,
+                "version": 1,
+                "checked": "2020.12.04",
+                "notified": "2020.12.03"
+            }
+
+            os.makedirs(CONFIG_PATH, exist_ok=True)
+            with open(os.path.join(CONFIG_PATH, "updates.json"), "w") as f:
+                json.dump(root_json, f)
+
+            queue.put([None, list(check.updates.values())])
+
+        return True
+# ---------------- Testing ------------------------------------------#
+
     # called in a different process
     def check_apt_in_external_process(self, queue):
         # in the queue we put: error_message (None if successful), list_of_updates (None if error)
         try:
+            if self.handle_apt_check_test(queue):
+                return
+
             check = checkAPT.APTCheck()
             check.find_changes()
             check.apply_l10n_descriptions()
@@ -2186,20 +2247,13 @@ class MintUpdate():
         try:
             error = None
             updates = None
-            if os.getenv("MINTUPDATE_TEST") is None:
-                output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
-                # call checkAPT in a different process
-                queue = Queue()
-                process = Process(target=self.check_apt_in_external_process, args=(queue,))
-                process.start()
-                error, updates = queue.get()
-                process.join()
-            # TODO rewrite tests to deal with classes vs text lines
-            # else:
-            #     if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
-            #         output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
-            #     else:
-            #         output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
+
+            # call checkAPT in a different process
+            queue = Queue()
+            process = Process(target=self.check_apt_in_external_process, args=[queue])
+            process.start()
+            error, updates = queue.get()
+            process.join()
 
             if error is not None:
                 self.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
