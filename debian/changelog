@@ -1,3 +1,14 @@
+mintupdate (7.0.3) xia; urgency=medium
+
+  [ Michael Webster ]
+  * flatpak-update-worker.py: Use installer.init() if init_sync() fails, instead of our own refresh method.
+  * Update test-cases to work with multiprocess checkAPT. (#907)
+
+  [ Clement Lefebvre ]
+  * Depend on the latest mint-common
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 06 Dec 2024 10:46:35 +0000
+
 mintupdate (7.0.2) xia; urgency=medium
 
   * l10n: Update translations
