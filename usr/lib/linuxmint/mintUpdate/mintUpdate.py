@@ -190,6 +190,7 @@ class MintUpdate():
         self.logger = logger.Logger()
         self.cache_monitor = None
         self.logger.write("Launching Update Manager")
+        self.test_mode = os.getenv("MINTUPDATE_TEST")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
         self.is_lmde = False
@@ -2150,22 +2151,19 @@ class MintUpdate():
 
     # Part of check_apt_in_external_process fork
     def handle_apt_check_test(self, queue):
-        test_mode = os.getenv("MINTUPDATE_TEST")
-        if test_mode is None:
-            return False
-
-        if test_mode == "error":
+        print("SIMULATING TEST MODE:", self.test_mode)
+        if self.test_mode == "error":
             # See how an error from checkAPT subprocess is handled
             raise Exception("Testing - this is a simulated error.")
-        elif test_mode == "up-to-date":
+        elif self.test_mode == "up-to-date":
             # Simulate checkAPT finding no updates
             queue.put([None, []])
-        elif test_mode == "self-update":
+        elif self.test_mode == "self-update":
             # Simulate an update of mintupdate itself.
             check = checkAPT.APTCheck()
             self.dummy_update(check, "mintupdate", False)
             queue.put([None, list(check.updates.values())])
-        elif test_mode == "updates":
+        elif self.test_mode == "updates":
             # Simulate some normal updates
             check = checkAPT.APTCheck()
             self.dummy_update(check, "python3", False)
@@ -2173,7 +2171,7 @@ class MintUpdate():
             self.dummy_update(check, "linux-generic", True)
             self.dummy_update(check, "xreader", False)
             queue.put([None, list(check.updates.values())])
-        elif test_mode == "tracker-max-age":
+        elif self.test_mode == "tracker-max-age":
             # Simulate the UpdateTracker notifying about updates.
             check = checkAPT.APTCheck()
             self.dummy_update(check, "dnsmasq", False)
@@ -2203,17 +2201,17 @@ class MintUpdate():
     def check_apt_in_external_process(self, queue):
         # in the queue we put: error_message (None if successful), list_of_updates (None if error)
         try:
-            if self.handle_apt_check_test(queue):
-                return
-
-            check = checkAPT.APTCheck()
-            check.find_changes()
-            check.apply_l10n_descriptions()
-            check.load_aliases()
-            check.apply_aliases()
-            check.clean_descriptions()
-            updates = check.get_updates()
-            queue.put([None, updates])
+            if self.test_mode:
+                self.handle_apt_check_test(queue)
+            else:
+                check = checkAPT.APTCheck()
+                check.find_changes()
+                check.apply_l10n_descriptions()
+                check.load_aliases()
+                check.apply_aliases()
+                check.clean_descriptions()
+                updates = check.get_updates()
+                queue.put([None, updates])
         except Exception as error:
             error_msg = str(error).replace("E:", "\n").strip()
             queue.put([error_msg, None])
@@ -2228,7 +2226,7 @@ class MintUpdate():
             time.sleep(1)
 
         # Check presence of Mint layer
-        if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not self.check_policy()):
+        if self.test_mode == "layer-error" or (not self.check_policy()):
             error_msg = "%s\n%s\n%s" % (_("Your APT configuration is corrupt."),
             _("Do not install or update anything - doing so could break your operating system!"),
             _("To switch to a different Linux Mint mirror and solve this problem, click OK."))
