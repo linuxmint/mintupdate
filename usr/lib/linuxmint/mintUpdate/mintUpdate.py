@@ -2469,6 +2469,11 @@ class MintUpdate():
 
         self.finish_install(needs_refresh)
 
+    def on_apt_install_cancelled(self):
+        self.logger.write("Install cancelled")
+        self.set_status("", "", "mintupdate-updates-available-symbolic", True)
+        self.finish_install(False)
+
     @_async
     def finish_install(self, refresh_needed):
         try:
@@ -2572,6 +2577,7 @@ class MintUpdate():
                     self.logger.write("Ready to launch aptkit")
                     client = aptkit.simpleclient.SimpleAPTClient(self.ui_window)
                     client.set_finished_callback(self.on_apt_install_finished)
+                    client.set_cancelled_callback(self.on_apt_install_cancelled)
                     client.install_packages(self.packages)
                 else:
                     self.finish_install(False)
