@@ -2240,7 +2240,7 @@ class MintUpdate():
             self.refresh_cleanup()
             return
 
-        self.logger.write("Checking for updates)")
+        self.logger.write("Checking for updates")
 
         try:
             error = None
