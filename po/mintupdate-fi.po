@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2024-11-26 10:42+0000\n"
-"PO-Revision-Date: 2024-12-02 12:57+0000\n"
-"Last-Translator: Kimmo Kujansuu <Unknown>\n"
+"PO-Revision-Date: 2024-12-24 05:23+0000\n"
+"Last-Translator: Hiiri522 <Unknown>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2024-12-05 10:09+0000\n"
-"X-Generator: Launchpad (build 1519c6efe8e9bd78e6c5ebf2eb5bcb040b95ad32)\n"
+"X-Launchpad-Export-Date: 2025-01-06 11:49+0000\n"
+"X-Generator: Launchpad (build 6394e03793719e8d73f5a60b5439440e693c92f1)\n"
 "Language: fi\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -41,7 +41,7 @@ msgstr "root@linuxmint.com"
 
 #: usr/share/help/C/mintupdate/updates.page:16(desc)
 msgid "There are different types of updates"
-msgstr "Päivityksiä on erilaisia"
+msgstr "On erilaisia päivityksiä"
 
 #: usr/share/help/C/mintupdate/updates.page:19(title)
 msgid "The different types of updates"
@@ -56,16 +56,16 @@ msgid ""
 "'Software updates' are updates which fix bugs (or also sometimes which bring "
 "new features)."
 msgstr ""
-"”Ohjelmiston päivitykset” korjaavat ohjelmien virheitä (joskus tuovat myös "
-"parempia ominaisuuksia)."
+"\"Ohjelmistopäivitykset\" korjaavat ohjelmavirheitä (ja tuovat joskus uusia "
+"ominaisuuksia)."
 
 #: usr/share/help/C/mintupdate/updates.page:25(p)
 msgid "'Security updates' are updates which patch vulnerabilities."
-msgstr "”Tietoturvan päivitykset” paikkaavat haavoittuvuuksia."
+msgstr "\"Tietoturvapäivitykset\" paikkaavat haavoittuvuuksia."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
-msgstr "\"Kernel päivitykset\" tarjoavat uudemman kernelin."
+msgstr "\"Ydinpäivitykset\" päivittävät uudempaan käyttöjärjestelmäytimen."
 
 #: usr/share/help/C/mintupdate/updates.page:29(p)
 msgid ""
@@ -87,8 +87,8 @@ msgid ""
 "Software updates aren't as important. They bring bug fixes or improvements "
 "which are not related to security."
 msgstr ""
-"Ohjelmiston päivitykset eivät ole yhtä tärkeitä. Ne tuovat virheenkorjauksia "
-"tai parannuksia jotka eivät liity suoraan turvallisuuteen."
+"Ohjelmistopäivitykset eivät ole yhtä tärkeitä. Ne tuovat virheenkorjauksia "
+"ja/tai parannuksia, jotka eivät liity suoraan tietoturvaan."
 
 #: usr/share/help/C/mintupdate/updates.page:33(p)
 #: usr/share/help/C/mintupdate/kernels.page:23(p)
@@ -99,16 +99,18 @@ msgid ""
 "of view, but also prone to regressions which can be hard to fix for novice "
 "users."
 msgstr ""
-"Linux Mint kernel päivitykset tuovat korjauksia ohjelmointivirheisiin ja "
-"tietoturvaan (joskus jopa uusia ominaisuuksia) ja ne vaikuttavat "
-"käyttöjärjestelmän kriittisiin osiin. Tämä tekee kernel päivityksistä "
-"tärkeitä tietoturvan kannalta, mutta myös alttiita kriittisiin osiin, joita "
-"voi olla aloittelevan käyttäjän vaikea korjata."
+"Linux Mintissä ydinpäivitykset tuovat korjauksia ohjelmointivirheisiin ja "
+"tietoturvaan (ja joskus myös uusia ominaisuuksia). Ne vaikuttavat "
+"käyttöjärjestelmän kriittisiin osiin. Tämä tekee ydinpäivityksistä tärkeitä "
+"tietoturvan kannalta, mutta niistä voi myös aiheutua ongelmia, joita "
+"aloittelevan käyttäjän on vaikea korjata."
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
 "When faced with a serious regression, restore the latest system snapshot."
-msgstr "Palauta viimeisin palautuspiste, jos kohtaat vakavia ongelmia."
+msgstr ""
+"Palauta tietokoneesi viimeisimmästä palautuspisteestä, jos sinulle aiheutuu "
+"vakavia ongelmia."
 
 #: usr/share/help/C/mintupdate/snapshots.page:19(title)
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
@@ -121,16 +123,15 @@ msgid ""
 "Timeshift, the system snapshot utility, is available in all versions of "
 "Linux Mint."
 msgstr ""
-"Timeshift on tietokoneen palautustyökalu ja on saatavilla kaikille Linux "
-"Mint versioille."
+"Timeshift on tietokoneen palautustyökalu, joka on saatavilla kaikille Linux "
+"Mint -versioille."
 
 #: usr/share/help/C/mintupdate/snapshots.page:23(p)
 msgid ""
 "It can be used to create snapshots manually but also to automate system "
 "snapshots."
 msgstr ""
-"Sitä voidaan käyttää palautuspisteiden luomiseen manuaalisesti, mutta myös "
-"palautuspisteiden automatisointiin."
+"Sillä voidaan luoda palautuspiste niin manuaalisesti kuin automaattisestikin."
 
 #: usr/share/help/C/mintupdate/snapshots.page:25(p)
 msgid "Linux Mint recommends the automation of daily and boot snapshots."
@@ -144,17 +145,17 @@ msgid ""
 "your computer, you can restore the operating system from any snapshot, thus "
 "cancelling the problem as if it never happened."
 msgstr ""
-"Jos päivitys, virhe tai haittaohjelma rikkoo jotain tietokoneessa, "
+"Jos päivitys, virhe tai haittaohjelma rikkoo jotain tietokoneesta, "
 "käyttöjärjestelmän voi palauttaa mistä tahansa palautuspisteestä, jolloin "
-"ongelma katoaa kuin sitä ei olisi koskaan ollutkaan."
+"ongelma katoaa pysyvästi."
 
 #: usr/share/help/C/mintupdate/snapshots.page:29(p)
 msgid ""
 "System snapshots only cover the operating system itself. They do not include "
 "or affect your personal data."
 msgstr ""
-"Palautuspisteet kattavat vain käyttöjärjestelmän. Ne eivät sisällä sinun "
-"tietoja tai vaikuta niihin."
+"Palautuspisteet sisältävät vain käyttöjärjestelmän, mutta eivät tietoa "
+"sinusta."
 
 #: usr/share/help/C/mintupdate/regressions.page:16(desc)
 msgid "When an update breaks something, it's called a \"regression\"."
@@ -162,7 +163,7 @@ msgstr "Kun päivitys rikkoo jotakin, tilannetta kutsutaan ”regressioksi”."
 
 #: usr/share/help/C/mintupdate/regressions.page:19(title)
 msgid "Software regressions"
-msgstr "Ohjelmistojen regressiot"
+msgstr "Ohjelmistoregressiot"
 
 #: usr/share/help/C/mintupdate/regressions.page:21(p)
 msgid ""
@@ -170,14 +171,14 @@ msgid ""
 "features to your operating system."
 msgstr ""
 "Päivitykset pitävät tietokoneesi turvallisena, tekevät virheenkorjauksia ja "
-"jopa saattavat joskus lisätä uusia ominaisuuksia käyttöjärjestelmääsi."
+"saattavat lisätä uusia ominaisuuksia käyttöjärjestelmääsi."
 
 #: usr/share/help/C/mintupdate/regressions.page:23(p)
 msgid ""
 "Unfortunately they also sometimes introduce new issues called 'regressions'."
 msgstr ""
-"Joskus ne valitettavasti voivat saada aikaan ”regressioiksi” kutsuttuja "
-"uusia ongelmia."
+"Joskus ne voivat kuitenkin saada aikaan valitettavia \"regressioksi\" "
+"kutsuttuja ongelmia."
 
 #: usr/share/help/C/mintupdate/regressions.page:25(p)
 msgid ""
@@ -186,29 +187,29 @@ msgid ""
 "skilled developers are, they can't always predict every possible situation "
 "or test on every possible hardware specification."
 msgstr ""
-"Regressiot ovat ohjelmistotuotannossa hyvin yleisiä. Ne kuuluvat "
-"ohjelmistokehitykseen luontaisesti. Koodimuutokset voivat aiheuttaa "
-"regressioita. Vaikka kehittäjät olisivat kuinka taitavia, he eivät kykene "
-"ennustamaan kaikkia mahdollisia tilanteita eivätkä tarkistamaan ohjelman "
-"toimivuutta kaikenlaisissa laitteistoissa."
+"Regressiot ovat ohjelmistotuotannossa hyvin yleisiä ja kuuluvat siihen "
+"luontaisesti. Koodin muutokset voivat aiheuttaa niitä. Vaikka kehittäjät "
+"olisivatkin taitavia, he eivät siitä huolimatta kykene ennustamaan kaikkia "
+"mahdollisia tilanteita eivätkä tarkistamaan ohjelmiston toimivuutta "
+"kaikenlaisissa laitteissa."
 
 #: usr/share/help/C/mintupdate/regressions.page:27(p)
 msgid ""
 "When a regression happens, it breaks something which worked well before."
-msgstr "Regressio rikkoo jotakin, mikä ennen sitä toimi aivan hyvin."
+msgstr "Regressio rikkoo jotain sellaista, mikä toimi ennen hyvin."
 
 #: usr/share/help/C/mintupdate/regressions.page:29(p)
 msgid "Sometimes it doesn't really matter, but sometimes it matters a lot."
 msgstr ""
-"Joskus se ei vaikuta juuri lainkaan, mutta joskus se vaikuttaakin paljon."
+"Joskus se ei vaikuta juurikaan, joskus se taas vaikuttaa hyvin paljon."
 
 #: usr/share/help/C/mintupdate/regressions.page:31(p)
 msgid ""
 "It depends on what part of the operating system is affected and whether or "
 "not you're able to work around it or to fix it."
 msgstr ""
-"Kaikki riippuu siitä, mitä käyttöjärjestelmän osaa ongelma koskee ja voiko "
-"sitä kiertää tai korjata."
+"Kaikki riippuu siitä, mitä käyttöjärjestelmän osaa ongelma koskee ja onko se "
+"korjattavissa tai kierrettävissä."
 
 #: usr/share/help/C/mintupdate/regressions.page:33(p)
 msgid ""
@@ -216,17 +217,18 @@ msgid ""
 "it's not as problematic as if your network connection stopped working or if "
 "you were suddenly unable to boot the computer or to login."
 msgstr ""
-"Jos esimerkiksi PDF-katselimesta ei enää voi tulostaa, se on ärsyttävää… "
-"muttei läheskään yhtä harmillista kuin jos verkkoyhteys lakkaa toimimasta "
-"tai yhtäkkiä konetta ei voi käynnistää tai kirjautua siihen sisään."
+"Jos esimerkiksi PDF-katseluohjelmasta ei voi enää tulostaa regression "
+"vuoksi, se on turhauttavaa... muttei läheskään yhtä harmillista kuin se, "
+"että verkkoyhteys lakkaa toimimasta tai yhtäkkiä konetta ei voi käynnistää "
+"tai kirjautua siihen sisään."
 
 #: usr/share/help/C/mintupdate/regressions.page:35(p)
 msgid ""
 "In the latter case, it can be very problematic if you're not experienced "
 "with Linux and you don't know how to troubleshoot."
 msgstr ""
-"Jälkimmäinen tapaus voi olla hyvin hankala, ellet ole kokenut Linux-käyttäjä "
-"ja tiedä, miten etsiä vikaa."
+"Jälkimmäinen tapaus voi olla sinun kohdallasi hyvin hankala, mikäli et ole "
+"niin kokenut Linux-käyttäjä."
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:16(desc)
 msgid "Updating from the command line"
@@ -626,6 +628,7 @@ msgstr ""
 "  Ari Ervasti https://launchpad.net/~ari-ervasti87\n"
 "  Elias Ojala https://launchpad.net/~theel0ja\n"
 "  Hermanni Saresma https://launchpad.net/~hermukka\n"
+"  Hiiri522 https://launchpad.net/~hiiri522\n"
 "  Jarppi https://launchpad.net/~jarppi\n"
 "  Jiri Grönroos https://launchpad.net/~jiri-gronroos\n"
 "  Jouni Vartiainen https://launchpad.net/~jovartia\n"
@@ -2584,7 +2587,7 @@ msgstr "Asenna päivitykset"
 #: usr/share/linuxmint/mintupdate/main.ui.h:6
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "A new version of the Update Manager is available"
-msgstr "Päivitysten hallinnasta on saatavilla uusi versio"
+msgstr "Päivitysten hallinnasta on uusi versio"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
 #: usr/share/linuxmint/mintupdate/main.ui.h:18
