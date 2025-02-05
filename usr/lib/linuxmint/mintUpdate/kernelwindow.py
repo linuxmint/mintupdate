@@ -224,10 +224,10 @@ class KernelWindow():
         if self.allow_kernel_type_selection:
             # Set up the kernel type selection dropdown
             for index, kernel_type in enumerate(SUPPORTED_KERNEL_TYPES):
-                self.kernel_type_combo.append_text(kernel_type[1:])
+                self.ui_kernel_type_combo.append_text(kernel_type[1:])
                 if kernel_type[1:] == CONFIGURED_KERNEL_TYPE[1:]:
-                    self.kernel_type_combo.set_active(index)
-            self.ui_kernel_type_combo.connect("changed", on_kernel_type_combo_changed)
+                    self.ui_kernel_type_combo.set_active(index)
+            self.ui_kernel_type_combo.connect("changed", self.on_kernel_type_combo_changed)
 
         self.ui_window.show_all()
         self.ui_kernel_type_label.set_visible(self.allow_kernel_type_selection)
