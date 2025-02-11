@@ -182,7 +182,7 @@ class MintUpdate():
         self.refreshing_flatpak = False
         self.refreshing_cinnamon = False
         self.auto_refresh_is_alive = False
-        self.hidden = False # whether the window is hidden or not
+        self.hidden = True # whether the window is hidden or not
         self.packages = [] # packages selected for update
         self.flatpaks = [] # flatpaks selected for update
         self.spices = [] # spices selected for update
@@ -507,7 +507,7 @@ class MintUpdate():
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if showWindow == "show":
-                    self.ui_window.present_with_time(Gtk.get_current_event_time())
+                    self.show_window()
 
             if CINNAMON_SUPPORT:
                 self.cinnamon_updater = cinnamon.UpdateManager()
