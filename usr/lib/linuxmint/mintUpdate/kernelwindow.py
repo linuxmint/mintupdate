@@ -239,7 +239,7 @@ class KernelWindow():
             self.ui_stack.set_visible_child_name("intro_page")
 
     # Refresh window on kernel type selection change
-    def on_kernel_type_combo_changed(widget):
+    def on_kernel_type_combo_changed(self, widget):
         global CONFIGURED_KERNEL_TYPE
         CONFIGURED_KERNEL_TYPE = "-" + widget.get_active_text()
         self.settings.set_string("selected-kernel-type", CONFIGURED_KERNEL_TYPE)
