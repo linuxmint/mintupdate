@@ -1,15 +1,16 @@
 #!/usr/bin/python3
 import os
-import sys
 
 if __name__ == "__main__":
     if os.getuid() == 0:
         try:
-            import apt
-            cache = apt.Cache()
+            from apt import Cache
+
+            cache = Cache()
             cache.update()
+
         except Exception as e:
             print("Error: mint-refresh-cache could not update the cache.")
             print(e)
-    else:
-        print("Error: mint-refresh-cache requires admin privileges")
+            
+    else: print("Error: mint-refresh-cache requires admin privileges")

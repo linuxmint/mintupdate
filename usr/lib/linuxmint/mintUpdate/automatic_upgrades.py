@@ -4,8 +4,7 @@ import os
 import subprocess
 import time
 
-if not os.path.exists("/var/lib/linuxmint/mintupdate-automatic-upgrades-enabled"):
-    exit(0)
+if not os.path.exists("/var/lib/linuxmint/mintupdate-automatic-upgrades-enabled"): exit(0)
 
 optionsfile = "/etc/mintupdate-automatic-upgrades.conf"
 logfile = "/var/log/mintupdate.log"

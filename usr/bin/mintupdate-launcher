@@ -9,12 +9,14 @@ import signal
 import subprocess
 import time
 import xapp.os
+
 gi.require_version('Notify', '0.7')
 from gi.repository import GLib, Gio, Notify
 
 # i18n
-APP = 'mintupdate'
+APP = "mintupdate"
 LOCALE_DIR = "/usr/share/locale"
+
 locale.bindtextdomain(APP, LOCALE_DIR)
 gettext.bindtextdomain(APP, LOCALE_DIR)
 gettext.textdomain(APP)
@@ -22,22 +24,27 @@ _ = gettext.gettext
 
 Notify.init(_("Update Manager"))
 
+
+# Commented out because it's empty
+'''
 class TimeoutError(Exception):
     pass
+'''
 
-# Limit the amount of time a function can run
 def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
     def decorator(func):
-        def _handle_timeout(signum, frame):
-            raise TimeoutError(error_message)
+        def _handle_timeout(signum, frame): raise TimeoutError(error_message)
 
         def wrapper(*args, **kwargs):
             signal.signal(signal.SIGALRM, _handle_timeout)
             signal.alarm(seconds)
+
             try:
                 result = func(*args, **kwargs)
+
             finally:
                 signal.alarm(0)
+
             return result
 
         return wraps(func)(wrapper)
@@ -48,26 +55,33 @@ def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
 def update_cinnamon_spices():
     if os.path.exists("/usr/bin/cinnamon"):
         print("Updating Cinnamon Spices")
+
         try:
             import cinnamon
             updater = cinnamon.UpdateManager()
             updater.refresh_all_caches()
             updates = updater.get_updates()
+
             if len(updates) > 0:
                 msg = _("The following spices were automatically updated:")
-                msg = msg + "\n"
+                msg = msg + '\n'
+
                 for update in updates:
                     updater.upgrade(update)
+
                     msg += "\n- %s (%s)" % (update.uuid, update.spice_type)
 
                 if xapp.os.is_desktop_cinnamon():
                     subprocess.call(["cinnamon-dbus-command", "RestartCinnamon", "0"])
                     time.sleep(10) # Give cinnamon some time, otherwise it won't show our notification.
+
                     notification_title = _("Cinnamon was restarted")
                     notification = Notify.Notification.new(notification_title, msg, "cinnamon-symbolic")
+
                     notification.set_urgency(2)
                     notification.set_timeout(Notify.EXPIRES_NEVER)
                     notification.show()
+
         except Exception as e:
             print("An error occurred while updating cinnamon spices: %s" % e)
 
@@ -79,47 +93,64 @@ def process_flatpaks():
 
         try:
             print("Purging unused flatpaks")
-            out = subprocess.run(
-                [
-                    "flatpak", "uninstall", "--unused", "-y"
-                ],
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+            out = subprocess.run(["flatpak",
+                                  "uninstall",
+                                  "--unused",
+                                  "-y"
+                                 ],
+                                 stdout=subprocess.PIPE, 
+                                 stderr=subprocess.STDOUT
+                                )
+            
             print(out.stdout.decode())
-        except Exception as e:
-            print("An error occurred while purging unused flatpaks: %s" % e)
+
+        except Exception as e: print("An error occurred while purging unused flatpaks: %s" % e)
 
         if settings.get_boolean("auto-update-flatpaks"):
             print("Updating flatpaks")
+
+            # Update flatpaks
             try:
-                # Update flatpaks
-                out = subprocess.run(
-                    [
-                        "flatpak", "update", "-y"
-                    ],
-                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                out = subprocess.run(["flatpak",
+                                      "update", 
+                                      "-y"
+                                     ],
+                                     stdout=subprocess.PIPE, 
+                                     stderr=subprocess.STDOUT
+                                    )
+                
                 print(out.stdout.decode())
-            except Exception as e:
-                print("An error occurred while updating flatpaks: %s" % e)
+
+            except Exception as e: print("An error occurred while updating flatpaks: %s" % e)
 
         # Install theme if needed
         try:
-            gi.require_version('Flatpak', '1.0')
+            gi.require_version("Flatpak", "1.0")
+
             from gi.repository import Flatpak
             from mintcommon.installer import _flatpak
 
             theme_refs = _flatpak.get_updated_theme_refs()
+
             if theme_refs is not None:
                 print("Installing new theme to match local theme")
+
                 for ref in theme_refs:
-                    out = subprocess.run(
-                        [
-                            "flatpak", "install", "-y", "--system",
-                            ref.get_remote_name(), ref.get_name()
-                        ],
-                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    out = subprocess.run(["flatpak",
+                                          "install",
+                                          "-y",
+                                          "--system",
+                                          ref.get_remote_name(), 
+                                          ref.get_name()
+                                         ],
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT
+                                        )
+                    
                     print(out.stdout.decode())
-        except Exception as e:
-            print("An error occurred checking for a new flatpak theme: %s" % e)
+                    
+        except Exception as e: print("An error occurred checking for a new flatpak theme: %s" % e)
 
 if __name__ == "__main__":
     if os.getuid() == 0:
@@ -128,10 +159,8 @@ if __name__ == "__main__":
 
     if ((not xapp.os.is_live_session()) and (not xapp.os.is_guest_session())):
         settings = Gio.Settings(schema_id="com.linuxmint.updates")
-        # Update Cinnamon spices
-        if settings.get_boolean("auto-update-cinnamon-spices"):
-            update_cinnamon_spices()
-        # Update and auto-remove flatpaks
+
+        if settings.get_boolean("auto-update-cinnamon-spices"): update_cinnamon_spices()
+        
         process_flatpaks()
-        # Launch mintupdate
         os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py &")
