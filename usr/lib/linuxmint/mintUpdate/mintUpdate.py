@@ -595,7 +595,10 @@ class MintUpdate():
         dialog.destroy()
 
     @_idle
-    def show_infobar(self, title, msg, msg_type, icon, callback):
+    def show_infobar(self, title, msg, msg_type, icon, callback, ok_label=None):
+        if not ok_label:
+            ok_label = _("OK")
+
         infobar = Gtk.InfoBar()
         infobar.set_margin_bottom(2)
         infobar.set_message_type(msg_type)
@@ -621,7 +624,7 @@ class MintUpdate():
                 infobar.add_button(_("Yes"), Gtk.ResponseType.YES)
                 infobar.add_button(_("No"), Gtk.ResponseType.NO)
             else:
-                infobar.add_button(_("OK"), Gtk.ResponseType.OK)
+                infobar.add_button(ok_label, Gtk.ResponseType.OK)
             infobar.connect("response", callback)
         infobar.show_all()
         for child in self.ui_infobar.get_children():
@@ -2084,7 +2087,11 @@ class MintUpdate():
 
         if self.reboot_required:
             self.show_infobar(_("Reboot required"),
-                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."), Gtk.MessageType.WARNING, "system-reboot-symbolic", None)
+                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."),
+                Gtk.MessageType.WARNING,
+                "system-reboot-symbolic",
+                self._on_infobar_reboot,
+                _("Reboot"))
 
         if refresh_cache:
             # Note: All cache refresh happen asynchronously
@@ -2112,6 +2119,19 @@ class MintUpdate():
                 self.refresh_flatpak_cache()
 
         self.refresh_updates()
+
+    def _on_infobar_reboot(self, parent, response_id):
+        session = os.environ.get("XDG_CURRENT_DESKTOP")
+        # Trigger reboot based on DE
+        if session in ["Cinnamon", "X-Cinnamon"]:
+            subprocess.run(['/usr/bin/cinnamon-session-quit', '--reboot'])
+        elif session == 'MATE':
+            subprocess.run(['/usr/bin/dbus-send', '--dest=org.gnome.SessionManager', '--type=method_call',
+                '/org/gnome/SessionManager', 'org.gnome.SessionManager.RequestReboot'])
+        elif session == 'XFCE':
+            subprocess.run(['/usr/bin/xfce4-session-logout', '--reboot'])
+        else:
+            subprocess.run(['/usr/bin/systemctl', 'reboot'])
 
     @_async
     def refresh_apt_cache_externally(self):
