@@ -120,34 +120,34 @@ class Update():
             self.short_description = package.candidate.raw_description
             self.description = package.candidate.description
             self.archive = ""
-            if (self.new_version != self.old_version):
-                self.type = "package"
-                self.origin = ""
-                for origin in package.candidate.origins:
+
+            self.type = "package"
+            self.origin = ""
+            for origin in package.candidate.origins:
+                self.origin = origin.origin
+                self.site = origin.site
+                self.archive = origin.archive
+                if origin.origin == "Ubuntu":
+                    self.origin = "ubuntu"
+                elif origin.origin == "Debian":
+                    self.origin = "debian"
+                elif origin.origin.startswith("LP-PPA"):
                     self.origin = origin.origin
-                    self.site = origin.site
-                    self.archive = origin.archive
-                    if origin.origin == "Ubuntu":
-                        self.origin = "ubuntu"
-                    elif origin.origin == "Debian":
-                        self.origin = "debian"
-                    elif origin.origin.startswith("LP-PPA"):
-                        self.origin = origin.origin
-                    if origin.origin == "Ubuntu" and '-security' in origin.archive:
-                        self.type = "security"
-                        break
-                    if origin.origin == "Debian" and '-Security' in origin.label:
-                        self.type = "security"
-                        break
-                    if source_name in ["firefox", "thunderbird", "chromium"]:
-                        self.type = "security"
-                        break
-                    if origin.origin == "linuxmint":
-                        if origin.component == "romeo":
-                            self.type = "unstable"
-                            break
-                if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
-                    self.type = "kernel"
+                if origin.origin == "Ubuntu" and '-security' in origin.archive:
+                    self.type = "security"
+                    break
+                if origin.origin == "Debian" and '-Security' in origin.label:
+                    self.type = "security"
+                    break
+                if source_name in ["firefox", "thunderbird", "chromium"]:
+                    self.type = "security"
+                    break
+                if origin.origin == "linuxmint":
+                    if origin.component == "romeo":
+                        self.type = "unstable"
+                break
+            if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
+                self.type = "kernel"
 
     def add_package(self, pkg):
         self.package_names.append(pkg.name)
@@ -203,13 +203,7 @@ class UpdateTracker():
         os.system("mkdir -p %s" % CONFIG_PATH)
         self.path = os.path.join(CONFIG_PATH, "updates.json")
 
-        # Test case
-        self.test_mode = False
-        test_path = "/usr/share/linuxmint/mintupdate/tests/%s.json" % os.getenv("MINTUPDATE_TEST")
-        if os.path.exists(test_path):
-            os.system("mkdir -p %s" % CONFIG_PATH)
-            os.system("cp %s %s" % (test_path, self.path))
-            self.test_mode = True
+        self.test_mode = os.getenv("MINTUPDATE_TEST") == "tracker-max-age"
 
         self.tracker_version = 1 # version of the data structure
         self.settings = settings

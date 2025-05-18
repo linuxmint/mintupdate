@@ -29,6 +29,7 @@ class APTCheck():
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
         self.cache = apt.Cache()
         self.priority_updates_available = False
+        self.updates = {}
 
     def load_aliases(self):
         self.aliases = {}
@@ -176,8 +177,11 @@ class APTCheck():
                 return self.get_kernel_version_from_meta_package(deppkg)
         return None
 
-    def add_update(self, package, kernel_update=False):
-        source_version = package.candidate.version
+    def add_update(self, package, kernel_update=False, test_version=None):
+        if test_version is not None:
+            source_version = test_version
+        else:
+            source_version = package.candidate.version
         # Change version of kernel meta packages to that of the actual kernel
         # for grouping with related updates
         if package.candidate.source_name.startswith("linux-meta"):

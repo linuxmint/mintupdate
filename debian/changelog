@@ -1,3 +1,62 @@
+mintupdate (7.0.7) xia; urgency=medium
+
+  [ Michael Webster ]
+  * mintUpdate.py: Fix hidden state tracking.
+  * kernelwindow.py: Fix callback arguments.
+
+  [ Timothy Feierabend ]
+  * add padding to help/continue button box (#914)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 03 Mar 2025 10:11:31 +0000
+
+mintupdate (7.0.6) xia; urgency=medium
+
+  [ Clement Lefebvre ]
+  * logs: Fix typo
+  * l10n: Update translations
+
+  [ Vitaly Novichkov ]
+  * kernelwindow.py: Fixed runtime error when kernel type enabled (#922)
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 07 Feb 2025 18:39:41 +0000
+
+mintupdate (7.0.5) xia; urgency=medium
+
+  * aptkit: Fix UI freeze when the transaction is cancelled
+
+ -- Clement Lefebvre <root@linuxmint.com>  Mon, 09 Dec 2024 23:49:26 +0000
+
+mintupdate (7.0.4) xia; urgency=medium
+
+  * tests: Use a class attribute to store the test mode
+  * tests: Don't check flatpak/cinnamon in test mode
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 06 Dec 2024 11:19:29 +0000
+
+mintupdate (7.0.3) xia; urgency=medium
+
+  [ Michael Webster ]
+  * flatpak-update-worker.py: Use installer.init() if init_sync() fails, instead of our own refresh method.
+  * Update test-cases to work with multiprocess checkAPT. (#907)
+
+  [ Clement Lefebvre ]
+  * Depend on the latest mint-common
+
+ -- Clement Lefebvre <root@linuxmint.com>  Fri, 06 Dec 2024 10:46:35 +0000
+
+mintupdate (7.0.2) xia; urgency=medium
+
+  * l10n: Update translations
+  * l10n: Update files
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 05 Dec 2024 10:47:29 +0000
+
+mintupdate (7.0.1) xia; urgency=medium
+
+  * inhibit: Fix inhibitor name
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sun, 01 Dec 2024 15:21:05 +0000
+
 mintupdate (7.0.0) xia; urgency=medium
 
   [ Clement Lefebvre ]

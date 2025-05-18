@@ -34,7 +34,7 @@ from xapp.GSettingsWidgets import *
 # local imports
 import logger
 from kernelwindow import KernelWindow
-from Classes import Update, PRIORITY_UPDATES, UpdateTracker, _idle, _async
+from Classes import Update, PRIORITY_UPDATES, CONFIG_PATH, UpdateTracker, _idle, _async
 
 
 settings = Gio.Settings(schema_id="com.linuxmint.updates")
@@ -182,7 +182,7 @@ class MintUpdate():
         self.refreshing_flatpak = False
         self.refreshing_cinnamon = False
         self.auto_refresh_is_alive = False
-        self.hidden = False # whether the window is hidden or not
+        self.hidden = True # whether the window is hidden or not
         self.packages = [] # packages selected for update
         self.flatpaks = [] # flatpaks selected for update
         self.spices = [] # spices selected for update
@@ -190,6 +190,7 @@ class MintUpdate():
         self.logger = logger.Logger()
         self.cache_monitor = None
         self.logger.write("Launching Update Manager")
+        self.test_mode = os.getenv("MINTUPDATE_TEST")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
         self.is_lmde = False
@@ -506,7 +507,7 @@ class MintUpdate():
             if len(sys.argv) > 1:
                 showWindow = sys.argv[1]
                 if showWindow == "show":
-                    self.ui_window.present_with_time(Gtk.get_current_event_time())
+                    self.show_window()
 
             if CINNAMON_SUPPORT:
                 self.cinnamon_updater = cinnamon.UpdateManager()
@@ -645,8 +646,9 @@ class MintUpdate():
                 self.ui_statusbar.set_visible(False)
                 status_string = ""
                 details = []
-                for update in updates:
-                    details.append(f"{update.source_name} {update.new_version}")
+
+                for item in model_items:
+                    details.append(f"{item[0].source_name} {item[0].new_version}")
                 details = ", ".join(details)
                 self.ui_label_self_update_details.set_text(details)
             else:
@@ -1871,7 +1873,7 @@ class MintUpdate():
             name = "org.freedesktop.PowerManagement"
             path = "/org/freedesktop/PowerManagement/Inhibit"
             iface = "org.freedesktop.PowerManagement.Inhibit"
-            args = GLib.Variant("(ss)", ("MintUpdate", reason))
+            args = GLib.Variant("(ss)", ("mintupdate", reason))
             uninhibit_method = "UnInhibit"
         else:
             # https://github.com/linuxmint/cinnamon-session/blob/master/cinnamon-session/csm-inhibitor.h#L51-L58
@@ -1888,7 +1890,7 @@ class MintUpdate():
             name = "org.gnome.SessionManager"
             path = "/org/gnome/SessionManager"
             iface = "org.gnome.SessionManager"
-            args = GLib.Variant("(susu)", ("MintUpdate", xid, reason, flags))
+            args = GLib.Variant("(susu)", ("mintupdate", xid, reason, flags))
             uninhibit_method = "Uninhibit"
 
         return name, path, iface, args, uninhibit_method
@@ -2161,18 +2163,75 @@ class MintUpdate():
     def on_cache_updated(self, transaction=None, exit_state=None):
         self.refreshing_apt = False
 
+
+# ---------------- Test Mode ------------------------------------------#
+    def dummy_update(self, check, package_name, kernel=False):
+        pkg = check.cache[package_name]
+        check.add_update(pkg, kernel, "99.0.0")
+
+    # Part of check_apt_in_external_process fork
+    def handle_apt_check_test(self, queue):
+        print("SIMULATING TEST MODE:", self.test_mode)
+        if self.test_mode == "error":
+            # See how an error from checkAPT subprocess is handled
+            raise Exception("Testing - this is a simulated error.")
+        elif self.test_mode == "up-to-date":
+            # Simulate checkAPT finding no updates
+            queue.put([None, []])
+        elif self.test_mode == "self-update":
+            # Simulate an update of mintupdate itself.
+            check = checkAPT.APTCheck()
+            self.dummy_update(check, "mintupdate", False)
+            queue.put([None, list(check.updates.values())])
+        elif self.test_mode == "updates":
+            # Simulate some normal updates
+            check = checkAPT.APTCheck()
+            self.dummy_update(check, "python3", False)
+            self.dummy_update(check, "mint-meta-core", False)
+            self.dummy_update(check, "linux-generic", True)
+            self.dummy_update(check, "xreader", False)
+            queue.put([None, list(check.updates.values())])
+        elif self.test_mode == "tracker-max-age":
+            # Simulate the UpdateTracker notifying about updates.
+            check = checkAPT.APTCheck()
+            self.dummy_update(check, "dnsmasq", False)
+            self.dummy_update(check, "linux-generic", True)
+
+            updates_json = {
+                "mint-meta-common":    { "type": "package",  "since": "2020.12.03", "days": 99 },
+                "linux-meta": { "type": "security", "since": "2020.12.03", "days": 99 }
+            }
+            root_json = {
+                "updates": updates_json,
+                "version": 1,
+                "checked": "2020.12.04",
+                "notified": "2020.12.03"
+            }
+
+            os.makedirs(CONFIG_PATH, exist_ok=True)
+            with open(os.path.join(CONFIG_PATH, "updates.json"), "w") as f:
+                json.dump(root_json, f)
+
+            queue.put([None, list(check.updates.values())])
+
+        return True
+# ---------------- Testing ------------------------------------------#
+
     # called in a different process
     def check_apt_in_external_process(self, queue):
         # in the queue we put: error_message (None if successful), list_of_updates (None if error)
         try:
-            check = checkAPT.APTCheck()
-            check.find_changes()
-            check.apply_l10n_descriptions()
-            check.load_aliases()
-            check.apply_aliases()
-            check.clean_descriptions()
-            updates = check.get_updates()
-            queue.put([None, updates])
+            if self.test_mode:
+                self.handle_apt_check_test(queue)
+            else:
+                check = checkAPT.APTCheck()
+                check.find_changes()
+                check.apply_l10n_descriptions()
+                check.load_aliases()
+                check.apply_aliases()
+                check.clean_descriptions()
+                updates = check.get_updates()
+                queue.put([None, updates])
         except Exception as error:
             error_msg = str(error).replace("E:", "\n").strip()
             queue.put([error_msg, None])
@@ -2187,7 +2246,7 @@ class MintUpdate():
             time.sleep(1)
 
         # Check presence of Mint layer
-        if os.getenv("MINTUPDATE_TEST") == "layer-error" or (not self.check_policy()):
+        if self.test_mode == "layer-error" or (not self.check_policy()):
             error_msg = "%s\n%s\n%s" % (_("Your APT configuration is corrupt."),
             _("Do not install or update anything - doing so could break your operating system!"),
             _("To switch to a different Linux Mint mirror and solve this problem, click OK."))
@@ -2201,25 +2260,18 @@ class MintUpdate():
             self.refresh_cleanup()
             return
 
-        self.logger.write("Checking for updates)")
+        self.logger.write("Checking for updates")
 
         try:
             error = None
             updates = None
-            if os.getenv("MINTUPDATE_TEST") is None:
-                output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
-                # call checkAPT in a different process
-                queue = Queue()
-                process = Process(target=self.check_apt_in_external_process, args=(queue,))
-                process.start()
-                error, updates = queue.get()
-                process.join()
-            # TODO rewrite tests to deal with classes vs text lines
-            # else:
-            #     if os.path.exists("/usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST")):
-            #         output = subprocess.run("sleep 1; cat /usr/share/linuxmint/mintupdate/tests/%s.test" % os.getenv("MINTUPDATE_TEST"), shell=True, stdout=subprocess.PIPE).stdout.decode("utf-8")
-            #     else:
-            #         output = subprocess.run("/usr/lib/linuxmint/mintUpdate/checkAPT.py", stdout=subprocess.PIPE).stdout.decode("utf-8")
+
+            # call checkAPT in a different process
+            queue = Queue()
+            process = Process(target=self.check_apt_in_external_process, args=[queue])
+            process.start()
+            error, updates = queue.get()
+            process.join()
 
             if error is not None:
                 self.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
@@ -2302,63 +2354,64 @@ class MintUpdate():
                     num_visible += 1
                     download_size += update.size
 
-            if FLATPAK_SUPPORT and self.flatpak_updater and not is_self_update:
-                blacklist = self.settings.get_strv("blacklisted-packages")
+            if not self.test_mode:
+                if FLATPAK_SUPPORT and self.flatpak_updater and not is_self_update:
+                    blacklist = self.settings.get_strv("blacklisted-packages")
 
-                self.flatpak_updater.fetch_updates()
-                if self.flatpak_updater.error is None:
-                    for update in self.flatpak_updater.updates:
-                        update.type = "flatpak"
-                        if update.ref_name in blacklist or update.source_packages[0] in blacklist:
+                    self.flatpak_updater.fetch_updates()
+                    if self.flatpak_updater.error is None:
+                        for update in self.flatpak_updater.updates:
+                            update.type = "flatpak"
+                            if update.ref_name in blacklist or update.source_packages[0] in blacklist:
+                                continue
+                            if update.flatpak_type == "app":
+                                tooltip = _("Flatpak application")
+                            else:
+                                tooltip = _("Flatpak runtime")
+
+                            title = update.name
+                            description = update.summary
+                            source = update.origin
+                            icon = "mintupdate-type-flatpak-symbolic"
+                            model_items.append((update, title, description, source, icon, f"5{update.ref_name}", tooltip))
+
+                            num_software += 1
+                            num_visible += 1
+                            download_size += update.size
+
+                if CINNAMON_SUPPORT and not is_self_update:
+                    blacklist = self.settings.get_strv("blacklisted-packages")
+
+                    for update in self.cinnamon_updater.get_updates():
+                        update.real_source_name = update.uuid
+                        update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
+                        update.package_names = []
+                        update.type = "cinnamon"
+                        if update.uuid in blacklist or update.source_packages[0] in blacklist:
                             continue
-                        if update.flatpak_type == "app":
-                            tooltip = _("Flatpak application")
+                        if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
+                            tooltip = _("Cinnamon applet")
+                        elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
+                            tooltip = _("Cinnamon desklet")
+                        elif update.spice_type == "action":
+                            # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
+                            # use the value "action" instead here so this code can be
+                            # backported.
+                            tooltip = _("Nemo action")
+                        elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
+                            tooltip = _("Cinnamon theme")
                         else:
-                            tooltip = _("Flatpak runtime")
+                            tooltip = _("Cinnamon extension")
 
-                        title = update.name
-                        description = update.summary
-                        source = update.origin
-                        icon = "mintupdate-type-flatpak-symbolic"
-                        model_items.append((update, title, description, source, icon, f"5{update.ref_name}", tooltip))
+                        title = update.uuid
+                        description = update.name
+                        source = "Linux Mint / cinnamon"
+                        icon = "cinnamon-symbolic"
+                        model_items.append((update, title, description, source, icon, f"6{update.uuid}", tooltip))
 
                         num_software += 1
                         num_visible += 1
                         download_size += update.size
-
-            if CINNAMON_SUPPORT and not is_self_update:
-                blacklist = self.settings.get_strv("blacklisted-packages")
-
-                for update in self.cinnamon_updater.get_updates():
-                    update.real_source_name = update.uuid
-                    update.source_packages = ["%s=%s" % (update.uuid, update.new_version)]
-                    update.package_names = []
-                    update.type = "cinnamon"
-                    if update.uuid in blacklist or update.source_packages[0] in blacklist:
-                        continue
-                    if update.spice_type == cinnamon.SPICE_TYPE_APPLET:
-                        tooltip = _("Cinnamon applet")
-                    elif update.spice_type == cinnamon.SPICE_TYPE_DESKLET:
-                        tooltip = _("Cinnamon desklet")
-                    elif update.spice_type == "action":
-                        # The constant cinnamon.SPICE_TYPE_ACTION is new in Cinnamon 6.0
-                        # use the value "action" instead here so this code can be
-                        # backported.
-                        tooltip = _("Nemo action")
-                    elif update.spice_type == cinnamon.SPICE_TYPE_THEME:
-                        tooltip = _("Cinnamon theme")
-                    else:
-                        tooltip = _("Cinnamon extension")
-
-                    title = update.uuid
-                    description = update.name
-                    source = "Linux Mint / cinnamon"
-                    icon = "cinnamon-symbolic"
-                    model_items.append((update, title, description, source, icon, f"6{update.uuid}", tooltip))
-
-                    num_software += 1
-                    num_visible += 1
-                    download_size += update.size
 
             # Updates found, update status message
             self.show_updates_in_UI(num_visible, num_software, num_security, download_size, is_self_update, model_items)
@@ -2435,6 +2488,11 @@ class MintUpdate():
             self.set_status(_("Could not install the security updates"), _("Could not install the security updates"), "mintupdate-error-symbolic", True)
 
         self.finish_install(needs_refresh)
+
+    def on_apt_install_cancelled(self):
+        self.logger.write("Install cancelled")
+        self.set_status("", "", "mintupdate-updates-available-symbolic", True)
+        self.finish_install(False)
 
     @_async
     def finish_install(self, refresh_needed):
@@ -2539,6 +2597,7 @@ class MintUpdate():
                     self.logger.write("Ready to launch aptkit")
                     client = aptkit.simpleclient.SimpleAPTClient(self.ui_window)
                     client.set_finished_callback(self.on_apt_install_finished)
+                    client.set_cancelled_callback(self.on_apt_install_cancelled)
                     client.install_packages(self.packages)
                 else:
                     self.finish_install(False)
