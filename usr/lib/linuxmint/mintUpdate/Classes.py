@@ -145,7 +145,7 @@ class Update():
                 if origin.origin == "linuxmint":
                     if origin.component == "romeo":
                         self.type = "unstable"
-                break
+                        break
             if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                 self.type = "kernel"
 
