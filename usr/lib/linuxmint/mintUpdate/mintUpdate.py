@@ -2491,6 +2491,7 @@ class MintUpdate():
 
     def on_apt_install_cancelled(self):
         self.logger.write("Install cancelled")
+        self.reboot_required = False
         self.set_status("", "", "mintupdate-updates-available-symbolic", True)
         self.finish_install(False)
 
