@@ -429,7 +429,11 @@ class KernelWindow():
             for kernel in kernels:
                 _KERNEL_PKG_NAMES = KERNEL_PKG_NAMES.copy()
                 if kernel.installed:
-                    _KERNEL_PKG_NAMES.append("linux-image-unsigned-VERSION-KERNELTYPE") # mainline, remove only
+                    # also purge existing residual kernel packages
+                    _KERNEL_PKG_NAMES.append("linux-image-unsigned-VERSION-KERNELTYPE")
+                    _KERNEL_PKG_NAMES.append("linux-tools-VERSION")
+                    _KERNEL_PKG_NAMES.append("linux-tools-VERSION-KERNELTYPE")
+
                 for name in _KERNEL_PKG_NAMES:
                     name = name.replace("VERSION", kernel.version).replace("-KERNELTYPE", kernel.type)
                     if name in self.cache:
