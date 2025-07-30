@@ -184,6 +184,7 @@ class KernelWindow():
     def __init__(self, callback=None):
         self.callback = callback
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
+        self.refreshing_kernels = False
         self.cache = None
         self.remove_kernels_listbox = []
         self.queued_kernels_listbox = []
@@ -246,6 +247,9 @@ class KernelWindow():
         self.refresh_kernels_list()
 
     def refresh_kernels_list(self):
+        if self.refreshing_kernels:
+            return
+        self.refreshing_kernels = True
         self.ui_spinner.start()
         self.ui_stack.set_visible_child_name("refresh_page")
         self.ui_window.get_window().set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
@@ -263,6 +267,7 @@ class KernelWindow():
 
     @_idle
     def refresh_kernels_list_done(self, kernels):
+        self.refreshing_kernels = False
         now = datetime.now()
         hwe_support_duration = {}
         kernels = kernels.split("\n")
