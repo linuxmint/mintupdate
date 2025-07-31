@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2024-11-26 10:42+0000\n"
-"PO-Revision-Date: 2024-12-04 01:28+0000\n"
+"POT-Creation-Date: 2025-07-28 12:48+0200\n"
+"PO-Revision-Date: 2025-07-29 01:46+0000\n"
 "Last-Translator: 张鹏 <scbeta@qq.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2025-01-06 11:49+0000\n"
-"X-Generator: Launchpad (build 6394e03793719e8d73f5a60b5439440e693c92f1)\n"
+"X-Launchpad-Export-Date: 2025-07-31 09:13+0000\n"
+"X-Generator: Launchpad (build 647c49fc7f614412c17a151d8ba4fadd90c06a00)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -476,6 +476,10 @@ msgstr "如果您安装的最新版内核(或是最新版内核更新)导致某�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2379
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:220
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:593
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1455
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2452
 msgid "Update Manager"
 msgstr "更新管理器"
 
@@ -550,6 +554,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:241
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:247
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Linux 内核 %s"
@@ -557,12 +562,14 @@ msgstr "Linux 内核 %s"
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:242
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:244
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:248
 msgid "The Linux kernel."
 msgstr "Linux 内核。"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:245
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:249
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -751,6 +758,7 @@ msgstr "B"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:258
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1026
 msgid "Downloading changelog..."
 msgstr "正在下载更新日志..."
 
@@ -759,6 +767,7 @@ msgstr "正在下载更新日志..."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:271
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:272
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1038
 msgid "No changelog available"
 msgstr "无更新日志"
 
@@ -792,6 +801,7 @@ msgstr "下列软件包将被安装："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:594
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2518
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2596
 msgid "Installing updates"
 msgstr "正在安装更新"
 
@@ -806,6 +816,7 @@ msgstr "正在安装更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:669
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2415
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2488
 msgid "Could not install the security updates"
 msgstr "无法安装安全更新"
 
@@ -815,8 +826,9 @@ msgstr "无法安装安全更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:666
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2510
 msgid "Updating Cinnamon Spices"
-msgstr "正在更新Cinnamon Spices..."
+msgstr "正在更新Cinnamon扩展组件..."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:636
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:673
@@ -832,6 +844,7 @@ msgstr "正在重启 Cinnamon"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:801
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2084
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2089
 msgid "Reboot required"
 msgstr "需要重启"
 
@@ -864,6 +877,7 @@ msgstr "正在检查软件包更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:837
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2084
 msgid "Checking for updates"
 msgstr "正在检查更新"
 
@@ -873,7 +887,7 @@ msgstr "正在检查更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:844
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
 msgid "Checking for Cinnamon spices"
-msgstr "正在检查Cinnamon Spices..."
+msgstr "正在检查Cinnamon扩展组件..."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:779
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:821
@@ -889,6 +903,7 @@ msgstr "正在处理更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:877
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2207
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2279
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr "在终端窗口中运行“apt update”以解决此问题"
 
@@ -904,6 +919,8 @@ msgstr "在终端窗口中运行“apt update”以解决此问题"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:905
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2179
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2258
 msgid "Your APT configuration is corrupt."
 msgstr "您的 APT 配置已损坏。"
 
@@ -921,6 +938,7 @@ msgstr "请不要安装或升级任何东西，它会破坏您的操作系统！
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2173
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2252
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr "若要切换到不同的 Linux Mint 镜像以解决此问题，请单击“确定”。"
@@ -939,6 +957,7 @@ msgstr "APT 错误："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:912
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2178
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2257
 msgid "Please switch to another Linux Mint mirror"
 msgstr "请切换到另一个 Linux Mint 镜像"
 
@@ -976,6 +995,14 @@ msgstr "请切换到另一个 Linux Mint 镜像"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2359
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2360
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2254
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2255
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2282
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2292
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2293
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2433
 msgid "Could not refresh the list of updates"
 msgstr "无法刷新更新列表"
 
@@ -985,6 +1012,7 @@ msgstr "无法刷新更新列表"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:975
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:989
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2333
 msgid "Kernel update"
 msgstr "内核更新"
 
@@ -994,6 +1022,7 @@ msgstr "内核更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:993
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Security update"
 msgstr "安全更新"
 
@@ -1003,6 +1032,7 @@ msgstr "安全更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:983
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:997
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2337
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1014,6 +1044,7 @@ msgstr "不稳定软件，应用此更新以协助开发者进行Beta测试。"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:988
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1002
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2269
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2341
 msgid "Software update"
 msgstr "软件更新"
 
@@ -1023,6 +1054,7 @@ msgstr "软件更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:992
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1006
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2272
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2344
 msgid "3rd-party update"
 msgstr "第三方更新"
 
@@ -1032,6 +1064,7 @@ msgstr "第三方更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1019
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2320
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2393
 msgid "Cinnamon applet"
 msgstr "Cinnamon小程序"
 
@@ -1041,6 +1074,7 @@ msgstr "Cinnamon小程序"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1035
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2395
 msgid "Cinnamon desklet"
 msgstr "Cinnamon桌面小程序"
 
@@ -1050,6 +1084,7 @@ msgstr "Cinnamon桌面小程序"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1025
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1042
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 msgid "Cinnamon theme"
 msgstr "Cinnamon 主题"
 
@@ -1059,6 +1094,7 @@ msgstr "Cinnamon 主题"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1044
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2331
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
 msgid "Cinnamon extension"
 msgstr "Cinnamon 拓展"
 
@@ -1068,6 +1104,7 @@ msgstr "Cinnamon 拓展"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1120
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:702
 msgid "Updates are available"
 msgstr "现有更新可用"
 
@@ -1077,6 +1114,7 @@ msgstr "现有更新可用"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:691
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
@@ -1088,6 +1126,7 @@ msgstr[0] "%d 个安全更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:687
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:692
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
@@ -1099,6 +1138,7 @@ msgstr[0] "%d 个软件更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1128
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:698
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr "应用它们以保持您的操作系统安全和最新。"
 
@@ -1108,6 +1148,7 @@ msgstr "应用它们以保持您的操作系统安全和最新。"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1118
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1135
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:700
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:705
 msgid "View updates"
 msgstr "查看更新"
 
@@ -1117,6 +1158,7 @@ msgstr "查看更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:701
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
 msgid "Enable automatic updates"
 msgstr "启用自动更新"
 
@@ -1133,6 +1175,8 @@ msgstr "启用自动更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1912
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:786
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:791
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
@@ -1144,6 +1188,7 @@ msgstr[0] "已选中 %(selected)d 项更新 (%(size)s)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:657
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
@@ -1157,6 +1202,7 @@ msgstr[0] "%d 项更新可用"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1166
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:667
 msgid "Your system is up to date"
 msgstr "您的系统已经安装了所有的更新"
 
@@ -1166,6 +1212,7 @@ msgstr "您的系统已经安装了所有的更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1215
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1972
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1977
 msgid "Do you want to switch to a local mirror?"
 msgstr "您是否要切换到一个本地的镜像？"
 
@@ -1175,6 +1222,7 @@ msgstr "您是否要切换到一个本地的镜像？"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1216
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1234
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1973
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1978
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr "本地镜像通常比 packages.linuxmint.com 快。"
 
@@ -1190,6 +1238,8 @@ msgstr "本地镜像通常比 packages.linuxmint.com 快。"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1984
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1989
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
 msgid "Please switch to another mirror"
 msgstr "请切换到另一个镜像"
 
@@ -1199,6 +1249,7 @@ msgstr "请切换到另一个镜像"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1228
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1246
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1990
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s 不可达。"
@@ -1209,6 +1260,7 @@ msgstr "%s 不可达。"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1238
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1256
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1995
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
@@ -1225,6 +1277,7 @@ msgstr "退出"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:242
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:243
 msgid "Upgrade"
 msgstr "升级"
 
@@ -1235,6 +1288,7 @@ msgstr "升级"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1454
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1472
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:247
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:248
 msgid "Name"
 msgstr "名称"
 
@@ -1259,6 +1313,9 @@ msgstr "名称"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:251
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1316
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:252
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:428
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1321
 msgid "Old Version"
 msgstr "旧版本"
 
@@ -1283,6 +1340,9 @@ msgstr "旧版本"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:255
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:433
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1319
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:256
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:434
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1324
 msgid "New Version"
 msgstr "新版本"
 
@@ -1300,6 +1360,8 @@ msgstr "新版本"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:260
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:446
 msgid "Size"
 msgstr "大小"
 
@@ -1324,6 +1386,9 @@ msgstr "大小"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:263
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:415
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1310
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:264
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:416
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1315
 msgid "Type"
 msgstr "类型"
 
@@ -1341,6 +1406,8 @@ msgstr "类型"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1673
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:267
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:439
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:268
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:440
 msgid "Origin"
 msgstr "来源"
 
@@ -1353,6 +1420,7 @@ msgstr "来源"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1552
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:320
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:321
 msgid "Refresh"
 msgstr "刷新"
 
@@ -1387,6 +1455,9 @@ msgstr "刷新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1272
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:325
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:409
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1277
 msgid "Information"
 msgstr "信息"
 
@@ -1411,6 +1482,9 @@ msgstr "信息"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:328
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:362
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1513
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:363
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1518
 msgid "Preferences"
 msgstr "首选项"
 
@@ -1428,6 +1502,8 @@ msgstr "首选项"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1586
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:332
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:352
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:333
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:353
 msgid "Quit"
 msgstr "退出"
 
@@ -1438,6 +1514,7 @@ msgstr "退出"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:341
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:342
 msgid "_File"
 msgstr "文件(_F)"
 
@@ -1448,6 +1525,7 @@ msgstr "文件(_F)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1579
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:345
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:346
 msgid "Close window"
 msgstr "关闭窗口"
 
@@ -1458,6 +1536,7 @@ msgstr "关闭窗口"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1592
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:359
 msgid "_Edit"
 msgstr "编辑(_E)"
 
@@ -1468,6 +1547,7 @@ msgstr "编辑(_E)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1601
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:367
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:368
 msgid "System Snapshots"
 msgstr "系统快照"
 
@@ -1478,6 +1558,7 @@ msgstr "系统快照"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1606
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:372
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:373
 msgid "Software Sources"
 msgstr "软件源"
 
@@ -1488,6 +1569,7 @@ msgstr "软件源"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1611
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:394
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:395
 #, python-format
 msgid "Upgrade to %s"
 msgstr "升级到 %s"
@@ -1499,6 +1581,7 @@ msgstr "升级到 %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1615
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:398
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:399
 msgid "_View"
 msgstr "查看(_V)"
 
@@ -1516,6 +1599,8 @@ msgstr "查看(_V)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1298
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:403
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1303
 msgid "History of Updates"
 msgstr "更新历史"
 
@@ -1526,6 +1611,7 @@ msgstr "更新历史"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1639
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:405
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:406
 msgid "Linux Kernels"
 msgstr "Linux 内核"
 
@@ -1536,6 +1622,7 @@ msgstr "Linux 内核"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:411
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:412
 msgid "Visible Columns"
 msgstr "可见列"
 
@@ -1546,6 +1633,7 @@ msgstr "可见列"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:421
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:422
 msgid "Package"
 msgstr "软件包"
 
@@ -1556,6 +1644,7 @@ msgstr "软件包"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:453
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:454
 msgid "Show Descriptions"
 msgstr "显示描述"
 
@@ -1566,6 +1655,7 @@ msgstr "显示描述"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:470
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:471
 msgid "_Help"
 msgstr "帮助(_H)"
 
@@ -1576,6 +1666,7 @@ msgstr "帮助(_H)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1709
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:475
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:476
 msgid "Welcome Screen"
 msgstr "欢迎画面"
 
@@ -1586,6 +1677,7 @@ msgstr "欢迎画面"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1714
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:481
 msgid "Keyboard Shortcuts"
 msgstr "快捷键"
 
@@ -1596,6 +1688,7 @@ msgstr "快捷键"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1718
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:484
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:485
 msgid "Contents"
 msgstr "内容"
 
@@ -1613,6 +1706,8 @@ msgstr "内容"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2339
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1448
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:491
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1453
 msgid "About"
 msgstr "关于"
 
@@ -1623,6 +1718,7 @@ msgstr "关于"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1823
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1840
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:590
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:591
 msgid "Cannot Proceed"
 msgstr "无法继续"
 
@@ -1633,6 +1729,7 @@ msgstr "无法继续"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1824
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:591
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
@@ -1645,6 +1742,7 @@ msgstr "另一个进程正在使用包管理系统。请等它完成，然后再
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1869
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:624
 msgid "Yes"
 msgstr "是"
 
@@ -1655,6 +1753,7 @@ msgstr "是"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1853
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:625
 msgid "No"
 msgstr "否"
 
@@ -1667,6 +1766,7 @@ msgstr "否"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:600
 msgid "OK"
 msgstr "确定"
 
@@ -1677,6 +1777,7 @@ msgstr "确定"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1909
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "No updates selected"
 msgstr "没有选择任何更新"
 
@@ -1689,6 +1790,7 @@ msgstr "没有选择任何更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:853
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
 msgid "Welcome to the Update Manager"
 msgstr "欢迎使用更新管理器"
 
@@ -1699,6 +1801,7 @@ msgstr "欢迎使用更新管理器"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2017
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:886
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "Most recent change"
 msgstr "最近更改"
 
@@ -1719,6 +1822,7 @@ msgstr "简述"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2063
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1192
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1197
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "此更新会影响以下已安装的软件包："
@@ -1730,6 +1834,7 @@ msgstr[0] "此更新会影响以下已安装的软件包："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2060
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1194
 msgid "Total size:"
 msgstr "总大小："
 
@@ -1740,6 +1845,7 @@ msgstr "总大小："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1206
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1211
 msgid "Ignore the current update for this package"
 msgstr "忽略此软件包的当前更新"
 
@@ -1750,6 +1856,7 @@ msgstr "忽略此软件包的当前更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2097
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1214
 msgid "Ignore all future updates for this package"
 msgstr "忽略此软件包的所有未来更新"
 
@@ -1760,6 +1867,7 @@ msgstr "忽略此软件包的所有未来更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2181
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2198
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1307
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1312
 msgid "Date"
 msgstr "日期"
 
@@ -1770,6 +1878,7 @@ msgstr "日期"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2187
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2204
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1313
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1318
 msgid "Update"
 msgstr "更新"
 
@@ -1780,6 +1889,7 @@ msgstr "更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2233
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2249
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
 msgid "package"
 msgstr "软件包"
 
@@ -1790,6 +1900,7 @@ msgstr "软件包"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2417
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1533
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
 msgid "Options"
 msgstr "选项"
 
@@ -1805,6 +1916,7 @@ msgstr "黑名单"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2419
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
 msgid "Automation"
 msgstr "自动化"
 
@@ -1815,6 +1927,7 @@ msgstr "自动化"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1541
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 msgid "Interface"
 msgstr "界面"
 
@@ -1825,6 +1938,7 @@ msgstr "界面"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1542
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1547
 msgid "Hide the update manager after applying updates"
 msgstr "应用升级后隐藏升级管理器"
 
@@ -1835,6 +1949,7 @@ msgstr "应用升级后隐藏升级管理器"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2410
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1543
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr "仅在有可用更新或出现错误时显示托盘图标"
 
@@ -1845,6 +1960,7 @@ msgstr "仅在有可用更新或出现错误时显示托盘图标"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2412
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2429
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1545
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1550
 msgid "Auto-refresh"
 msgstr "自动刷新"
 
@@ -1855,6 +1971,7 @@ msgstr "自动刷新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2430
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1551
 msgid "Refresh the list of updates automatically"
 msgstr "自动刷新更新列表"
 
@@ -1865,6 +1982,7 @@ msgstr "自动刷新更新列表"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2442
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1563
 msgid "days"
 msgstr "天"
 
@@ -1875,6 +1993,7 @@ msgstr "天"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2443
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1559
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1564
 msgid "hours"
 msgstr "小时"
 
@@ -1885,6 +2004,7 @@ msgstr "小时"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2444
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1560
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1565
 msgid "minutes"
 msgstr "分钟"
 
@@ -1895,6 +2015,7 @@ msgstr "分钟"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2428
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1561
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1566
 msgid "First, refresh the list of updates after:"
 msgstr "刷新更新列表的推延时间："
 
@@ -1905,6 +2026,7 @@ msgstr "刷新更新列表的推延时间："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1565
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1570
 msgid "Then, refresh the list of updates every:"
 msgstr "刷新更新列表的时间间隔："
 
@@ -1925,6 +2047,7 @@ msgstr "注意：只有在更新管理器窗口关闭（系统托盘模式）时
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2496
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1612
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1617
 msgid "Notifications"
 msgstr "通知"
 
@@ -1935,6 +2058,7 @@ msgstr "通知"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2485
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2502
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1618
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 msgid "Only show notifications for security and kernel updates"
 msgstr "仅显示安全和内核更新通知"
 
@@ -1945,6 +2069,7 @@ msgstr "仅显示安全和内核更新通知"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2487
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2504
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr "如果更新可用（以登录天数为单位），则显示通知："
@@ -1956,6 +2081,7 @@ msgstr "如果更新可用（以登录天数为单位），则显示通知："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2489
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2506
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1627
 msgid "Show a notification if an update is older than (in days):"
 msgstr "如果更新早于以下时间 ，则显示通知（按天计算）："
 
@@ -1966,6 +2092,7 @@ msgstr "如果更新早于以下时间 ，则显示通知（按天计算）："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2491
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2508
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1624
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1629
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr "如果在过去（以天为单位）应用了更新，则不显示通知："
@@ -1977,6 +2104,7 @@ msgstr "如果在过去（以天为单位）应用了更新，则不显示通知
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2513
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2530
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1646
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1651
 msgid "Ignored Updates"
 msgstr "忽略更新"
 
@@ -1987,6 +2115,7 @@ msgstr "忽略更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Package Updates"
 msgstr "软件包更新"
 
@@ -1997,6 +2126,7 @@ msgstr "软件包更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Performed as root on a daily basis"
 msgstr "每天以 root 身份执行"
 
@@ -2007,6 +2137,7 @@ msgstr "每天以 root 身份执行"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2537
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2554
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
 msgid "Apply updates automatically"
 msgstr "自动应用更新"
 
@@ -2017,6 +2148,7 @@ msgstr "自动应用更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2541
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2558
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 msgid "Export blacklist to /etc/mintupdate.blacklist"
 msgstr "将黑名单导出到  /etc/mintupdate.blacklist"
 
@@ -2036,8 +2168,9 @@ msgstr "点击此按钮以使用您当前的黑名单来自动更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2567
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1683
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1688
 msgid "Update Cinnamon spices automatically"
-msgstr "自动更新Cinnamon spices"
+msgstr "自动更新Cinnamon扩展组件"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2347
 msgid "Update flatpaks automatically"
@@ -2050,6 +2183,7 @@ msgstr "自动更新Flatpak软件包"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1689
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1694
 msgid "Other Updates"
 msgstr "其它更新"
 
@@ -2060,6 +2194,7 @@ msgstr "其它更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1689
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1694
 msgid "Performed when you log in"
 msgstr "登录时执行"
 
@@ -2070,6 +2205,7 @@ msgstr "登录时执行"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Automatic Maintenance"
 msgstr "自动维护"
 
@@ -2080,6 +2216,7 @@ msgstr "自动维护"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Performed as root on a weekly basis"
 msgstr "每周以 root 身份执行"
 
@@ -2090,6 +2227,7 @@ msgstr "每周以 root 身份执行"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2560
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2577
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1698
 msgid "Remove obsolete kernels and dependencies"
 msgstr "删除废弃的内核和依赖项"
 
@@ -2100,6 +2238,7 @@ msgstr "删除废弃的内核和依赖项"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2564
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2581
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1702
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
@@ -2112,6 +2251,7 @@ msgstr "此选项总是保留至少一个较旧的内核，并且从不删除手
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2620
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2637
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1752
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1757
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
@@ -2124,6 +2264,7 @@ msgstr "请指定要忽略的更新的源包名称（支持通配符），还可
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2621
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1753
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1758
 msgid "Ignore an Update"
 msgstr "忽略更新"
 
@@ -2134,6 +2275,7 @@ msgstr "忽略更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2629
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2646
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1766
 msgid "Name:"
 msgstr "名称："
 
@@ -2144,6 +2286,7 @@ msgstr "名称："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2631
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2648
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1763
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1768
 msgid "Version:"
 msgstr "版本："
 
@@ -2154,6 +2297,7 @@ msgstr "版本："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2633
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1765
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1770
 msgid "(optional)"
 msgstr "(可选)"
 
@@ -2300,7 +2444,7 @@ msgstr "显示并安装可用更新"
 
 #: usr/bin/mintupdate-launcher:57
 msgid "The following spices were automatically updated:"
-msgstr "以下Spice已自动更新："
+msgstr "以下扩展组件已自动更新："
 
 #: usr/bin/mintupdate-launcher:66
 msgid "Cinnamon was restarted"
@@ -2453,6 +2597,7 @@ msgstr "应用更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2418
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1534
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1539
 msgid "Packages"
 msgstr "软件包"
 
@@ -2542,6 +2687,7 @@ msgstr "选择内核更新"
 #: usr/lib/linuxmint/mintUpdate/flatpakUpdater.py:90
 #: usr/lib/linuxmint/mintUpdate/Classes.py:470
 #: usr/lib/linuxmint/mintUpdate/Classes.py:471
+#: usr/lib/linuxmint/mintUpdate/Classes.py:465
 msgid "A Flatpak runtime package"
 msgstr "Flatpak运行库包"
 
@@ -2557,6 +2703,7 @@ msgstr "正在检查Flatpak更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1068
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2368
 msgid "Flatpak application"
 msgstr "Flatpak应用程序"
 
@@ -2565,6 +2712,7 @@ msgstr "Flatpak应用程序"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1070
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2370
 msgid "Flatpak runtime"
 msgstr "Flatpak运行库"
 
@@ -2573,6 +2721,7 @@ msgstr "Flatpak运行库"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2348
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2421
 #, python-format
 msgid "Error checking for flatpak updates: %s"
 msgstr "检查 flatpak 更新时出错： %s"
@@ -2583,6 +2732,7 @@ msgstr "检查 flatpak 更新时出错： %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2012
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:895
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:900
 #, python-format
 msgid "Website: %s"
 msgstr "网站：%s"
@@ -2593,6 +2743,7 @@ msgstr "网站：%s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2075
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1184
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 msgid "Total size: <"
 msgstr "总大小：<"
 
@@ -2602,6 +2753,7 @@ msgstr "总大小：<"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2570
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1691
 msgid "Update Flatpaks automatically"
 msgstr "自动更新Flatpak"
 
@@ -2610,6 +2762,7 @@ msgstr "自动更新Flatpak"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "Update types"
 msgstr "更新类型"
 
@@ -2618,6 +2771,7 @@ msgstr "更新类型"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "In addition to system packages, check for:"
 msgstr "除了系统软件包之外，还要检查："
 
@@ -2626,8 +2780,9 @@ msgstr "除了系统软件包之外，还要检查："
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2520
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1636
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1641
 msgid "Cinnamon spice updates"
-msgstr "Cinnamon spice更新"
+msgstr "Cinnamon扩展组件更新"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2481
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2495
@@ -2635,6 +2790,7 @@ msgstr "Cinnamon spice更新"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2522
 #: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:34
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1643
 msgid "Flatpak updates"
 msgstr "Flatpak更新"
 
@@ -2661,11 +2817,13 @@ msgstr "在启用自动化之前，请确保正确配置了系统快照。"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1023
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1040
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2327
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 msgid "Nemo action"
 msgstr "Nemo动作"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2085
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2090
 msgid ""
 "You have installed updates that require a reboot to take effect. Please "
 "reboot your system as soon as possible."
@@ -2673,6 +2831,7 @@ msgstr "您已安装需要重新启动才能生效的更新。请尽快重新启
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
 msgid ""
 "Do not install or update anything - doing so could break your operating "
 "system!"
@@ -2680,6 +2839,7 @@ msgstr "不要安装或更新任何东西 - 这样做可能会破坏您的操作
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2492
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1608
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1613
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(in system tray mode)."
@@ -2687,17 +2847,24 @@ msgstr "注： 只有在 更新管理器 窗口关闭时（在系统托盘模式
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2562
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1678
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1683
 msgid ""
 "Click this button to make automatic updates use your current blacklist."
 msgstr "单击此按钮可使用您当前的黑名单进行自动更新。"
 
 #: usr/lib/linuxmint/mintUpdate/Classes.py:425
+#: usr/lib/linuxmint/mintUpdate/Classes.py:419
 msgid "Installing"
 msgstr "正在安装"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2523
 msgid "Could not update Cinnamon Spices"
-msgstr "无法更新Cinnamon Spice"
+msgstr "无法更新Cinnamon扩展组件"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
+msgid "Reboot"
+msgstr "重启"
 
 #~ msgid "Please wait, this can take some time"
 #~ msgstr "请稍候，这将花费一些时间"

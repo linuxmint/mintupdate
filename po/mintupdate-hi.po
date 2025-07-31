@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2024-11-26 10:42+0000\n"
-"PO-Revision-Date: 2024-09-19 21:28+0000\n"
-"Last-Translator: Divya kalra <Unknown>\n"
+"POT-Creation-Date: 2025-07-28 12:48+0200\n"
+"PO-Revision-Date: 2025-03-18 16:27+0000\n"
+"Last-Translator: Panwar <Unknown>\n"
 "Language-Team: Hindi <hi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2025-01-06 11:49+0000\n"
-"X-Generator: Launchpad (build 6394e03793719e8d73f5a60b5439440e693c92f1)\n"
+"X-Launchpad-Export-Date: 2025-07-31 09:13+0000\n"
+"X-Generator: Launchpad (build 647c49fc7f614412c17a151d8ba4fadd90c06a00)\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
 #: usr/share/help/C/mintupdate/snapshots.page:10(name)
@@ -537,6 +537,10 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2379
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:220
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:593
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1455
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2452
 msgid "Update Manager"
 msgstr "अपडेट मैनेजर"
 
@@ -609,6 +613,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:241
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:247
 #, python-format
 msgid "Linux kernel %s"
 msgstr "लिनक्स कर्नेल %s"
@@ -616,12 +621,14 @@ msgstr "लिनक्स कर्नेल %s"
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:242
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:244
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:248
 msgid "The Linux kernel."
 msgstr "लिनक्स कर्नेल।"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:245
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:249
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -814,6 +821,7 @@ msgstr "B"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:258
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1026
 msgid "Downloading changelog..."
 msgstr "परिवर्तन सूची डाउनलोड..."
 
@@ -822,6 +830,7 @@ msgstr "परिवर्तन सूची डाउनलोड..."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:271
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:272
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1038
 msgid "No changelog available"
 msgstr "कोई बदलाव सूची उपलब्ध नहीं"
 
@@ -855,6 +864,7 @@ msgstr "निम्नलिखित पैकेज इंस्टॉल ह
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:594
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2518
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2596
 msgid "Installing updates"
 msgstr "अपडेट इंस्टॉल हो रही हैं"
 
@@ -869,6 +879,7 @@ msgstr "अपडेट इंस्टॉल हो रही हैं"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:669
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2415
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2488
 msgid "Could not install the security updates"
 msgstr "सुरक्षा अपडेट इंस्टॉल नहीं हो सकी"
 
@@ -878,6 +889,7 @@ msgstr "सुरक्षा अपडेट इंस्टॉल नहीं
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:666
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2510
 msgid "Updating Cinnamon Spices"
 msgstr "सिनेमन स्पाइस अपडेट करना जारी"
 
@@ -895,6 +907,7 @@ msgstr "सिनेमन पुनः आरंभ करना जारी"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:801
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2084
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2089
 msgid "Reboot required"
 msgstr "सिस्टम पुनः आरंभ आवश्यक"
 
@@ -929,6 +942,7 @@ msgstr "पैकेज अपडेट हेतु खोज जारी"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:837
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2084
 msgid "Checking for updates"
 msgstr "अपडेट खोजी जा रही हैं"
 
@@ -954,6 +968,7 @@ msgstr "अपडेट संसाधन जारी"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:877
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2207
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2279
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr "इस हेतु टर्मिनल में 'apt update' टाइप कर निष्पादित करें"
 
@@ -969,6 +984,8 @@ msgstr "इस हेतु टर्मिनल में 'apt update' टा�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:905
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2179
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2258
 msgid "Your APT configuration is corrupt."
 msgstr "विकृत APT विन्यास।"
 
@@ -986,6 +1003,7 @@ msgstr "कोई पैकेज इंस्टॉल या अपडेट �
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2173
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2252
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
@@ -1005,6 +1023,7 @@ msgstr "APT त्रुटि :"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:912
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2178
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2257
 msgid "Please switch to another Linux Mint mirror"
 msgstr "कृपया लिनक्स मिंट सर्वर-मिरर बदलें"
 
@@ -1042,6 +1061,14 @@ msgstr "कृपया लिनक्स मिंट सर्वर-मि�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2359
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2360
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2254
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2255
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2282
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2292
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2293
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2433
 msgid "Could not refresh the list of updates"
 msgstr "अपडेट सूची रिफ्रेश करना विफल"
 
@@ -1051,6 +1078,7 @@ msgstr "अपडेट सूची रिफ्रेश करना वि�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:975
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:989
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2333
 msgid "Kernel update"
 msgstr "कर्नेल अपडेट"
 
@@ -1060,6 +1088,7 @@ msgstr "कर्नेल अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:993
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Security update"
 msgstr "सुरक्षा अपडेट"
 
@@ -1069,6 +1098,7 @@ msgstr "सुरक्षा अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:983
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:997
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2337
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1082,6 +1112,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:988
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1002
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2269
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2341
 msgid "Software update"
 msgstr "सॉफ्टवेयर अपडेट"
 
@@ -1091,6 +1122,7 @@ msgstr "सॉफ्टवेयर अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:992
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1006
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2272
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2344
 msgid "3rd-party update"
 msgstr "अन्य स्रोत द्वारा अपडेट"
 
@@ -1100,6 +1132,7 @@ msgstr "अन्य स्रोत द्वारा अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1019
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2320
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2393
 msgid "Cinnamon applet"
 msgstr "सिनेमन एप्लेट"
 
@@ -1109,6 +1142,7 @@ msgstr "सिनेमन एप्लेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1035
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2395
 msgid "Cinnamon desklet"
 msgstr "सिनेमन डेस्क्लेट"
 
@@ -1118,6 +1152,7 @@ msgstr "सिनेमन डेस्क्लेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1025
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1042
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 msgid "Cinnamon theme"
 msgstr "सिनेमन थीम"
 
@@ -1127,6 +1162,7 @@ msgstr "सिनेमन थीम"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1044
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2331
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
 msgid "Cinnamon extension"
 msgstr "सिनेमन एक्सटेंशन"
 
@@ -1136,6 +1172,7 @@ msgstr "सिनेमन एक्सटेंशन"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1120
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:702
 msgid "Updates are available"
 msgstr "अपडेट उपलब्ध हैं"
 
@@ -1145,6 +1182,7 @@ msgstr "अपडेट उपलब्ध हैं"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:691
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
@@ -1157,6 +1195,7 @@ msgstr[1] "%d सुरक्षा अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:687
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:692
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
@@ -1169,6 +1208,7 @@ msgstr[1] "%d सॉफ्टवेयर अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1128
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:698
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr "अपने सिस्टम को सुरक्षित व नवीनतम रखने हेतु उन्हें लागू करें।"
 
@@ -1178,6 +1218,7 @@ msgstr "अपने सिस्टम को सुरक्षित व न�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1118
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1135
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:700
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:705
 msgid "View updates"
 msgstr "अपडेट देखें"
 
@@ -1187,6 +1228,7 @@ msgstr "अपडेट देखें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:701
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
 msgid "Enable automatic updates"
 msgstr "स्वतः अपडेट सक्रिय करें"
 
@@ -1203,6 +1245,8 @@ msgstr "स्वतः अपडेट सक्रिय करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1912
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:786
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:791
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
@@ -1215,6 +1259,7 @@ msgstr[1] "%(selected)d अपडेट चयनित (%(size)s)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:657
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
@@ -1229,6 +1274,7 @@ msgstr[1] "%d अपडेट उपलब्ध"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1166
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:667
 msgid "Your system is up to date"
 msgstr "आपका सिस्टम नवीनतम है"
 
@@ -1238,6 +1284,7 @@ msgstr "आपका सिस्टम नवीनतम है"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1215
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1972
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1977
 msgid "Do you want to switch to a local mirror?"
 msgstr "क्या आप लिनक्स मिंट हेतु स्थानीय सर्वर-मिरर सेट करना चाहते हैं?"
 
@@ -1247,6 +1294,7 @@ msgstr "क्या आप लिनक्स मिंट हेतु स्�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1216
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1234
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1973
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1978
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
 "आमतौर पर स्थानीय सर्वर-मिरर packages.linuxmint.com से तीव्र होते हैं।"
@@ -1263,6 +1311,8 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1984
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1989
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
 msgid "Please switch to another mirror"
 msgstr "कृपया कोई अन्य सर्वर-मिरर चुनें"
 
@@ -1272,6 +1322,7 @@ msgstr "कृपया कोई अन्य सर्वर-मिरर च�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1228
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1246
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1990
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s पहुँच से बाहर है।"
@@ -1282,6 +1333,7 @@ msgstr "%s पहुँच से बाहर है।"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1238
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1256
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1995
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
@@ -1299,6 +1351,7 @@ msgstr "बंद करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:242
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:243
 msgid "Upgrade"
 msgstr "उन्नत बनाएं"
 
@@ -1309,6 +1362,7 @@ msgstr "उन्नत बनाएं"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1454
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1472
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:247
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:248
 msgid "Name"
 msgstr "नाम"
 
@@ -1333,6 +1387,9 @@ msgstr "नाम"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:251
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1316
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:252
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:428
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1321
 msgid "Old Version"
 msgstr "पुराना संस्करण"
 
@@ -1357,6 +1414,9 @@ msgstr "पुराना संस्करण"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:255
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:433
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1319
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:256
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:434
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1324
 msgid "New Version"
 msgstr "नया संस्करण"
 
@@ -1374,6 +1434,8 @@ msgstr "नया संस्करण"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:260
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:446
 msgid "Size"
 msgstr "आकार"
 
@@ -1398,6 +1460,9 @@ msgstr "आकार"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:263
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:415
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1310
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:264
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:416
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1315
 msgid "Type"
 msgstr "प्रकार"
 
@@ -1415,6 +1480,8 @@ msgstr "प्रकार"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1673
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:267
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:439
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:268
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:440
 msgid "Origin"
 msgstr "मूल श्रोत"
 
@@ -1427,6 +1494,7 @@ msgstr "मूल श्रोत"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1552
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:320
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:321
 msgid "Refresh"
 msgstr "रिफ्रेश करें"
 
@@ -1461,6 +1529,9 @@ msgstr "रिफ्रेश करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1272
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:325
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:409
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1277
 msgid "Information"
 msgstr "सूचना"
 
@@ -1485,6 +1556,9 @@ msgstr "सूचना"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:328
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:362
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1513
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:363
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1518
 msgid "Preferences"
 msgstr "वरीयताएँ"
 
@@ -1502,6 +1576,8 @@ msgstr "वरीयताएँ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1586
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:332
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:352
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:333
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:353
 msgid "Quit"
 msgstr "बंद करें"
 
@@ -1512,6 +1588,7 @@ msgstr "बंद करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:341
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:342
 msgid "_File"
 msgstr "फ़ाइल (_F)"
 
@@ -1522,6 +1599,7 @@ msgstr "फ़ाइल (_F)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1579
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:345
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:346
 msgid "Close window"
 msgstr "विंडो बंद करें"
 
@@ -1532,6 +1610,7 @@ msgstr "विंडो बंद करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1592
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:359
 msgid "_Edit"
 msgstr "संशोधन (_E)"
 
@@ -1542,6 +1621,7 @@ msgstr "संशोधन (_E)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1601
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:367
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:368
 msgid "System Snapshots"
 msgstr "सिस्टम स्नैपशॉट"
 
@@ -1552,6 +1632,7 @@ msgstr "सिस्टम स्नैपशॉट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1606
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:372
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:373
 msgid "Software Sources"
 msgstr "सॉफ्टवेयर स्रोत"
 
@@ -1562,6 +1643,7 @@ msgstr "सॉफ्टवेयर स्रोत"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1611
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:394
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:395
 #, python-format
 msgid "Upgrade to %s"
 msgstr "%s में अपग्रेड करें"
@@ -1573,6 +1655,7 @@ msgstr "%s में अपग्रेड करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1615
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:398
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:399
 msgid "_View"
 msgstr "देखें (_V)"
 
@@ -1590,6 +1673,8 @@ msgstr "देखें (_V)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1298
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:403
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1303
 msgid "History of Updates"
 msgstr "अपडेट वृतांत"
 
@@ -1600,6 +1685,7 @@ msgstr "अपडेट वृतांत"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1639
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:405
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:406
 msgid "Linux Kernels"
 msgstr "लिनक्स कर्नेल"
 
@@ -1610,6 +1696,7 @@ msgstr "लिनक्स कर्नेल"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:411
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:412
 msgid "Visible Columns"
 msgstr "दृश्यमान पंक्तियाँ"
 
@@ -1620,6 +1707,7 @@ msgstr "दृश्यमान पंक्तियाँ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:421
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:422
 msgid "Package"
 msgstr "पैकेज"
 
@@ -1630,6 +1718,7 @@ msgstr "पैकेज"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:453
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:454
 msgid "Show Descriptions"
 msgstr "विवरण दिखाएँ"
 
@@ -1640,6 +1729,7 @@ msgstr "विवरण दिखाएँ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:470
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:471
 msgid "_Help"
 msgstr "सहायता (_H)"
 
@@ -1650,6 +1740,7 @@ msgstr "सहायता (_H)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1709
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:475
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:476
 msgid "Welcome Screen"
 msgstr "स्वागत स्क्रीन"
 
@@ -1660,6 +1751,7 @@ msgstr "स्वागत स्क्रीन"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1714
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:481
 msgid "Keyboard Shortcuts"
 msgstr "कुंजीपटल शॉर्टकट"
 
@@ -1670,6 +1762,7 @@ msgstr "कुंजीपटल शॉर्टकट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1718
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:484
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:485
 msgid "Contents"
 msgstr "सामग्री"
 
@@ -1687,6 +1780,8 @@ msgstr "सामग्री"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2339
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1448
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:491
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1453
 msgid "About"
 msgstr "विवरण"
 
@@ -1697,6 +1792,7 @@ msgstr "विवरण"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1823
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1840
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:590
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:591
 msgid "Cannot Proceed"
 msgstr "प्रक्रिया अवरुद्ध"
 
@@ -1707,6 +1803,7 @@ msgstr "प्रक्रिया अवरुद्ध"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1824
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:591
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
@@ -1721,6 +1818,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1869
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:624
 msgid "Yes"
 msgstr "हाँ"
 
@@ -1731,6 +1829,7 @@ msgstr "हाँ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1853
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:625
 msgid "No"
 msgstr "नहीं"
 
@@ -1743,6 +1842,7 @@ msgstr "नहीं"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:600
 msgid "OK"
 msgstr "ठीक है"
 
@@ -1753,6 +1853,7 @@ msgstr "ठीक है"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1909
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "No updates selected"
 msgstr "कोई अपडेट चयनित नहीं"
 
@@ -1765,6 +1866,7 @@ msgstr "कोई अपडेट चयनित नहीं"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:853
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
 msgid "Welcome to the Update Manager"
 msgstr "अपडेट प्रबंधक में स्वागत है"
 
@@ -1775,6 +1877,7 @@ msgstr "अपडेट प्रबंधक में स्वागत ह�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2017
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:886
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "Most recent change"
 msgstr "सबसे हालिया परिवर्तन"
 
@@ -1795,6 +1898,7 @@ msgstr "विवरण"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2063
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1192
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1197
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "इस अपडेट द्वारा निम्नलिखित पैकेज प्रभावित होंगे :"
@@ -1807,6 +1911,7 @@ msgstr[1] "इस अपडेट द्वारा निम्नलिखि
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2060
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1194
 msgid "Total size:"
 msgstr "कुल आकार :"
 
@@ -1817,6 +1922,7 @@ msgstr "कुल आकार :"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1206
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1211
 msgid "Ignore the current update for this package"
 msgstr "इस पैकेज हेतु वर्तमान उपलब्ध अपडेट अनदेखी करें"
 
@@ -1827,6 +1933,7 @@ msgstr "इस पैकेज हेतु वर्तमान उपलब�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2097
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1214
 msgid "Ignore all future updates for this package"
 msgstr "इस पैकेज हेतु सभी भावी अपडेट अनदेखी करें"
 
@@ -1837,6 +1944,7 @@ msgstr "इस पैकेज हेतु सभी भावी अपडे�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2181
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2198
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1307
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1312
 msgid "Date"
 msgstr "दिनांक"
 
@@ -1847,6 +1955,7 @@ msgstr "दिनांक"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2187
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2204
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1313
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1318
 msgid "Update"
 msgstr "अपडेट"
 
@@ -1857,6 +1966,7 @@ msgstr "अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2233
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2249
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
 msgid "package"
 msgstr "पैकेज"
 
@@ -1867,6 +1977,7 @@ msgstr "पैकेज"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2417
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1533
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
 msgid "Options"
 msgstr "विकल्प"
 
@@ -1882,6 +1993,7 @@ msgstr "निरुद्ध सूची"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2419
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
 msgid "Automation"
 msgstr "स्वतः"
 
@@ -1892,6 +2004,7 @@ msgstr "स्वतः"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1541
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 msgid "Interface"
 msgstr "अंतरफलक"
 
@@ -1902,6 +2015,7 @@ msgstr "अंतरफलक"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1542
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1547
 msgid "Hide the update manager after applying updates"
 msgstr "अपडेट लागू करने के उपरांत अपडेट प्रबंधक छुपाएँ"
 
@@ -1912,6 +2026,7 @@ msgstr "अपडेट लागू करने के उपरांत अ�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2410
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1543
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr "अपडेट उपलब्धता या त्रुटि हेतु केवल ट्रे आइकन दिखाएँ"
 
@@ -1922,6 +2037,7 @@ msgstr "अपडेट उपलब्धता या त्रुटि ह�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2412
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2429
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1545
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1550
 msgid "Auto-refresh"
 msgstr "स्वतः रिफ्रेश"
 
@@ -1932,6 +2048,7 @@ msgstr "स्वतः रिफ्रेश"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2430
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1551
 msgid "Refresh the list of updates automatically"
 msgstr "अपडेट सूची स्वतः रिफ्रेश करें"
 
@@ -1942,6 +2059,7 @@ msgstr "अपडेट सूची स्वतः रिफ्रेश क�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2442
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1563
 msgid "days"
 msgstr "दिन"
 
@@ -1952,6 +2070,7 @@ msgstr "दिन"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2443
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1559
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1564
 msgid "hours"
 msgstr "घंटें"
 
@@ -1962,6 +2081,7 @@ msgstr "घंटें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2444
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1560
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1565
 msgid "minutes"
 msgstr "मिनट्स"
 
@@ -1972,6 +2092,7 @@ msgstr "मिनट्स"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2428
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1561
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1566
 msgid "First, refresh the list of updates after:"
 msgstr "प्रथमतया अपडेट सूची इस समय उपरांत रिफ्रेश होगी :"
 
@@ -1982,6 +2103,7 @@ msgstr "प्रथमतया अपडेट सूची इस समय �
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1565
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1570
 msgid "Then, refresh the list of updates every:"
 msgstr "फिर पुनः अपडेट सूची इस समय उपरांत रिफ्रेश होगी :"
 
@@ -2004,6 +2126,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2496
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1612
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1617
 msgid "Notifications"
 msgstr "अधिसूचनाएँ"
 
@@ -2014,6 +2137,7 @@ msgstr "अधिसूचनाएँ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2485
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2502
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1618
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 msgid "Only show notifications for security and kernel updates"
 msgstr "केवल सुरक्षा व कर्नेल अपडेट हेतु ही अधिसूचनाएँ प्रदर्शित करें"
 
@@ -2024,6 +2148,7 @@ msgstr "केवल सुरक्षा व कर्नेल अपडे�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2487
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2504
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
@@ -2036,6 +2161,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2489
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2506
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1627
 msgid "Show a notification if an update is older than (in days):"
 msgstr "अधिसूचना प्रदर्शित करें यदि इतने समय (दिन) से अधिक पुरानी अपडेट है :"
 
@@ -2046,6 +2172,7 @@ msgstr "अधिसूचना प्रदर्शित करें यद
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2491
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2508
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1624
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1629
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
@@ -2058,6 +2185,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2513
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2530
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1646
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1651
 msgid "Ignored Updates"
 msgstr "अनदेखी अपडेट"
 
@@ -2068,6 +2196,7 @@ msgstr "अनदेखी अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Package Updates"
 msgstr "पैकेज अपडेट"
 
@@ -2078,6 +2207,7 @@ msgstr "पैकेज अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Performed as root on a daily basis"
 msgstr "रूट उपयोक्ता के तौर पर दैनिक रूप से निष्पादित"
 
@@ -2088,6 +2218,7 @@ msgstr "रूट उपयोक्ता के तौर पर दैनि�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2537
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2554
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
 msgid "Apply updates automatically"
 msgstr "अपडेट स्वतः लागू करें"
 
@@ -2098,6 +2229,7 @@ msgstr "अपडेट स्वतः लागू करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2541
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2558
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 msgid "Export blacklist to /etc/mintupdate.blacklist"
 msgstr "निरुद्ध सूची /etc/mintupdate.blacklist में निर्यात करें"
 
@@ -2118,6 +2250,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2567
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1683
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1688
 msgid "Update Cinnamon spices automatically"
 msgstr "सिनेमन स्पाइस को स्वतः अपडेट करें"
 
@@ -2132,6 +2265,7 @@ msgstr "फ्लैटपैक को स्वतः अपडेट कर�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1689
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1694
 msgid "Other Updates"
 msgstr "अन्य अपडेट"
 
@@ -2142,6 +2276,7 @@ msgstr "अन्य अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1689
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1694
 msgid "Performed when you log in"
 msgstr "आप द्वारा लॉगिन उपरांत निष्पादित"
 
@@ -2152,6 +2287,7 @@ msgstr "आप द्वारा लॉगिन उपरांत निष�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Automatic Maintenance"
 msgstr "स्वतः प्रबंधन"
 
@@ -2162,6 +2298,7 @@ msgstr "स्वतः प्रबंधन"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Performed as root on a weekly basis"
 msgstr "रूट उपयोक्ता के तौर पर साप्ताहिक रूप से निष्पादित"
 
@@ -2172,6 +2309,7 @@ msgstr "रूट उपयोक्ता के तौर पर साप्�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2560
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2577
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1698
 msgid "Remove obsolete kernels and dependencies"
 msgstr "अनावश्यक कर्नेल व आश्रित पैकेज हटाएँ"
 
@@ -2182,6 +2320,7 @@ msgstr "अनावश्यक कर्नेल व आश्रित प�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2564
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2581
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1702
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
@@ -2196,6 +2335,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2620
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2637
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1752
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1757
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
@@ -2210,6 +2350,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2621
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1753
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1758
 msgid "Ignore an Update"
 msgstr "अपडेट अनदेखी करें"
 
@@ -2220,6 +2361,7 @@ msgstr "अपडेट अनदेखी करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2629
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2646
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1766
 msgid "Name:"
 msgstr "नाम :"
 
@@ -2230,6 +2372,7 @@ msgstr "नाम :"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2631
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2648
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1763
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1768
 msgid "Version:"
 msgstr "संस्करण :"
 
@@ -2240,6 +2383,7 @@ msgstr "संस्करण :"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2633
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1765
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1770
 msgid "(optional)"
 msgstr "(वैकल्पिक)"
 
@@ -2549,6 +2693,7 @@ msgstr "अपडेट लागू करें"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2418
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1534
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1539
 msgid "Packages"
 msgstr "पैकेज"
 
@@ -2647,6 +2792,7 @@ msgstr "कर्नेल अपडेट चुनें"
 #: usr/lib/linuxmint/mintUpdate/flatpakUpdater.py:90
 #: usr/lib/linuxmint/mintUpdate/Classes.py:470
 #: usr/lib/linuxmint/mintUpdate/Classes.py:471
+#: usr/lib/linuxmint/mintUpdate/Classes.py:465
 msgid "A Flatpak runtime package"
 msgstr "एक फ्लैटपैक रनटाइम पैकेज"
 
@@ -2662,6 +2808,7 @@ msgstr "फ्लैटपैक अपडेट के लिए जाँच �
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1068
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2368
 msgid "Flatpak application"
 msgstr "फ्लैटपैक आवेदन"
 
@@ -2670,6 +2817,7 @@ msgstr "फ्लैटपैक आवेदन"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1070
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2370
 msgid "Flatpak runtime"
 msgstr "फ्लैटपैक रनटाइम"
 
@@ -2678,6 +2826,7 @@ msgstr "फ्लैटपैक रनटाइम"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2348
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2421
 #, python-format
 msgid "Error checking for flatpak updates: %s"
 msgstr "फ़्लैटपैक अद्यतनों के लिए त्रुटि जाँच कर रहा है: %s"
@@ -2688,6 +2837,7 @@ msgstr "फ़्लैटपैक अद्यतनों के लिए �
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2012
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:895
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:900
 #, python-format
 msgid "Website: %s"
 msgstr "वेबसाइट: %s"
@@ -2698,6 +2848,7 @@ msgstr "वेबसाइट: %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2075
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1184
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 msgid "Total size: <"
 msgstr "कुल आकार: <"
 
@@ -2707,6 +2858,7 @@ msgstr "कुल आकार: <"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2570
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1691
 msgid "Update Flatpaks automatically"
 msgstr "Flatpaks स्वचालित रूपमा अपडेट गर्नुहोस्"
 
@@ -2715,6 +2867,7 @@ msgstr "Flatpaks स्वचालित रूपमा अपडेट गर
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "Update types"
 msgstr "अद्यतन प्रकार"
 
@@ -2723,6 +2876,7 @@ msgstr "अद्यतन प्रकार"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "In addition to system packages, check for:"
 msgstr "सिस्टम पैकेज के अलावा, इसके लिए जांचें:"
 
@@ -2731,6 +2885,7 @@ msgstr "सिस्टम पैकेज के अलावा, इसके 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2520
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1636
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1641
 msgid "Cinnamon spice updates"
 msgstr "दालचीनी मसाला अपडेट"
 
@@ -2740,6 +2895,7 @@ msgstr "दालचीनी मसाला अपडेट"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2522
 #: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:34
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1643
 msgid "Flatpak updates"
 msgstr "फ्लैटपैक अपडेट"
 
@@ -2770,11 +2926,13 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1023
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1040
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2327
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 msgid "Nemo action"
 msgstr "निमो कार्रवाई"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2085
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2090
 msgid ""
 "You have installed updates that require a reboot to take effect. Please "
 "reboot your system as soon as possible."
@@ -2784,6 +2942,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
 msgid ""
 "Do not install or update anything - doing so could break your operating "
 "system!"
@@ -2793,6 +2952,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2492
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1608
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1613
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(in system tray mode)."
@@ -2802,6 +2962,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2562
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1678
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1683
 msgid ""
 "Click this button to make automatic updates use your current blacklist."
 msgstr ""
@@ -2809,11 +2970,17 @@ msgstr ""
 "उपयोग करें।"
 
 #: usr/lib/linuxmint/mintUpdate/Classes.py:425
+#: usr/lib/linuxmint/mintUpdate/Classes.py:419
 msgid "Installing"
-msgstr ""
+msgstr "इंस्‍टॉल हो रहा है"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2523
 msgid "Could not update Cinnamon Spices"
+msgstr "सिनेमन स्पाइस अपडेट करना विफल रहा"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
+msgid "Reboot"
 msgstr ""
 
 #~ msgid "Please wait, this can take some time"

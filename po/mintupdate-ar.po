@@ -2,17 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-26 10:42+0000\n"
-"PO-Revision-Date: 2023-03-27 15:15+0000\n"
-"Last-Translator: أنس <Unknown>\n"
+"POT-Creation-Date: 2025-07-28 12:48+0200\n"
+"PO-Revision-Date: 2025-05-24 08:26+0000\n"
+"Last-Translator: Abdualrahman Hasan <Unknown>\n"
 "Language-Team: anwar AL_iskandrany <anwareleskndrany13@gmail.com >\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n % 100 >= "
 "3 && n % 100 <= 10 ? 3 : n % 100 >= 11 && n % 100 <= 99 ? 4 : 5;\n"
-"X-Launchpad-Export-Date: 2025-01-06 11:49+0000\n"
-"X-Generator: Launchpad (build 6394e03793719e8d73f5a60b5439440e693c92f1)\n"
+"X-Launchpad-Export-Date: 2025-07-31 09:13+0000\n"
+"X-Generator: Launchpad (build 647c49fc7f614412c17a151d8ba4fadd90c06a00)\n"
 "Language: ar_EG\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -535,6 +535,10 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2379
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:220
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:593
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1455
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2452
 msgid "Update Manager"
 msgstr "مدير التحديث"
 
@@ -595,6 +599,7 @@ msgstr "يشرح هذا القسم التقنيات المتقدمة."
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Abdualrahman Hasan https://launchpad.net/~abdusharif\n"
 "  Ali AlNoaimi https://launchpad.net/~el7r\n"
 "  Andrew Hossam https://launchpad.net/~andrewhossam\n"
 "  Awad Habashi عوض الحبشى https://launchpad.net/~awdhbshi\n"
@@ -611,6 +616,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:241
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:247
 #, python-format
 msgid "Linux kernel %s"
 msgstr "نواة Linux %s"
@@ -618,12 +624,14 @@ msgstr "نواة Linux %s"
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:242
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:244
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:248
 msgid "The Linux kernel."
 msgstr "نواة Linux."
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:245
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:249
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -817,6 +825,7 @@ msgstr "بت"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:258
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1026
 msgid "Downloading changelog..."
 msgstr "جاري تنزيل سجل التغييرات..."
 
@@ -825,6 +834,7 @@ msgstr "جاري تنزيل سجل التغييرات..."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:271
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:272
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1038
 msgid "No changelog available"
 msgstr "لا يوجد سجل تغييرات متاح"
 
@@ -858,6 +868,7 @@ msgstr "سيتم تثبيت الحزم التالية:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:594
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2518
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2596
 msgid "Installing updates"
 msgstr "تثبيت التحديثات"
 
@@ -872,6 +883,7 @@ msgstr "تثبيت التحديثات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:669
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2415
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2488
 msgid "Could not install the security updates"
 msgstr "تعذر تثبيت تحديثات الأمان"
 
@@ -881,6 +893,7 @@ msgstr "تعذر تثبيت تحديثات الأمان"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:666
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2510
 msgid "Updating Cinnamon Spices"
 msgstr "تحديث توابل سينامن"
 
@@ -898,6 +911,7 @@ msgstr "اعادة تشغيل سينامن"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:801
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2084
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2089
 msgid "Reboot required"
 msgstr "يجب إعادة تشغيل الجهاز"
 
@@ -932,6 +946,7 @@ msgstr "فحص تحديثات الحزم"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:837
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2084
 msgid "Checking for updates"
 msgstr "البحث عن تحديثات"
 
@@ -957,6 +972,7 @@ msgstr "معالجة التحديثات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:877
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2207
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2279
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr "قم بتنفيذ الأمر 'apt update' في نافذة الطرفية من أجل معالجة هذا"
 
@@ -972,6 +988,8 @@ msgstr "قم بتنفيذ الأمر 'apt update' في نافذة الطرفية
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:905
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2179
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2258
 msgid "Your APT configuration is corrupt."
 msgstr "إعدادات APT الخاص بك فاسدة."
 
@@ -989,6 +1007,7 @@ msgstr "عدم تثبيت أو تحديث أي شيء، يمكن أن يعطل �
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2173
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2252
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr "للتبديل إلى مرآة Linux Mint مختلفة وحل هذه المشكلة، انقر فوق موافق."
@@ -1007,6 +1026,7 @@ msgstr "خطأ APT:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:912
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2178
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2257
 msgid "Please switch to another Linux Mint mirror"
 msgstr "يرجى التبديل إلى مرآة Linux Mint"
 
@@ -1044,6 +1064,14 @@ msgstr "يرجى التبديل إلى مرآة Linux Mint"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2359
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2360
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2254
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2255
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2282
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2292
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2293
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2433
 msgid "Could not refresh the list of updates"
 msgstr "لا يمكن تحديث قائمة التحديثات"
 
@@ -1053,6 +1081,7 @@ msgstr "لا يمكن تحديث قائمة التحديثات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:975
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:989
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2333
 msgid "Kernel update"
 msgstr "تحديث النواة"
 
@@ -1062,6 +1091,7 @@ msgstr "تحديث النواة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:993
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Security update"
 msgstr "تحديث أمان"
 
@@ -1071,6 +1101,7 @@ msgstr "تحديث أمان"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:983
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:997
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2337
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1084,6 +1115,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:988
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1002
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2269
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2341
 msgid "Software update"
 msgstr "تحديث البرامج"
 
@@ -1093,6 +1125,7 @@ msgstr "تحديث البرامج"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:992
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1006
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2272
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2344
 msgid "3rd-party update"
 msgstr "تحديثات الطرف الثالث"
 
@@ -1102,8 +1135,9 @@ msgstr "تحديثات الطرف الثالث"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1019
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2320
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2393
 msgid "Cinnamon applet"
-msgstr ""
+msgstr "بريمج Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:937
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:978
@@ -1111,8 +1145,9 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1035
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2395
 msgid "Cinnamon desklet"
-msgstr ""
+msgstr "بريمج سطح مكتب Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:939
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:980
@@ -1120,6 +1155,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1025
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1042
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 msgid "Cinnamon theme"
 msgstr "مظهر سينامن"
 
@@ -1129,8 +1165,9 @@ msgstr "مظهر سينامن"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1044
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2331
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
 msgid "Cinnamon extension"
-msgstr "إضافة سينامن"
+msgstr "ملحق سينامن"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:972
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1056
@@ -1138,6 +1175,7 @@ msgstr "إضافة سينامن"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1120
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:702
 msgid "Updates are available"
 msgstr "يوجد تحديثات جديدة"
 
@@ -1147,6 +1185,7 @@ msgstr "يوجد تحديثات جديدة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:691
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
@@ -1163,6 +1202,7 @@ msgstr[5] "%d تحديثات أمان"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:687
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:692
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
@@ -1179,6 +1219,7 @@ msgstr[5] "%d تحديثات للبرمجيات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1128
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:698
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr "قم بتطبيقهم من أجل الحفاظ على أمان وحداثة نظام التشغيل الخاص بك."
 
@@ -1188,6 +1229,7 @@ msgstr "قم بتطبيقهم من أجل الحفاظ على أمان وحدا�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1118
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1135
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:700
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:705
 msgid "View updates"
 msgstr "معاينة التحديثات"
 
@@ -1197,6 +1239,7 @@ msgstr "معاينة التحديثات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:701
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
 msgid "Enable automatic updates"
 msgstr "فعّل التحديثات التلقائية"
 
@@ -1213,6 +1256,8 @@ msgstr "فعّل التحديثات التلقائية"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1912
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:786
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:791
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
@@ -1229,6 +1274,7 @@ msgstr[5] "تم تحديد %(selected)d تحديثات (%(size)s)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:657
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
@@ -1247,6 +1293,7 @@ msgstr[5] "متاح %d تحديثات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1166
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:667
 msgid "Your system is up to date"
 msgstr "النظام الخاص بك محدث"
 
@@ -1256,6 +1303,7 @@ msgstr "النظام الخاص بك محدث"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1215
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1972
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1977
 msgid "Do you want to switch to a local mirror?"
 msgstr "هل تريد التبديل إلى مرآة محلية؟"
 
@@ -1265,6 +1313,7 @@ msgstr "هل تريد التبديل إلى مرآة محلية؟"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1216
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1234
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1973
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1978
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr "المرايا المحلية عادة ما تكون أسرع من packages.linuxmint.com."
 
@@ -1280,6 +1329,8 @@ msgstr "المرايا المحلية عادة ما تكون أسرع من packa
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1984
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1989
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
 msgid "Please switch to another mirror"
 msgstr "يرجى التبديل إلى مرآة أخرى"
 
@@ -1289,6 +1340,7 @@ msgstr "يرجى التبديل إلى مرآة أخرى"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1228
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1246
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1990
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s غير قابل للوصول."
@@ -1299,6 +1351,7 @@ msgstr "%s غير قابل للوصول."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1238
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1256
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1995
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
@@ -1320,6 +1373,7 @@ msgstr "خروج"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:242
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:243
 msgid "Upgrade"
 msgstr "ترقية"
 
@@ -1330,6 +1384,7 @@ msgstr "ترقية"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1454
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1472
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:247
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:248
 msgid "Name"
 msgstr "الاسم"
 
@@ -1354,6 +1409,9 @@ msgstr "الاسم"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:251
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1316
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:252
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:428
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1321
 msgid "Old Version"
 msgstr "الإصدار القديم"
 
@@ -1378,6 +1436,9 @@ msgstr "الإصدار القديم"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:255
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:433
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1319
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:256
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:434
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1324
 msgid "New Version"
 msgstr "الإصدار الجديد"
 
@@ -1395,6 +1456,8 @@ msgstr "الإصدار الجديد"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:260
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:446
 msgid "Size"
 msgstr "الحجم"
 
@@ -1419,6 +1482,9 @@ msgstr "الحجم"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:263
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:415
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1310
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:264
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:416
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1315
 msgid "Type"
 msgstr "النوع"
 
@@ -1436,6 +1502,8 @@ msgstr "النوع"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1673
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:267
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:439
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:268
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:440
 msgid "Origin"
 msgstr "المنشأ"
 
@@ -1448,6 +1516,7 @@ msgstr "المنشأ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1552
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:320
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:321
 msgid "Refresh"
 msgstr "تحديث"
 
@@ -1482,6 +1551,9 @@ msgstr "تحديث"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1272
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:325
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:409
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1277
 msgid "Information"
 msgstr "معلومات"
 
@@ -1506,6 +1578,9 @@ msgstr "معلومات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:328
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:362
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1513
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:363
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1518
 msgid "Preferences"
 msgstr "التفضيلات"
 
@@ -1523,6 +1598,8 @@ msgstr "التفضيلات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1586
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:332
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:352
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:333
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:353
 msgid "Quit"
 msgstr "إنهاء"
 
@@ -1533,6 +1610,7 @@ msgstr "إنهاء"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:341
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:342
 msgid "_File"
 msgstr "_ملف"
 
@@ -1543,6 +1621,7 @@ msgstr "_ملف"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1579
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:345
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:346
 msgid "Close window"
 msgstr "أغلق النّافذة"
 
@@ -1553,6 +1632,7 @@ msgstr "أغلق النّافذة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1592
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:359
 msgid "_Edit"
 msgstr "_تحرير"
 
@@ -1563,6 +1643,7 @@ msgstr "_تحرير"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1601
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:367
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:368
 msgid "System Snapshots"
 msgstr "لقطات النظام"
 
@@ -1573,6 +1654,7 @@ msgstr "لقطات النظام"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1606
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:372
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:373
 msgid "Software Sources"
 msgstr "مصادر البرمجيّات"
 
@@ -1583,6 +1665,7 @@ msgstr "مصادر البرمجيّات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1611
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:394
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:395
 #, python-format
 msgid "Upgrade to %s"
 msgstr "الترقية إلى %s"
@@ -1594,6 +1677,7 @@ msgstr "الترقية إلى %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1615
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:398
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:399
 msgid "_View"
 msgstr "_عرض"
 
@@ -1611,6 +1695,8 @@ msgstr "_عرض"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1298
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:403
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1303
 msgid "History of Updates"
 msgstr "تاريخ التحديثات"
 
@@ -1621,6 +1707,7 @@ msgstr "تاريخ التحديثات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1639
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:405
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:406
 msgid "Linux Kernels"
 msgstr "أنوية لينكس"
 
@@ -1631,6 +1718,7 @@ msgstr "أنوية لينكس"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:411
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:412
 msgid "Visible Columns"
 msgstr "الأعمدة المرئية"
 
@@ -1641,6 +1729,7 @@ msgstr "الأعمدة المرئية"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:421
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:422
 msgid "Package"
 msgstr "الحزمة"
 
@@ -1651,6 +1740,7 @@ msgstr "الحزمة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:453
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:454
 msgid "Show Descriptions"
 msgstr "أظهر الأوصاف"
 
@@ -1661,6 +1751,7 @@ msgstr "أظهر الأوصاف"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:470
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:471
 msgid "_Help"
 msgstr "_مساعدة"
 
@@ -1671,6 +1762,7 @@ msgstr "_مساعدة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1709
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:475
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:476
 msgid "Welcome Screen"
 msgstr "شاشة الترحيب"
 
@@ -1681,6 +1773,7 @@ msgstr "شاشة الترحيب"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1714
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:481
 msgid "Keyboard Shortcuts"
 msgstr "اختصارات لوحة المفاتيح"
 
@@ -1691,6 +1784,7 @@ msgstr "اختصارات لوحة المفاتيح"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1718
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:484
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:485
 msgid "Contents"
 msgstr "المحتويات"
 
@@ -1708,6 +1802,8 @@ msgstr "المحتويات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2339
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1448
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:491
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1453
 msgid "About"
 msgstr "حول"
 
@@ -1718,6 +1814,7 @@ msgstr "حول"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1823
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1840
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:590
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:591
 msgid "Cannot Proceed"
 msgstr "لا يمكن المتابعة"
 
@@ -1728,6 +1825,7 @@ msgstr "لا يمكن المتابعة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1824
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:591
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
@@ -1742,6 +1840,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1869
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:624
 msgid "Yes"
 msgstr "نعم"
 
@@ -1752,6 +1851,7 @@ msgstr "نعم"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1853
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:625
 msgid "No"
 msgstr "لا"
 
@@ -1764,6 +1864,7 @@ msgstr "لا"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:600
 msgid "OK"
 msgstr "موافق"
 
@@ -1774,6 +1875,7 @@ msgstr "موافق"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1909
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "No updates selected"
 msgstr "لم يتم تحديد تحديثات"
 
@@ -1786,6 +1888,7 @@ msgstr "لم يتم تحديد تحديثات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:853
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
 msgid "Welcome to the Update Manager"
 msgstr "مرحباً بك في مدير التحديث"
 
@@ -1796,6 +1899,7 @@ msgstr "مرحباً بك في مدير التحديث"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2017
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:886
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "Most recent change"
 msgstr "التغيير الأحدث"
 
@@ -1816,6 +1920,7 @@ msgstr "الوصف"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2063
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1192
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1197
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "هذا التحديث سيؤثر على الحزمة المثبتة التالية:"
@@ -1832,6 +1937,7 @@ msgstr[5] "هذا التحديث سيؤثر على الحزم المثبتة ا�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2060
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1194
 msgid "Total size:"
 msgstr "الحجم الإجمالي:"
 
@@ -1842,6 +1948,7 @@ msgstr "الحجم الإجمالي:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1206
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1211
 msgid "Ignore the current update for this package"
 msgstr "تجاهل التحديث الحالي لهذه الحزمة"
 
@@ -1852,6 +1959,7 @@ msgstr "تجاهل التحديث الحالي لهذه الحزمة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2097
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1214
 msgid "Ignore all future updates for this package"
 msgstr "تجاهل جميع التحديثات المستقبلية لهذه الحزمة"
 
@@ -1862,6 +1970,7 @@ msgstr "تجاهل جميع التحديثات المستقبلية لهذه ا�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2181
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2198
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1307
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1312
 msgid "Date"
 msgstr "التاريخ"
 
@@ -1872,6 +1981,7 @@ msgstr "التاريخ"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2187
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2204
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1313
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1318
 msgid "Update"
 msgstr "حدّث"
 
@@ -1882,6 +1992,7 @@ msgstr "حدّث"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2233
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2249
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
 msgid "package"
 msgstr "حزمة"
 
@@ -1892,6 +2003,7 @@ msgstr "حزمة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2417
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1533
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
 msgid "Options"
 msgstr "خيارات"
 
@@ -1907,6 +2019,7 @@ msgstr "القائمة السوداء"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2419
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
 msgid "Automation"
 msgstr "التنفيذ التلقائي"
 
@@ -1917,6 +2030,7 @@ msgstr "التنفيذ التلقائي"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1541
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 msgid "Interface"
 msgstr "واجهة التعامل"
 
@@ -1927,6 +2041,7 @@ msgstr "واجهة التعامل"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1542
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1547
 msgid "Hide the update manager after applying updates"
 msgstr "إخفاء مدير التحديث بعد تطبيق التحديثات"
 
@@ -1937,6 +2052,7 @@ msgstr "إخفاء مدير التحديث بعد تطبيق التحديثات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2410
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1543
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
 "عرض أيقونة الصينية فقط عندما تكون التحديثات متوفرة أو في حالة وجود أخطاء"
@@ -1948,6 +2064,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2412
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2429
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1545
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1550
 msgid "Auto-refresh"
 msgstr "تحديث-تلقائي"
 
@@ -1958,6 +2075,7 @@ msgstr "تحديث-تلقائي"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2430
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1551
 msgid "Refresh the list of updates automatically"
 msgstr "قم بتحديث قائمة التحديثات بشكل تلقائي"
 
@@ -1968,6 +2086,7 @@ msgstr "قم بتحديث قائمة التحديثات بشكل تلقائي"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2442
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1563
 msgid "days"
 msgstr "أيام"
 
@@ -1978,6 +2097,7 @@ msgstr "أيام"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2443
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1559
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1564
 msgid "hours"
 msgstr "ساعات"
 
@@ -1988,6 +2108,7 @@ msgstr "ساعات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2444
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1560
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1565
 msgid "minutes"
 msgstr "دقائق"
 
@@ -1998,6 +2119,7 @@ msgstr "دقائق"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2428
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1561
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1566
 msgid "First, refresh the list of updates after:"
 msgstr "أولاً، تحديث قائمة التحديثات بعد:"
 
@@ -2008,6 +2130,7 @@ msgstr "أولاً، تحديث قائمة التحديثات بعد:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1565
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1570
 msgid "Then, refresh the list of updates every:"
 msgstr "ثم, تحديث قائمة التحديثات كل:"
 
@@ -2030,6 +2153,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2496
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1612
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1617
 msgid "Notifications"
 msgstr "الاشعارات"
 
@@ -2040,6 +2164,7 @@ msgstr "الاشعارات"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2485
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2502
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1618
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 msgid "Only show notifications for security and kernel updates"
 msgstr "أظهر الاشعارات لتحديثات النواة والأمان فقط"
 
@@ -2050,6 +2175,7 @@ msgstr "أظهر الاشعارات لتحديثات النواة والأمان
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2487
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2504
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
@@ -2063,6 +2189,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2489
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2506
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1627
 msgid "Show a notification if an update is older than (in days):"
 msgstr "أظهر الاشعار اذا كان التحديث أقدم من (أيام):"
 
@@ -2073,6 +2200,7 @@ msgstr "أظهر الاشعار اذا كان التحديث أقدم من (أي
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2491
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2508
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1624
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1629
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr "لا تظهر الاشعارات اذا تم تطبيق تحديث في أخر (أيام):"
@@ -2084,6 +2212,7 @@ msgstr "لا تظهر الاشعارات اذا تم تطبيق تحديث في 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2513
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2530
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1646
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1651
 msgid "Ignored Updates"
 msgstr "التحديثات التي تم تجاهلها"
 
@@ -2094,6 +2223,7 @@ msgstr "التحديثات التي تم تجاهلها"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Package Updates"
 msgstr "تحديثات الحزمة"
 
@@ -2104,6 +2234,7 @@ msgstr "تحديثات الحزمة"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Performed as root on a daily basis"
 msgstr "نفّذ عن طريق صلاحيات المدير بشكل يومي"
 
@@ -2114,6 +2245,7 @@ msgstr "نفّذ عن طريق صلاحيات المدير بشكل يومي"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2537
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2554
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
 msgid "Apply updates automatically"
 msgstr "تطبيق التحديثات تلقائيا"
 
@@ -2124,6 +2256,7 @@ msgstr "تطبيق التحديثات تلقائيا"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2541
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2558
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 msgid "Export blacklist to /etc/mintupdate.blacklist"
 msgstr "تصدير القائمة السوداء إلى /etc/mintupdate.blacklist"
 
@@ -2145,6 +2278,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2567
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1683
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1688
 msgid "Update Cinnamon spices automatically"
 msgstr "قم بتحديث توابل سينامن تلقائيا"
 
@@ -2159,6 +2293,7 @@ msgstr "قم بتحديث تطبيقات flatpaks تلقائيا"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1689
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1694
 msgid "Other Updates"
 msgstr "التحديثات الأخرى"
 
@@ -2169,6 +2304,7 @@ msgstr "التحديثات الأخرى"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1689
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1694
 msgid "Performed when you log in"
 msgstr "يتم تنفيذها عندما تسجل الدخول"
 
@@ -2179,6 +2315,7 @@ msgstr "يتم تنفيذها عندما تسجل الدخول"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Automatic Maintenance"
 msgstr "صيانة تلقائية"
 
@@ -2189,6 +2326,7 @@ msgstr "صيانة تلقائية"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Performed as root on a weekly basis"
 msgstr "الإجراءات التالية يتم تنفيذها بشكل أسبوعي"
 
@@ -2199,6 +2337,7 @@ msgstr "الإجراءات التالية يتم تنفيذها بشكل أسب�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2560
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2577
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1698
 msgid "Remove obsolete kernels and dependencies"
 msgstr "أزّل الأنوية والتبعيات المهملة (القديمة)"
 
@@ -2209,6 +2348,7 @@ msgstr "أزّل الأنوية والتبعيات المهملة (القديم�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2564
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2581
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1702
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
@@ -2223,10 +2363,13 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2620
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2637
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1752
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1757
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
 msgstr ""
+"رجاءا حدد اسم حزمة المصدر الخاصة بالتحديث للتجاهل (wildcards مدعومة)، "
+"واختياريا الإصدار:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2415
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2474
@@ -2235,6 +2378,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2621
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1753
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1758
 msgid "Ignore an Update"
 msgstr "تجاهل تحديث"
 
@@ -2245,6 +2389,7 @@ msgstr "تجاهل تحديث"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2629
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2646
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1766
 msgid "Name:"
 msgstr "الاسم:"
 
@@ -2255,6 +2400,7 @@ msgstr "الاسم:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2631
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2648
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1763
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1768
 msgid "Version:"
 msgstr "الإصدار:"
 
@@ -2265,6 +2411,7 @@ msgstr "الإصدار:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2633
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1765
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1770
 msgid "(optional)"
 msgstr "(اختياري)"
 
@@ -2573,6 +2720,7 @@ msgstr "قم بتطبيق التحديث"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2418
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1534
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1539
 msgid "Packages"
 msgstr "الحزم"
 
@@ -2672,8 +2820,9 @@ msgstr "إختر تحديثات النواة"
 #: usr/lib/linuxmint/mintUpdate/flatpakUpdater.py:90
 #: usr/lib/linuxmint/mintUpdate/Classes.py:470
 #: usr/lib/linuxmint/mintUpdate/Classes.py:471
+#: usr/lib/linuxmint/mintUpdate/Classes.py:465
 msgid "A Flatpak runtime package"
-msgstr ""
+msgstr "حزمة runtime ل Flatpak"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:818
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:848
@@ -2687,6 +2836,7 @@ msgstr "التحقق من تحديثات Flatpak"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1068
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2368
 msgid "Flatpak application"
 msgstr "تطبيق Flatpak"
 
@@ -2695,6 +2845,7 @@ msgstr "تطبيق Flatpak"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1070
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2370
 msgid "Flatpak runtime"
 msgstr ""
 
@@ -2703,9 +2854,10 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2348
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2421
 #, python-format
 msgid "Error checking for flatpak updates: %s"
-msgstr ""
+msgstr "التحقق من أخطاء لتحديثات Flatpak: %s"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1935
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
@@ -2713,6 +2865,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2012
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:895
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:900
 #, python-format
 msgid "Website: %s"
 msgstr "الموقع: %s"
@@ -2723,6 +2876,7 @@ msgstr "الموقع: %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2075
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1184
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 msgid "Total size: <"
 msgstr "الحجم الإجمالي: <"
 
@@ -2732,6 +2886,7 @@ msgstr "الحجم الإجمالي: <"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2570
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1691
 msgid "Update Flatpaks automatically"
 msgstr "قم بتحديث تطبيقات Flatpaks بشكل تلقائي"
 
@@ -2740,24 +2895,27 @@ msgstr "قم بتحديث تطبيقات Flatpaks بشكل تلقائي"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "Update types"
-msgstr ""
+msgstr "أنواع التحديث"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2476
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "In addition to system packages, check for:"
-msgstr ""
+msgstr "بالإضافة إلى حزم النظام، تحقق من:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2493
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2520
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1636
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1641
 msgid "Cinnamon spice updates"
-msgstr ""
+msgstr "تحديثات Cinnamon spice"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2481
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2495
@@ -2765,68 +2923,90 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2522
 #: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:34
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1643
 msgid "Flatpak updates"
-msgstr ""
+msgstr "تحديثات Flatpak"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:1
 msgid "Changes made here will not affect automation."
-msgstr ""
+msgstr "التغييرات التي تم القيام بها هنا لن تأثر على الآلية/automation."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:2
 msgid "Blocked packages"
-msgstr ""
+msgstr "الحزمات المحظورة"
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
 "It is recommended to add packages to this list by right-clicking them in the "
 "updates listing."
 msgstr ""
+"من المستحسن إضافة حزم إلى هذه القائمة من خلال الضغط بالزر الأيمن عليهم من "
+"جدولة التحديثات."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "Make sure your system snapshots are properly configured before enabling "
 "automation."
 msgstr ""
+"تأكد من أن لقطات النظام خاصتك قد تم تكوينها جيدا قبل تفعيل هذه "
+"الآلية/automation."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1023
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1040
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2327
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 msgid "Nemo action"
-msgstr ""
+msgstr "إجراء Nemo"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2085
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2090
 msgid ""
 "You have installed updates that require a reboot to take effect. Please "
 "reboot your system as soon as possible."
 msgstr ""
+"لقد قمت بتثبيت تحديثات تتطلب إعادة التشغيل. رجاءا أعد تشغيل نظامك في أقرب "
+"وقت ممكن."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
 msgid ""
 "Do not install or update anything - doing so could break your operating "
 "system!"
 msgstr ""
+"لا تقم بتثبيت أو تحديث أي شيء - القيام بذلك قد يعطل نظام التشغيل الخاص بك."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2492
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1608
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1613
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(in system tray mode)."
 msgstr ""
+"ملاحظة: القائمة يتم تجديدها عندما يغلق مدير التحديثات (في طور حاوية النظام)."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2562
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1678
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1683
 msgid ""
 "Click this button to make automatic updates use your current blacklist."
 msgstr ""
+"اضغط على هذا الزر لجعل التحديثات التلقائية تستعمل اللائحة السوداء الحالية "
+"الخاصة بك."
 
 #: usr/lib/linuxmint/mintUpdate/Classes.py:425
+#: usr/lib/linuxmint/mintUpdate/Classes.py:419
 msgid "Installing"
-msgstr ""
+msgstr "تثبيت"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2523
 msgid "Could not update Cinnamon Spices"
+msgstr "لم يتم تحديث Cinnamon Spices"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
+msgid "Reboot"
 msgstr ""
 
 #~ msgid "Please wait, this can take some time"

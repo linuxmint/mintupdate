@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2024-11-26 10:42+0000\n"
-"PO-Revision-Date: 2024-12-24 05:23+0000\n"
-"Last-Translator: Hiiri522 <Unknown>\n"
+"POT-Creation-Date: 2025-07-28 12:48+0200\n"
+"PO-Revision-Date: 2025-05-12 08:24+0000\n"
+"Last-Translator: Kimmo Kujansuu <Unknown>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2025-01-06 11:49+0000\n"
-"X-Generator: Launchpad (build 6394e03793719e8d73f5a60b5439440e693c92f1)\n"
+"X-Launchpad-Export-Date: 2025-07-31 09:13+0000\n"
+"X-Generator: Launchpad (build 647c49fc7f614412c17a151d8ba4fadd90c06a00)\n"
 "Language: fi\n"
 
 #: usr/share/help/C/mintupdate/updates.page:10(name)
@@ -65,7 +65,8 @@ msgstr "\"Tietoturvapäivitykset\" paikkaavat haavoittuvuuksia."
 
 #: usr/share/help/C/mintupdate/updates.page:26(p)
 msgid "'Kernel updates' represent the installation of a newer kernel."
-msgstr "\"Ydinpäivitykset\" päivittävät uudempaan käyttöjärjestelmäytimen."
+msgstr ""
+"\"Kernel-päivitykset\" asentavat uudemman Kernelin käyttöjärjestelmään."
 
 #: usr/share/help/C/mintupdate/updates.page:29(p)
 msgid ""
@@ -99,11 +100,11 @@ msgid ""
 "of view, but also prone to regressions which can be hard to fix for novice "
 "users."
 msgstr ""
-"Linux Mintissä ydinpäivitykset tuovat korjauksia ohjelmointivirheisiin ja "
-"tietoturvaan (ja joskus myös uusia ominaisuuksia). Ne vaikuttavat "
-"käyttöjärjestelmän kriittisiin osiin. Tämä tekee ydinpäivityksistä tärkeitä "
-"tietoturvan kannalta, mutta niistä voi myös aiheutua ongelmia, joita "
-"aloittelevan käyttäjän on vaikea korjata."
+"Linux Mint Kernel-päivitykset parantaa tietoturvaa ja korjaa "
+"ohjelmointivirheitä (joskus myös uusia ominaisuuksia). Ne vaikuttaa "
+"käyttöjärjestelmän kriittisiin osiin. Kernel-päivitykset ovat tärkeitä osa "
+"tietoturvan kannalta, mutta laitteistosta riippuen voi myös aiheutua "
+"ongelmia, joita aloittelevan käyttäjän on vaikea korjata."
 
 #: usr/share/help/C/mintupdate/snapshots.page:16(desc)
 msgid ""
@@ -295,7 +296,7 @@ msgstr ""
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:49(p)
 msgid "For instance, the following command applies kernel updates:"
-msgstr "Esimerkiksi seuraava komento toteuttaa kernel päivitykset:"
+msgstr "Esimerkki komennosta joka toteuttaa Kernel-päivityksen:"
 
 #: usr/share/help/C/mintupdate/mintupdate-cli.page:51(screen)
 #, no-wrap
@@ -320,7 +321,7 @@ msgstr "mintupdate-cli -h"
 
 #: usr/share/help/C/mintupdate/kernels.page:16(desc)
 msgid "Kernels and kernel updates"
-msgstr "Kernel ja kernel päivitykset"
+msgstr "Kernel ja sen päivitykset"
 
 #: usr/share/help/C/mintupdate/kernels.page:19(title)
 #: usr/share/help/C/mintupdate/index.page:35(title)
@@ -338,7 +339,7 @@ msgstr ""
 #: usr/share/help/C/mintupdate/kernels.page:25(p)
 msgid ""
 "From a security point of view, it is important to apply kernel updates."
-msgstr "Turvallisuuden näkökulmasta on tärkeää toteuttaa kernel päivitykset."
+msgstr "Tietoturvan näkökulmasta on tärkeää asentaa Kernel-päivitykset."
 
 #: usr/share/help/C/mintupdate/kernels.page:27(p)
 msgid ""
@@ -346,20 +347,20 @@ msgid ""
 "Internet, to start your desktop environment or even to boot the operating "
 "system."
 msgstr ""
-"Kernel ongelma voi vaikuttaa kykyyn muodostaa yhteys Internetiin, käynnistää "
-"työpöytä tai koko käyttöjärjestelmää."
+"Kernel ongelma voi estää kyvyn muodostaa Internetyhteyttä, käynnistää "
+"työpöytää tai koko käyttöjärjestelmää."
 
 #: usr/share/help/C/mintupdate/kernels.page:29(p)
 msgid ""
 "For this reason it is important to be cautious when applying kernel updates "
 "and to know how to revert them when something goes wrong."
 msgstr ""
-"Tästä syystä on tärkeää olla varovainen kernel päivityksiä asentaessa ja "
-"tietää kuinka ne voidaan palauttaa, jos jokin menee pieleen."
+"Tästä syystä on tärkeää olla varovainen asetettaessa Kernel-päivityksiä ja "
+"tietää kuinka tilanne voidaan palauttaa, jos jokin menee pieleen."
 
 #: usr/share/help/C/mintupdate/kernels.page:32(title)
 msgid "Multiple kernels can be installed"
-msgstr "Useita kerneleitä voidaan asentaa"
+msgstr "Voidaan asentaa useita Kerneleitä"
 
 #: usr/share/help/C/mintupdate/kernels.page:34(p)
 msgid ""
@@ -375,17 +376,17 @@ msgid ""
 "update\", you don't actually update the kernel, you install a new kernel "
 "alongside the existing one."
 msgstr ""
-"Asiat ovat toisin, kun kyse on kernelistä. Kun asennat \"kernel "
-"päivityksen\", et varsinaisesti päivitä kerneliä, vaan asennat uuden "
-"kernelin olemassa olevan rinnalle."
+"Kernelin sunteen asiat ovat hieman eri tavalla. Kun asennat \"Kernel-"
+"päivityksen\", et itse asiassa päivitä Kerneliä, vaan asennat uuden olemassa "
+"olevan rinnalle."
 
 #: usr/share/help/C/mintupdate/kernels.page:38(p)
 msgid ""
 "Every time you apply a kernel update, you install a new kernel on the "
 "system, without removing the old ones."
 msgstr ""
-"Joka kerta kun asennat kernel päivityksen, asennat järjestelmään uuden "
-"kernelin poistamatta vanhoja."
+"Joka kerta, kun asennat Kernel-päivityksen, asennat uuden kernelin "
+"järjestelmään poistamatta vanhoja."
 
 #: usr/share/help/C/mintupdate/kernels.page:40(p)
 msgid "At boot time, the computer selects the most recent one."
@@ -393,14 +394,14 @@ msgstr "Käynnistettäessä tietokone valitsee tuoreimman."
 
 #: usr/share/help/C/mintupdate/kernels.page:45(title)
 msgid "Identifying the current kernel"
-msgstr "Nykyisen kernelin tunnistaminen"
+msgstr "Käytössä olevan kernelin tunnistaminen"
 
 #: usr/share/help/C/mintupdate/kernels.page:47(p)
 msgid ""
 "If you want to know which kernel you are currently using, open a terminal "
 "and type:"
 msgstr ""
-"Jos haluat tietää, mitä kerneliä käytät tällä hetkellä, avaa pääte ja "
+"Jos haluat tietää mikä kernel on käytössä tällä hetkellä, avaa pääte ja "
 "kirjoita:"
 
 #: usr/share/help/C/mintupdate/kernels.page:49(screen)
@@ -418,7 +419,7 @@ msgstr "Voit asentaa ja poistaa kernelit \"Päivitysten hallinnalla\"."
 
 #: usr/share/help/C/mintupdate/kernels.page:58(p)
 msgid "Select \"View\" -&gt; \"Linux Kernels\" in the menu."
-msgstr "Valitse valikosta ”Näytä → Linux kernelit”."
+msgstr "Valitse valikosta ”Näytä → Linux Kernel”."
 
 #: usr/share/help/C/mintupdate/kernels.page:60(p)
 msgid ""
@@ -466,8 +467,8 @@ msgid ""
 "your computer will boot with that one."
 msgstr ""
 "Valitse kernel valitsemalla Grub-valikosta ”Advanced options”. Sen alla "
-"näkyvät kaikki asennetut kernelit. Valitse niistä se, jota haluat käyttää ja "
-"tietokoneesi käynnistyy sillä."
+"näkyvät kaikki asennetut kernelit. Valitse niistä se jolla haluat käynnistää "
+"tietokoneen."
 
 #: usr/share/help/C/mintupdate/kernels.page:78(title)
 msgid "Checking the DKMS status"
@@ -480,10 +481,10 @@ msgid ""
 "they need to compile themselves against every kernel you install. This is "
 "done via a mechanism called DKMS."
 msgstr ""
-"Kernel sisältää yleensä erittäin hyvin toimivat avoimen lähdekoodin ajurit. "
-"Suljetut ajurit (NVIDIA, AMD, Broadcom jne.) eivät ole mukana ja ne täytyy "
-"kääntää jokaiselle asennetulle kernelille erikseen. Tämä tehdään DKMS:ksi "
-"kutsutun mekanismin kautta."
+"Kernel sisältää hyvin toimivat avoimen lähdekoodin ajurit. Suljetut ajurit "
+"(Nvidia, Amd, Broadcom jne.) eivät ole mukana ja ne täytyy kääntää "
+"jokaiselle asennetulle kernelille erikseen. Tämä tehdään DKMS:ksi kutsutun "
+"mekanismin kautta."
 
 #: usr/share/help/C/mintupdate/kernels.page:82(p)
 msgid ""
@@ -499,9 +500,9 @@ msgid ""
 "make sure all proprietary drivers are properly installed for each of your "
 "kernels with the following command:"
 msgstr ""
-"Kernelin asentamisen tai poistamisen jälkeen voit tarkastaa DKMS:n tilan "
-"varmistaaksesi kaikkien suljettujen ajurien olevan oikein asennettuna "
-"jokaiselle kernelille seuraavalla komennolla:"
+"Kun olet asentanut tai poistanut kernelin, voit tarkistaa DKMS-tilan ja "
+"varmistaa, että kaikki kernelin ajurit on asennettu oikein, seuraavalla "
+"komennolla:"
 
 #: usr/share/help/C/mintupdate/kernels.page:86(screen)
 #, no-wrap
@@ -515,10 +516,10 @@ msgid ""
 "recommended to stick to kernel updates and not to install kernels from "
 "series which are newer than the series of the recommended kernels."
 msgstr ""
-"Uusi kernel sarja tulee yleensä saataville ennen kuin suljetut ajurit "
-"tukevat niitä DKMS:n kautta. Jos käytät suljettuja ajureita on suositeltavaa "
-"pysyä kernel päivityksissä ja olla asentamatta sarjoja jotka ovat uudempia "
-"kuin suositellut kernelit."
+"Kun uusi kernel julkaistaan se tulee saataville monesti ennen kuin suljetun "
+"ajurin valmistajat tukevat sitä DKMS:n kautta. Jos käytät suljettuja "
+"ajureita on suositeltavaa pysyä samassa kernelissä ja olla asentamatta "
+"uudempia kuin suositellut kernelit."
 
 #: usr/share/help/C/mintupdate/kernels.page:93(title)
 msgid "Reverting a kernel update"
@@ -530,9 +531,9 @@ msgid ""
 "latest kernel update), reboot, select the kernel you were previously using, "
 "remove the new kernel and reboot again."
 msgstr ""
-"Jos jokin ei toimi viimeisimmän asennetun kernelin (tai uusimman kerneli-"
+"Jos jokin ei toimi viimeisen asennetun kernelin (tai uudemman kernel-"
 "päivityksen) kanssa. Käynnistä tietokone, valitse luettelosta aiemmin "
-"käyttämäsi kernel, poista uusi kernel ja käynnistä uudelleen."
+"käyttämäsi kernel, poista uusin kernel ja käynnistä uudelleen."
 
 #: usr/share/help/C/mintupdate/index.page:18(title)
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:60
@@ -562,6 +563,10 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1450
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2379
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:220
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:593
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1455
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2452
 msgid "Update Manager"
 msgstr "Päivitysten hallinta"
 
@@ -634,7 +639,7 @@ msgstr ""
 "  Jouni Vartiainen https://launchpad.net/~jovartia\n"
 "  Juhani Numminen https://launchpad.net/~jsonic\n"
 "  Kimmo Kujansuu https://launchpad.net/~mahtiankka\n"
-"  Lasse Liehu https://launchpad.net/~lliehu\n"
+"  Lasse Liehu-Inui https://launchpad.net/~lliehu\n"
 "  Masa https://launchpad.net/~masa-diskotek\n"
 "  Matias Fågel https://launchpad.net/~skywalker7777\n"
 "  Mustakari https://launchpad.net/~atvirtanen\n"
@@ -650,6 +655,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:237
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:241
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:247
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Linux kernel %s"
@@ -657,12 +663,14 @@ msgstr "Linux kernel %s"
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:238
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:242
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:244
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:248
 msgid "The Linux kernel."
 msgstr "Linux kernel."
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:239
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:243
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:245
+#: usr/lib/linuxmint/mintUpdate/checkAPT.py:249
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -673,14 +681,13 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
-"Linux kernel on vastuussa laitteiston ja ajureiden tuesta. Huomaathan ettei "
-"päivitys poista olemassa olevaa kerneliä. Voit silti käynnistää järjestelmän "
-"nykyisellä kernelillä valitsemalla käynnistysvalikosta lisävalinnat. Olethan "
-"kuitenkin varovainen: Kernelin regressiot voivat vaikuttaa verkkoyhteyksiin "
-"tai estää kirjautumisen graafiseen työpöytään. DKMS-moduulit käännetään "
-"viimeisimpiin tietokoneellesi asennettuihin kerneleihin. Jos käytät "
-"suljettuja ajureita ja haluat vanhemman kernelin, sinun täytyy poistaa ensin "
-"uudempi."
+"Linux kernel on vastuussa laitteiston tuesta. Huomaa ettei päivitys poista "
+"olemassa olevaa kerneliä. Voit silti käynnistää tietokoneen nykyisellä "
+"kernelillä valitsemalla käynnistysvalikosta lisävalinnat. Ole kuitenkin "
+"varovainen: Kernelin regressiot voivat vaikuttaa verkkoyhteyksiin tai estää "
+"kirjautumisen graafiseen työpöytään. DKMS-moduulit käännetään viimeisimpiin "
+"tietokoneellesi asennettuihin kerneleihin. Jos käytät suljettuja ajureita ja "
+"haluat vanhemman kernelin, sinun täytyy poistaa ensin uudempi."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:148
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:239
@@ -716,7 +723,7 @@ msgstr "Jonopoisto"
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:259
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:141
 msgid "This kernel cannot be removed because it is currently in use."
-msgstr "Tätä kerneliä ei voi poistaa, koska se on tällä hetkellä käytössä."
+msgstr "Käytössä olevaa kerneliä ei voi poistaa."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:246
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:255
@@ -822,7 +829,7 @@ msgstr "Ei tueta"
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:575
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:411
 msgid "You are currently using the following kernel:"
-msgstr "Kernel joka on käytössä:"
+msgstr "Käytössä oleva kernel:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:75
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:79
@@ -857,6 +864,7 @@ msgstr "t"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:258
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1026
 msgid "Downloading changelog..."
 msgstr "Ladataan muutoshistoriaa..."
 
@@ -865,6 +873,7 @@ msgstr "Ladataan muutoshistoriaa..."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:271
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:272
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1038
 msgid "No changelog available"
 msgstr "Muutoshistoriaa ei ole saatavilla"
 
@@ -898,6 +907,7 @@ msgstr "Seuraavat paketit asennetaan:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:594
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2518
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2596
 msgid "Installing updates"
 msgstr "Asennetaan päivityksiä"
 
@@ -912,6 +922,7 @@ msgstr "Asennetaan päivityksiä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:669
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:746
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2415
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2488
 msgid "Could not install the security updates"
 msgstr "Tietoturvan päivityksiä ei voitu asentaa"
 
@@ -921,6 +932,7 @@ msgstr "Tietoturvan päivityksiä ei voitu asentaa"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:666
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:680
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2510
 msgid "Updating Cinnamon Spices"
 msgstr "Cinnamon Spices päivitys"
 
@@ -938,6 +950,7 @@ msgstr "Käynnistä Cinnamon uudelleen"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:801
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:815
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2084
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2089
 msgid "Reboot required"
 msgstr "Käynnistä tietokone uudelleen"
 
@@ -972,6 +985,7 @@ msgstr "Tarkistetaan pakettien päivityksiä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:837
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2079
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2084
 msgid "Checking for updates"
 msgstr "Tarkistetaan päivityksiä"
 
@@ -997,6 +1011,7 @@ msgstr "Käsitellään päivityksiä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:877
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2207
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2279
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr "Suorita 'apt update' pääteikkunassa tämän ratkaisemiseksi"
 
@@ -1012,6 +1027,8 @@ msgstr "Suorita 'apt update' pääteikkunassa tämän ratkaisemiseksi"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:905
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2179
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2250
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2258
 msgid "Your APT configuration is corrupt."
 msgstr "APT-kokoonpano on vioittunut."
 
@@ -1029,6 +1046,7 @@ msgstr "Älä asenna tai päivitä mitään, se voi rikkoa käyttöjärjestelmä
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:889
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:903
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2173
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2252
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
@@ -1049,6 +1067,7 @@ msgstr "APT virhe:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:912
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2178
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2257
 msgid "Please switch to another Linux Mint mirror"
 msgstr "Valitse toinen Linux Mint palvelin"
 
@@ -1086,6 +1105,14 @@ msgstr "Valitse toinen Linux Mint palvelin"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2359
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2360
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2254
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2255
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2281
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2282
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2292
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2293
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2433
 msgid "Could not refresh the list of updates"
 msgstr "Päivitysten luetteloa ei voitu päivittää"
 
@@ -1095,6 +1122,7 @@ msgstr "Päivitysten luetteloa ei voitu päivittää"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:975
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:989
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2333
 msgid "Kernel update"
 msgstr "Kernel päivitys"
 
@@ -1104,6 +1132,7 @@ msgstr "Kernel päivitys"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:979
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:993
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2257
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
 msgid "Security update"
 msgstr "Tietoturvapäivitys"
 
@@ -1113,6 +1142,7 @@ msgstr "Tietoturvapäivitys"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:983
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:997
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2265
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2337
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -1126,6 +1156,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:988
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1002
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2269
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2341
 msgid "Software update"
 msgstr "Ohjelmistopäivitys"
 
@@ -1135,6 +1166,7 @@ msgstr "Ohjelmistopäivitys"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:992
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1006
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2272
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2344
 msgid "3rd-party update"
 msgstr "Kolmannen–osapuolen päivitys"
 
@@ -1144,6 +1176,7 @@ msgstr "Kolmannen–osapuolen päivitys"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1019
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2320
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2393
 msgid "Cinnamon applet"
 msgstr "Cinnamon sovelma"
 
@@ -1153,6 +1186,7 @@ msgstr "Cinnamon sovelma"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1021
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1035
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2395
 msgid "Cinnamon desklet"
 msgstr "Cinnamon paneeli"
 
@@ -1162,6 +1196,7 @@ msgstr "Cinnamon paneeli"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1025
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1042
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 msgid "Cinnamon theme"
 msgstr "Cinnamon teema"
 
@@ -1171,6 +1206,7 @@ msgstr "Cinnamon teema"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1027
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1044
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2331
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
 msgid "Cinnamon extension"
 msgstr "Cinnamon lisäosa"
 
@@ -1180,6 +1216,7 @@ msgstr "Cinnamon lisäosa"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1103
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1120
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:702
 msgid "Updates are available"
 msgstr "Päivityksiä on saatavilla"
 
@@ -1189,6 +1226,7 @@ msgstr "Päivityksiä on saatavilla"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1104
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1121
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:691
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
@@ -1201,6 +1239,7 @@ msgstr[1] "%d tietoturvapäivitystä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1105
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1122
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:687
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:692
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
@@ -1213,6 +1252,7 @@ msgstr[1] "%d ohjelmistopäivitystä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1111
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1128
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:698
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr "Lisää ne ja pidä tietokone turvallisena, sekä ajan tasalla."
 
@@ -1222,6 +1262,7 @@ msgstr "Lisää ne ja pidä tietokone turvallisena, sekä ajan tasalla."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1118
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1135
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:700
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:705
 msgid "View updates"
 msgstr "Näytä päivitykset"
 
@@ -1231,6 +1272,7 @@ msgstr "Näytä päivitykset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1119
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1136
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:701
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
 msgid "Enable automatic updates"
 msgstr "Ota päivitysten automatisointi käyttöön"
 
@@ -1247,6 +1289,8 @@ msgstr "Ota päivitysten automatisointi käyttöön"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1912
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:786
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:655
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:791
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
@@ -1259,6 +1303,7 @@ msgstr[1] "%(selected)d päivitystä valittuna (%(size)s)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1144
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1161
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:657
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
@@ -1273,6 +1318,7 @@ msgstr[1] "%d päivitystä saatavilla"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1166
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:662
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:667
 msgid "Your system is up to date"
 msgstr "Järjestelmä on valmiina käyttöön"
 
@@ -1282,6 +1328,7 @@ msgstr "Järjestelmä on valmiina käyttöön"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1215
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1233
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1972
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1977
 msgid "Do you want to switch to a local mirror?"
 msgstr "Haluatko vaihtaa paikalliselle palvelimelle?"
 
@@ -1291,6 +1338,7 @@ msgstr "Haluatko vaihtaa paikalliselle palvelimelle?"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1216
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1234
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1973
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1978
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
 "Paikalliset peilipalvelimet ovat yleensä nopeampia, kuin "
@@ -1308,6 +1356,8 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1255
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1984
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1994
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1989
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1999
 msgid "Please switch to another mirror"
 msgstr "Valitse toinen palvelin"
 
@@ -1317,6 +1367,7 @@ msgstr "Valitse toinen palvelin"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1228
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1246
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1990
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s on tavoittamattomissa."
@@ -1327,6 +1378,7 @@ msgstr "%s on tavoittamattomissa."
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1238
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1256
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1995
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
@@ -1346,6 +1398,7 @@ msgstr "Poistu"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1467
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:242
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:243
 msgid "Upgrade"
 msgstr "Päivitys"
 
@@ -1356,6 +1409,7 @@ msgstr "Päivitys"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1454
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1472
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:247
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:248
 msgid "Name"
 msgstr "Nimi"
 
@@ -1380,6 +1434,9 @@ msgstr "Nimi"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:251
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1316
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:252
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:428
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1321
 msgid "Old Version"
 msgstr "Vanha versio"
 
@@ -1404,6 +1461,9 @@ msgstr "Vanha versio"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:255
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:433
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1319
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:256
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:434
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1324
 msgid "New Version"
 msgstr "Uusi versio"
 
@@ -1421,6 +1481,8 @@ msgstr "Uusi versio"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:260
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:446
 msgid "Size"
 msgstr "Koko"
 
@@ -1445,6 +1507,9 @@ msgstr "Koko"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:263
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:415
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1310
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:264
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:416
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1315
 msgid "Type"
 msgstr "Tyyppi"
 
@@ -1462,6 +1527,8 @@ msgstr "Tyyppi"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1673
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:267
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:439
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:268
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:440
 msgid "Origin"
 msgstr "Alkuperä"
 
@@ -1474,6 +1541,7 @@ msgstr "Alkuperä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1552
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:320
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:321
 msgid "Refresh"
 msgstr "Päivitä"
 
@@ -1508,6 +1576,9 @@ msgstr "Päivitä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1272
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:325
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:409
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1277
 msgid "Information"
 msgstr "Tietoja"
 
@@ -1532,6 +1603,9 @@ msgstr "Tietoja"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:328
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:362
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1513
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:329
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:363
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1518
 msgid "Preferences"
 msgstr "Asetukset"
 
@@ -1549,6 +1623,8 @@ msgstr "Asetukset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1586
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:332
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:352
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:333
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:353
 msgid "Quit"
 msgstr "Sulje"
 
@@ -1559,6 +1635,7 @@ msgstr "Sulje"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:341
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:342
 msgid "_File"
 msgstr "_Tiedosto"
 
@@ -1569,6 +1646,7 @@ msgstr "_Tiedosto"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1562
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1579
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:345
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:346
 msgid "Close window"
 msgstr "Sulje ikkuna"
 
@@ -1579,6 +1657,7 @@ msgstr "Sulje ikkuna"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1575
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1592
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:359
 msgid "_Edit"
 msgstr "_Muokkaa"
 
@@ -1589,6 +1668,7 @@ msgstr "_Muokkaa"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1584
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1601
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:367
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:368
 msgid "System Snapshots"
 msgstr "Palautuspisteet"
 
@@ -1599,6 +1679,7 @@ msgstr "Palautuspisteet"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1589
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1606
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:372
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:373
 msgid "Software Sources"
 msgstr "Ohjelmistolähteet"
 
@@ -1609,6 +1690,7 @@ msgstr "Ohjelmistolähteet"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1611
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:394
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:395
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Päivitä käyttöjärjestelmä versioon %s"
@@ -1620,6 +1702,7 @@ msgstr "Päivitä käyttöjärjestelmä versioon %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1615
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:398
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:399
 msgid "_View"
 msgstr "_Näytä"
 
@@ -1637,6 +1720,8 @@ msgstr "_Näytä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2189
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1298
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:403
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1303
 msgid "History of Updates"
 msgstr "Päivityshistoria"
 
@@ -1647,6 +1732,7 @@ msgstr "Päivityshistoria"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1639
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:405
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:406
 msgid "Linux Kernels"
 msgstr "Linux Kernel"
 
@@ -1657,6 +1743,7 @@ msgstr "Linux Kernel"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1628
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:411
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:412
 msgid "Visible Columns"
 msgstr "Näkyvät sarakkeet"
 
@@ -1667,6 +1754,7 @@ msgstr "Näkyvät sarakkeet"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1655
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:421
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:422
 msgid "Package"
 msgstr "Paketti"
 
@@ -1677,6 +1765,7 @@ msgstr "Paketti"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:453
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:454
 msgid "Show Descriptions"
 msgstr "Näytä kuvaukset"
 
@@ -1687,6 +1776,7 @@ msgstr "Näytä kuvaukset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1687
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:470
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:471
 msgid "_Help"
 msgstr "_Ohje"
 
@@ -1697,6 +1787,7 @@ msgstr "_Ohje"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1709
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:475
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:476
 msgid "Welcome Screen"
 msgstr "Aloitusnäkymä"
 
@@ -1707,6 +1798,7 @@ msgstr "Aloitusnäkymä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1714
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:480
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:481
 msgid "Keyboard Shortcuts"
 msgstr "Pikanäppäimet"
 
@@ -1717,6 +1809,7 @@ msgstr "Pikanäppäimet"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1718
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:484
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:485
 msgid "Contents"
 msgstr "Sisältö"
 
@@ -1734,6 +1827,8 @@ msgstr "Sisältö"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2339
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:490
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1448
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:491
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1453
 msgid "About"
 msgstr "Tietoja"
 
@@ -1744,6 +1839,7 @@ msgstr "Tietoja"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1823
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1840
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:590
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:591
 msgid "Cannot Proceed"
 msgstr "Ei voida jatkaa"
 
@@ -1754,6 +1850,7 @@ msgstr "Ei voida jatkaa"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1824
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1841
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:591
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
@@ -1768,6 +1865,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1852
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1869
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:624
 msgid "Yes"
 msgstr "Kyllä"
 
@@ -1778,6 +1876,7 @@ msgstr "Kyllä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1853
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:625
 msgid "No"
 msgstr "Ei"
 
@@ -1790,6 +1889,7 @@ msgstr "Ei"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1872
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:623
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:600
 msgid "OK"
 msgstr "OK"
 
@@ -1800,8 +1900,9 @@ msgstr "OK"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1892
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1909
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:783
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:788
 msgid "No updates selected"
-msgstr "Päivityksiä ei valittu"
+msgstr "Ei valittuja päivityksiä"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1856
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
@@ -1812,6 +1913,7 @@ msgstr "Päivityksiä ei valittu"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:853
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:858
 msgid "Welcome to the Update Manager"
 msgstr "Tervetuloa päivitysten hallintaan"
 
@@ -1822,6 +1924,7 @@ msgstr "Tervetuloa päivitysten hallintaan"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2000
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2017
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:886
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 msgid "Most recent change"
 msgstr "Viimeisin muutos"
 
@@ -1842,6 +1945,7 @@ msgstr "Kuvaus"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2063
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1192
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1197
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "Tämä päivitys vaikuttaa seuraavaan asennettuun pakettiin:"
@@ -1854,6 +1958,7 @@ msgstr[1] "Tämä päivitys vaikuttaa seuraaviin asennettuihin paketteihin:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2060
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1194
 msgid "Total size:"
 msgstr "Koko yhteensä:"
 
@@ -1864,6 +1969,7 @@ msgstr "Koko yhteensä:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2077
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1206
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1211
 msgid "Ignore the current update for this package"
 msgstr "Ohita tämän paketin nykyinen päivitys"
 
@@ -1874,6 +1980,7 @@ msgstr "Ohita tämän paketin nykyinen päivitys"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2080
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2097
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1209
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1214
 msgid "Ignore all future updates for this package"
 msgstr "Ohita kaikki tämän paketin tulevat päivitykset"
 
@@ -1884,6 +1991,7 @@ msgstr "Ohita kaikki tämän paketin tulevat päivitykset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2181
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2198
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1307
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1312
 msgid "Date"
 msgstr "Päivämäärä"
 
@@ -1894,6 +2002,7 @@ msgstr "Päivämäärä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2187
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2204
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1313
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1318
 msgid "Update"
 msgstr "Päivitä"
 
@@ -1904,6 +2013,7 @@ msgstr "Päivitä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2233
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2249
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1358
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
 msgid "package"
 msgstr "paketti"
 
@@ -1914,6 +2024,7 @@ msgstr "paketti"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2417
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1533
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1538
 msgid "Options"
 msgstr "Asetukset"
 
@@ -1929,6 +2040,7 @@ msgstr "Mustalista"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2419
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1535
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1540
 msgid "Automation"
 msgstr "Automatisointi"
 
@@ -1939,6 +2051,7 @@ msgstr "Automatisointi"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2408
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1541
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
 msgid "Interface"
 msgstr "Käyttöliittymä"
 
@@ -1949,6 +2062,7 @@ msgstr "Käyttöliittymä"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1542
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1547
 msgid "Hide the update manager after applying updates"
 msgstr "Piilota päivitysten hallinta, kun päivitykset on toteutettu"
 
@@ -1959,6 +2073,7 @@ msgstr "Piilota päivitysten hallinta, kun päivitykset on toteutettu"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2410
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1543
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1548
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
 "Kuvake näytetään ilmoitusalueella kun päivityksiä on saatavilla tai on "
@@ -1971,6 +2086,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2412
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2429
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1545
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1550
 msgid "Auto-refresh"
 msgstr "Virkistä automaattisesti"
 
@@ -1981,6 +2097,7 @@ msgstr "Virkistä automaattisesti"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2430
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1551
 msgid "Refresh the list of updates automatically"
 msgstr "Virkistä päivitysluettelo automaattisesti"
 
@@ -1991,6 +2108,7 @@ msgstr "Virkistä päivitysluettelo automaattisesti"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2425
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2442
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1563
 msgid "days"
 msgstr "päivää"
 
@@ -2001,6 +2119,7 @@ msgstr "päivää"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2426
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2443
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1559
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1564
 msgid "hours"
 msgstr "tuntia"
 
@@ -2011,6 +2130,7 @@ msgstr "tuntia"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2427
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2444
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1560
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1565
 msgid "minutes"
 msgstr "minuuttia"
 
@@ -2021,6 +2141,7 @@ msgstr "minuuttia"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2428
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1561
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1566
 msgid "First, refresh the list of updates after:"
 msgstr "Ensiksi, päivitä lista päivityksien jälkeen:"
 
@@ -2031,6 +2152,7 @@ msgstr "Ensiksi, päivitä lista päivityksien jälkeen:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2432
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2449
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1565
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1570
 msgid "Then, refresh the list of updates every:"
 msgstr "Sitten, päivitä lista joka:"
 
@@ -2053,6 +2175,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2479
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2496
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1612
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1617
 msgid "Notifications"
 msgstr "Ilmoitukset"
 
@@ -2063,8 +2186,9 @@ msgstr "Ilmoitukset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2485
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2502
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1618
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1623
 msgid "Only show notifications for security and kernel updates"
-msgstr "Ilmoitukset näytetään vain päivityksistä kernel ja tietoturva"
+msgstr "Näytä ilmoitukset vain tietoturva- ja kernel-päivityksistä"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2298
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2357
@@ -2073,6 +2197,7 @@ msgstr "Ilmoitukset näytetään vain päivityksistä kernel ja tietoturva"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2487
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2504
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1625
 msgid ""
 "Show a notification if an update has been available for (in logged-in days):"
 msgstr ""
@@ -2085,6 +2210,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2489
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2506
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1622
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1627
 msgid "Show a notification if an update is older than (in days):"
 msgstr "Näytä ilmoitus, jos päivitys on vanhempi kuin (päivää):"
 
@@ -2095,6 +2221,7 @@ msgstr "Näytä ilmoitus, jos päivitys on vanhempi kuin (päivää):"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2491
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2508
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1624
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1629
 msgid ""
 "Don't show notifications if an update was applied in the last (in days):"
 msgstr "Älä näytä ilmoitusta, jos uusi päivitys lisätty saataville (päivää):"
@@ -2106,6 +2233,7 @@ msgstr "Älä näytä ilmoitusta, jos uusi päivitys lisätty saataville (päiv�
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2513
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2530
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1646
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1651
 msgid "Ignored Updates"
 msgstr "Sivuutetut päivitykset"
 
@@ -2116,6 +2244,7 @@ msgstr "Sivuutetut päivitykset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Package Updates"
 msgstr "Pakettien päivitykset"
 
@@ -2126,6 +2255,7 @@ msgstr "Pakettien päivitykset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2536
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1669
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
 msgid "Performed as root on a daily basis"
 msgstr "Suoritetaan pääkäyttäjänä päivittäin"
 
@@ -2136,6 +2266,7 @@ msgstr "Suoritetaan pääkäyttäjänä päivittäin"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2537
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2554
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1670
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1675
 msgid "Apply updates automatically"
 msgstr "Toteuta päivitykset automaattisesti"
 
@@ -2146,6 +2277,7 @@ msgstr "Toteuta päivitykset automaattisesti"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2541
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2558
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1674
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1679
 msgid "Export blacklist to /etc/mintupdate.blacklist"
 msgstr "Vie mustalista kohteeseen /etc/mintupdate.blacklist"
 
@@ -2167,6 +2299,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2550
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2567
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1683
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1688
 msgid "Update Cinnamon spices automatically"
 msgstr "Cinnamon spices päivitetään automaattisesti"
 
@@ -2181,6 +2314,7 @@ msgstr "Päivitä flatpak automaattisesti"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1689
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1694
 msgid "Other Updates"
 msgstr "Muut päivitykset"
 
@@ -2191,6 +2325,7 @@ msgstr "Muut päivitykset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2556
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2573
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1689
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1694
 msgid "Performed when you log in"
 msgstr "Suoritetaan, kun kirjaudut sisään"
 
@@ -2201,6 +2336,7 @@ msgstr "Suoritetaan, kun kirjaudut sisään"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Automatic Maintenance"
 msgstr "Automaattinen ylläpito"
 
@@ -2211,6 +2347,7 @@ msgstr "Automaattinen ylläpito"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2559
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2576
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1692
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
 msgid "Performed as root on a weekly basis"
 msgstr "Suoritetaan pääkäyttäjänä viikoittain"
 
@@ -2221,6 +2358,7 @@ msgstr "Suoritetaan pääkäyttäjänä viikoittain"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2560
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2577
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1693
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1698
 msgid "Remove obsolete kernels and dependencies"
 msgstr "Poista käyttämättömät kernelit riippuvuuksineen"
 
@@ -2231,6 +2369,7 @@ msgstr "Poista käyttämättömät kernelit riippuvuuksineen"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2564
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2581
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1697
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1702
 msgid ""
 "This option always leaves at least one older kernel installed and never "
 "removes manually installed kernels."
@@ -2245,6 +2384,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2620
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2637
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1752
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1757
 msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
@@ -2259,6 +2399,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2621
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2638
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1753
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1758
 msgid "Ignore an Update"
 msgstr "Sivuuta päivitys"
 
@@ -2269,6 +2410,7 @@ msgstr "Sivuuta päivitys"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2629
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2646
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1766
 msgid "Name:"
 msgstr "Nimi:"
 
@@ -2279,6 +2421,7 @@ msgstr "Nimi:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2631
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2648
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1763
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1768
 msgid "Version:"
 msgstr "Versio:"
 
@@ -2289,6 +2432,7 @@ msgstr "Versio:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2633
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2650
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1765
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1770
 msgid "(optional)"
 msgstr "(valinnainen)"
 
@@ -2501,9 +2645,9 @@ msgid ""
 "- Random system freeze"
 msgstr ""
 "- Ei langatonta verkkoa (tai lähiverkkoa)\n"
-"- Ei video kiihdytystä\n"
+"- Ei videokiihdytystä\n"
 "- Musta näyttö käynnistyksen yhteydessä\n"
-"- Satunnainen järjestelmän jäätyminen"
+"- Satunnainen jumiutuminen"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:14
@@ -2521,14 +2665,14 @@ msgid ""
 msgstr ""
 "- Käynnistä uudelleen.\n"
 "- Paina ja pidä vaihtonäppäin painettuna ja käynnistysvalikko näytetään.\n"
-"- Käynnistysvalikosta valitse rivi, jossa lukee \"Advanced options\".\n"
+"- Käynnistysvalikossa valitse rivi \"Advanced options\".\n"
 "- Valitse vanhempi kernel.\n"
 "- Kun tietokone on käynnistynyt vanhemmalla kernelillä, poista uusin."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Do not show this message again"
-msgstr "Älä näytä tätä viestiä uudelleen"
+msgstr "Älä näytä viestiä uudestaan"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:16
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
@@ -2601,6 +2745,7 @@ msgstr "Toteuta päivitys"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2418
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1534
 #: usr/share/linuxmint/mintupdate/main.ui.h:21
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1539
 msgid "Packages"
 msgstr "Paketit"
 
@@ -2705,6 +2850,7 @@ msgstr "Valitse kernel päivitykset"
 #: usr/lib/linuxmint/mintUpdate/flatpakUpdater.py:90
 #: usr/lib/linuxmint/mintUpdate/Classes.py:470
 #: usr/lib/linuxmint/mintUpdate/Classes.py:471
+#: usr/lib/linuxmint/mintUpdate/Classes.py:465
 msgid "A Flatpak runtime package"
 msgstr "Flatpak suorituspaketti"
 
@@ -2713,13 +2859,14 @@ msgstr "Flatpak suorituspaketti"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:855
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:869
 msgid "Checking for Flatpak updates"
-msgstr "Flatpak päivityksiä tarkistetaan"
+msgstr "Päivityksiä flatpak tarkistetaan"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1022
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1068
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1085
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2295
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2368
 msgid "Flatpak application"
 msgstr "Flatpak sovellus"
 
@@ -2728,6 +2875,7 @@ msgstr "Flatpak sovellus"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1070
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1087
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2297
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2370
 msgid "Flatpak runtime"
 msgstr "Flatpak suoritus"
 
@@ -2736,6 +2884,7 @@ msgstr "Flatpak suoritus"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1154
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1171
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2348
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2421
 #, python-format
 msgid "Error checking for flatpak updates: %s"
 msgstr "Virhe tarkistettaessa flatpak päivityksiä: %s"
@@ -2746,6 +2895,7 @@ msgstr "Virhe tarkistettaessa flatpak päivityksiä: %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2012
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2029
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:895
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:900
 #, python-format
 msgid "Website: %s"
 msgstr "Verkkosivu: %s"
@@ -2756,6 +2906,7 @@ msgstr "Verkkosivu: %s"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2058
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2075
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1184
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1189
 msgid "Total size: <"
 msgstr "Kokonaiskoko: <"
 
@@ -2765,6 +2916,7 @@ msgstr "Kokonaiskoko: <"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2553
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2570
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1691
 msgid "Update Flatpaks automatically"
 msgstr "Flatpak päivitetään automaattisesti"
 
@@ -2773,6 +2925,7 @@ msgstr "Flatpak päivitetään automaattisesti"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "Update types"
 msgstr "Päivitystyypit"
 
@@ -2781,6 +2934,7 @@ msgstr "Päivitystyypit"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2500
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2517
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1633
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
 msgid "In addition to system packages, check for:"
 msgstr "Tarkista järjestelmäpakettien lisäksi:"
 
@@ -2789,6 +2943,7 @@ msgstr "Tarkista järjestelmäpakettien lisäksi:"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2503
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2520
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1636
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1641
 msgid "Cinnamon spice updates"
 msgstr "Cinnamon spice päivitykset"
 
@@ -2798,6 +2953,7 @@ msgstr "Cinnamon spice päivitykset"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2522
 #: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:34
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1638
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1643
 msgid "Flatpak updates"
 msgstr "Flatpak päivitykset"
 
@@ -2828,11 +2984,13 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1023
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1040
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2327
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2400
 msgid "Nemo action"
 msgstr "Nemo toiminta"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:816
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2085
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2090
 msgid ""
 "You have installed updates that require a reboot to take effect. Please "
 "reboot your system as soon as possible."
@@ -2842,6 +3000,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:902
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2172
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2251
 msgid ""
 "Do not install or update anything - doing so could break your operating "
 "system!"
@@ -2849,6 +3008,7 @@ msgstr "Älä asenna tai päivitä mitään - se voi rikkoa käyttöjärjestelm�
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2492
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1608
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1613
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(in system tray mode)."
@@ -2858,6 +3018,7 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2562
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1678
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1683
 msgid ""
 "Click this button to make automatic updates use your current blacklist."
 msgstr ""
@@ -2865,12 +3026,18 @@ msgstr ""
 "mustaa listaa."
 
 #: usr/lib/linuxmint/mintUpdate/Classes.py:425
+#: usr/lib/linuxmint/mintUpdate/Classes.py:419
 msgid "Installing"
 msgstr "Asennetaan"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2445
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2523
 msgid "Could not update Cinnamon Spices"
 msgstr "Cinnamon Spicesia ei voitu päivittää"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2094
+msgid "Reboot"
+msgstr ""
 
 #~ msgid "Update is complete"
 #~ msgstr "Päivitys on valmis"
