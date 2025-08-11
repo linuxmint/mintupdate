@@ -57,6 +57,19 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">12</property>
+                <!-- Top actions -->
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="button_install_file">
+                        <property name="label" translatable="yes">Install Firmware Archive…</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
                 <!-- Banners (GTK3 InfoBars) -->
                 <child>
                   <object class="GtkInfoBar" id="infobar_device_list">
@@ -70,6 +83,29 @@
                             <property name="label" translatable="yes">Unsupported Devices Detected</property>
                             <property name="xalign">0</property>
                           </object>
+                        </child>
+                        <!-- Attestation buttons -->
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkButton" id="button_verify">
+                                <property name="label" translatable="yes">Verify</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="button_verify_update">
+                                <property name="label" translatable="yes">Store…</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">15</property>
+                            <property name="width">2</property>
+                          </packing>
                         </child>
                         <child>
                           <object class="GtkButton" id="button_device_list">

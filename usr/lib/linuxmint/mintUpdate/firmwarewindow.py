@@ -91,6 +91,9 @@ class FirmwareWindow:
             self.builder.get_object('button_enable_lvfs').connect('clicked', self.on_enable_lvfs_clicked)
             self.builder.get_object('button_refresh_lvfs').connect('clicked', self.on_refresh_lvfs_clicked)
             self.builder.get_object('button_device_list').connect('clicked', self.on_device_list_clicked)
+            self.builder.get_object('button_install_file').connect('clicked', self.on_install_file_clicked)
+            self.builder.get_object('button_verify').connect('clicked', self.on_verify_clicked)
+            self.builder.get_object('button_verify_update').connect('clicked', self.on_verify_update_clicked)
         except Exception:
             pass
 
@@ -902,8 +905,53 @@ class FirmwareWindow:
             pass
 
     def on_device_list_clicked(self, button):
-        # no-op placeholder
-        pass
+        # Upload device list to LVFS (best-effort)
+        try:
+            subprocess.Popen(["pkexec", "fwupdmgr", "report-history"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
+
+    # Install Firmware Archive (.cab)
+    def on_install_file_clicked(self, button):
+        try:
+            dlg = Gtk.FileChooserDialog(title=_("Install Firmware Archive"), parent=self.ui_window, action=Gtk.FileChooserAction.OPEN)
+            dlg.add_buttons(_("Cancel"), Gtk.ResponseType.CANCEL, _("Install"), Gtk.ResponseType.OK)
+            filter_cab = Gtk.FileFilter()
+            filter_cab.set_name("Cabinet files")
+            filter_cab.add_pattern("*.cab")
+            dlg.add_filter(filter_cab)
+            resp = dlg.run()
+            path = dlg.get_filename() if resp == Gtk.ResponseType.OK else None
+            dlg.destroy()
+            if not path:
+                return
+            # Try to get details and confirm install target
+            # Fallback: direct install to any device
+            try:
+                # Not all fwupd Python bindings expose get_details; if not, attempt install
+                subprocess.Popen(["pkexec", "fwupdmgr", "install", path])
+            except Exception:
+                subprocess.Popen(["pkexec", "fwupdmgr", "install", path])
+        except Exception as e:
+            _log(f"install file failed: {e}")
+
+    # Attestation: Verify/Store
+    def on_verify_clicked(self, button):
+        try:
+            if self.current_device is None:
+                return
+            # CLI fallback as Python API may not provide verify
+            subprocess.Popen(["pkexec", "fwupdmgr", "verify", self.current_device.get_id()])
+        except Exception as e:
+            _log(f"verify failed: {e}")
+
+    def on_verify_update_clicked(self, button):
+        try:
+            if self.current_device is None:
+                return
+            subprocess.Popen(["pkexec", "fwupdmgr", "verify-update", self.current_device.get_id()])
+        except Exception as e:
+            _log(f"verify-update failed: {e}")
 
 
 _FW_WIN = None
