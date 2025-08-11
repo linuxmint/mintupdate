@@ -42,7 +42,7 @@ class FirmwareWindow:
 
         self.ui_window.set_title(self.ui_window.get_title() + " (dev)")
         try:
-            # Wycentruj okno na ekranie
+            # Center the window on screen
             self.ui_window.set_position(Gtk.WindowPosition.CENTER)
         except Exception:
             pass
@@ -50,15 +50,15 @@ class FirmwareWindow:
         self.ui_spinner.start()
         self.ui_stack.set_visible_child_name("refresh_page")
 
-        # elementy listy
+        # list widgets
         self.ui_listbox_devices.connect("row-activated", self.on_device_selected)
         # select first device by default when devices are loaded
 
-        # dane
+        # data
         self.client = None
         self.devices = []
         self.current_device = None
-        # nowe etykiety
+        # new labels
         self.ui_label_device_vendor_ids = self.builder.get_object("label_device_vendor_ids")
         self.ui_label_device_plugin = self.builder.get_object("label_device_plugin")
         self.ui_label_device_serial = self.builder.get_object("label_device_serial")
@@ -135,7 +135,7 @@ class FirmwareWindow:
 
     def install_fwupd_packages(self):
         apt = shutil.which("apt-get") or "apt-get"
-        # najpierw spróbuj z 2.0, potem 1.0
+        # try 2.0 first, then 1.0
         install_cmd1 = [apt, "-y", "-o", "Dpkg::Use-Pty=0",
                         "install", "fwupd", "gir1.2-fwupd-2.0"]
         install_cmd2 = [apt, "-y", "-o", "Dpkg::Use-Pty=0",
@@ -150,7 +150,7 @@ class FirmwareWindow:
         if not ok:
             self.show_error_label("Failed to install fwupd/GIR")
             return
-        # spróbuj ponownie załadować Fwupd i wystartować klienta
+        # Try to reload Fwupd and start the client
         try:
             gi.require_version('Fwupd', '2.0')
         except ValueError:
@@ -176,7 +176,7 @@ class FirmwareWindow:
         self.client.connect_async(None, self.on_client_connected, None)
 
     def on_device_signal(self, *args):
-        # Prosto: odśwież listę urządzeń po dowolnym sygnale
+        # Simply refresh device list on any signal
         try:
             _log("device signal received, refreshing devices")
         except Exception:
@@ -220,7 +220,7 @@ class FirmwareWindow:
                     pass
                 feature_flags_obj = Fwupd.FeatureFlags(flags_value)
             except Exception:
-                # fallback do NONE jeśli istnieje
+                # fallback to NONE if it exists
                 try:
                     feature_flags_obj = getattr(Fwupd.FeatureFlags, "NONE")
                 except Exception:
@@ -229,7 +229,7 @@ class FirmwareWindow:
             _log(f"setting feature flags: {int(feature_flags_obj)}")
             self.client.set_feature_flags_async(feature_flags_obj, None, self.on_flags_set, None)
         else:
-            # od razu pobierz urządzenia
+            # fetch devices immediately
             _log("feature flags API not available, fetching devices")
             self.client.get_devices_async(None, self.on_devices_ready, None)
 
@@ -250,7 +250,7 @@ class FirmwareWindow:
             self.show_error_label(str(e))
             return
 
-        # wypełnij listę urządzeń
+        # fill the device list
         self.ui_listbox_devices.foreach(lambda w: self.ui_listbox_devices.remove(w))
         for dev in self.devices:
             name = dev.get_name() or dev.get_id()
@@ -275,7 +275,7 @@ class FirmwareWindow:
         except Exception:
             pass
 
-        # pokaż UI
+        # show UI
         self.ui_spinner.stop()
         self.ui_stack.set_visible_child_name("firmware_page")
 
@@ -354,7 +354,7 @@ class FirmwareWindow:
             _log(f"releases fetched: {len(releases)}")
         except GLib.Error as e:
             _log(f"get_releases_finish error: {e}")
-            # Przyjazna obsługa typowego błędu: "no version set (10)"
+            # Friendly handling of common error: "no version set (10)"
             msg = str(e)
             if "no version set" in msg.lower():
                 self.add_info_row(self.ui_listbox_releases, _("No releases available for this device"))
@@ -419,7 +419,7 @@ class FirmwareWindow:
                 None,
             )
         else:
-            # starsze API
+            # older API
             _log("using install_release2_async")
             self.client.install_release2_async(
                 self.current_device,
