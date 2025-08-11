@@ -106,6 +106,8 @@ class FirmwareWindow:
         except Exception:
             pass
         _log("window shown")
+        # state for install flow
+        self._pending_release = None
 
     def show_error_label(self, text):
         self.ui_spinner.stop()
@@ -543,16 +545,131 @@ class FirmwareWindow:
     def on_install_clicked(self, button, release):
         if self.current_device is None:
             return
-        flags = getattr(Fwupd.InstallFlags, "NONE", 0)
         try:
             _log(f"install clicked: device={self.current_device.get_id()} release={release.get_version()}")
+        except Exception:
+            pass
+        self._pending_release = release
+        self._show_install_confirmation()
+
+    def _get_release_flags_value(self, release):
+        try:
+            return int(getattr(release, 'get_flags', lambda: 0)() or 0)
+        except Exception:
+            return 0
+
+    def _release_has_flag(self, release, flag_name):
+        RF = getattr(Fwupd, 'ReleaseFlags', None)
+        try:
+            flag_obj = getattr(RF, flag_name, None) if RF else None
+            if flag_obj is None:
+                return False
+            flags_val = self._get_release_flags_value(release)
+            return (flags_val & int(flag_obj)) != 0
+        except Exception:
+            return False
+
+    def _device_has_flag(self, device, flag_name):
+        DF = getattr(Fwupd, 'DeviceFlag', None)
+        try:
+            flag_obj = getattr(DF, flag_name, None) if DF else None
+            if flag_obj is None:
+                return False
+            if hasattr(device, 'has_flag'):
+                return device.has_flag(flag_obj)
+            flags_val = getattr(device, 'get_flags', lambda: 0)() or 0
+            return (int(flags_val) & int(flag_obj)) != 0
+        except Exception:
+            return False
+
+    def _show_install_confirmation(self):
+        rel = self._pending_release
+        if rel is None:
+            return
+        # Title by intent
+        title = None
+        if self._release_has_flag(rel, 'IS_UPGRADE'):
+            title = _(f"Upgrade To {rel.get_version()}?")
+        elif self._release_has_flag(rel, 'IS_DOWNGRADE'):
+            title = _(f"Downgrade To {rel.get_version()}?")
+        else:
+            title = _(f"Reinstall {rel.get_version()}?")
+        # Body: usability warning
+        body = _("The device may be unusable while the update is installing.")
+        if self._device_has_flag(self.current_device, 'USABLE_DURING_UPDATE'):
+            body = _("The device will remain usable for the duration of the update.")
+        dlg = Gtk.MessageDialog(transient_for=self.ui_window,
+                                 flags=0,
+                                 message_type=Gtk.MessageType.QUESTION,
+                                 buttons=Gtk.ButtonsType.NONE,
+                                 text=title)
+        dlg.format_secondary_text(body)
+        dlg.add_buttons(_("Cancel"), Gtk.ResponseType.CANCEL,
+                        _("Continue"), Gtk.ResponseType.OK)
+        resp = dlg.run()
+        dlg.destroy()
+        if resp != Gtk.ResponseType.OK:
+            self._pending_release = None
+            return
+        # Additional warnings
+        self._maybe_show_branch_fde_warnings()
+
+    def _maybe_show_branch_fde_warnings(self):
+        rel = self._pending_release
+        if rel is None:
+            return
+        warnings = []
+        try:
+            dev_vendor = self.current_device.get_vendor() if hasattr(self.current_device, 'get_vendor') else None
+            rel_vendor = getattr(rel, 'get_vendor', lambda: None)()
+            if rel_vendor and dev_vendor and rel_vendor != dev_vendor:
+                warnings.append(_("Firmware not supplied by the device vendor. Proceed with caution."))
+        except Exception:
+            pass
+        try:
+            dev_branch = getattr(self.current_device, 'get_branch', lambda: None)()
+            rel_branch = getattr(rel, 'get_branch', lambda: None)()
+            if rel_branch and dev_branch and rel_branch != dev_branch:
+                warnings.append(_("This release is from an alternate branch."))
+        except Exception:
+            pass
+        if self._device_has_flag(self.current_device, 'AFFECTS_FDE'):
+            warnings.append(_("Full Disk Encryption: some platform secrets may be invalidated. Ensure you have recovery keys."))
+        if warnings:
+            dlg = Gtk.MessageDialog(transient_for=self.ui_window,
+                                    flags=0,
+                                    message_type=Gtk.MessageType.WARNING,
+                                    buttons=Gtk.ButtonsType.NONE,
+                                    text=_("Additional Warnings"))
+            dlg.format_secondary_text("\n\n".join(warnings))
+            dlg.add_buttons(_("Cancel"), Gtk.ResponseType.CANCEL,
+                            _("Continue"), Gtk.ResponseType.OK)
+            resp = dlg.run()
+            dlg.destroy()
+            if resp != Gtk.ResponseType.OK:
+                self._pending_release = None
+                return
+        # Proceed to install
+        self._perform_install()
+
+    def _perform_install(self):
+        rel = self._pending_release
+        if rel is None:
+            return
+        flags = getattr(Fwupd.InstallFlags, "NONE", 0)
+        try:
+            if self._release_has_flag(rel, 'IS_DOWNGRADE'):
+                flags |= getattr(Fwupd.InstallFlags, 'ALLOW_OLDER', 0)
+            elif not self._release_has_flag(rel, 'IS_UPGRADE'):
+                # reinstall
+                flags |= getattr(Fwupd.InstallFlags, 'ALLOW_REINSTALL', 0)
         except Exception:
             pass
         if hasattr(self.client, "install_release_async"):
             _log("using install_release_async")
             self.client.install_release_async(
                 self.current_device,
-                release,
+                rel,
                 flags,
                 getattr(Fwupd.ClientDownloadFlags, "NONE", 0),
                 None,
@@ -560,11 +677,10 @@ class FirmwareWindow:
                 None,
             )
         else:
-            # older API
             _log("using install_release2_async")
             self.client.install_release2_async(
                 self.current_device,
-                release,
+                rel,
                 flags,
                 getattr(Fwupd.ClientDownloadFlags, "NONE", 0),
                 None,
@@ -648,6 +764,37 @@ class FirmwareWindow:
             self.add_info_row(self.ui_listbox_releases, str(e))
             return
         self.load_releases(self.current_device)
+        # post actions: reboot/shutdown prompts
+        try:
+            if self._device_has_flag(self.current_device, 'NEEDS_SHUTDOWN'):
+                dlg = Gtk.MessageDialog(transient_for=self.ui_window,
+                                        flags=0,
+                                        message_type=Gtk.MessageType.INFO,
+                                        buttons=Gtk.ButtonsType.NONE,
+                                        text=_("Shutdown Required"))
+                dlg.format_secondary_text(_("The update requires the system to shutdown to complete."))
+                dlg.add_buttons(_("Later"), Gtk.ResponseType.CANCEL,
+                                _("Shutdown"), Gtk.ResponseType.OK)
+                resp = dlg.run()
+                dlg.destroy()
+                if resp == Gtk.ResponseType.OK:
+                    subprocess.Popen(["pkexec", "systemctl", "poweroff"])  # best-effort
+                return
+            if self._device_has_flag(self.current_device, 'NEEDS_REBOOT'):
+                dlg = Gtk.MessageDialog(transient_for=self.ui_window,
+                                        flags=0,
+                                        message_type=Gtk.MessageType.INFO,
+                                        buttons=Gtk.ButtonsType.NONE,
+                                        text=_("Reboot Required"))
+                dlg.format_secondary_text(_("The update requires a reboot to complete."))
+                dlg.add_buttons(_("Later"), Gtk.ResponseType.CANCEL,
+                                _("Reboot"), Gtk.ResponseType.OK)
+                resp = dlg.run()
+                dlg.destroy()
+                if resp == Gtk.ResponseType.OK:
+                    subprocess.Popen(["pkexec", "systemctl", "reboot"])  # best-effort
+        except Exception:
+            pass
 
     # utils
     def clear_listbox(self, listbox):
