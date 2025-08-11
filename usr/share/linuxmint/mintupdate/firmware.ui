@@ -57,6 +57,73 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">12</property>
+                <!-- Banners (GTK3 InfoBars) -->
+                <child>
+                  <object class="GtkInfoBar" id="infobar_device_list">
+                    <property name="visible">False</property>
+                    <property name="message-type">warning</property>
+                    <child internal-child="content_area">
+                      <object class="GtkBox">
+                        <property name="orientation">horizontal</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Unsupported Devices Detected</property>
+                            <property name="xalign">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="button_device_list">
+                            <property name="label" translatable="yes">Show Details…</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkInfoBar" id="infobar_enable_lvfs">
+                    <property name="visible">False</property>
+                    <property name="message-type">info</property>
+                    <child internal-child="content_area">
+                      <object class="GtkBox">
+                        <property name="orientation">horizontal</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Firmware Service Disabled</property>
+                            <property name="xalign">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="button_enable_lvfs">
+                            <property name="label" translatable="yes">Enable…</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkInfoBar" id="infobar_refresh_lvfs">
+                    <property name="visible">False</property>
+                    <property name="message-type">info</property>
+                    <child internal-child="content_area">
+                      <object class="GtkBox">
+                        <property name="orientation">horizontal</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Firmware Metadata Outdated</property>
+                            <property name="xalign">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="button_refresh_lvfs">
+                            <property name="label" translatable="yes">Refresh…</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
                 <child>
                   <object class="GtkFrame" id="frame_summary">
                     <property name="visible">True</property>
@@ -470,6 +537,17 @@
                             </child>
                           </object>
                         </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <!-- Progress bar revealer at the bottom -->
+                <child>
+                  <object class="GtkRevealer" id="revealer_progress">
+                    <property name="reveal-child">False</property>
+                    <child>
+                      <object class="GtkProgressBar" id="progress_bar">
+                        <property name="show-text">True</property>
                       </object>
                     </child>
                   </object>

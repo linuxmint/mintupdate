@@ -86,9 +86,19 @@ class FirmwareWindow:
         self.client.connect("device-added", self.on_device_signal)
         self.client.connect("device-removed", self.on_device_signal)
         self.client.connect("device-changed", self.on_device_signal)
+        # buttons in banners
+        try:
+            self.builder.get_object('button_enable_lvfs').connect('clicked', self.on_enable_lvfs_clicked)
+            self.builder.get_object('button_refresh_lvfs').connect('clicked', self.on_refresh_lvfs_clicked)
+            self.builder.get_object('button_device_list').connect('clicked', self.on_device_list_clicked)
+        except Exception:
+            pass
 
         _log("connecting to fwupd (async)")
         self.client.connect_async(None, self.on_client_connected, None)
+        # progress widgets
+        self.ui_progress_revealer = self.builder.get_object("revealer_progress")
+        self.ui_progress_bar = self.builder.get_object("progress_bar")
 
         self.ui_window.show_all()
         try:
@@ -247,6 +257,12 @@ class FirmwareWindow:
         except GLib.Error as e:
             _log(f"set_feature_flags_finish error: {e}")
         self.client.get_devices_async(None, self.on_devices_ready, None)
+        # also fetch remotes to update banners
+        try:
+            if hasattr(self.client, 'get_remotes_async'):
+                self.client.get_remotes_async(None, self.on_remotes_ready, None)
+        except Exception as e:
+            _log(f"get_remotes_async failed: {e}")
 
     def on_devices_ready(self, source, result, user_data):
         try:
@@ -577,8 +593,96 @@ class FirmwareWindow:
             status = self.client.get_status()
             pct = self.client.get_percentage()
             _log(f"status={status} pct={pct}")
+            # update progress UI
+            if status in (getattr(Fwupd, 'Status', None) or []):
+                pass
+            # show revealer unless idle/unknown
+            show = True
+            try:
+                if status in (getattr(Fwupd.Status, 'IDLE', -1), getattr(Fwupd.Status, 'UNKNOWN', -2)):
+                    show = False
+            except Exception:
+                pass
+            if self.ui_progress_revealer:
+                self.ui_progress_revealer.set_reveal_child(show)
+            if self.ui_progress_bar:
+                if pct and pct > 0:
+                    self.ui_progress_bar.set_fraction(min(1.0, float(pct)/100.0))
+                else:
+                    self.ui_progress_bar.pulse()
         except Exception:
             pass
+
+    # remotes/banners
+    def on_remotes_ready(self, source, result, user_data):
+        try:
+            remotes = self.client.get_remotes_finish(result)
+        except Exception as e:
+            _log(f"get_remotes_finish error: {e}")
+            return
+        # determine LVFS state and needs refresh
+        lvfs_enabled = False
+        lvfs_needs_refresh = False
+        enabled_any_download_remote = False
+        try:
+            for remote in remotes or []:
+                # API shape differs by version; try multiple getters
+                try:
+                    rid = remote.get_id()
+                except Exception:
+                    rid = getattr(remote, 'id', None)
+                try:
+                    enabled = remote.get_enabled() if hasattr(remote, 'get_enabled') else False
+                except Exception:
+                    enabled = getattr(remote, 'enabled', False)
+                try:
+                    kind = remote.get_kind() if hasattr(remote, 'get_kind') else None
+                except Exception:
+                    kind = getattr(remote, 'kind', None)
+                if str(rid) == 'lvfs':
+                    lvfs_enabled = bool(enabled)
+                    try:
+                        lvfs_needs_refresh = bool(remote.needs_refresh()) if hasattr(remote, 'needs_refresh') else False
+                    except Exception:
+                        lvfs_needs_refresh = False
+                if enabled and (str(kind).lower() == 'download' or kind == 1):
+                    enabled_any_download_remote = True
+        except Exception as e:
+            _log(f"remotes parse error: {e}")
+        # update banners
+        try:
+            inf_enable = self.builder.get_object('infobar_enable_lvfs')
+            inf_refresh = self.builder.get_object('infobar_refresh_lvfs')
+            if not lvfs_enabled and not enabled_any_download_remote:
+                inf_enable.set_visible(True)
+                inf_refresh.set_visible(False)
+            elif lvfs_needs_refresh:
+                inf_enable.set_visible(False)
+                inf_refresh.set_visible(True)
+            else:
+                inf_enable.set_visible(False)
+                inf_refresh.set_visible(False)
+        except Exception:
+            pass
+
+    def on_refresh_lvfs_clicked(self, button):
+        try:
+            if hasattr(self.client, 'refresh_remote_async'):
+                # best-effort: no direct lvfs object, fallback to fwupdmgr refresh
+                subprocess.Popen(["pkexec", "fwupdmgr", "refresh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception:
+            subprocess.Popen(["pkexec", "fwupdmgr", "refresh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    def on_enable_lvfs_clicked(self, button):
+        try:
+            # enable LVFS via CLI as a fallback
+            subprocess.Popen(["pkexec", "fwupdmgr", "enable-remote", "lvfs"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
+
+    def on_device_list_clicked(self, button):
+        # no-op placeholder
+        pass
 
 
 _FW_WIN = None
