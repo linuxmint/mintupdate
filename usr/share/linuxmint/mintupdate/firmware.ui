@@ -355,6 +355,380 @@
       </object>
     </child>
   </object>
+  <!-- Release details dialog -->
+  <object class="GtkDialog" id="release_dialog">
+    <property name="title" translatable="yes">Release Details</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkViewport">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkGrid" id="grid_release_details">
+                    <property name="visible">True</property>
+                    <property name="row-spacing">6</property>
+                    <property name="column-spacing">12</property>
+                    <property name="margin">12</property>
+                    <!-- Summary -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Summary:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_summary">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">0</property>
+                      </packing>
+                    </child>
+                    <!-- Description -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Description:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_description">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">1</property>
+                      </packing>
+                    </child>
+                    <!-- Vendor -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Vendor:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_vendor">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">2</property>
+                      </packing>
+                    </child>
+                    <!-- Filename -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Filename:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">3</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_filename">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">3</property>
+                      </packing>
+                    </child>
+                    <!-- Size -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Size:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_size">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">4</property>
+                      </packing>
+                    </child>
+                    <!-- Protocol -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Protocol:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_protocol">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">5</property>
+                      </packing>
+                    </child>
+                    <!-- Remote ID -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Remote ID:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_remote">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">6</property>
+                      </packing>
+                    </child>
+                    <!-- AppStream ID -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">AppStream ID:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">7</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_appstream_id">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                        <style>
+                          <class name="monospace"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">7</property>
+                      </packing>
+                    </child>
+                    <!-- License -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">License:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_license">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">8</property>
+                      </packing>
+                    </child>
+                    <!-- Flags -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Flags:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">9</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_flags">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">9</property>
+                      </packing>
+                    </child>
+                    <!-- Install Duration -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Install Duration:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">10</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_install_duration">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">10</property>
+                      </packing>
+                    </child>
+                    <!-- Update Message -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Update Message:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">11</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_update_message">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">11</property>
+                      </packing>
+                    </child>
+                    <!-- Categories -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Categories:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">12</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_categories">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">12</property>
+                      </packing>
+                    </child>
+                    <!-- Issues -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Issues:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">13</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_issues">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">13</property>
+                      </packing>
+                    </child>
+                    <!-- Checksum -->
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Checksum:</property>
+                        <property name="xalign">0</property>
+                      </object>
+                      <packing>
+                        <property name="left-attach">0</property>
+                        <property name="top-attach">14</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label_release_checksum">
+                        <property name="xalign">0</property>
+                        <property name="selectable">True</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <style>
+                          <class name="monospace"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="left-attach">1</property>
+                        <property name="top-attach">14</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButtonBox">
+            <property name="layout-style">end</property>
+            <child>
+              <object class="GtkButton" id="button_release_close">
+                <property name="label" translatable="yes">Close</property>
+                <property name="receives-default">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>
 
 

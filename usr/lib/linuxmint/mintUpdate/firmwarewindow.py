@@ -383,6 +383,12 @@ class FirmwareWindow:
             except Exception:
                 btn = Gtk.Button(label="Install")
             btn.connect("clicked", self.on_install_clicked, rel)
+            # Details button
+            try:
+                btn_details = Gtk.Button(label=_("Details"))
+            except Exception:
+                btn_details = Gtk.Button(label="Details")
+            btn_details.connect("clicked", self.on_release_details_clicked, rel)
             if unknown_version:
                 btn.set_sensitive(False)
                 try:
@@ -390,7 +396,10 @@ class FirmwareWindow:
                 except Exception:
                     pass
             h.pack_start(v, True, True, 0)
-            h.pack_end(btn, False, False, 0)
+            btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+            btn_box.pack_end(btn, False, False, 0)
+            btn_box.pack_end(btn_details, False, False, 0)
+            h.pack_end(btn_box, False, False, 0)
             row.add(h)
             self.ui_listbox_releases.add(row)
         self.ui_listbox_releases.show_all()
@@ -430,6 +439,72 @@ class FirmwareWindow:
                 self.on_install_done,
                 None,
             )
+
+    def on_release_details_clicked(self, button, release):
+        try:
+            dlg = self.builder.get_object("release_dialog")
+            if dlg is None:
+                return
+            # fill fields
+            def set_label(name, text):
+                w = self.builder.get_object(name)
+                if w:
+                    w.set_text(text or "-")
+            set_label("label_release_summary", release.get_summary() or "-")
+            set_label("label_release_description", release.get_description() or "-")
+            set_label("label_release_vendor", release.get_vendor() or "-")
+            set_label("label_release_filename", release.get_filename() or "-")
+            try:
+                size_val = getattr(release, 'get_size', None)
+                size_str = f"{size_val()} B" if callable(size_val) and size_val() else "-"
+                set_label("label_release_size", size_str)
+            except Exception:
+                set_label("label_release_size", "-")
+            set_label("label_release_protocol", getattr(release, 'get_protocol', lambda: None)() or "-")
+            set_label("label_release_remote", getattr(release, 'get_remote', lambda: None)() or "-")
+            set_label("label_release_appstream_id", getattr(release, 'get_appstream_id', lambda: None)() or "-")
+            set_label("label_release_license", getattr(release, 'get_license', lambda: None)() or "-")
+            # flags
+            try:
+                flags_val = getattr(release, 'get_flags', lambda: 0)()
+                set_label("label_release_flags", str(flags_val))
+            except Exception:
+                set_label("label_release_flags", "-")
+            # install duration
+            try:
+                dur = getattr(release, 'get_install_duration', lambda: 0)()
+                set_label("label_release_install_duration", str(dur) if dur else "-")
+            except Exception:
+                set_label("label_release_install_duration", "-")
+            set_label("label_release_update_message", getattr(release, 'get_update_message', lambda: None)() or "-")
+            # categories
+            try:
+                cats = getattr(release, 'get_categories', lambda: [])()
+                set_label("label_release_categories", ", ".join(cats) if cats else "-")
+            except Exception:
+                set_label("label_release_categories", "-")
+            # issues
+            try:
+                issues = getattr(release, 'get_issues', lambda: [])()
+                set_label("label_release_issues", ", ".join(issues) if issues else "-")
+            except Exception:
+                set_label("label_release_issues", "-")
+            # checksum(s)
+            try:
+                chks = getattr(release, 'get_checksums', lambda: [])()
+                set_label("label_release_checksum", "\n".join(chks) if chks else "-")
+            except Exception:
+                set_label("label_release_checksum", "-")
+            # wire close
+            close_btn = self.builder.get_object("button_release_close")
+            if close_btn:
+                close_btn.connect("clicked", lambda *_: dlg.response(Gtk.ResponseType.CLOSE))
+            dlg.set_transient_for(self.ui_window)
+            dlg.show_all()
+            dlg.run()
+            dlg.hide()
+        except Exception as e:
+            _log(f"release details dialog failed: {e}")
 
     def on_install_done(self, source, result, user_data):
         try:
