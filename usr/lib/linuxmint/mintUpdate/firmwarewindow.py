@@ -339,27 +339,28 @@ class FirmwareWindow:
             self.ui_label_device_serial.set_text(serial or "-")
         except Exception:
             self.ui_label_device_serial.set_text("-")
-        # Flags
+        # Flags (friendly mapping)
         try:
-            flags_val = dev.get_flags() if hasattr(dev, 'get_flags') else 0
-            self.ui_label_device_flags.set_text(str(flags_val))
+            self.ui_label_device_flags.set_text(self._format_device_flags(dev))
         except Exception:
             self.ui_label_device_flags.set_text("-")
         # Problems / Update error
         try:
-            problems = []
-            if hasattr(dev, 'get_update_error'):
-                err = dev.get_update_error()
-                if err:
-                    problems.append(err)
-            self.ui_label_device_update_error.set_text("; ".join(problems) if problems else "-")
-        except Exception:
-            self.ui_label_device_update_error.set_text("-")
-        try:
-            # fwupd may provide problem fields; if absent, leave "-"
-            self.ui_label_device_problems.set_text("-")
+            problems_text = self._format_device_problems(dev)
+            if problems_text:
+                self.ui_label_device_problems.set_text(problems_text)
+                self.ui_label_device_update_error.set_text("-")
+            else:
+                self.ui_label_device_problems.set_text("-")
+                err = getattr(dev, 'get_update_error', lambda: None)()
+                self.ui_label_device_update_error.set_text(err or "-")
         except Exception:
             self.ui_label_device_problems.set_text("-")
+            try:
+                err = getattr(dev, 'get_update_error', lambda: None)()
+                self.ui_label_device_update_error.set_text(err or "-")
+            except Exception:
+                self.ui_label_device_update_error.set_text("-")
         # Additional fields (best-effort, guarded with hasattr)
         try:
             lowest = getattr(dev, 'get_version_lowest', lambda: None)()
@@ -395,6 +396,79 @@ class FirmwareWindow:
             self.ui_label_device_lock_status.set_text("Locked" if locked else "Unlocked")
         except Exception:
             self.ui_label_device_lock_status.set_text("-")
+
+    # helpers
+    def _format_device_flags(self, dev):
+        flags_val = getattr(dev, 'get_flags', lambda: 0)() or 0
+        # try has_flag
+        def has_flag(flag_obj, bit_val=None):
+            try:
+                if hasattr(dev, 'has_flag') and flag_obj is not None:
+                    return dev.has_flag(flag_obj)
+            except Exception:
+                pass
+            if bit_val is not None:
+                try:
+                    return (int(flags_val) & int(bit_val)) != 0
+                except Exception:
+                    return False
+            return False
+        friendly = []
+        DF = getattr(Fwupd, 'DeviceFlag', None)
+        mapping = [
+            ('UPDATABLE', 'Updatable'),
+            ('INTERNAL', 'Internal'),
+            ('NEEDS_REBOOT', 'Needs reboot'),
+            ('NEEDS_SHUTDOWN', 'Needs shutdown'),
+            ('REQUIRES_AC', 'Requires AC power'),
+            ('IS_BOOTLOADER', 'Bootloader'),
+            ('CAN_VERIFY', 'Can verify'),
+            ('CAN_VERIFY_IMAGE', 'Can verify image'),
+            ('LOCKED', 'Locked'),
+            ('REMOVABLE', 'Removable'),
+            ('USABLE_DURING_UPDATE', 'Usable during update'),
+            ('AFFECTS_FDE', 'Affects full-disk encryption'),
+        ]
+        for name, label in mapping:
+            obj = getattr(DF, name, None) if DF else None
+            bit_val = int(obj) if obj is not None else None
+            if has_flag(obj, bit_val):
+                friendly.append(label)
+        # include unknown bits for debugging
+        if not friendly and flags_val:
+            friendly.append(str(flags_val))
+        return ", ".join(friendly) if friendly else "-"
+
+    def _format_device_problems(self, dev):
+        # Best-effort using DeviceProblem bitmask if available
+        DP = getattr(Fwupd, 'DeviceProblem', None)
+        problems_val = getattr(dev, 'get_problems', lambda: 0)()
+        texts = []
+        def has_problem(bit):
+            try:
+                if hasattr(dev, 'has_problem') and bit is not None:
+                    return dev.has_problem(bit)
+            except Exception:
+                pass
+            try:
+                return (int(problems_val) & int(bit)) != 0
+            except Exception:
+                return False
+        problem_map = [
+            ('SYSTEM_POWER_TOO_LOW', 'System power is too low'),
+            ('UNREACHABLE', 'Device is unreachable'),
+            ('POWER_TOO_LOW', 'Device battery power is too low'),
+            ('UPDATE_PENDING', 'Device is waiting for the update to be applied'),
+            ('REQUIRE_AC_POWER', 'Device requires AC power'),
+            ('LID_IS_CLOSED', 'Lid is closed'),
+            ('IN_USE', 'Device is in use'),
+            ('DISPLAY_REQUIRED', 'No displays connected'),
+        ]
+        for name, label in problem_map:
+            bit = getattr(DP, name, None) if DP else None
+            if bit is not None and has_problem(bit):
+                texts.append(label)
+        return "\n".join(texts) if texts else None
 
     def load_releases(self, dev):
         self.clear_listbox(self.ui_listbox_releases)
