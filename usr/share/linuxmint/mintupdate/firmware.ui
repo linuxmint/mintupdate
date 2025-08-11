@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.40.x (hand-written, minimal) -->
+<interface>
+  <requires lib="gtk+" version="3.18"/>
+  <object class="GtkWindow" id="window">
+    <property name="title" translatable="yes">Firmware</property>
+    <property name="default-width">900</property>
+    <property name="default-height">560</property>
+    <property name="icon-name">mintupdate</property>
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="visible">True</property>
+        <property name="transition-type">crossfade</property>
+        <child>
+          <object class="GtkBox" id="refresh_page">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="valign">center</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkSpinner" id="spinner">
+                <property name="visible">True</property>
+                <property name="height-request">96</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="name">refresh_page</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="firmware_page">
+            <property name="visible">True</property>
+            <property name="border-width">12</property>
+            <property name="spacing">12</property>
+            <child>
+              <object class="GtkScrolledWindow" id="devices_scroller">
+                <property name="visible">True</property>
+                <property name="hexpand">False</property>
+                <property name="vexpand">True</property>
+                <property name="min-content-width">220</property>
+                <child>
+                  <object class="GtkViewport">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkListBox" id="listbox_devices">
+                        <property name="visible">True</property>
+                        <property name="selection-mode">browse</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="details_box">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">12</property>
+                <child>
+                  <object class="GtkFrame" id="frame_summary">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Device</property>
+                    <child>
+                      <object class="GtkGrid" id="grid_summary">
+                        <property name="visible">True</property>
+                        <property name="row-spacing">6</property>
+                        <property name="column-spacing">12</property>
+                        <property name="margin">6</property>
+                        <child>
+                          <object class="GtkLabel" id="label_device_name_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Name:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_name">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_vendor_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Vendor:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_vendor">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_version_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Current version:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_version">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_vendor_ids_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Vendor ID(s):</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_vendor_ids">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_plugin_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Plugin/Backend:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">4</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_plugin">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">4</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_serial_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Serial:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">5</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_serial">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">5</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_flags_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Flags:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">6</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_flags">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">6</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_problems_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Problems:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">7</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_problems">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="wrap">True</property>
+                            <property name="wrap-mode">word</property>
+                            <property name="hexpand">True</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">7</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_update_error_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Update Error:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">8</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_update_error">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="wrap">True</property>
+                            <property name="wrap-mode">word</property>
+                            <property name="hexpand">True</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">8</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="frame_releases">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Releases</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="releases_scroller">
+                        <property name="visible">True</property>
+                        <property name="vexpand">True</property>
+                        <child>
+                          <object class="GtkStack" id="releases_stack">
+                            <property name="visible">True</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="orientation">vertical</property>
+                                <property name="name">releases_list</property>
+                                <child>
+                                  <object class="GtkViewport">
+                                    <property name="visible">True</property>
+                                    <child>
+                                      <object class="GtkListBox" id="listbox_releases">
+                                        <property name="visible">True</property>
+                                        <property name="selection-mode">none</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="name">list</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="orientation">vertical</property>
+                                <property name="name">releases_empty</property>
+                                <property name="valign">center</property>
+                                <property name="halign">center</property>
+                                <child>
+                                  <object class="GtkLabel" id="label_no_releases">
+                                    <property name="visible">True</property>
+                                    <property name="label" translatable="yes">No updates available for the selected device</property>
+                                    <property name="wrap">True</property>
+                                    <property name="wrap-mode">word</property>
+                                    <property name="xalign">0.5</property>
+                                    <style>
+                                      <class name="dim-label"/>
+                                    </style>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="name">empty</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="name">firmware_page</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
+
+
