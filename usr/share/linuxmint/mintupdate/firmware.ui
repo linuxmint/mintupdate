@@ -275,6 +275,139 @@
                             <property name="top-attach">8</property>
                           </packing>
                         </child>
+                        <!-- Additional device fields -->
+                        <child>
+                          <object class="GtkLabel" id="label_device_version_lowest_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Minimum Version:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">9</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_version_lowest">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">9</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_version_bootloader_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Bootloader Version:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">10</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_version_bootloader">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">10</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_branch_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Branch:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">11</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_branch">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">11</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_install_duration_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Install Duration:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">12</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_install_duration">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">12</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_flashes_left_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Flashes Left:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">13</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_flashes_left">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">13</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_lock_status_title">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Lock Status:</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">0</property>
+                            <property name="top-attach">14</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label_device_lock_status">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="selectable">True</property>
+                          </object>
+                          <packing>
+                            <property name="left-attach">1</property>
+                            <property name="top-attach">14</property>
+                          </packing>
+                        </child>
                       </object>
                     </child>
                   </object>

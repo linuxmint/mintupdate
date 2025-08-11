@@ -65,6 +65,13 @@ class FirmwareWindow:
         self.ui_label_device_flags = self.builder.get_object("label_device_flags")
         self.ui_label_device_problems = self.builder.get_object("label_device_problems")
         self.ui_label_device_update_error = self.builder.get_object("label_device_update_error")
+        # additional labels
+        self.ui_label_device_version_lowest = self.builder.get_object("label_device_version_lowest")
+        self.ui_label_device_version_bootloader = self.builder.get_object("label_device_version_bootloader")
+        self.ui_label_device_branch = self.builder.get_object("label_device_branch")
+        self.ui_label_device_install_duration = self.builder.get_object("label_device_install_duration")
+        self.ui_label_device_flashes_left = self.builder.get_object("label_device_flashes_left")
+        self.ui_label_device_lock_status = self.builder.get_object("label_device_lock_status")
 
         if Fwupd is None:
             # fwupd missing, offer to install (Ubuntu/Debian)
@@ -337,6 +344,41 @@ class FirmwareWindow:
             self.ui_label_device_problems.set_text("-")
         except Exception:
             self.ui_label_device_problems.set_text("-")
+        # Additional fields (best-effort, guarded with hasattr)
+        try:
+            lowest = getattr(dev, 'get_version_lowest', lambda: None)()
+            self.ui_label_device_version_lowest.set_text(lowest or "-")
+        except Exception:
+            self.ui_label_device_version_lowest.set_text("-")
+        try:
+            bl = getattr(dev, 'get_version_bootloader', lambda: None)()
+            self.ui_label_device_version_bootloader.set_text(bl or "-")
+        except Exception:
+            self.ui_label_device_version_bootloader.set_text("-")
+        try:
+            branch = getattr(dev, 'get_branch', lambda: None)()
+            self.ui_label_device_branch.set_text(branch or "-")
+        except Exception:
+            self.ui_label_device_branch.set_text("-")
+        try:
+            dur = getattr(dev, 'get_install_duration', lambda: 0)()
+            self.ui_label_device_install_duration.set_text(str(dur) if dur else "-")
+        except Exception:
+            self.ui_label_device_install_duration.set_text("-")
+        try:
+            left = getattr(dev, 'get_flashes_left', lambda: 0)()
+            self.ui_label_device_flashes_left.set_text(str(left) if left else "-")
+        except Exception:
+            self.ui_label_device_flashes_left.set_text("-")
+        try:
+            locked = False
+            if hasattr(dev, 'has_flag') and hasattr(Fwupd, 'DeviceFlag'):
+                flag_locked = getattr(Fwupd.DeviceFlag, 'LOCKED', None)
+                if flag_locked is not None:
+                    locked = dev.has_flag(flag_locked)
+            self.ui_label_device_lock_status.set_text("Locked" if locked else "Unlocked")
+        except Exception:
+            self.ui_label_device_lock_status.set_text("-")
 
     def load_releases(self, dev):
         self.clear_listbox(self.ui_listbox_releases)
