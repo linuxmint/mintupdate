@@ -97,11 +97,32 @@ class FirmwareWindow:
         except Exception:
             pass
 
+        # keyboard shortcuts
+        try:
+            accel = Gtk.AccelGroup()
+            self.ui_window.add_accel_group(accel)
+            key, mod = Gtk.accelerator_parse("<Control>R")
+            self.ui_window.add_accelerator("activate", accel, key, mod, Gtk.AccelFlags.VISIBLE)
+            self.ui_window.connect("activate", lambda *args: self.on_refresh_lvfs_clicked(None))
+            key2, mod2 = Gtk.accelerator_parse("<Control>I")
+            self.ui_window.add_accelerator("activate", accel, key2, mod2, Gtk.AccelFlags.VISIBLE)
+        except Exception:
+            pass
+
         _log("connecting to fwupd (async)")
         self.client.connect_async(None, self.on_client_connected, None)
         # progress widgets
         self.ui_progress_revealer = self.builder.get_object("revealer_progress")
         self.ui_progress_bar = self.builder.get_object("progress_bar")
+        # device list dialog
+        try:
+            self.ui_device_list_dialog = self.builder.get_object("device_list_dialog")
+            self.ui_device_list_textview = self.builder.get_object("device_list_textview")
+            self.builder.get_object('button_device_list_close').connect('clicked', lambda *_: self.ui_device_list_dialog.response(Gtk.ResponseType.CLOSE))
+            self.builder.get_object('button_device_list_upload').connect('clicked', self.on_device_list_upload_clicked)
+        except Exception:
+            self.ui_device_list_dialog = None
+            self.ui_device_list_textview = None
 
         self.ui_window.show_all()
         try:
@@ -319,88 +340,99 @@ class FirmwareWindow:
         self.load_releases(self.current_device)
 
     def update_device_summary(self, dev):
-        self.ui_label_device_name.set_text(dev.get_name() or dev.get_id())
-        self.ui_label_device_vendor.set_text(dev.get_vendor() or "-")
-        self.ui_label_device_version.set_text(dev.get_version() or "-")
+        self._set_label_pair("label_device_name_title", self.ui_label_device_name, dev.get_name() or dev.get_id())
+        self._set_label_pair("label_device_vendor_title", self.ui_label_device_vendor, dev.get_vendor() or "")
+        self._set_label_pair("label_device_version_title", self.ui_label_device_version, dev.get_version() or "")
         # Vendor IDs / GUIDs
         try:
             guids = []
             if hasattr(dev, 'get_guids'):
                 guids = list(dev.get_guids()) or []
-            self.ui_label_device_vendor_ids.set_text(
-                ", ".join(guids) if guids else "-"
-            )
+            self._set_label_pair("label_device_vendor_ids_title", self.ui_label_device_vendor_ids, ", ".join(guids) if guids else "")
         except Exception:
-            self.ui_label_device_vendor_ids.set_text("-")
+            self._set_label_pair("label_device_vendor_ids_title", self.ui_label_device_vendor_ids, "")
         # Plugin/Backend
         try:
             plugin = dev.get_plugin() if hasattr(dev, 'get_plugin') else None
-            self.ui_label_device_plugin.set_text(plugin or "-")
+            self._set_label_pair("label_device_plugin_title", self.ui_label_device_plugin, plugin or "")
         except Exception:
-            self.ui_label_device_plugin.set_text("-")
+            self._set_label_pair("label_device_plugin_title", self.ui_label_device_plugin, "")
         # Serial
         try:
             serial = dev.get_serial() if hasattr(dev, 'get_serial') else None
-            self.ui_label_device_serial.set_text(serial or "-")
+            self._set_label_pair("label_device_serial_title", self.ui_label_device_serial, serial or "")
         except Exception:
-            self.ui_label_device_serial.set_text("-")
+            self._set_label_pair("label_device_serial_title", self.ui_label_device_serial, "")
         # Flags (friendly mapping)
         try:
-            self.ui_label_device_flags.set_text(self._format_device_flags(dev))
+            flags_text = self._format_device_flags(dev)
+            self._set_label_pair("label_device_flags_title", self.ui_label_device_flags, flags_text if flags_text != "-" else "")
         except Exception:
-            self.ui_label_device_flags.set_text("-")
+            self._set_label_pair("label_device_flags_title", self.ui_label_device_flags, "")
         # Problems / Update error
         try:
             problems_text = self._format_device_problems(dev)
             if problems_text:
-                self.ui_label_device_problems.set_text(problems_text)
-                self.ui_label_device_update_error.set_text("-")
+                self._set_label_pair("label_device_problems_title", self.ui_label_device_problems, problems_text)
+                self._set_label_pair("label_device_update_error_title", self.ui_label_device_update_error, "")
             else:
-                self.ui_label_device_problems.set_text("-")
+                self._set_label_pair("label_device_problems_title", self.ui_label_device_problems, "")
                 err = getattr(dev, 'get_update_error', lambda: None)()
-                self.ui_label_device_update_error.set_text(err or "-")
+                self._set_label_pair("label_device_update_error_title", self.ui_label_device_update_error, err or "")
         except Exception:
-            self.ui_label_device_problems.set_text("-")
+            self._set_label_pair("label_device_problems_title", self.ui_label_device_problems, "")
             try:
                 err = getattr(dev, 'get_update_error', lambda: None)()
-                self.ui_label_device_update_error.set_text(err or "-")
+                self._set_label_pair("label_device_update_error_title", self.ui_label_device_update_error, err or "")
             except Exception:
-                self.ui_label_device_update_error.set_text("-")
+                self._set_label_pair("label_device_update_error_title", self.ui_label_device_update_error, "")
         # Additional fields (best-effort, guarded with hasattr)
         try:
             lowest = getattr(dev, 'get_version_lowest', lambda: None)()
-            self.ui_label_device_version_lowest.set_text(lowest or "-")
+            self._set_label_pair("label_device_version_lowest_title", self.ui_label_device_version_lowest, lowest or "")
         except Exception:
-            self.ui_label_device_version_lowest.set_text("-")
+            self._set_label_pair("label_device_version_lowest_title", self.ui_label_device_version_lowest, "")
         try:
             bl = getattr(dev, 'get_version_bootloader', lambda: None)()
-            self.ui_label_device_version_bootloader.set_text(bl or "-")
+            self._set_label_pair("label_device_version_bootloader_title", self.ui_label_device_version_bootloader, bl or "")
         except Exception:
-            self.ui_label_device_version_bootloader.set_text("-")
+            self._set_label_pair("label_device_version_bootloader_title", self.ui_label_device_version_bootloader, "")
         try:
             branch = getattr(dev, 'get_branch', lambda: None)()
-            self.ui_label_device_branch.set_text(branch or "-")
+            self._set_label_pair("label_device_branch_title", self.ui_label_device_branch, branch or "")
         except Exception:
-            self.ui_label_device_branch.set_text("-")
+            self._set_label_pair("label_device_branch_title", self.ui_label_device_branch, "")
         try:
             dur = getattr(dev, 'get_install_duration', lambda: 0)()
-            self.ui_label_device_install_duration.set_text(str(dur) if dur else "-")
+            self._set_label_pair("label_device_install_duration_title", self.ui_label_device_install_duration, str(dur) if dur else "")
         except Exception:
-            self.ui_label_device_install_duration.set_text("-")
+            self._set_label_pair("label_device_install_duration_title", self.ui_label_device_install_duration, "")
         try:
             left = getattr(dev, 'get_flashes_left', lambda: 0)()
-            self.ui_label_device_flashes_left.set_text(str(left) if left else "-")
+            self._set_label_pair("label_device_flashes_left_title", self.ui_label_device_flashes_left, str(left) if left else "")
         except Exception:
-            self.ui_label_device_flashes_left.set_text("-")
+            self._set_label_pair("label_device_flashes_left_title", self.ui_label_device_flashes_left, "")
         try:
             locked = False
             if hasattr(dev, 'has_flag') and hasattr(Fwupd, 'DeviceFlag'):
                 flag_locked = getattr(Fwupd.DeviceFlag, 'LOCKED', None)
                 if flag_locked is not None:
                     locked = dev.has_flag(flag_locked)
-            self.ui_label_device_lock_status.set_text("Locked" if locked else "Unlocked")
+            self._set_label_pair("label_device_lock_status_title", self.ui_label_device_lock_status, _("Locked") if locked else _("Unlocked"))
         except Exception:
-            self.ui_label_device_lock_status.set_text("-")
+            self._set_label_pair("label_device_lock_status_title", self.ui_label_device_lock_status, "")
+
+        # Attestation buttons sensitivity
+        try:
+            btn_verify = self.builder.get_object('button_verify')
+            btn_store = self.builder.get_object('button_verify_update')
+            can_verify = self._device_has_flag(dev, 'CAN_VERIFY') or self._device_has_flag(dev, 'CAN_VERIFY_IMAGE')
+            if btn_verify:
+                btn_verify.set_sensitive(bool(can_verify))
+            if btn_store:
+                btn_store.set_sensitive(bool(can_verify))
+        except Exception:
+            pass
 
     # helpers
     def _format_device_flags(self, dev):
@@ -475,6 +507,20 @@ class FirmwareWindow:
                 texts.append(label)
         return "\n".join(texts) if texts else None
 
+    def _set_label_pair(self, title_id, value_widget, text):
+        """Show/hide a label row based on value and set the text."""
+        try:
+            title_widget = self.builder.get_object(title_id)
+            visible = bool(text)
+            if value_widget:
+                if text:
+                    value_widget.set_text(text)
+                value_widget.set_visible(visible)
+            if title_widget:
+                title_widget.set_visible(visible)
+        except Exception:
+            pass
+
     def load_releases(self, dev):
         self.clear_listbox(self.ui_listbox_releases)
         _log(f"fetching releases for {dev.get_id()}")
@@ -503,7 +549,7 @@ class FirmwareWindow:
             try:
                 self.builder.get_object("releases_stack").set_visible_child_name("empty")
             except Exception:
-                self.add_info_row(self.ui_listbox_releases, "No releases available")
+             self.add_info_row(self.ui_listbox_releases, "No releases available")
             return
         for rel in releases:
             raw_version = rel.get_version() or ""
@@ -702,13 +748,15 @@ class FirmwareWindow:
                 if w:
                     w.set_text(text or "-")
             set_label("label_release_summary", release.get_summary() or "-")
-            set_label("label_release_description", release.get_description() or "-")
+            # format description (strip simple XML/markup)
+            desc_raw = getattr(release, 'get_description', lambda: None)() or ""
+            set_label("label_release_description", self._strip_markup(desc_raw) or "-")
             set_label("label_release_vendor", release.get_vendor() or "-")
             set_label("label_release_filename", release.get_filename() or "-")
             try:
                 size_val = getattr(release, 'get_size', None)
-                size_str = f"{size_val()} B" if callable(size_val) and size_val() else "-"
-                set_label("label_release_size", size_str)
+                size_num = size_val() if callable(size_val) else None
+                set_label("label_release_size", self._format_size(size_num) if size_num else "-")
             except Exception:
                 set_label("label_release_size", "-")
             set_label("label_release_protocol", getattr(release, 'get_protocol', lambda: None)() or "-")
@@ -731,13 +779,13 @@ class FirmwareWindow:
             # categories
             try:
                 cats = getattr(release, 'get_categories', lambda: [])()
-                set_label("label_release_categories", ", ".join(cats) if cats else "-")
+                set_label("label_release_categories", "\n".join(cats) if cats else "-")
             except Exception:
                 set_label("label_release_categories", "-")
             # issues
             try:
                 issues = getattr(release, 'get_issues', lambda: [])()
-                set_label("label_release_issues", ", ".join(issues) if issues else "-")
+                set_label("label_release_issues", "\n".join(issues) if issues else "-")
             except Exception:
                 set_label("label_release_issues", "-")
             # checksum(s)
@@ -818,8 +866,6 @@ class FirmwareWindow:
             pct = self.client.get_percentage()
             _log(f"status={status} pct={pct}")
             # update progress UI
-            if status in (getattr(Fwupd, 'Status', None) or []):
-                pass
             # show revealer unless idle/unknown
             show = True
             try:
@@ -832,10 +878,58 @@ class FirmwareWindow:
             if self.ui_progress_bar:
                 if pct and pct > 0:
                     self.ui_progress_bar.set_fraction(min(1.0, float(pct)/100.0))
+                    try:
+                        self.ui_progress_bar.set_text(self._status_to_text(status, pct))
+                    except Exception:
+                        pass
                 else:
                     self.ui_progress_bar.pulse()
+                    try:
+                        self.ui_progress_bar.set_text("")
+                    except Exception:
+                        pass
         except Exception:
             pass
+
+    def _status_to_text(self, status, pct):
+        try:
+            S = getattr(Fwupd, 'Status', None)
+            mapping = {
+                getattr(S, 'IDLE', -1): _('Idle'),
+                getattr(S, 'DECOMPRESSING', -2): _('Decompressing'),
+                getattr(S, 'DOWNLOADING', -3): _('Downloading'),
+                getattr(S, 'SCHEDULING', -4): _('Scheduling'),
+                getattr(S, 'INSTALLING', -5): _('Installing'),
+                getattr(S, 'REBOOTING', -6): _('Rebooting'),
+                getattr(S, 'DEVICE_BUSY', -7): _('Device busy'),
+            }
+            label = mapping.get(status, _('Working'))
+            if pct and pct > 0:
+                return f"{label} ({pct}%)"
+            return label
+        except Exception:
+            return f"{pct}%" if pct else ""
+
+    def _strip_markup(self, text):
+        try:
+            import re
+            return re.sub(r"<[^>]+>", "", text)
+        except Exception:
+            return text
+
+    def _format_size(self, size_bytes):
+        try:
+            size = float(size_bytes)
+            units = ['B', 'KB', 'MB', 'GB']
+            idx = 0
+            while size >= 1000 and idx < len(units)-1:
+                size /= 1000.0
+                idx += 1
+            if idx == 0:
+                return f"{int(size)} {units[idx]}"
+            return f"{size:.1f} {units[idx]}"
+        except Exception:
+            return f"{size_bytes} B"
 
     # remotes/banners
     def on_remotes_ready(self, source, result, user_data):
@@ -905,7 +999,24 @@ class FirmwareWindow:
             pass
 
     def on_device_list_clicked(self, button):
-        # Upload device list to LVFS (best-effort)
+        # Show device list (JSON) and allow upload
+        try:
+            if (not hasattr(self, 'ui_device_list_dialog')) or (self.ui_device_list_dialog is None) or (self.ui_device_list_textview is None):
+                # fallback: immediate upload
+                self.on_device_list_upload_clicked(button)
+                return
+            output = subprocess.run(["fwupdmgr", "get-devices", "--json"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+            buf = self.ui_device_list_textview.get_buffer()
+            buf.set_text(output.stdout or "{}")
+            self.ui_device_list_dialog.set_transient_for(self.ui_window)
+            self.ui_device_list_dialog.show_all()
+            self.ui_device_list_dialog.run()
+            self.ui_device_list_dialog.hide()
+        except Exception as e:
+            _log(f"device list dialog failed: {e}")
+
+    def on_device_list_upload_clicked(self, button):
+        # Upload device list (best-effort)
         try:
             subprocess.Popen(["pkexec", "fwupdmgr", "report-history"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except Exception:

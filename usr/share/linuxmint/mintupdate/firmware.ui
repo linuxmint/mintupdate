@@ -976,6 +976,44 @@
       </object>
     </child>
   </object>
+  <!-- Device list (JSON) dialog -->
+  <object class="GtkDialog" id="device_list_dialog">
+    <property name="title" translatable="yes">Upload Device List</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkTextView" id="device_list_textview">
+                <property name="monospace">True</property>
+                <property name="wrap-mode">char</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButtonBox">
+            <property name="layout-style">end</property>
+            <child>
+              <object class="GtkButton" id="button_device_list_close">
+                <property name="label" translatable="yes">Close</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="button_device_list_upload">
+                <property name="label" translatable="yes">Upload…</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>
 
 
