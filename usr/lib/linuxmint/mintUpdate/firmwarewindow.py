@@ -9,6 +9,7 @@ except ValueError:
     pass
 
 from gi.repository import Gtk, Gio, GLib
+from gi.repository import Gdk
 import subprocess
 import shutil
 import gettext
@@ -119,6 +120,7 @@ class FirmwareWindow:
             self.ui_device_list_dialog = self.builder.get_object("device_list_dialog")
             self.ui_device_list_textview = self.builder.get_object("device_list_textview")
             self.builder.get_object('button_device_list_close').connect('clicked', lambda *_: self.ui_device_list_dialog.response(Gtk.ResponseType.CLOSE))
+            self.builder.get_object('button_device_list_copy').connect('clicked', self.on_device_list_copy_clicked)
             self.builder.get_object('button_device_list_upload').connect('clicked', self.on_device_list_upload_clicked)
         except Exception:
             self.ui_device_list_dialog = None
@@ -1083,6 +1085,18 @@ class FirmwareWindow:
                 subprocess.Popen(["pkexec", "fwupdmgr", "report-history"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             except Exception:
                 pass
+
+    def on_device_list_copy_clicked(self, button):
+        try:
+            if not self.ui_device_list_textview:
+                return
+            buf = self.ui_device_list_textview.get_buffer()
+            start, end = buf.get_start_iter(), buf.get_end_iter()
+            text = buf.get_text(start, end, True)
+            clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+            clipboard.set_text(text, -1)
+        except Exception as e:
+            _log(f"copy device list failed: {e}")
 
     # Install Firmware Archive (.cab)
     def on_install_file_clicked(self, button):

@@ -132,6 +132,7 @@
                         <child>
                           <object class="GtkButton" id="button_enable_lvfs">
                             <property name="label" translatable="yes">Enable…</property>
+                            <property name="tooltip-text" translatable="yes">Enable the LVFS remote</property>
                           </object>
                         </child>
                       </object>
@@ -154,6 +155,7 @@
                         <child>
                           <object class="GtkButton" id="button_refresh_lvfs">
                             <property name="label" translatable="yes">Refresh…</property>
+                            <property name="tooltip-text" translatable="yes">Refresh firmware metadata</property>
                           </object>
                         </child>
                       </object>
@@ -1027,14 +1029,19 @@
             </child>
           </object>
         </child>
-        <child>
-          <object class="GtkButtonBox">
+            <child>
+              <object class="GtkButtonBox">
             <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="button_device_list_close">
                 <property name="label" translatable="yes">Close</property>
               </object>
             </child>
+                <child>
+                  <object class="GtkButton" id="button_device_list_copy">
+                    <property name="label" translatable="yes">Copy</property>
+                  </object>
+                </child>
             <child>
               <object class="GtkButton" id="button_device_list_upload">
                 <property name="label" translatable="yes">Upload…</property>
