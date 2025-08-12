@@ -348,7 +348,15 @@ class FirmwareWindow:
             guids = []
             if hasattr(dev, 'get_guids'):
                 guids = list(dev.get_guids()) or []
-            self._set_label_pair("label_device_vendor_ids_title", self.ui_label_device_vendor_ids, ", ".join(guids) if guids else "")
+            guids_text = ", ".join(guids) if guids else ""
+            self._set_label_pair("label_device_vendor_ids_title", self.ui_label_device_vendor_ids, guids_text)
+            try:
+                # also fill expander in monospace, multi-line
+                expander_guids = self.builder.get_object('label_guids_expander')
+                if expander_guids is not None:
+                    expander_guids.set_text("\n".join(guids) if guids else "")
+            except Exception:
+                pass
         except Exception:
             self._set_label_pair("label_device_vendor_ids_title", self.ui_label_device_vendor_ids, "")
         # Plugin/Backend
@@ -367,6 +375,12 @@ class FirmwareWindow:
         try:
             flags_text = self._format_device_flags(dev)
             self._set_label_pair("label_device_flags_title", self.ui_label_device_flags, flags_text if flags_text != "-" else "")
+            try:
+                expander_flags = self.builder.get_object('label_flags_expander')
+                if expander_flags is not None:
+                    expander_flags.set_text(flags_text if flags_text != "-" else "")
+            except Exception:
+                pass
         except Exception:
             self._set_label_pair("label_device_flags_title", self.ui_label_device_flags, "")
         # Problems / Update error
@@ -549,7 +563,7 @@ class FirmwareWindow:
             try:
                 self.builder.get_object("releases_stack").set_visible_child_name("empty")
             except Exception:
-             self.add_info_row(self.ui_listbox_releases, "No releases available")
+                self.add_info_row(self.ui_listbox_releases, _("No releases available"))
             return
         for rel in releases:
             raw_version = rel.get_version() or ""
