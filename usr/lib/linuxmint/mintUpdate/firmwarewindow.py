@@ -92,6 +92,11 @@ class FirmwareWindow:
         self.client.connect("device-added", self.on_device_signal)
         self.client.connect("device-removed", self.on_device_signal)
         self.client.connect("device-changed", self.on_device_signal)
+        # Show user requests (manual actions) similar to gnome-firmware
+        try:
+            self.client.connect("request", self.on_client_request)
+        except Exception:
+            pass
         # buttons in banners
         try:
             self.builder.get_object('button_enable_lvfs').connect('clicked', self.on_enable_lvfs_clicked)
@@ -100,6 +105,21 @@ class FirmwareWindow:
             self.builder.get_object('button_install_file').connect('clicked', self.on_install_file_clicked)
             self.builder.get_object('button_verify').connect('clicked', self.on_verify_clicked)
             self.builder.get_object('button_verify_update').connect('clicked', self.on_verify_update_clicked)
+            # menu items (for accelerators visibility)
+            mi_refresh = self.builder.get_object('menu_item_refresh')
+            if mi_refresh:
+                mi_refresh.connect('activate', lambda *_: self.on_refresh_lvfs_clicked(None))
+                try:
+                    mi_refresh.add_accelerator('activate', self.ui_window.get_accel_group(), *Gtk.accelerator_parse('<Control>R'))
+                except Exception:
+                    pass
+            mi_install = self.builder.get_object('menu_item_install')
+            if mi_install:
+                mi_install.connect('activate', lambda *_: self.on_install_file_clicked(None))
+                try:
+                    mi_install.add_accelerator('activate', self.ui_window.get_accel_group(), *Gtk.accelerator_parse('<Control>I'))
+                except Exception:
+                    pass
         except Exception:
             pass
 
@@ -139,6 +159,7 @@ class FirmwareWindow:
         _log("window shown")
         # state for install flow
         self._pending_release = None
+        self._install_file_path = None
 
     def show_error_label(self, text):
         self.ui_spinner.stop()
@@ -836,7 +857,18 @@ class FirmwareWindow:
             self.add_info_row(self.ui_listbox_releases, str(e))
             return
         self.load_releases(self.current_device)
-        # post actions: reboot/shutdown prompts
+        # post actions: show any pending user requests (manual actions)
+        try:
+            reqs = getattr(self.client, 'get_requests', lambda: None)()
+            if reqs:
+                for req in reqs:
+                    try:
+                        self._show_request(req)
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+        # then reboot/shutdown prompts
         try:
             if self._device_has_flag(self.current_device, 'NEEDS_SHUTDOWN'):
                 dlg = Gtk.MessageDialog(transient_for=self.ui_window,
@@ -867,6 +899,45 @@ class FirmwareWindow:
                     subprocess.Popen(["pkexec", "systemctl", "reboot"])  # best-effort
         except Exception:
             pass
+
+    # Fwupd request handling
+    def on_client_request(self, client, request):
+        try:
+            self._show_request(request)
+        except Exception as e:
+            _log(f"request show failed: {e}")
+
+    def _show_request(self, request):
+        try:
+            # Title by kind
+            kind = getattr(request, 'get_kind', lambda: None)()
+            FS = getattr(Fwupd, 'RequestKind', None)
+            if FS and kind == getattr(FS, 'POST', None):
+                title = _("Further Action Required")
+            else:
+                title = _("Action Required")
+            message = getattr(request, 'get_message', lambda: None)() or ""
+            dlg = Gtk.MessageDialog(transient_for=self.ui_window,
+                                    flags=0,
+                                    message_type=Gtk.MessageType.INFO,
+                                    buttons=Gtk.ButtonsType.NONE,
+                                    text=title)
+            dlg.format_secondary_text(message)
+            dlg.add_buttons(_("Continue"), Gtk.ResponseType.OK)
+            # optional image download
+            try:
+                image_uri = getattr(request, 'get_image', lambda: None)()
+                if image_uri:
+                    # best-effort: show a stock image hint instead of download pipeline (GTK3)
+                    img = Gtk.Image.new_from_icon_name("dialog-information", Gtk.IconSize.DIALOG)
+                    dlg.get_message_area().pack_start(img, False, False, 6)
+                    img.show()
+            except Exception:
+                pass
+            dlg.run()
+            dlg.destroy()
+        except Exception as e:
+            _log(f"_show_request failed: {e}")
 
     # utils
     def clear_listbox(self, listbox):
@@ -917,14 +988,22 @@ class FirmwareWindow:
             S = getattr(Fwupd, 'Status', None)
             mapping = {
                 getattr(S, 'IDLE', -1): _('Idle'),
+                getattr(S, 'UNKNOWN', -2): _('Unknown'),
                 getattr(S, 'DECOMPRESSING', -2): _('Decompressing'),
+                getattr(S, 'LOADING', -3): _('Loading'),
                 getattr(S, 'DOWNLOADING', -3): _('Downloading'),
                 getattr(S, 'SCHEDULING', -4): _('Scheduling'),
                 getattr(S, 'INSTALLING', -5): _('Installing'),
                 getattr(S, 'DEVICE_RESTART', -8): _('Restarting device'),
+                getattr(S, 'DEVICE_WRITE', -9): _('Writing to device'),
+                getattr(S, 'DEVICE_READ', -10): _('Reading from device'),
+                getattr(S, 'DEVICE_ERASE', -11): _('Erasing device'),
+                getattr(S, 'DEVICE_VERIFY', -12): _('Verifying device'),
+                getattr(S, 'DEVICE_BUSY', -7): _('Device busy'),
                 getattr(S, 'REPLUG', -9): _('Replug device'),
                 getattr(S, 'REBOOTING', -6): _('Rebooting'),
-                getattr(S, 'DEVICE_BUSY', -7): _('Device busy'),
+                getattr(S, 'WAITING_FOR_AUTH', -13): _('Waiting for authentication'),
+                getattr(S, 'WAITING_FOR_USER', -14): _('Waiting for user'),
             }
             label = mapping.get(status, _('Working'))
             if pct and pct > 0:
@@ -1141,15 +1220,82 @@ class FirmwareWindow:
             dlg.destroy()
             if not path:
                 return
-            # Try to get details and confirm install target
-            # Fallback: direct install to any device
-            try:
-                # Not all fwupd Python bindings expose get_details; if not, attempt install
-                subprocess.Popen(["pkexec", "fwupdmgr", "install", path])
-            except Exception:
+            # Prefer fwupd API: get details -> choose compatible device -> confirm -> install
+            self._install_file_path = path
+            if hasattr(self.client, 'get_details_async'):
+                self.client.get_details_async(path, None, self._on_get_details_for_file, None)
+            else:
                 subprocess.Popen(["pkexec", "fwupdmgr", "install", path])
         except Exception as e:
             _log(f"install file failed: {e}")
+
+    def _on_get_details_for_file(self, source, result, user_data):
+        try:
+            devices = self.client.get_details_finish(result)
+        except GLib.Error as e:
+            _log(f"get_details_finish error: {e}")
+            # fallback
+            if self._install_file_path:
+                subprocess.Popen(["pkexec", "fwupdmgr", "install", self._install_file_path])
+            return
+        if not devices:
+            self.add_info_row(self.ui_listbox_releases, _("No compatible devices in archive"))
+            return
+        # pick first updatable device if any
+        chosen = None
+        try:
+            DF = getattr(Fwupd, 'DeviceFlag', None)
+            for d in devices:
+                is_updatable = False
+                if hasattr(d, 'has_flag') and DF is not None:
+                    flag = getattr(DF, 'UPDATABLE', None)
+                    is_updatable = flag is not None and d.has_flag(flag)
+                else:
+                    flags_val = getattr(d, 'get_flags', lambda: 0)() or 0
+                    up_flag = getattr(DF, 'UPDATABLE', 0) if DF else 0
+                    is_updatable = (int(flags_val) & int(up_flag)) != 0 if up_flag else True
+                if is_updatable:
+                    chosen = d
+                    break
+        except Exception:
+            pass
+        if chosen is None:
+            chosen = devices[0]
+        # show confirmation similar to release confirmation
+        rel = getattr(chosen, 'get_release_default', lambda: None)()
+        if rel is None:
+            # no release bound; just confirm generic install
+            title = _("Install firmware file?")
+            body = _("The device may be unusable while the update is installing.")
+            dlg = Gtk.MessageDialog(transient_for=self.ui_window, flags=0, message_type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.NONE, text=title)
+            dlg.format_secondary_text(body)
+            dlg.add_buttons(_("Cancel"), Gtk.ResponseType.CANCEL, _("Install"), Gtk.ResponseType.OK)
+            resp = dlg.run()
+            dlg.destroy()
+            if resp != Gtk.ResponseType.OK:
+                return
+            subprocess.Popen(["pkexec", "fwupdmgr", "install", self._install_file_path])
+            return
+        # release-based confirmation
+        version = getattr(rel, 'get_version', lambda: '')() or ''
+        title = _((f"Install {version}?")) if version else _("Install firmware?")
+        body = _("The device may be unusable while the update is installing.")
+        dlg = Gtk.MessageDialog(transient_for=self.ui_window, flags=0, message_type=Gtk.MessageType.QUESTION, buttons=Gtk.ButtonsType.NONE, text=title)
+        dlg.format_secondary_text(body)
+        dlg.add_buttons(_("Cancel"), Gtk.ResponseType.CANCEL, _("Install"), Gtk.ResponseType.OK)
+        resp = dlg.run()
+        dlg.destroy()
+        if resp != Gtk.ResponseType.OK:
+            return
+        # try API install to any device, else fallback
+        try:
+            if hasattr(self.client, 'install_async'):
+                flags = getattr(Fwupd.InstallFlags, 'NONE', 0)
+                self.client.install_async(getattr(Fwupd, 'DEVICE_ID_ANY', '*'), self._install_file_path, flags, None, self.on_install_done, None)
+            else:
+                subprocess.Popen(["pkexec", "fwupdmgr", "install", self._install_file_path])
+        except Exception:
+            subprocess.Popen(["pkexec", "fwupdmgr", "install", self._install_file_path])
 
     # Attestation: Verify/Store
     def on_verify_clicked(self, button):
