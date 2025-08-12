@@ -48,6 +48,11 @@ class FirmwareWindow:
         except Exception:
             pass
         self.ui_window.connect("destroy", self.destroy_window)
+        # key shortcuts
+        try:
+            self.ui_window.connect("key-press-event", self.on_key_press_event)
+        except Exception:
+            pass
         self.ui_spinner.start()
         self.ui_stack.set_visible_child_name("refresh_page")
 
@@ -782,7 +787,7 @@ class FirmwareWindow:
             # flags
             try:
                 flags_val = getattr(release, 'get_flags', lambda: 0)()
-                set_label("label_release_flags", str(flags_val))
+                set_label("label_release_flags", self._format_release_flags(flags_val))
             except Exception:
                 set_label("label_release_flags", "-")
             # install duration
@@ -916,6 +921,8 @@ class FirmwareWindow:
                 getattr(S, 'DOWNLOADING', -3): _('Downloading'),
                 getattr(S, 'SCHEDULING', -4): _('Scheduling'),
                 getattr(S, 'INSTALLING', -5): _('Installing'),
+                getattr(S, 'DEVICE_RESTART', -8): _('Restarting device'),
+                getattr(S, 'REPLUG', -9): _('Replug device'),
                 getattr(S, 'REBOOTING', -6): _('Rebooting'),
                 getattr(S, 'DEVICE_BUSY', -7): _('Device busy'),
             }
@@ -946,6 +953,28 @@ class FirmwareWindow:
             return f"{size:.1f} {units[idx]}"
         except Exception:
             return f"{size_bytes} B"
+
+    def _format_release_flags(self, flags_val):
+        try:
+            RF = getattr(Fwupd, 'ReleaseFlags', None)
+            items = []
+            mapping = [
+                ('TRUSTED_METADATA', _('Trusted metadata')),
+                ('IS_UPGRADE', _('Upgrade')),
+                ('IS_DOWNGRADE', _('Downgrade')),
+                ('ALLOW_REINSTALL', _('Reinstall allowed')),
+                ('ALLOW_OLDER', _('Older version allowed')),
+                ('IS_ALTERNATE_BRANCH', _('Alternate branch')),
+                ('BLOCKED_VERSION', _('Blocked version')),
+                ('BLOCKED_APPROVAL', _('Not approved')),
+            ]
+            for name, label in mapping:
+                bit = getattr(RF, name, None) if RF else None
+                if bit is not None and (int(flags_val) & int(bit)) != 0:
+                    items.append(label)
+            return "\n".join(items) if items else "-"
+        except Exception:
+            return str(flags_val)
 
     # remotes/banners
     def on_remotes_ready(self, source, result, user_data):
