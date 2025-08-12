@@ -999,16 +999,44 @@ class FirmwareWindow:
 
     def on_refresh_lvfs_clicked(self, button):
         try:
-            if hasattr(self.client, 'refresh_remote_async'):
-                # best-effort: no direct lvfs object, fallback to fwupdmgr refresh
+            if hasattr(self.client, 'refresh_remote_async') and getattr(self, '_lvfs_remote', None) is not None:
+                flags = getattr(Fwupd, 'ClientDownloadFlags', None)
+                dl_flag = getattr(flags, 'NONE', 0) if flags else 0
+                self.client.refresh_remote_async(self._lvfs_remote, dl_flag, None, self._on_refresh_remote_finished, None)
+            else:
                 subprocess.Popen(["pkexec", "fwupdmgr", "refresh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except Exception:
             subprocess.Popen(["pkexec", "fwupdmgr", "refresh"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     def on_enable_lvfs_clicked(self, button):
         try:
-            # enable LVFS via CLI as a fallback
-            subprocess.Popen(["pkexec", "fwupdmgr", "enable-remote", "lvfs"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if hasattr(self.client, 'modify_remote_async'):
+                self.client.modify_remote_async('lvfs', 'Enabled', 'true', None, self._on_modify_remote_finished, None)
+            else:
+                subprocess.Popen(["pkexec", "fwupdmgr", "enable-remote", "lvfs"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
+
+    def _on_modify_remote_finished(self, source, result, user_data):
+        try:
+            self.client.modify_remote_finish(result)
+        except Exception as e:
+            _log(f"modify_remote_finish error: {e}")
+            return
+        try:
+            if hasattr(self.client, 'get_remotes_async'):
+                self.client.get_remotes_async(None, self.on_remotes_ready, None)
+        except Exception:
+            pass
+
+    def _on_refresh_remote_finished(self, source, result, user_data):
+        try:
+            self.client.refresh_remote_finish(result)
+        except Exception as e:
+            _log(f"refresh_remote_finish error: {e}")
+        try:
+            if hasattr(self.client, 'get_remotes_async'):
+                self.client.get_remotes_async(None, self.on_remotes_ready, None)
         except Exception:
             pass
 
@@ -1030,11 +1058,31 @@ class FirmwareWindow:
             _log(f"device list dialog failed: {e}")
 
     def on_device_list_upload_clicked(self, button):
-        # Upload device list (best-effort)
+        # Upload device list: prefer API, fallback to CLI
         try:
+            if hasattr(self.client, 'build_report_devices') and getattr(self, 'devices', None) is not None:
+                payload = None
+                try:
+                    payload = self.client.build_report_devices(self.devices, getattr(self, '_report_metadata', {}) or {})
+                except Exception as e:
+                    _log(f"build_report_devices failed: {e}")
+                try:
+                    report_uri = None
+                    remote = getattr(self, '_lvfs_remote', None)
+                    if remote and hasattr(remote, 'get_report_uri'):
+                        report_uri = remote.get_report_uri()
+                    if payload and report_uri and hasattr(self.client, 'upload_report_async'):
+                        self.client.upload_report_async(report_uri, payload, None, 0, None, None)
+                        return
+                except Exception as e:
+                    _log(f"upload_report via API failed: {e}")
+            # fallback CLI
             subprocess.Popen(["pkexec", "fwupdmgr", "report-history"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except Exception:
-            pass
+            try:
+                subprocess.Popen(["pkexec", "fwupdmgr", "report-history"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except Exception:
+                pass
 
     # Install Firmware Archive (.cab)
     def on_install_file_clicked(self, button):
