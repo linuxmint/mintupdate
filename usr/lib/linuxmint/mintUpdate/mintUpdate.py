@@ -730,7 +730,6 @@ class MintUpdate():
         self.ui_window.present_with_time(time)
         self.hidden = False
 
-    @_idle
     def set_window_busy(self, busy):
         if self.ui_window.get_window() is None:
             return
@@ -2533,7 +2532,8 @@ class MintUpdate():
 
         self.uninhibit_pm()
         self.cache_monitor.resume(False)
-        self.set_window_busy(False)
+
+        GLib.idle_add(self.set_window_busy, False)
         if refresh_needed:
             self.refresh(False)
 
@@ -2541,6 +2541,8 @@ class MintUpdate():
         if self.dpkg_locked():
             self.show_dpkg_lock_msg(self.ui_window)
         else:
+            self.set_window_busy(True)
+
             # Find list of packages to install
             install_needed = False
             self.packages = []
@@ -2589,7 +2591,6 @@ class MintUpdate():
                 iter = model.iter_next(iter)
             self.settings.set_int("install-last-run", int(time.time()))
             if install_needed:
-                self.set_window_busy(True)
                 self.cache_monitor.pause()
                 self.inhibit_pm("Installing updates")
                 self.logger.write("Install requested by user")
