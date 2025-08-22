@@ -19,6 +19,8 @@ gettext.install("mintupdate", "/usr/share/locale")
 # These updates take priority over other updates.
 # If a new version of these packages is available, nothing else is listed.
 PRIORITY_UPDATES = ['mintupdate', 'mint-upgrade-info']
+# These updates, if appearing alone, should use their binary package names to avoid confusion.
+SOURCE_PACKAGE_NAME_OVERRIDES = ["linux-libc-dev"]
 
 settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
@@ -116,7 +118,12 @@ class Update():
                 self.source_name = source_name
             else:
                 self.source_name = self.real_source_name
-            self.display_name = self.source_name
+
+            if self.main_package_name in SOURCE_PACKAGE_NAME_OVERRIDES:
+                self.display_name = self.package_name
+            else:
+                self.display_name = self.source_name
+
             self.short_description = package.candidate.raw_description
             self.description = package.candidate.description
             self.archive = ""
@@ -150,6 +157,9 @@ class Update():
                 self.type = "kernel"
 
     def add_package(self, pkg):
+        if self.main_package_name in SOURCE_PACKAGE_NAME_OVERRIDES:
+            self.display_name = self.source_name
+
         self.package_names.append(pkg.name)
         self.source_packages.add("%s=%s" % (pkg.candidate.source_name, pkg.candidate.source_version))
         self.size += pkg.candidate.size
