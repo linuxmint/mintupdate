@@ -57,7 +57,6 @@ class Upgrader():
         subprocess.run(["cp", sources_list, "/etc/apt/sources.list.d/official-package-repositories.list"])
 
         # STEP 2: UPDATE APT CACHE
-        self.client.update_cache()
         self.client.set_finished_callback(self.on_cache_updated)
         self.client.update_cache()
 
@@ -96,9 +95,15 @@ class Upgrader():
 
     def on_additions_finished(self, transaction=None, exit_state=None):
         # STEP 5: REMOVE PACKAGES
-        if len(self.removals) > 0:
+        removals = []
+        cache = apt.Cache()
+        cache.open(None)
+        for name in self.removals:
+            if name in cache and cache[name].is_installed:
+                removals.append(name)
+        if len(removals) > 0:
             self.client.set_finished_callback(self.on_removals_finished)
-            self.client.remove_packages(self.removals)
+            self.client.remove_packages(removals)
         else:
             self.on_removals_finished()
 
