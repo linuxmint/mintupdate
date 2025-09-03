@@ -34,6 +34,10 @@ from xapp.GSettingsWidgets import *
 # local imports
 import logger
 from kernelwindow import KernelWindow
+try:
+    from firmwarewindow import open_firmware_window
+except Exception:
+    open_firmware_window = None
 from Classes import Update, PRIORITY_UPDATES, CONFIG_PATH, UpdateTracker, _idle, _async
 
 
@@ -217,7 +221,7 @@ class MintUpdate():
         self.treeview = self.builder.get_object("treeview_update")
 
         try:
-            self.ui_window.set_title(_("Update Manager"))
+            self.ui_window.set_title(_("Update Manager") + " (dev)")
 
             self.ui_window.set_icon_name("mintupdate")
 
@@ -405,6 +409,9 @@ class MintUpdate():
             image = Gtk.Image.new_from_icon_name("system-run-symbolic", Gtk.IconSize.MENU)
             kernelMenuItem = Gtk.ImageMenuItem(label=_("Linux Kernels"), image=image)
             kernelMenuItem.connect("activate", self.on_kernel_menu_activated)
+            image = Gtk.Image.new_from_icon_name("application-x-firmware-symbolic", Gtk.IconSize.MENU)
+            firmwareMenuItem = Gtk.ImageMenuItem(label=_("Firmware Updates"), image=image)
+            firmwareMenuItem.connect("activate", self.on_firmware_menu_activated)
             image = Gtk.Image.new_from_icon_name("dialog-information-symbolic", Gtk.IconSize.MENU)
             infoMenuItem = Gtk.ImageMenuItem(label=_("Information"), image=image)
             infoMenuItem.connect("activate", self.open_information)
@@ -467,6 +474,8 @@ class MintUpdate():
             except Exception as e:
                 print (e)
                 print(sys.exc_info()[0])
+            # Firmware window available regardless of LMDE
+            viewSubmenu.append(firmwareMenuItem)
             viewSubmenu.append(infoMenuItem)
             helpMenu = Gtk.MenuItem.new_with_mnemonic(_("_Help"))
             helpSubmenu = Gtk.Menu()
@@ -1906,6 +1915,19 @@ class MintUpdate():
         self.cache_monitor.resume()
         if needs_refresh:
             self.refresh(False)
+
+    def on_firmware_menu_activated(self, widget):
+        if open_firmware_window is None:
+            d = Gtk.MessageDialog(transient_for=self.ui_window,
+                                  flags=0,
+                                  message_type=Gtk.MessageType.INFO,
+                                  buttons=Gtk.ButtonsType.OK,
+                                  text=_("Firmware support not available"))
+            d.format_secondary_text(_("Please install fwupd and gir1.2-fwupd-2.0."))
+            d.run()
+            d.destroy()
+            return
+        open_firmware_window()
 
 ######### REFRESH THREAD ##########
 
