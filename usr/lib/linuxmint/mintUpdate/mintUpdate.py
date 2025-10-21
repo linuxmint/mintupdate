@@ -639,12 +639,13 @@ class MintUpdate():
 
     @_idle
     def show_updates_in_UI(self, num_visible, num_software, num_security, download_size, is_self_update, model_items):
+        status_string = ""
+
         if num_visible > 0:
             self.logger.write("Found %d software updates" % num_visible)
             if is_self_update:
                 self.ui_stack.set_visible_child_name("self_update_page")
                 self.ui_statusbar.set_visible(False)
-                status_string = ""
                 details = []
 
                 for item in model_items:
@@ -660,13 +661,19 @@ class MintUpdate():
                 self.ui_install_button.set_sensitive(True)
                 self.ui_window.set_sensitive(True)
             systray_tooltip = gettext.ngettext("%d update available", "%d updates available", num_visible) % num_visible
-            self.set_status(status_string, systray_tooltip, "mintupdate-updates-available-symbolic", True)
+
+            if not self.reboot_required:
+                self.set_status(status_string, systray_tooltip, "mintupdate-updates-available-symbolic", True)
         else:
             self.logger.write("System is up to date")
             self.ui_stack.set_visible_child_name("success_page")
-            self.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
-                                        not self.settings.get_boolean("hide-systray"))
 
+            if not self.reboot_required:
+                self.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
+                                not self.settings.get_boolean("hide-systray"))
+
+        if self.reboot_required:
+            self.set_status(status_string, _("Reboot required"), "mintupdate-warning-symbolic", True)
 
         self.ui_notebook_details.set_current_page(0)
 
