@@ -317,19 +317,19 @@ class MintUpdate():
 
             # Tray icon menu
             menu = Gtk.Menu()
-            image = Gtk.Image.new_from_icon_name("xapp-view-refresh-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-view-refresh-symbolic", Gtk.IconSize.MENU)
             menuItem3 = Gtk.ImageMenuItem(label=_("Refresh"), image=image)
             menuItem3.connect('activate', self.manual_refresh)
             menu.append(menuItem3)
-            image = Gtk.Image.new_from_icon_name("xapp-dialog-information-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-dialog-information-symbolic", Gtk.IconSize.MENU)
             menuItem2 = Gtk.ImageMenuItem(label=_("Information"), image=image)
             menuItem2.connect('activate', self.open_information)
             menu.append(menuItem2)
-            image = Gtk.Image.new_from_icon_name("xapp-toolbox-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-toolbox-symbolic", Gtk.IconSize.MENU)
             menuItem4 = Gtk.ImageMenuItem(label=_("Preferences"), image=image)
             menuItem4.connect('activate', self.open_preferences)
             menu.append(menuItem4)
-            image = Gtk.Image.new_from_icon_name("xapp-exit-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-exit-symbolic", Gtk.IconSize.MENU)
             menuItem = Gtk.ImageMenuItem(label=_("Quit"), image=image)
             menuItem.connect('activate', self.quit)
             menu.append(menuItem)
@@ -342,14 +342,14 @@ class MintUpdate():
             fileMenu = Gtk.MenuItem.new_with_mnemonic(_("_File"))
             fileSubmenu = Gtk.Menu()
             fileMenu.set_submenu(fileSubmenu)
-            image = Gtk.Image.new_from_icon_name("xapp-window-close-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-window-close-symbolic", Gtk.IconSize.MENU)
             closeMenuItem = Gtk.ImageMenuItem(label=_("Close window"), image=image)
             closeMenuItem.connect("activate", self.hide_window)
             key, mod = Gtk.accelerator_parse("<Control>W")
             closeMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             fileSubmenu.append(closeMenuItem)
             fileSubmenu.append(Gtk.SeparatorMenuItem())
-            image = Gtk.Image.new_from_icon_name("xapp-exit-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-exit-symbolic", Gtk.IconSize.MENU)
             quitMenuItem = Gtk.ImageMenuItem(label=_("Quit"), image=image)
             quitMenuItem.connect('activate', self.quit)
             key, mod = Gtk.accelerator_parse("<Control>Q")
@@ -359,17 +359,17 @@ class MintUpdate():
             editMenu = Gtk.MenuItem.new_with_mnemonic(_("_Edit"))
             editSubmenu = Gtk.Menu()
             editMenu.set_submenu(editSubmenu)
-            image = Gtk.Image.new_from_icon_name("xapp-toolbox-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-toolbox-symbolic", Gtk.IconSize.MENU)
             prefsMenuItem = Gtk.ImageMenuItem(label=_("Preferences"), image=image)
             prefsMenuItem.connect("activate", self.open_preferences)
             editSubmenu.append(prefsMenuItem)
             if os.path.exists("/usr/bin/timeshift-gtk"):
-                image = Gtk.Image.new_from_icon_name("xapp-document-open-recent-symbolic", Gtk.IconSize.MENU)
+                image = Gtk.Image.new_from_icon_name("xsi-document-open-recent-symbolic", Gtk.IconSize.MENU)
                 sourcesMenuItem = Gtk.ImageMenuItem(label=_("System Snapshots"), image=image)
                 sourcesMenuItem.connect("activate", self.open_timeshift)
                 editSubmenu.append(sourcesMenuItem)
             if os.path.exists("/usr/bin/mintsources"):
-                image = Gtk.Image.new_from_icon_name("xapp-software-install-symbolic", Gtk.IconSize.MENU)
+                image = Gtk.Image.new_from_icon_name("xsi-software-install-symbolic", Gtk.IconSize.MENU)
                 sourcesMenuItem = Gtk.ImageMenuItem(label=_("Software Sources"), image=image)
                 sourcesMenuItem.connect("activate", self.open_repositories)
                 editSubmenu.append(sourcesMenuItem)
@@ -399,16 +399,16 @@ class MintUpdate():
             viewMenu = Gtk.MenuItem.new_with_mnemonic(_("_View"))
             viewSubmenu = Gtk.Menu()
             viewMenu.set_submenu(viewSubmenu)
-            image = Gtk.Image.new_from_icon_name("xapp-document-open-recent-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-document-open-recent-symbolic", Gtk.IconSize.MENU)
             historyMenuItem = Gtk.ImageMenuItem(label=_("History of Updates"), image=image )
             historyMenuItem.connect("activate", self.open_history)
-            image = Gtk.Image.new_from_icon_name("xapp-run-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-run-symbolic", Gtk.IconSize.MENU)
             kernelMenuItem = Gtk.ImageMenuItem(label=_("Linux Kernels"), image=image)
             kernelMenuItem.connect("activate", self.on_kernel_menu_activated)
-            image = Gtk.Image.new_from_icon_name("xapp-dialog-information-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-dialog-information-symbolic", Gtk.IconSize.MENU)
             infoMenuItem = Gtk.ImageMenuItem(label=_("Information"), image=image)
             infoMenuItem.connect("activate", self.open_information)
-            image = Gtk.Image.new_from_icon_name("xapp-dialog-information-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-dialog-information-symbolic", Gtk.IconSize.MENU)
             visibleColumnsMenuItem = Gtk.ImageMenuItem(label=_("Visible Columns"), image=image)
             visibleColumnsMenu = Gtk.Menu()
             visibleColumnsMenuItem.set_submenu(visibleColumnsMenu)
@@ -472,22 +472,22 @@ class MintUpdate():
             helpSubmenu = Gtk.Menu()
             helpMenu.set_submenu(helpSubmenu)
 
-            image = Gtk.Image.new_from_icon_name("xapp-security-high-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-security-high-symbolic", Gtk.IconSize.MENU)
             helpMenuItem = Gtk.ImageMenuItem(label=_("Welcome Screen"), image=image)
             helpMenuItem.connect("activate", self.show_welcome_page)
             helpSubmenu.append(helpMenuItem)
             if (Gtk.check_version(3,20,0) is None):
-                image = Gtk.Image.new_from_icon_name("xapp-keyboard-shortcuts-symbolic", Gtk.IconSize.MENU)
+                image = Gtk.Image.new_from_icon_name("xsi-keyboard-shortcuts-symbolic", Gtk.IconSize.MENU)
                 shortcutsMenuItem = Gtk.ImageMenuItem(label=_("Keyboard Shortcuts"), image=image)
                 shortcutsMenuItem.connect("activate", self.open_shortcuts)
                 helpSubmenu.append(shortcutsMenuItem)
-            image = Gtk.Image.new_from_icon_name("xapp-help-contents-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-help-contents-symbolic", Gtk.IconSize.MENU)
             helpMenuItem = Gtk.ImageMenuItem(label=_("Contents"), image=image)
             helpMenuItem.connect("activate", self.open_help)
             key, mod = Gtk.accelerator_parse("F1")
             helpMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             helpSubmenu.append(helpMenuItem)
-            image = Gtk.Image.new_from_icon_name("xapp-help-about-symbolic", Gtk.IconSize.MENU)
+            image = Gtk.Image.new_from_icon_name("xsi-help-about-symbolic", Gtk.IconSize.MENU)
             aboutMenuItem = Gtk.ImageMenuItem(label=_("About"), image=image)
             aboutMenuItem.connect("activate", self.open_about)
             helpSubmenu.append(aboutMenuItem)
@@ -604,15 +604,15 @@ class MintUpdate():
         infobar.set_message_type(msg_type)
         if not icon:
             if msg_type == Gtk.MessageType.WARNING:
-                icon = "xapp-dialog-warning-symbolic"
+                icon = "xsi-dialog-warning-symbolic"
             elif msg_type == Gtk.MessageType.ERROR:
-                icon = "xapp-dialog-error-symbolic"
+                icon = "xsi-dialog-error-symbolic"
             elif msg_type == Gtk.MessageType.QUESTION:
-                icon = "xapp-dialog-information-symbolic"
+                icon = "xsi-dialog-information-symbolic"
         if icon:
             img = Gtk.Image.new_from_icon_name(icon, Gtk.IconSize.LARGE_TOOLBAR)
         else:
-            img = Gtk.Image.new_from_icon_name("xapp-dialog-warning-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
+            img = Gtk.Image.new_from_icon_name("xsi-dialog-warning-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
         infobar.get_content_area().pack_start(img, False, False, 0)
 
         info_label = Gtk.Label()
@@ -2088,7 +2088,7 @@ class MintUpdate():
             self.show_infobar(_("Reboot required"),
                 _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."),
                 Gtk.MessageType.WARNING,
-                "xapp-reboot-symbolic",
+                "xsi-reboot-symbolic",
                 self._on_infobar_reboot,
                 _("Reboot"))
 
