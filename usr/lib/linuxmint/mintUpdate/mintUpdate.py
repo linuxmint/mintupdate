@@ -2093,12 +2093,14 @@ class MintUpdate():
         self.cache_monitor.pause()
 
         if self.reboot_required:
-            self.show_infobar(_("Reboot required"),
-                _("You have installed updates that require a reboot to take effect. Please reboot your system as soon as possible."),
+            #Updated UI text from 'Reboot' to 'Restart' for consistency with Cinnamon.
+            #Internal variables (like reboot_required) left unchanged for compatibility.
+            self.show_infobar(_("Restart required"),
+                _("You have installed updates that require a restart to take effect. Please restart your system as soon as possible."),
                 Gtk.MessageType.WARNING,
                 "xsi-reboot-symbolic",
                 self._on_infobar_reboot,
-                _("Reboot"))
+                _("Restart"))
 
         if refresh_cache:
             # Note: All cache refresh happen asynchronously
