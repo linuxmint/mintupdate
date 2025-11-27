@@ -88,19 +88,20 @@ Notify.init(_("Update Manager"))
 
 BLACKLIST_PKG_NAME = 0
 
-GIGABYTE = 1000 ** 3
-MEGABYTE = 1000 ** 2
-KILOBYTE = 1000
-
 
 def size_to_string(size):
-    if (size >= GIGABYTE):
-        return "%d %s" % (size // GIGABYTE,  _("GB"))
-    if (size >= (MEGABYTE)):
-        return "%d %s" % (size // MEGABYTE,  _("MB"))
-    if (size >= KILOBYTE):
-        return "%d %s" % (size // KILOBYTE,  _("KB"))
-    return "%d %s" % (size,  _("B"))
+    f_size = float(size)
+    units = [_('B'), _('KB'), _('MB'), _('GB')]
+    for unit in units:
+        if f_size >= 1000:
+            f_size /= 1000
+        else:
+            break
+    if f_size >= 10:
+        return f"{f_size:.0f} {unit}"
+    else:
+        return f"{f_size:.1f} {unit}"
+
 
 def name_search_func(model, column, key, iter):
     name = model.get_value(iter, column)
