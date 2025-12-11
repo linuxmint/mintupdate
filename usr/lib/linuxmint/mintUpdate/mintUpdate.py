@@ -674,7 +674,7 @@ class MintUpdate():
                                 not self.settings.get_boolean("hide-systray"))
 
         if self.reboot_required:
-            self.set_status(status_string, _("Reboot required"), "mintupdate-warning-symbolic", True)
+            self.set_status(status_string, _("Restart required"), "mintupdate-warning-symbolic", True)
 
         self.ui_notebook_details.set_current_page(0)
 
