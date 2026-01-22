@@ -13,7 +13,8 @@ import sys
 import time
 import re
 import threading
-
+# Dépôt officiel MythicOS
+MYTHIC_REPO_URL = "packages.mythicos.hastag.fr"
 gettext.install("mintupdate", "/usr/share/locale")
 
 # These updates take priority over other updates.
@@ -131,28 +132,24 @@ class Update():
             self.type = "package"
             self.origin = ""
             for origin in package.candidate.origins:
-                self.origin = origin.origin
-                self.site = origin.site
-                self.archive = origin.archive
-                if origin.origin == "Ubuntu":
-                    self.origin = "ubuntu"
-                elif origin.origin == "Debian":
-                    self.origin = "debian"
-                elif origin.origin.startswith("LP-PPA"):
-                    self.origin = origin.origin
-                if origin.origin == "Ubuntu" and '-security' in origin.archive:
-                    self.type = "security"
-                    break
-                if origin.origin == "Debian" and '-Security' in origin.label:
-                    self.type = "security"
-                    break
-                if source_name in ["firefox", "thunderbird", "chromium"]:
-                    self.type = "security"
-                    break
-                if origin.origin == "linuxmint":
-                    if origin.component == "romeo":
-                        self.type = "unstable"
-                        break
+    self.origin = origin.origin
+    self.site = origin.site
+    self.archive = origin.archive
+
+    # Ajout de MythicOS comme nouvelle origine
+    if MYTHIC_REPO_URL in origin.site:
+        self.origin = "mythicos"
+        break
+
+    # Origines Ubuntu/Mint conservées
+    if origin.origin == "Ubuntu":
+        self.origin = "ubuntu"
+    elif origin.origin == "Debian":
+        self.origin = "debian"
+    elif origin.origin == "linuxmint":
+        self.origin = "linuxmint"
+    elif origin.origin.startswith("LP-PPA"):
+        self.origin = origin.origin
             if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                 self.type = "kernel"
 
