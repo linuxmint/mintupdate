@@ -1,32 +1,14 @@
-Source: mintupdate
+Source: mythic-update
 Section: admin
 Priority: optional
-Maintainer: Clement Lefebvre <root@linuxmint.com>
-Build-Depends: debhelper (>= 9),
-               python3,
-               dh-python
-Standards-Version: 3.9.5
+Maintainer: MythicOS <informatique-support@hastag.fr>
+Build-Depends: debhelper (>= 12)
+Standards-Version: 4.5.0
+Homepage: https://update.apps.hastag.fr
 
-Package: mintupdate
+Package: mythic-update
 Architecture: all
-Depends:
- ${python:Depends},
- ${misc:Depends},
- lsb-release,
- apt,
- aptkit,
- distro-info-data,
- psmisc,
- python3-apt,
- python3-multiprocess,
- python3-pycurl,
- python3-setproctitle,
- python3-xapp (>= 1.6),
- systemd,
- mint-common (>= 2.4.2),
- mint-mirrors,
- mint-upgrade-info,
- gir1.2-notify-0.7,
- gir1.2-xapp-1.0
-Description: The Linux Mint Update Manager
- Helps installing security updates and new versions of packages.
+Depends: python3, python3-apt
+Description: Gestionnaire de mise à jour MythicOS
+  Ajoute le dépôt MythicOS, applique la priorité APT,
+  et permet de mettre à jour le système depuis Ubuntu + Mint base.
