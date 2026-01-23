@@ -2,37 +2,27 @@
 # -*- coding: utf-8 -*-
 
 import os
-import subprocess
 import sys
+import subprocess
 
 from Classes import RepositoryManager, APP_NAME
-
-
-def run_command(cmd):
-    try:
-        subprocess.run(cmd, check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Erreur lors de l'exécution : {cmd}")
-        print(e)
 
 
 def main():
     print(f"Lancement de {APP_NAME}…")
 
-    # 1) Assurer la présence du dépôt MythicOS
+    # 1) Assurer dépôt + clé + priorité
     repo = RepositoryManager()
     repo.ensure_repositories()
 
-    # 2) Mise à jour de la liste des paquets
-    print("Actualisation des dépôts APT…")
-    run_command(["apt", "update"])
+    # 2) Mise à jour APT
+    subprocess.run(["apt", "update"], check=False)
 
-    # 3) Lancer le vrai gestionnaire Mint (backend)
-    mint_update_path = "/usr/bin/mintupdate"
+    # 3) Lancer MintUpdate (backend existant)
+    mintupdate_bin = "/usr/bin/mintupdate"
 
-    if os.path.exists(mint_update_path):
-        print("Lancement du backend MintUpdate…")
-        os.execv(mint_update_path, [mint_update_path] + sys.argv[1:])
+    if os.path.exists(mintupdate_bin):
+        os.execv(mintupdate_bin, [mintupdate_bin] + sys.argv[1:])
     else:
         print("Erreur : mintupdate introuvable.")
 
