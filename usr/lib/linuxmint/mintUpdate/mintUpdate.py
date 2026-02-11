@@ -1159,6 +1159,11 @@ class MintUpdate():
                     if self.hidden:
                         self.logger.write(f"Update Manager is in tray mode; performing {refresh_type} refresh")
                         self.refresh(True)
+                        # FIXME: self.refresh() is an _idle function, and we're on a thread - we will continue
+                        # and loop before self.refreshing is set. Force a brief dwell to allow the refresh() call
+                        # to get ahead of us and set self.refreshing and update 'refresh-last-run', otherwise we'll
+                        # get a double-refresh 1 minute apart every time.
+                        time.sleep(0.5)
                         while self.refreshing:
                             time.sleep(5)
                     else:

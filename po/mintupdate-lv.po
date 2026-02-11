@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2025-12-11 14:38+0000\n"
-"PO-Revision-Date: 2025-12-11 17:09+0000\n"
+"PO-Revision-Date: 2025-12-23 18:36+0000\n"
 "Last-Translator: Klavs Petersons <Unknown>\n"
 "Language-Team: Latvian <lv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2;\n"
-"X-Launchpad-Export-Date: 2025-12-12 13:25+0000\n"
-"X-Generator: Launchpad (build 379e22b8475e3402088a4cdb4a6e7936a4d28414)\n"
+"X-Launchpad-Export-Date: 2026-01-08 15:33+0000\n"
+"X-Generator: Launchpad (build 99c00f518760bdd50fc6e353e7736d2fff8fba4a)\n"
+"Language: lv\n"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:247
 #, python-format
@@ -38,13 +39,14 @@ msgid ""
 "using proprietary drivers and you want to use an older kernel, you will need "
 "to remove the new one first."
 msgstr ""
-"Linux kodols ir atbildīgs par aparatūras un draiveru atbalstu. Ņemiet vērā, "
-"ka šis atjauninājums neizdzēsīs esošo kodolu. Jūs joprojām varēsiet startēt "
+"Linux kodols ir atbildīgs par aparatūras un draiveru atbalstu. Ņem vērā, ka "
+"šis atjauninājums neizdzēsīs esošo kodolu. Tu joprojām varēsi startēt "
 "sistēmu ar pašreizējo kodolu, izvēloties papildu opcijas sākšanas izvēlnē. "
-"Tomēr lūdzu, esiet uzmanīgi... kodola regresijas var ietekmēt jūsu iespējas "
-"savienoties ar internetu vai grafiski pieteikties. DKMS moduļi ir kompilēti "
-"jaunākajiem kodoliem, kas instalēti jūsu datorā. Ja izmantojat patentētus "
-"draiverus un vēlaties izmantot vecāku kodolu, vispirms būs jāizdzēš jaunais."
+"Tomēr lūdzu, esi uzmanīgs... kodola regresijas var ietekmēt tavas iespējas "
+"savienoties ar internetu vai grafiski pieteikties sistēmā. DKMS moduļi ir "
+"kompilēti jaunākajiem kodoliem, kas instalēti tavā datorā. Ja izmanto "
+"patentētus draiverus un vēlies izmantot vecāku kodolu, vispirms būs jāizdzēš "
+"jaunais."
 
 #: usr/lib/linuxmint/mintUpdate/Classes.py:429
 msgid "Installing"
@@ -52,7 +54,7 @@ msgstr "Instalē"
 
 #: usr/lib/linuxmint/mintUpdate/Classes.py:475
 msgid "A Flatpak runtime package"
-msgstr "Flatpak izpildlaika pakotne"
+msgstr "Flatpak izpildlaika pakotni"
 
 #: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:34
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1650
@@ -88,12 +90,12 @@ msgstr "Šo kodolu nevar instalēt."
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:164
 #, python-format
 msgid "Are you sure you want to remove the %s kernel?"
-msgstr "Vai tiešām vēlaties izdzēst %s kodolu?"
+msgstr "Vai tiešām vēlies izdzēst %s kodolu?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:166
 #, python-format
 msgid "Are you sure you want to install the %s kernel?"
-msgstr "Vai esat pārliecināts, ka vēlaties instalēt %s kodolu?"
+msgstr "Vai esi pārliecināts, ka vēlies instalēt %s kodolu?"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:213
 msgid "Remove Kernels"
@@ -129,7 +131,7 @@ msgstr "Neatbalstīts"
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:416
 msgid "You are currently using the following kernel:"
-msgstr "Pašlaik izmantojat šādu kodolu:"
+msgstr "Tu pašlaik izmanto šādu kodolu:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:83
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:221
@@ -226,7 +228,7 @@ msgstr "Aizvērt logu"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:360
 msgid "_Edit"
-msgstr "R_ediģēt"
+msgstr "_Rediģēt"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:369
 msgid "System Snapshots"
@@ -296,13 +298,13 @@ msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
 msgstr ""
-"Cits process pašlaik izmanto pakotņu pārvaldības sistēmu. Lūdzu, pagaidiet, "
-"līdz tas beigsies, un mēģiniet vēlreiz."
+"Cits process pašlaik izmanto pakotņu pārvaldības sistēmu. Lūdzu, pagaidi, "
+"līdz tas beigsies, un mēģini vēlreiz."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "OK"
-msgstr "Labi"
+msgstr "LABI"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:625
 msgid "Yes"
@@ -332,7 +334,7 @@ msgstr[2] "%d pieejami atjauninājumi"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:673
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid "Your system is up to date"
-msgstr "Jūsu sistēma ir atjaunināta"
+msgstr "Tava sistēma ir atjaunināta"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:677
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2098
@@ -358,7 +360,7 @@ msgstr[2] "%d programmatūras atjauninājumi"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr ""
-"Piemērojiet tos, lai nodrošinātu operētājsistēmas drošību un atjauninātu to."
+"Piemēro tos, lai nodrošinātu operētājsistēmas drošību un atjauninātu to."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:710
 msgid "Updates are available"
@@ -379,7 +381,7 @@ msgstr "Nav atzīmēts neviens atjauninājums"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:865
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Welcome to the Update Manager"
-msgstr "Sveicināti atjauninājumu pārvaldniekā"
+msgstr "Laipni lūgti atjauninājumu pārvaldniekā"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
 msgid "Most recent change"
@@ -400,7 +402,7 @@ msgstr "Izmaiņu saraksts nav pieejams"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
 msgid "Total size: <"
-msgstr "Kopējais lielums: <"
+msgstr "Kopējais izmērs: <"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1201
 msgid "Total size:"
@@ -482,19 +484,19 @@ msgstr "minūtes"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1573
 msgid "First, refresh the list of updates after:"
-msgstr "Sākumā, atsvaidzināt atjuaninājumu sarakstu pēc:"
+msgstr "Vispirms atsvaidzini atjauninājumu sarakstu pēc:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1577
 msgid "Then, refresh the list of updates every:"
-msgstr "Tad, atsvaidzināt atjuaninājumu sarakstu katras:"
+msgstr "Pēc tam atsvaidzini atjauninājumu sarakstu ik pēc:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
 msgid ""
 "Note: The list only gets refreshed while the Update Manager window is closed "
 "(in system tray mode)."
 msgstr ""
-"Piezīme: Saraksts tiek atjaunināts tikai tad, kad ir aizvērts atjauninājumu "
-"pārvaldnieka logs."
+"Piezīme: saraksts tiek atsvaidzināts tikai tad, kad atjaunināšanas "
+"pārvaldnieka logs ir aizvērts (sistēmas teknes režīmā)."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1624
 msgid "Notifications"
@@ -502,7 +504,7 @@ msgstr "Paziņojumi"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1630
 msgid "Only show notifications for security and kernel updates"
-msgstr "Rādīt tikai drošības un kodola atjauninājumu paziņojumus"
+msgstr "Rādīt tikai paziņojumus par drošības un kodola atjauninājumiem"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
 msgid ""
@@ -526,7 +528,7 @@ msgstr "Atjauninājumu veidi"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
 msgid "In addition to system packages, check for:"
-msgstr "Papildus sistēmas pakotnēm pārbaudiet:"
+msgstr "Papildus sistēmas pakotnēm pārbaudi:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1648
 msgid "Cinnamon spice updates"
@@ -542,7 +544,7 @@ msgstr "Pakotņu atjauninājumi"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1681
 msgid "Performed as root on a daily basis"
-msgstr "Veic kā root ikdienā"
+msgstr "Veikts kā root ikdienā"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1682
 msgid "Apply updates automatically"
@@ -556,7 +558,7 @@ msgstr "Eksportēt melno sarakstu uz /etc/mintupdate.blacklist"
 msgid ""
 "Click this button to make automatic updates use your current blacklist."
 msgstr ""
-"Noklikšķiniet uz šīs pogas, lai automātiskie atjauninājumi izmantotu jūsu "
+"Noklikšķini uz šīs pogas, lai automātiskie atjauninājumi izmantotu tavu "
 "pašreizējo melno sarakstu."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1695
@@ -573,7 +575,7 @@ msgstr "Citi atjauninājumi"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
 msgid "Performed when you log in"
-msgstr "Veic, kad ielogojaties"
+msgstr "Veikts, kad piesakies sistēmā"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
 msgid "Automatic Maintenance"
@@ -585,7 +587,7 @@ msgstr "Veikts kā root katru nedēļu"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1705
 msgid "Remove obsolete kernels and dependencies"
-msgstr "Noņemiet novecojušus Linux kodolus un atlikumus"
+msgstr "Noņem novecojušus Linux kodolus un atlikumus"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1709
 msgid ""
@@ -600,8 +602,8 @@ msgid ""
 "Please specify the source package name of the update to ignore (wildcards "
 "are supported) and optionally the version:"
 msgstr ""
-"Lūdzu, norādiet ignorējamo atjauninājuma avota pakotnes nosaukumu "
-"(atbalstīti ir universālie simboli) un, ja vēlaties, arī versiju:"
+"Lūdzu, norādi ignorējamo atjauninājuma avota pakotnes nosaukumu (atbalstīti "
+"ir universālie simboli) un, ja vēlies, arī versiju:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1765
 msgid "Ignore an Update"
@@ -617,20 +619,20 @@ msgstr "Versija:"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1777
 msgid "(optional)"
-msgstr "(pēc izvēles)"
+msgstr "(neobligāts)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1984
 msgid "Do you want to switch to a local mirror?"
-msgstr "Vai vēlaties pārslēgties uz lokālo spoguļserveri?"
+msgstr "Vai vēlies pārslēgties uz vietējo spoguli?"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
-msgstr "Vietējie spoguļi parasti ir ātrāki nekā packages.linuxmint.com."
+msgstr "Vietējie spoguļi parasti ir ātrāki par packages.linuxmint.com."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1996
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2006
 msgid "Please switch to another mirror"
-msgstr "Lūdzu, pārejiet uz citu spoguli"
+msgstr "Lūdzu, pārslēdzies uz citu spoguli"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1997
 #, python-format
@@ -641,25 +643,21 @@ msgstr "%s nav sasniedzams."
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
-msgstr[0] ""
-"Pēdējā atjaunināšana %(mirror)s tika veikta %(days)d dienu atpakaļ."
-msgstr[1] ""
-"Pēdējā atjaunināšana %(mirror)s tika veikta %(days)d dienas atpakaļ."
-msgstr[2] ""
-"Pēdējā atjaunināšana %(mirror)s tika veikta %(days)d dienas atpakaļ."
+msgstr[0] "Pēdējais atjauninājums %(mirror)s bija %(days)d dienu atpakaļ."
+msgstr[1] "Pēdējie atjauninājumi %(mirror)s bija %(days)d dienas atpakaļ."
+msgstr[2] "Pēdējo atjauninājumu %(mirror)s bija %(days)d dienu atpakaļ."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2091
 msgid "Checking for updates"
-msgstr "Notiek pārbaude, vai ir pieejami atjauninājumi"
+msgstr "Notiek atjauninājumu meklēšana"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2099
 msgid ""
 "You have installed updates that require a restart to take effect. Please "
 "restart your system as soon as possible."
 msgstr ""
-"Jūs esat instalējis atjauninājumus, kuriem ir nepieciešama sistēmas "
-"pārstartēšana, lai tie stātos spēkā. Lūdzu, pārstartējiet sistēmu pēc "
-"iespējas ātrāk."
+"Ir instalēti atjauninājumi, kuriem nepieciešama restartēšana, lai tie stātos "
+"spēkā. Lūdzu, restartē sistēmu pēc iespējas ātrāk."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2103
 msgid "Restart"
@@ -668,14 +666,14 @@ msgstr "Restartēt"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2267
 msgid "Your APT configuration is corrupt."
-msgstr "Jūsu APT konfigurācija ir bojāta."
+msgstr "Tava APT konfigurācija ir bojāta."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2260
 msgid ""
 "Do not install or update anything - doing so could break your operating "
 "system!"
 msgstr ""
-"Neinstalējiet un neatjauniniet neko - pretējā gadījumā var tikt sabojāta "
+"Neinstalē un neatjaunini neko - pretējā gadījumā var tikt sabojāta "
 "operētājsistēma!"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
@@ -683,7 +681,7 @@ msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
 "Lai pārslēgtos uz citu Linux Mint spoguli un atrisinātu šo problēmu, "
-"noklikšķiniet uz LABI."
+"noklikšķini uz LABI."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2263
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2264
@@ -699,11 +697,11 @@ msgstr "Neizdevās atjaunināt atjauninājumu sarakstu"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2266
 msgid "Please switch to another Linux Mint mirror"
-msgstr "Lūdzu, pārslēdzieties uz citu Linux Mint spoguļserveri"
+msgstr "Lūdzu, pārslēdzies uz citu Linux Mint spoguļserveri"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2288
 msgid "Run 'apt update' in a terminal window to address this"
-msgstr "Lai to risinātu, termināļa logā palaidiet 'apt update'."
+msgstr "Lai to risinātu, termināļa logā palaid 'apt update'"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2338
 msgid "Security update"
@@ -718,7 +716,7 @@ msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
 msgstr ""
-"Nestabila programmatūra. Šo atjauninājumu izmantojiet tikai, lai palīdzētu "
+"Nestabila programmatūra. Šo atjauninājumu izmanto tikai, lai palīdzētu "
 "izstrādātājiem beta testēt jaunu programmatūru."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2350
@@ -743,7 +741,7 @@ msgstr "Cinnamon lietotne"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
 msgid "Cinnamon desklet"
-msgstr "Cinnamon darbvirsma"
+msgstr "Cinnamon desklets"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 msgid "Nemo action"
@@ -792,13 +790,13 @@ msgid ""
 "edition of Linux Mint should provide the virtual package 'mint-info' and the "
 "file /etc/linuxmint/info."
 msgstr ""
-"Jūsu sistēmā trūkst svarīgu komponentu. Jūsu Linux Mint versijai "
-"atbilstošajai pakotnei būtu jānodrošina virtuālā pakotne 'mint-info' un "
-"fails /etc/linuxmint/info."
+"Tavai sistēmai trūkst svarīgu komponentu. Tavai Linux Mint versijai "
+"atbilstošajai pakotnei jāietver virtuāla pakotne 'mint-info' un fails "
+"/etc/linuxmint/info."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:55
 msgid "No upgrades were found."
-msgstr "Atjauninājumi nav atrasti."
+msgstr "Atjauninājumi netika atrasti."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:64
 msgid "A new version of Linux Mint is available!"
@@ -807,29 +805,29 @@ msgstr "Ir pieejama jauna Linux Mint versija!"
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:85
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
-msgstr "Tika atrasts atjauninājums, bet tas vēl nav pieejams %s izdevumam."
+msgstr "Tika atrasts atjauninājums, bet tas vēl nav pieejams %s versijai."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:94
 msgid "Release notes"
-msgstr "Laidiena piezīmes"
+msgstr "Izlaiduma piezīmes"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:101
 msgid ""
 "Please read the release notes before upgrading. They explain all the known "
 "issues, workarounds and solutions associated with the new version."
 msgstr ""
-"Pirms atjaunināšanas izlasiet laidiena piezīmes. Tajās ir izskaidrotas visas "
+"Pirms atjaunināšanas izlasi izlaiduma piezīmes. Tajās ir izskaidrotas visas "
 "zināmās problēmas, risinājumi un veidi, kā apiet problēmas, kas saistītas ar "
 "jauno versiju."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:105
 #, python-format
 msgid "Release notes for %s"
-msgstr "Laidiena piezīmes par %s"
+msgstr "Izlaiduma piezīmes priekš %s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:108
 msgid "Click on the link to open the release notes."
-msgstr "Noklikšķiniet uz saites, lai atvērtu laidiena piezīmes."
+msgstr "Noklikšķini uz saites, lai atvērtu izlaiduma piezīmes."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:116
 msgid "New features"
@@ -837,16 +835,16 @@ msgstr "Jaunas funkcijas"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:123
 msgid "Please look at the new features introduced in the new version."
-msgstr "Apskatiet jaunajā versijā ieviestās jaunās funkcijas."
+msgstr "Apskati jaunajā versijā ieviestās jaunās funkcijas."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:127
 #, python-format
 msgid "New features in %s"
-msgstr "Jaunas funkcijas %s"
+msgstr "Jaunās funkcijas iekš %s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:130
 msgid "Click on the link to browse the new features."
-msgstr "Noklikšķiniet uz saites, lai apskatītu jaunās funkcijas."
+msgstr "Noklikšķini uz saites, lai apskatītu jaunās funkcijas."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:138
 msgid "Requirements"
@@ -864,7 +862,7 @@ msgstr "Instalēt %s"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:156
 msgid "Click on the button to install the missing package."
-msgstr "Noklikšķiniet uz pogas, lai instalētu trūkstošo pakotni."
+msgstr "Noklikšķini uz pogas, lai instalētu trūkstošo pakotni."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:170
 msgid ""
@@ -873,8 +871,8 @@ msgid ""
 "but new issues can potentially affect your operating system."
 msgstr ""
 "Jaunās versijas nodrošina kļūdu labojumus un jaunas funkcijas, bet dažkārt "
-"rada arī jaunas problēmas. Atjaunināšana vienmēr ir saistīta ar risku. Jūsu "
-"dati ir drošībā, bet jaunas problēmas var ietekmēt jūsu operētājsistēmu."
+"rada arī jaunas problēmas. Atjaunināšana vienmēr ir saistīta ar risku. Tavi "
+"dati ir drošībā, bet jaunas problēmas var ietekmēt tavu operētājsistēmu."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:174
 #, python-format
@@ -890,16 +888,16 @@ msgid ""
 "The upgrade did not succeed. Make sure you are connected to the Internet and "
 "try to upgrade again."
 msgstr ""
-"Atjaunināšana nebija veiksmīga. Pārliecinieties, vai esat pieslēdzies "
-"internetam, un mēģiniet atjaunināt vēlreiz."
+"Atjaunināšana nebija veiksmīga. Pārliecinies, vai esi pieslēdzies "
+"internetam, un mēģini atjaunināt vēlreiz."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:263
 msgid ""
 "Your operating system was successfully upgraded. Please reboot your computer "
 "for all changes to take effect."
 msgstr ""
-"Jūsu operētājsistēma ir veiksmīgi atjaunināta. Lūdzu, restartējiet datoru, "
-"lai visas izmaiņas stātos spēkā."
+"Tava operētājsistēma tika veiksmīgi atjaunināta. Lūdzu, restartē datoru, lai "
+"visas izmaiņas stātos spēkā."
 
 #: generate_desktop_files:26
 msgid "Show and install available updates"
@@ -950,15 +948,15 @@ msgstr "Brīdinājums!"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:7
 msgid "Proceed with caution"
-msgstr "Rīkojieties piesardzīgi"
+msgstr "Rīkojies piesardzīgi"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:8
 msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
-"Dažkārt jauna kodola instalēšana var radīt problēmas, jo īpaši, ja "
-"izmantojat patentētus draiverus."
+"Dažkārt jauna kodola instalēšana var radīt problēmas, jo īpaši, ja izmanto "
+"patentētus draiverus."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "These issues include:"
@@ -981,7 +979,7 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:14
 msgid "If you face any of these issues, don't panic:"
-msgstr "Ja saskaraties ar kādu no šīm problēmām, nebaidieties:"
+msgstr "Ja saskaries ar kādu no šīm problēmām, nebaidies:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid ""
@@ -993,14 +991,13 @@ msgid ""
 msgstr ""
 "- Pārstartēt.\n"
 "\n"
-"- Nospiediet un turiet nospiestu taustiņu Shift, lai parādītu starta "
-"izvēlni.\n"
+"- Nospied un turi nospiestu taustiņu Shift, lai parādītu starta izvēlni.\n"
 "\n"
-"- Startēšanas izvēlnē atlasiet rindu, kas sākas ar 'Papildu opcijas'.\n"
+"- Startēšanas izvēlnē atlasi rindu, kas sākas ar 'Papildu opcijas'.\n"
 "\n"
-"- Izvēlieties vecāku kodolu.\n"
+"- Izvēlies vecāku kodolu.\n"
 "\n"
-"- Pēc tam, kad dators ir sāknēts ar vecāku kodolu, atinstalējiet jauno."
+"- Pēc tam, kad dators ir sāknēts ar vecāku kodolu, atinstalē jauno."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:20
 msgid "Do not show this message again"
@@ -1025,7 +1022,7 @@ msgstr "Pielietot"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:25
 msgid "Please confirm the following actions:"
-msgstr "Lūdzu, apstipriniet šādas darbības:"
+msgstr "Lūdzu, apstiprini šādas darbības:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1035,7 +1032,7 @@ msgstr "Notīrīt"
 #: usr/share/linuxmint/mintupdate/main.ui.h:2
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:7
 msgid "Select All"
-msgstr "Iezīmēt visu"
+msgstr "Atlasīt visu"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:4
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:4
@@ -1046,7 +1043,7 @@ msgstr "Instalēt atjauninājumus"
 msgid ""
 "This tool provides your operating system with software and security updates."
 msgstr ""
-"Šis rīks nodrošina programmatūras un sistēmas atjauninājumus jūsu sistēmai."
+"Šis rīks nodrošina programmatūras un sistēmas atjauninājumus tavai sistēmai."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:7
 msgid "Security updates"
@@ -1056,7 +1053,7 @@ msgstr "Drošības atjauninājumi"
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
-"Instalējiet drošības atjauninājumus, lai novērstu ievainojamības un uzturētu "
+"Instalē drošības atjauninājumus, lai novērstu ievainojamības un uzturētu "
 "datoru drošu."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
@@ -1065,8 +1062,7 @@ msgstr "Programmatūras atjauninājumi"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:10
 msgid "Apply software updates to fix bugs in your computer."
-msgstr ""
-"Instalējiet programmatūras atjauninājumus, lai novērstu kļūdas datorā."
+msgstr "Instalē programmatūras atjauninājumus, lai novērstu kļūdas datorā."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:11
 msgid "System snapshots"
@@ -1077,8 +1073,8 @@ msgid ""
 "Set up system snapshots to protect yourself from mistakes and regressions. "
 "If anything breaks simply restore the last snapshot."
 msgstr ""
-"Iestatiet sistēmas momentuzņēmumus, lai pasargātu sevi no kļūdām un "
-"regresijām. Ja kaut kas sabojājas, vienkārši atjaunojiet izmantojot jaunāko "
+"Iestati sistēmas momentuzņēmumus, lai pasargātu sevi no kļūdām un "
+"regresijām. Ja kaut kas sabojājas, vienkārši atjauno izmantojot jaunāko "
 "momentuzņēmumu."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
@@ -1088,8 +1084,8 @@ msgid ""
 "back in time and recover from any potential regression."
 msgstr ""
 "Linux Mint iesaka iestatīt automatizētus sistēmas momentuzņēmumus un "
-"piemērot visus pieejamos atjauninājumus. Tādā veidā jūsu dators vienmēr ir "
-"drošs, un jūs varat atgriezties laikā un atgūties no jebkuras potenciālas "
+"piemērot visus pieejamos atjauninājumus. Tādā veidā tavs dators vienmēr ir "
+"drošs, un tu vari atgriezties laikā un atgūties no jebkuras potenciālas "
 "regresijas."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
@@ -1117,9 +1113,8 @@ msgid ""
 "Packages listed here will never receive updates. Use this option to block "
 "updates that you know cause issues on your system."
 msgstr ""
-"Šeit uzskaitītās pakotnes nekad nesaņems atjauninājumus. Izmantojiet šo "
-"iespēju, lai bloķētu atjauninājumus, kas, jūsuprāt, rada problēmas jūsu "
-"sistēmai."
+"Šeit uzskaitītās pakotnes nekad nesaņems atjauninājumus. Izmanto šo iespēju, "
+"lai bloķētu atjauninājumus, kas, tavuprāt, rada problēmas tavai sistēmai."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
 msgid ""
@@ -1134,8 +1129,8 @@ msgid ""
 "Make sure your system snapshots are properly configured before enabling "
 "automation."
 msgstr ""
-"Pārliecinieties, ka jūsu sistēmas momentuzņēmumi ir pareizi konfigurēti "
-"pirms automatizācijas aktivizēšanas."
+"Pārliecinies, ka tavas sistēmas momentuzņēmumi ir pareizi konfigurēti pirms "
+"automatizācijas aktivizēšanas."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
@@ -1147,11 +1142,11 @@ msgstr "Atlase"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:8
 msgid "Select Security Updates"
-msgstr "Izvēlieties drošības atjauninājumus"
+msgstr "Atlasi drošības atjauninājumus"
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:9
 msgid "Select Kernel Updates"
-msgstr "Izvēlieties kodola atjauninājumus"
+msgstr "Atlasi kodola atjauninājumus"
 
 #~ msgid "Software Updates"
 #~ msgstr "Programmatūras atjauninājumi"
