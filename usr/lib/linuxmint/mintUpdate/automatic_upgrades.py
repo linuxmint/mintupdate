@@ -20,10 +20,14 @@ try:
     power_supply_file = open(power_connectfile)
     powersupply = power_supply_file.read()[0]=='1'
     power_supply_file.close()
+    if !powersupply:
+        battery_capacity_file = open('/sys/class/power-supply/BAT0/capacity')
+        battery_capacity = int(battery_capacity_file.read())
+        battery_capacity_file.close()
 except:
     powersupply = True
     log.write(power_connectfile+" not found. Ignore power supply check.")
-if powersupply:
+if powersupply or battery_capacity >= 75:
     try:
         # Put shutdown and reboot blocker into place
         os.symlink(pkla_source, pkla_target)
