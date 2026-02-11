@@ -46,16 +46,14 @@ except:
 def debug(*args):
     if not DEBUG_MODE:
         return
-    pid = os.getpid()
     sanitized = [str(arg) for arg in args if arg is not None]
     argstr = " ".join(sanitized)
-    print("flatpak-update-worker[%d] (DEBUG): %s" % (pid, argstr), file=sys.stderr, flush=True)
+    print("flatpak-update-worker (DEBUG): %s" % argstr, file=sys.stderr, flush=True)
 
 def warn(*args):
-    pid = os.getpid()
     sanitized = [str(arg) for arg in args if arg is not None]
     argstr = " ".join(sanitized)
-    print("flatpak-update-worker[%d] (WARN): %s" % (pid, argstr), file=sys.stderr, flush=True)
+    print("flatpak-update-worker (WARN): %s" % argstr, file=sys.stderr, flush=True)
 
 class FlatpakUpdateWorker():
     def __init__(self):
@@ -98,11 +96,7 @@ class FlatpakUpdateWorker():
         if init:
             self.installer.init_sync()
 
-        # Only regenerate cache if flatpak data is stale
-        if _flatpak.flatpak_cache_is_stale(self.installer.cache.flatpak_remote_infos):
-            self.installer.force_new_cache_sync()
-        else:
-            debug("Flatpak cache is still valid, skipping cache regeneration")
+        self.installer.force_new_cache_sync()
 
     def fetch_updates(self):
         if self.cancellable.is_cancelled():
