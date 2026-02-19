@@ -25,6 +25,7 @@ import re
 import aptkit.simpleclient
 import checkAPT
 from multiprocess import Process, Queue
+import subprocess
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
@@ -2305,6 +2306,50 @@ class MintUpdate():
             self.logger.write_error("Exception occurred in the refresh thread: %s" % str(sys.exc_info()[0]))
             self.set_status(_("Could not refresh the list of updates"),
                                         _("Could not refresh the list of updates"), "mintupdate-error-symbolic", True)
+        def system_is_uefi():
+            return os.path.exists("/sys/firmware/efi")
+
+        def windows_boot_entry_present():
+            try:
+                output = subprocess.check_output(["efibootmgr"], universal_newlines=True)
+                return "Windows Boot Manager" in output
+            except:
+                return False
+
+        def post_kernel_update_check():
+            """
+            Checks for potential boot issues on UEFI dual-boot systems
+            after kernel updates and shows instructions if needed.
+            """
+            if not system_is_uefi():
+                return
+
+            if not windows_boot_entry_present():
+                return
+
+            try:
+                output = subprocess.check_output(["efibootmgr"], universal_newlines=True)
+                if "Linux Boot Manager" not in output:
+                    show_recovery_dialog()
+            except:
+                show_recovery_dialog()
+
+        def show_recovery_dialog():
+            """
+            Show a dialog to the user with instructions to fix bootloader issues
+            """
+            message = (
+                "Your system may not boot properly after this kernel update.\n\n"
+                "Recommended actions:\n"
+                "1. Boot from a live USB.\n"
+                "2. Install and run `boot-repair` or manually restore GRUB using efibootmgr.\n"
+                "3. Reboot and verify both Linux Mint and Windows boot entries.\n\n"
+                "See https://help.ubuntu.com/community/Boot-Repair for detailed instructions."
+            )
+            show_warning_dialog(
+                title=_("Potential bootloader issue detected"),
+                message=message
+            )
 
     def show_updates(self, updates):
         try:
@@ -2346,6 +2391,7 @@ class MintUpdate():
                         sort_key = 2
                         tooltip = _("Kernel update")
                         num_security += 1
+                        post_kernel_update_check()
                     elif update.type == "unstable":
                         sort_key = 7
                         tooltip = _("Unstable software. Only apply this update to help developers beta-test new software.")
