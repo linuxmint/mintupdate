@@ -1,68 +1,90 @@
 #!/usr/bin/python3
 
+from pathlib import Path
 import os
 import subprocess
 import time
 
-if not os.path.exists("/var/lib/linuxmint/mintupdate-automatic-upgrades-enabled"):
+if not Path("/var/lib/linuxmint/mintupdate-automatic-upgrades-enabled").exists():
     exit(0)
 
-optionsfile = "/etc/mintupdate-automatic-upgrades.conf"
-logfile = "/var/log/mintupdate.log"
-power_connectfile="/sys/class/power_supply/AC/online"
-log = open(logfile, "a")
-log.write("\n-- Automatic Upgrade starting %s:\n" % time.strftime('%a %d %b %Y %H:%M:%S %Z'))
-log.flush()
+optionsfile = Path("/etc/mintupdate-automatic-upgrades.conf")
+logfile = Path("/var/log/mintupdate.log")
+power_supplies = Path('/sys/class/power_supply').glob("*")
+main_powered  = False
+sufficient_battery = False
 
-pkla_source = "/usr/share/linuxmint/mintupdate/automation/99-mintupdate-temporary.pkla"
-pkla_target = "/etc/polkit-1/localauthority/90-mandatory.d/99-mintupdate-temporary.pkla"
-try:
-    power_supply_file = open(power_connectfile)
-    powersupply = power_supply_file.read()[0]=='1'
-    power_supply_file.close()
-    if !powersupply:
-        battery_capacity_file = open('/sys/class/power-supply/BAT0/capacity')
-        battery_capacity = int(battery_capacity_file.read())
-        battery_capacity_file.close()
-except:
-    powersupply = True
-    log.write(power_connectfile+" not found. Ignore power supply check.")
-if powersupply or battery_capacity >= 75:
-    try:
-        # Put shutdown and reboot blocker into place
-        os.symlink(pkla_source, pkla_target)
-    except:
+# Check for power status
+# See https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-power
+for power_supply in power_supplies:
+    power_supply_type = Path(f"{power_supply}/type").read_text().strip()
+    # One of  "Battery", "UPS", "Mains", "USB", "Wireless"
+    if power_supply_type == "Mains":
+        if Path(f"{power_supply}/online").read_text().strip() != "0":
+            # Indicates if VBUS is present for the supply. When the supply is
+            # online, and the supply allows it, then it's possible to switch
+            # between online states (e.g. Fixed -> Programmable for a PD_PPS
+            # USB supply so voltage and current can be controlled).
+            # Valid values:
+            #   0: Offline
+            #   1: Online Fixed - Fixed Voltage Supply
+            #   2: Online Programmable - Programmable Voltage Supply
+            main_powered = True
+            break
+    elif power_supply_type == "Battery":
+        battery_level = Path(f"{power_supply}/capacity_level").read_text().strip()
+        # Coarse representation of battery capacity.
+        # Valid values: "Unknown", "Critical", "Low", "Normal", "High", "Full"
+        if battery_level in ["Normal", "High","Full"]:
+            battery_capacity = int(Path(f"{power_supply}/capacity").read_text().strip())
+            # Fine grain representation of battery capacity.
+            # Valid values: 0 - 100 (percent)
+            if battery_capacity >= 75:
+                sufficient_battery = True
+            else:
+                sufficient_battery = False
+                break
+        elif battery_level in ["Critical", "Low"]:
+            sufficient_battery = False
+            break
+        else:
+            pass
+    else:
         pass
 
-    try:
-        # Parse options file
-        arguments = []
-        if os.path.isfile(optionsfile):
-            with open(optionsfile) as options:
-                for line in options:
+with logfile.open("a") as log:
+    if main_powered or sufficient_battery:
+        log.write(f"\n-- Automatic Upgrade starting {time.strftime('%a %d %b %Y %H:%M:%S %Z')}:\n")
+        log.flush()
+
+        pkla_source = "/usr/share/linuxmint/mintupdate/automation/99-mintupdate-temporary.pkla"
+        pkla_target = "/etc/polkit-1/localauthority/90-mandatory.d/99-mintupdate-temporary.pkla"
+        try:
+            os.symlink(pkla_source, pkla_target)
+            # Parse options file
+            arguments = []
+            if optionsfile.is_file():
+                for line in open(optionsfile, "r"):
                     line = line.strip()
                     if line and not line.startswith("#"):
                         arguments.append(line)
 
-        # Run mintupdate-cli through systemd-inhibit
-        cmd = ["/bin/systemd-inhibit", '--why="Performing automatic updates"',
-               '--who="Update Manager"',  "--what=shutdown", "--mode=block",
-               "/usr/bin/mintupdate-cli", "upgrade", "--refresh-cache", "--yes"]
-        cmd.extend(arguments)
-        subprocess.run(cmd, stdout=log, stderr=log)
-
-    except:
-        import traceback
-        log.write("Exception occurred:\n")
-        log.write(traceback.format_exc())
-
-    try:
-        # Remove shutdown and reboot blocker
-        os.unlink(pkla_target)
-    except:
-        pass
-
-    log.write("-- Automatic Upgrade completed\n")
-else:
-    log.write("-- Power supply not connected, abort automatic update.\n")
-log.close()
+            # Run mintupdate-cli through systemd-inhibit
+            cmd = ["/bin/systemd-inhibit", '--why="Performing automatic updates"',
+                   '--who="Update Manager"',  "--what=shutdown", "--mode=block",
+                   "/usr/bin/mintupdate-cli", "upgrade", "--refresh-cache", "--yes"]
+            cmd.extend(arguments)
+            subprocess.run(cmd, stdout=log, stderr=log)
+        except Exception as e:
+            import traceback
+            log.write(f"Exception occurred: {e}\n")
+            log.write(traceback.format_exc())
+            log.flush()
+        finally:
+            # Remove shutdown and reboot blocker
+            os.unlink(pkla_target)
+            log.write(f"-- Automatic Upgrade completed\n")
+            log.flush()
+    else:
+        log.write(f"\n-- Automatic Upgrade skipped by power status {time.strftime('%a %d %b %Y %H:%M:%S %Z')}:\n")
+        log.flush()
