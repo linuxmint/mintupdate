@@ -10,12 +10,12 @@ if not Path("/var/lib/linuxmint/mintupdate-automatic-upgrades-enabled").exists()
 
 optionsfile = Path("/etc/mintupdate-automatic-upgrades.conf")
 logfile = Path("/var/log/mintupdate.log")
-power_supplies = Path('/sys/class/power_supply').glob("*")
 main_powered  = False
 sufficient_battery = False
 
 # Check for power status
 # See https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-power
+power_supplies = Path('/sys/class/power_supply').glob("*")
 for power_supply in power_supplies:
     power_supply_type = Path(f"{power_supply}/type").read_text().strip()
     # One of  "Battery", "UPS", "Mains", "USB", "Wireless"
@@ -36,6 +36,9 @@ for power_supply in power_supplies:
             pass
     elif power_supply_type == "Battery":
         try:
+            if Path(f"{power_supply}/scope").exists() and Path(f"{power_supply}/scope").read_text().strip() == "Device":
+                # Skip batteries of connected (undocumented Logitech) devices
+                continue
             battery_level = Path(f"{power_supply}/capacity_level").read_text().strip()
             # Coarse representation of battery capacity.
             # Valid values: "Unknown", "Critical", "Low", "Normal", "High", "Full"
@@ -48,6 +51,8 @@ for power_supply in power_supplies:
                         sufficient_battery = True
                     else:
                         sufficient_battery = False
+                        # stop checking, even when a single battery
+                        # on a multi powered device is unsufficient.
                         break
                 except FileNotFoundError:
                     pass
