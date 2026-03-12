@@ -309,29 +309,6 @@ class APTCheck():
                                                 description = html.unescape(description)
                                             except:
                                                 print ("Unable to unescape '%s'" % description)
-                                            dlines = description.split("\n")
-                                            value = ""
-                                            num = 0
-                                            newline = False
-                                            for dline in dlines:
-                                                dline = dline.strip()
-                                                if len(dline) > 0:
-                                                    if dline == ".":
-                                                        value = "%s\n" % (value)
-                                                        newline = True
-                                                    else:
-                                                        if (newline):
-                                                            value = "%s%s" % (value, self.capitalize(dline))
-                                                        else:
-                                                            value = "%s %s" % (value, dline)
-                                                        newline = False
-                                                    num += 1
-                                            value = value.replace("  ", " ").strip()
-                                            # Capitalize the first letter
-                                            value = value[:1].upper() + value[1:]
-                                            # Add missing punctuation
-                                            if len(value) > 0 and value[-1] not in [".", "!", "?"]:
-                                                value = "%s." % value
                                             if update.source_name not in NON_TRANSLATED_PKGS:
                                                 update.description += description
                                         except Exception as e:
