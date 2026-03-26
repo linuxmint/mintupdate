@@ -70,6 +70,7 @@ except Exception as e:
     print(sys.exc_info()[0])
 
 setproctitle.setproctitle("mintUpdate")
+GLib.set_prgname("mintupdate")
 
 # i18n
 APP = 'mintupdate'
