@@ -22,6 +22,7 @@ try:
         installed = 0
         used = 0
         installable = 0
+        is_auto = 0
         pkg_version = ""
         pkg_match = r.match(pkg_name)
         if pkg_match:
@@ -39,6 +40,7 @@ try:
             if pkg.is_installed:
                 installed = 1
                 pkg_version = pkg.installed.version
+                is_auto = 1 if pkg.is_auto_installed else 0
             else:
                 # only offer to install same-type kernels
                 if kernel_type != CONFIGURED_KERNEL_TYPE:
@@ -100,9 +102,9 @@ try:
                 # unsupported
                 support_duration = 0
 
-            resultString = "KERNEL###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s" % \
+            resultString = "KERNEL###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s###%s" % \
                 (".".join(versions), version, pkg_version, installed, used, installable,
-                    origin, archive, support_duration, kernel_type)
+                    origin, archive, support_duration, kernel_type, is_auto)
             print(resultString.encode("utf-8").decode('ascii', 'xmlcharrefreplace'))
 
 except Exception as e:

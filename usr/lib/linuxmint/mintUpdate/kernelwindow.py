@@ -2,6 +2,7 @@
 
 # System imports
 import apt
+import apt_pkg
 import aptkit.simpleclient
 import gettext
 import locale
@@ -33,11 +34,12 @@ def list_header_func(row, before, user_data):
         row.set_header(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
 
 class Kernel():
-    def __init__(self, version, kernel_type, origin, installed):
+    def __init__(self, version, kernel_type, origin, installed, is_auto=False):
         self.version = version
         self.type = kernel_type
         self.origin = origin
         self.installed = installed
+        self.is_auto = is_auto
 
 class MarkKernelRow(Gtk.ListBoxRow):
     def __init__(self, kernel, kernel_list, version_id=None, supported=None):
@@ -61,10 +63,13 @@ class MarkKernelRow(Gtk.ListBoxRow):
 
 class KernelRow(Gtk.ListBoxRow):
     def __init__(self, version, pkg_version, kernel_type, text, installed, used, title,
-                 installable, origin, support_status, kernel_window):
+                 installable, origin, support_status, is_auto, apt_protected, kernel_window):
         Gtk.ListBoxRow.__init__(self)
 
         self.kernel_window = kernel_window
+        self.version = version
+        self.kernel_type = kernel_type
+        self.is_auto = is_auto
 
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(vbox)
@@ -76,6 +81,13 @@ class KernelRow(Gtk.ListBoxRow):
         vbox.pack_start(hbox, True, True, 0)
         version_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         hbox.pack_start(version_box, False, False, 0)
+
+        pinned = installed and (not is_auto or apt_protected)
+        icon_name = "xsi-view-pin-symbolic" if pinned else "xsi-empty-icon-symbolic"
+        self.pin_image = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.MENU)
+        self.pin_image.set_margin_end(6)
+        version_box.pack_start(self.pin_image, False, False, 0)
+
         version_label = Gtk.Label()
         version_label.set_markup("%s" % text)
         version_box.pack_start(version_label, False, False, 0)
@@ -129,8 +141,25 @@ class KernelRow(Gtk.ListBoxRow):
             box.pack_start(link, False, False, 2)
 
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+
+        if installed:
+            self.do_not_remove_check = Gtk.CheckButton(label=_("Do not automatically remove"))
+            self.do_not_remove_check.set_active(not is_auto)
+            if apt_protected:
+                self.do_not_remove_check.set_active(True)
+                self.do_not_remove_check.set_sensitive(False)
+                self.do_not_remove_check.set_tooltip_text(
+                    _("This kernel is protected by APT and will not be automatically removed.")
+                )
+            else:
+                self.do_not_remove_check.set_tooltip_text(
+                    _("When checked, this kernel will not be removed by automatic cleanup.")
+                )
+                self.do_not_remove_check.connect("toggled", self.on_do_not_remove_toggled)
+            button_box.pack_start(self.do_not_remove_check, False, False, 0)
+
         button = Gtk.Button()
-        kernel = Kernel(version, kernel_type, origin, installed)
+        kernel = Kernel(version, kernel_type, origin, installed, is_auto)
         button.connect("clicked", self.install_kernel, kernel)
         queuebutton = Gtk.Button()
         queuebutton.connect("clicked", self.queue_kernel, kernel)
@@ -158,6 +187,36 @@ class KernelRow(Gtk.ListBoxRow):
             self.revealer.set_reveal_child(False)
         else:
             self.revealer.set_reveal_child(True)
+
+    def on_do_not_remove_toggled(self, widget):
+        action = "manual" if widget.get_active() else "auto"
+        self.do_not_remove_check.set_sensitive(False)
+        self._run_mark_async(action)
+
+    @_async
+    def _run_mark_async(self, action):
+        try:
+            result = subprocess.run(
+                ["pkexec", "/usr/bin/mintupdate-kernel-mark",
+                 self.version, self.kernel_type, action],
+                capture_output=True, text=True
+            )
+            success = (result.returncode == 0)
+        except Exception:
+            success = False
+        self._mark_done(action, success)
+
+    @_idle
+    def _mark_done(self, action, success):
+        self.do_not_remove_check.set_sensitive(True)
+        if success:
+            self.is_auto = (action == "auto")
+            icon_name = "xsi-empty-icon-symbolic" if self.is_auto else "xsi-view-pin-symbolic"
+            self.pin_image.set_from_icon_name(icon_name, Gtk.IconSize.MENU)
+        else:
+            self.do_not_remove_check.handler_block_by_func(self.on_do_not_remove_toggled)
+            self.do_not_remove_check.set_active(not self.is_auto)
+            self.do_not_remove_check.handler_unblock_by_func(self.on_do_not_remove_toggled)
 
     def install_kernel(self, widget, kernel):
         if kernel.installed:
@@ -281,10 +340,11 @@ class KernelWindow():
         ACTIVE_KERNEL_VERSION = "0"
         for kernel in kernels:
             values = kernel.split('###')
-            if len(values) == 11:
-                (version_id, version, pkg_version, installed, used, installable, origin, archive, support_duration, kernel_type) = values[1:]
+            if len(values) == 12:
+                (version_id, version, pkg_version, installed, used, installable, origin, archive, support_duration, kernel_type, is_auto) = values[1:]
                 installed = (installed == "1")
                 used = (used == "1")
+                is_auto = (is_auto == "1")
                 title = ""
                 if used:
                     title = _("Active")
@@ -310,7 +370,7 @@ class KernelWindow():
                         hwe_support_duration[release].append([page_label, support_duration])
 
                 kernel_list_prelim.append([version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title,
-                    installable, origin, release, support_duration])
+                    installable, origin, release, support_duration, is_auto])
                 if page_label not in pages_needed:
                     pages_needed.append(page_label)
                     pages_needed_sort.append([version_id, page_label])
@@ -360,9 +420,36 @@ class KernelWindow():
         kernel_list = []
         supported_kernels = {}
 
+        # Determine which installed kernels are APT-protected.
+        # APT::Protect-Kernels (default true) enables kernel protection.
+        # APT::NeverAutoRemove::KernelCount (default 2) sets how many
+        # of the most recent installed kernels are protected. The running
+        # kernel is always protected regardless of count.
+        protect_kernels = apt_pkg.config.find_b("APT::Protect-Kernels", True)
+        kernel_count = apt_pkg.config.find_i("APT::NeverAutoRemove::KernelCount", 2)
+
+        installed_version_ids = []
+        running_version_id = None
+        for kernel in kernel_list_prelim:
+            vid, _v, _pv, _kt, _pl, _l, inst, used = kernel[:8]
+            if inst:
+                installed_version_ids.append(vid)
+                if used:
+                    running_version_id = vid
+        installed_version_ids.sort(reverse=True)
+
+        apt_protected_ids = set()
+        if running_version_id:
+            apt_protected_ids.add(running_version_id)
+        if protect_kernels:
+            for vid in installed_version_ids:
+                if len(apt_protected_ids) >= kernel_count:
+                    break
+                apt_protected_ids.add(vid)
+
         self.installed_kernels = []
         for kernel in kernel_list_prelim:
-            (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, release, support_duration) = kernel
+            (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, release, support_duration, is_auto) = kernel
             support_status = ""
             newest_supported_in_series = False
             if support_duration and origin == "1":
@@ -393,8 +480,9 @@ class KernelWindow():
                                                                             self.marked_kernels, version_id,
                                                                             newest_supported_in_series))
 
+            apt_protected = (version_id in apt_protected_ids) if installed else False
             kernel_list.append([version_id, version, pkg_version, kernel_type, page_label, label,
-                                installed, used, title, installable, origin, support_status])
+                                installed, used, title, installable, origin, support_status, is_auto, apt_protected])
         del(kernel_list_prelim)
 
         # add kernels to UI
@@ -411,13 +499,13 @@ class KernelWindow():
             self.ui_kernel_stack.add_titled(scw, page, page)
 
             for kernel in kernel_list:
-                (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, support_status) = kernel
+                (version_id, version, pkg_version, kernel_type, page_label, label, installed, used, title, installable, origin, support_status, is_auto, apt_protected) = kernel
                 if used:
                     currently_using = _("You are currently using the following kernel:")
                     self.ui_current_label.set_markup("<b>%s %s%s%s</b>" % (currently_using, label, kernel_type, ' (%s)' % support_status if support_status else ''))
                 if page_label == page:
                     row = KernelRow(version, pkg_version, kernel_type, label, installed, used, title,
-                        installable, origin, support_status, self)
+                        installable, origin, support_status, is_auto, apt_protected, self)
                     list_box.add(row)
 
             list_box.connect("row_activated", self.on_row_activated)
