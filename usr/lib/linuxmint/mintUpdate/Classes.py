@@ -33,7 +33,10 @@ CONFIGURED_KERNEL_TYPE = settings.get_string("selected-kernel-type")
 if CONFIGURED_KERNEL_TYPE not in SUPPORTED_KERNEL_TYPES:
     CONFIGURED_KERNEL_TYPE = "-generic"
 
-CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
+CONFIG_PATH = os.path.join(os.environ.get("XDG_STATE_HOME", os.path.expanduser("~/.local/state")), "mintupdate")
+# Fall back to legacy path if it exists
+if os.path.isdir(os.path.expanduser("~/.linuxmint/mintupdate")):
+    CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
 
 # Used as a decorator to run things in the background
 def _async(func):
