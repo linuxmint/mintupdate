@@ -34,6 +34,8 @@ from xapp.GSettingsWidgets import *
 # local imports
 import logger
 from kernelwindow import KernelWindow
+import threading
+
 from Classes import Update, PRIORITY_UPDATES, CONFIG_PATH, UpdateTracker, _idle, _async
 
 
@@ -179,10 +181,11 @@ class MintUpdate():
         self.updates_inhibited = False
         self.reboot_required = False
         self.refreshing = False
-        self.refreshing_apt = False
-        self.refreshing_flatpak = False
-        self.refreshing_cinnamon = False
-        self.auto_refresh_is_alive = False
+        self.refresh_threads = []
+        self.apt_cache_done = threading.Event()
+        self.apt_cache_done.set()
+        self.auto_refresh_wakeup = threading.Event()
+        self.initial_refresh_done = False
         self.hidden = True # whether the window is hidden or not
         self.packages = [] # packages selected for update
         self.flatpaks = [] # flatpaks selected for update
@@ -532,7 +535,6 @@ class MintUpdate():
 
             self.ui_notebook_details.set_current_page(0)
 
-            self.refresh_schedule_enabled = self.settings.get_boolean("refresh-schedule-enabled")
             self.start_auto_refresh()
 
             Gtk.main()
@@ -551,6 +553,12 @@ class MintUpdate():
 
         self.app_restart_required = settings.get_boolean("show-cinnamon-updates") != self.show_cinnamon_enabled or \
                                     settings.get_boolean("show-flatpak-updates") != self.show_flatpak_enabled
+
+        if key in ("refresh-minutes", "refresh-hours", "refresh-days",
+                   "autorefresh-minutes", "autorefresh-hours", "autorefresh-days",
+                   "refresh-schedule-enabled"):
+            self.auto_refresh_wakeup.set()
+            self.start_auto_refresh()
 
 
 ######### EVENT HANDLERS #########
@@ -1113,15 +1121,16 @@ class MintUpdate():
 
     @_async
     def start_auto_refresh(self):
-        self.auto_refresh_is_alive = True
+        self.auto_refresh_wakeup.clear()
         minute = 60
         hour = 60 * minute
         day = 24 * hour
-        initial_refresh = True
-        settings_prefix = ""
-        refresh_type = "initial"
+        initial_refresh = not self.initial_refresh_done
+        retry_soon = False
+        settings_prefix = "" if initial_refresh else "auto"
+        refresh_type = "initial" if initial_refresh else "auto"
 
-        while self.refresh_schedule_enabled:
+        while self.settings.get_boolean("refresh-schedule-enabled"):
             try:
                 schedule = {
                     "minutes": self.settings.get_int("%srefresh-minutes" % settings_prefix),
@@ -1130,59 +1139,43 @@ class MintUpdate():
                 }
                 timetosleep = schedule["minutes"] * minute + schedule["hours"] * hour + schedule["days"] * day
 
+                self.logger.write(f"auto-refresh iteration: refresh_type={refresh_type}, initial_refresh={initial_refresh}, retry_soon={retry_soon}, configured timetosleep={timetosleep}s")
+
                 if not timetosleep:
-                    time.sleep(60) # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
+                    # sleep 1 minute, don't mind the config we don't want an infinite loop to go nuts :)
+                    if self.auto_refresh_wakeup.wait(timeout=60):
+                        return
                 else:
-                    now = int(time.time())
-                    if not initial_refresh:
-                        refresh_last_run = self.settings.get_int("refresh-last-run")
-                        if not refresh_last_run or refresh_last_run > now:
-                            refresh_last_run = now
-                            self.settings.set_int("refresh-last-run", now)
-                        time_since_last_refresh = now - refresh_last_run
-                        if time_since_last_refresh > 0:
-                            timetosleep = timetosleep - time_since_last_refresh
-                        # always wait at least 1 minute to be on the safe side
-                        if timetosleep < 60:
-                            timetosleep = 60
+                    if retry_soon:
+                        self.logger.write("retry_soon set from previous iteration; clamping sleep to 60s")
+                        timetosleep = 60
+                        retry_soon = False
 
                     schedule["days"] = int(timetosleep / day)
                     schedule["hours"] = int((timetosleep - schedule["days"] * day) / hour)
                     schedule["minutes"] = int((timetosleep - schedule["days"] * day - schedule["hours"] * hour) / minute)
                     self.logger.write("%s refresh will happen in %d day(s), %d hour(s) and %d minute(s)" %
                         (refresh_type.capitalize(), schedule["days"], schedule["hours"], schedule["minutes"]))
-                    time.sleep(timetosleep)
-                    if not self.refresh_schedule_enabled:
-                        self.logger.write(f"Auto-refresh disabled in preferences; cancelling {refresh_type} refresh")
-                        self.uninhibit_pm()
+                    if self.auto_refresh_wakeup.wait(timeout=timetosleep):
+                        self.logger.write(f"woke early during {refresh_type} refresh sleep")
                         return
                     if self.hidden:
                         self.logger.write(f"Update Manager is in tray mode; performing {refresh_type} refresh")
                         self.refresh(True)
-                        # FIXME: self.refresh() is an _idle function, and we're on a thread - we will continue
-                        # and loop before self.refreshing is set. Force a brief dwell to allow the refresh() call
-                        # to get ahead of us and set self.refreshing and update 'refresh-last-run', otherwise we'll
-                        # get a double-refresh 1 minute apart every time.
-                        time.sleep(0.5)
-                        while self.refreshing:
-                            time.sleep(5)
                     else:
-                        if initial_refresh:
-                            self.logger.write(f"Update Manager window is open; skipping {refresh_type} refresh")
-                        else:
-                            self.logger.write(f"Update Manager window is open; delaying {refresh_type} refresh by 60s")
-                            time.sleep(60)
+                        action = "skipping" if initial_refresh else "delaying"
+                        self.logger.write(f"Update Manager window is open; {action} {refresh_type} refresh will retry shortly")
+                        retry_soon = True
             except Exception as e:
                 print (e)
                 self.logger.write_error("Exception occurred during %s refresh: %s" % (refresh_type, str(sys.exc_info()[0])))
 
             if initial_refresh:
                 initial_refresh = False
+                self.initial_refresh_done = True
                 settings_prefix = "auto"
                 refresh_type = "auto"
-        else:
-            self.logger.write("Auto-refresh disabled in preferences, automatic refresh thread stopped")
-        self.auto_refresh_is_alive = False
+        self.logger.write("Auto-refresh disabled in preferences, automatic refresh thread stopped")
 
 
     def switch_page(self, notebook, page, page_num):
@@ -1561,7 +1554,6 @@ class MintUpdate():
 
         section = page.add_section(_("Auto-refresh"))
         switch = GSettingsSwitch(_("Refresh the list of updates automatically"), "com.linuxmint.updates", "refresh-schedule-enabled")
-        switch.content_widget.connect("notify::active", self.auto_refresh_toggled)
         section.add_row(switch)
 
         grid = Gtk.Grid()
@@ -1724,11 +1716,6 @@ class MintUpdate():
         with open(filename, "w") as f:
             f.write("\n".join(blacklist) + "\n")
         subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "blacklist", "enable"])
-
-    def auto_refresh_toggled(self, widget, param):
-        self.refresh_schedule_enabled = widget.get_active()
-        if self.refresh_schedule_enabled and not self.auto_refresh_is_alive:
-            self.start_auto_refresh()
 
     def set_auto_upgrade(self, widget, param):
         exists = os.path.isfile(AUTOMATIONS["upgrade"][2])
@@ -2112,25 +2099,21 @@ class MintUpdate():
             # refresh_updates() waits for them to finish
             self.logger.write("Refreshing cache")
 
-            # APT
-            self.settings.set_int("refresh-last-run", int(time.time()))
-            self.refreshing_apt = True
+            self.refresh_threads = []
+
             if self.hidden:
-                self.refresh_apt_cache_externally()
+                self.refresh_threads.append(self.refresh_apt_cache_externally())
             else:
+                self.apt_cache_done.clear()
                 client = aptkit.simpleclient.SimpleAPTClient(self.ui_window)
                 client.set_finished_callback(self.on_cache_updated)
                 client.update_cache()
 
-            # Cinnamon
             if CINNAMON_SUPPORT:
-                self.refreshing_cinnamon = True
-                self.refresh_cinnamon_cache()
+                self.refresh_threads.append(self.refresh_cinnamon_cache())
 
-            # Flatpak
             if FLATPAK_SUPPORT:
-                self.refreshing_flatpak = True
-                self.refresh_flatpak_cache()
+                self.refresh_threads.append(self.refresh_flatpak_cache())
 
         self.refresh_updates()
 
@@ -2154,8 +2137,6 @@ class MintUpdate():
             subprocess.run(refresh_command)
         except:
             print("Exception while calling mint-refresh-cache")
-        finally:
-            self.refreshing_apt = False
 
     @_async
     def refresh_cinnamon_cache(self):
@@ -2166,16 +2147,14 @@ class MintUpdate():
             except:
                 self.logger.write_error("Something went wrong fetching Cinnamon %ss: %s" % (spice_type, str(sys.exc_info()[0])))
                 print("-- Exception occurred fetching Cinnamon %ss:\n%s" % (spice_type, traceback.format_exc()))
-        self.refreshing_cinnamon = False
 
     @_async
     def refresh_flatpak_cache(self):
         self.logger.write("Refreshing cache for Flatpak updates")
         self.flatpak_updater.refresh()
-        self.refreshing_flatpak = False
 
     def on_cache_updated(self, transaction=None, exit_state=None):
-        self.refreshing_apt = False
+        self.apt_cache_done.set()
 
 
 # ---------------- Test Mode ------------------------------------------#
@@ -2256,8 +2235,9 @@ class MintUpdate():
     @_async
     def refresh_updates(self):
         # Wait for all the caches to be refreshed
-        while (self.refreshing_apt or self.refreshing_flatpak or self.refreshing_cinnamon):
-            time.sleep(1)
+        for t in self.refresh_threads:
+            t.join()
+        self.apt_cache_done.wait()
 
         # Check presence of Mint layer
         if self.test_mode == "layer-error" or (not self.check_policy()):
