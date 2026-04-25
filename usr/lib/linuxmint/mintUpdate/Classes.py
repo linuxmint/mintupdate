@@ -5,13 +5,11 @@ from gi.repository import Gio, GLib
 
 import datetime
 import gettext
-import html
 import json
 import os
 import subprocess
 import sys
 import time
-import re
 import threading
 
 gettext.install("mintupdate", "/usr/share/locale")
@@ -210,7 +208,7 @@ class UpdateTracker():
 
     # Loads past updates from JSON file
     def __init__(self, settings, logger):
-        os.system("mkdir -p %s" % CONFIG_PATH)
+        os.makedirs(CONFIG_PATH, exist_ok=True)
         self.path = os.path.join(CONFIG_PATH, "updates.json")
 
         self.test_mode = os.getenv("MINTUPDATE_TEST") == "tracker-max-age"
