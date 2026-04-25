@@ -441,11 +441,11 @@ class MintUpdate():
             newVersionColumnMenuItem.connect("toggled", self.setVisibleColumn, column_new_version, "show-new-version-column")
             visibleColumnsMenu.append(newVersionColumnMenuItem)
 
-            sizeColumnMenuItem = Gtk.CheckMenuItem(label=_("Origin"))
-            sizeColumnMenuItem.set_active(self.settings.get_boolean("show-origin-column"))
+            originColumnMenuItem = Gtk.CheckMenuItem(label=_("Origin"))
+            originColumnMenuItem.set_active(self.settings.get_boolean("show-origin-column"))
             column_origin.set_visible(self.settings.get_boolean("show-origin-column"))
-            sizeColumnMenuItem.connect("toggled", self.setVisibleColumn, column_origin, "show-origin-column")
-            visibleColumnsMenu.append(sizeColumnMenuItem)
+            originColumnMenuItem.connect("toggled", self.setVisibleColumn, column_origin, "show-origin-column")
+            visibleColumnsMenu.append(originColumnMenuItem)
 
             sizeColumnMenuItem = Gtk.CheckMenuItem(label=_("Size"))
             sizeColumnMenuItem.set_active(self.settings.get_boolean("show-size-column"))
@@ -772,7 +772,6 @@ class MintUpdate():
             # Make sure we're never stuck on the status_refreshing page:
             if self.ui_stack.get_visible_child_name() == "refresh_page":
                 self.ui_stack.set_visible_child_name("updates_page")
-            #self.ui_paned.set_position(self.ui_paned.get_position())
             self.ui_toolbar.set_sensitive(True)
             self.ui_menubar.set_sensitive(True)
         self.set_window_busy(enabled)
@@ -1637,7 +1636,6 @@ class MintUpdate():
         page = SettingsPage()
         box.pack_start(page, True, True, 0)
 
-        # if False:
         if os.path.exists("/usr/bin/cinnamon") or os.path.exists("/usr/bin/flatpak"):
             section = page.add_section(_("Update types"), _("In addition to system packages, check for:"))
 
