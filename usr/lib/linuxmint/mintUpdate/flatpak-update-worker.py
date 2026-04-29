@@ -13,9 +13,11 @@ import gettext
 
 import gi
 gi.require_version('GLib', '2.0')
+gi.require_version('GLibUnix', '2.0')
 gi.require_version('Gtk', '3.0')
 gi.require_version('Flatpak', '1.0')
-from gi.repository import Gtk, GLib, Flatpak, Gio
+gi.require_version('GioUnix', '2.0')
+from gi.repository import Gtk, GLib, GLibUnix, Flatpak, Gio, GioUnix
 
 from mintcommon.installer import installer
 from mintcommon.installer import _flatpak
@@ -68,7 +70,7 @@ class FlatpakUpdateWorker():
             self.cancellable.cancel()
             self.quit()
 
-        self.stdin = Gio.UnixInputStream.new(sys.stdin.fileno(), True)
+        self.stdin = GioUnix.InputStream.new(sys.stdin.fileno(), True)
 
         self.updates = []
 
@@ -337,7 +339,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     updater = FlatpakUpdateWorker()
-    GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGTERM, updater.quit, None)
+    try:
+        GLibUnix.signal_add(GLib.PRIORITY_DEFAULT, signal.SIGTERM, updater.quit)
+    except AttributeError:
+        GLibUnix.signal_add_full(GLib.PRIORITY_DEFAULT, signal.SIGTERM, updater.quit, None)
 
     if args.refresh:
         try:

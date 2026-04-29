@@ -114,7 +114,10 @@ class APTCheck():
         self.install_cancelled = False
         self._aptkit_done = threading.Event()
         self._start_install(packages)
-        self._aptkit_done.wait()
+        # Generous bound (4h) so legitimately long upgrades aren't aborted, but
+        # we never hang forever if aptkit dies without firing a callback.
+        if not self._aptkit_done.wait(timeout=4 * 60 * 60):
+            self.install_error = "Timed out waiting for aptkit install"
 
     @_idle
     def _start_install(self, packages):
