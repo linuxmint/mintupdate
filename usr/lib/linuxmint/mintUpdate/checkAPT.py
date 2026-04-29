@@ -46,6 +46,8 @@ class APTCheck():
         # source_name. fetch_updates() replaces it with the final list of Updates.
         self.updates = {}
         self.error = None
+        self.install_error = None
+        self.install_cancelled = False
 
     def load_cache(self):
         self.cache = apt.Cache()
@@ -103,6 +105,43 @@ class APTCheck():
             return None
         except Exception as e:
             return f"mint-refresh-cache raised: {e}"
+
+    def install_packages(self, packages):
+        # Install the given list of package names via aptkit. Blocks until the
+        # transaction finishes, is cancelled, or errors. After return, callers
+        # should check self.install_cancelled and self.install_error.
+        self.install_error = None
+        self.install_cancelled = False
+        self._aptkit_done = threading.Event()
+        self._start_install(packages)
+        self._aptkit_done.wait()
+
+    @_idle
+    def _start_install(self, packages):
+        try:
+            client = aptkit.simpleclient.SimpleAPTClient(self.ui_window)
+
+            def on_finished(transaction, exit_state):
+                if exit_state != aptkit.enums.EXIT_SUCCESS:
+                    self.install_error = f"aptkit transaction finished with exit_state={exit_state}"
+                self._aptkit_done.set()
+
+            def on_error(error_code, error_details):
+                self.install_error = f"aptkit error code={error_code} details={error_details}"
+                self._aptkit_done.set()
+
+            def on_cancelled():
+                self.install_cancelled = True
+                self._aptkit_done.set()
+
+            client.set_finished_callback(on_finished)
+            client.set_error_callback(on_error)
+            client.set_cancelled_callback(on_cancelled)
+
+            client.install_packages(packages)
+        except Exception as e:
+            self.install_error = f"aptkit setup raised: {e}"
+            self._aptkit_done.set()
 
     def fetch_updates(self):
         # Compute the list of available updates. Blocks until done, or until
