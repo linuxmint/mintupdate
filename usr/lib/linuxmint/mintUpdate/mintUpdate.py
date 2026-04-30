@@ -193,6 +193,8 @@ class MintUpdate():
         self.is_lmde = False
         self.app_restart_required = False
         self.show_cinnamon_enabled = False
+        self.column_upgrade = None
+        self._bulk_toggle_paths = None
         self.settings.connect("changed", self._on_settings_changed)
         self._on_settings_changed(self.settings, None)
 
@@ -237,10 +239,10 @@ class MintUpdate():
             cr.connect("toggled", self.toggled)
             cr.set_property("activatable", True)
 
-            column_upgrade = Gtk.TreeViewColumn(_("Upgrade"), cr)
-            column_upgrade.add_attribute(cr, "active", UPDATE_CHECKED)
-            column_upgrade.set_sort_column_id(UPDATE_CHECKED)
-            column_upgrade.set_resizable(True)
+            self.column_upgrade = Gtk.TreeViewColumn(_("Upgrade"), cr)
+            self.column_upgrade.add_attribute(cr, "active", UPDATE_CHECKED)
+            self.column_upgrade.set_sort_column_id(UPDATE_CHECKED)
+            self.column_upgrade.set_resizable(True)
 
             column_name = Gtk.TreeViewColumn(_("Name"), Gtk.CellRendererText(), markup=UPDATE_DISPLAY_NAME)
             column_name.set_sort_column_id(UPDATE_DISPLAY_NAME)
@@ -270,7 +272,7 @@ class MintUpdate():
 
             self.treeview.set_search_equal_func(name_search_func)
             self.treeview.append_column(column_type)
-            self.treeview.append_column(column_upgrade)
+            self.treeview.append_column(self.column_upgrade)
             self.treeview.append_column(column_name)
             self.treeview.append_column(column_old_version)
             self.treeview.append_column(column_new_version)
@@ -281,10 +283,12 @@ class MintUpdate():
             self.treeview.set_reorderable(False)
             self.treeview.show()
 
+            self.treeview.connect("button-press-event", self.treeview_button_pressed)
             self.treeview.connect("button-release-event", self.treeview_right_clicked)
             self.treeview.connect("row-activated", self.treeview_row_activated)
 
             selection = self.treeview.get_selection()
+            selection.set_mode(Gtk.SelectionMode.MULTIPLE)
             selection.connect("changed", self.display_selected_update)
             self.ui_notebook_details.connect("switch-page", self.switch_page)
             self.ui_window.connect("delete_event", self.close_window)
@@ -872,13 +876,68 @@ class MintUpdate():
     def treeview_row_activated(self, treeview, path, view_column):
         self.toggled(None, path)
 
+    def treeview_button_pressed(self, widget, event):
+        if event.type != Gdk.EventType.BUTTON_PRESS:
+            return False
+
+        if event.button == Gdk.BUTTON_SECONDARY:
+            path_info = widget.get_path_at_pos(int(event.x), int(event.y))
+            if path_info is not None:
+                sel_paths = widget.get_selection().get_selected_rows()[1]
+                if any(p.compare(path_info[0]) == 0 for p in sel_paths):
+                    return True
+            return False
+
+        if event.button != Gdk.BUTTON_PRIMARY:
+            return False
+        if event.state & (Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK):
+            return False
+        path_info = widget.get_path_at_pos(int(event.x), int(event.y))
+        if path_info is None:
+            return False
+        path, column, _x, _y = path_info
+        if column is not self.column_upgrade:
+            return False
+        sel_paths = widget.get_selection().get_selected_rows()[1]
+        if len(sel_paths) > 1 and any(p.compare(path) == 0 for p in sel_paths):
+            self._bulk_toggle_paths = sel_paths
+        return False
+
     def toggled(self, renderer, path):
         model = self.treeview.get_model()
+        if isinstance(path, str):
+            path = Gtk.TreePath.new_from_string(path)
         iter = model.get_iter(path)
-        if iter is not None:
-            model.set_value(iter, UPDATE_CHECKED, (not model.get_value(iter, UPDATE_CHECKED)))
+        if iter is None:
+            return
+
+        new_value = not model.get_value(iter, UPDATE_CHECKED)
+
+        bulk_paths = self._bulk_toggle_paths
+        self._bulk_toggle_paths = None
+
+        if bulk_paths is None:
+            sel_paths = self.treeview.get_selection().get_selected_rows()[1]
+            if len(sel_paths) > 1 and any(p.compare(path) == 0 for p in sel_paths):
+                bulk_paths = sel_paths
+
+        if bulk_paths is None:
+            model.set_value(iter, UPDATE_CHECKED, new_value)
+        else:
+            for p in bulk_paths:
+                it = model.get_iter(p)
+                if it is not None:
+                    model.set_value(it, UPDATE_CHECKED, new_value)
+            GLib.idle_add(self._restore_selection, bulk_paths)
 
         self.update_installable_state()
+
+    def _restore_selection(self, paths):
+        sel = self.treeview.get_selection()
+        sel.unselect_all()
+        for p in paths:
+            sel.select_path(p)
+        return GLib.SOURCE_REMOVE
 
     @_idle
     def set_textview_changes_text(self, text):
@@ -889,8 +948,12 @@ class MintUpdate():
             self.textview_packages.set_text("")
             self.textview_description.set_text("")
             self.textview_changes.set_text("")
-            (model, iter) = selection.get_selected()
-            if iter is not None:
+            model, paths = selection.get_selected_rows()
+            if len(paths) > 1:
+                self.display_multi_selection(model, paths)
+                return
+            if len(paths) == 1:
+                iter = model.get_iter(paths[0])
                 update = model.get_value(iter, UPDATE_OBJ)
                 description = update.description.replace("\\n", "\n")
                 desc_tab = self.ui_notebook_details.get_nth_page(TAB_DESC)
@@ -1170,11 +1233,10 @@ class MintUpdate():
                 + self.settings.get_int(f"{prefix}refresh-days") * DAY)
 
     def switch_page(self, notebook, page, page_num):
-        selection = self.treeview.get_selection()
-        (model, iter) = selection.get_selected()
-        if iter and page_num == 2 and not self.changelog_retriever_started:
+        model, paths = self.treeview.get_selection().get_selected_rows()
+        if len(paths) == 1 and page_num == 2 and not self.changelog_retriever_started:
             # Changelog tab
-            update = model.get_value(iter, UPDATE_OBJ)
+            update = model.get_value(model.get_iter(paths[0]), UPDATE_OBJ)
             self.retrieve_changelog(update)
             self.changelog_retriever_started = True
 
@@ -1198,21 +1260,79 @@ class MintUpdate():
              size_label, size_to_string(update.size))
         self.textview_packages.set_text(packages)
 
+    def display_multi_selection(self, model, paths):
+        self.textview_description.set_text(
+            _("Select a single update to view its description and changelog."))
+
+        package_names = set()
+        total_size = 0
+        for p in paths:
+            update = model.get_value(model.get_iter(p), UPDATE_OBJ)
+            package_names.update(update.package_names)
+            total_size += update.size
+
+        prefix = "\n    • "
+        count = len(package_names)
+        packages = "%s%s%s\n%s %s\n\n" % \
+            (gettext.ngettext("The selected updates affect the following installed package:",
+                      "The selected updates affect the following installed packages:",
+                      count),
+             prefix,
+             prefix.join(sorted(package_names)),
+             _("Total size:"), size_to_string(total_size))
+        self.textview_packages.set_text(packages)
+
+        self.ui_notebook_details.get_nth_page(TAB_PACKAGES).show()
+        self.ui_notebook_details.get_nth_page(TAB_CHANGELOG).hide()
+        self.changelog_retriever_started = False
+
     def treeview_right_clicked(self, widget, event):
-        if event.button == 3:
-            (model, iter) = widget.get_selection().get_selected()
-            if iter is not None:
-                update = model.get_value(iter, UPDATE_OBJ)
-                menu = Gtk.Menu()
-                menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore the current update for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, update.source_packages, True)
-                menu.append(menuItem)
-                menuItem = Gtk.MenuItem.new_with_mnemonic(_("Ignore all future updates for this package"))
-                menuItem.connect("activate", self.add_to_ignore_list, update.source_packages, False)
-                menu.append(menuItem)
-                menu.attach_to_widget (widget, None)
-                menu.show_all()
-                menu.popup(None, None, None, None, event.button, event.time)
+        if event.button != Gdk.BUTTON_SECONDARY:
+            return
+        path_info = widget.get_path_at_pos(int(event.x), int(event.y))
+        if path_info is None:
+            return
+        clicked_path = path_info[0]
+        model = widget.get_model()
+        selection = widget.get_selection()
+        sel_paths = selection.get_selected_rows()[1]
+
+        if any(p.compare(clicked_path) == 0 for p in sel_paths):
+            target_paths = sel_paths
+        else:
+            target_paths = [clicked_path]
+            selection.unselect_all()
+            selection.select_path(clicked_path)
+
+        source_packages = []
+        seen = set()
+        for p in target_paths:
+            update = model.get_value(model.get_iter(p), UPDATE_OBJ)
+            for pkg in update.source_packages:
+                if pkg not in seen:
+                    seen.add(pkg)
+                    source_packages.append(pkg)
+
+        count = len(target_paths)
+        ignore_current = gettext.ngettext(
+            "Ignore the current update for this package",
+            "Ignore the current updates for these packages",
+            count)
+        ignore_future = gettext.ngettext(
+            "Ignore all future updates for this package",
+            "Ignore all future updates for these packages",
+            count)
+
+        menu = Gtk.Menu()
+        menuItem = Gtk.MenuItem.new_with_mnemonic(ignore_current)
+        menuItem.connect("activate", self.add_to_ignore_list, source_packages, True)
+        menu.append(menuItem)
+        menuItem = Gtk.MenuItem.new_with_mnemonic(ignore_future)
+        menuItem.connect("activate", self.add_to_ignore_list, source_packages, False)
+        menu.append(menuItem)
+        menu.attach_to_widget(widget, None)
+        menu.show_all()
+        menu.popup(None, None, None, None, event.button, event.time)
 
     def add_to_ignore_list(self, widget, source_packages, versioned):
         blacklist = self.settings.get_strv("blacklisted-packages")
