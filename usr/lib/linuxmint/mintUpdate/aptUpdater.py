@@ -35,7 +35,7 @@ meta_names = []
 # packages which description is incorrect in Ubuntu (usually those which were replaced by snap dependencies)
 NON_TRANSLATED_PKGS = ["firefox", "thunderbird"]
 
-class APTCheck():
+class AptUpdater():
 
     def __init__(self, ui_window=None):
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
@@ -539,7 +539,7 @@ class APTCheck():
 
 if __name__ == "__main__":
     try:
-        check = APTCheck()
+        check = AptUpdater()
         check.refresh()
         check.fetch_updates()
         if check.error is not None:

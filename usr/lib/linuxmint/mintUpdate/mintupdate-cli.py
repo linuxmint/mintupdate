@@ -7,7 +7,7 @@ import subprocess
 import sys
 import traceback
 
-from checkAPT import APTCheck
+from aptUpdater import AptUpdater
 from Classes import PRIORITY_UPDATES
 
 if __name__ == "__main__":
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     try:
         if args.refresh_cache:
             subprocess.run("sudo /usr/bin/mint-refresh-cache", shell=True)
-        check = APTCheck()
+        check = AptUpdater()
         check.load_cache()
         check.find_changes()
 

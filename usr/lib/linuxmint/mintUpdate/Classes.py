@@ -250,7 +250,7 @@ class UpdateTracker():
         self.tracker_version = 1 # version of the data structure
         self.settings = settings
         self.tracked_updates = {}
-        self.refreshed_update_names = [] # updates which are seen in checkAPT
+        self.refreshed_update_names = [] # updates which are seen in aptUpdater
         self.today = datetime.date.today().strftime("%Y.%m.%d")
         self.max_days = 0 # oldest update (in number of days seen)
         self.oldest_since_date = self.today # oldest update (according to since date)

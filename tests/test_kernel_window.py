@@ -7,7 +7,7 @@ sys.path.insert(0, myPath + '/../usr/lib/linuxmint/mintUpdate/')
 from datetime import datetime
 from Classes import *
 from mintUpdate import *
-from checkAPT import *
+from aptUpdater import *
 
 # Test KernelVersion object
 def test_kernel_version_series_comparison():

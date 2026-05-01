@@ -20,7 +20,7 @@ import traceback
 import setproctitle
 import platform
 import re
-import checkAPT
+import aptUpdater
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
@@ -510,7 +510,7 @@ class MintUpdate():
                 if showWindow == "show":
                     self.show_window()
 
-            self.apt_updater = checkAPT.APTCheck(self.ui_window)
+            self.apt_updater = aptUpdater.AptUpdater(self.ui_window)
 
             if CINNAMON_SUPPORT:
                 self.cinnamon_updater = cinnamon.UpdateManager()
@@ -2034,7 +2034,7 @@ class MintUpdate():
             updates = self.apt_updater.updates
 
             if error is not None:
-                self.logger.write_error("Error in checkAPT.py, could not refresh the list of updates")
+                self.logger.write_error("Error in aptUpdater.py, could not refresh the list of updates")
                 if "apt.cache.FetchFailedException" in error and " changed its " in error:
                     error += "\n\n%s" % _("Run 'apt update' in a terminal window to address this")
                 self.show_error(error)
