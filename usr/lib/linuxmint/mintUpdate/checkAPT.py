@@ -52,6 +52,12 @@ class APTCheck():
 
         # Package updates
         for pkg in changes:
+            if pkg.candidate is None:
+                # Installed package has no candidate version (e.g. orphaned
+                # or removed from the repositories). Skip it so the rest of
+                # the update list can still be refreshed.
+                print("Skipping package without candidate version: %s" % pkg.name)
+                continue
             if (pkg.is_installed and pkg.candidate.version != pkg.installed.version):
                 if (pkg.marked_upgrade or pkg.marked_downgrade):
                     self.add_update(pkg)
