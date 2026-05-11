@@ -126,6 +126,11 @@ class APTCacheMonitor():
         mins=self.application.settings.get_int("refresh-minutes")
         if days>0 or hours>0 or mins>0:
           self.application.refresh(False)
+        else:
+          children = self.application.ui_stack.get_children()
+          if children:
+            self.application.ui_stack.set_visible_child(children[0])
+          self.application.set_status("",_("Package lists are stale. Please click Refresh."),"mintupdate-warning-symbolic",True)
         self.update_cachetime()
         if os.path.isfile(self.pkgcache) and os.path.isfile(self.dpkgstatus):
             while True:
