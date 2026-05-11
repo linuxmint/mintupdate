@@ -121,7 +121,11 @@ class APTCacheMonitor():
 
     @_async
     def start(self):
-        self.application.refresh(False)
+        days=self.application.settings.get_int("refresh-days")
+        hours=self.application.settings.get_int("refresh-hours")
+        mins=self.application.settings.get_int("refresh-minutes")
+        if days>0 or hours>0 or mins>0:
+          self.application.refresh(False)
         self.update_cachetime()
         if os.path.isfile(self.pkgcache) and os.path.isfile(self.dpkgstatus):
             while True:
@@ -1159,11 +1163,6 @@ class MintUpdate():
                     if self.hidden:
                         self.logger.write(f"Update Manager is in tray mode; performing {refresh_type} refresh")
                         self.refresh(True)
-                        # FIXME: self.refresh() is an _idle function, and we're on a thread - we will continue
-                        # and loop before self.refreshing is set. Force a brief dwell to allow the refresh() call
-                        # to get ahead of us and set self.refreshing and update 'refresh-last-run', otherwise we'll
-                        # get a double-refresh 1 minute apart every time.
-                        time.sleep(0.5)
                         while self.refreshing:
                             time.sleep(5)
                     else:
@@ -1477,7 +1476,7 @@ class MintUpdate():
             print (e)
             print(sys.exc_info()[0])
 
-        dlg.set_version("__DEB_VERSION__")
+        dlg.set_version("7.1.4")
         dlg.set_icon_name("mintupdate")
         dlg.set_logo_icon_name("mintupdate")
         dlg.set_website("https://www.github.com/linuxmint/mintupdate")
