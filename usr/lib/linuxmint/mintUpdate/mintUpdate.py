@@ -11,7 +11,6 @@ import io
 import locale
 import tarfile
 import urllib.request
-import proxygsettings
 import subprocess
 import pycurl
 import datetime
@@ -21,6 +20,7 @@ import setproctitle
 import platform
 import re
 import aptUpdater
+import xapp.os
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
@@ -1085,26 +1085,12 @@ class MintUpdate():
         origin = update.origin
         is_kernel_update = update.type == "kernel"
 
-        # get the proxy settings from gsettings
-        ps = proxygsettings.get_proxy_settings()
-
-
         # Remove the epoch if present in the version
         version = update.new_version
         if ":" in version:
             version = version.split(":")[-1]
 
         self.set_textview_changes_text(_("Downloading changelog..."))
-
-        if ps == {}:
-            # use default urllib.request proxy mechanisms (possibly *_proxy environment vars)
-            proxy = urllib.request.ProxyHandler()
-        else:
-            # use proxy settings retrieved from gsettings
-            proxy = urllib.request.ProxyHandler(ps)
-
-        opener = urllib.request.build_opener(proxy)
-        urllib.request.install_opener(opener)
 
         changelog = [_("No changelog available")]
 
@@ -2369,4 +2355,9 @@ class MintUpdate():
             self.queue_refresh(False)
 
 if __name__ == "__main__":
+    try:
+        xapp.os.add_network_proxy_to_env()
+    except Exception as e:
+        print("Network proxy support unavailable: %s" % str(e))
+
     MintUpdate()
