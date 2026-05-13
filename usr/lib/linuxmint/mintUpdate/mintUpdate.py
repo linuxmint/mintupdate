@@ -110,13 +110,13 @@ class APTCacheMonitor():
         self.application = application
         self.cachetime = 0
         self.statustime = 0
-        self.paused = False
+        self.paused = True
         self.pkgcache = "/var/cache/apt/pkgcache.bin"
         self.dpkgstatus = "/var/lib/dpkg/status"
+        self.start()
 
     @_async
     def start(self):
-        self.application.queue_refresh(False)
         self.update_cachetime()
         if os.path.isfile(self.pkgcache) and os.path.isfile(self.dpkgstatus):
             while True:
@@ -185,7 +185,7 @@ class MintUpdate():
         self.spices = [] # spices selected for update
         self.inhibit_cookie = 0
         self.logger = logger.Logger()
-        self.cache_monitor = None
+        self.cache_monitor = APTCacheMonitor(self)
         self.logger.write("Launching Update Manager")
         self.test_mode = os.getenv("MINTUPDATE_TEST")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
@@ -529,8 +529,7 @@ class MintUpdate():
             if self.settings.get_boolean("show-welcome-page"):
                 self.show_welcome_page()
             else:
-                self.cache_monitor = APTCacheMonitor(self)
-                self.cache_monitor.start()
+                self.queue_refresh(False)
 
             self.ui_notebook_details.set_current_page(0)
 
@@ -858,11 +857,7 @@ class MintUpdate():
         self.ui_toolbar.set_sensitive(True)
         self.ui_menubar.set_sensitive(True)
         self.updates_inhibited = False
-        if self.cache_monitor is None:
-            self.cache_monitor = APTCacheMonitor(self)
-            self.cache_monitor.start()
-        else:
-            self.ui_stack.set_visible_child_name("updates_page")
+        self.queue_refresh(False)
 
     def show_welcome_page(self, widget=None):
         self.updates_inhibited = True
