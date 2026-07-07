@@ -439,9 +439,15 @@ class KernelWindow():
                     _KERNEL_PKG_NAMES.append("linux-image-unsigned-VERSION-KERNELTYPE")
                     _KERNEL_PKG_NAMES.append("linux-tools-VERSION")
                     _KERNEL_PKG_NAMES.append("linux-tools-VERSION-KERNELTYPE")
+                    _KERNEL_PKG_NAMES.append("linux-hwe-MAJOR_MINOR_VERSION-tools-VERSION")
+                    _KERNEL_PKG_NAMES.append("linux-hwe-MAJOR_MINOR_VERSION-headers-VERSION")
 
                 for name in _KERNEL_PKG_NAMES:
-                    name = name.replace("VERSION", kernel.version).replace("-KERNELTYPE", kernel.type)
+                    name = (name
+                        .replace("MAJOR_MINOR_VERSION", kernel.version.rpartition('.')[0])
+                        .replace("VERSION", kernel.version)
+                        .replace("-KERNELTYPE", kernel.type)
+                    )
                     if name in self.cache:
                         pkg = self.cache[name]
                         if kernel.installed:
