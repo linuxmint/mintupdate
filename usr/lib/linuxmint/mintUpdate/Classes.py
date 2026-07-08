@@ -173,7 +173,7 @@ class Update():
             if package.candidate.section == "kernel" or self.package_name.startswith("linux-headers") or self.real_source_name in ["linux", "linux-kernel", "linux-signed", "linux-meta"]:
                 self.type = "kernel"
 
-    def add_package(self, pkg):
+    def add_package(self, pkg, source_pkg = None):
         if self.main_package_name in SOURCE_PACKAGE_NAME_OVERRIDES:
             self.display_name = self.source_name
 
@@ -185,6 +185,12 @@ class Update():
             return
 
         if self.main_package_name != self.source_name:
+            # Use source package's information if exists
+            if (source_pkg is not None
+                    and self.type != "kernel"
+                    and pkg.name not in SOURCE_PACKAGE_NAME_OVERRIDES):
+                self.overwrite_main_package(source_pkg)
+                return
             # Overwrite dev, dbg, common, arch packages
             for suffix in ["-dev", "-dbg", "-common", "-core", "-data", "-doc", ":i386", ":amd64"]:
                 if (self.main_package_name.endswith(suffix) and not pkg.name.endswith(suffix)):
