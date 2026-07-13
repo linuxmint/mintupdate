@@ -436,11 +436,13 @@ class KernelWindow():
                 _KERNEL_PKG_NAMES = KERNEL_PKG_NAMES.copy()
                 if kernel.installed:
                     # also purge existing residual kernel packages
-                    _KERNEL_PKG_NAMES.append("linux-image-unsigned-VERSION-KERNELTYPE")
-                    _KERNEL_PKG_NAMES.append("linux-tools-VERSION")
-                    _KERNEL_PKG_NAMES.append("linux-tools-VERSION-KERNELTYPE")
-                    _KERNEL_PKG_NAMES.append("linux-hwe-MAJOR_MINOR_VERSION-tools-VERSION")
-                    _KERNEL_PKG_NAMES.append("linux-hwe-MAJOR_MINOR_VERSION-headers-VERSION")
+                    _KERNEL_PKG_NAMES.extend([
+                        "linux-image-unsigned-VERSION-KERNELTYPE",
+                        "linux-tools-VERSION",
+                        "linux-tools-VERSION-KERNELTYPE",
+                        "linux-hwe-MAJOR_MINOR_VERSION-tools-VERSION",
+                        "linux-hwe-MAJOR_MINOR_VERSION-headers-VERSION",
+                    ])
 
                 for name in _KERNEL_PKG_NAMES:
                     name = (name
