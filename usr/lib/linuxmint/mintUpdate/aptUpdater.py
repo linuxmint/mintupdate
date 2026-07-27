@@ -22,8 +22,8 @@ import aptkit.enums
 
 from multiprocess import Process, Queue
 
-from Classes import (CONFIG_PATH, CONFIGURED_KERNEL_TYPE, KERNEL_PKG_NAMES,
-                     PRIORITY_UPDATES, SUPPORTED_KERNEL_TYPES, Alias, KernelVersion, Update)
+from Classes import (CONFIG_PATH, PRIORITY_UPDATES, SUPPORTED_KERNEL_TYPES,
+                     Alias, Update)
 from util import _idle
 
 gettext.install("mintupdate", "/usr/share/locale")
@@ -250,105 +250,6 @@ class AptUpdater():
                 if (pkg.marked_upgrade or pkg.marked_downgrade):
                     self.add_update(pkg)
 
-        # Kernel updates
-        lts_meta_name = "linux" + CONFIGURED_KERNEL_TYPE
-        _metas = [s for s in self.cache.keys() if s.startswith(lts_meta_name)]
-        if CONFIGURED_KERNEL_TYPE == "-generic":
-            _metas.append("linux-virtual")
-        global meta_names
-        for meta in _metas:
-            shortname = meta.split(":")[0]
-            if shortname not in meta_names:
-                meta_names.append(shortname)
-        try:
-            # Get the uname version
-            active_kernel = KernelVersion(os.uname().release)
-
-            # Override installed kernel if not of the configured type
-            try:
-                active_kernel_type = "-" + active_kernel.version.split("-")[-1]
-            except:
-                active_kernel_type = CONFIGURED_KERNEL_TYPE
-            if  active_kernel_type != CONFIGURED_KERNEL_TYPE:
-                active_kernel.series = ("0","0","0")
-
-            # Uncomment for testing:
-            # active_kernel = KernelVersion("4.18.0-0-generic")
-
-            # Check if any meta is installed..
-            meta_candidate_same_series = None
-            meta_candidate_higher_series = None
-            for meta_name in meta_names:
-                if meta_name in self.cache:
-                    meta = self.cache[meta_name]
-                    meta_kernel = KernelVersion(meta.candidate.version)
-                    if (active_kernel.series > meta_kernel.series):
-                        # Meta is lower than the installed kernel series, ignore
-                        continue
-                    else:
-                        if meta.is_installed:
-                            # Meta is already installed, return
-                            return
-                        # never install linux-virtual, we only support it being
-                        # installed already
-                        if meta_name == "linux-virtual":
-                            continue
-                        # Meta is not installed, make it a candidate if higher
-                        # than any current candidate
-                        if active_kernel.series == meta_kernel.series:
-                            # same series
-                            if (not meta_candidate_same_series or meta_kernel.version_id >
-                                KernelVersion(meta_candidate_same_series.candidate.version).version_id
-                                ):
-                                meta_candidate_same_series = meta
-                        else:
-                            # higher series
-                            if (not meta_candidate_higher_series or meta_kernel.version_id >
-                                KernelVersion(meta_candidate_higher_series.candidate.version).version_id
-                                ):
-                                meta_candidate_higher_series = meta
-
-            # If we're here, no meta was installed
-            if meta_candidate_same_series:
-                # but a candidate of the same series was found, add to updates and return
-                self.add_update(meta_candidate_same_series, kernel_update=True)
-                return
-
-            # If we're here, no matching meta was found
-            if meta_candidate_higher_series:
-                # but we found a higher meta candidate, add it to the list of updates
-                # unless the installed kernel series is lower than the LTS series
-                # for some reason, in the latter case force the LTS meta
-                if meta_candidate_higher_series.name != lts_meta_name:
-                    if lts_meta_name in self.cache:
-                        lts_meta = self.cache[lts_meta_name]
-                        lts_meta_kernel = KernelVersion(lts_meta.candidate.version)
-                        if active_kernel.series < lts_meta_kernel.series:
-                            meta_candidate_higher_series = lts_meta
-                self.add_update(meta_candidate_higher_series, kernel_update=True)
-                return
-
-            # We've gone past all the metas, so we should recommend the latest
-            # kernel on the series we're in
-            max_kernel = active_kernel
-            for pkgname in self.cache.keys():
-                match = re.match(r'^(?:linux-image-)(\d.+?)%s$' % active_kernel_type, pkgname)
-                if match:
-                    kernel = KernelVersion(match.group(1))
-                    if kernel.series == max_kernel.series and kernel.version_id > max_kernel.version_id:
-                        max_kernel = kernel
-            if max_kernel.version_id != active_kernel.version_id:
-                for pkgname in KERNEL_PKG_NAMES:
-                    pkgname = pkgname.replace('VERSION', max_kernel.version).replace("-KERNELTYPE", active_kernel_type)
-                    if pkgname in self.cache:
-                        pkg = self.cache[pkgname]
-                        if not pkg.is_installed:
-                            self.add_update(pkg, kernel_update=True)
-                            return
-
-        except:
-            traceback.print_exc()
-
     def is_blacklisted(self, source_name, version):
         for blacklist in self.settings.get_strv("blacklisted-packages"):
             if "=" in blacklist:
@@ -379,6 +280,9 @@ class AptUpdater():
         # Change version of kernel meta packages to that of the actual kernel
         # for grouping with related updates
         if package.candidate.source_name.startswith("linux-meta"):
+            shortname = package.name.split(":")[0]
+            if shortname not in meta_names:
+                meta_names.append(shortname)
             _source_version = self.get_kernel_version_from_meta_package(package.candidate)
             if _source_version:
                 source_version = _source_version

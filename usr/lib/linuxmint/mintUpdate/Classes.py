@@ -9,7 +9,6 @@ import json
 import os
 import subprocess
 import sys
-import time
 
 gettext.install("mintupdate", "/usr/share/locale")
 
@@ -22,36 +21,8 @@ SOURCE_PACKAGE_NAME_OVERRIDES = ["linux-libc-dev"]
 settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
 SUPPORTED_KERNEL_TYPES = ["-generic", "-lowlatency", "-aws", "-azure", "-gcp", "-kvm", "-oem", "-oracle"]
-KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-KERNELTYPE', 'linux-image-VERSION-KERNELTYPE', \
-    'linux-modules-VERSION-KERNELTYPE', 'linux-modules-extra-VERSION-KERNELTYPE']
-KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-KERNELTYPE') # Naming convention in 16.04, until 4.15 series
-
-CONFIGURED_KERNEL_TYPE = settings.get_string("selected-kernel-type")
-if CONFIGURED_KERNEL_TYPE not in SUPPORTED_KERNEL_TYPES:
-    CONFIGURED_KERNEL_TYPE = "-generic"
 
 CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
-
-def get_release_dates():
-    """ Get distro release dates for support duration calculation """
-    release_dates = {}
-    distro_info = []
-    if os.path.isfile("/usr/share/distro-info/ubuntu.csv"):
-        distro_info += open("/usr/share/distro-info/ubuntu.csv", "r").readlines()
-    if os.path.isfile("/usr/share/distro-info/debian.csv"):
-        distro_info += open("/usr/share/distro-info/debian.csv", "r").readlines()
-    if distro_info:
-        for distro in distro_info[1:]:
-            try:
-                distro = distro.split(",")
-                release_date = time.mktime(time.strptime(distro[4], '%Y-%m-%d'))
-                release_date = datetime.datetime.fromtimestamp(release_date)
-                support_end = time.mktime(time.strptime(distro[5].rstrip(), '%Y-%m-%d'))
-                support_end = datetime.datetime.fromtimestamp(support_end)
-                release_dates[distro[2]] = [release_date, support_end]
-            except:
-                pass
-    return release_dates
 
 class MainloopTimer(GLib.Source):
     # A GSource that can be armed, disarmed, and re-armed without being
@@ -87,33 +58,6 @@ class MainloopTimer(GLib.Source):
     def disarm(self):
         self.set_ready_time(-1)
 
-
-class KernelVersion():
-
-    def __init__(self, version):
-        field_length = 3
-        self.version = version
-        self.version_id = []
-        version_id = self.version.replace("-", ".").split(".")
-        # Check if mainline rc kernel to ensure proper sorting vs mainline release kernels
-        suffix = next((x for x in version_id if x.startswith("rc")), None)
-        if not suffix:
-            suffix = "z"
-        # Copy numeric parts from version_id to self.version_id and fill up to field_length
-        for element in version_id:
-            if element.isnumeric():
-                self.version_id.append("0" * (field_length - len(element)) + element)
-        # Installed kernels always have len(self.version_id) >= 4 at this point,
-        # create missing parts for not installed mainline kernels:
-        while len(self.version_id) < 3:
-            self.version_id.append("0" * field_length)
-        if len(self.version_id) == 3:
-            self.version_id.append("%s%s" % (''.join((x[:field_length - 2].lstrip('0') + x[field_length - 2:] for x in self.version_id)), suffix))
-        elif len(self.version_id[3]) == 6:
-            # installed release mainline kernel, add suffix for sorting
-            self.version_id[3] += suffix
-        self.series = tuple(self.version_id[:3])
-        self.shortseries = tuple(self.version_id[:2])
 
 class Update():
 
