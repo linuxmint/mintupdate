@@ -30,7 +30,6 @@ from xapp.GSettingsWidgets import *
 
 # local imports
 import logger
-from kernelwindow import KernelWindow
 from preferences import PreferencesWindow
 
 from Classes import MainloopTimer, PRIORITY_UPDATES, UpdateTracker
@@ -176,7 +175,6 @@ class MintUpdate():
         self.test_mode = os.getenv("MINTUPDATE_TEST")
         self.settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
-        self.is_lmde = False
         self.app_restart_required = False
         self.show_cinnamon_enabled = False
         self.column_upgrade = None
@@ -391,9 +389,6 @@ class MintUpdate():
             image = Gtk.Image.new_from_icon_name("xsi-document-open-recent-symbolic", Gtk.IconSize.MENU)
             historyMenuItem = Gtk.ImageMenuItem(label=_("History of Updates"), image=image )
             historyMenuItem.connect("activate", self.open_history)
-            image = Gtk.Image.new_from_icon_name("xsi-run-symbolic", Gtk.IconSize.MENU)
-            kernelMenuItem = Gtk.ImageMenuItem(label=_("Linux Kernels"), image=image)
-            kernelMenuItem.connect("activate", self.on_kernel_menu_activated)
             image = Gtk.Image.new_from_icon_name("xsi-dialog-information-symbolic", Gtk.IconSize.MENU)
             infoMenuItem = Gtk.ImageMenuItem(label=_("Information"), image=image)
             infoMenuItem.connect("activate", self.open_information)
@@ -447,15 +442,6 @@ class MintUpdate():
 
             viewSubmenu.append(historyMenuItem)
 
-            try:
-                # Only support kernel selection in Linux Mint (not LMDE)
-                if not os.path.exists("/usr/share/doc/debian-system-adjustments/copyright"):
-                    viewSubmenu.append(kernelMenuItem)
-                else:
-                    self.is_lmde = True
-            except Exception as e:
-                print (e)
-                print(sys.exc_info()[0])
             viewSubmenu.append(infoMenuItem)
             helpMenu = Gtk.MenuItem.new_with_mnemonic(_("_Help"))
             helpSubmenu = Gtk.Menu()
@@ -1647,19 +1633,6 @@ class MintUpdate():
         self.logger.write("Restarting update manager...")
         os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
 
-######### KERNEL FEATURES #########
-
-    def on_kernel_menu_activated(self, widget):
-        self.ui_window.set_sensitive(False)
-        self.cache_monitor.pause()
-        KernelWindow(self.on_kernel_window_closed)
-
-    def on_kernel_window_closed(self, needs_refresh):
-        self.ui_window.set_sensitive(True)
-        self.cache_monitor.resume()
-        if needs_refresh:
-            self.refresh(False)
-
 ######### REFRESH THREAD ##########
 
     def add_update_to_model(self, model, tracker, item):
@@ -2178,21 +2151,7 @@ class MintUpdate():
                 if update.type == "kernel":
                     for pkg in update.package_names:
                         if "-image-" in pkg:
-                            try:
-                                if self.is_lmde:
-                                    # In Mint, platform.release() returns the kernel version. In LMDE it returns the kernel
-                                    # abi version.  So for LMDE, parse platform.version() instead.
-                                    version_string = platform.version()
-                                    kernel_version = re.search(r"(\d+\.\d+\.\d+)", version_string).group(1)
-                                else:
-                                    kernel_version = platform.release().split("-")[0]
-
-                                if update.old_version.startswith(kernel_version):
-                                    self.reboot_required = True
-                            except Exception as e:
-                                print("Warning: Could not assess the current kernel version: %s" % str(e))
-                                self.reboot_required = True
-                            break
+                            self.reboot_required = True
                 if update.type == "security" and \
                    [True for pkg in update.package_names if "nvidia" in pkg]:
                    self.reboot_required = True
