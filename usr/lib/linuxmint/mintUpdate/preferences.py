@@ -214,13 +214,6 @@ class PreferencesWindow:
             for switch in additional_options:
                 section.add_row(switch)
 
-        section = page.add_section(_("Automatic Maintenance"), _("Performed as root on a weekly basis"))
-        autoremove_switch = Switch(_("Remove obsolete kernels and dependencies"))
-        autoremove_switch.content_widget.set_active(os.path.isfile(AUTOMATIONS["autoremove"][2]))
-        autoremove_switch.content_widget.connect("notify::active", self._set_auto_remove)
-        section.add_row(autoremove_switch)
-        section.add_note(_("This option always leaves at least one older kernel installed and never removes manually installed kernels."))
-
     def _export_blacklist(self, widget):
         filename = os.path.join(tempfile.gettempdir(), "mintUpdate/blacklist")
         blacklist = self.settings.get_strv("blacklisted-packages")
@@ -230,9 +223,6 @@ class PreferencesWindow:
 
     def _set_auto_upgrade(self, widget, param):
         self._toggle_automation(widget, "upgrade")
-
-    def _set_auto_remove(self, widget, param):
-        self._toggle_automation(widget, "autoremove")
 
     @staticmethod
     def _toggle_automation(widget, automation_id):

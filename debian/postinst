@@ -26,7 +26,9 @@ case "$1" in
         then
             systemctl enable mintupdate-automation-cleanup.service || true
             systemctl disable mintupdate-automation-upgrade.service || true
-            systemctl disable mintupdate-automation-autoremove.service || true
+            # Remove the legacy timer symlink when upgrading from a version
+            # which provided automatic kernel cleanup.
+            systemctl disable --now mintupdate-automation-autoremove.timer 2>/dev/null || true
         fi
     ;;
     abort-upgrade|abort-remove|abort-deconfigure)
@@ -45,5 +47,3 @@ esac
 #DEBHELPER#
 
 exit 0
-
-

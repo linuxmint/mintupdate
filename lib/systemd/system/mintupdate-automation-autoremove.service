@@ -1,9 +1,0 @@
-[Unit]
-Description=Update Manager weekly autoremove
-
-[Service]
-Type=oneshot
-CPUQuota=50%
-CPUWeight=20
-IOWeight=20
-ExecStart=/usr/share/linuxmint/mintupdate/automation/autoremove.sh
