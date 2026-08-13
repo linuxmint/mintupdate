@@ -33,7 +33,7 @@ import logger
 from kernelwindow import KernelWindow
 from preferences import PreferencesWindow
 
-from Classes import MainloopTimer, PRIORITY_UPDATES, UpdateTracker
+from Classes import MainloopTimer, PRIORITY_UPDATES, UpdateTracker, is_real_kernel_package
 from util import on_battery, _idle, _async, Inhibitor
 
 
@@ -2197,7 +2197,15 @@ class MintUpdate():
                    [True for pkg in update.package_names if "nvidia" in pkg]:
                    self.reboot_required = True
                 for package in update.package_names:
-                    self.packages.append(package)
+                    if update.type == "kernel" and is_real_kernel_package(package):
+                        # Flag it for aptkit as an automatic install (see aptkit's
+                        # _mark_packages_for_installation()), matching what a normal
+                        # "apt upgrade" would do when a meta package pulls in a new
+                        # kernel version. Otherwise apt records it as manually
+                        # installed and "apt autoremove" never cleans it up.
+                        self.packages.append(package + "#auto")
+                    else:
+                        self.packages.append(package)
                     self.logger.write("Will install " + str(package))
             iter = model.iter_next(iter)
 

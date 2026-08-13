@@ -7,6 +7,7 @@ import datetime
 import gettext
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -25,6 +26,22 @@ SUPPORTED_KERNEL_TYPES = ["-generic", "-lowlatency", "-aws", "-azure", "-gcp", "
 KERNEL_PKG_NAMES = ['linux-headers-VERSION', 'linux-headers-VERSION-KERNELTYPE', 'linux-image-VERSION-KERNELTYPE', \
     'linux-modules-VERSION-KERNELTYPE', 'linux-modules-extra-VERSION-KERNELTYPE']
 KERNEL_PKG_NAMES.append('linux-image-extra-VERSION-KERNELTYPE') # Naming convention in 16.04, until 4.15 series
+
+# Matches the actual, version-specific kernel packages (linux-image-5.15.0-91-generic,
+# linux-headers-5.15.0-91, linux-modules-iwlwifi-6.8.0-41-generic, ...) as opposed to
+# meta packages (linux-generic, linux-generic-hwe-24.04, linux-virtual, ...), by
+# looking for an embedded VERSION-ABI kernel version rather than enumerating package
+# flavors. Meta package names never contain one (an HWE series suffix like
+# "-hwe-24.04" has no third version component or ABI number). Apt normally marks
+# versioned kernel packages as automatically installed when they're pulled in as a
+# dependency of a meta package, which is what lets "apt autoremove" clean up
+# superseded kernels. When mintupdate installs them directly by name (because no
+# meta package tracks that exact version, or via the kernel selection window), they
+# must be explicitly flagged the same way or they stick around forever.
+REAL_KERNEL_PKG_RE = re.compile(r'^linux-.*-\d+\.\d+\.\d+-\d+')
+
+def is_real_kernel_package(name):
+    return bool(REAL_KERNEL_PKG_RE.match(name))
 
 CONFIGURED_KERNEL_TYPE = settings.get_string("selected-kernel-type")
 if CONFIGURED_KERNEL_TYPE not in SUPPORTED_KERNEL_TYPES:

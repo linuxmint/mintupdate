@@ -452,7 +452,11 @@ class KernelWindow():
                                     continue
                                 to_purge.append(name)
                         else:
-                            to_install.append(name)
+                            # Flag it for aptkit as an automatic install so that
+                            # "apt autoremove" (and mintupdate's own obsolete-kernel
+                            # cleanup) can reclaim it once it's superseded, matching
+                            # how a normal kernel upgrade marks these packages.
+                            to_install.append(name + "#auto")
 
                     # Clean out left-over meta package
                     if kernel.installed:
