@@ -13,7 +13,7 @@ A clear and concise description of what the bug is.
 **Screenshots**
 If applicable, add screenshots to help explain your problem, you can just drag & drop them here.
 
-**To Reproduce**
+**Steps to reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
