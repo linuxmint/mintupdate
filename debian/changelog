@@ -1,3 +1,46 @@
+mintupdate (7.1.5) alfa; urgency=medium
+
+  [ Clement Lefebvre ]
+  * polkit: Allow remote upgrades
+  * Remove kernel window (moved to mintsysadm)
+  * Remove kernel cleanup
+  * Remove obsolete settings
+  * Remove kernel metapackage handling
+  * man: Remove obsolete info
+
+  [ Michael Webster ]
+  * mintUpdate.py: Fix auto-refresh loop race condition.
+  * .github/workflows: Add generate-test-packages trigger.
+  * flatpak-update-worker.py: Revert changes accidentally sucked up in previous commit.
+  * .github: Add stale workflow.
+  * mintUpdate.py: Simplify auto-refresh loop and refresh coordination.
+  * Classes.py: Some cleanup, use os.makedirs() instead of os.system.
+  * information window: Allow copying the logfile path.
+  * Add queue_refresh for off-main callers, catch refresh() exceptions so the refresh loop doesn't break.
+  * Move APT install work to checkAPT.py
+  * Move preferences to its own file.
+  * Give the apt install a timeout, fix GLib/Gio.Unix deprecations.
+  * Allow multiple selection in the treeview.
+  * Rename checkAPT.py to aptUpdater.py, remove unused checkWarnings.
+  * Use python-xapp for network proxy settings.
+  * Take initial queue_refresh(False) out of the APT monitor and call it explicitly at startup.
+  * Use upower for battery detection.
+  * automatic updates: Move flatpak/cinnamon automation into the main process, instead of running once at startup.
+  * Move _idle, _async to util module.
+  * Move the inhibitor into utils, clean up some imports.
+  * aptUpdater: clean up some confusion when calling find_changes().
+  * mintUpdate.py: Just use XApp.StatusIcon instead of a wrapper.
+  * main.ui: Use GtkButtons instead of GtkToolButtons for the top row controls.
+  * mintUpdate.py: Fix tray re-activation in Wayland.
+
+  [ hduelme ]
+  * remove unused update description formatting (#1032)
+
+  [ SAY-5 ]
+  * checkAPT: handle packages without a candidate version
+
+ -- Clement Lefebvre <root@linuxmint.com>  Wed, 19 Aug 2026 15:10:30 +0200
+
 mintupdate (7.1.4) zena; urgency=medium
 
   * l10n: Update translations
