@@ -33,7 +33,7 @@ import logger
 from preferences import PreferencesWindow
 
 from Classes import MainloopTimer, PRIORITY_UPDATES, UpdateTracker
-from util import on_battery, _idle, _async, Inhibitor
+from util import on_battery, get_session_type, _idle, _async, Inhibitor
 
 
 settings = Gio.Settings(schema_id="com.linuxmint.updates")
@@ -102,6 +102,43 @@ def size_to_string(size):
 def name_search_func(model, column, key, iter):
     name = model.get_value(iter, column)
     return key.lower() not in name.lower() # False is a match
+
+
+def search_position_func(treeview, search_window, user_data=None):
+    """Place the interactive-search entry below the treeview's bottom-right corner.
+
+    Installed on Wayland only, replacing a GTK default that additionally clamps
+    the entry to the monitor workarea. That clamp mixes two coordinate spaces:
+    here gdk_window_get_origin() is window-local (a toplevel reports 0,0) while
+    gdk_monitor_get_workarea() is in global compositor coordinates.
+
+    ref: https://gitlab.gnome.org/GNOME/gtk/-/work_items/2794
+    """
+    tree_window = treeview.get_window()
+    if tree_window is None:
+        return
+
+    search_window.realize()
+
+    tree_x, tree_y = tree_window.get_origin()[1:]
+    requisition = search_window.get_preferred_size()[0]
+
+    parent_window = treeview.get_toplevel().get_window()
+    parent_x, parent_y = parent_window.get_origin()[1:]
+
+    anchor_rect = Gdk.Rectangle()
+    anchor_rect.x = tree_x + tree_window.get_width() - requisition.width - parent_x
+    anchor_rect.y = tree_y + tree_window.get_height() - parent_y
+    anchor_rect.width = 1
+    anchor_rect.height = 1
+
+    search_window.get_window().move_to_rect(anchor_rect,
+                                            Gdk.Gravity.NORTH_WEST,
+                                            Gdk.Gravity.NORTH_WEST,
+                                            Gdk.AnchorHints.FLIP_Y |
+                                            Gdk.AnchorHints.SLIDE_X |
+                                            Gdk.AnchorHints.SLIDE_Y,
+                                            0, 0)
 
 
 class APTCacheMonitor():
@@ -256,6 +293,8 @@ class MintUpdate():
             self.treeview.set_tooltip_column(UPDATE_TOOLTIP)
 
             self.treeview.set_search_equal_func(name_search_func)
+            if get_session_type() == "wayland":
+                self.treeview.set_search_position_func(search_position_func)
             self.treeview.append_column(column_type)
             self.treeview.append_column(self.column_upgrade)
             self.treeview.append_column(column_name)

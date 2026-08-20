@@ -22,6 +22,10 @@ def _idle(func):
     return wrapper
 
 
+def get_session_type():
+    return os.environ.get("XDG_SESSION_TYPE", "x11")
+
+
 def on_battery():
     # Query UPower over the system D-Bus. Works for both root (system services)
     # and user contexts; UPower's default policy allows property reads from any uid.
@@ -69,7 +73,7 @@ class Inhibitor:
             flags =      1 | 4
 
             xid = 0
-            if self.window is not None and os.environ.get("XDG_SESSION_TYPE", "x11") == "x11":
+            if self.window is not None and get_session_type() == "x11":
                 try:
                     xid = self.window.get_window().get_xid()
                 except Exception:
