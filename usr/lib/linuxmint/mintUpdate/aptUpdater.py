@@ -310,7 +310,12 @@ class AptUpdater():
         if source_name in PRIORITY_UPDATES or not self.priority_updates_available:
             if source_name in self.updates:
                 update = self.updates[source_name]
-                update.add_package(package)
+
+                source_package = None
+                if update.main_package_name != source_name:
+                    source_package = self.cache.get(source_name)
+
+                update.add_package(package, source_package)
                 # Adjust update.old_version for kernel updates to try and
                 # match the kernel, not the meta
                 if kernel_update and package.is_installed and \
