@@ -9,5 +9,12 @@ if __name__ == "__main__":
         print("Error: Do not run this as root")
         exit(1)
 
+    if subprocess.run(
+        ["pgrep", "-x", "mintUpdate"],
+        stdout=subprocess.DEVNULL,
+    ).returncode == 0:
+        print("mintupdate already running")
+        exit(0)
+
     if ((not xapp.os.is_live_session()) and (not xapp.os.is_guest_session())):
         subprocess.Popen(["/usr/lib/linuxmint/mintUpdate/mintUpdate.py"])
