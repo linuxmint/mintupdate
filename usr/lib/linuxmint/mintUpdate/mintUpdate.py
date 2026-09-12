@@ -58,14 +58,6 @@ except Exception as e:
 CINNAMON_SUPPORT = cinnamon_support
 FLATPAK_SUPPORT = flatpak_support
 
-try:
-    os.system("killall -q mintUpdate")
-except Exception as e:
-    print (e)
-    print(sys.exc_info()[0])
-
-setproctitle.setproctitle("mintUpdate")
-
 # i18n
 APP = 'mintupdate'
 LOCALE_DIR = "/usr/share/locale"
@@ -188,9 +180,23 @@ class APTCacheMonitor():
             self.cachetime = os.path.getmtime(self.pkgcache)
             self.statustime = os.path.getmtime(self.dpkgstatus)
 
-class MintUpdate():
+class MintUpdate(Gio.Application):
 
     def __init__(self):
+        Gio.Application.__init__(self, application_id="com.linuxmint.mintupdate",
+                                 flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE)
+
+    def do_command_line(self, command_line):
+        if "show" in command_line.get_arguments()[1:]:
+            self.show_window()
+        return 0
+
+    def do_startup(self):
+        Gio.Application.do_startup(self)
+        # Transitional: kill instances from before single-instance support.
+        os.system("killall -q mintUpdate")
+        setproctitle.setproctitle("mintUpdate")
+
         self.information_window_showing = False
         self.history_window_showing = False
         self.preferences_window = None
@@ -356,7 +362,7 @@ class MintUpdate():
             menu.append(menuItem4)
             image = Gtk.Image.new_from_icon_name("xsi-exit-symbolic", Gtk.IconSize.MENU)
             menuItem = Gtk.ImageMenuItem(label=_("Quit"), image=image)
-            menuItem.connect('activate', self.quit)
+            menuItem.connect('activate', self.on_quit)
             menu.append(menuItem)
             menu.show_all()
 
@@ -377,7 +383,7 @@ class MintUpdate():
             fileSubmenu.append(Gtk.SeparatorMenuItem())
             image = Gtk.Image.new_from_icon_name("xsi-exit-symbolic", Gtk.IconSize.MENU)
             quitMenuItem = Gtk.ImageMenuItem(label=_("Quit"), image=image)
-            quitMenuItem.connect('activate', self.quit)
+            quitMenuItem.connect('activate', self.on_quit)
             key, mod = Gtk.accelerator_parse("<Control>Q")
             quitMenuItem.add_accelerator("activate", accel_group, key, mod, Gtk.AccelFlags.VISIBLE)
             fileSubmenu.append(quitMenuItem)
@@ -518,11 +524,6 @@ class MintUpdate():
 
             self.ui_vbox.show_all()
 
-            if len(sys.argv) > 1:
-                showWindow = sys.argv[1]
-                if showWindow == "show":
-                    self.show_window()
-
             self.apt_updater = aptUpdater.AptUpdater(self.ui_window)
 
             if CINNAMON_SUPPORT:
@@ -549,7 +550,7 @@ class MintUpdate():
             self.start_auto_refresh()
             self.start_session_updates()
 
-            Gtk.main()
+            self.hold()
 
         except Exception as e:
             print (e)
@@ -738,7 +739,7 @@ class MintUpdate():
 
     def on_notification_action(self, notification, action_name, data):
         if action_name == "show_updates":
-            os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+            self.show_window()
         elif action_name == "enable_automatic_updates":
             self.open_preferences(None, show_automation=True)
 
@@ -1388,7 +1389,7 @@ class MintUpdate():
         if button == Gdk.BUTTON_PRIMARY:
             self.tray_activate(time)
 
-    def quit(self, widget, data = None):
+    def on_quit(self, widget, data = None):
         if self.ui_window:
             self.hide_window()
         try:
@@ -1670,7 +1671,7 @@ class MintUpdate():
 
     def restart_app(self):
         self.logger.write("Restarting update manager...")
-        os.system("/usr/lib/linuxmint/mintUpdate/mintUpdate.py show &")
+        os.execv(sys.executable, [sys.executable, os.path.abspath(__file__), "show"])
 
 ######### REFRESH THREAD ##########
 
@@ -2244,8 +2245,7 @@ class MintUpdate():
                     self.hide_window()
 
                 if [pkg for pkg in PRIORITY_UPDATES if pkg in self.packages]:
-                    # Skip _post_install_cleanup — restart_app spawns a new
-                    # instance that will take over.
+                    # Skip _post_install_cleanup, restart_app replaces this process.
                     self.inhibitor.uninhibit()
                     self.logger.write("Mintupdate was updated, restarting it...")
                     self.logger.close()
@@ -2297,4 +2297,4 @@ if __name__ == "__main__":
     except Exception as e:
         print("Network proxy support unavailable: %s" % str(e), file=sys.stderr)
 
-    MintUpdate()
+    MintUpdate().run(sys.argv)
