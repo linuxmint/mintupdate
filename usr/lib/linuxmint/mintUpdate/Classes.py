@@ -22,7 +22,10 @@ settings = Gio.Settings(schema_id="com.linuxmint.updates")
 
 SUPPORTED_KERNEL_TYPES = ["-generic", "-lowlatency", "-aws", "-azure", "-gcp", "-kvm", "-oem", "-oracle"]
 
-CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
+CONFIG_PATH = os.path.join(os.environ.get("XDG_STATE_HOME", os.path.expanduser("~/.local/state")), "mintupdate")
+# Fall back to legacy path if it exists
+if os.path.isdir(os.path.expanduser("~/.linuxmint/mintupdate")):
+    CONFIG_PATH = os.path.expanduser("~/.linuxmint/mintupdate")
 
 class MainloopTimer(GLib.Source):
     # A GSource that can be armed, disarmed, and re-armed without being
