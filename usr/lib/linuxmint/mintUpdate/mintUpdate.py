@@ -5,6 +5,10 @@
 import os
 import sys
 import gi
+
+from gi.repository import GLib
+GLib.set_prgname("mintupdate")
+
 import time
 import gettext
 import io
@@ -25,7 +29,7 @@ import xapp.os
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('Notify', '0.7')
-from gi.repository import Gtk, Gdk, Gio, GLib, GObject, Notify, Pango
+from gi.repository import Gtk, Gdk, Gio, GObject, Notify, Pango
 from xapp.GSettingsWidgets import *
 
 # local imports
