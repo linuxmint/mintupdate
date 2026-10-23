@@ -5,7 +5,6 @@ import gettext
 import json
 import os
 import subprocess
-import tempfile
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -215,11 +214,9 @@ class PreferencesWindow:
                 section.add_row(switch)
 
     def _export_blacklist(self, widget):
-        filename = os.path.join(tempfile.gettempdir(), "mintUpdate/blacklist")
         blacklist = self.settings.get_strv("blacklisted-packages")
-        with open(filename, "w") as f:
-            f.write("\n".join(blacklist) + "\n")
-        subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "blacklist", "enable"])
+        subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", "blacklist", "enable"],
+                       input="\n".join(blacklist) + "\n", text=True)
 
     def _set_auto_upgrade(self, widget, param):
         self._toggle_automation(widget, "upgrade")

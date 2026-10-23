@@ -55,14 +55,15 @@ def do_disable(_automation_id):
             print("%s %s removed." % (name, filename))
 
 def add_user_blacklist(outfile):
-    import tempfile
+    # The user's blacklist arrives on stdin. Never read it from a shared
+    # location such as /tmp: another user could swap the file for a symlink
+    # while the authentication dialog is open.
+    if sys.stdin is None or sys.stdin.isatty():
+        return
     try:
-        infile = os.path.join(tempfile.gettempdir(), "mintUpdate/blacklist")
-        with open(infile, "r") as export:
-            with open(outfile, "a") as f:
-                for line in export:
-                    f.write(line)
-        os.remove(infile)
+        with open(outfile, "a") as f:
+            for line in sys.stdin:
+                f.write(line)
         print("User blacklist exported.")
     except:
         pass
