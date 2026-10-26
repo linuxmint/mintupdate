@@ -523,7 +523,7 @@ class MintUpdate(Gio.Application):
 
             self.ui_stack.set_visible_child_name("refresh_page")
 
-            self.ui_window.resize(self.settings.get_int('window-width'), self.settings.get_int('window-height'))
+            self.restore_window_size()
             self.ui_paned.set_position(self.settings.get_int('window-pane-position'))
 
             self.ui_vbox.show_all()
@@ -800,6 +800,26 @@ class MintUpdate(Gio.Application):
         self.settings.set_int('window-width', self.ui_window.get_size()[0])
         self.settings.set_int('window-height', self.ui_window.get_size()[1])
         self.settings.set_int('window-pane-position', self.ui_paned.get_position())
+
+    def restore_window_size(self):
+        width = self.settings.get_int('window-width')
+        height = self.settings.get_int('window-height')
+        # Guard against corrupt or invalid saved sizes
+        width = max(width, 1)
+        height = max(height, 1)
+
+        try:
+            if not self.ui_window.get_realized():
+                self.ui_window.realize()
+            monitor = self.ui_window.get_display().get_monitor_at_window(self.ui_window.get_window())
+            if monitor is not None:
+                workarea = monitor.get_workarea()
+                width = min(width, workarea.width)
+                height = min(height, workarea.height)
+        except Exception as e:
+            print("Could not determine monitor work area, using saved window size: %s" % str(e))
+
+        self.ui_window.resize(width, height)
 
 ######### MENU/TOOLBAR FUNCTIONS #########
 
