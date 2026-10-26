@@ -21,6 +21,7 @@ from gi.repository import Gtk, GLib, GLibUnix, Flatpak, Gio, GioUnix
 
 from mintcommon.installer import installer
 from mintcommon.installer import _flatpak
+from mintcommon.installer import dialogs
 
 from Classes import FlatpakUpdate
 
@@ -62,6 +63,7 @@ class FlatpakUpdateWorker():
         self.installer = installer.Installer(installer.PKG_TYPE_FLATPAK)
         self.fp_sys = _flatpak.get_fp_sys()
         self.task = None
+        self.error = None
 
         self.cancellable = Gio.Cancellable()
 
@@ -123,6 +125,10 @@ class FlatpakUpdateWorker():
         debug("task object:", task, "transaction:", task.transaction)
 
         self.task = task
+        if self.error is not None:
+            task.cancel()
+            return
+
         self.error = task.error_message
 
         if self.error is None and task.transaction is not None:
@@ -138,6 +144,12 @@ class FlatpakUpdateWorker():
 
     def _fetch_updates_error(self, task):
         warn("fetch error", task.error_message)
+        if self.error is not None:
+            return
+
+        self.error = task.error_message
+        self.send_to_updater(f"error:{self.error}")
+        self.quit()
 
     def _process_fetch_task(self, task):
         trans = task.transaction
@@ -252,25 +264,46 @@ class FlatpakUpdateWorker():
 
     def _start_task_ready(self, task):
         self.task = task
+        if self.error is not None:
+            task.cancel()
+            return
+
         self.send_to_updater("ready")
 
         self.stdin.read_bytes_async(4096, GLib.PRIORITY_DEFAULT, None, self.message_from_updater)
 
     def _start_updates_error(self, task):
         warn("start updates error", task.error_message)
-        self.send_to_updater(f"error:{task.error_message}")
+        # mintcommon only shows its own error dialog once the transaction is running.
+        self.finish_with_error(task.error_message, show_dialog=True)
 
     def start_updates(self):
         self.installer.execute_task(self.task)
 
     def _execute_finished(self, task):
-        self.error = task.error_message
+        self.write_to_log(task)
         if task.error_message is not None:
-            self.send_to_updater(f"error:{task.error_message}")
+            self.finish_with_error(task.error_message)
         else:
             self.send_to_updater("done")
-        self.write_to_log(task)
+            self.quit()
+
+    def finish_with_error(self, message, show_dialog=False):
+        if self.error is not None:
+            return
+
+        self.error = message
+        if show_dialog:
+            dialogs.show_error(message)
+
+        # Error dialogs are queued at PRIORITY_DEFAULT_IDLE - reporting at a lower priority ensures
+        # the dialog is up before mintupdate is told (it waits for us to exit) and we quit.
+        GLib.idle_add(self._report_error_and_quit, priority=GLib.PRIORITY_DEFAULT_IDLE + 1)
+
+    def _report_error_and_quit(self):
+        self.send_to_updater(f"error:{self.error}")
         self.quit()
+        return GLib.SOURCE_REMOVE
 
     def write_to_log(self, task):
         try:

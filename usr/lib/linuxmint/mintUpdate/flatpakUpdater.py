@@ -26,6 +26,7 @@ UPDATE_WORKER_PATH = "/usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py"
 class FlatpakUpdater():
     def __init__(self):
         self.task = None
+        self.proc = None
 
         self.updates = []
         self.error = None
@@ -40,6 +41,7 @@ class FlatpakUpdater():
 
     def fetch_updates(self):
         self.updates = []
+        self.error = None
         output = None
 
         try:
@@ -74,44 +76,53 @@ class FlatpakUpdater():
         print("Flatpak: done generating updates")
 
     def prepare_start_updates(self, updates):
+        self.error = None
         argv = [UPDATE_WORKER_PATH, "--update-packages"] + [update.ref.format_ref() for update in updates]
 
         try:
             self.proc = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding="utf-8")
         except Exception as e:
-            print("Flatpak: Could not start worker: %s" % str(e))
-            return False
+            self.error = str(e)
+            print("Flatpak: Could not start worker: %s" % self.error)
+            return
 
         self.out_pipe = self.proc.stdout
         self.in_pipe = self.proc.stdin
 
         try:
-            res = self.out_pipe.readline()
-            if res:
-                answer = res.strip("\n")
-                if answer == "ready":
-                    return
-                else:
-                    raise Exception("Unexpected response from worker - expected 'ready', got '%s'" % answer)
+            answer = self.out_pipe.readline().strip("\n")
+            if answer == "ready":
+                return
+            if answer.startswith("error:"):
+                self.error = answer[6:]
+            else:
+                self.error = "Unexpected response from worker - expected 'ready', got '%s'" % answer
         except Exception as e:
-            print("Flatpak: Could not set up to install updates: %s", str(e))
-            self.terminate_helper()
+            self.error = str(e)
+
+        print("Flatpak: Could not set up to install updates: %s" % self.error)
+        self.terminate_helper()
 
     def perform_updates(self):
+        if self.proc is None:
+            return
+
         try:
             self.in_pipe.write("start")
             self.in_pipe.flush()
 
-            res = self.out_pipe.readline()
-            if res:
-                answer = res.strip("\n")
-                if answer == "done":
-                    print("Flatpaks: updates complete")
-                elif answer.startswith("error:"):
-                    self.error = answer[6:]
-                    print("Flatpaks: error performing updates: %s" % self.error)
+            answer = self.out_pipe.readline().strip("\n")
+            if answer == "done":
+                print("Flatpaks: updates complete")
+            elif answer.startswith("error:"):
+                self.error = answer[6:]
+            else:
+                self.error = "Unexpected response from worker - expected 'done', got '%s'" % answer
         except Exception as e:
-            print("Flatpak: Could not perform updates: %s", str(e))
+            self.error = str(e)
+
+        if self.error is not None:
+            print("Flatpak: Could not perform updates: %s" % self.error)
 
         self.terminate_helper()
 

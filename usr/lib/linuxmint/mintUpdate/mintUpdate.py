@@ -666,8 +666,8 @@ class MintUpdate(Gio.Application):
 
 
     @_idle
-    def show_updates_in_UI(self, num_visible, num_software, num_security, download_size, is_self_update, model_items):
-        status_string = ""
+    def show_updates_in_UI(self, num_visible, num_software, num_security, download_size, is_self_update, model_items, flatpak_error=None):
+        status_string = flatpak_error or ""
 
         if num_visible > 0:
             self.logger.write("Found %d software updates" % num_visible)
@@ -681,7 +681,7 @@ class MintUpdate(Gio.Application):
                 details = ", ".join(details)
                 self.ui_label_self_update_details.set_text(details)
             else:
-                status_string = gettext.ngettext("%(selected)d update selected (%(size)s)",
+                status_string = flatpak_error or gettext.ngettext("%(selected)d update selected (%(size)s)",
                                         "%(selected)d updates selected (%(size)s)", num_visible) % \
                                         {'selected':num_visible, 'size':size_to_string(download_size)}
                 self.ui_clear_button.set_sensitive(True)
@@ -697,7 +697,7 @@ class MintUpdate(Gio.Application):
             self.ui_stack.set_visible_child_name("success_page")
 
             if not self.reboot_required:
-                self.set_status("", _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
+                self.set_status(status_string, _("Your system is up to date"), "mintupdate-up-to-date-symbolic",
                                 not self.settings.get_boolean("hide-systray"))
 
         if self.reboot_required:
@@ -2114,13 +2114,13 @@ class MintUpdate(Gio.Application):
                         num_visible += 1
                         download_size += update.size
 
-            # Updates found, update status message
-            self.show_updates_in_UI(num_visible, num_software, num_security, download_size, is_self_update, model_items)
-
+            flatpak_error = None
             if FLATPAK_SUPPORT and self.flatpak_updater.error is not None and not is_self_update:
                 self.logger.write("Could not check for flatpak updates: %s" % self.flatpak_updater.error)
-                msg = _("Error checking for flatpak updates: %s") % self.flatpak_updater.error
-                self.set_status_message(msg)
+                flatpak_error = _("Error checking for flatpak updates: %s") % self.flatpak_updater.error
+
+            # Updates found, update status message
+            self.show_updates_in_UI(num_visible, num_software, num_security, download_size, is_self_update, model_items, flatpak_error)
 
             # Check whether to display the mirror infobar
             self.mirror_check()
