@@ -1670,7 +1670,7 @@ class MintUpdate(Gio.Application):
         self.preferences_window = None
         if self.app_restart_required:
             self.restart_app()
-        else:
+        elif window.blacklist_changed:
             self.refresh(False)
 
     def restart_app(self):

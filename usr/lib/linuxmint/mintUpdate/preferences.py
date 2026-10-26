@@ -24,6 +24,7 @@ class PreferencesWindow:
     def __init__(self, parent, show_automation=False):
         self.parent = parent
         self.settings = parent.settings
+        self.blacklist_changed = False
 
         gladefile = "/usr/share/linuxmint/mintupdate/preferences.ui"
         builder = Gtk.Builder()
@@ -245,7 +246,9 @@ class PreferencesWindow:
         while iter is not None:
             blacklist.append(model.get_value(iter, BLACKLIST_PKG_NAME))
             iter = model.iter_next(iter)
-        self.settings.set_strv("blacklisted-packages", blacklist)
+        if blacklist != self.settings.get_strv("blacklisted-packages"):
+            self.settings.set_strv("blacklisted-packages", blacklist)
+            self.blacklist_changed = True
 
     def _add_blacklisted_package(self, widget, treeview):
         dialog = Gtk.MessageDialog(self.window,
