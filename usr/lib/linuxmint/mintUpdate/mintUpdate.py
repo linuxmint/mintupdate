@@ -2139,10 +2139,10 @@ class MintUpdate(Gio.Application):
 
 ############## INSTALLATION #########
 
-    def show_cinnamon_error(self, title, message):
-        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, self._show_cinnamon_error_cb, title, message)
+    def show_install_error(self, title, message):
+        Gdk.threads_add_idle(GLib.PRIORITY_DEFAULT_IDLE, self._show_install_error_cb, title, message)
 
-    def _show_cinnamon_error_cb(self, title, message):
+    def _show_install_error_cb(self, title, message):
         dialog = Gtk.MessageDialog(transient_for=self.ui_window,
                                    destroy_with_parent=True,
                                    modal=True,
@@ -2261,6 +2261,11 @@ class MintUpdate(Gio.Application):
                 self.flatpak_updater.perform_updates()
                 if self.flatpak_updater.error is not None:
                     self.logger.write_error("Flatpak update failed %s" % self.flatpak_updater.error)
+                    self.show_install_error(_("Could not update Flatpaks"),
+                                            str(self.flatpak_updater.error))
+                    self.set_status(_("Could not update Flatpaks"),
+                                    _("Could not update Flatpaks"),
+                                    "mintupdate-error-symbolic", True)
                 refresh_needed = True
 
             if self.spices:
@@ -2277,7 +2282,7 @@ class MintUpdate(Gio.Application):
                             need_cinnamon_restart = True
                 except Exception as e:
                     self.logger.write_error("Cinnamon spice install failed %s" % str(e))
-                    self.show_cinnamon_error(_("Could not update Cinnamon Spices"), str(e))
+                    self.show_install_error(_("Could not update Cinnamon Spices"), str(e))
                 if need_cinnamon_restart and not self.reboot_required and \
                         os.getenv("XDG_CURRENT_DESKTOP") in ["Cinnamon", "X-Cinnamon"]:
                     subprocess.run(["cinnamon-dbus-command", "RestartCinnamon", "0"])
