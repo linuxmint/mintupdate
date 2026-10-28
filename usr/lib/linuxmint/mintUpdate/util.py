@@ -51,6 +51,7 @@ class Inhibitor:
         self.logger = logger
         self.window = window
         self.cookie = 0
+        self.logind_fd = None
 
     def _log(self, msg):
         if self.logger is not None:
@@ -87,8 +88,53 @@ class Inhibitor:
 
         return name, path, iface, args, uninhibit_method
 
+    def _inhibit_logind(self, reason):
+        """ Blocks sleep and shutdown without touching the display.
+
+        xfce4-power-manager implements org.freedesktop.PowerManagement.Inhibit by
+        disabling DPMS, which powers a blanked panel straight back on.  A scheduled
+        refresh then wakes an idle machine's monitor every couple of hours.  logind
+        has no display side effects, and the inhibitor fd is dropped automatically if
+        we exit or crash, so it can't leave the session inhibited either.
+        """
+        try:
+            bus = Gio.bus_get_sync(Gio.BusType.SYSTEM)
+
+            ret, fd_list = bus.call_with_unix_fd_list_sync(
+                "org.freedesktop.login1",
+                "/org/freedesktop/login1",
+                "org.freedesktop.login1.Manager",
+                "Inhibit",
+                GLib.Variant("(ssss)", ("sleep:shutdown", "mintupdate", reason, "block")),
+                GLib.VariantType("(h)"),
+                Gio.DBusCallFlags.NONE,
+                2000,
+                None,
+                None
+            )
+            self.logind_fd = fd_list.get(ret.unpack()[0])
+        except GLib.Error as e:
+            self._log("Could not inhibit sleep and shutdown via logind: %s" % e.message)
+            return False
+
+        self._log("Inhibited sleep and shutdown")
+        return True
+
+    def _uninhibit_logind(self):
+        try:
+            os.close(self.logind_fd)
+        except OSError as e:
+            self._log("Could not release the logind inhibitor: %s" % e)
+
+        self.logind_fd = None
+        self._log("Resumed power management")
+
     def inhibit(self, reason):
-        if self.cookie > 0:
+        if self.cookie > 0 or self.logind_fd is not None:
+            return
+
+        # Xfce's inhibit interface disables DPMS - see _inhibit_logind().
+        if os.environ.get("XDG_CURRENT_DESKTOP") == "XFCE" and self._inhibit_logind(reason):
             return
 
         try:
@@ -119,6 +165,10 @@ class Inhibitor:
         self.cookie = ret.unpack()[0]
 
     def uninhibit(self):
+        if self.logind_fd is not None:
+            self._uninhibit_logind()
+            return
+
         if self.cookie <= 0:
             return
 
