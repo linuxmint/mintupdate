@@ -1667,10 +1667,11 @@ class MintUpdate(Gio.Application):
 
     def _on_preferences_destroyed(self, window):
         self.ui_window.set_sensitive(True)
+        preferences_changed = getattr(window, "preferences_changed", False)
         self.preferences_window = None
         if self.app_restart_required:
             self.restart_app()
-        else:
+        elif preferences_changed:
             self.refresh(False)
 
     def restart_app(self):

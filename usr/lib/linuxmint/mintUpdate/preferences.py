@@ -24,6 +24,8 @@ class PreferencesWindow:
     def __init__(self, parent, show_automation=False):
         self.parent = parent
         self.settings = parent.settings
+        self.preferences_changed = False
+        self._settings_changed_handler = self.settings.connect("changed", self._on_settings_changed)
 
         gladefile = "/usr/share/linuxmint/mintupdate/preferences.ui"
         builder = Gtk.Builder()
@@ -58,6 +60,7 @@ class PreferencesWindow:
         self._build_blacklist(builder)
         self._build_automation(builder)
 
+        self.window.connect("destroy", self._on_preferences_destroyed)
         self.window.show_all()
 
         if show_automation:
@@ -214,6 +217,12 @@ class PreferencesWindow:
             for switch in additional_options:
                 section.add_row(switch)
 
+    def _on_settings_changed(self, settings, key):
+        self.preferences_changed = True
+
+    def _on_preferences_destroyed(self, window):
+        self.settings.disconnect(self._settings_changed_handler)
+
     def _export_blacklist(self, widget):
         filename = os.path.join(tempfile.gettempdir(), "mintUpdate/blacklist")
         blacklist = self.settings.get_strv("blacklisted-packages")
@@ -224,8 +233,7 @@ class PreferencesWindow:
     def _set_auto_upgrade(self, widget, param):
         self._toggle_automation(widget, "upgrade")
 
-    @staticmethod
-    def _toggle_automation(widget, automation_id):
+    def _toggle_automation(self, widget, automation_id):
         touchfile = AUTOMATIONS[automation_id][2]
         exists = os.path.isfile(touchfile)
         action = None
@@ -237,6 +245,8 @@ class PreferencesWindow:
             subprocess.run(["pkexec", "/usr/bin/mintupdate-automation", automation_id, action])
         if widget.get_active() != os.path.isfile(touchfile):
             widget.set_active(not widget.get_active())
+        elif action:
+            self.preferences_changed = True
 
     def _save_blacklist(self, treeview):
         blacklist = []
