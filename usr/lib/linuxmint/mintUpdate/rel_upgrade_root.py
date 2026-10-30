@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import apt
+import aptkit.enums
 import aptkit.simpleclient
 import gettext
 import gi
@@ -44,6 +45,7 @@ class Upgrader():
     def __init__(self):
         self.refresh_done = False
         self.client = aptkit.simpleclient.SimpleAPTClient()
+        self.client.set_cancelled_callback(lambda: self.quit(1))
         self.additions = file_to_list(f"/usr/share/mint-upgrade-info/{codename}/additions")
         self.removals = file_to_list(f"/usr/share/mint-upgrade-info/{codename}/removals")
         self.blacklist = file_to_list(f"/usr/share/mint-upgrade-info/{codename}/blacklist")
@@ -86,7 +88,17 @@ class Upgrader():
         else:
             self.on_install_finished()
 
+    def quit(self, status):
+        Gtk.main_quit()
+        sys.exit(status)
+
+    def quit_if_failed(self, exit_state):
+        if exit_state is not None and exit_state != aptkit.enums.EXIT_SUCCESS:
+            syslog.syslog("Upgrade step failed: %s" % exit_state)
+            self.quit(1)
+
     def on_install_finished(self, transaction=None, exit_state=None):
+        self.quit_if_failed(exit_state)
         # STEP 4: ADD PACKAGES
         if len(self.additions) > 0:
             self.client.set_finished_callback(self.on_additions_finished)
@@ -95,6 +107,7 @@ class Upgrader():
             self.on_additions_finished()
 
     def on_additions_finished(self, transaction=None, exit_state=None):
+        self.quit_if_failed(exit_state)
         # STEP 5: REMOVE PACKAGES
         removals = []
         cache = apt.Cache()
@@ -109,6 +122,7 @@ class Upgrader():
             self.on_removals_finished()
 
     def on_removals_finished(self, transaction=None, exit_state=None):
+        self.quit_if_failed(exit_state)
         # STEP 6: UPDATE GRUB
         try:
             subprocess.run(["update-grub"])
@@ -116,8 +130,7 @@ class Upgrader():
                 subprocess.run(["/usr/share/ubuntu-system-adjustments/systemd/adjust-grub-title"])
         except Exception as detail:
             syslog.syslog("Couldn't update grub: %s" % detail)
-        Gtk.main_quit()
-        sys.exit(0)
+        self.quit(0)
 
 if __name__ == "__main__":
     upgrader =Upgrader()
