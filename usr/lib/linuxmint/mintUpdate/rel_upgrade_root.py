@@ -64,6 +64,7 @@ class Upgrader():
         self.client.update_cache()
 
     def on_cache_updated(self, transaction=None, exit_state=None):
+        self.quit_if_failed(exit_state)
         # STEP 3: INSTALL MINT UPDATES
         cache = apt.Cache()
         cache.open(None)
