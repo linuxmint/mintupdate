@@ -655,9 +655,11 @@ class MintUpdate(Gio.Application):
                 infobar.add_button(ok_label, Gtk.ResponseType.OK)
             infobar.connect("response", callback)
         infobar.show_all()
+        self.ui_infobar.pack_start(infobar, True, True, 0)
+
+    def clear_infobars(self):
         for child in self.ui_infobar.get_children():
             child.destroy()
-        self.ui_infobar.pack_start(infobar, True, True, 0)
 
     @_idle
     def show_error(self, error_msg):
@@ -1860,6 +1862,7 @@ class MintUpdate(Gio.Application):
         self.inhibitor.inhibit("Checking for updates")
         self.cache_monitor.pause()
 
+        self.clear_infobars()
         if self.reboot_required:
             #Updated UI text from 'Reboot' to 'Restart' for consistency with Cinnamon.
             #Internal variables (like reboot_required) left unchanged for compatibility.
