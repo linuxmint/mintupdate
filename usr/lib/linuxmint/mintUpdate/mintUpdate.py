@@ -752,12 +752,12 @@ class MintUpdate(Gio.Application):
 ######### WINDOW/STATUSICON ##########
 
     def close_window(self, window, event):
-        self.save_window_size()
         self.hide_window(window)
         return True
 
     @_idle
     def hide_window(self, widget=None):
+        self.save_window_size()
         self.ui_window.hide()
         self.hidden = True
 
@@ -799,8 +799,10 @@ class MintUpdate(Gio.Application):
 
 
     def save_window_size(self):
-        self.settings.set_int('window-width', self.ui_window.get_size()[0])
-        self.settings.set_int('window-height', self.ui_window.get_size()[1])
+        if self.ui_window.get_visible() and not self.ui_window.is_maximized():
+            width, height = self.ui_window.get_size()
+            self.settings.set_int('window-width', width)
+            self.settings.set_int('window-height', height)
         self.settings.set_int('window-pane-position', self.ui_paned.get_position())
 
 ######### MENU/TOOLBAR FUNCTIONS #########
@@ -1386,7 +1388,6 @@ class MintUpdate(Gio.Application):
 
     def tray_activate(self, time=0):
         if self.ui_window.is_active():
-            self.save_window_size()
             self.hide_window()
         else:
             self.show_window(time)
@@ -1397,11 +1398,11 @@ class MintUpdate(Gio.Application):
 
     def on_quit(self, widget, data = None):
         if self.ui_window:
+            self.save_window_size()
             self.hide_window()
         try:
             self.logger.write("Exiting - requested by user")
             self.logger.close()
-            self.save_window_size()
         except:
             pass # cause log might already been closed
         # Whatever works best heh :)
