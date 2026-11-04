@@ -33,6 +33,23 @@ meta_names = []
 # packages which description is incorrect in Ubuntu (usually those which were replaced by snap dependencies)
 NON_TRANSLATED_PKGS = ["firefox", "thunderbird"]
 
+def is_blacklisted(blacklist, candidate):
+    # Blacklist entries are "source" or "source=version", where source can be
+    # a pattern. "Ignore the current update" stores the source version, while
+    # a version typed in the preferences is usually the binary version shown
+    # in the update list. Both are accepted: they differ for epochs, -signed
+    # packages and binNMUs.
+    for blacklist_entry in blacklist:
+        if "=" in blacklist_entry:
+            (bl_pkg, bl_ver) = blacklist_entry.split("=", 1)
+        else:
+            bl_pkg = blacklist_entry
+            bl_ver = None
+        if fnmatch.fnmatch(candidate.source_name, bl_pkg) and \
+                (not bl_ver or bl_ver in (candidate.source_version, candidate.version)):
+            return True
+    return False
+
 class AptUpdater():
 
     def __init__(self, ui_window=None):
@@ -250,17 +267,6 @@ class AptUpdater():
                 if (pkg.marked_upgrade or pkg.marked_downgrade):
                     self.add_update(pkg)
 
-    def is_blacklisted(self, source_name, version):
-        for blacklist in self.settings.get_strv("blacklisted-packages"):
-            if "=" in blacklist:
-                (bl_pkg, bl_ver) = blacklist.split("=", 1)
-            else:
-                bl_pkg = blacklist
-                bl_ver = None
-            if fnmatch.fnmatch(source_name, bl_pkg) and (not bl_ver or bl_ver == version):
-                return True
-        return False
-
     def get_kernel_version_from_meta_package(self, pkg):
         for dependency in pkg.dependencies:
             if not dependency.target_versions or dependency.rawtype != "Depends":
@@ -300,7 +306,7 @@ class AptUpdater():
             source_name = package.candidate.source_name
 
         # ignore packages blacklisted by the user
-        if self.is_blacklisted(package.candidate.source_name, package.candidate.version):
+        if is_blacklisted(self.settings.get_strv("blacklisted-packages"), package.candidate):
             return
 
         if source_name in PRIORITY_UPDATES:
