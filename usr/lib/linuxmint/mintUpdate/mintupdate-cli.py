@@ -1,27 +1,15 @@
 #!/usr/bin/python3
 
 import argparse
-import fnmatch
 import os
 import subprocess
 import sys
 import traceback
 
-from aptUpdater import AptUpdater
+from aptUpdater import AptUpdater, is_blacklisted
 from Classes import PRIORITY_UPDATES
 
 if __name__ == "__main__":
-
-    def is_blacklisted(blacklisted_packages, source_name, version):
-        for blacklist in blacklisted_packages:
-            if "=" in blacklist:
-                (bl_pkg, bl_ver) = blacklist.split("=", 1)
-            else:
-                bl_pkg = blacklist
-                bl_ver = None
-            if fnmatch.fnmatch(source_name, bl_pkg) and (not bl_ver or bl_ver == version):
-                return True
-        return False
 
     parser = argparse.ArgumentParser(prog="mintupdate-cli")
     parser.add_argument("command", help="command to run (possible commands are: list, upgrade)")
@@ -65,7 +53,8 @@ if __name__ == "__main__":
                 continue
             elif args.only_security and update.type != "security":
                 continue
-            elif is_blacklisted(blacklisted, update.real_source_name, update.new_version):
+            elif any(is_blacklisted(blacklisted, check.cache[name].candidate) for name in update.package_names):
+                # skip the whole update, not just the matching packages
                 continue
             else:
                 updates.append(update)
