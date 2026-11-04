@@ -6,20 +6,30 @@ import sys
 import time
 
 sys.path.insert(0, "/usr/lib/linuxmint/mintUpdate")
-from util import on_battery
+from util import on_battery, get_battery_percentage
+
+MIN_BATTERY_PERCENTAGE = 75
 
 if not os.path.exists("/var/lib/linuxmint/mintupdate-automatic-upgrades-enabled"):
     exit(0)
 
 optionsfile = "/etc/mintupdate-automatic-upgrades.conf"
 logfile = "/var/log/mintupdate.log"
-log = open(logfile, "a")
+log = open(logfile, "a", buffering=1)
 log.write("\n-- Automatic Upgrade starting %s:\n" % time.strftime('%a %d %b %Y %H:%M:%S %Z'))
-log.flush()
 
 pkla_source = "/usr/share/linuxmint/mintupdate/automation/99-mintupdate-temporary.pkla"
 pkla_target = "/etc/polkit-1/localauthority/90-mandatory.d/99-mintupdate-temporary.pkla"
-if not on_battery():
+
+can_upgrade = True
+if on_battery():
+    battery_percentage = get_battery_percentage()
+    if battery_percentage is not None and battery_percentage >= MIN_BATTERY_PERCENTAGE:
+        log.write("-- On battery power (%d%%), proceeding.\n" % battery_percentage)
+    else:
+        can_upgrade = False
+
+if can_upgrade:
     try:
         # Put shutdown and reboot blocker into place
         os.symlink(pkla_source, pkla_target)
@@ -56,5 +66,5 @@ if not on_battery():
 
     log.write("-- Automatic Upgrade completed\n")
 else:
-    log.write("-- Power supply not connected, abort automatic update.\n")
+    log.write("-- Power supply not connected and battery below %d%%, abort automatic update.\n" % MIN_BATTERY_PERCENTAGE)
 log.close()

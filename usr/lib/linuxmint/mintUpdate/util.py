@@ -26,24 +26,40 @@ def get_session_type():
     return os.environ.get("XDG_SESSION_TYPE", "x11")
 
 
+def _get_upower_property(path, iface, name):
+    # UPower's default policy allows property reads from any uid, so this works
+    # for both root (system services) and user contexts.
+    bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+    ret = bus.call_sync(
+        "org.freedesktop.UPower", path,
+        "org.freedesktop.DBus.Properties", "Get",
+        GLib.Variant("(ss)", (iface, name)),
+        GLib.VariantType("(v)"),
+        Gio.DBusCallFlags.NONE, 2000, None)
+    return ret.unpack()[0]
+
+
 def on_battery():
-    # Query UPower over the system D-Bus. Works for both root (system services)
-    # and user contexts; UPower's default policy allows property reads from any uid.
     # Returns False if UPower is unavailable (fail open — assume AC connected).
     try:
-        bus = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
-        proxy = Gio.DBusProxy.new_sync(
-            bus, Gio.DBusProxyFlags.NONE, None,
-            "org.freedesktop.UPower",
-            "/org/freedesktop/UPower",
-            "org.freedesktop.UPower",
-            None)
-        prop = proxy.get_cached_property("OnBattery")
-        if prop is None:
-            return False
-        return prop.unpack()
+        return bool(_get_upower_property("/org/freedesktop/UPower",
+                                         "org.freedesktop.UPower",
+                                         "OnBattery"))
     except GLib.Error:
         return False
+
+
+def get_battery_percentage():
+    # UPower's DisplayDevice aggregates all system batteries, excluding peripherals.
+    # Returns None if there's no battery or UPower is unavailable.
+    path = "/org/freedesktop/UPower/devices/DisplayDevice"
+    iface = "org.freedesktop.UPower.Device"
+    try:
+        if not _get_upower_property(path, iface, "IsPresent"):
+            return None
+        return _get_upower_property(path, iface, "Percentage")
+    except GLib.Error:
+        return None
 
 
 class Inhibitor:
