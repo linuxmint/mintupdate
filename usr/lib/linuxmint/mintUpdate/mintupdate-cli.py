@@ -20,7 +20,7 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--ignore", help="list of updates to ignore (comma-separated list of source package names). Note: You can also blacklist updates by adding them to /etc/mintupdate.blacklist, one source package per line. To ignore a specific version, use the format package=version.")
     parser.add_argument("-r", "--refresh-cache", action="store_true", help="refresh the APT cache")
     parser.add_argument("-d", "--dry-run", action="store_true", help="simulation mode, don't upgrade anything")
-    parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions and always install new configuration files (unless you also use \"--keep-configuration\" option)")
+    parser.add_argument("-y", "--yes", action="store_true", help="automatically answer yes to all questions and always install new configuration files (unless you also use \"--keep-configuration\" option). The upgrade is aborted if it would remove installed packages.")
     parser.add_argument("--install-recommends", action="store_true", help="install recommended packages")
     parser.add_argument("--keep-configuration", action="store_true", default=False, help="always keep local changes in configuration files (use with caution)")
     parser.add_argument("-v", "--version", action="version", version="__DEB_VERSION__", help="Display the current version")
@@ -72,7 +72,8 @@ if __name__ == "__main__":
             if args.yes:
                 environment = os.environ
                 environment.update({"DEBIAN_FRONTEND": "noninteractive"})
-                arguments.append("--assume-yes")
+                # never let apt remove packages without asking
+                arguments.extend(["--assume-yes", "--no-remove"])
                 if not args.keep_configuration:
                     arguments.extend(["--option", "Dpkg::Options::=--force-confnew"])
             else:
