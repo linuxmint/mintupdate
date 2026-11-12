@@ -1,3 +1,27 @@
+mintupdate (7.1.7) adrien; urgency=medium
+
+  [ Michael Webster ]
+  * mintUpdate.py: Add set_prgname()
+  * Fix test script
+  * Fix flatpak errors being lost or hanging the update process.
+  * rel_upgrade_root: Stop the upgrade when a step fails or is cancelled.
+  * mintUpdate.py: Fix infobar handling when there are multiple issues
+  * rel_upgrade_root.py: Abort if cache update fails
+  * mintUpdate.py: Don't store the window's maximized size
+  * system_automatic_upgrades.py: Allow auto-update while on sufficient battery
+
+  [ Pedro Barbosa ]
+  * rel_upgrade_root: Import syslog (#1099)
+  * Blacklist: Match the source version stored by "Ignore the current update" (#1112)
+
+  [ LB ]
+  * Pass the exported blacklist to mintupdate-automation on stdin (#1096)
+
+  [ Clement Lefebvre ]
+  * l10n: Update POT
+
+ -- Clement Lefebvre <root@linuxmint.com>  Thu, 12 Nov 2026 11:55:21 +0000
+
 mintupdate (7.1.6) adrien; urgency=medium
 
   [ Danilo Rezende ]
