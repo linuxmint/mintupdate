@@ -36,6 +36,7 @@ if can_upgrade:
     except:
         pass
 
+    returncode = 1
     try:
         # Parse options file
         arguments = []
@@ -51,7 +52,7 @@ if can_upgrade:
                '--who="Update Manager"',  "--what=shutdown", "--mode=block",
                "/usr/bin/mintupdate-cli", "upgrade", "--refresh-cache", "--yes"]
         cmd.extend(arguments)
-        subprocess.run(cmd, stdout=log, stderr=log)
+        returncode = subprocess.run(cmd, stdout=log, stderr=log).returncode
 
     except:
         import traceback
@@ -64,7 +65,12 @@ if can_upgrade:
     except:
         pass
 
-    log.write("-- Automatic Upgrade completed\n")
+    if returncode == 0:
+        log.write("-- Automatic Upgrade completed\n")
+    else:
+        log.write("-- Automatic Upgrade failed (exit %d)\n" % returncode)
 else:
     log.write("-- Power supply not connected and battery below %d%%, abort automatic update.\n" % MIN_BATTERY_PERCENTAGE)
+    returncode = 0
 log.close()
+sys.exit(returncode)
