@@ -24,7 +24,11 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 codename = sys.argv[1]
-sources_list = f"/usr/share/mint-upgrade-info/{codename}/official-package-repositories.list"
+sources_ext = "sources"
+sources_list = f"/usr/share/mint-upgrade-info/{codename}/official-package-repositories.sources"
+if not os.path.exists(sources_list):
+    sources_ext = "list"
+    sources_list = f"/usr/share/mint-upgrade-info/{codename}/official-package-repositories.list"
 if not os.path.exists(sources_list):
     print("Unrecognized release: %s" % codename)
     sys.exit(1)
@@ -55,9 +59,11 @@ class Upgrader():
 
     def update_cache(self):
         # STEP 1: UPDATE APT SOURCES
-        if os.path.exists("/etc/apt/sources.list.d/official-source-repositories.list"):
-            subprocess.run(["rm", "-f", "/etc/apt/sources.list.d/official-source-repositories.list"])
-        subprocess.run(["cp", sources_list, "/etc/apt/sources.list.d/official-package-repositories.list"])
+        # Remove the files of both formats, so we never end up with the same repositories defined twice
+        for filename in ["official-source-repositories.list", "official-source-repositories.sources",
+                         "official-package-repositories.list", "official-package-repositories.sources"]:
+            subprocess.run(["rm", "-f", f"/etc/apt/sources.list.d/{filename}"])
+        subprocess.run(["cp", sources_list, f"/etc/apt/sources.list.d/official-package-repositories.{sources_ext}"])
 
         # STEP 2: UPDATE APT CACHE
         self.client.set_finished_callback(self.on_cache_updated)
