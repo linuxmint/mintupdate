@@ -1731,16 +1731,36 @@ class MintUpdate(Gio.Application):
         infobar_message_type = Gtk.MessageType.WARNING
         infobar_callback = self._on_infobar_mintsources_response
         try:
-            if os.path.exists("/usr/bin/mintsources") and os.path.exists("/etc/apt/sources.list.d/official-package-repositories.list"):
+            if os.path.exists("/usr/bin/mintsources"):
                 mirror_url = None
-                with open("/etc/apt/sources.list.d/official-package-repositories.list", 'r') as sources_file:
-                    for line in sources_file:
-                        line = line.strip()
-                        if line.startswith("deb ") and "main upstream import" in line:
-                            mirror_url = line.split()[1]
-                            if mirror_url.endswith("/"):
-                                mirror_url = mirror_url[:-1]
-                            break
+                deb822_sources_path = "/etc/apt/sources.list.d/official-package-repositories.sources"
+                legacy_sources_path = "/etc/apt/sources.list.d/official-package-repositories.list"
+                if os.path.exists(deb822_sources_path):
+                    uris = None
+                    with open(deb822_sources_path, 'r') as sources_file:
+                        for line in sources_file:
+                            line = line.strip()
+                            # DEB822 field names are case-insensitive
+                            lowercase_line = line.lower()
+                            if not line:
+                                uris = None
+                            elif lowercase_line.startswith("uris:"):
+                                uris = line.split()[1]
+                            elif lowercase_line.startswith("components:") and "main upstream import" in lowercase_line and uris:
+                                mirror_url = uris
+                                break
+                elif os.path.exists(legacy_sources_path):
+                    with open(legacy_sources_path, 'r') as sources_file:
+                        for line in sources_file:
+                            line = line.strip()
+                            if line.startswith("deb ") and "main upstream import" in line:
+                                mirror_url = line.split()[1]
+                                break
+                else:
+                    # No official sources file!
+                    pass
+                if mirror_url is not None:
+                    mirror_url = mirror_url.rstrip("/")
                 if mirror_url is None or not mirror_url.startswith("http"):
                     # The Mint mirror being used either cannot be found or is not an HTTP(s) mirror
                     pass
