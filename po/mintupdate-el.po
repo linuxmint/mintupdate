@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2025-12-11 14:38+0000\n"
-"PO-Revision-Date: 2025-09-07 09:11+0000\n"
-"Last-Translator: Ourania J. Banti <Unknown>\n"
+"PO-Revision-Date: 2026-11-16 07:58+0200\n"
+"Last-Translator: Thanos D <alfa3delta>\n"
 "Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2026-01-08 15:33+0000\n"
-"X-Generator: Launchpad (build 99c00f518760bdd50fc6e353e7736d2fff8fba4a)\n"
-"Language: el\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: usr/lib/linuxmint/mintUpdate/checkAPT.py:247
 #, python-format
@@ -34,20 +34,20 @@ msgid ""
 "this update will not remove your existing kernel. You will still be able to "
 "boot with the current kernel by choosing the advanced options in your boot "
 "menu. Please be cautious though.. kernel regressions can affect your ability "
-"to connect to the Internet or to log in graphically. DKMS modules are "
-"compiled for the most recent kernels installed on your computer. If you are "
-"using proprietary drivers and you want to use an older kernel, you will need "
-"to remove the new one first."
+"to connect to the Internet or to log in graphically. DKMS modules are compiled "
+"for the most recent kernels installed on your computer. If you are using "
+"proprietary drivers and you want to use an older kernel, you will need to "
+"remove the new one first."
 msgstr ""
 "Ο πυρήνας Linux είναι υπεύθυνος για την υποστήριξη υλικού και οδηγών. Λάβετε "
 "υπόψη ότι αυτή η ενημέρωση δεν θα αφαιρέσει τον υπάρχοντα πυρήνα σας. Θα "
 "μπορείτε ακόμη να εκκινείτε με τον παρόντα πυρήνα διαλέγοντας τις προηγμένες "
 "επιλογές στο μενού εκκίνησης σας. Ωστόσο προσέξτε παρακαλώ... οι "
-"παλινδρομήσεις πυρήνα μπορεί να επηρεάσουν την ικανότητα σας να συνδεθείτε "
-"στο Διαδίκτυο ή να συνδεθείτε σε γραφικό περιβάλλον. Οι μονάδες DKMS "
+"παλινδρομήσεις πυρήνα μπορεί να επηρεάσουν την ικανότητα σας να συνδεθείτε στο "
+"Διαδίκτυο ή να συνδεθείτε σε γραφικό περιβάλλον. Οι μονάδες DKMS "
 "μεταγλωττίζονται για τον πιο πρόσφατο εγκατεστημένο πυρήνα στον υπολογιστή "
-"σας. Εάν χρησιμοποιείτε ιδιόκτητους οδηγούς και θέλετε να χρησιμοποιήσετε "
-"έναν παλιότερο πυρήνα, θα πρέπει να αφαιρέσετε πρώτα το νέο."
+"σας. Εάν χρησιμοποιείτε ιδιόκτητους οδηγούς και θέλετε να χρησιμοποιήσετε έναν "
+"παλιότερο πυρήνα, θα πρέπει να αφαιρέσετε πρώτα το νέο."
 
 #: usr/lib/linuxmint/mintUpdate/Classes.py:429
 msgid "Installing"
@@ -79,8 +79,7 @@ msgstr "Αφαίρεση Ουράς"
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:141
 msgid "This kernel cannot be removed because it is currently in use."
 msgstr ""
-"Αυτός ο πυρήνας δεν μπορεί να αφαιρεθεί επειδή χρησιμοποιείται αυτή τη "
-"στιγμή."
+"Αυτός ο πυρήνας δεν μπορεί να αφαιρεθεί επειδή χρησιμοποιείται αυτή τη στιγμή."
 
 #: usr/lib/linuxmint/mintUpdate/kernelwindow.py:145
 msgid "Queue Installation"
@@ -298,8 +297,8 @@ msgstr "Αδυναμία συνέχισης"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:593
 msgid ""
-"Another process is currently using the package management system. Please "
-"wait for it to finish and then try again."
+"Another process is currently using the package management system. Please wait "
+"for it to finish and then try again."
 msgstr ""
 "Μια άλλη διεργασία χρησιμοποιεί το σύστημα διαχείρισης πακέτων. Παρακαλώ "
 "περιμένετε να ολοκληρώσει την εργασία της και έπειτα δοκιμάστε ξανά."
@@ -307,7 +306,7 @@ msgstr ""
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "OK"
-msgstr "ΟΚ"
+msgstr "Εντάξει"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:625
 msgid "Yes"
@@ -340,7 +339,7 @@ msgstr "Το σύστημά σας είναι ενημερωμένο"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:677
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2098
 msgid "Restart required"
-msgstr ""
+msgstr "Απαιτείται επανεκκίνηση"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:699
 #, python-format
@@ -451,14 +450,13 @@ msgstr "Διεπαφή"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1554
 msgid "Hide the update manager after applying updates"
-msgstr ""
-"Απόκρυψη του διαχειριστή ενημερώσεων μετά την εφαρμογή των ενημερώσεων"
+msgstr "Απόκρυψη του διαχειριστή ενημερώσεων μετά την εφαρμογή των ενημερώσεων"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
 msgid "Only show a tray icon when updates are available or in case of errors"
 msgstr ""
-"Δείξε ένα εικονίδιο στη γραμμή εργασιών, όταν υπάρχουν διαθέσιμες "
-"ενημερώσεις ή σε περίπτωση σφαλμάτων"
+"Δείξε ένα εικονίδιο στη γραμμή εργασιών, όταν υπάρχουν διαθέσιμες ενημερώσεις "
+"ή σε περίπτωση σφαλμάτων"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1557
 msgid "Auto-refresh"
@@ -517,8 +515,7 @@ msgstr ""
 "Εμφάνιση ειδοποίησης όταν μια ενημέρωση είναι παλαιότερη από (σε ημέρες):"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1636
-msgid ""
-"Don't show notifications if an update was applied in the last (in days):"
+msgid "Don't show notifications if an update was applied in the last (in days):"
 msgstr ""
 "Μη εμφάνιση ειδοποίησης αν εφαρμόστηκε αναβάθμιση τις τελευταίες (σε ημέρες):"
 
@@ -555,8 +552,7 @@ msgid "Export blacklist to /etc/mintupdate.blacklist"
 msgstr "Εξαγωγή της blacklist στο /etc/mintupdate.blacklist"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
-msgid ""
-"Click this button to make automatic updates use your current blacklist."
+msgid "Click this button to make automatic updates use your current blacklist."
 msgstr ""
 "Κάντε κλικ σε αυτό το κουμπί για να κάνετε τις αυτόματες ενημερώσεις να "
 "χρησιμοποιούν την τρέχουσα μαύρη λίστα σας."
@@ -599,8 +595,8 @@ msgstr ""
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1764
 msgid ""
-"Please specify the source package name of the update to ignore (wildcards "
-"are supported) and optionally the version:"
+"Please specify the source package name of the update to ignore (wildcards are "
+"supported) and optionally the version:"
 msgstr ""
 "Παρακαλούμε πείτε το όνομα πακέτου πηγής της ενημέρωσης για αγνόηση "
 "(Υποστηρίζονται wildcard) και προαιρετικά την έκδοση:"
@@ -624,23 +620,24 @@ msgstr "(προαιρετικό)"
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1984
 msgid "Do you want to switch to a local mirror?"
 msgstr ""
-"Επιθυμείτε να αλλάξετε σε μία τοπική εναλλακτική τοποθεσία (local mirror);"
+"Επιθυμείτε να αλλάξετε σε μία τοπική εναλλακτική τοποθεσία κατοπτρισμού (local "
+"mirror);"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
-"Οι τοπικοί κατοπτρισμοί είναι συνήθως ταχύτεροι από το "
-"packages.linuxmint.com."
+"Οι τοπικοί κατοπτρισμοί είναι συνήθως ταχύτεροι από το packages.linuxmint.com."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1996
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2006
 msgid "Please switch to another mirror"
-msgstr "Παρακαλούμε αλλάξτε σε κάποια άλλη εναλλακτική τοποθεσία (mirror)"
+msgstr ""
+"Παρακαλούμε αλλάξτε σε κάποια άλλη εναλλακτική τοποθεσία κατοπτρισμού (mirror)"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1997
 #, python-format
 msgid "%s is unreachable."
-msgstr "%s είναι μη προσβάσιμος"
+msgstr "%s είναι μη προσβάσιμος."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2007
 #, python-format
@@ -658,10 +655,12 @@ msgid ""
 "You have installed updates that require a restart to take effect. Please "
 "restart your system as soon as possible."
 msgstr ""
+"Έχετε εγκαταστήσει ενημερώσεις που απαιτούν επανεκκίνηση για να τεθούν σε "
+"ισχύ. Παρακαλούμε επανεκκινήστε το σύστημά σας το συντομότερο δυνατό."
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2103
 msgid "Restart"
-msgstr ""
+msgstr "Επανεκκίνηση"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2267
@@ -670,8 +669,7 @@ msgstr "Η διαμόρφωση του APT είναι κατεστραμμένη
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2260
 msgid ""
-"Do not install or update anything - doing so could break your operating "
-"system!"
+"Do not install or update anything - doing so could break your operating system!"
 msgstr ""
 "Μην εγκαταστήσετε ή ενημερώσετε τίποτα - κάτι τέτοιο μπορεί να βλάψει το "
 "λειτουργικό σας σύστημα!"
@@ -698,8 +696,8 @@ msgstr "Αδυναμία ανανέωσης της λίστας ενημερώσ
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2266
 msgid "Please switch to another Linux Mint mirror"
 msgstr ""
-"Παρακαλούμε να μεταβείτε σε διαφορετική εναλλακτική τοποθεσία (mirror) του "
-"Linux Mint"
+"Παρακαλούμε να μεταβείτε σε διαφορετική εναλλακτική τοποθεσία κατοπτρισμού "
+"(mirror) του Linux Mint"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2288
 msgid "Run 'apt update' in a terminal window to address this"
@@ -744,7 +742,7 @@ msgstr "Μικροεφαρμογή Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
 msgid "Cinnamon desklet"
-msgstr "Cinnamon desklet"
+msgstr "Εφαρμογή οθόνης Cinnamon"
 
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
 msgid "Nemo action"
@@ -794,8 +792,8 @@ msgid ""
 "file /etc/linuxmint/info."
 msgstr ""
 "Από το σύστημά σας απουσιάζουν κρίσιμα συστατικά. Ένα από τα πακέτα που "
-"αντιστοιχούν στην έκδοση Linux Mint που έχετε μπορεί να δώσει τις "
-"πληροφορίες πακέτου 'mint-info' και το αρχείο /etc/linuxmint/info."
+"αντιστοιχούν στην έκδοση Linux Mint που έχετε μπορεί να δώσει τις πληροφορίες "
+"πακέτου 'mint-info' και το αρχείο /etc/linuxmint/info."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:55
 msgid "No upgrades were found."
@@ -808,8 +806,7 @@ msgstr "Διατίθεται μια νέα έκδοση του Linux Mint!"
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:85
 #, python-format
 msgid "An upgrade was found but it is not available yet for the %s edition."
-msgstr ""
-"Βρέθηκε μια αναβάθμιση αλλά δεν είναι ακόμη διαθέσιμη για την έκδοση %s."
+msgstr "Βρέθηκε μια αναβάθμιση αλλά δεν είναι ακόμη διαθέσιμη για την έκδοση %s."
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:94
 msgid "Release notes"
@@ -961,8 +958,8 @@ msgid ""
 "Installing a new kernel can sometimes cause problems, especially if you're "
 "using proprietary drivers."
 msgstr ""
-"Η εγκατάσταση ενός νέου πυρήνα μπορεί κάποιες φορές να προκαλέσει "
-"προβλήματα, ειδικά αν χρησιμοποιείτε ιδιοταγείς οδηγούς υλικού."
+"Η εγκατάσταση ενός νέου πυρήνα μπορεί κάποιες φορές να προκαλέσει προβλήματα, "
+"ειδικά αν χρησιμοποιείτε ιδιοταγείς οδηγούς υλικού."
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:9
 msgid "These issues include:"
@@ -982,8 +979,7 @@ msgstr ""
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:14
 msgid "If you face any of these issues, don't panic:"
-msgstr ""
-"Αν αντιμετωπίσετε οποιαδήποτε από αυτά τα θέματα, μην πανικοβάλλεστε:"
+msgstr "Αν αντιμετωπίσετε οποιαδήποτε από αυτά τα θέματα, μην πανικοβάλλεστε:"
 
 #: usr/share/linuxmint/mintupdate/kernels.ui.h:15
 msgid ""
@@ -1054,8 +1050,8 @@ msgstr "Ενημερώσεις Ασφαλείας"
 msgid ""
 "Apply security updates to patch vulnerabilities and keep your computer safe."
 msgstr ""
-"Εφαρμόστε ενημερώσεις ασφαλείας για να ενημερώσετε τα θέματα ευπάθειας και "
-"να διατηρήσετε τον υπολογιστή σας ασφαλή."
+"Εφαρμόστε ενημερώσεις ασφαλείας για να ενημερώσετε τα θέματα ευπάθειας και να "
+"διατηρήσετε τον υπολογιστή σας ασφαλή."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:9
 msgid "Software updates"
@@ -1073,12 +1069,11 @@ msgstr "Στιγμιότυπο συστήματος"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:12
 msgid ""
-"Set up system snapshots to protect yourself from mistakes and regressions. "
-"If anything breaks simply restore the last snapshot."
+"Set up system snapshots to protect yourself from mistakes and regressions. If "
+"anything breaks simply restore the last snapshot."
 msgstr ""
-"Ρυθμίστε τα στιγμιότυπα του συστήματος για να προστατεύσετε τον εαυτό σας "
-"από λάθη και υποχωρήσεις. Αν κάτι σπάσει απλά επαναφέρετε το τελευταίο "
-"στιγμιότυπο."
+"Ρυθμίστε τα στιγμιότυπα του συστήματος για να προστατεύσετε τον εαυτό σας από "
+"λάθη και υποχωρήσεις. Αν κάτι σπάσει απλά επαναφέρετε το τελευταίο στιγμιότυπο."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:13
 msgid ""
@@ -1086,10 +1081,10 @@ msgid ""
 "available updates. This way, your computer is always secure and you can go "
 "back in time and recover from any potential regression."
 msgstr ""
-"Το Linux Mint συνιστά να ρυθμίσετε τα αυτοματοποιημένα στιγμιότυπα "
-"συστήματος και να εφαρμόσετε όλες τις διαθέσιμες ενημερώσεις. Με αυτόν τον "
-"τρόπο, ο υπολογιστής σας είναι πάντα ασφαλής και μπορείτε να επιστρέψετε "
-"εγκαίρως και να ανακάμψετε από πιθανή υποχώρηση."
+"Το Linux Mint συνιστά να ρυθμίσετε τα αυτοματοποιημένα στιγμιότυπα συστήματος "
+"και να εφαρμόσετε όλες τις διαθέσιμες ενημερώσεις. Με αυτόν τον τρόπο, ο "
+"υπολογιστής σας είναι πάντα ασφαλής και μπορείτε να επιστρέψετε εγκαίρως και "
+"να ανακάμψετε από πιθανή υποχώρηση."
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "A new version of the Update Manager is available"
@@ -1116,8 +1111,8 @@ msgid ""
 "Packages listed here will never receive updates. Use this option to block "
 "updates that you know cause issues on your system."
 msgstr ""
-"Τα πακέτα που υπάρχουν εδώ δε θα λάβουν ποτέ ενημερώσεις. Χρησιμοποιήστε "
-"αυτή την επιλογή για να μπλοκάρετε ενημερώσεις που ξέρετε ότι θα προκαλέσουν "
+"Τα πακέτα που υπάρχουν εδώ δε θα λάβουν ποτέ ενημερώσεις. Χρησιμοποιήστε αυτή "
+"την επιλογή για να μπλοκάρετε ενημερώσεις που ξέρετε ότι θα προκαλέσουν "
 "προβλήματα στο σύστημά σας."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:4
@@ -1125,16 +1120,16 @@ msgid ""
 "It is recommended to add packages to this list by right-clicking them in the "
 "updates listing."
 msgstr ""
-"Συνιστάται η προσθήκη πακέτων σε αυτήν τη λίστα κάνοντας δεξί κλικ σε αυτά "
-"στη λίστα ενημερώσεων."
+"Συνιστάται η προσθήκη πακέτων σε αυτήν τη λίστα κάνοντας δεξί κλικ σε αυτά στη "
+"λίστα ενημερώσεων."
 
 #: usr/share/linuxmint/mintupdate/preferences.ui.h:5
 msgid ""
 "Make sure your system snapshots are properly configured before enabling "
 "automation."
 msgstr ""
-"Βεβαιωθείτε ότι τα στιγμιότυπα του συστήματός σας έχουν διαμορφωθεί σωστά "
-"πριν ενεργοποιήσετε την αυτοματοποίηση."
+"Βεβαιωθείτε ότι τα στιγμιότυπα του συστήματός σας έχουν διαμορφωθεί σωστά πριν "
+"ενεργοποιήσετε την αυτοματοποίηση."
 
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:1
 msgid "Window"
@@ -1290,8 +1285,7 @@ msgstr "Επιλέξτε Ενημερώσεις Πυρήνα"
 #~ "εγκαθίστανται καθόλου."
 
 #~ msgid "Safe packages. Not tested but believed to be safe."
-#~ msgstr ""
-#~ "Ασφαλή πακέτα. Δεν έχουν δοκιμασθεί αλλά πιστεύεται ότι είναι ασφαλή."
+#~ msgstr "Ασφαλή πακέτα. Δεν έχουν δοκιμασθεί αλλά πιστεύεται ότι είναι ασφαλή."
 
 #~ msgid "Recommended packages. Tested and approved by Linux Mint."
 #~ msgstr "Προτεινόμενα πακέτα. Δοκιμασμένα και εγκεκριμένα από το Linux Mint."
@@ -1336,8 +1330,7 @@ msgstr "Επιλέξτε Ενημερώσεις Πυρήνα"
 #~ msgid "Auto-Refresh"
 #~ msgstr "Αυτόματη Ανανέωση"
 
-#~ msgid ""
-#~ "Unsafe packages. Could potentially affect the stability of the system."
+#~ msgid "Unsafe packages. Could potentially affect the stability of the system."
 #~ msgstr ""
 #~ "Μη ασφαλή πακέτα. Θα μπορούσαν να επηρεάσουν την σταθερότητα του συστήματος."
 
