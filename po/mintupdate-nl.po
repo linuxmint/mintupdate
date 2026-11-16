@@ -7,27 +7,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2025-12-11 14:38+0000\n"
-"PO-Revision-Date: 2025-12-11 16:51+0000\n"
+"POT-Creation-Date: 2026-11-12 11:46+0000\n"
+"PO-Revision-Date: 2026-11-12 17:13+0000\n"
 "Last-Translator: Pjotr12345 <Unknown>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Launchpad-Export-Date: 2026-01-08 15:33+0000\n"
-"X-Generator: Launchpad (build 99c00f518760bdd50fc6e353e7736d2fff8fba4a)\n"
+"X-Launchpad-Export-Date: 2026-11-16 11:49+0000\n"
+"X-Generator: Launchpad (build 72ba15af7e009b17d4aa1467977127ac8392a4de)\n"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:247
+#: usr/lib/linuxmint/mintUpdate/aptUpdater.py:351
 #, python-format
 msgid "Linux kernel %s"
 msgstr "Linux-systeemkern %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:248
+#: usr/lib/linuxmint/mintUpdate/aptUpdater.py:352
 msgid "The Linux kernel."
 msgstr "De Linux-systeemkern."
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:249
+#: usr/lib/linuxmint/mintUpdate/aptUpdater.py:353
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -49,254 +49,175 @@ msgstr ""
 "een oudere systeemkern gebruiken, dan zult u de nieuwere systeemkernen eerst "
 "moeten verwijderen."
 
-#: usr/lib/linuxmint/mintUpdate/Classes.py:429
+#: usr/lib/linuxmint/mintUpdate/Classes.py:390
 msgid "Installing"
 msgstr "Bezig met installeren"
 
-#: usr/lib/linuxmint/mintUpdate/Classes.py:475
+#: usr/lib/linuxmint/mintUpdate/Classes.py:436
 msgid "A Flatpak runtime package"
 msgstr "Een Flatpak-pakket"
 
-#: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:34
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1650
+#: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:37
+#: usr/lib/linuxmint/mintUpdate/preferences.py:159
 msgid "Flatpak updates"
 msgstr "Actualiseringen voor Flatpaks"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:48
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:138
-msgid "Remove"
-msgstr "Verwijderen"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:50
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:144
-msgid "Install"
-msgstr "Installeren"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:139
-msgid "Queue Removal"
-msgstr "Verwijdering in wachtrij"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:141
-msgid "This kernel cannot be removed because it is currently in use."
-msgstr ""
-"Deze systeemkern kan niet worden verwijderd, aangezien hij thans in gebruik "
-"is."
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:145
-msgid "Queue Installation"
-msgstr "Installatie in wachtrij"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:147
-msgid "This kernel is not installable."
-msgstr "Deze systeemkern is niet installeerbaar."
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:164
-#, python-format
-msgid "Are you sure you want to remove the %s kernel?"
-msgstr "Weet u zeker dat u systeemkern %s wilt verwijderen?"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:166
-#, python-format
-msgid "Are you sure you want to install the %s kernel?"
-msgstr "Weet u zeker dat u systeemkern %s wilt installeren?"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:213
-msgid "Remove Kernels"
-msgstr "Systeemkernen verwijderen"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:214
-msgid "Perform Queued Actions"
-msgstr "Acties in wachtrij uitvoeren"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:290
-msgid "Active"
-msgstr "Actief"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:293
-msgid "Installed"
-msgstr "Geïnstalleerd"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:380
-msgid "Supported until"
-msgstr "Ondersteund tot"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:383
-msgid "Superseded"
-msgstr "Niet langer ondersteund"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
-msgid "End of Life"
-msgstr "Einde ondersteuning"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:387
-msgid "Unsupported"
-msgstr "Niet-ondersteund"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:416
-msgid "You are currently using the following kernel:"
-msgstr "U gebruikt thans de volgende systeemkern:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:83
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:221
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:594
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1462
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2461 generate_desktop_files:25
-#: usr/bin/mintupdate-launcher:23
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:74
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:251
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1611
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2157 generate_desktop_files:25
 msgid "Update Manager"
 msgstr "Bijwerkbeheer"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:94
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:86
 msgid "B"
 msgstr "B"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:94
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:86
 msgid "KB"
 msgstr "KB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:94
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:86
 msgid "MB"
 msgstr "MB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:94
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:86
 msgid "GB"
 msgstr "GB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:244
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:274
 msgid "Upgrade"
 msgstr "Opwaarderen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:249
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:279
 msgid "Name"
 msgstr "Naam"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:253
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:429
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1328
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:283
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:461
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1477
 msgid "Old Version"
 msgstr "Oude versie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:257
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:435
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1331
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:467
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1480
 msgid "New Version"
 msgstr "Nieuwe versie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:261
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:447
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:291
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:479
 msgid "Size"
 msgstr "Grootte"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:265
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:417
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:295
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:449
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1471
 msgid "Type"
 msgstr "Soort"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:269
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:441
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:299
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:473
 msgid "Origin"
 msgstr "Oorsprong"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:356
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "Verversen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:326
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:410
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1284
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:360
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:442
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1428
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid "Information"
 msgstr "Informatie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:330
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:364
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1525
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:399
+#: usr/lib/linuxmint/mintUpdate/preferences.py:33
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:334
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:354
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:368
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:389
 msgid "Quit"
 msgstr "Afsluiten"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:343
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:378
 msgid "_File"
 msgstr "_Bestand"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:382
 msgid "Close window"
 msgstr "Venster sluiten"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:360
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:395
 msgid "_Edit"
 msgstr "Be_werken"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:369
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:404
 msgid "System Snapshots"
 msgstr "Momentopnamen van het systeem"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:374
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:409
 msgid "Software Sources"
 msgstr "Pakketbronnen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:396
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:431
 #, python-format
 msgid "Upgrade to %s"
 msgstr "Opwaarderen naar %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:400
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:435
 msgid "_View"
 msgstr "_Tonen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:404
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1310
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:439
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1459
 msgid "History of Updates"
 msgstr "Bijwerkgeschiedenis"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:407
-msgid "Linux Kernels"
-msgstr "Linux-systeemkernen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:413
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:445
 msgid "Visible Columns"
 msgstr "Zichtbare kolommen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:423
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:455
 msgid "Package"
 msgstr "Pakket"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:455
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:487
 msgid "Show Descriptions"
 msgstr "Beschrijvingen tonen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:495
 msgid "_Help"
 msgstr "_Hulp"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:477
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:500
 msgid "Welcome Screen"
 msgstr "Welkomstscherm"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:482
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:505
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:486
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:509
 msgid "Contents"
 msgstr "Inhoud"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:492
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1460
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:515
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1609
 msgid "About"
 msgstr "Over"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
 msgid "Cannot Proceed"
 msgstr "Kan niet verder gaan"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:593
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:620
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
@@ -304,347 +225,178 @@ msgstr ""
 "Er is thans een ander proces actief dat het pakketbeheersysteem gebruikt. "
 "Wacht a.u.b. totdat dit klaar is en probeer het dan opnieuw."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:628
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "OK"
 msgstr "Oké"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:625
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:652
 msgid "Yes"
 msgstr "Ja"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:626
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
 msgid "No"
 msgstr "Nee"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:657
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:798
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:828
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
 msgstr[0] "%(selected)d actualisering gekozen (%(size)s)"
 msgstr[1] "%(selected)d actualiseringen gekozen (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:664
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:693
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
 msgstr[0] "%d actualisering beschikbaar"
 msgstr[1] "%d actualiseringen beschikbaar"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:673
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:702
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid "Your system is up to date"
 msgstr "Uw systeem is bijgewerkt"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:677
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2098
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
 msgid "Restart required"
 msgstr "Herstart vereist"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:699
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
 msgstr[0] "%d veiligheidsreparatie"
 msgstr[1] "%d veiligheidsreparaties"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:700
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:729
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
 msgstr[0] "%d foutreparatie"
 msgstr[1] "%d foutreparaties"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:735
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr "Pas ze toe om uw besturingssysteem veilig en bijgewerkt te houden."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:710
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:739
 msgid "Updates are available"
 msgstr "Er zijn actualiseringen beschikbaar"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:713
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:742
 msgid "View updates"
 msgstr "Actualiseringen bekijken"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:714
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:743
 msgid "Enable automatic updates"
 msgstr "Automatisch bijwerken inschakelen (riskant!)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:795
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:825
 msgid "No updates selected"
 msgstr "Geen actualiseringen gekozen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:865
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Welcome to the Update Manager"
 msgstr "Welkom bij Bijwerkbeheer"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:983
 msgid "Most recent change"
 msgstr "Meest recente wijziging"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:907
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:992
 #, python-format
 msgid "Website: %s"
 msgstr "Website: %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1114
 msgid "Downloading changelog..."
 msgstr "Wijzigingslogboek binnenhalen..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1045
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1116
 msgid "No changelog available"
 msgstr "Geen  wijzigingslogboek beschikbaar"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1288
 msgid "Total size: <"
 msgstr "Totale grootte: <"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1201
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1293
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1323
 msgid "Total size:"
 msgstr "Totale grootte:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1204
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1296
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "Deze actualisering betreft het volgende geïnstalleerde pakket:"
 msgstr[1] "Deze actualisering betreft de volgende geïnstalleerde pakketten:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1306
+msgid "Select a single update to view its description and changelog."
+msgstr ""
+"Kies een enkele actualisering om haar beschrijving en logboek van "
+"wijzigingen te bekijken."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1318
+msgid "The selected updates affect the following installed package:"
+msgid_plural "The selected updates affect the following installed packages:"
+msgstr[0] ""
+"De gekozen actualiseringen hebben effect op het volgende geïnstalleerde "
+"pakket:"
+msgstr[1] ""
+"De gekozen actualiseringen hebben effect op de volgende geïnstalleerde "
+"pakketten:"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1359
 msgid "Ignore the current update for this package"
-msgstr "Negeer de huidige actualisering voor dit pakket"
+msgid_plural "Ignore the current updates for these packages"
+msgstr[0] "Negeer de huidige actualisering voor dit pakket"
+msgstr[1] "Negeer de huidige actualiseringen voor deze pakketten"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
 msgid "Ignore all future updates for this package"
-msgstr "Negeer alle huidige en toekomstige actualiseringen voor dit pakket"
+msgid_plural "Ignore all future updates for these packages"
+msgstr[0] "Negeer alle toekomstige actualiseringen voor dit pakket"
+msgstr[1] "Negeer alle toekomstige actualiseringen voor deze pakketten"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1319
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1468
 msgid "Date"
 msgstr "Datum"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1325
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1474
 msgid "Update"
 msgstr "Bijwerken"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1370
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1519
 msgid "package"
 msgstr "pakket"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1545
-msgid "Options"
-msgstr "Opties"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
-#: usr/share/linuxmint/mintupdate/main.ui.h:21
-msgid "Packages"
-msgstr "Pakketten"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1547
-msgid "Automation"
-msgstr "Automatisering"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
-msgid "Interface"
-msgstr "Bedieningsschil"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1554
-msgid "Hide the update manager after applying updates"
-msgstr "Verberg Bijwerkbeheer na het installeren van actualiseringen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
-msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr ""
-"Toon alleen een systeemvakpictogram wanneer er actualiseringen beschikbaar "
-"zijn of in geval van fouten"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1557
-msgid "Auto-refresh"
-msgstr "Automatisch verversen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
-msgid "Refresh the list of updates automatically"
-msgstr "Ververs de lijst met actualiseringen automatisch"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1570
-msgid "days"
-msgstr "dagen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1571
-msgid "hours"
-msgstr "uren"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
-msgid "minutes"
-msgstr "minuten"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1573
-msgid "First, refresh the list of updates after:"
-msgstr "Allereerst, ververs de lijst met actualiseringen na:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1577
-msgid "Then, refresh the list of updates every:"
-msgstr "Daarna, ververs de lijst met actualiseringen elke:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
-msgid ""
-"Note: The list only gets refreshed while the Update Manager window is closed "
-"(in system tray mode)."
-msgstr ""
-"Let op: de lijst wordt alleen ververst wanneer het venster van Bijwerkbeheer "
-"is gesloten (in systeemvakmodus)."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1624
-msgid "Notifications"
-msgstr "Meldingen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1630
-msgid "Only show notifications for security and kernel updates"
-msgstr ""
-"Toon alleen meldingen voor veiligheidsreparaties en bijgewerkte systeemkernen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
-msgid ""
-"Show a notification if an update has been available for (in logged-in days):"
-msgstr ""
-"Toon een melding wanneer er een actualisering beschikbaar is geweest "
-"gedurende (aantal dagen met aanmeldingen):"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1634
-msgid "Show a notification if an update is older than (in days):"
-msgstr ""
-"Toon een melding wanneer een actualisering ouder is dan (aantal dagen):"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1636
-msgid ""
-"Don't show notifications if an update was applied in the last (in days):"
-msgstr ""
-"Toon geen meldingen indien er een actualisering werd toegepast in de laatste "
-"tijd (aantal dagen):"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
-msgid "Update types"
-msgstr "Soorten actualisering"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
-msgid "In addition to system packages, check for:"
-msgstr "Naast systeempakketten, controleer op:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1648
-msgid "Cinnamon spice updates"
-msgstr "Actualiseringen voor Cinnamon-specerijen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1658
-msgid "Ignored Updates"
-msgstr "Genegeerde actualiseringen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1681
-msgid "Package Updates"
-msgstr "Bijgewerkte pakketten"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1681
-msgid "Performed as root on a daily basis"
-msgstr "Uitgevoerd als root op een dagelijkse basis"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1682
-msgid "Apply updates automatically"
-msgstr "Actualiseringen automatisch installeren"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1686
-msgid "Export blacklist to /etc/mintupdate.blacklist"
-msgstr "Zwarte lijst exporteren naar /etc/mintupdate.blacklist"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
-msgid ""
-"Click this button to make automatic updates use your current blacklist."
-msgstr ""
-"Klik op deze knop om automatisch bijwerken gebruik te laten maken van uw "
-"huidige zwarte lijst."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1695
-msgid "Update Cinnamon spices automatically"
-msgstr "Cinnamon-minitoepassingen automatisch bijwerken"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1698
-msgid "Update Flatpaks automatically"
-msgstr "Flatpaks automatisch bijwerken"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
-msgid "Other Updates"
-msgstr "Overige actualiseringen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
-msgid "Performed when you log in"
-msgstr "Uitgevoerd wanneer u zich aanmeldt"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
-msgid "Automatic Maintenance"
-msgstr "Automatisch onderhoud"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
-msgid "Performed as root on a weekly basis"
-msgstr "Uitgevoerd als root op een wekelijkse basis"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1705
-msgid "Remove obsolete kernels and dependencies"
-msgstr "Verouderde systeemkernen en afhankelijkheden verwijderen"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1709
-msgid ""
-"This option always leaves at least one older kernel installed and never "
-"removes manually installed kernels."
-msgstr ""
-"Deze optie laat altijd tenminste één oudere systeemkern geïnstalleerd en "
-"verwijdert nimmer eventuele handmatig geïnstalleerde systeemkernen."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1764
-msgid ""
-"Please specify the source package name of the update to ignore (wildcards "
-"are supported) and optionally the version:"
-msgstr ""
-"Geef a.u.b. de bronpakketnaam op van de actualisering die moet worden "
-"genegeerd (jokertekens zijn toegestaan) en eventueel de versie:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1765
-msgid "Ignore an Update"
-msgstr "Een actualisering negeren"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1773
-msgid "Name:"
-msgstr "Naam:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1775
-msgid "Version:"
-msgstr "Versie:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1777
-msgid "(optional)"
-msgstr "(optioneel)"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1984
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1749
 msgid "Do you want to switch to a local mirror?"
 msgstr "Wilt u overschakelen naar een spiegelserver bij u in de buurt?"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1750
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr ""
 "Spiegelservers bij u in de buurt, zijn doorgaans sneller dan "
 "packages.linuxmint.com."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1996
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2006
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1771
 msgid "Please switch to another mirror"
 msgstr ""
 "Schakel a.u.b. over naar een andere spiegelserver, of wacht een dagje totdat "
 "uw huidige spiegelserver weer op orde is"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1997
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1762
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s is onbereikbaar."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2007
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1772
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
@@ -653,11 +405,11 @@ msgstr[0] ""
 msgstr[1] ""
 "De laatste keer dat %(mirror)s werd bijgewerkt, was %(days)d dagen geleden."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2091
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
 msgid "Checking for updates"
 msgstr "Zoeken naar beschikbare actualiseringen..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2099
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1871
 msgid ""
 "You have installed updates that require a restart to take effect. Please "
 "restart your system as soon as possible."
@@ -665,16 +417,16 @@ msgstr ""
 "U hebt actualiseringen geïnstalleerd die een herstart vergen om van kracht "
 "te worden. Herstart a.u.b. uw systeem zo spoedig mogelijk."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2103
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1875
 msgid "Restart"
 msgstr "Herstarten"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2267
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1959
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1967
 msgid "Your APT configuration is corrupt."
 msgstr "De instellingen van uw APT zijn corrupt."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2260
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1960
 msgid ""
 "Do not install or update anything - doing so could break your operating "
 "system!"
@@ -682,44 +434,44 @@ msgstr ""
 "Installeer niets en werk niets bij - dat zou uw besturingssysteem kapot "
 "kunnen maken!"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1961
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
 "Klik op Oké om over te schakelen naar een andere spiegelserver van Linux "
 "Mint, waardoor u dit probleem waarschijnlijk oplost."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2263
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2264
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2290
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2291
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2301
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2302
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2441
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2442
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1963
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1964
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1988
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1996
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1997
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2137
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2138
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid "Could not refresh the list of updates"
 msgstr "Kon de lijst met actualiseringen niet verversen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2266
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1966
 msgid "Please switch to another Linux Mint mirror"
 msgstr ""
 "Schakel a.u.b. over naar een andere spiegelserver van Linux Mint, of wacht "
 "een dagje totdat uw huidige spiegelserver weer op orde is"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2288
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr "Voer 'apt update' uit in een terminalvenster om dit te herstellen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2338
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2034
 msgid "Security update"
 msgstr "Veiligheidsreparatie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2342
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2038
 msgid "Kernel update"
 msgstr "Bijgewerkte systeemkern"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2042
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -728,62 +480,233 @@ msgstr ""
 "ontwikkelaars te helpen met het uitproberen van proefversies van nieuwe "
 "programmatuur."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2350
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2046
 msgid "Software update"
 msgstr "Foutreparatie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2049
 msgid "3rd-party update"
 msgstr "Actualisering van derden"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2377
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2073
 msgid "Flatpak application"
 msgstr "Flatpak-toepassing"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2379
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2075
 msgid "Flatpak runtime"
 msgstr "Flatpak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2098
 msgid "Cinnamon applet"
 msgstr "Cinnamon-werkbalkhulpje"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2100
 msgid "Cinnamon desklet"
 msgstr "Cinnamon-bureaubladmini"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2105
 msgid "Nemo action"
 msgstr "Nemo-actie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2411
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2107
 msgid "Cinnamon theme"
 msgstr "Cinnamon-thema"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2109
 msgid "Cinnamon extension"
 msgstr "Cinnamon-extensie"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2430
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2124
 #, python-format
 msgid "Error checking for flatpak updates: %s"
 msgstr "Fout bij het controleren op actualiseringen voor Flatpaks: %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2497
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2227
+msgid "Installing updates"
+msgstr "Actualiseringen installeren..."
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2241
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2242
 msgid "Could not install the security updates"
 msgstr "Kon de veiligheidsreparaties niet installeren"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2520
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2271
 msgid "Updating Cinnamon Spices"
 msgstr "Bezig met bijwerken van Cinnamon-minitoepassingen"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2533
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2284
 msgid "Could not update Cinnamon Spices"
 msgstr "Kon Cinnamon Spices niet bijwerken"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2608
-msgid "Installing updates"
-msgstr "Actualiseringen installeren..."
+#: usr/lib/linuxmint/mintUpdate/preferences.py:51
+msgid "Options"
+msgstr "Opties"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:52
+#: usr/share/linuxmint/mintupdate/main.ui.h:21
+msgid "Packages"
+msgstr "Pakketten"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:53
+msgid "Automation"
+msgstr "Automatisering"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:69
+msgid "Interface"
+msgstr "Bedieningsschil"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:70
+msgid "Hide the update manager after applying updates"
+msgstr "Verberg Bijwerkbeheer na het installeren van actualiseringen"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:72
+msgid "Only show a tray icon when updates are available or in case of errors"
+msgstr ""
+"Toon alleen een systeemvakpictogram wanneer er actualiseringen beschikbaar "
+"zijn of in geval van fouten"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:75
+msgid "Auto-refresh"
+msgstr "Automatisch verversen"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:76
+msgid "Refresh the list of updates automatically"
+msgstr "Ververs de lijst met actualiseringen automatisch"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:88
+msgid "days"
+msgstr "dagen"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:89
+msgid "hours"
+msgstr "uren"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:90
+msgid "minutes"
+msgstr "minuten"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:91
+msgid "First, refresh the list of updates after:"
+msgstr "Allereerst, ververs de lijst met actualiseringen na:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:95
+msgid "Then, refresh the list of updates every:"
+msgstr "Daarna, ververs de lijst met actualiseringen elke:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:106
+msgid ""
+"Note: The list only gets refreshed while the Update Manager window is closed "
+"(in system tray mode)."
+msgstr ""
+"Let op: de lijst wordt alleen ververst wanneer het venster van Bijwerkbeheer "
+"is gesloten (in systeemvakmodus)."
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:110
+msgid "Notifications"
+msgstr "Meldingen"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:116
+msgid "Only show notifications for security and kernel updates"
+msgstr ""
+"Toon alleen meldingen voor veiligheidsreparaties en bijgewerkte systeemkernen"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:119
+msgid ""
+"Show a notification if an update has been available for (in logged-in days):"
+msgstr ""
+"Toon een melding wanneer er een actualisering beschikbaar is geweest "
+"gedurende (aantal dagen met aanmeldingen):"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:122
+msgid "Show a notification if an update is older than (in days):"
+msgstr ""
+"Toon een melding wanneer een actualisering ouder is dan (aantal dagen):"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:125
+msgid ""
+"Don't show notifications if an update was applied in the last (in days):"
+msgstr ""
+"Toon geen meldingen indien er een actualisering werd toegepast in de laatste "
+"tijd (aantal dagen):"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:154
+msgid "Update types"
+msgstr "Soorten actualisering"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:154
+msgid "In addition to system packages, check for:"
+msgstr "Naast systeempakketten, controleer op:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:156
+msgid "Cinnamon spice updates"
+msgstr "Actualiseringen voor Cinnamon-specerijen"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:168
+msgid "Ignored Updates"
+msgstr "Genegeerde actualiseringen"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:191
+msgid "Package Updates"
+msgstr "Bijgewerkte pakketten"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:191
+msgid "Performed as root on a daily basis"
+msgstr "Uitgevoerd als root op een dagelijkse basis"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:192
+msgid "Apply updates automatically"
+msgstr "Actualiseringen automatisch installeren"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:196
+msgid "Export blacklist to /etc/mintupdate.blacklist"
+msgstr "Zwarte lijst exporteren naar /etc/mintupdate.blacklist"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:200
+msgid ""
+"Click this button to make automatic updates use your current blacklist."
+msgstr ""
+"Klik op deze knop om automatisch bijwerken gebruik te laten maken van uw "
+"huidige zwarte lijst."
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:206
+msgid "Update Cinnamon spices automatically"
+msgstr "Cinnamon-minitoepassingen automatisch bijwerken"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:209
+msgid "Update Flatpaks automatically"
+msgstr "Flatpaks automatisch bijwerken"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:212
+msgid "Other Updates"
+msgstr "Overige actualiseringen"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:212
+msgid "Performed when you log in"
+msgstr "Uitgevoerd wanneer u zich aanmeldt"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:251
+msgid ""
+"Please specify the source package name of the update to ignore (wildcards "
+"are supported) and optionally the version:"
+msgstr ""
+"Geef a.u.b. de bronpakketnaam op van de actualisering die moet worden "
+"genegeerd (jokertekens zijn toegestaan) en eventueel de versie:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:252
+msgid "Ignore an Update"
+msgstr "Een actualisering negeren"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:260
+msgid "Name:"
+msgstr "Naam:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:262
+msgid "Version:"
+msgstr "Versie:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:264
+msgid "(optional)"
+msgstr "(optioneel)"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:22
 msgid "System Upgrade"
@@ -911,21 +834,20 @@ msgstr ""
 "Uw besturingssysteem werd succesvol opgewaardeerd. Herstart a.u.b. uw "
 "computer om alle wijzigingen van kracht te laten worden."
 
+#: usr/lib/linuxmint/mintUpdate/session_automatic_upgrades.py:42
+msgid "The following spices were automatically updated:"
+msgstr "De volgende minitoepassingen werden automatisch bijgewerkt:"
+
+#: usr/lib/linuxmint/mintUpdate/session_automatic_upgrades.py:57
+msgid "Cinnamon was restarted"
+msgstr "Cinnamon werd herstart"
+
 #: generate_desktop_files:26
 msgid "Show and install available updates"
 msgstr "Beschikbare actualiseringen tonen en installeren"
 
-#: usr/bin/mintupdate-launcher:57
-msgid "The following spices were automatically updated:"
-msgstr "De volgende minitoepassingen werden automatisch bijgewerkt:"
-
-#: usr/bin/mintupdate-launcher:66
-msgid "Cinnamon was restarted"
-msgstr "Cinnamon werd herstart"
-
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:5
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr "Sluiten"
@@ -937,101 +859,6 @@ msgstr "Proces-ID:"
 #: usr/share/linuxmint/mintupdate/information.ui.h:2
 msgid "Log file:"
 msgstr "Logboekbestand:"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:1
-msgid "Kernels"
-msgstr "Systeemkernen"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:2
-msgid "Kernel flavor:"
-msgstr "Systeemkerntype:"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:3
-msgid "Perform Queued Actions..."
-msgstr "Acties in de wachtrij uitvoeren..."
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:4
-msgid "Remove Kernels..."
-msgstr "Systeemkernen verwijderen..."
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
-msgid "Warning!"
-msgstr "Waarschuwing!"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
-msgid "Proceed with caution"
-msgstr "Ga voorzichtig te werk"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
-msgid ""
-"Installing a new kernel can sometimes cause problems, especially if you're "
-"using proprietary drivers."
-msgstr ""
-"Het installeren van een nieuwe systeemkern kan soms problemen veroorzaken, "
-"vooral wanneer u niet-vrije stuurprogramma's gebruikt."
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
-msgid "These issues include:"
-msgstr "Deze problemen omvatten:"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:10
-msgid ""
-"- No wifi (or ethernet)\n"
-"- No video acceleration\n"
-"- Black screen on startup\n"
-"- Random system freeze"
-msgstr ""
-"- Geen internetverbinding meer\n"
-"- Geen apparatuurversnelling meer voor beeldweergave\n"
-"- Zwart scherm bij opstarten\n"
-"- Willekeurige bevriezingen van het systeem"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:14
-msgid "If you face any of these issues, don't panic:"
-msgstr ""
-"Als u één of meer van deze problemen tegenkomt, raak dan niet in paniek, "
-"maar doe dit:"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:15
-msgid ""
-"- Reboot.\n"
-"- Press and hold the Shift key to show the boot menu.\n"
-"- In the boot menu, select the line which starts with 'Advanced options'.\n"
-"- Select an older kernel.\n"
-"- After the computer boots with the older kernel, uninstall the new one."
-msgstr ""
-"- Herstart de computer.\n"
-"- Als u gewoonlijk geen opstartmenu te zien krijgt: houd de Shift-toets "
-"ingedrukt.\n"
-"- In het opstartmenu kiest u de regel die begint met 'Geavanceerde opties'.\n"
-"- Kies een oudere systeemkern.\n"
-"- Nadat de computer is opgestart met de oudere systeemkern, verwijdert u de "
-"nieuwe."
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
-msgid "Do not show this message again"
-msgstr "Toon dit bericht voortaan niet meer"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
-#: usr/share/linuxmint/mintupdate/main.ui.h:14
-msgid "Help"
-msgstr "Hulp"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
-msgid "Continue"
-msgstr "Doorgaan"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
-msgid "Cancel"
-msgstr "Afbreken"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:24
-msgid "Apply"
-msgstr "Toepassen"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:25
-msgid "Please confirm the following actions:"
-msgstr "Bevestig a.u.b. de volgende acties:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1099,6 +926,10 @@ msgstr ""
 "regressie te verhelpen. Aangezien momentopnamen veel schijfruimte kunnen "
 "kosten en zo het systeem in de weg kunnen gaan zitten, plaatst u de "
 "momentopnamen liefst op een aparte partitie."
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:14
+msgid "Help"
+msgstr "Hulp"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "A new version of the Update Manager is available"
