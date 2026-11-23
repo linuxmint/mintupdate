@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: linuxmint\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2025-12-11 14:38+0000\n"
+"POT-Creation-Date: 2026-11-12 11:46+0000\n"
 "PO-Revision-Date: 2025-12-30 03:33+0000\n"
 "Last-Translator: boneni <Unknown>\n"
 "Language-Team: Lao <lo@li.org>\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Launchpad-Export-Date: 2026-01-08 15:33+0000\n"
-"X-Generator: Launchpad (build 99c00f518760bdd50fc6e353e7736d2fff8fba4a)\n"
+"X-Launchpad-Export-Date: 2026-11-16 11:49+0000\n"
+"X-Generator: Launchpad (build 72ba15af7e009b17d4aa1467977127ac8392a4de)\n"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:247
+#: usr/lib/linuxmint/mintUpdate/aptUpdater.py:351
 #, python-format
 msgid "Linux kernel %s"
 msgstr "ເຄີເນວລີນຸກ %s"
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:248
+#: usr/lib/linuxmint/mintUpdate/aptUpdater.py:352
 msgid "The Linux kernel."
 msgstr "ເຄີເນວລີນຸກ."
 
-#: usr/lib/linuxmint/mintUpdate/checkAPT.py:249
+#: usr/lib/linuxmint/mintUpdate/aptUpdater.py:353
 msgid ""
 "The Linux Kernel is responsible for hardware and drivers support. Note that "
 "this update will not remove your existing kernel. You will still be able to "
@@ -48,252 +48,175 @@ msgstr ""
 "ຖ້າທ່ານກຳລັງໃຊ້ໄດຣເວີທີ່ເປັນກຳມະສິດ ແລະ ຕ້ອງການໃຊ້ເຄີເນວເກົ່າ, "
 "ທ່ານຈະຕ້ອງລຶບໂຕໃໝ່ອອກກ່ອນ."
 
-#: usr/lib/linuxmint/mintUpdate/Classes.py:429
+#: usr/lib/linuxmint/mintUpdate/Classes.py:390
 msgid "Installing"
 msgstr "ກຳລັງຕິດຕັ້ງ"
 
-#: usr/lib/linuxmint/mintUpdate/Classes.py:475
+#: usr/lib/linuxmint/mintUpdate/Classes.py:436
 msgid "A Flatpak runtime package"
 msgstr "ແພັກເກດ Flatpak runtime"
 
-#: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:34
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1650
+#: usr/lib/linuxmint/mintUpdate/flatpak-update-worker.py:37
+#: usr/lib/linuxmint/mintUpdate/preferences.py:159
 msgid "Flatpak updates"
 msgstr "ການອັບເດດ Flatpak"
 
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:48
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:138
-msgid "Remove"
-msgstr "ລຶບອອກ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:50
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:144
-msgid "Install"
-msgstr "ຕິດຕັ້ງ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:139
-msgid "Queue Removal"
-msgstr "ຈັດຄິວເພື່ອລຶບ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:141
-msgid "This kernel cannot be removed because it is currently in use."
-msgstr "ບໍ່ສາມາດລຶບເຄີເນວນີ້ໄດ້ ເພາະມັນກຳລັງຖືກໃຊ້ງານຢູ່."
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:145
-msgid "Queue Installation"
-msgstr "ຈັດຄິວເພື່ອຕິດຕັ້ງ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:147
-msgid "This kernel is not installable."
-msgstr "ເຄີເນວນີ້ບໍ່ສາມາດຕິດຕັ້ງໄດ້."
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:164
-#, python-format
-msgid "Are you sure you want to remove the %s kernel?"
-msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບເຄີເນວ %s?"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:166
-#, python-format
-msgid "Are you sure you want to install the %s kernel?"
-msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການຕິດຕັ້ງເຄີເນວ %s?"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:213
-msgid "Remove Kernels"
-msgstr "ລຶບເຄີເນວ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:214
-msgid "Perform Queued Actions"
-msgstr "ດຳເນີນການຕາມຄິວ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:290
-msgid "Active"
-msgstr "ກຳລັງໃຊ້ງານ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:293
-msgid "Installed"
-msgstr "ຕິດຕັ້ງແລ້ວ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:380
-msgid "Supported until"
-msgstr "ຮອງຮັບຈົນຮອດ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:383
-msgid "Superseded"
-msgstr "ຖືກແທນທີ່ແລ້ວ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:385
-msgid "End of Life"
-msgstr "ໝົດອາຍຸການຮອງຮັບ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:387
-msgid "Unsupported"
-msgstr "ບໍ່ຮອງຮັບ"
-
-#: usr/lib/linuxmint/mintUpdate/kernelwindow.py:416
-msgid "You are currently using the following kernel:"
-msgstr "ທ່ານກຳລັງໃຊ້ເຄີເນວຕໍ່ໄປນີ້:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:83
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:221
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:594
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1462
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2461 generate_desktop_files:25
-#: usr/bin/mintupdate-launcher:23
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:74
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:251
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:621
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1611
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2157 generate_desktop_files:25
 msgid "Update Manager"
 msgstr "ຕົວຈັດການອັບເດດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:94
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:86
 msgid "B"
 msgstr "B"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:94
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:86
 msgid "KB"
 msgstr "KB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:94
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:86
 msgid "MB"
 msgstr "MB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:94
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:86
 msgid "GB"
 msgstr "GB"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:244
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:274
 msgid "Upgrade"
 msgstr "ອັບເກຣດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:249
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:279
 msgid "Name"
 msgstr "ຊື່"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:253
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:429
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1328
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:283
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:461
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1477
 msgid "Old Version"
 msgstr "ລຸ້ນເກົ່າ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:257
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:435
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1331
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:287
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:467
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1480
 msgid "New Version"
 msgstr "ລຸ້ນໃໝ່"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:261
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:447
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:291
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:479
 msgid "Size"
 msgstr "ຂະໜາດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:265
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:417
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:295
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:449
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1471
 msgid "Type"
 msgstr "ປະເພດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:269
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:441
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:299
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:473
 msgid "Origin"
 msgstr "ທີ່ມາ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:322
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:356
 #: usr/share/linuxmint/mintupdate/main.ui.h:3
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:3
 msgid "Refresh"
 msgstr "ໂຫຼດຄືນໃໝ່"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:326
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:410
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1284
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:360
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:442
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1428
 #: usr/share/linuxmint/mintupdate/main.ui.h:20
 msgid "Information"
 msgstr "ຂໍ້ມູນ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:330
 #: usr/lib/linuxmint/mintUpdate/mintUpdate.py:364
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1525
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:399
+#: usr/lib/linuxmint/mintUpdate/preferences.py:33
 msgid "Preferences"
 msgstr "ການຕັ້ງຄ່າ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:334
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:354
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:368
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:389
 msgid "Quit"
 msgstr "ອອກ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:343
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:378
 msgid "_File"
 msgstr "_ໄຟລ໌"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:347
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:382
 msgid "Close window"
 msgstr "ປິດໜ້າຕ່າງ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:360
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:395
 msgid "_Edit"
 msgstr "_ແກ້ໄຂ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:369
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:404
 msgid "System Snapshots"
 msgstr "ພາບຖ່າຍລະບົບ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:374
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:409
 msgid "Software Sources"
 msgstr "ແຫຼ່ງຊອບແວ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:396
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:431
 #, python-format
 msgid "Upgrade to %s"
 msgstr "ອັບເກຣດເປັນ %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:400
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:435
 msgid "_View"
 msgstr "_ເບິ່ງ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:404
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1310
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:439
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1459
 msgid "History of Updates"
 msgstr "ປະຫວັດການອັບເດດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:407
-msgid "Linux Kernels"
-msgstr "ເຄີເນວລີນຸກ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:413
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:445
 msgid "Visible Columns"
 msgstr "ຖັນທີ່ເບິ່ງເຫັນ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:423
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:455
 msgid "Package"
 msgstr "ແພັກເກດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:455
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:487
 msgid "Show Descriptions"
 msgstr "ສະແດງລາຍລະອຽດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:472
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:495
 msgid "_Help"
 msgstr "_ຊ່ວຍເຫຼືອ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:477
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:500
 msgid "Welcome Screen"
 msgstr "ໜ້າຈໍຕ້ອນຮັບ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:482
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:505
 msgid "Keyboard Shortcuts"
 msgstr "ປຸ່ມລັດແປ້ນພິມ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:486
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:509
 msgid "Contents"
 msgstr "ເນື້ອໃນ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:492
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1460
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:515
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1609
 msgid "About"
 msgstr "ກ່ຽວກັບ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:592
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:619
 msgid "Cannot Proceed"
 msgstr "ບໍ່ສາມາດດຳເນີນການຕໍ່ໄດ້"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:593
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:620
 msgid ""
 "Another process is currently using the package management system. Please "
 "wait for it to finish and then try again."
@@ -301,341 +224,173 @@ msgstr ""
 "ມີຂະບວນການອື່ນກຳລັງໃຊ້ລະບົບຈັດການແພັກເກດຢູ່. "
 "ກະລຸນາລໍຖ້າໃຫ້ມັນສຳເລັດແລ້ວລອງໃໝ່ອີກຄັ້ງ."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:601
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:628
 #: usr/share/linuxmint/mintupdate/main.ui.h:15
 msgid "OK"
 msgstr "ຕົກລົງ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:625
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:652
 msgid "Yes"
 msgstr "ແມ່ນ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:626
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:653
 msgid "No"
 msgstr "ບໍ່"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:657
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:798
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:686
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:828
 #, python-format
 msgid "%(selected)d update selected (%(size)s)"
 msgid_plural "%(selected)d updates selected (%(size)s)"
 msgstr[0] "ເລືອກການອັບເດດ %(selected)d ລາຍການ (%(size)s)"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:664
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:693
 #, python-format
 msgid "%d update available"
 msgid_plural "%d updates available"
 msgstr[0] "ມີການອັບເດດ %d ລາຍການ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:673
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:702
 #: usr/share/linuxmint/mintupdate/main.ui.h:19
 msgid "Your system is up to date"
 msgstr "ລະບົບຂອງທ່ານທັນສະໄໝແລ້ວ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:677
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2098
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1870
 msgid "Restart required"
 msgstr "ຕ້ອງການເລີ່ມໃໝ່"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:699
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:728
 #, python-format
 msgid "%d security update"
 msgid_plural "%d security updates"
 msgstr[0] "ການອັບເດດຄວາມປອດໄພ %d ລາຍການ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:700
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:729
 #, python-format
 msgid "%d software update"
 msgid_plural "%d software updates"
 msgstr[0] "ການອັບເດດຊອບແວ %d ລາຍການ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:706
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:735
 msgid "Apply them to keep your operating system safe and up to date."
 msgstr "ນຳໃຊ້ພວກມັນເພື່ອຮັກສາລະບົບປະຕິບັດການຂອງທ່ານໃຫ້ປອດໄພ ແລະ ທັນສະໄໝ."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:710
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:739
 msgid "Updates are available"
 msgstr "ມີການອັບເດດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:713
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:742
 msgid "View updates"
 msgstr "ເບິ່ງການອັບເດດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:714
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:743
 msgid "Enable automatic updates"
 msgstr "ເປີດໃຊ້ການອັບເດດອັດຕະໂນມັດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:795
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:825
 msgid "No updates selected"
 msgstr "ບໍ່ມີການອັບເດດທີ່ຖືກເລືອກ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:865
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:891
 #: usr/share/linuxmint/mintupdate/main.ui.h:5
 msgid "Welcome to the Update Manager"
 msgstr "ຍິນດີຕ້ອນຮັບສູ່ຕົວຈັດການອັບເດດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:898
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:983
 msgid "Most recent change"
 msgstr "ການປ່ຽນແປງຫຼ້າສຸດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:907
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:992
 #, python-format
 msgid "Website: %s"
 msgstr "ເວັບໄຊ: %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1033
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1114
 msgid "Downloading changelog..."
 msgstr "ກຳລັງດາວໂຫຼດລາຍການປ່ຽນແປງ..."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1045
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1116
 msgid "No changelog available"
 msgstr "ບໍ່ມີລາຍການປ່ຽນແປງ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1196
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1288
 msgid "Total size: <"
 msgstr "ຂະໜາດທັງໝົດ: <"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1201
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1293
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1323
 msgid "Total size:"
 msgstr "ຂະໜາດທັງໝົດ:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1204
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1296
 msgid "This update affects the following installed package:"
 msgid_plural "This update affects the following installed packages:"
 msgstr[0] "ການອັບເດດນີ້ສົ່ງຜົນກະທົບຕໍ່ແພັກເກດທີ່ຕິດຕັ້ງຕໍ່ໄປນີ້:"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1218
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1306
+msgid "Select a single update to view its description and changelog."
+msgstr ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1318
+msgid "The selected updates affect the following installed package:"
+msgid_plural "The selected updates affect the following installed packages:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1359
 msgid "Ignore the current update for this package"
-msgstr "ບໍ່ສົນໃຈການອັບເດດປັດຈຸບັນສຳລັບແພັກເກດນີ້"
+msgid_plural "Ignore the current updates for these packages"
+msgstr[0] ""
+msgstr[1] ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1221
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1363
 msgid "Ignore all future updates for this package"
-msgstr "ບໍ່ສົນໃຈການອັບເດດທັງໝົດໃນອະນາຄົດສຳລັບແພັກເກດນີ້"
+msgid_plural "Ignore all future updates for these packages"
+msgstr[0] ""
+msgstr[1] ""
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1319
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1468
 msgid "Date"
 msgstr "ວັນທີ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1325
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1474
 msgid "Update"
 msgstr "ອັບເດດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1370
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1519
 msgid "package"
 msgstr "ແພັກເກດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1545
-msgid "Options"
-msgstr "ຕົວເລືອກ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1546
-#: usr/share/linuxmint/mintupdate/main.ui.h:21
-msgid "Packages"
-msgstr "ແພັກເກດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1547
-msgid "Automation"
-msgstr "ການເຮັດວຽກອັດຕະໂນມັດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1553
-msgid "Interface"
-msgstr "ສ່ວນຕິດຕໍ່ຜູ້ໃຊ້"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1554
-msgid "Hide the update manager after applying updates"
-msgstr "ເຊື່ອງຕົວຈັດການອັບເດດຫຼັງຈາກນຳໃຊ້ການອັບເດດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1555
-msgid "Only show a tray icon when updates are available or in case of errors"
-msgstr ""
-"ສະແດງໄອຄອນໃນຖາດລະບົບສະເພາະເມື່ອມີການອັບເດດ ຫຼື ໃນກໍລະນີທີ່ເກີດຂໍ້ຜິດພາດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1557
-msgid "Auto-refresh"
-msgstr "ໂຫຼດຄືນໃໝ່ອັດຕະໂນມັດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1558
-msgid "Refresh the list of updates automatically"
-msgstr "ໂຫຼດລາຍການອັບເດດຄືນໃໝ່ໂດຍອັດຕະໂນມັດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1570
-msgid "days"
-msgstr "ມື້"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1571
-msgid "hours"
-msgstr "ຊົ່ວໂມງ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1572
-msgid "minutes"
-msgstr "ນາທີ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1573
-msgid "First, refresh the list of updates after:"
-msgstr "ທຳອິດ, ໂຫຼດລາຍການອັບເດດຄືນໃໝ່ຫຼັງຈາກ:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1577
-msgid "Then, refresh the list of updates every:"
-msgstr "ຈາກນັ້ນ, ໂຫຼດລາຍການອັບເດດຄືນໃໝ່ທຸກໆ:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1620
-msgid ""
-"Note: The list only gets refreshed while the Update Manager window is closed "
-"(in system tray mode)."
-msgstr ""
-"ໝາຍເຫດ: ລາຍການຈະຖືກໂຫຼດຄືນໃໝ່ສະເພາະເມື່ອໜ້າຕ່າງຕົວຈັດການອັບເດດປິດຢູ່ "
-"(ໃນໂໝດຖາດລະບົບ)."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1624
-msgid "Notifications"
-msgstr "ການແຈ້ງເຕືອນ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1630
-msgid "Only show notifications for security and kernel updates"
-msgstr "ສະແດງການແຈ້ງເຕືອນສະເພາະການອັບເດດຄວາມປອດໄພ ແລະ ເຄີເນວ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1632
-msgid ""
-"Show a notification if an update has been available for (in logged-in days):"
-msgstr ""
-"ສະແດງການແຈ້ງເຕືອນຖ້າການອັບເດດມີມາເປັນເວລາ (ເປັນຈຳນວນມື້ທີ່ເຂົ້າສູ່ລະບົບ):"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1634
-msgid "Show a notification if an update is older than (in days):"
-msgstr "ສະແດງການແຈ້ງເຕືອນຖ້າການອັບເດດເກົ່າກວ່າ (ເປັນມື້):"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1636
-msgid ""
-"Don't show notifications if an update was applied in the last (in days):"
-msgstr ""
-"ບໍ່ຕ້ອງສະແດງການແຈ້ງເຕືອນຖ້າການອັບເດດຖືກນຳໃຊ້ໃນໄລຍະ (ເປັນມື້) ທີ່ຜ່ານມາ:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
-msgid "Update types"
-msgstr "ປະເພດການອັບເດດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1645
-msgid "In addition to system packages, check for:"
-msgstr "ນອກຈາກແພັກເກດລະບົບ, ກວດສອບ:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1648
-msgid "Cinnamon spice updates"
-msgstr "ການອັບເດດສ່ວນເສີມຂອງ Cinnamon"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1658
-msgid "Ignored Updates"
-msgstr "ການອັບເດດທີ່ບໍ່ສົນໃຈ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1681
-msgid "Package Updates"
-msgstr "ການອັບເດດແພັກເກດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1681
-msgid "Performed as root on a daily basis"
-msgstr "ດຳເນີນການໃນຖານະ root ເປັນປະຈຳທຸກວັນ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1682
-msgid "Apply updates automatically"
-msgstr "ນຳໃຊ້ການອັບເດດໂດຍອັດຕະໂນມັດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1686
-msgid "Export blacklist to /etc/mintupdate.blacklist"
-msgstr "ສົ່ງອອກບັນຊີດຳໄປທີ່ /etc/mintupdate.blacklist"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1690
-msgid ""
-"Click this button to make automatic updates use your current blacklist."
-msgstr "ກົດປຸ່ມນີ້ເພື່ອເຮັດໃຫ້ການອັບເດດອັດຕະໂນມັດໃຊ້ບັນຊີດຳປັດຈຸບັນຂອງທ່ານ."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1695
-msgid "Update Cinnamon spices automatically"
-msgstr "ອັບເດດສ່ວນເສີມຂອງ Cinnamon ໂດຍອັດຕະໂນມັດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1698
-msgid "Update Flatpaks automatically"
-msgstr "ອັບເດດ Flatpak ໂດຍອັດຕະໂນມັດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
-msgid "Other Updates"
-msgstr "ການອັບເດດອື່ນໆ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1701
-msgid "Performed when you log in"
-msgstr "ດຳເນີນການເມື່ອທ່ານເຂົ້າສູ່ລະບົບ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
-msgid "Automatic Maintenance"
-msgstr "ການບຳລຸງຮັກສາອັດຕະໂນມັດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1704
-msgid "Performed as root on a weekly basis"
-msgstr "ດຳເນີນການໃນຖານະ root ເປັນປະຈຳທຸກອາທິດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1705
-msgid "Remove obsolete kernels and dependencies"
-msgstr "ລຶບເຄີເນວ ແລະ ສ່ວນເສີມທີ່ລ້າສະໄໝ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1709
-msgid ""
-"This option always leaves at least one older kernel installed and never "
-"removes manually installed kernels."
-msgstr ""
-"ຕົວເລືອກນີ້ຈະເກັບເຄີເນວເກົ່າໄວ້ຢ່າງໜ້ອຍໜຶ່ງໂຕສະເໝີ ແລະ "
-"ຈະບໍ່ລຶບເຄີເນວທີ່ຕິດຕັ້ງດ້ວຍຕົນເອງ."
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1764
-msgid ""
-"Please specify the source package name of the update to ignore (wildcards "
-"are supported) and optionally the version:"
-msgstr ""
-"ກະລຸນາລະບຸຊື່ແພັກເກດຕົ້ນທາງຂອງການອັບເດດທີ່ຈະບໍ່ສົນໃຈ (ຮອງຮັບ wildcards) ແລະ "
-"ລຸ້ນ (ຖ້າມີ):"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1765
-msgid "Ignore an Update"
-msgstr "ບໍ່ສົນໃຈການອັບເດດ"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1773
-msgid "Name:"
-msgstr "ຊື່:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1775
-msgid "Version:"
-msgstr "ລຸ້ນ:"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1777
-msgid "(optional)"
-msgstr "(ບໍ່ບັງຄັບ)"
-
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1984
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1749
 msgid "Do you want to switch to a local mirror?"
 msgstr "ທ່ານຕ້ອງການປ່ຽນໄປໃຊ້ mirror ພາຍໃນປະເທດບໍ່?"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1750
 msgid "Local mirrors are usually faster than packages.linuxmint.com."
 msgstr "Mirror ພາຍໃນປະເທດມັກຈະໄວກວ່າ packages.linuxmint.com."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1996
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2006
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1761
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1771
 msgid "Please switch to another mirror"
 msgstr "ກະລຸນາປ່ຽນໄປໃຊ້ mirror ອື່ນ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1997
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1762
 #, python-format
 msgid "%s is unreachable."
 msgstr "%s ບໍ່ສາມາດເຂົ້າເຖິງໄດ້."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2007
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1772
 #, python-format
 msgid "The last update on %(mirror)s was %(days)d day ago."
 msgid_plural "The last update on %(mirror)s was %(days)d days ago."
 msgstr[0] "ການອັບເດດຫຼ້າສຸດໃນ %(mirror)s ແມ່ນ %(days)d ມື້ກ່ອນ."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2091
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1862
 msgid "Checking for updates"
 msgstr "ກຳລັງກວດສອບການອັບເດດ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2099
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1871
 msgid ""
 "You have installed updates that require a restart to take effect. Please "
 "restart your system as soon as possible."
@@ -643,16 +398,16 @@ msgstr ""
 "ທ່ານໄດ້ຕິດຕັ້ງການອັບເດດທີ່ຈຳເປັນຕ້ອງໄດ້ເລີ່ມຕົ້ນລະບົບໃໝ່ເພື່ອໃຫ້ມີຜົນ. "
 "ກະລຸນາເລີ່ມຕົ້ນລະບົບຂອງທ່ານໃໝ່ໂດຍໄວທີ່ສຸດ."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2103
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1875
 msgid "Restart"
 msgstr "ເລີ່ມໃໝ່"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2259
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2267
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1959
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1967
 msgid "Your APT configuration is corrupt."
 msgstr "ການຕັ້ງຄ່າ APT ຂອງທ່ານເສຍຫາຍ."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2260
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1960
 msgid ""
 "Do not install or update anything - doing so could break your operating "
 "system!"
@@ -660,41 +415,41 @@ msgstr ""
 "ຢ່າຕິດຕັ້ງ ຫຼື ອັບເດດຫຍັງ - "
 "ການເຮັດແນວນັ້ນອາດຈະເຮັດໃຫ້ລະບົບປະຕິບັດການຂອງທ່ານເສຍຫາຍ!"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2261
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1961
 msgid ""
 "To switch to a different Linux Mint mirror and solve this problem, click OK."
 msgstr ""
 "ເພື່ອປ່ຽນໄປໃຊ້ mirror ຂອງ Linux Mint ອື່ນ ແລະ ແກ້ໄຂບັນຫານີ້, ໃຫ້ກົດ ຕົກລົງ."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2263
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2264
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2290
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2291
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2301
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2302
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2441
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2442
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1963
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1964
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1987
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1988
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1996
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1997
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2137
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2138
 #: usr/share/linuxmint/mintupdate/main.ui.h:16
 msgid "Could not refresh the list of updates"
 msgstr "ບໍ່ສາມາດໂຫຼດລາຍການອັບເດດຄືນໃໝ່ໄດ້"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2266
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1966
 msgid "Please switch to another Linux Mint mirror"
 msgstr "ກະລຸນາປ່ຽນໄປໃຊ້ mirror ຂອງ Linux Mint ອື່ນ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2288
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:1985
 msgid "Run 'apt update' in a terminal window to address this"
 msgstr "ແລ່ນ 'apt update' ໃນໜ້າຕ່າງ terminal ເພື່ອແກ້ໄຂບັນຫານີ້"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2338
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2034
 msgid "Security update"
 msgstr "ການອັບເດດຄວາມປອດໄພ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2342
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2038
 msgid "Kernel update"
 msgstr "ການອັບເດດເຄີເນວ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2346
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2042
 msgid ""
 "Unstable software. Only apply this update to help developers beta-test new "
 "software."
@@ -702,62 +457,226 @@ msgstr ""
 "ຊອບແວທີ່ບໍ່ສະຖຽນ. "
 "ນຳໃຊ້ການອັບເດດນີ້ເພື່ອຊ່ວຍນັກພັດທະນາທົດສອບຊອບແວໃໝ່ເທົ່ານັ້ນ."
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2350
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2046
 msgid "Software update"
 msgstr "ການອັບເດດຊອບແວ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2353
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2049
 msgid "3rd-party update"
 msgstr "ການອັບເດດຈາກບຸກຄົນທີສາມ"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2377
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2073
 msgid "Flatpak application"
 msgstr "ແອັບພລິເຄຊັນ Flatpak"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2379
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2075
 msgid "Flatpak runtime"
 msgstr "Flatpak runtime"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2402
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2098
 msgid "Cinnamon applet"
 msgstr "ແອັບເລັດ Cinnamon"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2404
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2100
 msgid "Cinnamon desklet"
 msgstr "ເດັສເລັດ Cinnamon"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2409
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2105
 msgid "Nemo action"
 msgstr "ການກະທຳຂອງ Nemo"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2411
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2107
 msgid "Cinnamon theme"
 msgstr "ທີມ Cinnamon"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2413
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2109
 msgid "Cinnamon extension"
 msgstr "ສ່ວນຂະຫຍາຍ Cinnamon"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2430
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2124
 #, python-format
 msgid "Error checking for flatpak updates: %s"
 msgstr "ຂໍ້ຜິດພາດໃນການກວດສອບການອັບເດດ flatpak: %s"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2497
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2227
+msgid "Installing updates"
+msgstr "ກຳລັງຕິດຕັ້ງການອັບເດດ"
+
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2241
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2242
 msgid "Could not install the security updates"
 msgstr "ບໍ່ສາມາດຕິດຕັ້ງການອັບເດດຄວາມປອດໄພໄດ້"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2520
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2271
 msgid "Updating Cinnamon Spices"
 msgstr "ກຳລັງອັບເດດສ່ວນເສີມຂອງ Cinnamon"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2533
+#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2284
 msgid "Could not update Cinnamon Spices"
 msgstr "ບໍ່ສາມາດອັບເດດສ່ວນເສີມຂອງ Cinnamon ໄດ້"
 
-#: usr/lib/linuxmint/mintUpdate/mintUpdate.py:2608
-msgid "Installing updates"
-msgstr "ກຳລັງຕິດຕັ້ງການອັບເດດ"
+#: usr/lib/linuxmint/mintUpdate/preferences.py:51
+msgid "Options"
+msgstr "ຕົວເລືອກ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:52
+#: usr/share/linuxmint/mintupdate/main.ui.h:21
+msgid "Packages"
+msgstr "ແພັກເກດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:53
+msgid "Automation"
+msgstr "ການເຮັດວຽກອັດຕະໂນມັດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:69
+msgid "Interface"
+msgstr "ສ່ວນຕິດຕໍ່ຜູ້ໃຊ້"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:70
+msgid "Hide the update manager after applying updates"
+msgstr "ເຊື່ອງຕົວຈັດການອັບເດດຫຼັງຈາກນຳໃຊ້ການອັບເດດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:72
+msgid "Only show a tray icon when updates are available or in case of errors"
+msgstr ""
+"ສະແດງໄອຄອນໃນຖາດລະບົບສະເພາະເມື່ອມີການອັບເດດ ຫຼື ໃນກໍລະນີທີ່ເກີດຂໍ້ຜິດພາດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:75
+msgid "Auto-refresh"
+msgstr "ໂຫຼດຄືນໃໝ່ອັດຕະໂນມັດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:76
+msgid "Refresh the list of updates automatically"
+msgstr "ໂຫຼດລາຍການອັບເດດຄືນໃໝ່ໂດຍອັດຕະໂນມັດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:88
+msgid "days"
+msgstr "ມື້"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:89
+msgid "hours"
+msgstr "ຊົ່ວໂມງ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:90
+msgid "minutes"
+msgstr "ນາທີ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:91
+msgid "First, refresh the list of updates after:"
+msgstr "ທຳອິດ, ໂຫຼດລາຍການອັບເດດຄືນໃໝ່ຫຼັງຈາກ:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:95
+msgid "Then, refresh the list of updates every:"
+msgstr "ຈາກນັ້ນ, ໂຫຼດລາຍການອັບເດດຄືນໃໝ່ທຸກໆ:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:106
+msgid ""
+"Note: The list only gets refreshed while the Update Manager window is closed "
+"(in system tray mode)."
+msgstr ""
+"ໝາຍເຫດ: ລາຍການຈະຖືກໂຫຼດຄືນໃໝ່ສະເພາະເມື່ອໜ້າຕ່າງຕົວຈັດການອັບເດດປິດຢູ່ "
+"(ໃນໂໝດຖາດລະບົບ)."
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:110
+msgid "Notifications"
+msgstr "ການແຈ້ງເຕືອນ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:116
+msgid "Only show notifications for security and kernel updates"
+msgstr "ສະແດງການແຈ້ງເຕືອນສະເພາະການອັບເດດຄວາມປອດໄພ ແລະ ເຄີເນວ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:119
+msgid ""
+"Show a notification if an update has been available for (in logged-in days):"
+msgstr ""
+"ສະແດງການແຈ້ງເຕືອນຖ້າການອັບເດດມີມາເປັນເວລາ (ເປັນຈຳນວນມື້ທີ່ເຂົ້າສູ່ລະບົບ):"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:122
+msgid "Show a notification if an update is older than (in days):"
+msgstr "ສະແດງການແຈ້ງເຕືອນຖ້າການອັບເດດເກົ່າກວ່າ (ເປັນມື້):"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:125
+msgid ""
+"Don't show notifications if an update was applied in the last (in days):"
+msgstr ""
+"ບໍ່ຕ້ອງສະແດງການແຈ້ງເຕືອນຖ້າການອັບເດດຖືກນຳໃຊ້ໃນໄລຍະ (ເປັນມື້) ທີ່ຜ່ານມາ:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:154
+msgid "Update types"
+msgstr "ປະເພດການອັບເດດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:154
+msgid "In addition to system packages, check for:"
+msgstr "ນອກຈາກແພັກເກດລະບົບ, ກວດສອບ:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:156
+msgid "Cinnamon spice updates"
+msgstr "ການອັບເດດສ່ວນເສີມຂອງ Cinnamon"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:168
+msgid "Ignored Updates"
+msgstr "ການອັບເດດທີ່ບໍ່ສົນໃຈ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:191
+msgid "Package Updates"
+msgstr "ການອັບເດດແພັກເກດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:191
+msgid "Performed as root on a daily basis"
+msgstr "ດຳເນີນການໃນຖານະ root ເປັນປະຈຳທຸກວັນ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:192
+msgid "Apply updates automatically"
+msgstr "ນຳໃຊ້ການອັບເດດໂດຍອັດຕະໂນມັດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:196
+msgid "Export blacklist to /etc/mintupdate.blacklist"
+msgstr "ສົ່ງອອກບັນຊີດຳໄປທີ່ /etc/mintupdate.blacklist"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:200
+msgid ""
+"Click this button to make automatic updates use your current blacklist."
+msgstr "ກົດປຸ່ມນີ້ເພື່ອເຮັດໃຫ້ການອັບເດດອັດຕະໂນມັດໃຊ້ບັນຊີດຳປັດຈຸບັນຂອງທ່ານ."
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:206
+msgid "Update Cinnamon spices automatically"
+msgstr "ອັບເດດສ່ວນເສີມຂອງ Cinnamon ໂດຍອັດຕະໂນມັດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:209
+msgid "Update Flatpaks automatically"
+msgstr "ອັບເດດ Flatpak ໂດຍອັດຕະໂນມັດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:212
+msgid "Other Updates"
+msgstr "ການອັບເດດອື່ນໆ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:212
+msgid "Performed when you log in"
+msgstr "ດຳເນີນການເມື່ອທ່ານເຂົ້າສູ່ລະບົບ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:251
+msgid ""
+"Please specify the source package name of the update to ignore (wildcards "
+"are supported) and optionally the version:"
+msgstr ""
+"ກະລຸນາລະບຸຊື່ແພັກເກດຕົ້ນທາງຂອງການອັບເດດທີ່ຈະບໍ່ສົນໃຈ (ຮອງຮັບ wildcards) ແລະ "
+"ລຸ້ນ (ຖ້າມີ):"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:252
+msgid "Ignore an Update"
+msgstr "ບໍ່ສົນໃຈການອັບເດດ"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:260
+msgid "Name:"
+msgstr "ຊື່:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:262
+msgid "Version:"
+msgstr "ລຸ້ນ:"
+
+#: usr/lib/linuxmint/mintUpdate/preferences.py:264
+msgid "(optional)"
+msgstr "(ບໍ່ບັງຄັບ)"
 
 #: usr/lib/linuxmint/mintUpdate/rel_upgrade.py:22
 msgid "System Upgrade"
@@ -880,21 +799,20 @@ msgstr ""
 "ລະບົບປະຕິບັດການຂອງທ່ານໄດ້ຮັບການອັບເກຣດສຳເລັດແລ້ວ. "
 "ກະລຸນາຣີບູດຄອມພິວເຕີຂອງທ່ານເພື່ອໃຫ້ການປ່ຽນແປງທັງໝົດມີຜົນ."
 
+#: usr/lib/linuxmint/mintUpdate/session_automatic_upgrades.py:42
+msgid "The following spices were automatically updated:"
+msgstr "ສ່ວນເສີມຕໍ່ໄປນີ້ໄດ້ຮັບການອັບເດດໂດຍອັດຕະໂນມັດ:"
+
+#: usr/lib/linuxmint/mintUpdate/session_automatic_upgrades.py:57
+msgid "Cinnamon was restarted"
+msgstr "Cinnamon ໄດ້ຖືກເລີ່ມໃໝ່"
+
 #: generate_desktop_files:26
 msgid "Show and install available updates"
 msgstr "ສະແດງ ແລະ ຕິດຕັ້ງການອັບເດດທີ່ມີຢູ່"
 
-#: usr/bin/mintupdate-launcher:57
-msgid "The following spices were automatically updated:"
-msgstr "ສ່ວນເສີມຕໍ່ໄປນີ້ໄດ້ຮັບການອັບເດດໂດຍອັດຕະໂນມັດ:"
-
-#: usr/bin/mintupdate-launcher:66
-msgid "Cinnamon was restarted"
-msgstr "Cinnamon ໄດ້ຖືກເລີ່ມໃໝ່"
-
 #: usr/share/linuxmint/mintupdate/history.ui.h:1
 #: usr/share/linuxmint/mintupdate/information.ui.h:3
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:5
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:2
 msgid "Close"
 msgstr "ປິດ"
@@ -906,97 +824,6 @@ msgstr "ID ຂະບວນການ:"
 #: usr/share/linuxmint/mintupdate/information.ui.h:2
 msgid "Log file:"
 msgstr "ໄຟລ໌ບັນທຶກ:"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:1
-msgid "Kernels"
-msgstr "ເຄີເນວ"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:2
-msgid "Kernel flavor:"
-msgstr "ປະເພດເຄີເນວ:"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:3
-msgid "Perform Queued Actions..."
-msgstr "ດຳເນີນການຕາມຄິວ..."
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:4
-msgid "Remove Kernels..."
-msgstr "ລຶບເຄີເນວ..."
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:6
-msgid "Warning!"
-msgstr "ຄຳເຕືອນ!"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:7
-msgid "Proceed with caution"
-msgstr "ດຳເນີນການດ້ວຍຄວາມລະມັດລະວັງ"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:8
-msgid ""
-"Installing a new kernel can sometimes cause problems, especially if you're "
-"using proprietary drivers."
-msgstr ""
-"ການຕິດຕັ້ງເຄີເນວໃໝ່ບາງຄັ້ງອາດເຮັດໃຫ້ເກີດບັນຫາ, "
-"ໂດຍສະເພາະຖ້າທ່ານກຳລັງໃຊ້ໄດຣເວີທີ່ເປັນກຳມະສິດ."
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:9
-msgid "These issues include:"
-msgstr "ບັນຫາເຫຼົ່ານີ້ລວມມີ:"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:10
-msgid ""
-"- No wifi (or ethernet)\n"
-"- No video acceleration\n"
-"- Black screen on startup\n"
-"- Random system freeze"
-msgstr ""
-"- ບໍ່ມີ wifi (ຫຼື ethernet)\n"
-"- ບໍ່ມີການເລັ່ງວິດີໂອ\n"
-"- ໜ້າຈໍດຳຕອນເປີດເຄື່ອງ\n"
-"- ລະບົບຄ້າງແບບສຸ່ມ"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:14
-msgid "If you face any of these issues, don't panic:"
-msgstr "ຖ້າທ່ານປະສົບບັນຫາໃດໜຶ່ງເຫຼົ່ານີ້, ຢ່າຕົກໃຈ:"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:15
-msgid ""
-"- Reboot.\n"
-"- Press and hold the Shift key to show the boot menu.\n"
-"- In the boot menu, select the line which starts with 'Advanced options'.\n"
-"- Select an older kernel.\n"
-"- After the computer boots with the older kernel, uninstall the new one."
-msgstr ""
-"- ຣີບູດ.\n"
-"- ກົດປຸ່ມ Shift ຄ້າງໄວ້ເພື່ອສະແດງເມນູເປີດເຄື່ອງ.\n"
-"- ໃນເມນູເປີດເຄື່ອງ, ເລືອກແຖວທີ່ເລີ່ມຕົ້ນດ້ວຍ 'ຕົວເລືອກຂັ້ນສູງ'.\n"
-"- ເລືອກເຄີເນວທີ່ເກົ່າກວ່າ.\n"
-"- ຫຼັງຈາກທີ່ຄອມພິວເຕີເປີດດ້ວຍເຄີເນວທີ່ເກົ່າກວ່າ, ໃຫ້ຖອນການຕິດຕັ້ງໂຕໃໝ່."
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:20
-msgid "Do not show this message again"
-msgstr "ບໍ່ຕ້ອງສະແດງຂໍ້ຄວາມນີ້ອີກ"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:21
-#: usr/share/linuxmint/mintupdate/main.ui.h:14
-msgid "Help"
-msgstr "ຊ່ວຍເຫຼືອ"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:22
-msgid "Continue"
-msgstr "ສືບຕໍ່"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:23
-msgid "Cancel"
-msgstr "ຍົກເລີກ"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:24
-msgid "Apply"
-msgstr "ນຳໃຊ້"
-
-#: usr/share/linuxmint/mintupdate/kernels.ui.h:25
-msgid "Please confirm the following actions:"
-msgstr "ກະລຸນາຍືນຍັນການກະທຳຕໍ່ໄປນີ້:"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:1
 #: usr/share/linuxmint/mintupdate/shortcuts.ui.h:6
@@ -1058,6 +885,10 @@ msgstr ""
 "Linux Mint ແນະນຳໃຫ້ຕັ້ງຄ່າພາບຖ່າຍລະບົບແບບອັດຕະໂນມັດ ແລະ "
 "ນຳໃຊ້ການອັບເດດທັງໝົດທີ່ມີຢູ່. ດ້ວຍວິທີນີ້, ຄອມພິວເຕີຂອງທ່ານຈະປອດໄພສະເໝີ ແລະ "
 "ທ່ານສາມາດຍ້ອນເວລາກັບໄປ ແລະ ກູ້ຄືນຈາກການຖົດຖອຍທີ່ອາດຈະເກີດຂຶ້ນໄດ້."
+
+#: usr/share/linuxmint/mintupdate/main.ui.h:14
+msgid "Help"
+msgstr "ຊ່ວຍເຫຼືອ"
 
 #: usr/share/linuxmint/mintupdate/main.ui.h:17
 msgid "A new version of the Update Manager is available"
