@@ -335,14 +335,19 @@ class FlatpakUpdateWorker():
                 warn("Error reading from updater: %s" % e.message)
             return
 
-        if bytes_read:
-            message = bytes_read.get_data().decode().strip("\n")
-            debug("receiving from updater: '%s'" % message)
+        if bytes_read.get_size() == 0:
+            # mintupdate closed the pipe (or went away), there's nobody left to talk to.
+            debug("updater closed the pipe")
+            self.quit()
+            return
 
-            if message == "confirm":
-                self.confirm_start()
-            elif message == "start":
-                self.start_updates()
+        message = bytes_read.get_data().decode().strip("\n")
+        debug("receiving from updater: '%s'" % message)
+
+        if message == "confirm":
+            self.confirm_start()
+        elif message == "start":
+            self.start_updates()
 
         pipe.read_bytes_async(4096, GLib.PRIORITY_DEFAULT, self.cancellable, self.message_from_updater)
 
