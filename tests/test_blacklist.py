@@ -84,8 +84,10 @@ def run_cli(*args):
     with mock.patch.object(aptUpdater, "AptUpdater", FakeAptUpdater), \
             mock.patch("os.path.exists", exists), \
             mock.patch.object(sys, "argv", ["mintupdate-cli"] + list(args)), \
-            contextlib.redirect_stdout(output):
+            contextlib.redirect_stdout(output), \
+            mock.patch("sys.exit") as exit:
         runpy.run_path(os.path.join(libPath, "mintupdate-cli.py"), run_name="__main__")
+    exit.assert_called_once_with(0)
     return [line.split()[1] for line in output.getvalue().splitlines()]
 
 class TestUpdateList(unittest.TestCase):

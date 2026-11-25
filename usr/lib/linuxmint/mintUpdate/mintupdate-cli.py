@@ -26,9 +26,10 @@ if __name__ == "__main__":
     parser.add_argument("-v", "--version", action="version", version="__DEB_VERSION__", help="Display the current version")
 
     args = parser.parse_args()
+    returncode = 0
     try:
         if args.refresh_cache:
-            subprocess.run("sudo /usr/bin/mint-refresh-cache", shell=True)
+            returncode = subprocess.run("sudo /usr/bin/mint-refresh-cache", shell=True).returncode
         check = AptUpdater()
         check.load_cache()
         check.find_changes()
@@ -81,7 +82,8 @@ if __name__ == "__main__":
                 arguments.append("--install-recommends")
             if args.keep_configuration:
                 arguments.extend(["--option", "Dpkg::Options::=--force-confold"])
-            subprocess.call(arguments + packages, env=environment)
+            returncode = subprocess.call(arguments + packages, env=environment) or returncode
     except:
         traceback.print_exc()
         sys.exit(1)
+    sys.exit(returncode)
